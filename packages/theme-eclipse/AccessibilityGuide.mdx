@@ -3,965 +3,751 @@ import { Meta, Unstyled } from '@storybook/blocks'
 <Meta title='Intro/접근성 가이드' />
 
 <Unstyled>
-  <div style={{
-    maxWidth: '960px',
-    margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
-    padding: '0 24px',
-  }}>
+  <style>{`
+    [data-orbit-doc] .orbit-table {
+      margin-top: 24px;
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+    }
+    [data-orbit-doc] .orbit-table thead th {
+      padding: 12px 16px;
+      border-top: 1px solid var(--orbit-line-2);
+      border-bottom: 1px solid var(--orbit-line-2);
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orbit-ink-4);
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--orbit-line);
+      vertical-align: top;
+      color: var(--orbit-ink-2);
+      line-height: 1.55;
+    }
+    [data-orbit-doc] .orbit-table tbody tr:last-child td {
+      border-bottom: 1px solid var(--orbit-line-2);
+    }
+    [data-orbit-doc] .orbit-table code {
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-table .pat {
+      font-weight: 660;
+      color: var(--orbit-ink);
+      letter-spacing: -0.012em;
+    }
+    [data-orbit-doc] .orbit-table .mono {
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-3);
+    }
+    [data-orbit-doc] .orbit-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orbit-ink-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    [data-orbit-doc] .orbit-status::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orbit-ink-4);
+    }
+    [data-orbit-doc] .orbit-status.done { color: var(--orbit-positive); }
+    [data-orbit-doc] .orbit-status.done::before { background: var(--orbit-positive); }
+    [data-orbit-doc] .orbit-status.partial { color: var(--orbit-warning); }
+    [data-orbit-doc] .orbit-status.partial::before { background: var(--orbit-warning); }
 
-    <div style={{ marginBottom: '48px', paddingTop: '48px' }}>
-      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Accessibility Guide</div>
-      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>접근성 가이드</h1>
-      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
-        WAI-ARIA 패턴, PrimitiveUI 접근성 비교, 키보드 네비게이션 체크리스트, 스크린리더 테스트 가이드를 제공합니다.
-      </div>
-    </div>
+    [data-orbit-doc] .orbit-aria {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    [data-orbit-doc] .orbit-aria .pattern {
+      border: 1px solid var(--orbit-line);
+      border-radius: 12px;
+      background: var(--orbit-surface);
+      overflow: hidden;
+    }
+    [data-orbit-doc] .orbit-aria .pattern .head {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--orbit-line);
+      background: var(--orbit-surface-sunken);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    [data-orbit-doc] .orbit-aria .pattern .head .name {
+      font-size: 14px;
+      font-weight: 660;
+      color: var(--orbit-ink);
+      letter-spacing: -0.012em;
+    }
+    [data-orbit-doc] .orbit-aria .pattern .head .comp {
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-4);
+      letter-spacing: -0.005em;
+    }
+    [data-orbit-doc] .orbit-aria .pattern .body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    [data-orbit-doc] .orbit-aria .pattern .body .attr {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 12px;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    [data-orbit-doc] .orbit-aria .pattern .body .attr code {
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-accent);
+      letter-spacing: -0.005em;
+    }
+    [data-orbit-doc] .orbit-aria .pattern .body .attr .desc {
+      color: var(--orbit-ink-3);
+    }
 
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>PrimitiveUI vs Orbit UI 접근성 비교</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        PrimitiveUI는 접근성을 핵심 설계 원칙으로 삼습니다. Orbit UI는 동일한 WAI-ARIA 패턴을 따르며, 아래 표는 주요 구현 비교입니다.
-      </div>
-      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+    [data-orbit-doc] .orbit-kbd {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 48px;
+    }
+    [data-orbit-doc] .orbit-kbd h3 {
+      margin: 16px 0 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--orbit-line-2);
+      font-size: 13px;
+      font-weight: 660;
+      letter-spacing: -0.01em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-kbd .row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-kbd .row:last-child { border-bottom: 0; }
+    [data-orbit-doc] .orbit-kbd .keys {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    [data-orbit-doc] .orbit-kbd kbd {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink);
+      background: var(--orbit-surface);
+      border: 1px solid var(--orbit-line-2);
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      letter-spacing: 0;
+    }
+    [data-orbit-doc] .orbit-kbd .desc {
+      font-size: 13px;
+      color: var(--orbit-ink-3);
+      line-height: 1.5;
+    }
+
+    [data-orbit-doc] .orbit-checklist {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px 48px;
+    }
+    [data-orbit-doc] .orbit-checklist h3 {
+      margin: 0 0 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--orbit-line);
+      font-size: 14px;
+      font-weight: 660;
+      letter-spacing: -0.01em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-checklist .item {
+      display: grid;
+      grid-template-columns: 16px 1fr;
+      gap: 12px;
+      padding: 8px 0;
+      align-items: start;
+      border-bottom: 1px dashed var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-checklist .item:last-child { border-bottom: 0; }
+    [data-orbit-doc] .orbit-checklist .box {
+      width: 14px;
+      height: 14px;
+      margin-top: 2px;
+      border-radius: 3px;
+      border: 1.25px solid var(--orbit-line-2);
+      background: transparent;
+      position: relative;
+    }
+    [data-orbit-doc] .orbit-checklist .item.req .box {
+      background: var(--orbit-ink);
+      border-color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-checklist .item.req .box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--orbit-surface);
+      clip-path: polygon(10% 50%, 38% 75%, 88% 22%, 75% 12%, 38% 55%, 22% 40%);
+    }
+    [data-orbit-doc] .orbit-checklist .label {
+      font-size: 13px;
+      color: var(--orbit-ink-2);
+      line-height: 1.55;
+    }
+    [data-orbit-doc] .orbit-checklist .label code {
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-checklist .label .opt {
+      margin-left: 6px;
+      padding: 0 6px;
+      font-family: var(--orbit-mono);
+      font-size: 10px;
+      color: var(--orbit-ink-4);
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      border-radius: 4px;
+    }
+
+    [data-orbit-doc] .orbit-note {
+      margin-top: 20px;
+      padding: 14px 18px;
+      border: 1px solid var(--orbit-line);
+      border-radius: 10px;
+      background: var(--orbit-surface);
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-note strong {
+      display: block;
+      margin-bottom: 4px;
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--orbit-ink-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-note code {
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink-2);
+    }
+
+    @media (max-width: 760px) {
+      [data-orbit-doc] .orbit-aria { grid-template-columns: 1fr; }
+      [data-orbit-doc] .orbit-kbd { grid-template-columns: 1fr; }
+      [data-orbit-doc] .orbit-checklist { grid-template-columns: 1fr; gap: 24px; }
+      [data-orbit-doc] .orbit-aria .pattern .body .attr { grid-template-columns: 1fr; gap: 2px; }
+    }
+  `}</style>
+
+  <div data-orbit-doc>
+    <div className='orbit-wrap'>
+
+      {/* HEADER */}
+      <header className='orbit-page-head'>
+        <div>
+          <div className='orbit-eyebrow'><span className='num'>01</span>Accessibility</div>
+          <h1 className='orbit-h1'>접근성 가이드</h1>
+          <p className='orbit-lede'>
+            WCAG 2.1 AA를 기본값으로 채택. WAI-ARIA 패턴, 키보드 내비게이션, 스크린리더, 색상 대비를 컴포넌트가 기본 처리하고,
+            소비자는 콘텐츠 레벨에서 보완합니다.
+          </p>
+        </div>
+        <div className='orbit-page-meta'>
+          <div><strong>WCAG</strong> 2.1 AA</div>
+          <div>WAI-ARIA</div>
+          <div>focus-visible · ⌘K</div>
+        </div>
+      </header>
+
+      {/* PATTERN COVERAGE */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>02</span>Pattern Coverage</div>
+            <h2>주요 WAI-ARIA 패턴 구현 상태.</h2>
+            <p>각 패턴이 어떤 컴포넌트에서 어떤 ARIA·키보드 동작을 갖는지 한 테이블로 요약.</p>
+          </div>
+          <span className='orbit-eyebrow'>8 patterns</span>
+        </div>
+
+        <table className='orbit-table'>
           <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              {['패턴', 'PrimitiveUI', 'Orbit UI', '구현 상태'].map((col) => (
-                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '600', color: '#1e293b', borderBottom: '1px solid #e2e8f0' }}>{col}</th>
-              ))}
+            <tr>
+              <th style={{ width: '20%' }}>패턴</th>
+              <th style={{ width: '32%' }}>Orbit 컴포넌트</th>
+              <th style={{ width: '34%' }}>키 ARIA · 동작</th>
+              <th>상태</th>
             </tr>
           </thead>
           <tbody>
-            {[
-              { pattern: 'Dialog (Modal)', radix: 'Focus trap, Escape dismiss, aria-modal', orbit: 'Dialog 컴포넌트, onOpenAutoFocus 지원', status: '완료', statusColor: '#10b981' },
-              { pattern: 'Combobox (Dropdown)', radix: 'aria-expanded, aria-activedescendant, listbox role', orbit: 'Dropdown + Popover 조합', status: '부분', statusColor: '#f59e0b' },
-              { pattern: 'Command Palette', radix: 'cmdk 기반 aria-selected 자동 관리', orbit: 'Command 컴포넌트 (cmdk 래핑)', status: '완료', statusColor: '#10b981' },
-              { pattern: 'Listbox (Select)', radix: 'role="listbox", aria-selected, keyboard nav', orbit: 'Popover + ListTile 조합', status: '부분', statusColor: '#f59e0b' },
-              { pattern: 'Toggle / Switch', radix: 'role="switch", aria-checked, aria-label', orbit: 'Toggle, Switch 컴포넌트', status: '완료', statusColor: '#10b981' },
-              { pattern: 'Accordion', radix: 'aria-expanded, aria-controls, aria-labelledby', orbit: 'Accordion 컴포넌트', status: '완료', statusColor: '#10b981' },
-              { pattern: 'Slider', radix: 'role="slider", aria-valuenow, aria-valuetext', orbit: 'Slider (Primitive 직접 래핑)', status: '완료', statusColor: '#10b981' },
-              { pattern: 'Tooltip', radix: 'aria-describedby, hover/focus 트리거', orbit: 'Tooltip 컴포넌트', status: '완료', statusColor: '#10b981' },
-            ].map(({ pattern, radix, orbit, status, statusColor }, i) => (
-              <tr key={pattern} style={{ borderBottom: '1px solid #f1f5f9', background: i % 2 === 0 ? '#fff' : '#fafbfc' }}>
-                <td style={{ padding: '12px 16px', fontWeight: '600', color: '#1e293b' }}>{pattern}</td>
-                <td style={{ padding: '12px 16px', color: '#64748b', fontSize: '12px' }}>{radix}</td>
-                <td style={{ padding: '12px 16px', color: '#64748b', fontSize: '12px' }}>{orbit}</td>
-                <td style={{ padding: '12px 16px' }}>
-                  <span style={{
-                    padding: '2px 10px',
-                    borderRadius: '20px',
-                    fontSize: '11px',
-                    fontWeight: '700',
-                    background: `${statusColor}18`,
-                    color: statusColor,
-                  }}>{status}</span>
-                </td>
-              </tr>
-            ))}
+            <tr>
+              <td className='pat'>Dialog (Modal)</td>
+              <td className='mono'>Modal · AlertDialog</td>
+              <td className='mono'>role='dialog', aria-modal, Esc dismiss, focus trap</td>
+              <td><span className='orbit-status done'>완료</span></td>
+            </tr>
+            <tr>
+              <td className='pat'>Combobox</td>
+              <td className='mono'>Dropdown · SearchBar</td>
+              <td className='mono'>aria-expanded, aria-activedescendant, listbox role</td>
+              <td><span className='orbit-status partial'>부분</span></td>
+            </tr>
+            <tr>
+              <td className='pat'>Command Palette</td>
+              <td className='mono'>Command (cmdk 래핑)</td>
+              <td className='mono'>aria-selected 자동 관리, ⌘K trigger</td>
+              <td><span className='orbit-status done'>완료</span></td>
+            </tr>
+            <tr>
+              <td className='pat'>Listbox</td>
+              <td className='mono'>Popover · ListTile 조합</td>
+              <td className='mono'>role='listbox', aria-selected, 방향키 nav</td>
+              <td><span className='orbit-status partial'>부분</span></td>
+            </tr>
+            <tr>
+              <td className='pat'>Switch</td>
+              <td className='mono'>Switch · Toggle</td>
+              <td className='mono'>role='switch', aria-checked, Space toggle</td>
+              <td><span className='orbit-status done'>완료</span></td>
+            </tr>
+            <tr>
+              <td className='pat'>Accordion</td>
+              <td className='mono'>Accordion</td>
+              <td className='mono'>aria-expanded, aria-controls, aria-labelledby</td>
+              <td><span className='orbit-status done'>완료</span></td>
+            </tr>
+            <tr>
+              <td className='pat'>Slider</td>
+              <td className='mono'>Slider</td>
+              <td className='mono'>role='slider', aria-valuenow, aria-valuetext</td>
+              <td><span className='orbit-status done'>완료</span></td>
+            </tr>
+            <tr>
+              <td className='pat'>Tooltip</td>
+              <td className='mono'>Tooltip · HoverCard</td>
+              <td className='mono'>aria-describedby, hover·focus 트리거</td>
+              <td><span className='orbit-status done'>완료</span></td>
+            </tr>
           </tbody>
         </table>
-      </div>
-    </section>
+      </section>
 
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>WAI-ARIA 핵심 패턴</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        컴포넌트 구현 시 반드시 따라야 하는 WAI-ARIA 디자인 패턴입니다.
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-        {[
-          {
-            title: 'Dialog (Modal)',
-            color: '#6366f1',
-            attrs: [
-              { name: 'role="dialog"', desc: '모달임을 스크린리더에 선언' },
-              { name: 'aria-modal="true"', desc: '배경 컨텐츠를 inert 처리' },
-              { name: 'aria-labelledby', desc: 'Dialog.Title 요소를 참조' },
-              { name: 'aria-describedby', desc: 'Dialog.Description 요소 참조' },
-            ],
-            keyboard: ['Escape: 닫기 + Trigger로 포커스 복원', 'Tab / Shift+Tab: 포커스 트랩 내 이동', 'Enter / Space: Trigger 실행'],
-          },
-          {
-            title: 'Listbox / Combobox',
-            color: '#8b5cf6',
-            attrs: [
-              { name: 'role="listbox"', desc: '옵션 목록 컨테이너' },
-              { name: 'role="option"', desc: '각 선택 항목' },
-              { name: 'aria-selected', desc: '현재 선택 상태 표시' },
-              { name: 'aria-expanded', desc: '드롭다운 열림 상태' },
-            ],
-            keyboard: ['Arrow Down / Up: 옵션 이동', 'Enter: 선택 확정', 'Escape: 닫기', 'Home / End: 첫/마지막 이동'],
-          },
-          {
-            title: 'Slider',
-            color: '#0ea5e9',
-            attrs: [
-              { name: 'role="slider"', desc: '슬라이더 thumb 요소' },
-              { name: 'aria-valuenow', desc: '현재 값 (숫자)' },
-              { name: 'aria-valuemin / max', desc: '최소/최대 범위' },
-              { name: 'aria-valuetext', desc: '값의 의미 있는 텍스트 표현' },
-            ],
-            keyboard: ['Arrow Left / Right: 1 단위 조절', 'Arrow Up / Down: 1 단위 조절', 'Home / End: 최소/최대', 'Page Up / Down: 10 단위 조절'],
-          },
-          {
-            title: 'Command Palette',
-            color: '#10b981',
-            attrs: [
-              { name: 'role="dialog" + aria-modal', desc: '팔레트는 모달로 동작' },
-              { name: 'aria-label', desc: '검색 목적을 설명' },
-              { name: 'aria-selected (cmdk 자동)', desc: '현재 포커스된 항목' },
-              { name: 'aria-live="polite"', desc: '검색 결과 수 실시간 알림' },
-            ],
-            keyboard: ['Arrow Up / Down: 항목 이동', 'Enter: 실행', 'Escape: 닫기', 'Cmd+K: 팔레트 열기 (관례)'],
-          },
-        ].map(({ title, color, attrs, keyboard }) => (
-          <div key={title} style={{
-            borderRadius: '12px',
-            border: '1.5px solid #e2e8f0',
-            overflow: 'hidden',
-          }}>
-            <div style={{ padding: '14px 18px', background: `${color}10`, borderBottom: '1px solid #e2e8f0' }}>
-              <span style={{ fontSize: '15px', fontWeight: '700', color }}>{title}</span>
+      {/* ARIA ATTRIBUTES */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>03</span>ARIA Attributes</div>
+            <h2>패턴별 핵심 속성.</h2>
+            <p>컴포넌트가 자동 설정하는 속성과, 소비자가 콘텐츠에 따라 채워야 하는 속성을 분리해 명시.</p>
+          </div>
+        </div>
+
+        <div className='orbit-aria'>
+
+          <div className='pattern'>
+            <div className='head'>
+              <span className='name'>Dialog (Modal)</span>
+              <span className='comp'>Modal · AlertDialog</span>
             </div>
-            <div style={{ padding: '16px 18px' }}>
-              <div style={{ marginBottom: '12px' }}>
-                <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>ARIA 속성</div>
-                {attrs.map(({ name, desc }) => (
-                  <div key={name} style={{ display: 'flex', gap: '8px', marginBottom: '6px', alignItems: 'flex-start' }}>
-                    <code style={{
-                      fontSize: '11px',
-                      background: '#f1f5f9',
-                      padding: '2px 6px',
-                      borderRadius: '4px',
-                      color: color,
-                      fontFamily: 'monospace',
-                      whiteSpace: 'nowrap',
-                      flexShrink: 0,
-                    }}>{name}</code>
-                    <span style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.4' }}>{desc}</span>
-                  </div>
-                ))}
-              </div>
-              <div>
-                <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>키보드 네비게이션</div>
-                {keyboard.map((k) => (
-                  <div key={k} style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                    <span style={{ color: color, flexShrink: 0 }}>+</span>
-                    <span>{k}</span>
-                  </div>
-                ))}
-              </div>
+            <div className='body'>
+              <div className='attr'><code>role='dialog'</code><span className='desc'>모달임을 스크린리더에 선언</span></div>
+              <div className='attr'><code>aria-modal='true'</code><span className='desc'>배경 콘텐츠를 inert 처리</span></div>
+              <div className='attr'><code>aria-labelledby</code><span className='desc'>Dialog.Title 요소를 참조</span></div>
+              <div className='attr'><code>aria-describedby</code><span className='desc'>본문 콘텐츠를 참조 (선택)</span></div>
             </div>
           </div>
-        ))}
-      </div>
-    </section>
 
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>키보드 네비게이션 구현 체크리스트</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        새 컴포넌트 구현 또는 PR 리뷰 전 아래 항목을 확인하세요.
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {[
-          { category: '포커스 관리', color: '#6366f1', items: [
-            '인터랙티브 요소는 Tab으로 접근 가능한가?',
-            '모달/오버레이는 포커스를 트랩하는가?',
-            '모달 닫힘 후 트리거 요소로 포커스가 복원되는가?',
-            'focus-visible 스타일이 적용되어 있는가? (outline 제거 금지)',
-            'disabled 요소는 Tab 순서에서 제외되는가?',
-          ]},
-          { category: 'ARIA 레이블', color: '#8b5cf6', items: [
-            '아이콘 전용 버튼에 aria-label이 있는가?',
-            '폼 입력 요소에 연결된 label이 있는가? (htmlFor 또는 aria-label)',
-            '이미지에 alt 텍스트가 있는가? (장식용은 alt="")',
-            '에러 메시지가 aria-describedby로 연결되어 있는가?',
-            '동적 콘텐츠 변경이 aria-live로 알려지는가?',
-          ]},
-          { category: '키보드 인터랙션', color: '#0ea5e9', items: [
-            'Enter / Space로 버튼/링크를 실행할 수 있는가?',
-            'Escape로 팝업/모달/드롭다운을 닫을 수 있는가?',
-            '리스트/메뉴는 화살표 키로 이동 가능한가?',
-            'Combobox에서 Enter로 선택, Escape로 닫기가 동작하는가?',
-            'Slider는 좌/우 방향키 및 Home/End가 동작하는가?',
-          ]},
-          { category: '색상 및 대비', color: '#10b981', items: [
-            '텍스트 대비가 WCAG AA 기준(4.5:1) 이상인가?',
-            '큰 텍스트 대비가 WCAG AA 기준(3:1) 이상인가?',
-            '색상만으로 상태를 전달하지 않는가? (아이콘/텍스트 보조)',
-            '포커스 인디케이터가 최소 3:1 대비를 충족하는가?',
-          ]},
-        ].map(({ category, color, items }) => (
-          <div key={category} style={{ borderRadius: '12px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{ padding: '12px 18px', background: `${color}08`, borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: color, flexShrink: 0 }} />
-              <span style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b' }}>{category}</span>
+          <div className='pattern'>
+            <div className='head'>
+              <span className='name'>Switch</span>
+              <span className='comp'>Switch · Toggle</span>
             </div>
-            <div style={{ padding: '12px 18px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {items.map((item) => (
-                <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <div style={{
-                    width: '16px', height: '16px',
-                    borderRadius: '4px',
-                    border: `1.5px solid ${color}`,
-                    flexShrink: 0,
-                    marginTop: '2px',
-                  }} />
-                  <span style={{ fontSize: '13px', color: '#475569', lineHeight: '1.5' }}>{item}</span>
-                </div>
-              ))}
+            <div className='body'>
+              <div className='attr'><code>role='switch'</code><span className='desc'>두 상태 토글임을 선언</span></div>
+              <div className='attr'><code>aria-checked</code><span className='desc'>true | false 상태</span></div>
+              <div className='attr'><code>aria-label</code><span className='desc'>시각 라벨이 없으면 필수</span></div>
             </div>
           </div>
-        ))}
-      </div>
-    </section>
 
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>스크린리더 테스트 가이드</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        실제 스크린리더로 컴포넌트를 검증하는 방법입니다. 개발 환경별 권장 도구를 사용하세요.
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginBottom: '32px' }}>
-        {[
-          { tool: 'VoiceOver (macOS/iOS)', shortcut: 'Cmd + F5', color: '#6366f1', steps: ['Safari 브라우저 사용 권장', 'VO + U: 로터 메뉴 (링크/헤딩/폼 이동)', 'VO + Shift + Down: 컨테이너 진입', 'VO + 방향키: 요소 탐색', 'VO + Space: 선택/실행'] },
-          { tool: 'NVDA (Windows)', shortcut: 'Insert 키', color: '#8b5cf6', steps: ['Firefox 또는 Chrome 사용 권장', 'NVDA + F7: 요소 목록', 'H: 헤딩 이동 / B: 버튼 이동', 'F: 폼 필드 이동', 'NVDA + Space: 폼 모드 전환'] },
-          { tool: 'TalkBack (Android)', shortcut: '볼륨 Up+Down 동시', color: '#0ea5e9', steps: ['Chrome 브라우저 사용 권장', '스와이프로 요소 이동', '더블 탭: 선택/실행', '두 손가락 스와이프: 스크롤', '선형 탐색 모드 설정 권장'] },
-        ].map(({ tool, shortcut, color, steps }) => (
-          <div key={tool} style={{ borderRadius: '12px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{ padding: '14px 18px', borderBottom: '1px solid #e2e8f0' }}>
-              <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{tool}</div>
-              <code style={{ fontSize: '12px', color, background: `${color}10`, padding: '2px 8px', borderRadius: '4px' }}>{shortcut}</code>
+          <div className='pattern'>
+            <div className='head'>
+              <span className='name'>Accordion</span>
+              <span className='comp'>Accordion</span>
             </div>
-            <div style={{ padding: '14px 18px' }}>
-              {steps.map((step, i) => (
-                <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: '11px', color, fontWeight: '700', flexShrink: 0, marginTop: '2px' }}>{i + 1}</span>
-                  <span style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{step}</span>
-                </div>
-              ))}
+            <div className='body'>
+              <div className='attr'><code>aria-expanded</code><span className='desc'>현재 열림·닫힘 상태</span></div>
+              <div className='attr'><code>aria-controls</code><span className='desc'>제어 대상 panel id 참조</span></div>
+              <div className='attr'><code>aria-labelledby</code><span className='desc'>Header 요소 참조</span></div>
             </div>
           </div>
-        ))}
-      </div>
 
-      <div style={{ borderRadius: '12px', background: '#f0fdf4', border: '1.5px solid #10b981', padding: '20px 24px' }}>
-        <div style={{ fontSize: '14px', fontWeight: '700', color: '#10b981', marginBottom: '12px' }}>Dialog / Modal 스크린리더 테스트 시나리오</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {[
-            '트리거 버튼에 포커스 이동 후 Enter로 모달 열기',
-            '모달 열림 시 제목(aria-labelledby)이 스크린리더에 읽히는가?',
-            '모달 내부에서 Tab 순환 시 배경 요소로 이탈하지 않는가?',
-            'Escape 키로 닫기 후 트리거 버튼으로 포커스가 돌아오는가?',
-            '닫기 버튼의 aria-label이 "닫기" 또는 의미 있는 텍스트인가?',
-          ].map((scenario, i) => (
-            <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-              <span style={{ color: '#10b981', fontWeight: '700', flexShrink: 0 }}>{i + 1}.</span>
-              <span style={{ fontSize: '13px', color: '#166534', lineHeight: '1.5' }}>{scenario}</span>
+          <div className='pattern'>
+            <div className='head'>
+              <span className='name'>Slider</span>
+              <span className='comp'>Slider</span>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>Orbit UI 컴포넌트 코드 예시</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        접근성 속성을 포함한 올바른 컴포넌트 사용 예시입니다.
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        {[
-          {
-            title: 'Slider - 접근성 완전 구현',
-            good: true,
-            code: `<Slider
-  value={[volume]}
-  onValueChange={([v]) => setVolume(v)}
-  min={0}
-  max={100}
-  step={1}
-  aria-label="볼륨 조절"
-  aria-valuetext={\`볼륨 \${volume}%\`}
-/>`,
-          },
-          {
-            title: 'SolidIconButton - aria-label 필수',
-            good: true,
-            code: `<SolidIconButton
-  aria-label="설정 열기"
-  onClick={openSettings}
->
-  <SolidIconButton.Icon>
-    <SettingLineIcon />
-  </SolidIconButton.Icon>
-</SolidIconButton>`,
-          },
-          {
-            title: 'Dialog - 완전한 접근성 구조',
-            good: true,
-            code: `<Dialog>
-  <Dialog.Trigger asChild>
-    <SolidButton aria-haspopup="dialog">
-      <SolidButton.Center>열기</SolidButton.Center>
-    </SolidButton>
-  </Dialog.Trigger>
-  <Dialog.Top>
-    {/* Dialog.Title은 aria-labelledby로 자동 연결 */}
-    <Typography textStyle="subheadingSmall">
-      제목
-    </Typography>
-    <Typography textStyle="descriptionLarge">
-      설명 텍스트
-    </Typography>
-  </Dialog.Top>
-  <Dialog.Bottom direction="horizontal">
-    <Dialog.Close asChild>
-      <SolidButton>
-        <SolidButton.Center>확인</SolidButton.Center>
-      </SolidButton>
-    </Dialog.Close>
-  </Dialog.Bottom>
-</Dialog>`,
-          },
-        ].map(({ title, code }) => (
-          <div key={title} style={{ borderRadius: '12px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{ padding: '12px 18px', background: '#f0fdf4', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ color: '#10b981', fontWeight: '700' }}>GOOD</span>
-              <span style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{title}</span>
+            <div className='body'>
+              <div className='attr'><code>role='slider'</code><span className='desc'>슬라이더임을 선언</span></div>
+              <div className='attr'><code>aria-valuenow</code><span className='desc'>현재 값</span></div>
+              <div className='attr'><code>aria-valuetext</code><span className='desc'>의미적 텍스트 (e.g. '20%')</span></div>
             </div>
-            <pre style={{
-              margin: 0,
-              padding: '16px 18px',
-              background: '#0f172a',
-              color: '#e2e8f0',
-              fontSize: '12px',
-              lineHeight: '1.7',
-              overflowX: 'auto',
-              fontFamily: '"Fira Code", "Cascadia Code", monospace',
-            }}>
-              <code>{code}</code>
-            </pre>
           </div>
-        ))}
-      </div>
-    </section>
 
-  {/* ─── Cycle 39: PrimitiveUI + RoleToken Design 접근성 벤치마크 ─── */}
-  <section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #faf5ff 0%, #eff6ff 100%)', borderRadius: '20px', border: '1.5px solid #e9d5ff' }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-      <span style={{ fontSize: '28px' }}>♿</span>
-      <div>
-        <h2 style={{ margin: 0, fontSize: '22px', fontWeight: '800', color: '#1e1b4b' }}>PrimitiveUI + RoleToken Design 접근성 패턴</h2>
-        <div style={{ margin: '4px 0 0', fontSize: '13px', color: '#7c3aed' }}>Cycle 39 벤치마크 — 접근성 우수 사례 비교 분석</div>
-      </div>
-    </div>
-
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px' }}>
-      {[
-        {
-          lib: 'PrimitiveUI',
-          icon: '⬡',
-          color: '#6366f1',
-          bg: '#eff6ff',
-          border: '#c7d2fe',
-          principles: [
-            'WAI-ARIA 명세 100% 준수 — 모든 Primitive에 role, aria-* 자동 적용',
-            'Focus 관리 — Dialog/Popover 열릴 때 first focusable로 이동, 닫힐 때 trigger로 복원',
-            'Escape 키 처리 — Popover, Dialog, DropdownMenu 전역 일관성',
-            'asChild 패턴 — 시맨틱 HTML 유지하면서 Primitive 접근성 레이어 합성',
-            'Screen reader 친화적 — aria-expanded, aria-controls 자동 연결',
-          ],
-        },
-        {
-          lib: 'RoleToken Design',
-          icon: 'M',
-          color: '#059669',
-          bg: '#f0fdf4',
-          border: '#a7f3d0',
-          principles: [
-            'Color contrast — 최소 4.5:1 (AA), 핵심 콘텐츠 7:1 (AAA) 보장',
-            'Touch target — 최소 48dp × 48dp 터치 영역 (모바일 접근성)',
-            'Motion sensitivity — prefers-reduced-motion 자동 감지 및 애니메이션 제거',
-            'State layer — hover/focus/pressed 상태를 색상 레이어로 표현',
-            'Typography scale — 유동적 텍스트 크기로 저시력 사용자 지원',
-          ],
-        },
-      ].map(({ lib, icon, color, bg, border, principles }) => (
-        <div key={lib} style={{ background: bg, borderRadius: '14px', border: `1.5px solid ${border}`, padding: '20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-            <div style={{ width: 36, height: 36, borderRadius: '10px', background: color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '16px' }}>{icon}</div>
-            <span style={{ fontWeight: '700', fontSize: '15px', color: '#1e293b' }}>{lib}</span>
-          </div>
-          <ul style={{ margin: 0, padding: '0 0 0 18px' }}>
-            {principles.map((p) => (
-              <li key={p} style={{ fontSize: '12px', color: '#374151', lineHeight: '1.7', marginBottom: '4px' }}>{p}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-
-    <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>Orbit UI에 적용된 접근성 패턴</h3>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px' }}>
-      {[
-        { pattern: 'GhostButton Toolbar', from: 'PrimitiveUI', aria: 'role="toolbar" + aria-pressed', desc: '토글 가능한 버튼 그룹에 role="toolbar"와 aria-pressed로 상태 표현', color: '#6366f1' },
-        { pattern: 'TextArea 유효성', from: 'RoleToken Design', aria: 'aria-invalid + aria-describedby', desc: 'error 상태를 aria-invalid로 표현, 오류 메시지를 aria-describedby로 연결', color: '#059669' },
-        { pattern: 'Activity Feed', from: 'PrimitiveUI + M3', aria: 'role="switch" + aria-checked', desc: '필터 토글을 role="switch"로 구현, 읽지 않은 상태를 시각+스크린리더로 이중 표현', color: '#8b5cf6' },
-      ].map(({ pattern, from, aria, desc, color }) => (
-        <div key={pattern} style={{ background: '#fff', borderRadius: '12px', border: '1.5px solid #e2e8f0', padding: '16px' }}>
-          <div style={{ fontSize: '10px', fontWeight: '700', color, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>{from}</div>
-          <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{pattern}</div>
-          <code style={{ display: 'block', fontSize: '11px', background: '#f1f5f9', color: '#7c3aed', padding: '6px 10px', borderRadius: '7px', marginBottom: '10px', fontFamily: 'monospace' }}>{aria}</code>
-          <div style={{ margin: 0, fontSize: '11px', color: '#64748b', lineHeight: '1.6' }}>{desc}</div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  {/* ─────────────────────────────────────────────────────
-      UtilityUI + AppUI 접근성 벤치마크 (Cycle 48)
-      ───────────────────────────────────────────────────── */}
-  <section style={{ marginTop: '48px' }}>
-    <div style={{ fontSize: '22px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
-      UtilityUI &amp; AppUI 접근성 벤치마크
-    </div>
-    <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-      UtilityUI의 실무 접근성 패턴과 AppUI의 form 접근성 구현 방식을 Orbit UI와 비교합니다.
-    </div>
-
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-      {/* UtilityUI */}
-      <div style={{ padding: '20px', borderRadius: '12px', background: '#f0fdf4', border: '2px solid #bbf7d0' }}>
-        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '14px' }}>UtilityUI 접근성 강점</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px', color: '#14532d' }}>
-          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-            <div style={{ fontWeight: '700', marginBottom: '4px' }}>읽기 전용 체크박스 패턴</div>
-            <div>pricing 비교표에서 disabled 체크박스로 기능 지원 여부를 시각적으로 표현. aria-readonly 속성으로 보조 기술에 상태 전달.</div>
-          </div>
-          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-            <div style={{ fontWeight: '700', marginBottom: '4px' }}>체크박스 카드 그리드</div>
-            <div>label 요소로 체크박스와 텍스트를 묶어 클릭 영역을 카드 전체로 확장. 키보드로 탭 이동 후 Space로 토글 가능.</div>
-          </div>
-          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-            <div style={{ fontWeight: '700', marginBottom: '4px' }}>결제 폼 자동 포맷팅</div>
-            <div>카드 번호 입력 시 inputmode="numeric"으로 모바일 숫자 키패드 자동 활성화. pattern 속성으로 유효성 힌트 제공.</div>
-          </div>
-        </div>
-      </div>
-
-      {/* AppUI */}
-      <div style={{ padding: '20px', borderRadius: '12px', background: '#eff6ff', border: '2px solid #bfdbfe' }}>
-        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '14px' }}>AppUI 접근성 강점</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px', color: '#1e3a5f' }}>
-          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
-            <div style={{ fontWeight: '700', marginBottom: '4px' }}>연동된 aria-describedby</div>
-            <div>description 텍스트에 자동으로 id를 부여하고 input의 aria-describedby로 연결. 스크린 리더가 힌트 텍스트를 자동 읽음.</div>
-          </div>
-          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
-            <div style={{ fontWeight: '700', marginBottom: '4px' }}>글자 수 카운터 라이브 리전</div>
-            <div>남은 글자 수를 aria-live="polite"로 래핑해 스크린 리더가 실시간으로 안내. 시각적 색상 변화와 별개로 보조 기술도 지원.</div>
-          </div>
-          <div style={{ padding: '10px 12px', background: '#fff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
-            <div style={{ fontWeight: '700', marginBottom: '4px' }}>disabled vs required 시각화</div>
-            <div>필수 컬럼은 disabled + 시각적 텍스트 "필수" 레이블로 구분. aria-required + aria-disabled 조합으로 보조 기술 대응.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div style={{ padding: '18px 20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-      <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '10px' }}>Orbit UI 적용 패턴</div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
-        <div>
-          <div style={{ fontWeight: '700', color: '#16a34a', marginBottom: '4px' }}>Checkbox 접근성</div>
-          <div>disabled prop으로 읽기 전용 시각화, label 요소로 클릭 영역 확장, onChange 콜백으로 제어 상태 관리.</div>
-        </div>
-        <div>
-          <div style={{ fontWeight: '700', color: '#1d4ed8', marginBottom: '4px' }}>FloatingTextField 접근성</div>
-          <div>floating label로 placeholder 대체 (항상 표시), error prop으로 aria-invalid 자동 설정.</div>
-        </div>
-        <div>
-          <div style={{ fontWeight: '700', color: '#6366f1', marginBottom: '4px' }}>Switch 접근성</div>
-          <div>onCheckedChange로 제어 상태 관리, role="switch" + aria-checked 자동 설정으로 보조 기술 완전 지원.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-    {/* AppUI + Ant Design 접근성 벤치마크 */}
-    <section style={{ marginBottom: '64px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>
-        AppUI + Ant Design 접근성 벤치마크
-      </h2>
-      <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-        AppUI과 Ant Design의 접근성 구현 방식에서 Orbit UI가 배울 수 있는 패턴을 분석합니다. (Cycle 53 벤치마크)
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '28px' }}>
-        {/* AppUI */}
-        <div style={{ borderRadius: '14px', border: '1.5px solid #339af020', background: '#f0f9ff', overflow: 'hidden' }}>
-          <div style={{ padding: '14px 18px', background: '#1971c2', display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: '12px', fontWeight: '800', color: '#fff', letterSpacing: '0.02em' }}>AppUI</span>
-            <span style={{ fontSize: '11px', color: '#a5d8ff', fontWeight: '600' }}>v7 Accessibility</span>
-          </div>
-          <div style={{ padding: '16px 18px' }}>
-            {[
-              { title: 'useMove + useHover 훅', desc: 'Slider/ColorPicker 마우스 이벤트를 키보드로 동일하게 처리하는 커스텀 훅 제공' },
-              { title: 'Switch role="switch"', desc: 'aria-checked + aria-label 자동 설정, label prop으로 연동 — htmlFor 수동 설정 불필요' },
-              { title: 'FocusTrap 컴포넌트', desc: '모달/팝오버 내 포커스 트랩을 독립 컴포넌트로 재사용 가능 — 커스텀 오버레이에 적용' },
-              { title: 'Accessible announcements', desc: '@accessible-kit/notifications는 role="alert" + aria-live="polite"로 스크린리더 자동 읽기' },
-            ].map(({ title, desc }) => (
-              <div key={title} style={{ marginBottom: '12px' }}>
-                <div style={{ fontSize: '12px', fontWeight: '700', color: '#1971c2', marginBottom: '3px' }}>{title}</div>
-                <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>{desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Ant Design */}
-        <div style={{ borderRadius: '14px', border: '1.5px solid #1677ff20', background: '#f0f5ff', overflow: 'hidden' }}>
-          <div style={{ padding: '14px 18px', background: '#1677ff', display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: '12px', fontWeight: '800', color: '#fff', letterSpacing: '0.02em' }}>Ant Design</span>
-            <span style={{ fontSize: '11px', color: '#bae0ff', fontWeight: '600' }}>v5 Accessibility</span>
-          </div>
-          <div style={{ padding: '16px 18px' }}>
-            {[
-              { title: 'Form + aria-describedby', desc: 'Form.Item의 help prop이 자동으로 aria-describedby를 인풋에 연결 — 에러 메시지 스크린리더 읽기 보장' },
-              { title: 'Table + 키보드 탐색', desc: 'rowKey로 각 행을 구분, Tab으로 셀 이동, Enter로 편집 모드 진입 — 데이터 테이블 접근성 기준' },
-              { title: 'ConfigProvider locale', desc: '날짜 형식, 레이블, 버튼 텍스트를 일괄 번역 — 스크린리더가 올바른 언어로 읽기 위해 중요' },
-              { title: 'Disabled vs ReadOnly 구분', desc: 'disabled는 포커스 불가, readOnly는 포커스 가능 — Tab 키보드 흐름 유지를 위한 올바른 사용법 명확화' },
-            ].map(({ title, desc }) => (
-              <div key={title} style={{ marginBottom: '12px' }}>
-                <div style={{ fontSize: '12px', fontWeight: '700', color: '#1677ff', marginBottom: '3px' }}>{title}</div>
-                <div style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>{desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Switch 접근성 실전 가이드 */}
-      <div style={{ padding: '20px 24px', borderRadius: '12px', background: '#fff', border: '1.5px solid #e2e8f0', marginBottom: '16px' }}>
-        <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>Switch 컴포넌트 접근성 체크리스트</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-          {[
-            { ok: true, item: 'role="switch" 자동 설정', detail: 'Primitive Switch primitive 래핑으로 자동 적용' },
-            { ok: true, item: 'aria-checked 상태 반영', detail: 'checked prop이 변경될 때 즉시 업데이트' },
-            { ok: true, item: 'Space/Enter 키 토글', detail: 'Primitive 기본 동작으로 키보드 토글 지원' },
-            { ok: true, item: 'aria-label 명시 권장', detail: 'label 텍스트만으로 의미 전달이 불명확할 때' },
-            { ok: false, item: 'disabled + aria-disabled 병행', detail: 'disabled prop 시 aria-disabled도 함께 설정 필요' },
-            { ok: false, item: 'aria-describedby 연결', detail: '설명 텍스트를 id로 연결해 스크린리더에 제공 필요' },
-          ].map(({ ok, item, detail }) => (
-            <div key={item} style={{ display: 'flex', gap: '8px', padding: '10px 12px', borderRadius: '8px', background: ok ? '#f0fdf4' : '#fffbeb', border: `1px solid ${ok ? '#bbf7d0' : '#fde68a'}` }}>
-              <span style={{ color: ok ? '#10b981' : '#f59e0b', fontWeight: '700', fontSize: '13px', flexShrink: 0 }}>{ok ? '✓' : '!'}</span>
-              <div>
-                <div style={{ fontSize: '12px', fontWeight: '700', color: '#1e293b', marginBottom: '2px' }}>{item}</div>
-                <div style={{ fontSize: '11px', color: '#64748b' }}>{detail}</div>
-              </div>
+          <div className='pattern'>
+            <div className='head'>
+              <span className='name'>Combobox</span>
+              <span className='comp'>Dropdown · SearchBar</span>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* OutlineButton 접근성 */}
-      <div style={{ padding: '20px 24px', borderRadius: '12px', background: '#fff', border: '1.5px solid #e2e8f0' }}>
-        <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '12px' }}>OutlineButton 접근성 모범 사례 (Ant Design 패턴)</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px' }}>
-          {[
-            { label: '로딩 상태', code: 'loading={true}', desc: 'aria-busy="true" 자동 설정, 버튼 텍스트에 "처리 중..." 추가로 스크린리더에 상태 전달' },
-            { label: '아이콘 전용 버튼', code: 'aria-label="저장"', desc: '텍스트 없는 아이콘 버튼은 aria-label 필수 — AppUI의 ActionIcon처럼 명확한 레이블 제공' },
-            { label: '버튼 그룹', code: 'role="group"', desc: '연관된 버튼을 묶을 때 wrapper에 role="group" + aria-label="페이지 네비게이션" 추가' },
-          ].map(({ label, code, desc }) => (
-            <div key={label} style={{ padding: '12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #f1f5f9' }}>
-              <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', marginBottom: '4px' }}>{label}</div>
-              <code style={{ display: 'block', fontSize: '11px', color: '#1e293b', background: '#f0f1ff', padding: '3px 6px', borderRadius: '4px', marginBottom: '6px', fontFamily: 'monospace' }}>{code}</code>
-              <div style={{ color: '#64748b', lineHeight: '1.5' }}>{desc}</div>
+            <div className='body'>
+              <div className='attr'><code>aria-expanded</code><span className='desc'>리스트 열림 상태</span></div>
+              <div className='attr'><code>aria-activedescendant</code><span className='desc'>현재 강조 옵션 id</span></div>
+              <div className='attr'><code>role='listbox'</code><span className='desc'>옵션 컨테이너</span></div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* PrimitiveUI + IssueTracker Design 접근성 섹션 */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>PrimitiveUI + IssueTracker Design 접근성 분석</h2>
-        <span style={{ padding: '3px 10px', background: '#f1f5f9', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: '#6366f1' }}>Cycle 55</span>
-      </div>
-
-      {/* Two cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '28px' }}>
-        <div style={{ padding: '24px', borderRadius: '14px', background: '#0f0f0f', border: '1px solid #2a2a2a' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#888', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>PrimitiveUI</div>
-          <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Accessibility by Default</div>
-          <div style={{ fontSize: '13px', color: '#999', lineHeight: '1.7', margin: '0 0 16px' }}>
-            모든 Primitive Primitive는 WAI-ARIA 1.2 완전 준수. HoverCard는 role="dialog" + aria-describedby, Slider는 role="slider" + aria-valuenow/valuemin/valuemax를 자동 관리합니다.
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
-            {[
-              { check: 'HoverCard', note: 'Escape 키 닫기, focus 이탈 시 자동 닫기, openDelay/closeDelay로 의도치 않은 트리거 방지' },
-              { check: 'Slider', note: 'Arrow 키로 1단위 조정, PgUp/PgDn으로 10단위 조정, Home/End로 최소/최대값 이동' },
-              { check: 'Focus Ring', note: ':focus-visible 상태에서만 링 표시 — 마우스 클릭 시 링 숨김, 키보드 네비게이션 시 표시' },
-            ].map(({ check, note }) => (
-              <div key={check} style={{ padding: '8px 12px', background: '#1a1a1a', borderRadius: '8px', border: '1px solid #2a2a2a' }}>
-                <div style={{ color: '#6366f1', fontWeight: '700', marginBottom: '2px' }}>{check}</div>
-                <div style={{ color: '#999' }}>{note}</div>
-              </div>
-            ))}
+
+          <div className='pattern'>
+            <div className='head'>
+              <span className='name'>Tooltip</span>
+              <span className='comp'>Tooltip · HoverCard</span>
+            </div>
+            <div className='body'>
+              <div className='attr'><code>role='tooltip'</code><span className='desc'>툴팁 컨테이너</span></div>
+              <div className='attr'><code>aria-describedby</code><span className='desc'>트리거에서 툴팁 id 참조</span></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* KEYBOARD */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>04</span>Keyboard</div>
+            <h2>키 매핑.</h2>
+            <p>모든 인터랙티브 컴포넌트가 따르는 키 동작.</p>
           </div>
         </div>
 
-        <div style={{ padding: '24px', borderRadius: '14px', background: '#0f172a', border: '1px solid #1e293b' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>IssueTracker Design</div>
-          <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '10px' }}>Keyboard-First Navigation</div>
-          <div style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.7', margin: '0 0 16px' }}>
-            IssueTracker은 마우스 없이 전체 기능 이용 가능한 키보드 네비게이션을 핵심 UX로 설계합니다. 이슈 탐색, 상태 변경, 우선순위 조정 모두 키보드 단축키로 수행 가능합니다.
+        <div className='orbit-kbd'>
+
+          <div>
+            <h3>전역 내비게이션</h3>
+            <div className='row'>
+              <div className='keys'><kbd>Tab</kbd></div>
+              <div className='desc'>다음 인터랙티브 요소로 포커스 이동</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>Shift</kbd><kbd>Tab</kbd></div>
+              <div className='desc'>이전 요소로</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>⌘</kbd><kbd>K</kbd></div>
+              <div className='desc'>Command Palette 열기</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>Esc</kbd></div>
+              <div className='desc'>모달·팝오버·드로어 닫기</div>
+            </div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
-            {[
-              { key: 'G → I', action: '이슈 목록으로 이동' },
-              { key: 'C', action: '새 이슈 생성 모달 열기' },
-              { key: '1-4', action: '우선순위 빠른 변경 (긴급/높음/보통/낮음)' },
-              { key: 'Ctrl + K', action: '커맨드 팔레트 열기 (모든 액션 검색)' },
-            ].map(({ key, action }) => (
-              <div key={key} style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '6px 12px', background: '#1e293b', borderRadius: '8px' }}>
-                <kbd style={{ padding: '2px 8px', background: '#0f172a', border: '1px solid #334155', borderRadius: '6px', fontSize: '11px', fontFamily: 'monospace', color: '#e2e8f0', whiteSpace: 'nowrap' }}>{key}</kbd>
-                <span style={{ color: '#94a3b8' }}>{action}</span>
-              </div>
-            ))}
+
+          <div>
+            <h3>버튼·체크박스·스위치</h3>
+            <div className='row'>
+              <div className='keys'><kbd>Enter</kbd></div>
+              <div className='desc'>버튼·링크 활성화</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>Space</kbd></div>
+              <div className='desc'>버튼·체크박스·스위치 활성화</div>
+            </div>
+          </div>
+
+          <div>
+            <h3>라디오·탭·세그먼트</h3>
+            <div className='row'>
+              <div className='keys'><kbd>←</kbd><kbd>→</kbd></div>
+              <div className='desc'>이전·다음 옵션으로 이동 (자동 선택)</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>Home</kbd></div>
+              <div className='desc'>첫 옵션</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>End</kbd></div>
+              <div className='desc'>마지막 옵션</div>
+            </div>
+          </div>
+
+          <div>
+            <h3>드롭다운·콤보박스</h3>
+            <div className='row'>
+              <div className='keys'><kbd>↓</kbd></div>
+              <div className='desc'>열기 또는 다음 항목</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>↑</kbd></div>
+              <div className='desc'>이전 항목</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>Enter</kbd></div>
+              <div className='desc'>현재 항목 선택 후 닫기</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>Esc</kbd></div>
+              <div className='desc'>선택 없이 닫기</div>
+            </div>
+          </div>
+
+          <div>
+            <h3>DataTable</h3>
+            <div className='row'>
+              <div className='keys'><kbd>Enter</kbd><kbd>Space</kbd></div>
+              <div className='desc'>정렬 토글 (헤더 셀에서)</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>Tab</kbd></div>
+              <div className='desc'>다음 액션 셀로 이동</div>
+            </div>
+          </div>
+
+          <div>
+            <h3>Slider</h3>
+            <div className='row'>
+              <div className='keys'><kbd>←</kbd><kbd>→</kbd></div>
+              <div className='desc'>step 단위 증감</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>Page Up</kbd><kbd>Page Down</kbd></div>
+              <div className='desc'>큰 폭 step 증감</div>
+            </div>
+            <div className='row'>
+              <div className='keys'><kbd>Home</kbd><kbd>End</kbd></div>
+              <div className='desc'>최소값·최대값으로</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* CHECKLIST */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>05</span>Pre-launch Checklist</div>
+            <h2>출시 전 점검.</h2>
+            <p>필수(■) 항목은 컴포넌트가 자동 처리. 선택(□) 항목은 소비자가 콘텐츠에 따라 결정.</p>
+          </div>
+          <span className='orbit-eyebrow'>20 items</span>
+        </div>
+
+        <div className='orbit-checklist'>
+
+          <div>
+            <h3>키보드 내비게이션</h3>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'>모든 인터랙티브 요소가 <code>Tab</code>으로 도달 가능</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'><code>Enter</code> · <code>Space</code>로 활성화</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'><code>Esc</code>로 오버레이 닫기</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'>방향키로 그룹 내 탐색 (라디오·탭·세그먼트)</span>
+            </div>
+            <div className='item'>
+              <span className='box' />
+              <span className='label'>모달 내 포커스 trap<span className='opt'>선택</span></span>
+            </div>
+          </div>
+
+          <div>
+            <h3>ARIA</h3>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'><code>aria-label</code> 또는 <code>aria-labelledby</code> 지정</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'><code>aria-disabled</code>로 비활성 표현</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'><code>aria-expanded</code>로 열림·닫힘</span>
+            </div>
+            <div className='item'>
+              <span className='box' />
+              <span className='label'><code>aria-live</code>로 동적 콘텐츠 알림<span className='opt'>선택</span></span>
+            </div>
+            <div className='item'>
+              <span className='box' />
+              <span className='label'><code>role='alert'</code>로 에러 메시지 전달<span className='opt'>선택</span></span>
+            </div>
+          </div>
+
+          <div>
+            <h3>색상 및 대비</h3>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'>본문 텍스트 4.5:1 이상 (AA)</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'>아이콘·아웃라인 3:1 이상</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'>색상만으로 상태를 구분하지 않음</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'>포커스 링 시각적으로 명확 (Cobalt 2px ring offset 2px)</span>
+            </div>
+            <div className='item'>
+              <span className='box' />
+              <span className='label'>고대비 모드 (forced-colors) 지원<span className='opt'>선택</span></span>
+            </div>
+          </div>
+
+          <div>
+            <h3>폼 컴포넌트</h3>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'><code>label</code>과 <code>input</code>이 <code>htmlFor</code>·<code>id</code>로 연결</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'>에러 메시지가 <code>aria-describedby</code>로 연결</span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'>필수 항목에 <code>aria-required</code></span>
+            </div>
+            <div className='item req'>
+              <span className='box' />
+              <span className='label'>라디오 그룹에 <code>fieldset</code> + <code>legend</code></span>
+            </div>
+            <div className='item'>
+              <span className='box' />
+              <span className='label'>인터미디에이트 체크박스 <code>aria-checked='mixed'</code><span className='opt'>선택</span></span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* SCREEN READER */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>06</span>Screen Reader</div>
+            <h2>실제로 테스트하는 법.</h2>
+            <p>매주 한 번은 소리로 들어봅니다. NVDA·VoiceOver는 시뮬레이션이 아니라 검증.</p>
           </div>
         </div>
-      </div>
 
-      {/* HoverCard + Slider A11Y checklist */}
-      <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+        <table className='orbit-table'>
           <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              {['컴포넌트', '접근성 기준', 'Primitive 지원', 'Orbit UI 구현', '상태'].map((col, i) => (
-                <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 4 ? '#6366f1' : '#475569', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
-              ))}
+            <tr>
+              <th style={{ width: '20%' }}>Reader</th>
+              <th style={{ width: '20%' }}>OS</th>
+              <th>시작 키</th>
+              <th>주요 명령</th>
             </tr>
           </thead>
           <tbody>
-            {[
-              ['HoverCard', 'role="dialog"', '자동 추가', 'Primitive 위임', '✓'],
-              ['HoverCard', 'Escape 닫기', '기본 지원', 'openDelay 커스텀', '✓'],
-              ['HoverCard', 'focus trap', '옵션 제공', '미적용 (미리보기)', '!'],
-              ['Slider', 'role="slider"', '자동 추가', 'Primitive 위임', '✓'],
-              ['Slider', 'aria-valuenow', '자동 관리', 'value prop 연동', '✓'],
-              ['Slider', 'Arrow 키 조정', '기본 지원', 'step prop으로 제어', '✓'],
-            ].map((row, i) => (
-              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                {row.map((cell, j) => (
-                  <td key={j} style={{ padding: '10px 16px', color: j === 4 ? (cell === '✓' ? '#10b981' : '#f59e0b') : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 || j === 4 ? 700 : 400 }}>{cell}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f0fdf4, #ecfdf5)', border: '2px solid #bbf7d0' }}>
-        <div style={{ fontSize: '13px', fontWeight: '700', color: '#065f46', marginBottom: '12px' }}>Orbit UI 반영 결과</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
-          <div>
-            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>HoverCard 고도화</div>
-            <div>Primitive 기여자 활동 그래프, IssueTracker 태스크 상세 미리보기, IssueTracker 팀 멤버 역할 호버 3개 스토리 추가.</div>
-          </div>
-          <div>
-            <div style={{ fontWeight: '700', color: '#059669', marginBottom: '4px' }}>Slider 고도화</div>
-            <div>Primitive HSL 색상 편집기, IssueTracker 우선순위 스코어링, IssueTracker 피보나치 스토리포인트 3개 스토리 추가.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* ================================================================
-        Cycle 60: CommandPalette + WorkspaceEditor 접근성 패턴
-        ================================================================ */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
-        <div style={{ width: '4px', height: '48px', borderRadius: '2px', background: 'linear-gradient(180deg, #f43f5e, #ec4899)' }} />
-        <div>
-          <div style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>CommandPalette + WorkspaceEditor 접근성 패턴</div>
-          <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>Cycle 60 — 키보드 중심 UX / 인라인 편집 / 포커스 관리</div>
-        </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
-        <div style={{ padding: '24px', borderRadius: '16px', background: '#1c0a2e', border: '1px solid #4a1d96' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#c4b5fd', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>CommandPalette</div>
-          <div style={{ fontSize: '16px', fontWeight: '700', color: '#faf5ff', marginBottom: '14px' }}>키보드 퍼스트 인터랙션</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#ddd6fe', lineHeight: '1.6' }}>
-            <div>모든 액션이 키보드 단축키와 1:1로 매핑 — 마우스 없이 완전한 조작 가능</div>
-            <div>Focus trap을 커맨드 팔레트 내에 완전히 격리, Escape로 일관된 닫기</div>
-            <div>결과 리스트에 aria-activedescendant + role="listbox" 패턴 구현</div>
-          </div>
-        </div>
-        <div style={{ padding: '24px', borderRadius: '16px', background: '#0a1628', border: '1px solid #1e3a5f' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#93c5fd', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>WorkspaceEditor</div>
-          <div style={{ fontSize: '16px', fontWeight: '700', color: '#eff6ff', marginBottom: '14px' }}>인라인 편집 포커스 패턴</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#bfdbfe', lineHeight: '1.6' }}>
-            <div>블록 클릭 시 자동 포커스 이동, contentEditable 요소에 커서 위치 보존</div>
-            <div>슬래시 커맨드 팝업이 열릴 때 포커스를 입력 필드로 이동, 닫힐 때 원래 위치로 복귀</div>
-            <div>사이드바 탭 네비게이션에 role="tree", aria-expanded로 계층 구조 표현</div>
-          </div>
-        </div>
-      </div>
-
-      <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: '24px' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-          <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              {['컴포넌트', 'ARIA 속성', 'CommandPalette 패턴', 'WorkspaceEditor 패턴', 'Orbit UI 구현'].map((h) => (
-                <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: '700', color: '#475569', borderBottom: '2px solid #e2e8f0' }}>{h}</th>
-              ))}
+            <tr>
+              <td className='pat'>VoiceOver</td>
+              <td className='mono'>macOS · iOS</td>
+              <td className='mono'>⌘ + F5</td>
+              <td className='mono'>Ctrl + Option + 방향키 (rotor 탐색)</td>
             </tr>
-          </thead>
-          <tbody>
-            {[
-              ['GhostButton', 'role="button"', '커맨드 리스트 항목 트리거', '인라인 툴바 토글 버튼', 'onClick + style 변환'],
-              ['Tab (TabItem)', 'role="tab"', '검색 결과 카테고리 분류', '사이드바 페이지 트리', 'selected prop + Tab.Leading/Trailing'],
-              ['Command', 'role="listbox"', '전체 커맨드 팔레트 루트', '슬래시 커맨드 드롭다운', 'Command.Input + Command.Item'],
-              ['Calendar', 'role="grid"', '일정 날짜 선택 팝오버', '마감일 인라인 날짜 선택', 'mode="single" + disabled'],
-              ['Chip', 'role="button"', '카테고리 필터 토글', '태그 인라인 편집', 'selected prop + onClick'],
-            ].map((row, i) => (
-              <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                {row.map((cell, j) => (
-                  <td key={j} style={{ padding: '10px 16px', color: j === 4 ? '#4f46e5' : '#334155', borderBottom: '1px solid #f1f5f9', fontWeight: j === 0 ? 700 : 400 }}>{cell}</td>
-                ))}
-              </tr>
-            ))}
+            <tr>
+              <td className='pat'>NVDA</td>
+              <td className='mono'>Windows</td>
+              <td className='mono'>NVDA + N</td>
+              <td className='mono'>Insert + ↓ (read all), H (heading)</td>
+            </tr>
+            <tr>
+              <td className='pat'>TalkBack</td>
+              <td className='mono'>Android</td>
+              <td className='mono'>볼륨 키 동시 누름</td>
+              <td className='mono'>한 손가락 swipe (전·후 요소)</td>
+            </tr>
+            <tr>
+              <td className='pat'>Narrator</td>
+              <td className='mono'>Windows</td>
+              <td className='mono'>Win + Ctrl + Enter</td>
+              <td className='mono'>Caps Lock + ↓ (다음 항목)</td>
+            </tr>
           </tbody>
         </table>
-      </div>
 
-      <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #fdf4ff, #fce7f3)', border: '2px solid #f0abfc' }}>
-        <div style={{ fontSize: '13px', fontWeight: '700', color: '#701a75', marginBottom: '12px' }}>Orbit UI 반영 결과 (Cycle 60)</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
-          <div>
-            <div style={{ fontWeight: '700', color: '#a21caf', marginBottom: '4px' }}>GhostButton +3 스토리</div>
-            <div>WorkspaceEditor 블록 에디터 포맷 툴바, CommandPalette 명령어 액션 팔레트, IssueTracker 뷰 전환 액션 툴바 추가.</div>
-          </div>
-          <div>
-            <div style={{ fontWeight: '700', color: '#a21caf', marginBottom: '4px' }}>TabItem +3 스토리</div>
-            <div>ComposableUI 배지 카운터 탭, WorkspaceEditor 사이드바 페이지 탭, CommandPalette 검색 결과 카테고리 탭 추가.</div>
-          </div>
-          <div>
-            <div style={{ fontWeight: '700', color: '#a21caf', marginBottom: '4px' }}>TravelBooking 템플릿</div>
-            <div>Chip 필터 + Slider 예산 + Calendar 날짜 + Avatar/LabelBadge 조합 여행 예약 앱 추가.</div>
-          </div>
+        <aside className='orbit-note'>
+          <strong>Test recipe</strong>
+          매 PR마다 4분: VoiceOver를 켜고 Tab만으로 메인 플로우를 끝까지. 모든 컴포넌트의 이름·상태·역할이 들리는지 확인.
+          들리지 않으면 그 컴포넌트가 접근성 실패.
+        </aside>
+      </section>
+
+      {/* FOOTER */}
+      <footer className='orbit-foot'>
+        <div>WCAG 2.1 AA · WAI-ARIA · focus-visible · ⌘K</div>
+        <div>
+          <a href='?path=/docs/intro-컴포넌트-개요--docs'>← 컴포넌트 개요</a>
         </div>
-      </div>
-    </section>
+      </footer>
 
+    </div>
   </div>
 </Unstyled>
-
-{/* ========== CYCLE 63: AccessibleUI + RoleToken Design 접근성 ========== */}
-<section style={{ marginBottom: '48px' }}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, #319795, #6750a4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: '800', fontSize: '15px' }}>C</div>
-    <div>
-      <div style={{ fontSize: '22px', fontWeight: '800', color: '#1a202c', letterSpacing: '-0.5px' }}>Cycle 63 — AccessibleUI + RoleToken Design 접근성 패턴</div>
-      <div style={{ fontSize: '13px', color: '#718096', marginTop: '2px' }}>체크박스 접근성, 탭 키보드 내비게이션, M3 색상 역할 시스템의 접근성 고려</div>
-    </div>
-  </div>
-
-  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '24px' }}>
-    <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #e6fffa, #b2f5ea)', border: '1px solid #81e6d9' }}>
-      <div style={{ fontSize: '14px', fontWeight: '700', color: '#234e52', marginBottom: '12px' }}>AccessibleUI 접근성 강점</div>
-      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#276749', lineHeight: '1.8' }}>
-        <li>모든 컴포넌트 ARIA 기본 적용</li>
-        <li>Checkbox indeterminate 상태 네이티브 지원</li>
-        <li>키보드 포커스 링 시각화 표준화</li>
-        <li>색상 대비비 WCAG AA 기본 충족</li>
-        <li>CheckboxGroup aria-labelledby 자동 연결</li>
-      </ul>
-    </div>
-    <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #f3e8ff, #ede9fe)', border: '1px solid #d8b4fe' }}>
-      <div style={{ fontSize: '14px', fontWeight: '700', color: '#3b0764', marginBottom: '12px' }}>RoleToken Design 접근성 강점</div>
-      <ul style={{ margin: 0, padding: '0 0 0 16px', fontSize: '13px', color: '#4c1d95', lineHeight: '1.8' }}>
-        <li>색상 역할(primary/secondary/error)로 의미 전달</li>
-        <li>비활성 상태 38% 불투명도 기준 준수</li>
-        <li>터치 영역 48dp 최소값 보장</li>
-        <li>오류 상태 색상+아이콘 이중 신호</li>
-        <li>동적 색상 다크/라이트 자동 변환</li>
-      </ul>
-    </div>
-  </div>
-
-  <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1.5px solid #e2e8f0', marginBottom: '24px' }}>
-    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-      <thead>
-        <tr style={{ background: '#f7fafc' }}>
-          {['접근성 항목', 'AccessibleUI', 'RoleToken Design', 'Orbit UI 반영'].map((col, i) => (
-            <th key={col} style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: i === 3 ? '#6366f1' : '#2d3748', borderBottom: '1.5px solid #e2e8f0', whiteSpace: 'nowrap' }}>{col}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {[
-          ['Checkbox 상태', 'indeterminate 네이티브', 'filled/outlined 구분', 'minus 아이콘으로 indeterminate 구현'],
-          ['탭 키보드', 'Arrow key 내비게이션', 'Tabs secondary/primary', 'FixedTabs onTabChange + selectedIndex'],
-          ['색상 대비', 'WCAG AA 기본', 'M3 색상 역할 시스템', '선택 상태 border + background 이중 피드백'],
-          ['disabled 상태', 'opacity + cursor 처리', '38% 불투명도 기준', 'BoxedCheckbox disabled prop 지원'],
-          ['레이블 연결', 'aria-labelledby 자동', 'TextField label 연결', '클릭 영역과 레이블 명시적 연결'],
-        ].map((row, i) => (
-          <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f7fafc' }}>
-            {row.map((cell, j) => (
-              <td key={j} style={{ padding: '11px 16px', color: j === 3 ? '#4f46e5' : '#2d3748', borderBottom: '1px solid #edf2f7', fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-
-  <div style={{ padding: '20px', borderRadius: '12px', background: 'linear-gradient(135deg, #e6fffa, #f3e8ff)', border: '2px solid #81e6d9' }}>
-    <div style={{ fontSize: '13px', fontWeight: '700', color: '#234e52', marginBottom: '12px' }}>Orbit UI 반영 결과 (Cycle 63)</div>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', fontSize: '12px', color: '#374151', lineHeight: '1.7' }}>
-      <div>
-        <div style={{ fontWeight: '700', color: '#319795', marginBottom: '4px' }}>TabGroup +3 스토리</div>
-        <div>Accessible 유저 프로필 탭(CounterBadge), M3 아이콘 탭(Leading 슬롯), Accessible 설정 패널 탭(토글 인라인) 추가.</div>
-      </div>
-      <div>
-        <div style={{ fontWeight: '700', color: '#6750a4', marginBottom: '4px' }}>BoxedCheckbox +3 스토리</div>
-        <div>Accessible 플랜 기능 선택 카드, M3 약관 동의(indeterminate 전체 선택), M3 기술스택 필터 칩 패턴 추가.</div>
-      </div>
-      <div>
-        <div style={{ fontWeight: '700', color: '#319795', marginBottom: '4px' }}>CourseTracker 템플릿</div>
-        <div>FixedTabs + BoxedCheckbox 레슨 완료 + Progress 모듈 진도 + LabelBadge 리소스 타입 조합.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-{/* Cycle 67: AppUI + DataProductUI 알림 및 간격 시스템 */}
-<section style={{ marginTop: '48px' }}>
-  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', marginBottom: '8px' }}>
-    Cycle 67 — AppUI + DataProductUI 알림 & 간격 패턴
-  </h2>
-  <div style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px' }}>
-    Toast(알림 큐, 로딩 전환) + Space(폼 리듬, 카드 그리드) 컴포넌트 강화.
-  </div>
-
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>AppUI 알림 시스템 장점</h3>
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#faf5ff', border: '1px solid #e9d5ff' }}>
-      <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '6px', fontSize: '13px' }}>notifications.update() 패턴</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        동일 id로 Toast를 로딩→성공/실패로 교체. 비동기 작업 피드백의 가장 자연스러운 UX.
-        Orbit의 toast() id 재사용으로 동일하게 구현 가능.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#faf5ff', border: '1px solid #e9d5ff' }}>
-      <div style={{ fontWeight: '700', color: '#7c3aed', marginBottom: '6px', fontSize: '13px' }}>알림 큐 오버플로우 제어</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        최대 동시 표시 수 제한, cleanQueue()로 대기 알림 제거. 실시간 이벤트 시스템에서 알림 폭주 방지.
-        toast.dismiss()로 모든 알림 일괄 제거.
-      </div>
-    </div>
-  </div>
-
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>DataProductUI 간격 시스템 장점</h3>
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#f0f9ff', border: '1px solid #bae6fd' }}>
-      <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '6px', fontSize: '13px' }}>wrap 모드 인라인 간격</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        Space x prop으로 인라인 요소(태그, 칩, 버튼) 사이 일관된 수평 간격. flexWrap 없이도 줄 바꿈에 대응.
-        토큰 기반 gap으로 디자인 시스템 일관성 보장.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '12px', background: '#f0f9ff', border: '1px solid #bae6fd' }}>
-      <div style={{ fontWeight: '700', color: '#0369a1', marginBottom: '6px', fontSize: '13px' }}>폼 섹션 수직 리듬</div>
-      <div style={{ fontSize: '12px', color: '#475569', lineHeight: '1.7' }}>
-        레이블→인풋 소간격(spacingKeys[1]), 필드→필드 중간격(spacingKeys[3]), 섹션→섹션 대간격(spacingKeys[6])으로
-        계층적 시각 리듬 형성. AppUI Stack과 동일한 패턴.
-      </div>
-    </div>
-  </div>
-
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>이번 사이클 적용 결과</h3>
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
-      <span style={{ fontWeight: '700', color: '#7c3aed' }}>Toast +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>AppUI 로딩→성공 전환, AppUI 알림 큐 관리, DataProduct 배치 작업 진행 알림</span>
-    </div>
-    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
-      <span style={{ fontWeight: '700', color: '#0369a1' }}>Space +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>AppUI 폼 섹션 리듬, DataProduct 카드 그리드 간격, DataProduct 인라인 태그 x 간격</span>
-    </div>
-    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
-      <span style={{ fontWeight: '700', color: '#059669' }}>Template #57:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>InventoryManager — 재고 관리 대시보드 (카테고리 필터, 재고 바, 정렬, PageDots 페이지 인디케이터)</span>
-    </div>
-  </div>
-</section>
-
-<section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%)', borderRadius: '16px', border: '1px solid #a7f3d0' }}>
-  <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#064e3b', marginBottom: '8px' }}>Cycle 71 — PrimitiveUI + AccessibleUI 접근성 패턴</h2>
-  <div style={{ color: '#047857', fontSize: '14px', marginBottom: '24px', fontWeight: '600' }}>Modal 비제어 컴포넌트 + FloatingTextField 포커스 관리 + OTP 입력 접근성</div>
-
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>PrimitiveUI 접근성 원칙</h3>
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
-      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>비제어/제어 컴포넌트 패턴</h4>
-      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Primitive는 <code>defaultIsPresented</code>(비제어)와 <code>isPresented</code>(제어) 두 가지 모두 지원. 비제어 모드는 내부 상태를 자동 관리해 코드량을 줄이고, 제어 모드는 외부에서 완전한 상태 제어를 제공합니다.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
-      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>포커스 트래핑 & 복귀</h4>
-      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Primitive Dialog는 열릴 때 첫 포커스 가능 요소로 포커스를 이동하고, 닫힐 때 트리거 요소로 복귀합니다. Tab/Shift+Tab으로 모달 내 포커스를 순환하여 WAI-ARIA Dialog 패턴을 완전히 구현합니다.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
-      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>aria-* 시맨틱 속성</h4>
-      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        검색 필드에 <code>role="search"</code>, <code>aria-label</code>, <code>aria-autocomplete="list"</code>를 추가하면 스크린 리더가 "검색 영역" 진입을 알리고 자동완성 지원 여부를 안내합니다.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #a7f3d0' }}>
-      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#047857', marginBottom: '8px' }}>OTP 입력 포커스 관리</h4>
-      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        OTP 6자리 분할 입력에서 숫자 입력 시 다음 칸으로 자동 포커스 이동, Backspace 입력 시 이전 칸으로 복귀. <code>inputMode="numeric"</code>으로 모바일 숫자 키패드를 표시합니다.
-      </div>
-    </div>
-  </div>
-
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '16px' }}>AccessibleUI 접근성 원칙</h3>
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #bfdbfe' }}>
-      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1d4ed8', marginBottom: '8px' }}>즉각적 시각 피드백</h4>
-      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Accessible의 <code>error</code> prop은 입력 즉시 색상과 아이콘을 변경해 에러를 인지시킵니다. 비밀번호 강도 측정은 입력 중에 실시간 색상 바와 텍스트 레이블로 강도를 표시합니다.
-      </div>
-    </div>
-    <div style={{ padding: '16px', borderRadius: '10px', background: '#fff', border: '1px solid #bfdbfe' }}>
-      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1d4ed8', marginBottom: '8px' }}>단순한 props API</h4>
-      <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6' }}>
-        Accessible는 <code>isDisabled</code>, <code>isInvalid</code>, <code>isRequired</code> 같은 단순 boolean props로 접근성 속성을 자동 매핑합니다. Orbit UI도 이 패턴을 차용해 <code>disabled</code>, <code>error</code> props가 aria 속성을 자동으로 설정합니다.
-      </div>
-    </div>
-  </div>
-
-  <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#334155', marginBottom: '12px' }}>이번 사이클 적용 결과</h3>
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
-      <span style={{ fontWeight: '700', color: '#047857' }}>Modal +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>Primitive 라이트박스 이미지 미리보기, Accessible 프로필 편집 모달, Primitive+Accessible 권한 설정 체크리스트 모달</span>
-    </div>
-    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
-      <span style={{ fontWeight: '700', color: '#1d4ed8' }}>FloatingTextField +3:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>Primitive 접근성 검색 필드(aria-*), Accessible 비밀번호 강도 측정, Primitive+Accessible OTP 6자리 포커스 이동</span>
-    </div>
-    <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '13px' }}>
-      <span style={{ fontWeight: '700', color: '#7c3aed' }}>Template #61:</span>
-      <span style={{ color: '#475569', marginLeft: '8px' }}>PrimitiveAccessibleOnboarding — 4단계 온보딩 (이름 입력 → 역할 선택 → 목표 체크리스트 → 완료), SegmentedControl 테마 설정</span>
-    </div>
-  </div>
-</section>

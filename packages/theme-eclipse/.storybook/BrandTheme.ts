@@ -7,32 +7,32 @@ export default create({
   brandTitle: 'Orbit UI',
   brandUrl: '/',
 
-  // Colors
-  colorPrimary: '#6366f1',
-  colorSecondary: '#818cf8',
+  // Colors — system blue (primary5 / primary4) instead of Tailwind indigo
+  colorPrimary: '#2563eb',
+  colorSecondary: '#60a5fa',
 
-  // UI
-  appBg: '#0f0f1a',
-  appContentBg: '#13131f',
+  // UI — calm slate, no purple cast
+  appBg: '#0f1216',
+  appContentBg: '#14181d',
   appPreviewBg: '#ffffff',
-  appBorderColor: '#1e1e3a',
-  appBorderRadius: 12,
+  appBorderColor: '#262c34',
+  appBorderRadius: 10,
 
   // Text
-  textColor: '#e2e8f0',
-  textInverseColor: '#0f172a',
-  textMutedColor: '#64748b',
+  textColor: '#eef2f6',
+  textInverseColor: '#181a1c',
+  textMutedColor: '#7c8694',
 
   // Toolbar
-  barTextColor: '#94a3b8',
-  barSelectedColor: '#818cf8',
-  barHoverColor: '#a5b4fc',
-  barBg: '#0f0f1a',
+  barTextColor: '#9ba5b2',
+  barSelectedColor: '#7aa2ff',
+  barHoverColor: '#a8c0ff',
+  barBg: '#0f1216',
 
   // Form
-  inputBg: '#1a1a2e',
-  inputBorder: '#2d2d5e',
-  inputTextColor: '#e2e8f0',
+  inputBg: '#1a1f25',
+  inputBorder: '#2b323b',
+  inputTextColor: '#eef2f6',
   inputBorderRadius: 8,
 
   // Typography

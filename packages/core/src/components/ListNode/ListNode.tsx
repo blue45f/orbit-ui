@@ -162,7 +162,7 @@ const ListNodeLeading: React.FC<ListNodeLeadingProps> = ({
     {...rest}
     className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
   >
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
   </span>
 )
 
@@ -191,7 +191,7 @@ const ListNodeTrailing: React.FC<ListNodeTrailingProps> = ({
     {...rest}
     className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
   >
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
   </span>
 )
 

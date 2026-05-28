@@ -1,3 +1,6 @@
+/* Hooks */
+export * from './hooks'
+
 /* A */
 export * from './components/Accordion'
 export * from './components/AlertDialog'

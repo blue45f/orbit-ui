@@ -281,7 +281,7 @@ const TextFieldWithLabelAnimationLeading: React.FC<TextFieldWithLabelAnimationLe
     {...rest}
     className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
   >
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
   </span>
 )
 
@@ -300,7 +300,7 @@ const TextFieldWithLabelAnimationTrailing: React.FC<TextFieldWithLabelAnimationT
     {...rest}
     className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
   >
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
   </span>
 )
 
@@ -331,7 +331,7 @@ const TextFieldWithLabelAnimationClearButton: React.FC<
       onMouseDown={preventElementBlur}
       aria-label="입력 내용 지우기"
     >
-      {children || <CancelIcon size={16} />}
+      {children || <CancelIcon size={16} tone="soft" />}
     </button>
   )
 }

@@ -1,0 +1,463 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-28T00:00:00Z",
+  "title": "Design System: Orbit UI",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Cobalt",
+        "canonical": "oklch(58% 0.20 258)",
+        "tonalRamp": [
+          "#1E3A8A",
+          "#1E40AF",
+          "#1D4ED8",
+          "#2563EB",
+          "#60A5FA",
+          "#93C5FD",
+          "#BFDBFE",
+          "#DBEAFE"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary-state",
+        "displayName": "Cobalt Deep",
+        "canonical": "oklch(53% 0.21 257)"
+      },
+      "primary-tint": {
+        "role": "primary-tint",
+        "displayName": "Cobalt Tint",
+        "canonical": "oklch(94% 0.04 250)"
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Slate",
+        "canonical": "oklch(58% 0.04 251)"
+      },
+      "surface": {
+        "role": "neutral-surface",
+        "displayName": "Ash Cream",
+        "canonical": "oklch(97% 0.003 247)",
+        "tonalRamp": [
+          "#181A1C",
+          "#1E2022",
+          "#262C2A",
+          "#313335",
+          "#4B4D4F",
+          "#7E8082",
+          "#B1B3B5",
+          "#F3F5F7"
+        ]
+      },
+      "surface-elevated": {
+        "role": "neutral-surface-elevated",
+        "displayName": "Paper White",
+        "canonical": "oklch(100% 0 0)"
+      },
+      "ink": {
+        "role": "neutral-ink",
+        "displayName": "Ash Ink",
+        "canonical": "oklch(20% 0.005 251)"
+      },
+      "ink-muted": {
+        "role": "neutral-ink-2",
+        "displayName": "Ash Ink Muted",
+        "canonical": "oklch(38% 0.004 251)"
+      },
+      "ink-subtle": {
+        "role": "neutral-ink-3",
+        "displayName": "Ash Ink Subtle",
+        "canonical": "oklch(53% 0.003 251)"
+      },
+      "ink-faint": {
+        "role": "neutral-ink-4",
+        "displayName": "Ash Ink Faint",
+        "canonical": "oklch(74% 0.002 251)"
+      },
+      "border": {
+        "role": "neutral-border",
+        "displayName": "Hairline",
+        "canonical": "oklch(92% 0.003 251)"
+      },
+      "divider": {
+        "role": "neutral-divider",
+        "displayName": "Divider",
+        "canonical": "oklch(95% 0.003 251)"
+      },
+      "surface-dark": {
+        "role": "neutral-surface-dark",
+        "displayName": "Carbon",
+        "canonical": "oklch(18% 0.005 251)"
+      },
+      "surface-elevated-dark": {
+        "role": "neutral-surface-elevated-dark",
+        "displayName": "Carbon Elevated",
+        "canonical": "oklch(22% 0.005 251)"
+      },
+      "ink-dark": {
+        "role": "neutral-ink-dark",
+        "displayName": "Snow",
+        "canonical": "oklch(100% 0 0)"
+      },
+      "ink-muted-dark": {
+        "role": "neutral-ink-2-dark",
+        "displayName": "Snow Muted",
+        "canonical": "oklch(82% 0.002 251)"
+      },
+      "border-dark": {
+        "role": "neutral-border-dark",
+        "displayName": "Hairline Dark",
+        "canonical": "oklch(28% 0.005 251)"
+      },
+      "positive": {
+        "role": "status",
+        "displayName": "Positive Green",
+        "canonical": "oklch(70% 0.18 156)",
+        "tonalRamp": [
+          "#00502E",
+          "#00844D",
+          "#009F5C",
+          "#00B96B",
+          "#3BD28D",
+          "#77E6AF",
+          "#C6F6DC",
+          "#EDFDF4"
+        ]
+      },
+      "negative": {
+        "role": "status",
+        "displayName": "Negative Coral",
+        "canonical": "oklch(67% 0.22 27)",
+        "tonalRamp": [
+          "#6F1A19",
+          "#BB2523",
+          "#E52420",
+          "#FF403E",
+          "#FF6262",
+          "#FF8B8D",
+          "#FFDADB",
+          "#FFEEEF"
+        ]
+      },
+      "warning": {
+        "role": "status",
+        "displayName": "Warning Amber",
+        "canonical": "oklch(75% 0.18 60)",
+        "tonalRamp": [
+          "#6E2800",
+          "#BB4500",
+          "#FF6610",
+          "#FF8400",
+          "#FF9E3B",
+          "#FFBA77",
+          "#FFE4CF",
+          "#FFF5ED"
+        ]
+      },
+      "benefit": {
+        "role": "status",
+        "displayName": "Benefit Purple",
+        "canonical": "oklch(60% 0.22 280)",
+        "tonalRamp": [
+          "#26246E",
+          "#3605C6",
+          "#4D1AFF",
+          "#5F57FF",
+          "#7476FF",
+          "#9CA5FF",
+          "#D9DBFF",
+          "#EEF0FF"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero numbers and top-level wordmarks. Rare in product surfaces."
+      },
+      "headline": { "displayName": "Headline", "purpose": "Page titles. Once per route." },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card headers, dialog titles. Tight line-height; titles do not wrap."
+      },
+      "body": { "displayName": "Body", "purpose": "Default reading text. Wrap at 65 to 75ch." },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels and buttons. Emphasized variant (700) is the typical button face."
+      },
+      "caption": { "displayName": "Caption", "purpose": "Timestamps, footnote-density metadata." },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Code, package names, version strings, keyboard chords."
+      }
+    },
+    "shadows": [
+      {
+        "name": "level-1",
+        "value": "0px 1px 2px rgba(0, 0, 0, 0.05), 0px 1px 3px rgba(0, 0, 0, 0.02)",
+        "purpose": "Smallest hover lift for buttons inside dense data tables."
+      },
+      {
+        "name": "level-2",
+        "value": "0px 2px 4px rgba(0, 0, 0, 0.05), 0px 4px 6px rgba(0, 0, 0, 0.02)",
+        "purpose": "Dropdown menus, popovers, hover cards."
+      },
+      {
+        "name": "level-3",
+        "value": "0px 4px 6px rgba(0, 0, 0, 0.05), 0px 8px 12px rgba(0, 0, 0, 0.04)",
+        "purpose": "Drawers, side sheets, command palette."
+      },
+      {
+        "name": "level-4",
+        "value": "0px 10px 24px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.03)",
+        "purpose": "Modals, alert dialogs. Maximum lift."
+      },
+      {
+        "name": "level-1-dark",
+        "value": "0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4)",
+        "purpose": "Dark-mode hover lift; ambient layer is heavier on dark."
+      },
+      {
+        "name": "level-2-dark",
+        "value": "0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5)",
+        "purpose": "Dark-mode popovers."
+      },
+      {
+        "name": "level-3-dark",
+        "value": "0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6)",
+        "purpose": "Dark-mode drawers, modals."
+      }
+    ],
+    "motion": [
+      {
+        "name": "duration-instant",
+        "value": "0ms",
+        "purpose": "Immediate change (toggle the variable, no transition)."
+      },
+      {
+        "name": "duration-fast",
+        "value": "120ms",
+        "purpose": "Micro-feedback: button press scale, switch knob travel."
+      },
+      {
+        "name": "duration-base",
+        "value": "200ms",
+        "purpose": "Default for hover, focus ring, color change, theme swap."
+      },
+      {
+        "name": "duration-slow",
+        "value": "320ms",
+        "purpose": "Drawer open, modal entry, tab indicator slide."
+      },
+      {
+        "name": "duration-slower",
+        "value": "480ms",
+        "purpose": "Page-level transitions, large reveals."
+      },
+      {
+        "name": "easing-standard",
+        "value": "cubic-bezier(0.2, 0, 0, 1)",
+        "purpose": "Default ease-out for all state changes."
+      },
+      {
+        "name": "easing-emphasized",
+        "value": "cubic-bezier(0.3, 0, 0, 1)",
+        "purpose": "Slower-starting ease-out for emphasized motion (modal entry)."
+      },
+      {
+        "name": "easing-decelerate",
+        "value": "cubic-bezier(0, 0, 0, 1)",
+        "purpose": "Pure decelerate for objects coming to rest."
+      },
+      {
+        "name": "easing-accelerate",
+        "value": "cubic-bezier(0.3, 0, 1, 1)",
+        "purpose": "Objects leaving the screen (dismissal)."
+      },
+      {
+        "name": "easing-spring",
+        "value": "cubic-bezier(0.5, 1.6, 0.4, 0.7)",
+        "purpose": "Rare playful overshoot; reserved for celebratory micro-moments. Default no."
+      },
+      {
+        "name": "focus-ring-width",
+        "value": "2px",
+        "purpose": "Standard focus-visible ring width across all interactive components."
+      },
+      {
+        "name": "focus-ring-offset",
+        "value": "2px",
+        "purpose": "Gap between component edge and focus ring."
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "0-639px" },
+      { "name": "tablet", "value": "640-1023px" },
+      { "name": "desktop", "value": "1024-1439px" },
+      { "name": "wide", "value": "1440px+" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Solid Button (Primary)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single decisive action per screen. Cobalt fill, white ink, 8px radius, 38px medium height.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\"><span class=\"ds-btn-primary__center\">결제 진행</span><svg class=\"ds-btn-primary__trailing\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M6 4l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 12px; background: #2563EB; color: #FFFFFF; border: 0; border-radius: 8px; font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.01em; cursor: pointer; transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1), transform 120ms cubic-bezier(0.2, 0, 0, 1); } .ds-btn-primary:hover { background: #1D4ED8; } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid rgba(37, 99, 235, 0.85); outline-offset: 2px; } .ds-btn-primary:disabled { background: #EEF0F2; color: #B1B3B5; cursor: not-allowed; } .ds-btn-primary__trailing { width: 14px; height: 14px; margin-left: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action paired with a Solid primary. Transparent fill, ink text, 1px hairline border.",
+      "html": "<button class=\"ds-btn-outline\" type=\"button\">저장</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; height: 38px; padding: 0 12px; background: transparent; color: #181A1C; border: 1px solid #E4E6E8; border-radius: 8px; font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.01em; cursor: pointer; transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1), border-color 200ms cubic-bezier(0.2, 0, 0, 1); } .ds-btn-outline:hover { background: rgba(24, 26, 28, 0.04); } .ds-btn-outline:active { background: rgba(24, 26, 28, 0.08); } .ds-btn-outline:focus-visible { outline: 2px solid rgba(37, 99, 235, 0.85); outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Tertiary action: Cancel, dismissive choices. Transparent fill, ink text, no border.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">취소</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; height: 38px; padding: 0 12px; background: transparent; color: #181A1C; border: 0; border-radius: 8px; font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.01em; cursor: pointer; transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1); } .ds-btn-ghost:hover { background: rgba(24, 26, 28, 0.04); } .ds-btn-ghost:active { background: rgba(24, 26, 28, 0.08); } .ds-btn-ghost:focus-visible { outline: 2px solid rgba(37, 99, 235, 0.85); outline-offset: 2px; }"
+    },
+    {
+      "name": "Chip (Selected)",
+      "kind": "chip",
+      "refersTo": "chip-selected",
+      "description": "Active filter pill. Ash Ink fill, Paper White ink, no border. Inversion is the active signal.",
+      "html": "<span class=\"ds-chip ds-chip--selected\" role=\"button\" tabindex=\"0\">진행 중</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 4px 12px; border-radius: 12px; font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1); } .ds-chip--selected { background: #181A1C; color: #FFFFFF; border: 0; } .ds-chip--selected:hover { background: #313335; } .ds-chip--selected:focus-visible { outline: 2px solid rgba(37, 99, 235, 0.85); outline-offset: 2px; }"
+    },
+    {
+      "name": "Chip (Default)",
+      "kind": "chip",
+      "refersTo": "chip-default",
+      "description": "Inactive filter pill. Ash Cream fill, ink text, 1px hairline.",
+      "html": "<span class=\"ds-chip ds-chip--default\" role=\"button\" tabindex=\"0\">대기</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 4px 12px; border-radius: 12px; font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1); } .ds-chip--default { background: #F3F5F7; color: #181A1C; border: 1px solid #E4E6E8; } .ds-chip--default:hover { background: #EEF0F2; } .ds-chip--default:focus-visible { outline: 2px solid rgba(37, 99, 235, 0.85); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Default text field. Paper White fill, hairline border, ink text, subtle placeholder.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"이름을 입력하세요\" />",
+      "css": ".ds-input { width: 100%; height: 44px; padding: 0 14px; background: #FFFFFF; color: #181A1C; border: 1px solid #E4E6E8; border-radius: 8px; font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; font-size: 14px; line-height: 21px; transition: border-color 200ms cubic-bezier(0.2, 0, 0, 1), box-shadow 200ms cubic-bezier(0.2, 0, 0, 1); } .ds-input::placeholder { color: #787A7C; } .ds-input:hover { border-color: rgba(24, 26, 28, 0.18); } .ds-input:focus-visible { outline: none; border-color: #2563EB; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25); } .ds-input:disabled { background: #EEF0F2; color: #B1B3B5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Elevated content container. Paper White on Ash Cream pages; tonal step IS the elevation, not a shadow.",
+      "html": "<article class=\"ds-card\"><header class=\"ds-card__head\"><h3 class=\"ds-card__title\">결제 요약</h3></header><div class=\"ds-card__body\"><p class=\"ds-card__row\"><span>플랜</span><strong>Pro 월간</strong></p><p class=\"ds-card__row\"><span>결제 예정일</span><strong>2026-06-12</strong></p></div></article>",
+      "css": ".ds-card { background: #FFFFFF; color: #181A1C; border: 1px solid #E4E6E8; border-radius: 12px; padding: 16px; font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; } .ds-card__head { padding-bottom: 12px; border-bottom: 1px solid #EEF0F2; margin-bottom: 12px; } .ds-card__title { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; } .ds-card__body { display: flex; flex-direction: column; gap: 10px; } .ds-card__row { display: flex; justify-content: space-between; gap: 16px; margin: 0; font-size: 14px; } .ds-card__row span { color: #787A7C; } .ds-card__row strong { color: #181A1C; font-weight: 600; }"
+    },
+    {
+      "name": "Badge (Status)",
+      "kind": "chip",
+      "refersTo": "badge-default",
+      "description": "Inline status indicator. Status-tinted background variants share shape: 4px radius, caption weight.",
+      "html": "<span class=\"ds-badge ds-badge--positive\">완료</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 4px; font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0; line-height: 1; } .ds-badge--positive { background: rgba(0, 185, 107, 0.12); color: #00844D; } .ds-badge--negative { background: rgba(255, 64, 62, 0.1); color: #BB2523; } .ds-badge--warning { background: rgba(255, 132, 0, 0.12); color: #BB4500; } .ds-badge--neutral { background: #181A1C; color: #FFFFFF; }"
+    },
+    {
+      "name": "Tab Bar",
+      "kind": "nav",
+      "refersTo": "tabs",
+      "description": "Underline tabs. Active: 2px Cobalt underline. Never use background fill for active tabs.",
+      "html": "<nav class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab ds-tab--active\" role=\"tab\" aria-selected=\"true\">개요</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">결제</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">사용량</button></nav>",
+      "css": ".ds-tabs { display: inline-flex; gap: 0; border-bottom: 1px solid #E4E6E8; font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; } .ds-tab { position: relative; padding: 10px 16px; background: transparent; color: #787A7C; border: 0; border-bottom: 2px solid transparent; font-size: 14px; font-weight: 600; cursor: pointer; transition: color 200ms cubic-bezier(0.2, 0, 0, 1), border-color 200ms cubic-bezier(0.2, 0, 0, 1); } .ds-tab:hover { color: #181A1C; } .ds-tab--active { color: #181A1C; border-bottom-color: #2563EB; } .ds-tab:focus-visible { outline: 2px solid rgba(37, 99, 235, 0.85); outline-offset: 2px; border-radius: 4px; }"
+    },
+    {
+      "name": "Switch",
+      "kind": "custom",
+      "refersTo": "switch",
+      "description": "Toggle. Cobalt fill when on, ink-faint track when off. Knob is a circle the height of the track.",
+      "html": "<label class=\"ds-switch\"><input type=\"checkbox\" class=\"ds-switch__input\" checked /><span class=\"ds-switch__track\"><span class=\"ds-switch__knob\"></span></span></label>",
+      "css": ".ds-switch { display: inline-flex; align-items: center; cursor: pointer; } .ds-switch__input { position: absolute; opacity: 0; width: 1px; height: 1px; } .ds-switch__track { position: relative; width: 36px; height: 22px; border-radius: 9999px; background: #E4E6E8; transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1); } .ds-switch__knob { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08); transition: transform 200ms cubic-bezier(0.2, 0, 0, 1); } .ds-switch__input:checked ~ .ds-switch__track { background: #2563EB; } .ds-switch__input:checked ~ .ds-switch__track .ds-switch__knob { transform: translateX(14px); } .ds-switch__input:focus-visible ~ .ds-switch__track { outline: 2px solid rgba(37, 99, 235, 0.85); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Foundation",
+    "overview": "Orbit UI is the layer that disappears into the host product. It does not announce itself. A consumer drops in @heejun-com/theme-eclipse, ships their feature, and the system carries the weight of correctness, accessibility, and visual coherence without ever asking for attention. The aesthetic posture is consumer-led: this is a neutral palette and a calm typographic voice that amplifies whatever brand sits on top.\n\nEvery choice is made against a 56-component catalog rendered side by side. Color is restrained because a primary that screams will fight every consumer brand we sit under. Motion is sub-second because users are in a task. Elevation is whisper-soft because real depth would compete with the consumer's content. Korean and English type both must look intentional in the same paragraph, so we choose a Pretendard-first stack and never optical-tune to one script over the other.\n\nWhat this system explicitly rejects, from PRODUCT.md: 과도한 그라데이션, 네온 색상, glassmorphism, 과한 애니메이션, 과한 민트·네온. Also rejected by category: the SaaS landing-page cliché (gradient hero, stat row, identical card grids), Tailwind-default indigo #6366F1 as a primary brand color, and dark mode 'because tools look cool dark.'",
+    "keyCharacteristics": [
+      "Restrained color: tinted ash neutrals plus one calm cobalt accent, used on ≤10% of any screen.",
+      "Headless 3-tier tokens: reference → semantic → component. Consumers override at any tier without touching CSS.",
+      "Light by default, dark verified: every component ships with both modes, focus rings retuned per mode.",
+      "Pretendard-first typography: Korean and Latin glyphs balanced; weight contrast carries hierarchy.",
+      "Quiet motion: state changes only; 200ms standard, 320ms emphasized. No bounce, no choreography.",
+      "Substance over decoration: cards only when truly the best affordance, dividers via 1px hairlines, no shadows at rest."
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "The Cobalt accent appears on ≤10% of any rendered screen. Use it for the single primary action, the focus ring, the current-selection indicator, and links. Never for icon decoration, never as a card background, never as a heading underline.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinted Neutral Rule",
+        "body": "Every neutral is tinted toward the brand axis (cool, slight blue cast). Pure greys are forbidden. Reach for Ash Cream (#F3F5F7) or Carbon (#151719) as the page surface, never #fff or #000.",
+        "section": "colors"
+      },
+      {
+        "name": "The Status-Is-Not-Decoration Rule",
+        "body": "Coral, Amber, Green, Purple appear only where the semantic role applies. They are forbidden as accent decoration in headings, dividers, or illustrative graphics.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "The product never pairs two display families. Hierarchy is carried by weight (400 → 500 → 700) and scale ratio. Display fonts and editorial pairings are forbidden inside product surfaces.",
+        "section": "typography"
+      },
+      {
+        "name": "The Korean-Latin Parity Rule",
+        "body": "Pretendard is chosen because it tunes Korean and Latin glyphs to the same x-height and weight curve. Do not stack a Korean-only fallback before a Latin font.",
+        "section": "typography"
+      },
+      {
+        "name": "The 65ch Rule",
+        "body": "Body paragraphs wrap at 65–75 characters. Tables and dense UI may exceed this; reading surfaces must not.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "No element ships with a shadow at rest. Borders, color contrast, and surface tone do all default depth work. A button in its default state has zero box-shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No-Glow Rule",
+        "body": "Decorative glows (color-tinted shadows, neon underglows, accent halos) are forbidden. Shadows are ambient gray only.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do reach for Cobalt (#2563EB) as the single brand accent. Use it on the primary action, focus ring, links, current-selection indicator. Stay ≤10% of any screen.",
+      "Do convey depth through tonal layering (Ash Cream below, Paper White above) plus 1px Hairline borders. Save shadows for genuine lifts (modal, dropdown, drag).",
+      "Do use the Pretendard-first stack and let weight contrast (400 / 500 / 700) carry hierarchy.",
+      "Do ship every interactive component with the seven states (default, hover, focus-visible, active, disabled, loading, error).",
+      "Do use 200ms standard easing (cubic-bezier(0.2, 0, 0, 1)) for state transitions, 320ms emphasized for emphasized motions. Respect prefers-reduced-motion.",
+      "Do wrap reading body at 65–75ch. Tables and dense UI may run wider.",
+      "Do ship Light and Dark mode together; verify both before review.",
+      "Do use the 8px-grid spacing scale (50, 100, 150, 200, 300, 400...)."
+    ],
+    "donts": [
+      "Don't use Tailwind-default indigo (#6366F1) or its purple-leaning siblings as a primary brand accent. Cobalt (#2563EB) is the system blue.",
+      "Don't use gradient text (background-clip: text with a linear-gradient background). Use a single solid color; emphasize with weight or size.",
+      "Don't ship a hero-metric template (big number + small label, stat row, gradient accent). Replace with a spec table or editorial section.",
+      "Don't ship identical card grids stacked endlessly. Vary layout per section.",
+      "Don't apply side-stripe borders (border-left greater than 1px as a colored accent). Use a full border or a background tint.",
+      "Don't use glassmorphism (decorative backdrop-filter: blur glass surfaces) as a default. PRODUCT.md explicitly forbids it.",
+      "Don't use excessive gradients, neon, or mint/neon color (PRODUCT.md anti-references verbatim).",
+      "Don't use modals as the first thought. Exhaust inline, progressive disclosure, drawer, and popover alternatives.",
+      "Don't use decorative motion that does not convey state change, feedback, loading, or reveal.",
+      "Don't use em dashes (—) or double hyphens (--) in user-facing copy.",
+      "Don't use #000 or #fff as a page surface. Page surface is Ash Cream (#F3F5F7) in light, Carbon (#151719) in dark.",
+      "Don't introduce a second display family.",
+      "Don't add color-tinted shadows, neon underglows, or accent halos. Shadows are ambient gray only.",
+      "Don't invent fake terminals or decorative code-themed glyphs to dress up documentation. Show real components.",
+      "Don't describe the system as 'high-performance' or 'elegant'; let the components carry that claim."
+    ]
+  }
+}

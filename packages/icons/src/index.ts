@@ -1,3 +1,3 @@
 export * from './types'
 export * from './icons'
-export { IconRoot, IconPropsContext } from './IconRoot'
+export { IconRoot, IconPropsContext, type IconTone } from './IconRoot'

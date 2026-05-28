@@ -3,421 +3,1021 @@ import { Meta, Unstyled } from '@storybook/blocks'
 <Meta title='Intro/소개' />
 
 <Unstyled>
-  <div style={{
-    maxWidth: '960px',
-    margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
-  }}>
+  <style>{`
+    [data-orbit-intro] {
+      --orbit-bg: rgb(243, 245, 247);
+      --orbit-surface: rgb(255, 255, 255);
+      --orbit-surface-sunken: rgba(24, 26, 28, 0.025);
+      --orbit-ink: rgb(24, 26, 28);
+      --orbit-ink-2: rgba(24, 26, 28, 0.78);
+      --orbit-ink-3: rgba(24, 26, 28, 0.56);
+      --orbit-ink-4: rgba(24, 26, 28, 0.33);
+      --orbit-line: rgba(24, 26, 28, 0.08);
+      --orbit-line-2: rgba(24, 26, 28, 0.14);
+      --orbit-accent: rgb(37, 99, 235);
+      --orbit-accent-soft: rgba(37, 99, 235, 0.08);
+      --orbit-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Consolas, monospace;
+      --orbit-display: "Pretendard Variable", "Pretendard", system-ui, "Segoe UI", "Noto Sans KR", sans-serif;
 
-    {/* Hero Section */}
-    <div style={{
-      textAlign: 'center',
-      padding: '80px 0 60px',
-    }}>
-      <div style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '8px',
-        padding: '6px 16px',
-        borderRadius: '100px',
-        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1))',
-        border: '1px solid rgba(99, 102, 241, 0.2)',
-        marginBottom: '24px',
-        fontSize: '13px',
-        fontWeight: '600',
-        color: '#6366f1',
-        letterSpacing: '0.02em',
-      }}>
-        v2.0.0-beta.16
-      </div>
+      --btn-primary-fg: rgb(255, 255, 255);
+      --btn-primary-bg: rgb(24, 26, 28);
+      --btn-accent-bg: rgb(37, 99, 235);
+      --btn-outline-fg: rgb(24, 26, 28);
+      --btn-outline-line: rgba(24, 26, 28, 0.18);
+      --btn-ghost-fg: rgb(24, 26, 28);
+      --chip-fill: rgba(24, 26, 28, 0.05);
+      --chip-line: rgba(24, 26, 28, 0.09);
+    }
+    :root.dark [data-orbit-intro] {
+      --orbit-bg: rgb(21, 23, 25);
+      --orbit-surface: rgb(28, 31, 35);
+      --orbit-surface-sunken: rgba(255, 255, 255, 0.03);
+      --orbit-ink: rgb(247, 248, 250);
+      --orbit-ink-2: rgba(247, 248, 250, 0.78);
+      --orbit-ink-3: rgba(247, 248, 250, 0.56);
+      --orbit-ink-4: rgba(247, 248, 250, 0.36);
+      --orbit-line: rgba(255, 255, 255, 0.08);
+      --orbit-line-2: rgba(255, 255, 255, 0.14);
+      --orbit-accent: rgb(96, 165, 250);
+      --orbit-accent-soft: rgba(96, 165, 250, 0.14);
 
-      <h1 style={{
-        fontSize: 'clamp(40px, 6vw, 64px)',
-        fontWeight: '800',
-        letterSpacing: '-0.04em',
-        lineHeight: '1.1',
-        margin: '0 0 20px',
-        background: 'linear-gradient(135deg, #1e293b 0%, #475569 50%, #6366f1 100%)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-      }}>
-        Orbit UI
-      </h1>
+      --btn-primary-fg: rgb(24, 26, 28);
+      --btn-primary-bg: rgb(247, 248, 250);
+      --btn-accent-bg: rgb(96, 165, 250);
+      --btn-outline-fg: rgb(247, 248, 250);
+      --btn-outline-line: rgba(255, 255, 255, 0.22);
+      --btn-ghost-fg: rgb(247, 248, 250);
+      --chip-fill: rgba(255, 255, 255, 0.06);
+      --chip-line: rgba(255, 255, 255, 0.1);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not(.light) [data-orbit-intro] {
+        --orbit-bg: rgb(21, 23, 25);
+        --orbit-surface: rgb(28, 31, 35);
+        --orbit-surface-sunken: rgba(255, 255, 255, 0.03);
+        --orbit-ink: rgb(247, 248, 250);
+        --orbit-ink-2: rgba(247, 248, 250, 0.78);
+        --orbit-ink-3: rgba(247, 248, 250, 0.56);
+        --orbit-ink-4: rgba(247, 248, 250, 0.36);
+        --orbit-line: rgba(255, 255, 255, 0.08);
+        --orbit-line-2: rgba(255, 255, 255, 0.14);
+        --orbit-accent: rgb(96, 165, 250);
+        --orbit-accent-soft: rgba(96, 165, 250, 0.14);
+        --btn-primary-fg: rgb(24, 26, 28);
+        --btn-primary-bg: rgb(247, 248, 250);
+        --btn-accent-bg: rgb(96, 165, 250);
+        --btn-outline-fg: rgb(247, 248, 250);
+        --btn-outline-line: rgba(255, 255, 255, 0.22);
+        --btn-ghost-fg: rgb(247, 248, 250);
+        --chip-fill: rgba(255, 255, 255, 0.06);
+        --chip-line: rgba(255, 255, 255, 0.1);
+      }
+    }
 
-      <div style={{
-        fontSize: '13px',
-        fontWeight: '600',
-        letterSpacing: '0.15em',
-        textTransform: 'uppercase',
-        color: '#94a3b8',
-        margin: '0 0 24px',
-      }}>
-        Eclipse Theme
-      </div>
+    [data-orbit-intro] {
+      min-height: 100vh;
+      padding: 80px 48px 96px;
+      color: var(--orbit-ink);
+      background: var(--orbit-bg);
+      font-family: var(--orbit-display);
+      font-feature-settings: "ss01", "tnum", "cv11";
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1), color 200ms cubic-bezier(0.2, 0, 0, 1);
+    }
+    [data-orbit-intro] * { box-sizing: border-box; }
+    [data-orbit-intro] .orbit-wrap {
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
 
-      <div style={{
-        fontSize: '18px',
-        lineHeight: '1.7',
-        color: '#64748b',
-        maxWidth: '600px',
-        margin: '0 auto',
-      }}>
-        Headless & Tiered Architecture 기반의 고성능 React 디자인 시스템.
-        <br />
-        깊이감 있는 인터랙션과 정교한 디자인 언어를 제공합니다.
-      </div>
-    </div>
+    /* HEADER */
+    [data-orbit-intro] .orbit-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: end;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-intro] .orbit-wordmark {
+      margin: 0;
+      color: var(--orbit-ink);
+      font-size: clamp(56px, 7vw, 84px);
+      font-weight: 720;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+    [data-orbit-intro] .orbit-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-3);
+      text-align: right;
+      letter-spacing: 0;
+    }
+    [data-orbit-intro] .orbit-meta strong {
+      font-weight: 600;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-intro] .orbit-meta .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: var(--orbit-accent);
+      vertical-align: 1px;
+    }
 
-    {/* Stats Row */}
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      gap: '1px',
-      background: '#e2e8f0',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      marginBottom: '64px',
-    }}>
-      {[
-        { value: '50+', label: 'Components' },
-        { value: '3 PKG', label: 'npm 패키지' },
-        { value: 'A11y', label: 'WAI-ARIA' },
-        { value: 'TS', label: 'Type-safe' },
-      ].map((stat, i) => (
-        <div key={i} style={{
-          padding: '28px 16px',
-          textAlign: 'center',
-          background: '#ffffff',
-        }}>
-          <div style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.02em' }}>{stat.value}</div>
-          <div style={{ fontSize: '12px', fontWeight: '500', color: '#94a3b8', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{stat.label}</div>
+    /* TAGLINE */
+    [data-orbit-intro] .orbit-tagline {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: 48px;
+      align-items: start;
+      margin-top: 40px;
+    }
+    [data-orbit-intro] .orbit-tagline p {
+      margin: 0;
+      color: var(--orbit-ink-2);
+      font-size: 19px;
+      line-height: 1.55;
+      letter-spacing: -0.012em;
+      font-weight: 460;
+    }
+    [data-orbit-intro] .orbit-tagline aside {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--orbit-ink-3);
+    }
+    [data-orbit-intro] .orbit-tagline aside .row {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-intro] .orbit-tagline aside .row:last-child { border-bottom: 0; }
+    [data-orbit-intro] .orbit-tagline aside .row .k {
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    [data-orbit-intro] .orbit-tagline aside .row .v { color: var(--orbit-ink-2); }
+
+    /* LIVE BAND */
+    [data-orbit-intro] .orbit-live {
+      margin-top: 56px;
+      padding: 32px;
+      border: 1px solid var(--orbit-line);
+      border-radius: 14px;
+      background: var(--orbit-surface);
+    }
+    [data-orbit-intro] .orbit-live-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+    [data-orbit-intro] .orbit-live-row + .orbit-live-row { margin-top: 14px; }
+    [data-orbit-intro] .orbit-live-cap {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--orbit-line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--orbit-ink-4);
+      font-family: var(--orbit-mono);
+    }
+    [data-orbit-intro] .orbit-live-cap em {
+      font-style: normal;
+      color: var(--orbit-ink-3);
+    }
+
+    [data-orbit-intro] .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 16px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      font-family: var(--orbit-display);
+      font-size: 14.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: transform 120ms cubic-bezier(0.2, 0, 0, 1), background-color 120ms ease;
+      cursor: default;
+    }
+    [data-orbit-intro] .btn-primary {
+      color: var(--btn-primary-fg);
+      background: var(--btn-primary-bg);
+    }
+    [data-orbit-intro] .btn-accent {
+      color: rgb(255, 255, 255);
+      background: var(--btn-accent-bg);
+    }
+    :root.dark [data-orbit-intro] .btn-accent { color: rgb(15, 17, 19); }
+    [data-orbit-intro] .btn-outline {
+      color: var(--btn-outline-fg);
+      background: transparent;
+      border-color: var(--btn-outline-line);
+    }
+    [data-orbit-intro] .btn-ghost {
+      color: var(--btn-ghost-fg);
+      background: transparent;
+    }
+    [data-orbit-intro] .btn-sm { height: 30px; padding: 0 12px; font-size: 13px; border-radius: 8px; }
+    [data-orbit-intro] .btn-lg { height: 46px; padding: 0 20px; font-size: 16px; border-radius: 12px; }
+    [data-orbit-intro] .btn .glyph {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.6;
+    }
+
+    [data-orbit-intro] .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: var(--chip-fill);
+      border: 1px solid var(--chip-line);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-intro] .chip .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--orbit-accent);
+    }
+    [data-orbit-intro] .chip-mono {
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      letter-spacing: -0.01em;
+    }
+
+    [data-orbit-intro] .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px;
+      border-radius: 999px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+    }
+    [data-orbit-intro] .toggle .knob {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--orbit-accent);
+    }
+    [data-orbit-intro] .toggle .track {
+      width: 24px; height: 2px;
+      background: var(--orbit-line-2);
+      border-radius: 999px;
+    }
+    [data-orbit-intro] .toggle .knob.off { background: var(--orbit-ink-4); }
+
+    [data-orbit-intro] .field {
+      flex: 1 1 240px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 10px;
+      background: var(--orbit-bg);
+      border: 1px solid var(--orbit-line-2);
+      color: var(--orbit-ink-3);
+      font-size: 14px;
+    }
+    [data-orbit-intro] .field .cursor {
+      width: 1px;
+      height: 16px;
+      background: var(--orbit-accent);
+      animation: orbit-blink 1.1s steps(1) infinite;
+    }
+    @keyframes orbit-blink { 50% { opacity: 0; } }
+
+    /* SPEC SHEET */
+    [data-orbit-intro] .orbit-spec {
+      margin-top: 80px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--orbit-line-2);
+      border-bottom: 1px solid var(--orbit-line-2);
+    }
+    [data-orbit-intro] .orbit-spec .cell {
+      padding: 22px 22px 22px 0;
+      border-right: 1px solid var(--orbit-line);
+    }
+    [data-orbit-intro] .orbit-spec .cell:nth-child(n+2) { padding-left: 22px; }
+    [data-orbit-intro] .orbit-spec .cell:last-child { border-right: 0; padding-right: 0; }
+    [data-orbit-intro] .orbit-spec .k {
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-intro] .orbit-spec .v {
+      margin-top: 10px;
+      font-size: 28px;
+      font-weight: 660;
+      letter-spacing: -0.025em;
+      color: var(--orbit-ink);
+      line-height: 1.1;
+    }
+    [data-orbit-intro] .orbit-spec .v .unit {
+      margin-left: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--orbit-ink-3);
+      letter-spacing: 0;
+    }
+    [data-orbit-intro] .orbit-spec .sub {
+      margin-top: 6px;
+      font-size: 12.5px;
+      color: var(--orbit-ink-3);
+      line-height: 1.5;
+    }
+
+    /* SECTION HEAD */
+    [data-orbit-intro] .orbit-sect {
+      margin-top: 96px;
+    }
+    [data-orbit-intro] .orbit-sect-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-intro] .orbit-sect-head h2 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 680;
+      letter-spacing: -0.02em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-intro] .orbit-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    [data-orbit-intro] .orbit-eyebrow .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 18px;
+      padding: 0 6px;
+      border-radius: 4px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      color: var(--orbit-ink-3);
+      font-size: 10.5px;
+    }
+
+    /* ANATOMY */
+    [data-orbit-intro] .orbit-anatomy {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 56px;
+      align-items: start;
+    }
+    [data-orbit-intro] .orbit-anatomy-stage {
+      position: relative;
+      padding: 56px 32px 80px;
+      border-radius: 16px;
+      background: var(--orbit-surface);
+      border: 1px solid var(--orbit-line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    [data-orbit-intro] .orbit-anatomy-stage::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 1px 1px, var(--orbit-line) 1px, transparent 0);
+      background-size: 16px 16px;
+      opacity: 0.5;
+      mask-image: linear-gradient(180deg, transparent, black 30%, black 70%, transparent);
+    }
+    [data-orbit-intro] .orbit-anatomy-stage .pin {
+      position: absolute;
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      color: var(--orbit-ink-3);
+      letter-spacing: 0;
+    }
+    [data-orbit-intro] .orbit-anatomy-stage .pin::before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 24px;
+      height: 1px;
+      margin-right: 6px;
+      background: var(--orbit-line-2);
+    }
+    [data-orbit-intro] .orbit-anatomy-stage .pin.tl { top: 22px; left: 28px; }
+    [data-orbit-intro] .orbit-anatomy-stage .pin.bl { bottom: 22px; left: 28px; }
+    [data-orbit-intro] .orbit-anatomy-stage .pin.tr {
+      top: 22px; right: 28px;
+    }
+    [data-orbit-intro] .orbit-anatomy-stage .pin.tr::before {
+      margin-right: 0; margin-left: 6px;
+    }
+    [data-orbit-intro] .orbit-anatomy-stage .pin.br {
+      bottom: 22px; right: 28px;
+    }
+    [data-orbit-intro] .orbit-anatomy-stage .pin.br::before {
+      margin-right: 0; margin-left: 6px;
+    }
+    [data-orbit-intro] .orbit-anatomy-stage .target {
+      position: relative;
+      padding: 4px;
+      border-radius: 14px;
+      background: var(--orbit-accent-soft);
+      box-shadow: 0 0 0 1px var(--orbit-accent) inset;
+    }
+    [data-orbit-intro] .orbit-anatomy-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    [data-orbit-intro] .orbit-anatomy-list .item {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 14px;
+    }
+    [data-orbit-intro] .orbit-anatomy-list .num {
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-4);
+      padding-top: 3px;
+    }
+    [data-orbit-intro] .orbit-anatomy-list h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      font-weight: 640;
+      color: var(--orbit-ink);
+      letter-spacing: -0.012em;
+    }
+    [data-orbit-intro] .orbit-anatomy-list .item code {
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-intro] .orbit-anatomy-list p {
+      margin: 0;
+      font-size: 14.5px;
+      line-height: 1.62;
+      color: var(--orbit-ink-3);
+    }
+
+    /* WHAT'S NEW */
+    [data-orbit-intro] .orbit-changelog {
+      margin-top: 32px;
+    }
+    [data-orbit-intro] .orbit-changelog .entry {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 32px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-intro] .orbit-changelog .entry:last-child { border-bottom: 0; }
+    [data-orbit-intro] .orbit-changelog .tag {
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding-top: 4px;
+    }
+    [data-orbit-intro] .orbit-changelog .body h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+      font-weight: 640;
+      letter-spacing: -0.012em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-intro] .orbit-changelog .body p {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--orbit-ink-3);
+      line-height: 1.62;
+    }
+    [data-orbit-intro] .orbit-changelog .body p code {
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink-2);
+    }
+
+    /* PACKAGES */
+    [data-orbit-intro] .orbit-pkgs {
+      margin-top: 24px;
+    }
+    [data-orbit-intro] .orbit-pkgs .pkg {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: center;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-intro] .orbit-pkgs .pkg:last-child { border-bottom: 0; }
+    [data-orbit-intro] .orbit-pkgs .pkg-name {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    [data-orbit-intro] .orbit-pkgs .pkg-name code {
+      font-family: var(--orbit-mono);
+      font-size: 15.5px;
+      font-weight: 580;
+      color: var(--orbit-ink);
+      letter-spacing: -0.01em;
+    }
+    [data-orbit-intro] .orbit-pkgs .pkg-name .badge {
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      color: var(--orbit-ink-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    [data-orbit-intro] .orbit-pkgs .pkg-name .badge.is-rec {
+      color: var(--orbit-accent);
+      border-color: var(--orbit-accent-soft);
+      background: var(--orbit-accent-soft);
+    }
+    [data-orbit-intro] .orbit-pkgs .pkg-desc {
+      font-size: 14px;
+      color: var(--orbit-ink-3);
+      line-height: 1.6;
+    }
+    [data-orbit-intro] .orbit-pkgs .pkg-install {
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      color: var(--orbit-ink-2);
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      white-space: nowrap;
+    }
+    [data-orbit-intro] .orbit-pkgs .pkg-install .prompt { color: var(--orbit-ink-4); margin-right: 6px; }
+
+    /* BROWSE */
+    [data-orbit-intro] .orbit-browse {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 48px;
+    }
+    [data-orbit-intro] .orbit-browse a {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--orbit-line);
+      color: var(--orbit-ink);
+      text-decoration: none !important;
+      transition: padding 160ms cubic-bezier(0.2, 0, 0, 1);
+    }
+    [data-orbit-intro] .orbit-browse a:hover {
+      padding-left: 6px;
+    }
+    [data-orbit-intro] .orbit-browse a:hover .arrow {
+      color: var(--orbit-accent);
+      transform: translateX(4px);
+    }
+    [data-orbit-intro] .orbit-browse a .name {
+      font-size: 15px;
+      font-weight: 580;
+      letter-spacing: -0.012em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-intro] .orbit-browse a .hint {
+      display: block;
+      margin-top: 3px;
+      font-size: 12.5px;
+      color: var(--orbit-ink-4);
+      font-weight: 460;
+    }
+    [data-orbit-intro] .orbit-browse a .arrow {
+      font-family: var(--orbit-mono);
+      font-size: 14px;
+      color: var(--orbit-ink-4);
+      transition: transform 160ms cubic-bezier(0.2, 0, 0, 1), color 160ms ease;
+    }
+
+    /* FOOTER */
+    [data-orbit-intro] .orbit-foot {
+      margin-top: 96px;
+      padding-top: 28px;
+      border-top: 1px solid var(--orbit-line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-4);
+      letter-spacing: 0.02em;
+    }
+    [data-orbit-intro] .orbit-foot .sig {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    [data-orbit-intro] .orbit-foot .sig .pulse {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orbit-accent);
+      box-shadow: 0 0 0 4px var(--orbit-accent-soft);
+    }
+
+    @media (max-width: 760px) {
+      [data-orbit-intro] { padding: 56px 22px 72px; }
+      [data-orbit-intro] .orbit-header {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+      [data-orbit-intro] .orbit-meta {
+        align-items: flex-start;
+        text-align: left;
+      }
+      [data-orbit-intro] .orbit-tagline {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      [data-orbit-intro] .orbit-spec { grid-template-columns: repeat(2, 1fr); }
+      [data-orbit-intro] .orbit-spec .cell { padding: 18px 16px; border-right: 1px solid var(--orbit-line); }
+      [data-orbit-intro] .orbit-spec .cell:nth-child(2n) { border-right: 0; }
+      [data-orbit-intro] .orbit-spec .cell:nth-child(-n+2) { border-bottom: 1px solid var(--orbit-line); }
+      [data-orbit-intro] .orbit-anatomy { grid-template-columns: 1fr; gap: 36px; }
+      [data-orbit-intro] .orbit-pkgs .pkg { grid-template-columns: 1fr; gap: 12px; }
+      [data-orbit-intro] .orbit-changelog .entry { grid-template-columns: 1fr; gap: 6px; }
+      [data-orbit-intro] .orbit-browse { grid-template-columns: 1fr; }
+      [data-orbit-intro] .orbit-foot { flex-direction: column; gap: 8px; align-items: flex-start; }
+    }
+  `}</style>
+
+  <div data-orbit-intro>
+    <div className='orbit-wrap'>
+
+      {/* HEADER */}
+      <header className='orbit-header'>
+        <h1 className='orbit-wordmark'>Orbit&nbsp;UI</h1>
+        <div className='orbit-meta'>
+          <div><span className='dot' /><strong>v2.0.0-beta.16</strong></div>
+          <div>cycle&nbsp;192&nbsp;·&nbsp;released&nbsp;2026.05</div>
         </div>
-      ))}
-    </div>
+      </header>
 
-    {/* What's new — Cycle 192 */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <div style={{ fontSize: '12px', fontWeight: '700', color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.1em' }}>What&apos;s New</div>
-        <div style={{ height: '1px', flex: 1, background: 'linear-gradient(90deg, rgba(16,185,129,0.4), transparent)' }} />
-        <div style={{ fontSize: '11px', fontWeight: '600', color: '#10b981', padding: '3px 10px', borderRadius: '999px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }}>Cycle 192</div>
-      </div>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: '0 0 20px' }}>토큰 시스템 + 접근성 강화</h2>
+      {/* TAGLINE */}
+      <section className='orbit-tagline'>
+        <p>
+          Headless React 디자인 시스템. 토큰·접근성·다크 모드를 기본값으로 두고,
+          어떤 프로덕트에도 무리 없이 녹아드는 중립적인 시각 언어를 제공합니다.
+        </p>
+        <aside>
+          <div className='row'><div className='k'>Layers</div><div className='v'>icons · core · theme</div></div>
+          <div className='row'><div className='k'>Engine</div><div className='v'>React 18·19, TypeScript 5.7+</div></div>
+          <div className='row'><div className='k'>License</div><div className='v'>MIT</div></div>
+        </aside>
+      </section>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
-        {[
-          {
-            tag: 'Motion Tokens',
-            title: 'duration / easing / reduced-motion',
-            desc: '5단계 duration(instant→slower)과 5종 easing 곡선을 CSS 변수로 노출합니다. prefers-reduced-motion 미디어쿼리가 글로벌로 주입됩니다.',
-            color: '#6366f1',
-          },
-          {
-            tag: 'Focus Ring',
-            title: 'focus-visible 정책 일원화',
-            desc: 'WCAG 2.4.7/2.4.11 권고를 따르는 ring-width / offset / color 토큰을 라이트·다크 모드별로 정의했습니다.',
-            color: '#a855f7',
-          },
-          {
-            tag: 'DataTable',
-            title: 'forwardRef + ARIA + 키보드 네비',
-            desc: 'aria-sort / aria-selected / aria-busy 지원, Enter·Space 키로 정렬 토글, focus-visible outline, 접근 가능한 페이지네이션 내비.',
-            color: '#3b82f6',
-          },
-          {
-            tag: 'Templates',
-            title: 'Billing + IssueTracker 결제 센터',
-            desc: '청구·플랜·결제수단·사용량 5개 섹션 + Billing 인보이스 테이블 + IssueTracker ⌘K chord 힌트가 통합된 새 벤치마크.',
-            color: '#ec4899',
-          },
-        ].map((item, i) => (
-          <div key={i} style={{
-            padding: '20px 22px',
-            borderRadius: '14px',
-            border: '1px solid #e2e8f0',
-            background: '#ffffff',
-            transition: 'all 200ms cubic-bezier(0.2, 0, 0, 1)',
-          }}>
-            <div style={{ fontSize: '10px', fontWeight: '700', color: item.color, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px' }}>{item.tag}</div>
-            <div style={{ fontSize: '15px', fontWeight: '700', color: '#0f172a', marginBottom: '6px', letterSpacing: '-0.01em' }}>{item.title}</div>
-            <div style={{ fontSize: '12.5px', color: '#64748b', lineHeight: 1.65 }}>{item.desc}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Architecture Section */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{ marginBottom: '32px' }}>
-        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Architecture</div>
-        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>확장성을 위한 설계</h2>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-        {[
-          {
-            icon: '{ }',
-            title: 'Slot Pattern',
-            desc: 'Leading, Center, Trailing 서브 컴포넌트로 내부 로직 변경 없이 유연하게 구성',
-            color: '#6366f1',
-            bg: 'rgba(99, 102, 241, 0.06)',
-          },
-          {
-            icon: '</>',
-            title: 'Polymorphic',
-            desc: 'as prop으로 시각적 스타일은 유지하면서 렌더링 태그를 자유롭게 변경',
-            color: '#8b5cf6',
-            bg: 'rgba(139, 92, 246, 0.06)',
-          },
-          {
-            icon: '\u25D0',
-            title: 'Theme Control',
-            desc: 'EclipseProvider로 light/dark 모드, mobile/pc 플랫폼을 전역 제어',
-            color: '#a855f7',
-            bg: 'rgba(168, 85, 247, 0.06)',
-          },
-        ].map((item, i) => (
-          <div key={i} style={{
-            padding: '28px',
-            borderRadius: '16px',
-            border: '1px solid #f1f5f9',
-            background: item.bg,
-            transition: 'all 0.2s ease',
-          }}>
-            <div style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '10px',
-              background: item.color,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              fontSize: '16px',
-              fontWeight: '700',
-              marginBottom: '16px',
-              fontFamily: '"JetBrains Mono", monospace',
-            }}>{item.icon}</div>
-            <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px', letterSpacing: '-0.01em' }}>{item.title}</h3>
-            <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>{item.desc}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Code Example */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{
-        borderRadius: '16px',
-        border: '1px solid #e2e8f0',
-        overflow: 'hidden',
-      }}>
-        <div style={{
-          padding: '12px 20px',
-          background: 'linear-gradient(180deg, #f8fafc, #f1f5f9)',
-          borderBottom: '1px solid #e2e8f0',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}>
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#f87171' }} />
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#fbbf24' }} />
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#34d399' }} />
-          <span style={{ marginLeft: '12px', fontSize: '12px', color: '#94a3b8', fontWeight: '500' }}>Compound Component Example</span>
+      {/* LIVE BAND */}
+      <section className='orbit-live'>
+        <div className='orbit-live-row'>
+          <button type='button' className='btn btn-primary'>
+            <svg className='glyph' viewBox='0 0 16 16'><path d='M8 3v10M3 8h10' /></svg>
+            새 프로젝트
+          </button>
+          <button type='button' className='btn btn-accent'>결제 진행</button>
+          <button type='button' className='btn btn-outline'>저장</button>
+          <button type='button' className='btn btn-ghost'>취소</button>
+          <span className='chip'><span className='dot' />Live</span>
+          <span className='chip chip-mono'>⌘&nbsp;K</span>
         </div>
-        <pre style={{
-          margin: 0,
-          padding: '24px',
-          background: '#0f172a',
-          color: '#e2e8f0',
-          fontSize: '13px',
-          lineHeight: '1.8',
-          fontFamily: '"JetBrains Mono", "Fira Code", monospace',
-          overflow: 'auto',
-        }}>
-{`<SolidButton>
-  <SolidButton.Leading>
-    <PlusIcon />
-  </SolidButton.Leading>
-  <SolidButton.Center>
-    새 항목 추가
-  </SolidButton.Center>
-  <SolidButton.Trailing>
-    <ChevronRightIcon />
-  </SolidButton.Trailing>
-</SolidButton>`}
-        </pre>
-      </div>
-    </section>
-
-    {/* Design Philosophy */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{ marginBottom: '32px' }}>
-        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Design Philosophy</div>
-        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>감각적 사용자 경험</h2>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-        {[
-          { title: 'Layered Elevation', desc: '다층적 Elevation 시스템으로 컴포넌트 계층을 우아하게 분리합니다. 빛의 물리적 특성을 고려한 자연스러운 깊이감을 제공합니다.', icon: '\u25A3' },
-          { title: 'Haptic Feedback', desc: '버튼 클릭의 미세한 스케일 변화, 토글의 탄성 있는 움직임 등 물리적 피드백을 디지털로 구현합니다.', icon: '\u2726' },
-          { title: 'Visual Harmony', desc: '아이콘, 컬러, 간격 토큰 모두 엄격한 8px 그리드 시스템으로 관리되어 어떤 조합에서도 조화로운 UI를 보장합니다.', icon: '\u25C9' },
-          { title: 'Motion Design', desc: '고성능 Animation 엔진으로 자연스러운 트랜지션과 Presence 애니메이션을 손쉽게 적용할 수 있습니다.', icon: '\u27A4' },
-        ].map((item, i) => (
-          <div key={i} style={{
-            padding: '24px',
-            borderRadius: '12px',
-            border: '1px solid #f1f5f9',
-            background: '#fafafa',
-          }}>
-            <div style={{ fontSize: '20px', marginBottom: '12px' }}>{item.icon}</div>
-            <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px' }}>{item.title}</h3>
-            <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.65', margin: 0 }}>{item.desc}</div>
+        <div className='orbit-live-row'>
+          <div className='field'>
+            <span style={{ color: 'var(--orbit-ink-4)' }}>Search components</span>
+            <span style={{ flex: 1 }} />
+            <span className='cursor' />
           </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Utility Components */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{ marginBottom: '32px' }}>
-        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Utilities</div>
-        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>레이아웃 & 애니메이션</h2>
-      </div>
-
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '12px',
-      }}>
-        {[
-          { name: 'Flex', desc: 'Flexbox 래퍼', color: '#3b82f6' },
-          { name: 'Space', desc: '스페이싱 유틸리티', color: '#10b981' },
-          { name: 'Animation', desc: '트랜지션 엔진', color: '#f59e0b' },
-          { name: 'Presence', desc: '조건부 애니메이션', color: '#ef4444' },
-        ].map((item, i) => (
-          <div key={i} style={{
-            padding: '20px',
-            borderRadius: '12px',
-            border: '1px solid #f1f5f9',
-            textAlign: 'center',
-          }}>
-            <div style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              background: item.color,
-              margin: '0 auto 12px',
-            }} />
-            <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{item.name}</div>
-            <div style={{ fontSize: '12px', color: '#94a3b8' }}>{item.desc}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* NPM Package Overview */}
-    <section style={{ marginBottom: '64px' }}>
-      <div style={{ marginBottom: '24px' }}>
-        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>npm Packages</div>
-        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: '0 0 8px' }}>3개 독립 패키지 구성</h2>
-        <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', margin: 0 }}>
-          각 패키지는 독립적으로 설치하고 사용할 수 있어, 프로젝트 필요에 따라 선택적으로 도입할 수 있습니다.
+          <span className='toggle' aria-label='switch on'><span className='track' /><span className='knob' /></span>
+          <span className='toggle' aria-label='switch off'><span className='knob off' /><span className='track' /></span>
+          <button type='button' className='btn btn-outline btn-sm'>Cmd&nbsp;Palette</button>
         </div>
-      </div>
+        <div className='orbit-live-cap'>
+          <em>위 컴포넌트는 토큰 미리보기입니다. 실제 동작은 각 컴포넌트 페이지에서.</em>
+          <span>SolidButton · OutlineButton · GhostButton · Chip · Switch</span>
+        </div>
+      </section>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-        {[
-          {
-            name: '@heejun-com/icons',
-            badge: 'Zero-dep',
-            badgeColor: '#d97706',
-            badgeBg: 'rgba(245,158,11,0.1)',
-            border: '#fbbf24',
-            bg: 'rgba(245,158,11,0.04)',
-            desc: '순수 SVG 아이콘 컴포넌트. 어떤 프레임워크/테마와도 독립적으로 사용 가능.',
-            install: 'pnpm add @heejun-com/icons',
-            code: '#d97706',
-          },
-          {
-            name: '@heejun-com/core',
-            badge: 'Headless',
-            badgeColor: '#2563eb',
-            badgeBg: 'rgba(59,130,246,0.1)',
-            border: '#93c5fd',
-            bg: 'rgba(59,130,246,0.04)',
-            desc: 'Headless 컴포넌트. 접근성/상태 로직만 담고 theme prop으로 스타일 주입.',
-            install: 'pnpm add @heejun-com/core',
-            code: '#2563eb',
-          },
-          {
-            name: '@heejun-com/theme-eclipse',
-            badge: 'Recommended',
-            badgeColor: '#6366f1',
-            badgeBg: 'rgba(99,102,241,0.1)',
-            border: '#a5b4fc',
-            bg: 'rgba(99,102,241,0.04)',
-            desc: '디자인 토큰 적용 완성 컴포넌트. 대부분의 프로젝트에서 이것만 설치하면 됩니다.',
-            install: 'pnpm add @heejun-com/theme-eclipse @heejun-com/icons',
-            code: '#6366f1',
-          },
-        ].map((pkg, i) => (
-          <div key={i} style={{
-            borderRadius: '14px',
-            border: `1px solid ${pkg.border}`,
-            background: pkg.bg,
-            padding: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
-              <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: pkg.badgeBg, color: pkg.badgeColor, fontWeight: '700' }}>{pkg.badge}</span>
+      {/* SPEC SHEET */}
+      <section className='orbit-spec' aria-label='Specifications'>
+        <div className='cell'>
+          <div className='k'>Components</div>
+          <div className='v'>56</div>
+          <div className='sub'>버튼·입력·피드백·네비게이션·레이아웃.</div>
+        </div>
+        <div className='cell'>
+          <div className='k'>Icons</div>
+          <div className='v'>332</div>
+          <div className='sub'>Line·Fill 두 스타일, 16/20/24px 옵티컬.</div>
+        </div>
+        <div className='cell'>
+          <div className='k'>Foundations</div>
+          <div className='v'>3<span className='unit'>tier</span></div>
+          <div className='sub'>reference → semantic → component 토큰.</div>
+        </div>
+        <div className='cell'>
+          <div className='k'>Accessibility</div>
+          <div className='v'>AA<span className='unit'>WCAG</span></div>
+          <div className='sub'>focus-visible, ARIA, 키보드 chord 지원.</div>
+        </div>
+      </section>
+
+      {/* ANATOMY */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>01</span>Anatomy</div>
+            <h2 style={{ marginTop: '10px' }}>Compound, polymorphic, themable.</h2>
+          </div>
+          <span className='orbit-eyebrow'>3 patterns</span>
+        </div>
+
+        <div className='orbit-anatomy'>
+          <div className='orbit-anatomy-stage'>
+            <span className='pin tl'>Leading slot</span>
+            <span className='pin tr'>Trailing slot</span>
+            <span className='pin bl'>color = primary</span>
+            <span className='pin br'>size = medium</span>
+            <div className='target'>
+              <button type='button' className='btn btn-accent btn-lg' style={{ pointerEvents: 'none' }}>
+                <svg className='glyph' viewBox='0 0 16 16' style={{ width: 16, height: 16 }}>
+                  <path d='M8 3v10M3 8h10' />
+                </svg>
+                결제 진행
+                <svg className='glyph' viewBox='0 0 16 16' style={{ width: 14, height: 14, marginLeft: 4 }}>
+                  <path d='M6 4l4 4-4 4' />
+                </svg>
+              </button>
             </div>
-            <code style={{ fontSize: '12px', fontWeight: '700', color: pkg.code, wordBreak: 'break-all' }}>{pkg.name}</code>
-            <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6', margin: 0, flexGrow: 1 }}>{pkg.desc}</div>
-            <pre style={{ margin: 0, padding: '8px 10px', background: '#0f172a', borderRadius: '6px', color: '#e2e8f0', fontSize: '10px', fontFamily: '"JetBrains Mono", monospace', wordBreak: 'break-all', whiteSpace: 'pre-wrap' }}>{pkg.install}</pre>
           </div>
-        ))}
-      </div>
-    </section>
 
-    {/* Quick Navigation */}
-    <section style={{ marginBottom: '40px' }}>
-      <div style={{ marginBottom: '24px' }}>
-        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Quick Navigation</div>
-        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: 0 }}>빠른 탐색</h2>
-      </div>
+          <div className='orbit-anatomy-list'>
+            <div className='item'>
+              <div className='num'>01</div>
+              <div>
+                <h3>슬롯 컴파운드</h3>
+                <p>
+                  <code>Leading</code>·<code>Center</code>·<code>Trailing</code> 세 슬롯으로
+                  시각 구조와 로직을 분리합니다. 콘텐츠 변경이 컴포넌트 내부를 건드리지 않습니다.
+                </p>
+              </div>
+            </div>
+            <div className='item'>
+              <div className='num'>02</div>
+              <div>
+                <h3>폴리모픽</h3>
+                <p>
+                  <code>as</code> 프롭으로 렌더링 태그를 자유롭게 교체합니다.
+                  버튼 시각을 유지한 채 <code>{'<a href />'}</code>, 라우터 링크, <code>{'<label />'}</code> 어떤 것으로도.
+                </p>
+              </div>
+            </div>
+            <div className='item'>
+              <div className='num'>03</div>
+              <div>
+                <h3>테마 프롭</h3>
+                <p>
+                  CSS 변경 없이 <code>theme</code> 프롭만으로 토큰을 부분 오버라이드합니다.
+                  특정 페이지에만 다른 컬러·라운드·간격을 적용하는 데 적합합니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-        {[
-          { title: '시작하기', desc: '설치 및 환경 설정', href: '?path=/docs/intro-시작하기--docs' },
-          { title: '컴포넌트 개요', desc: '전체 컴포넌트 목록', href: '?path=/docs/intro-컴포넌트-개요--docs' },
-          { title: '디자인 토큰', desc: '컬러, 타이포그래피, 스페이싱', href: '?path=/docs/intro-디자인토큰--docs' },
-          { title: '아이콘 카탈로그', desc: 'Line & Fill 아이콘 갤러리', href: '?path=/docs/intro-아이콘-카탈로그--docs' },
-          { title: '아키텍처 & npm 패키지', desc: '3-Tier 구조, 3개 패키지 분리 이유', href: '?path=/docs/intro-아키텍처--docs' },
-          { title: '테마 가이드', desc: 'Light/Dark 모드 시스템', href: '?path=/docs/intro-테마-가이드--docs' },
-        ].map((item, i) => (
-          <a key={i} href={item.href} style={{
-            padding: '20px 24px',
-            borderRadius: '12px',
-            border: '1px solid #e2e8f0',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            cursor: 'pointer',
-            background: '#ffffff',
-            textDecoration: 'none',
-          }}>
+      {/* WHAT'S NEW */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>02</span>Cycle&nbsp;192</div>
+            <h2 style={{ marginTop: '10px' }}>토큰 시스템과 접근성, 한 번 더 단단하게.</h2>
+          </div>
+          <span className='orbit-eyebrow'>2026.05.21</span>
+        </div>
+
+        <div className='orbit-changelog'>
+          <div className='entry'>
+            <div className='tag'>Motion</div>
+            <div className='body'>
+              <h3>duration / easing / reduced-motion 토큰</h3>
+              <p>
+                <code>instant</code>부터 <code>slower</code>까지 5단계 duration과 5종 easing 곡선을 CSS 변수로 노출했습니다.
+                <code>prefers-reduced-motion</code> 미디어쿼리도 글로벌로 주입됩니다.
+              </p>
+            </div>
+          </div>
+          <div className='entry'>
+            <div className='tag'>A11y</div>
+            <div className='body'>
+              <h3>focus-visible 정책 일원화</h3>
+              <p>
+                WCAG 2.4.7·2.4.11 권고를 따르는 ring-width, offset, color 토큰을 라이트·다크 모드별로 정의했습니다.
+                포커스 트래블이 모든 인터랙티브 컴포넌트에서 동일한 시각 언어를 가집니다.
+              </p>
+            </div>
+          </div>
+          <div className='entry'>
+            <div className='tag'>Data</div>
+            <div className='body'>
+              <h3>DataTable forwardRef · ARIA · 키보드 내비</h3>
+              <p>
+                <code>aria-sort</code>·<code>aria-selected</code>·<code>aria-busy</code> 지원과 Enter·Space 키 정렬 토글,
+                focus-visible outline, 접근 가능한 페이지네이션을 추가했습니다.
+              </p>
+            </div>
+          </div>
+          <div className='entry'>
+            <div className='tag'>Templates</div>
+            <div className='body'>
+              <h3>Billing + IssueTracker 결제 센터</h3>
+              <p>
+                청구·플랜·결제수단·사용량 5개 섹션 + Billing 인보이스 테이블 + IssueTracker <code>⌘K</code> chord 힌트가
+                통합된 새 벤치마크 템플릿을 제공합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PACKAGES */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>03</span>Packages</div>
+            <h2 style={{ marginTop: '10px' }}>세 패키지, 세 레이어.</h2>
+          </div>
+          <span className='orbit-eyebrow'>npm</span>
+        </div>
+
+        <div className='orbit-pkgs'>
+          <div className='pkg'>
+            <div className='pkg-name'>
+              <code>@heejun-com/icons</code>
+              <span className='badge'>zero-dep</span>
+            </div>
+            <div className='pkg-desc'>순수 SVG 아이콘. 어떤 프레임워크·테마와도 독립적.</div>
+            <div className='pkg-install'><span className='prompt'>$</span>pnpm add @heejun-com/icons</div>
+          </div>
+          <div className='pkg'>
+            <div className='pkg-name'>
+              <code>@heejun-com/core</code>
+              <span className='badge'>headless</span>
+            </div>
+            <div className='pkg-desc'>접근성·상태 로직만 담은 프리미티브. <code style={{ fontFamily: 'var(--orbit-mono)' }}>theme</code> 프롭으로 스타일 주입.</div>
+            <div className='pkg-install'><span className='prompt'>$</span>pnpm add @heejun-com/core</div>
+          </div>
+          <div className='pkg'>
+            <div className='pkg-name'>
+              <code>@heejun-com/theme-eclipse</code>
+              <span className='badge is-rec'>recommended</span>
+            </div>
+            <div className='pkg-desc'>토큰 적용 완성 컴포넌트. 대부분의 프로젝트는 이것 하나로.</div>
+            <div className='pkg-install'><span className='prompt'>$</span>pnpm add @heejun-com/theme-eclipse @heejun-com/icons</div>
+          </div>
+        </div>
+      </section>
+
+      {/* BROWSE */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>04</span>Browse</div>
+            <h2 style={{ marginTop: '10px' }}>시스템 둘러보기.</h2>
+          </div>
+          <span className='orbit-eyebrow'>10 docs</span>
+        </div>
+
+        <nav className='orbit-browse'>
+          <a href='?path=/docs/intro-시작하기--docs'>
             <div>
-              <div style={{ fontSize: '15px', fontWeight: '600', color: '#1e293b' }}>{item.title}</div>
-              <div style={{ fontSize: '13px', color: '#94a3b8', marginTop: '2px' }}>{item.desc}</div>
+              <span className='name'>시작하기</span>
+              <span className='hint'>설치 · 환경 설정 · 최초 렌더</span>
             </div>
-            <div style={{ fontSize: '18px', color: '#6366f1', fontWeight: '600' }}>{'\u2192'}</div>
+            <span className='arrow'>→</span>
           </a>
-        ))}
-      </div>
-    </section>
+          <a href='?path=/docs/intro-컴포넌트-개요--docs'>
+            <div>
+              <span className='name'>컴포넌트 개요</span>
+              <span className='hint'>56개 컴포넌트 카테고리별 목록</span>
+            </div>
+            <span className='arrow'>→</span>
+          </a>
+          <a href='?path=/docs/intro-디자인토큰--docs'>
+            <div>
+              <span className='name'>디자인 토큰</span>
+              <span className='hint'>컬러 · 타이포그래피 · 스페이싱</span>
+            </div>
+            <span className='arrow'>→</span>
+          </a>
+          <a href='?path=/docs/intro-아이콘-카탈로그--docs'>
+            <div>
+              <span className='name'>아이콘 카탈로그</span>
+              <span className='hint'>Line · Fill 332종 갤러리</span>
+            </div>
+            <span className='arrow'>→</span>
+          </a>
+          <a href='?path=/docs/intro-아키텍처--docs'>
+            <div>
+              <span className='name'>아키텍처</span>
+              <span className='hint'>3-tier 토큰 · 패키지 분리 이유</span>
+            </div>
+            <span className='arrow'>→</span>
+          </a>
+          <a href='?path=/docs/intro-테마-가이드--docs'>
+            <div>
+              <span className='name'>테마 가이드</span>
+              <span className='hint'>Light · Dark · Provider 사용법</span>
+            </div>
+            <span className='arrow'>→</span>
+          </a>
+          <a href='?path=/docs/intro-접근성--docs'>
+            <div>
+              <span className='name'>접근성</span>
+              <span className='hint'>WAI-ARIA · 키보드 · 스크린리더</span>
+            </div>
+            <span className='arrow'>→</span>
+          </a>
+          <a href='?path=/docs/intro-마이그레이션--docs'>
+            <div>
+              <span className='name'>마이그레이션</span>
+              <span className='hint'>이전 버전에서 옮겨오기</span>
+            </div>
+            <span className='arrow'>→</span>
+          </a>
+        </nav>
+      </section>
 
+      {/* FOOTER */}
+      <footer className='orbit-foot'>
+        <div className='sig'>
+          <span className='pulse' />
+          <span>Made with care · MIT licensed</span>
+        </div>
+        <div>Pretendard powers the type.</div>
+      </footer>
+
+    </div>
   </div>
 </Unstyled>

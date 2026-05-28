@@ -34,7 +34,11 @@ const SectionTitleRoot = polymorphic<'div', 'div', SectionTitleOwnProps>((props,
       <ListNode.Center>
         <ForcedTypographyStyle maxLines={1} theme={vars.com.listHeader as Partial<TypographyTheme>}>
           <IconPropsContext.Provider
-            value={{ size: '16px', forcedColor: vars.sem.color.foregroundQuaternary }}
+            value={{
+              size: '16px',
+              forcedColor: vars.sem.color.foregroundQuaternary,
+              tone: 'soft',
+            }}
           >
             {title}
           </IconPropsContext.Provider>

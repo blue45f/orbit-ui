@@ -122,7 +122,13 @@ export type ListTileTrailingProps = {
 }
 
 const ListTileTrailing: React.FC<ListTileTrailingProps> = ({ children }) => (
-  <IconPropsContext.Provider value={{ size: 16, forcedColor: vars.sem.color.foregroundQuaternary }}>
+  <IconPropsContext.Provider
+    value={{
+      size: 16,
+      forcedColor: vars.sem.color.foregroundQuaternary,
+      tone: 'soft',
+    }}
+  >
     {children}
   </IconPropsContext.Provider>
 )
