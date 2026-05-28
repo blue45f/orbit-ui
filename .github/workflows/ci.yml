@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: 체크아웃
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: pnpm 설정
         uses: pnpm/action-setup@v6
@@ -46,7 +46,7 @@ jobs:
 
     steps:
       - name: 체크아웃
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: pnpm 설정
         uses: pnpm/action-setup@v6
