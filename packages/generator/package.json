@@ -10,7 +10,7 @@
   "devDependencies": {
     "@orbit-ui/tsconfig": "workspace:*",
     "cross-env": "^7.0.3",
-    "plop": "^3.1.2",
+    "plop": "^4.0.5",
     "tsx": "^4.16.2"
   }
 }
