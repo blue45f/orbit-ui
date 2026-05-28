@@ -9,8 +9,8 @@
     "test:rule": "mocha --reporter nyan --experimental-modules tests/**/*.spec.js"
   },
   "devDependencies": {
-    "eslint": "^9.8.0",
-    "mocha": "^10.2.0"
+    "eslint": "^10.4.0",
+    "mocha": "^11.7.6"
   },
   "peerDependencies": {
     "eslint": ">=7"

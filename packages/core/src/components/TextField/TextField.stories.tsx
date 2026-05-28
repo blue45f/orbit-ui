@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
+import { fn } from 'storybook/test'
 
 import { TextField } from './TextField'
+import type { TextFieldProps } from './TextField'
 
 const meta: Meta<typeof TextField> = {
   title: 'foundation/TextField',
@@ -36,7 +37,7 @@ type Story = StoryObj<typeof meta>
 
 const excludeProps = ['value', 'defaultValue', 'theme', 'className', 'style', 'as', 'axis', 'type']
 
-export const 기본: Story = {
+export const 기본: StoryObj<TextFieldProps & { leading?: boolean; trailing?: boolean }> = {
   args: {
     placeholder: '텍스트를 입력하세요',
     leading: false,
@@ -89,7 +90,7 @@ export const 다중줄: Story = {
   },
 }
 
-export const 지우기버튼: Story = {
+export const 지우기버튼: StoryObj<TextFieldProps & { visibility?: 'onFocused' | 'onPopulated' }> = {
   args: {
     placeholder: 'Clear 버튼 테스트',
   },

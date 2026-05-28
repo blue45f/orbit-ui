@@ -7,11 +7,12 @@ import { cleanup, render, screen, waitFor } from '../../test-utils'
 import { Popover } from './Popover'
 
 beforeEach(() => {
-  global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }))
+  global.ResizeObserver = class {
+    observe = vi.fn()
+    unobserve = vi.fn()
+    disconnect = vi.fn()
+    constructor(_cb: ResizeObserverCallback) {}
+  } as unknown as typeof ResizeObserver
 })
 
 afterEach(() => {

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
+import { fn } from 'storybook/test'
 import { JSX, useState } from 'react'
 
 import { TextFieldWithLabelAnimation } from './FloatingTextField'
+import type { TextFieldWithLabelAnimationProps } from './FloatingTextField'
 
 const meta: Meta<typeof TextFieldWithLabelAnimation> = {
   title: 'Foundation/TextFieldWithLabelAnimation',
@@ -38,7 +39,7 @@ type Story = StoryObj<typeof meta>
 
 const excludeProps = ['value', 'defaultValue', 'theme', 'className', 'style', 'type']
 
-export const 기본: Story = {
+export const 기본: StoryObj<TextFieldWithLabelAnimationProps & { leading?: boolean; trailing?: boolean }> = {
   args: {
     placeholder: '이메일을 입력하세요',
     leading: false,
@@ -105,7 +106,7 @@ export const 제어: Story = {
   },
 }
 
-export const 지우기버튼: Story = {
+export const 지우기버튼: StoryObj<TextFieldWithLabelAnimationProps & { visibility?: 'onFocused' | 'onPopulated' }> = {
   args: {
     placeholder: 'Clear 버튼 테스트',
     defaultValue: 'user@example.com',

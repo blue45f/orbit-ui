@@ -1,4 +1,4 @@
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 import type { Decorator, Preview } from '@storybook/react'
 
 import { ThemeProvider, LottieProvider } from '../src/components/primitives'

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
-import { useState } from 'react'
+import { fn } from 'storybook/test'
+import { useRef, useState } from 'react'
 
 import { TextArea } from './TextArea'
 
@@ -1035,7 +1035,7 @@ type AutoSaveStatus = 'idle' | 'saving' | 'saved' | 'error'
 function IssueTrackerAutoSaveEditorRender() {
   const [desc, setDesc] = useState('이슈 재현 단계:\n1. Storybook을 실행한다\n2. Chip 컴포넌트로 이동한다\n3. 클릭 이벤트 확인')
   const [status, setStatus] = useState<AutoSaveStatus>('saved')
-  const timerRef = { current: null as ReturnType<typeof setTimeout> | null }
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setDesc(e.target.value)
@@ -1573,7 +1573,7 @@ function ComposableUIPrimitiveAutoSaveRender() {
   const MAX = 280
   const [text, setText] = useState('')
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved'>('idle')
-  const timerRef = { current: null as ReturnType<typeof setTimeout> | null }
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const val = e.target.value.slice(0, MAX)

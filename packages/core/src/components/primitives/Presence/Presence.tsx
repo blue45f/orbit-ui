@@ -52,7 +52,7 @@ export const Presence: React.FC<PresenceProps> = ({ children, present, onChange 
   const isMounted = useIsMounted()
 
   useEffect(() => {
-    if (!isMounted) return
+    if (!isMounted()) return
     onChange_?.(present)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [present, onChange_])

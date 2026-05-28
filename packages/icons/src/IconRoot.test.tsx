@@ -92,7 +92,8 @@ test('유효하지 않은 size 프롭이 전달되면 기본 값을 사용한다
 test('color 프롭이 없으면 기본 값은 currentColor다', () => {
   render(<IconRoot>icon</IconRoot>)
 
-  expect(screen.getByText('icon')).toHaveStyle({ fill: 'currentColor' })
+  const el = screen.getByText('icon') as unknown as SVGElement
+  expect(el.style.fill).toBe('currentcolor')
 })
 
 test('alt 프롭이 있으면 aria-label 속성을 할당한다', () => {

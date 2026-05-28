@@ -56,7 +56,7 @@ export default [
       import: importPlugin,
     },
     settings: {
-      react: { version: 'detect' },
+      react: { version: '18.3' },
     },
     rules: {
       ...tseslint.configs.recommended.rules,

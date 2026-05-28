@@ -15,29 +15,32 @@
     "format:check": "pnpm -r --if-present run format:check",
     "clean": "pnpm -r clean && rm -rf node_modules",
     "ci": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run build && pnpm run test",
-    "verify": "pnpm run ci",
+    "verify": "pnpm run validate:architecture && pnpm run ci",
     "verify:push": "pnpm run verify",
     "gen": "pnpm --filter @orbit-ui/generator gen",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm build && changeset publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "validate:architecture": "node scripts/validate-architecture.mjs"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.10",
-    "@eslint/js": "^9.16.0",
+    "@changesets/cli": "^2.31.0",
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "@eslint/js": "^10.0.1",
     "@types/node": "catalog:",
-    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/eslint-plugin": "^8.60.0",
     "@typescript-eslint/parser": "^8.60.0",
-    "eslint": "^9.8.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "globals": "^15.14.0",
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.6.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.4.2",
+    "lint-staged": "^17.0.5",
+    "prettier": "^3.8.3",
     "typescript": "catalog:"
   },
   "engines": {
@@ -45,13 +48,6 @@
     "pnpm": ">=9"
   },
   "packageManager": "pnpm@9.14.4",
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "printWidth": 100,
-    "tabWidth": 2
-  },
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",

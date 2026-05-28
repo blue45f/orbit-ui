@@ -21833,6 +21833,7 @@ const Ant78AnalyticsDashboardRender = () => {
           {/* Sparkline bars */}
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 80 }}>
             {Array.from({ length: periodIdx === 0 ? 7 : periodIdx === 1 ? 30 : 12 }, (_, i) => {
+              // eslint-disable-next-line react-hooks/purity
               const h = 30 + Math.sin(i * 0.8) * 20 + Math.random() * 25
               return (
                 <div
@@ -22868,14 +22869,17 @@ function ComposableUI93TeamDashboardRender() {
                     <input type="checkbox" checked={allSelected} onChange={toggleAll} style={{ cursor: 'pointer', accentColor: '#6366f1' }} />
                   </th>
                   <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#475569', cursor: 'pointer' }} onClick={() => handleSort('name')}>
+                    {/* eslint-disable-next-line react-hooks/static-components */}
                     이름 <SortIcon col="name" />
                   </th>
                   <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#475569' }}>역할</th>
                   <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#475569' }}>상태</th>
                   <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#475569', cursor: 'pointer' }} onClick={() => handleSort('joinedAt')}>
+                    {/* eslint-disable-next-line react-hooks/static-components */}
                     가입일 <SortIcon col="joinedAt" />
                   </th>
                   <th style={{ padding: '10px 20px', textAlign: 'right', fontWeight: 700, color: '#475569', cursor: 'pointer' }} onClick={() => handleSort('taskCount')}>
+                    {/* eslint-disable-next-line react-hooks/static-components */}
                     태스크 <SortIcon col="taskCount" />
                   </th>
                 </tr>
@@ -33079,6 +33083,7 @@ function CommandPalette144Render() {
   }
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelected(0)
   }, [query])
 

@@ -23,6 +23,7 @@
     "safari >= 15"
   ],
   "scripts": {
+    "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage --outputFile='./coverage/junit.xml' --reporter=default --reporter=junit --coverage.reporter=text --coverage.reporter=text-summary --coverage.reporter=cobertura",

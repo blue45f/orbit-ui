@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 /**
  * 이전 렌더링 시점의 `value`를 반환해요.
@@ -10,11 +10,13 @@ import { useEffect, useRef } from 'react'
  * ```
  */
 export function usePrevious<T>(value: T): T {
-  const store = useRef<T>(value)
+  const [prev, setPrev] = useState<T>(value)
+  const currentRef = useRef<T>(value)
 
   useEffect(() => {
-    store.current = value
+    setPrev(currentRef.current)
+    currentRef.current = value
   }, [value])
 
-  return store.current
+  return prev
 }

@@ -40,13 +40,9 @@ interface Props extends IconProps {
   children: React.ReactNode
 }
 
-let uniqueId = 0
+let _iconUniqueIdCounter = 0
 const useUniqueID = () => {
-  const id = useMemo(() => {
-    uniqueId += 1
-    return `icon-${uniqueId}`
-  }, [])
-  return id
+  return useMemo(() => `icon-${++_iconUniqueIdCounter}`, [])
 }
 
 export const IconRoot: React.FC<Props> = ({

@@ -1680,8 +1680,11 @@ function IssueTrackerIssueQuickEditRender() {
         <Typography textStyle="labelMedium" color="foregroundPrimary">팝오버 퀵 편집 구현</Typography>
       </div>
       <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+        {/* eslint-disable-next-line react-hooks/static-components */}
         <Field label="상태" value={status} field="status" options={TRACKER_STATUSES} colors={STATUS_COLORS} />
+        {/* eslint-disable-next-line react-hooks/static-components */}
         <Field label="담당자" value={assignee} field="assignee" options={TRACKER_USERS} />
+        {/* eslint-disable-next-line react-hooks/static-components */}
         <Field label="우선순위" value={priority} field="priority" options={TRACKER_PRIORITIES} />
       </div>
       <Typography textStyle="descriptionSmall" color="foregroundDisabled">IssueTracker — 이슈 인라인 속성 퀵 편집 팝오버</Typography>

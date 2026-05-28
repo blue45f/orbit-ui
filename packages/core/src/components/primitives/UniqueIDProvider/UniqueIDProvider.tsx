@@ -40,9 +40,9 @@ const maybeReactUseId: (() => string) | undefined = (React as any)['useId' + '']
  * @returns ID 문자열
  */
 export const useUniqueID = (idOverride?: string): string => {
-  const context = useContext(Context)
+  const contextRef = useContext(Context)
 
-  if (context === null) {
+  if (contextRef === null) {
     throw new Error('useUniqueID hook은 UniqueIDProvider 내에서만 사용 가능합니다')
   }
 
@@ -57,11 +57,14 @@ export const useUniqueID = (idOverride?: string): string => {
       return idOverride
     }
 
-    context.current += 1
+    // contextRef는 ref 값이므로 렌더 중 접근 허용
+    // eslint-disable-next-line react-hooks/refs
+    contextRef.current += 1
 
-    return `orbit-ui-id-${context.current}`
+    // eslint-disable-next-line react-hooks/refs
+    return `orbit-ui-id-${contextRef.current}`
 
-    // context는 ref 값이므로 의존성 배열에서 제외함
+    // contextRef는 ref 값이므로 의존성 배열에서 제외함
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idOverride])
 }

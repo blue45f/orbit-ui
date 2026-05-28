@@ -107,7 +107,7 @@ const InternalTabItems = forwardRef<HTMLDivElement, TabItemsProps>(
       (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (!onTabChange || tabCount === 0) return
 
-        let nextIndex: number | null = null
+        let nextIndex: number
 
         switch (e.key) {
           case 'ArrowRight':

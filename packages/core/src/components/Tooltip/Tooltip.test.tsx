@@ -1,16 +1,12 @@
 import { createRef } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { cleanup, render, screen } from '../../test-utils'
+import { cleanup, createMockResizeObserver, render, screen } from '../../test-utils'
 
 import { Tooltip } from './Tooltip'
 
 beforeEach(() => {
-  global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }))
+  global.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

@@ -44,15 +44,17 @@ export const useResizable = <
     transitionDelay: null,
   })
 
-  const [grabberElement, setGrabberElement] = useState<T | null>(null)
-  const [containerElement, setContainerElement] = useState<K | null>(null)
+  const [grabberElementState, setGrabberElement] = useState<T | null>(null)
+  const grabberNodeRef = useRef<T | null>(null)
+  const containerNodeRef = useRef<K | null>(null)
 
   const grabberElementRef = (el: T | null) => {
+    grabberNodeRef.current = el
     setGrabberElement(el)
   }
 
   const containerElementRef = (el: K | null) => {
-    setContainerElement(el)
+    containerNodeRef.current = el
   }
 
   const findClosestBreakpoint = (value: number, breakpoints: Array<number | 'HIDDEN'>) => {
@@ -73,16 +75,18 @@ export const useResizable = <
   // useDrag 설정을 메모이제이션하여 엘리먼트가 변경될 때마다 업데이트되도록 함
   const useDragConfig: UserDragConfig = useMemo(
     () => ({
-      enabled: params.enabled && grabberElement !== null,
-      ...(grabberElement && { target: grabberElement }),
+      enabled: params.enabled && grabberElementState !== null,
+      ...(grabberElementState && { target: grabberElementState }),
 
       axis: 'y',
       preventDefault: true,
     }),
-    [params.enabled, grabberElement]
+    [params.enabled, grabberElementState]
   )
 
   useDrag(({ movement: [_, movementY], first, last, dragging }) => {
+    const grabberElement = grabberNodeRef.current
+    const containerElement = containerNodeRef.current
     if (!grabberElement || !containerElement) {
       return
     }

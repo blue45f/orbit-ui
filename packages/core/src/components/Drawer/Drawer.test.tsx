@@ -1,17 +1,13 @@
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { cleanup, render, screen, waitFor } from '../../test-utils'
+import { cleanup, createMockResizeObserver, render, screen, waitFor } from '../../test-utils'
 
 import { Drawer } from './Drawer'
 
 beforeEach(() => {
   // Radix Dialog uses ResizeObserver internally
-  global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }))
+  global.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

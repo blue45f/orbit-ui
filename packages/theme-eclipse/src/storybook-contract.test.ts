@@ -125,9 +125,15 @@ const getUserFacingFiles = () =>
 
 describe('Storybook and public API contracts', () => {
   test('registers the viewport addon used by preview parameters', () => {
+    // @storybook/addon-viewport is built in to Storybook 10; it no longer needs
+    // to be listed in addons. Confirm it is NOT explicitly re-registered
+    // (which would cause a duplicate-addon error) and that the preview still
+    // configures viewport parameters (see preview.tsx STORYBOOK_VIEWPORTS).
     const mainConfig = readText('.storybook/main.ts')
+    const previewConfig = readText('.storybook/preview.tsx')
 
-    expect(mainConfig).toContain("@storybook/addon-viewport")
+    expect(mainConfig).not.toContain("getAbsolutePath('@storybook/addon-viewport')")
+    expect(previewConfig).toContain('STORYBOOK_VIEWPORTS')
   })
 
   test('does not keep empty Storybook story globs', () => {

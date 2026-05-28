@@ -51,11 +51,12 @@ class VirtualDOMRectClass {
 /**
  * ResizeObserver 모킹
  */
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-}))
+global.ResizeObserver = class {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+  constructor(_cb: ResizeObserverCallback) {}
+} as unknown as typeof ResizeObserver
 
 export * from '@testing-library/react'
 export { customRender as render, createDOMRect, VirtualDOMRectClass }

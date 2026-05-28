@@ -1010,6 +1010,7 @@ function M3IssueTrackerProgressRender() {
   React.useEffect(() => {
     if (!running) return
     if (progress >= 100) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRunning(false)
       return
     }

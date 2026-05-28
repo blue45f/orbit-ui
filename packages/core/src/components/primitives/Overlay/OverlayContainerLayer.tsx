@@ -29,11 +29,11 @@ const OverlayContainerLayerContext = createContext<OverlayContainerLayerContextV
 })
 
 export const OverlayContainerLayerProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const layersRef = useRef(new Set<HTMLElement>())
-  const protectedItemsRef = useRef(new Set<HTMLElement>())
-
   const value = useMemo(
-    () => ({ layers: layersRef.current, protectedItems: protectedItemsRef.current }),
+    () => ({
+      layers: new Set<HTMLElement>(),
+      protectedItems: new Set<HTMLElement>(),
+    }),
     []
   )
 

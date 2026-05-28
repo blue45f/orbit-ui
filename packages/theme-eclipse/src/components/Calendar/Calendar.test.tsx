@@ -6,11 +6,12 @@ import { cleanup, render, screen } from '../../test-utils'
 import { Calendar } from './Calendar'
 
 beforeEach(() => {
-  global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }))
+  global.ResizeObserver = class {
+    observe = vi.fn()
+    unobserve = vi.fn()
+    disconnect = vi.fn()
+    constructor(_cb: ResizeObserverCallback) {}
+  } as unknown as typeof ResizeObserver
 })
 
 afterEach(() => {

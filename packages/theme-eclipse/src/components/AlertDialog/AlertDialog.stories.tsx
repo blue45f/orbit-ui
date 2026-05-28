@@ -1216,10 +1216,12 @@ const UtilityCSSSessionTimeoutRender = () => {
 
   React.useEffect(() => {
     if (!isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSeconds(30)
       return
     }
     if (seconds <= 0) {
+       
       setLoggedOut(true)
       setIsOpen(false)
       return

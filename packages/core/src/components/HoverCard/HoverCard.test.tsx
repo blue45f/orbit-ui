@@ -1,16 +1,12 @@
 import { createRef } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { cleanup, render, screen, waitFor } from '../../test-utils'
+import { cleanup, createMockResizeObserver, render, screen, waitFor } from '../../test-utils'
 
 import { HoverCard } from './HoverCard'
 
 beforeEach(() => {
-  global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }))
+  global.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

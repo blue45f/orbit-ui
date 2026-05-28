@@ -1,6 +1,36 @@
 import { render, RenderOptions } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { ThemeProvider } from './components/primitives'
+
+export function createMockResizeObserver(): typeof ResizeObserver {
+  return class MockResizeObserver {
+    observe = vi.fn()
+    unobserve = vi.fn()
+    disconnect = vi.fn()
+
+    constructor(_callback?: ResizeObserverCallback) {}
+  } as unknown as typeof ResizeObserver
+}
+
+export function createMockIntersectionObserver(): typeof IntersectionObserver {
+  return class MockIntersectionObserver {
+    root: Element | Document | null = null
+    rootMargin = ''
+    thresholds: ReadonlyArray<number> = []
+    observe = vi.fn()
+    unobserve = vi.fn()
+    disconnect = vi.fn()
+    takeRecords = vi.fn((): IntersectionObserverEntry[] => [])
+
+    constructor(_callback: IntersectionObserverCallback, options: IntersectionObserverInit = {}) {
+      this.root = options.root ?? null
+      this.rootMargin = options.rootMargin ?? ''
+      const threshold = options.threshold ?? 0
+      this.thresholds = Array.isArray(threshold) ? threshold : [threshold]
+    }
+  } as unknown as typeof IntersectionObserver
+}
 
 // ======== 기본 유틸 ========
 const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -21,7 +51,6 @@ export { customRender as render }
 // ======== RequestAnimationFrame Stub ========
 
 type RAFCallback = (timestamp: number) => void
-
 
 export const createRAFStub = () => {
   let timestamp = performance?.now() ?? Date.now()

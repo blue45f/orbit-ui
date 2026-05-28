@@ -2,17 +2,13 @@ import userEvent from '@testing-library/user-event'
 import { createRef } from 'react'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { cleanup, render, screen } from '../../test-utils'
+import { cleanup, createMockResizeObserver, render, screen } from '../../test-utils'
 
 import { Accordion } from './Accordion'
 
 beforeEach(() => {
   // Radix Accordion uses ResizeObserver internally for collapsible animations
-  global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }))
+  global.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

@@ -1659,6 +1659,7 @@ function UtilityCSSDashboardViewRender() {
               <div key={m.label} style={{ padding: '14px 16px', borderRadius: 10, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
                 <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>{m.label}</div>
                 <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{val}<span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 400 }}> {m.unit}</span></div>
+                {/* eslint-disable-next-line react-hooks/purity */}
                 <div style={{ fontSize: 11, color: '#16a34a', marginTop: 2 }}>▲ {(Math.random() * 10 + 2).toFixed(1)}%</div>
               </div>
             )

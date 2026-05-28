@@ -34,19 +34,20 @@ if (typeof window !== 'undefined' && !window.matchMedia) {
   }))
 }
 
-if (typeof globalThis.ResizeObserver === 'undefined') {
-  globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }))
-}
+globalThis.ResizeObserver = class MockResizeObserver {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+  constructor(_callback: ResizeObserverCallback, _options?: ResizeObserverOptions) {}
+} as unknown as typeof ResizeObserver
 
-if (typeof globalThis.IntersectionObserver === 'undefined') {
-  globalThis.IntersectionObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-    takeRecords: vi.fn(() => []),
-  })) as unknown as typeof IntersectionObserver
-}
+globalThis.IntersectionObserver = class MockIntersectionObserver {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+  takeRecords = vi.fn(() => [])
+  readonly root: Element | Document | null = null
+  readonly rootMargin = ''
+  readonly thresholds: ReadonlyArray<number> = []
+  constructor(_callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {}
+} as unknown as typeof IntersectionObserver

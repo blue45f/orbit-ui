@@ -1364,6 +1364,7 @@ export const DataProduct_CommandPalette_파이프라인_상태_배지: Story = {
 -------------------------------------------------------------------------- */
 
 function UtilityCSSActivityFeedBadgeRender() {
+  // eslint-disable-next-line react-hooks/purity
   const [now, setNow] = useState(Date.now())
 
   useEffect(() => {

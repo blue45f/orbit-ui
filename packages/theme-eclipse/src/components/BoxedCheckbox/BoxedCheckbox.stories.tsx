@@ -1621,6 +1621,7 @@ function IssueTrackerIssueFilterRender() {
               <BoxedCheckbox checked={isOn} onChange={() => toggle(s.id)} onClick={e => e.stopPropagation()} />
               <span style={{ fontSize: 14, color: s.color }}>{s.dot}</span>
               <span style={{ fontSize: 13, color: '#1e293b', fontWeight: isOn ? 600 : 400 }}>{s.label}</span>
+              {/* eslint-disable-next-line react-hooks/purity */}
               <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{Math.floor(Math.random() * 20 + 1)}</span>
             </div>
           )

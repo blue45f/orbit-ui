@@ -1,22 +1,19 @@
 import { createRef } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { cleanup, render, screen } from '../../test-utils'
+import {
+  cleanup,
+  createMockIntersectionObserver,
+  createMockResizeObserver,
+  render,
+  screen,
+} from '../../test-utils'
 
 import { Carousel } from './Carousel'
 
 beforeEach(() => {
-  global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }))
-  global.IntersectionObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-    takeRecords: vi.fn(),
-  })) as unknown as typeof IntersectionObserver
+  global.ResizeObserver = createMockResizeObserver()
+  global.IntersectionObserver = createMockIntersectionObserver()
 })
 
 afterEach(() => {

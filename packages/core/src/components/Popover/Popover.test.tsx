@@ -2,16 +2,12 @@ import userEvent from '@testing-library/user-event'
 import { createRef } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { cleanup, render, screen, waitFor } from '../../test-utils'
+import { cleanup, createMockResizeObserver, render, screen, waitFor } from '../../test-utils'
 
 import { Popover } from './Popover'
 
 beforeEach(() => {
-  global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }))
+  global.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

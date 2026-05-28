@@ -1,7 +1,7 @@
 import { Flex } from '@heejun-com/core'
 import { ArrowRightIcon, ChatLineIcon, ChevronRightLineIcon, NotificationLineIcon, SearchIcon, SettingLineIcon } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
-import { expect, fn, userEvent, within } from '@storybook/test'
+import { expect, fn, userEvent, within } from 'storybook/test'
 import { useState } from 'react'
 
 import { SolidButton, SolidButtonProps } from '.'
@@ -1272,6 +1272,7 @@ function IssueTrackerIssueCreateRender() {
       {submitted ? (
         <div style={{ padding: '16px', borderRadius: 10, border: '1px solid #bbf7d0', background: '#f0fdf4', textAlign: 'center' }}>
           <p style={{ fontSize: 13, fontWeight: 600, color: '#16a34a' }}>이슈가 생성되었습니다</p>
+          {/* eslint-disable-next-line react-hooks/purity */}
           <p style={{ fontSize: 11, color: '#22c55e' }}>ORB-{Math.floor(Math.random() * 900) + 100}: {title}</p>
         </div>
       ) : (

@@ -11,17 +11,10 @@ const config: StorybookConfig = {
   ],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/addon-essentials'),
-    getAbsolutePath('@storybook/addon-viewport'),
     getAbsolutePath('@storybook/addon-a11y'),
   ],
-  core: {
-    builder: getAbsolutePath('@storybook/builder-vite'),
-  },
   framework: getAbsolutePath('@storybook/react-vite'),
-  docs: {
-    autodocs: 'tag',
-  },
+  docs: {},
   viteFinal: async (viteConfig) =>
     mergeConfig(viteConfig, {
       build: {

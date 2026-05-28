@@ -60,7 +60,7 @@ export const useThemeRoot: Decorator = (Story, context) => {
 }
 
 const preview: Preview = {
-  globalTypes: STORYBOOK_GLOBAL_TYPES,
+  globalTypes: STORYBOOK_GLOBAL_TYPES as unknown as Preview['globalTypes'],
   parameters: {
     layout: 'fullscreen',
     backgrounds: {

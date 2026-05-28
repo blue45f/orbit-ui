@@ -94,11 +94,13 @@ const CarouselRoot = React.forwardRef<
       return
     }
 
-    onSelect(api)
     api.on('reInit', onSelect)
     api.on('select', onSelect)
+    // schedule initial sync as a microtask to avoid synchronous setState in effect
+    const frame = requestAnimationFrame(() => onSelect(api))
 
     return () => {
+      cancelAnimationFrame(frame)
       api?.off('select', onSelect)
     }
   }, [api, onSelect])

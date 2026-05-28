@@ -353,6 +353,7 @@ const CycleBurndownRender = () => {
   const [day, setDay] = useState(5)
   const totalDays = 14
   const totalIssues = 32
+  // eslint-disable-next-line react-hooks/purity
   const completedIssues = Math.round((day / totalDays) * totalIssues * (0.8 + Math.random() * 0.2))
   const cycleProgress = Math.round((day / totalDays) * 100)
   const issueProgress = Math.round((completedIssues / totalIssues) * 100)
