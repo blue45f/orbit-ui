@@ -6,11 +6,11 @@ packages:
 # Workspace catalog: 단일 진실 공급원으로 버전을 통일합니다.
 # 패키지에서 "catalog:"로 참조하면 여기 값이 사용됩니다.
 catalog:
-  # React 19.1
+  # React 19.2
   react: ^19.2.6
-  react-dom: ^19.1.0
+  react-dom: ^19.2.6
   '@types/react': ^19.2.15
-  '@types/react-dom': ^19.1.0
+  '@types/react-dom': ^19.2.0
 
   # 타입스크립트 & 노드
   typescript: ^5.9.0
