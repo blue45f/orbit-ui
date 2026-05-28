@@ -1,7 +1,10 @@
+import { createRequire } from 'node:module'
 import { dirname, join } from 'path'
 
 import type { StorybookConfig } from '@storybook/react-vite'
 import { mergeConfig } from 'vite'
+
+const require = createRequire(import.meta.url)
 
 const config: StorybookConfig = {
   stories: [
@@ -12,6 +15,7 @@ const config: StorybookConfig = {
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-a11y'),
+    getAbsolutePath('@storybook/addon-docs'),
   ],
   framework: getAbsolutePath('@storybook/react-vite'),
   docs: {},
