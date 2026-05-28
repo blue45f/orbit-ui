@@ -1,6 +1,7 @@
 export * from './useClipboard'
 export * from './useDebounce'
 export * from './useDisclosure'
+export * from './useEventListener'
 export * from './useLocalStorage'
 export * from './useMediaQuery'
 export * from './usePrefersReducedMotion'
