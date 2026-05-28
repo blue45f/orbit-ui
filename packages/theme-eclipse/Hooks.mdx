@@ -81,11 +81,11 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div className='orbit-eyebrow'><span className='num'>01</span>Hooks</div>
           <h1 className='orbit-h1'>훅 카탈로그</h1>
           <div className='orbit-lede'>
-            컴포넌트 외부에서 자주 쓰는 합성 로직을 24개의 공식 훅으로 노출합니다. 모두 SSR 안전, 의존성 0개, TypeScript 타입 추론.
+            컴포넌트 외부에서 자주 쓰는 합성 로직을 32개의 공식 훅으로 노출합니다. 모두 SSR 안전, 의존성 0개, TypeScript 타입 추론.
           </div>
         </div>
         <div className='orbit-page-meta'>
-          <div><strong>24</strong> hooks</div>
+          <div><strong>32</strong> hooks</div>
           <div>tree-shakeable</div>
           <div>SSR-safe</div>
         </div>
@@ -167,6 +167,65 @@ setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))`}</pre>
             <div className='orbit-code-head'><span>example</span><span>useToggle</span></div>
             <pre>{`const [expanded, toggle] = useToggle(false)
 <button onClick={() => toggle()}>{expanded ? '접기' : '펼치기'}</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useArray</code>
+            <div className='tagline'>
+              배열 state with helpers (push · removeAt · remove · updateAt · toggle · clear · set). 필터 칩 그룹, 다중 선택, 동적 폼.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useArray</span></div>
+            <pre>{`const filters = useArray<string>(['recent'])
+
+<Chip onClick={() => filters.toggle('mine')}>내 글</Chip>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useSet</code>
+            <div className='tagline'>
+              Set state with helpers (add · remove · toggle · has · clear · reset). 중복 없는 collection — 선택된 row id, 활성 필터 토큰, 펼친 panel key.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useSet</span></div>
+            <pre>{`const selected = useSet<string>([])
+<Checkbox checked={selected.has(row.id)} onCheckedChange={() => selected.toggle(row.id)} />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useMap</code>
+            <div className='tagline'>
+              Map state with helpers (set · remove · get · has · clear · reset). per-field 에러 테이블, 멀티셀렉트 카운트, id 기반 동적 폼.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useMap</span></div>
+            <pre>{`const errors = useMap<string, string>([])
+errors.set('email', '이메일 형식 오류')`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useStep</code>
+            <div className='tagline'>
+              다단계 wizard·온보딩·결제 흐름의 step state. next · prev · goTo · reset, isFirst · isLast · isCompleted boundary 플래그, progress (0..1) 계산 포함.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useStep</span></div>
+            <pre>{`const step = useStep({ total: 3 })
+<SolidButton onClick={step.isLast ? submit : step.next}>
+  {step.isLast ? '제출' : '다음'}
+</SolidButton>`}</pre>
           </div>
         </div>
 
@@ -465,10 +524,66 @@ useEffect(() => {
 }, [])`}</pre>
           </div>
         </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useMount</code>
+            <div className='tagline'>
+              마운트 시 한 번만 실행되는 effect. <code>useEffect(fn, [])</code>의 단축형.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useMount</span></div>
+            <pre>{`useMount(() => trackPageView())`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useUnmount</code>
+            <div className='tagline'>
+              unmount 시 한 번만 실행되는 cleanup. 콜백은 ref로 보관되어 최신 closure가 호출.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useUnmount</span></div>
+            <pre>{`useUnmount(() => abortControllerRef.current?.abort())`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useLatest</code>
+            <div className='tagline'>
+              값의 항상-최신 ref. setInterval·setTimeout·rAF·이벤트 핸들러에서 stale closure 회피용 표준 escape hatch.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useLatest</span></div>
+            <pre>{`const latest = useLatest(value)
+useEffect(() => {
+  const id = setInterval(() => console.log(latest.current), 1000)
+  return () => clearInterval(id)
+}, [])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useDocumentTitle</code>
+            <div className='tagline'>
+              <code>document.title</code>을 SPA 페이지 단위로 설정. unmount 시 이전 title로 자동 복원 (옵션). SSR 안전.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useDocumentTitle</span></div>
+            <pre>{`useDocumentTitle(\`\${project.name} · Orbit\`)`}</pre>
+          </div>
+        </div>
       </section>
 
       <footer className='orbit-foot'>
-        <div>24 hooks · SSR-safe · tree-shakeable · zero deps</div>
+        <div>32 hooks · SSR-safe · tree-shakeable · zero deps</div>
         <div>
           <a href='?path=/docs/intro-시작하기--docs'>← 시작하기</a>
         </div>
