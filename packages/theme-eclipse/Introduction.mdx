@@ -719,10 +719,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
 
       {/* TAGLINE */}
       <section className='orbit-tagline'>
-        <p>
+        <div>
           Headless React 디자인 시스템. 토큰·접근성·다크 모드를 기본값으로 두고,
           어떤 프로덕트에도 무리 없이 녹아드는 중립적인 시각 언어를 제공합니다.
-        </p>
+        </div>
         <aside>
           <div className='row'><div className='k'>Layers</div><div className='v'>icons · core · theme</div></div>
           <div className='row'><div className='k'>Engine</div><div className='v'>React 18·19, TypeScript 5.7+</div></div>
@@ -817,30 +817,30 @@ import { Meta, Unstyled } from '@storybook/blocks'
               <div className='num'>01</div>
               <div>
                 <h3>슬롯 컴파운드</h3>
-                <p>
+                <div>
                   <code>Leading</code>·<code>Center</code>·<code>Trailing</code> 세 슬롯으로
                   시각 구조와 로직을 분리합니다. 콘텐츠 변경이 컴포넌트 내부를 건드리지 않습니다.
-                </p>
+                </div>
               </div>
             </div>
             <div className='item'>
               <div className='num'>02</div>
               <div>
                 <h3>폴리모픽</h3>
-                <p>
+                <div>
                   <code>as</code> 프롭으로 렌더링 태그를 자유롭게 교체합니다.
                   버튼 시각을 유지한 채 <code>{'<a href />'}</code>, 라우터 링크, <code>{'<label />'}</code> 어떤 것으로도.
-                </p>
+                </div>
               </div>
             </div>
             <div className='item'>
               <div className='num'>03</div>
               <div>
                 <h3>테마 프롭</h3>
-                <p>
+                <div>
                   CSS 변경 없이 <code>theme</code> 프롭만으로 토큰을 부분 오버라이드합니다.
                   특정 페이지에만 다른 컬러·라운드·간격을 적용하는 데 적합합니다.
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -862,40 +862,40 @@ import { Meta, Unstyled } from '@storybook/blocks'
             <div className='tag'>Motion</div>
             <div className='body'>
               <h3>duration / easing / reduced-motion 토큰</h3>
-              <p>
+              <div>
                 <code>instant</code>부터 <code>slower</code>까지 5단계 duration과 5종 easing 곡선을 CSS 변수로 노출했습니다.
                 <code>prefers-reduced-motion</code> 미디어쿼리도 글로벌로 주입됩니다.
-              </p>
+              </div>
             </div>
           </div>
           <div className='entry'>
             <div className='tag'>A11y</div>
             <div className='body'>
               <h3>focus-visible 정책 일원화</h3>
-              <p>
+              <div>
                 WCAG 2.4.7·2.4.11 권고를 따르는 ring-width, offset, color 토큰을 라이트·다크 모드별로 정의했습니다.
                 포커스 트래블이 모든 인터랙티브 컴포넌트에서 동일한 시각 언어를 가집니다.
-              </p>
+              </div>
             </div>
           </div>
           <div className='entry'>
             <div className='tag'>Data</div>
             <div className='body'>
               <h3>DataTable forwardRef · ARIA · 키보드 내비</h3>
-              <p>
+              <div>
                 <code>aria-sort</code>·<code>aria-selected</code>·<code>aria-busy</code> 지원과 Enter·Space 키 정렬 토글,
                 focus-visible outline, 접근 가능한 페이지네이션을 추가했습니다.
-              </p>
+              </div>
             </div>
           </div>
           <div className='entry'>
             <div className='tag'>Templates</div>
             <div className='body'>
               <h3>Billing + IssueTracker 결제 센터</h3>
-              <p>
+              <div>
                 청구·플랜·결제수단·사용량 5개 섹션 + Billing 인보이스 테이블 + IssueTracker <code>⌘K</code> chord 힌트가
                 통합된 새 벤치마크 템플릿을 제공합니다.
-              </p>
+              </div>
             </div>
           </div>
         </div>
