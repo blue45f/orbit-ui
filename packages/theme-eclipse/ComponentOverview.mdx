@@ -561,7 +561,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
             <h2>카테고리별 컴포넌트</h2>
             <p>같은 vocabulary, 다른 affordance. 컴포넌트 이름을 클릭하면 해당 페이지로 이동합니다.</p>
           </div>
-          <span className='orbit-eyebrow'>5 groups</span>
+          <span className='orbit-eyebrow'>6 groups</span>
         </div>
 
         {[
@@ -585,15 +585,17 @@ import { Meta, Unstyled } from '@storybook/blocks'
           {
             tag: 'Inputs',
             title: '입력',
-            count: '13 components',
+            count: '15 components',
             items: [
+              { name: 'TextField', desc: '단일 행 텍스트 입력' },
               { name: 'FloatingTextField', desc: '플로팅 라벨 필드' },
               { name: 'PasswordField', desc: '비밀번호 토글' },
+              { name: 'TextArea', desc: '여러 줄 텍스트 입력' },
               { name: 'SearchBar', desc: '검색 입력' },
               { name: 'Checkbox', desc: '체크박스' },
               { name: 'BoxedCheckbox', desc: '박스형 체크박스' },
               { name: 'RadioButton', desc: '라디오 선택' },
-              { name: 'Switch', desc: '온오프 토글' },
+              { name: 'Switch · Toggle', desc: '온오프 토글' },
               { name: 'Dropdown', desc: '드롭다운 선택' },
               { name: 'Slider', desc: '범위 슬라이더' },
               { name: 'Calendar', desc: '날짜 선택기' },
@@ -623,24 +625,22 @@ import { Meta, Unstyled } from '@storybook/blocks'
           {
             tag: 'Feedback',
             title: '피드백·오버레이',
-            count: '10 components',
+            count: '8 components',
             items: [
               { name: 'Modal', desc: '다이얼로그 모달' },
               { name: 'AlertDialog', desc: '확인·경고 모달' },
               { name: 'Drawer', desc: '사이드 시트' },
               { name: 'Popover', desc: '팝오버 컨텐츠' },
-              { name: 'Toast', desc: '비차단 알림 (core)' },
+              { name: 'Toast', desc: '비차단 알림 (Sonner)' },
               { name: 'Progress', desc: '진행률 바' },
               { name: 'Skeleton', desc: '로딩 스켈레톤' },
               { name: 'Loading', desc: '스피너' },
-              { name: 'Dropdown', desc: '드롭다운 메뉴' },
-              { name: 'PullToRefresh', desc: '당겨서 새로고침' },
             ],
           },
           {
             tag: 'Navigation',
             title: '내비게이션',
-            count: '8 components',
+            count: '7 components',
             items: [
               { name: 'AppBar', desc: '앱 상단바' },
               { name: 'Breadcrumb', desc: '경로 탐색' },
@@ -648,8 +648,17 @@ import { Meta, Unstyled } from '@storybook/blocks'
               { name: 'PageIndicator', desc: '페이지 인디케이터' },
               { name: 'PageNumber', desc: '페이지 번호' },
               { name: 'PageDots', desc: '페이지 도트' },
+              { name: 'ChipLink', desc: '내비게이션용 칩 링크' },
+            ],
+          },
+          {
+            tag: 'Layout',
+            title: '레이아웃',
+            count: '3 components',
+            items: [
               { name: 'Divider', desc: '구분선' },
               { name: 'Space', desc: '간격 유틸' },
+              { name: 'Text', desc: '타이포그래피 텍스트' },
             ],
           },
         ].map((cat, i) => (
