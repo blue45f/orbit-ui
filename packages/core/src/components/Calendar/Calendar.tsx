@@ -29,22 +29,26 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',
-        caption: 'flex justify-center pt-1 relative items-center',
+        month_caption: 'flex justify-center pt-1 relative items-center',
         caption_label: 'text-sm font-medium text-foreground-primary',
         nav: 'space-x-1 flex items-center',
-        nav_button: cn(
+        button_previous: cn(
           'h-7 w-7 bg-transparent p-0 opacity-60 hover:opacity-100 flex items-center justify-center',
           'rounded-md border border-border-secondary text-foreground-secondary',
-          'transition-opacity',
+          'transition-opacity absolute left-1',
           FOCUS_RING
         ),
-        nav_button_previous: 'absolute left-1',
-        nav_button_next: 'absolute right-1',
-        table: 'w-full border-collapse space-y-1',
-        head_row: 'flex',
-        head_cell: 'text-foreground-tertiary rounded-md w-9 font-normal text-[0.8rem]',
-        row: 'flex w-full mt-2',
-        cell: cn(
+        button_next: cn(
+          'h-7 w-7 bg-transparent p-0 opacity-60 hover:opacity-100 flex items-center justify-center',
+          'rounded-md border border-border-secondary text-foreground-secondary',
+          'transition-opacity absolute right-1',
+          FOCUS_RING
+        ),
+        month_grid: 'w-full border-collapse space-y-1',
+        weekdays: 'flex',
+        weekday: 'text-foreground-tertiary rounded-md w-9 font-normal text-[0.8rem]',
+        week: 'flex w-full mt-2',
+        day: cn(
           'h-9 w-9 text-center text-sm p-0 relative',
           '[&:has([aria-selected].day-range-end)]:rounded-r-md',
           '[&:has([aria-selected].day-outside)]:bg-fill-primary',
@@ -52,25 +56,25 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
           'first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md',
           'focus-within:relative focus-within:z-20'
         ),
-        day: cn(
+        day_button: cn(
           'h-9 w-9 p-0 font-normal text-foreground-primary aria-selected:opacity-100',
           'rounded-md hover:bg-fill-secondary transition-colors',
           FOCUS_RING
         ),
-        day_range_end: 'day-range-end',
-        day_selected: cn(
+        range_end: 'day-range-end',
+        selected: cn(
           'bg-foreground-primary text-foreground-inverted',
           'hover:bg-foreground-primary hover:text-foreground-inverted',
           'focus:bg-foreground-primary focus:text-foreground-inverted'
         ),
-        day_today: 'bg-fill-secondary text-foreground-primary font-semibold',
-        day_outside: cn(
+        today: 'bg-fill-secondary text-foreground-primary font-semibold',
+        outside: cn(
           'day-outside text-foreground-tertiary',
           'aria-selected:bg-fill-primary aria-selected:text-foreground-tertiary aria-selected:opacity-30'
         ),
-        day_disabled: 'text-foreground-quaternary opacity-50',
-        day_range_middle: 'aria-selected:bg-fill-secondary aria-selected:text-foreground-primary',
-        day_hidden: 'invisible',
+        disabled: 'text-foreground-quaternary opacity-50',
+        range_middle: 'aria-selected:bg-fill-secondary aria-selected:text-foreground-primary',
+        hidden: 'invisible',
         ...classNames,
       }}
       labels={{
