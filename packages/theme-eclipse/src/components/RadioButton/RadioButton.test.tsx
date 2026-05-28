@@ -67,4 +67,65 @@ describe('RadioButton (eclipse)', () => {
     render(<RadioButton data-testid="rb" value="a" name="grp" />)
     expect(screen.getByTestId('rb')).toBeInTheDocument()
   })
+
+  test('Space 키로 onChange가 호출된다', async () => {
+    const onChange = vi.fn()
+    render(<RadioButton data-testid="rb" value="a" onChange={onChange} />)
+
+    const rb = screen.getByTestId('rb')
+    rb.focus()
+    await userEvent.keyboard(' ')
+
+    expect(onChange).toHaveBeenCalledWith(true)
+  })
+
+  test('focus가 button 요소에 적용된다', () => {
+    render(<RadioButton data-testid="rb" value="a" />)
+    const rb = screen.getByTestId('rb')
+
+    rb.focus()
+    expect(document.activeElement).toBe(rb)
+  })
+
+  test('aria-label로 시각 라벨 없이도 접근성 이름을 부여할 수 있다', () => {
+    render(<RadioButton data-testid="rb" value="a" aria-label="기본 옵션" />)
+    expect(screen.getByTestId('rb')).toHaveAttribute('aria-label', '기본 옵션')
+  })
+
+  test('aria-labelledby로 외부 요소를 라벨로 참조할 수 있다', () => {
+    render(
+      <>
+        <span id="rb-label">결제 방식 A</span>
+        <RadioButton data-testid="rb" value="a" aria-labelledby="rb-label" />
+      </>,
+    )
+    expect(screen.getByTestId('rb')).toHaveAttribute('aria-labelledby', 'rb-label')
+  })
+
+  test('value prop이 다른 두 RadioButton은 독립적으로 동작한다', async () => {
+    const onChangeA = vi.fn()
+    const onChangeB = vi.fn()
+    render(
+      <>
+        <RadioButton data-testid="rb-a" value="a" onChange={onChangeA} />
+        <RadioButton data-testid="rb-b" value="b" onChange={onChangeB} />
+      </>,
+    )
+
+    await userEvent.click(screen.getByTestId('rb-a'))
+
+    expect(onChangeA).toHaveBeenCalledWith(true)
+    expect(onChangeB).not.toHaveBeenCalled()
+  })
+
+  test('disabled 상태에서 focus는 가능하지만 키보드 입력은 무시한다', async () => {
+    const onChange = vi.fn()
+    render(<RadioButton data-testid="rb" value="a" disabled onChange={onChange} />)
+
+    const rb = screen.getByTestId('rb')
+    rb.focus()
+    await userEvent.keyboard(' ')
+
+    expect(onChange).not.toHaveBeenCalled()
+  })
 })

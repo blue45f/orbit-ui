@@ -221,7 +221,7 @@ const ChipLeading: React.FC<ChipLeadingProps> = ({ size = 20, children }) => (
     className="inline-flex items-center justify-center"
     onClick={(e) => isClickable(children) && e.stopPropagation()}
   >
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
   </span>
 )
 
@@ -236,7 +236,7 @@ const ChipTrailing: React.FC<ChipTrailingProps> = ({ size = 20, children }) => (
     className="inline-flex items-center justify-center"
     onClick={(e) => isClickable(children) && e.stopPropagation()}
   >
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
   </span>
 )
 

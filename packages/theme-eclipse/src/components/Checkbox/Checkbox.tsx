@@ -44,7 +44,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref
       borderWidth={2}
     >
       <BaseCheckbox.Icon>
-        {iconName === 'minus' ? <MinusIcon size={18} /> : <CheckIcon size={18} />}
+        {iconName === 'minus' ? <MinusIcon size={18} tone="soft" /> : <CheckIcon size={18} tone="soft" />}
       </BaseCheckbox.Icon>
     </BaseCheckbox>
   )

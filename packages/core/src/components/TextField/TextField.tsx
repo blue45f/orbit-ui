@@ -284,7 +284,7 @@ const TextFieldLeading: React.FC<TextFieldLeadingProps> = ({
     {...rest}
     className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
   >
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
   </span>
 )
 
@@ -303,7 +303,7 @@ const TextFieldTrailing: React.FC<TextFieldTrailingProps> = ({
     {...rest}
     className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
   >
-    <IconPropsContext.Provider value={{ size }}>{children}</IconPropsContext.Provider>
+    <IconPropsContext.Provider value={{ size, tone: 'soft' }}>{children}</IconPropsContext.Provider>
   </span>
 )
 
@@ -346,7 +346,7 @@ const TextFieldClearButton: React.FC<TextFieldClearButtonProps> = ({
       onMouseDown={preventElementBlur}
       aria-label="입력 내용 지우기"
     >
-      {children || <CancelIcon size={16} />}
+      {children || <CancelIcon size={16} tone="soft" />}
     </button>
   )
 }

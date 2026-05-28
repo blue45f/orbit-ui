@@ -52,6 +52,11 @@ type OutlineIconButtonOwnProps = {
    * 아이콘 컴포넌트
    */
   children: React.ReactElement
+  /**
+   * 아이콘 렌더링 톤
+   * flat: 기본, soft: 은은한 그림자, premium: 고급스러운 광택
+   */
+  iconTone?: 'flat' | 'soft' | 'premium'
 } & ComponentThemeProps<typeof vars.com.outlinedIconButton>
 
 export type OutlineIconButtonProps = OutlineIconButtonOwnProps &
@@ -66,7 +71,7 @@ type OutlineIconButtonPropsWithAs = OutlineIconButtonProps & { as?: PossibleElem
 const OutlineIconButtonRoot: React.ForwardRefExoticComponent<
   OutlineIconButtonPropsWithAs & React.RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, OutlineIconButtonPropsWithAs>((props, ref) => {
-  const { color, size, theme, children, ...rest } = props
+  const { color, size, iconTone = 'soft', theme, children, ...rest } = props
 
   const { variant, ...outlinedIconButtonTokens } = vars.com.outlinedIconButton
 
@@ -88,6 +93,7 @@ const OutlineIconButtonRoot: React.ForwardRefExoticComponent<
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {React.cloneElement(children as React.ReactElement<any>, {
           size: OUTLINED_ICON_BUTTON_SIZE_MAP[size].icon.size,
+          tone: iconTone,
         })}
       </Button.Center>
     </Button>

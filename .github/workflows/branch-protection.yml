@@ -1,0 +1,71 @@
+name: 브랜치 보호 규칙 적용
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: '보호할 브랜치 이름'
+        required: false
+        default: main
+        type: string
+
+jobs:
+  protect-main:
+    name: main 브랜치 보호 규칙 적용
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: 관리자 토큰 확인
+        env:
+          GH_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "필요: GH_ADMIN_TOKEN 시크릿(브랜치 보호 설정 권한이 있는 PAT)이 필요합니다."
+            exit 1
+          fi
+
+      - name: 브랜치 보호 규칙 적용
+        env:
+          GH_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.inputs.branch }}
+        run: |
+          echo "설정 대상 브랜치: $BRANCH"
+          cat > /tmp/protection.json << "EOF"
+          {
+            "required_status_checks": {
+              "strict": true,
+              "contexts": [
+                "빌드 및 테스트",
+                "린트"
+              ]
+            },
+            "enforce_admins": true,
+            "required_pull_request_reviews": {
+              "dismiss_stale_reviews": true,
+              "required_approving_review_count": 0,
+              "require_code_owner_reviews": false,
+              "require_last_push_approval": false
+            },
+            "restrictions": null,
+            "allow_force_pushes": false,
+            "allow_deletions": false,
+            "required_conversation_resolution": true
+          }
+          EOF
+
+          gh api \
+            --method PUT \
+            "repos/$REPO/branches/$BRANCH/protection" \
+            --input /tmp/protection.json
+
+          echo "브랜치 보호 규칙이 업데이트되었습니다."
+
+      - name: 적용 결과 출력
+        env:
+          GH_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.inputs.branch }}
+        run: |
+          gh api "repos/$REPO/branches/$BRANCH/protection"
