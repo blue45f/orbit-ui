@@ -9,9 +9,57 @@ updates:
       timezone: Asia/Seoul
     open-pull-requests-limit: 10
     labels: ['dependencies']
+    # 관련 dep을 묶어서 PR 노이즈를 줄입니다.
+    groups:
+      eslint:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@eslint/*'
+          - '@typescript-eslint/*'
+          - 'prettier'
+          - 'prettier-*'
+      testing:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+          - '@testing-library/*'
+          - 'jsdom'
+          - '@playwright/test'
+          - 'playwright'
+      babel:
+        patterns:
+          - '@babel/*'
+          - 'babel-*'
+          - '@rollup/plugin-babel'
+      radix:
+        patterns:
+          - '@radix-ui/*'
+      tiptap:
+        patterns:
+          - '@tiptap/*'
+      react-ecosystem:
+        patterns:
+          - 'react'
+          - 'react-*'
+          - '@types/react'
+          - '@types/react-*'
+      storybook:
+        patterns:
+          - 'storybook'
+          - 'storybook-*'
+          - '@storybook/*'
+      typescript:
+        patterns:
+          - 'typescript'
+          - 'tsc-*'
 
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
       interval: monthly
     labels: ['ci']
+    groups:
+      actions:
+        patterns:
+          - '*'
