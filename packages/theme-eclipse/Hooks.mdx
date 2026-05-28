@@ -81,11 +81,11 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div className='orbit-eyebrow'><span className='num'>01</span>Hooks</div>
           <h1 className='orbit-h1'>훅 카탈로그</h1>
           <div className='orbit-lede'>
-            컴포넌트 외부에서 자주 쓰는 합성 로직을 24개의 공식 훅으로 노출합니다. 모두 SSR 안전, 의존성 0개, TypeScript 타입 추론.
+            컴포넌트 외부에서 자주 쓰는 합성 로직을 27개의 공식 훅으로 노출합니다. 모두 SSR 안전, 의존성 0개, TypeScript 타입 추론.
           </div>
         </div>
         <div className='orbit-page-meta'>
-          <div><strong>24</strong> hooks</div>
+          <div><strong>27</strong> hooks</div>
           <div>tree-shakeable</div>
           <div>SSR-safe</div>
         </div>
@@ -167,6 +167,21 @@ setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))`}</pre>
             <div className='orbit-code-head'><span>example</span><span>useToggle</span></div>
             <pre>{`const [expanded, toggle] = useToggle(false)
 <button onClick={() => toggle()}>{expanded ? '접기' : '펼치기'}</button>`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useArray</code>
+            <div className='tagline'>
+              배열 state with helpers (push · removeAt · remove · updateAt · toggle · clear · set). 필터 칩 그룹, 다중 선택, 동적 폼.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useArray</span></div>
+            <pre>{`const filters = useArray<string>(['recent'])
+
+<Chip onClick={() => filters.toggle('mine')}>내 글</Chip>`}</pre>
           </div>
         </div>
 
@@ -465,10 +480,36 @@ useEffect(() => {
 }, [])`}</pre>
           </div>
         </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useMount</code>
+            <div className='tagline'>
+              마운트 시 한 번만 실행되는 effect. <code>useEffect(fn, [])</code>의 단축형.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useMount</span></div>
+            <pre>{`useMount(() => trackPageView())`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useUnmount</code>
+            <div className='tagline'>
+              unmount 시 한 번만 실행되는 cleanup. 콜백은 ref로 보관되어 최신 closure가 호출.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useUnmount</span></div>
+            <pre>{`useUnmount(() => abortControllerRef.current?.abort())`}</pre>
+          </div>
+        </div>
       </section>
 
       <footer className='orbit-foot'>
-        <div>24 hooks · SSR-safe · tree-shakeable · zero deps</div>
+        <div>27 hooks · SSR-safe · tree-shakeable · zero deps</div>
         <div>
           <a href='?path=/docs/intro-시작하기--docs'>← 시작하기</a>
         </div>
