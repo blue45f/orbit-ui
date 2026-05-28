@@ -5,24 +5,37 @@ import { cleanup } from '../../test-utils'
 
 import { useGamepad } from './useGamepad'
 
+const setNavigatorGetGamepads = (
+  getGamepads: undefined | (() => readonly (Gamepad | null)[])
+) => {
+  const baseNavigator = navigator as unknown as Record<string, unknown>
+  const nextNavigator: Record<string, unknown> = { ...baseNavigator }
+
+  if (getGamepads) {
+    nextNavigator.getGamepads = getGamepads
+  } else {
+    delete nextNavigator.getGamepads
+  }
+
+  vi.stubGlobal('navigator', nextNavigator as unknown as Navigator)
+}
+
 describe('useGamepad', () => {
   afterEach(() => {
     cleanup()
+    vi.unstubAllGlobals()
     vi.restoreAllMocks()
-    delete (navigator as unknown as Record<string, unknown>).getGamepads
   })
 
   it('returns isSupported: false when navigator.getGamepads is absent', () => {
+    setNavigatorGetGamepads(undefined)
+
     const { result } = renderHook(() => useGamepad())
     expect(result.current.isSupported).toBe(false)
   })
 
   it('returns isSupported: true when navigator.getGamepads is available', () => {
-    Object.defineProperty(navigator, 'getGamepads', {
-      configurable: true,
-      writable: true,
-      value: vi.fn().mockReturnValue([]),
-    })
+    setNavigatorGetGamepads(vi.fn().mockReturnValue([]))
 
     const { result } = renderHook(() => useGamepad())
     expect(result.current.isSupported).toBe(true)

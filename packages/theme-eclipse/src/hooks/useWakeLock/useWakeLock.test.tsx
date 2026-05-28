@@ -5,22 +5,40 @@ import { cleanup } from '../../test-utils'
 
 import { useWakeLock } from './useWakeLock'
 
+const setNavigatorWakeLock = (
+  wakeLock:
+    | undefined
+    | {
+        request: () => Promise<{
+          addEventListener: () => void
+          release: () => Promise<void>
+        }>
+      }
+) => {
+  const baseNavigator = navigator as unknown as Record<string, unknown>
+  const nextNavigator: Record<string, unknown> = { ...baseNavigator }
+
+  if (wakeLock) {
+    nextNavigator.wakeLock = wakeLock
+  } else {
+    delete nextNavigator.wakeLock
+  }
+
+  vi.stubGlobal('navigator', nextNavigator as unknown as Navigator)
+}
+
 describe('useWakeLock', () => {
   afterEach(() => {
     cleanup()
+    vi.unstubAllGlobals()
     vi.restoreAllMocks()
   })
 
   it('isSupported is false when navigator.wakeLock is absent', () => {
-    const originalWakeLock = (navigator as unknown as Record<string, unknown>).wakeLock
-    delete (navigator as unknown as Record<string, unknown>).wakeLock
+    setNavigatorWakeLock(undefined)
 
     const { result } = renderHook(() => useWakeLock())
     expect(result.current.isSupported).toBe(false)
-
-    if (originalWakeLock !== undefined) {
-      ;(navigator as unknown as Record<string, unknown>).wakeLock = originalWakeLock
-    }
   })
 
   it('isActive starts as false', () => {

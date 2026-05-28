@@ -118,6 +118,9 @@ export default defineConfig(({ mode }) => {
       environment: 'jsdom',
       setupFiles: './vitest-setup.ts',
       css: true,
+      maxWorkers: 1,
+      fileParallelism: false,
+      isolate: false,
       testTimeout: 10000,
       exclude: [...configDefaults.exclude, 'e2e/*'],
       coverage: {

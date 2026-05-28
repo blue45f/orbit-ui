@@ -5,42 +5,50 @@ import { cleanup } from '../../test-utils'
 
 import { useBattery } from './useBattery'
 
+const setNavigatorGetBattery = (
+  getBattery: undefined | (() => Promise<{
+    level: number
+    charging: boolean
+    chargingTime: number
+    dischargingTime: number
+    addEventListener: ReturnType<typeof vi.fn>
+    removeEventListener: ReturnType<typeof vi.fn>
+    dispatchEvent: ReturnType<typeof vi.fn>
+  }>)
+) => {
+  const baseNavigator = navigator as unknown as Record<string, unknown>
+  const nextNavigator: Record<string, unknown> = { ...baseNavigator }
+
+  if (getBattery) {
+    nextNavigator.getBattery = getBattery
+  } else {
+    delete nextNavigator.getBattery
+  }
+
+  vi.stubGlobal('navigator', nextNavigator as unknown as Navigator)
+}
+
 describe('useBattery', () => {
   afterEach(() => {
     cleanup()
+    vi.unstubAllGlobals()
     vi.restoreAllMocks()
   })
 
   it('getBattery가 없으면 supported:false, loading:false를 반환한다', () => {
-    // Ensure getBattery is not present
-    const originalGetBattery = (navigator as { getBattery?: unknown }).getBattery
-    delete (navigator as { getBattery?: unknown }).getBattery
+    setNavigatorGetBattery(undefined)
 
     const { result } = renderHook(() => useBattery())
     expect(result.current.supported).toBe(false)
     expect(result.current.loading).toBe(false)
-
-    if (originalGetBattery !== undefined) {
-      ;(navigator as { getBattery?: unknown }).getBattery = originalGetBattery
-    }
   })
 
   it('getBattery가 있으면 supported:true, loading:true로 시작한다', () => {
-    // Mock getBattery to return a never-resolving promise so loading stays true
-    Object.defineProperty(navigator, 'getBattery', {
-      configurable: true,
-      value: () => new Promise(() => {}),
-    })
+    setNavigatorGetBattery(() => new Promise(() => {}))
 
     const { result } = renderHook(() => useBattery())
     expect(result.current.supported).toBe(true)
     expect(result.current.loading).toBe(true)
-
-    // Restore
-    Object.defineProperty(navigator, 'getBattery', {
-      configurable: true,
-      value: undefined,
-    })
   })
 
   it('getBattery가 resolve되면 배터리 상태가 갱신된다', async () => {
@@ -54,10 +62,7 @@ describe('useBattery', () => {
       dispatchEvent: vi.fn(),
     }
 
-    Object.defineProperty(navigator, 'getBattery', {
-      configurable: true,
-      value: () => Promise.resolve(mockBattery),
-    })
+    setNavigatorGetBattery(() => Promise.resolve(mockBattery))
 
     const { result } = renderHook(() => useBattery())
 
@@ -69,11 +74,5 @@ describe('useBattery', () => {
     expect(result.current.loading).toBe(false)
     expect(result.current.level).toBe(0.75)
     expect(result.current.charging).toBe(false)
-
-    // Restore
-    Object.defineProperty(navigator, 'getBattery', {
-      configurable: true,
-      value: undefined,
-    })
   })
 })
