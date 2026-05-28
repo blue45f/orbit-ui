@@ -5,30 +5,39 @@ import { cleanup } from '../../test-utils'
 
 import { useMediaQuery } from './useMediaQuery'
 
-type MockMQL = MediaQueryList & {
+type MockMQL = {
+  media: string
+  matches: boolean
   __trigger: (matches: boolean) => void
+  onchange: null
+  addEventListener: (...args: unknown[]) => void
+  removeEventListener: (...args: unknown[]) => void
+  addListener: (...args: unknown[]) => void
+  removeListener: (...args: unknown[]) => void
+  dispatchEvent: () => boolean
 }
 
 function installMatchMedia(initialMatches: Record<string, boolean> = {}) {
   const lists = new Map<string, MockMQL>()
-  const factory = vi.fn((query: string): MediaQueryList => {
-    if (lists.has(query)) return lists.get(query)!
+  const factory = vi.fn((query: string) => {
+    const existing = lists.get(query)
+    if (existing) return existing as unknown as MediaQueryList
     const listeners = new Set<(event: MediaQueryListEvent) => void>()
     const mql: MockMQL = {
       media: query,
       matches: initialMatches[query] ?? false,
       onchange: null,
-      addEventListener: (_type: string, listener: (event: MediaQueryListEvent) => void) => {
-        listeners.add(listener)
+      addEventListener: (_type, listener) => {
+        listeners.add(listener as (event: MediaQueryListEvent) => void)
       },
-      removeEventListener: (_type: string, listener: (event: MediaQueryListEvent) => void) => {
-        listeners.delete(listener)
+      removeEventListener: (_type, listener) => {
+        listeners.delete(listener as (event: MediaQueryListEvent) => void)
       },
-      addListener: (listener: (event: MediaQueryListEvent) => void) => {
-        listeners.add(listener)
+      addListener: (listener) => {
+        listeners.add(listener as (event: MediaQueryListEvent) => void)
       },
-      removeListener: (listener: (event: MediaQueryListEvent) => void) => {
-        listeners.delete(listener)
+      removeListener: (listener) => {
+        listeners.delete(listener as (event: MediaQueryListEvent) => void)
       },
       dispatchEvent: () => true,
       __trigger: (matches: boolean) => {
@@ -38,7 +47,7 @@ function installMatchMedia(initialMatches: Record<string, boolean> = {}) {
       },
     }
     lists.set(query, mql)
-    return mql
+    return mql as unknown as MediaQueryList
   })
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
