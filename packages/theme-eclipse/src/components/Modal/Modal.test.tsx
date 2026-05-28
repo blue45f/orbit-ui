@@ -164,4 +164,144 @@ describe('Dialog (Modal)', () => {
     expect(output).not.toContain('requires a `DialogTitle`')
     expect(output).not.toContain('Missing `Description`')
   })
+
+  test('role="dialog"가 부여된다', async () => {
+    render(
+      <Dialog defaultIsPresented>
+        <Dialog.Top>
+          <Dialog.Title>제목</Dialog.Title>
+        </Dialog.Top>
+      </Dialog>,
+    )
+
+    await waitFor(() => {
+      const dialog = screen.getByRole('dialog')
+      expect(dialog).toBeInTheDocument()
+    })
+  })
+
+  test('Title이 명시되면 aria-labelledby가 Title을 가리킨다', async () => {
+    render(
+      <Dialog defaultIsPresented>
+        <Dialog.Top>
+          <Dialog.Title>결제 확인</Dialog.Title>
+        </Dialog.Top>
+      </Dialog>,
+    )
+
+    await waitFor(() => {
+      const dialog = screen.getByRole('dialog')
+      const labelledBy = dialog.getAttribute('aria-labelledby')
+      expect(labelledBy).toBeTruthy()
+      const titleEl = labelledBy ? document.getElementById(labelledBy) : null
+      expect(titleEl?.textContent).toBe('결제 확인')
+    })
+  })
+
+  test('Description이 명시되면 aria-describedby가 Description을 가리킨다', async () => {
+    render(
+      <Dialog defaultIsPresented>
+        <Dialog.Top>
+          <Dialog.Title>결제 확인</Dialog.Title>
+          <Dialog.Description>이 결제를 진행하시겠습니까?</Dialog.Description>
+        </Dialog.Top>
+      </Dialog>,
+    )
+
+    await waitFor(() => {
+      const dialog = screen.getByRole('dialog')
+      const describedBy = dialog.getAttribute('aria-describedby')
+      expect(describedBy).toBeTruthy()
+      const descEl = describedBy ? document.getElementById(describedBy) : null
+      expect(descEl?.textContent).toBe('이 결제를 진행하시겠습니까?')
+    })
+  })
+
+  test('Escape 키로 닫힌다', async () => {
+    const user = userEvent.setup()
+    const onIsPresentedChange = vi.fn()
+
+    render(
+      <Dialog defaultIsPresented onIsPresentedChange={onIsPresentedChange}>
+        <Dialog.Top>
+          <Dialog.Title>제목</Dialog.Title>
+          <div>내용</div>
+        </Dialog.Top>
+      </Dialog>,
+    )
+
+    await waitFor(() => expect(screen.getByText('내용')).toBeInTheDocument())
+
+    await user.keyboard('{Escape}')
+
+    await waitFor(() => {
+      expect(onIsPresentedChange).toHaveBeenCalledWith(false)
+    })
+  })
+
+  test('controlled 모드: isPresented prop 변경으로 열고 닫을 수 있다', async () => {
+    const { rerender } = render(
+      <Dialog isPresented={false}>
+        <Dialog.Top>
+          <Dialog.Title>제목</Dialog.Title>
+          <div>controlled 내용</div>
+        </Dialog.Top>
+      </Dialog>,
+    )
+
+    expect(screen.queryByText('controlled 내용')).not.toBeInTheDocument()
+
+    rerender(
+      <Dialog isPresented>
+        <Dialog.Top>
+          <Dialog.Title>제목</Dialog.Title>
+          <div>controlled 내용</div>
+        </Dialog.Top>
+      </Dialog>,
+    )
+
+    await waitFor(() => {
+      expect(screen.getByText('controlled 내용')).toBeInTheDocument()
+    })
+  })
+
+  test('Top 슬롯 내부에 Trigger가 없어도 Bottom 슬롯의 Close 버튼은 동작한다', async () => {
+    const user = userEvent.setup()
+    const onIsPresentedChange = vi.fn()
+
+    render(
+      <Dialog defaultIsPresented onIsPresentedChange={onIsPresentedChange}>
+        <Dialog.Top>
+          <Dialog.Title>제목</Dialog.Title>
+        </Dialog.Top>
+        <Dialog.Bottom>
+          <Dialog.Close>cancel</Dialog.Close>
+        </Dialog.Bottom>
+      </Dialog>,
+    )
+
+    await waitFor(() => expect(screen.getByRole('dialog')).toBeInTheDocument())
+
+    await user.click(screen.getByText('cancel'))
+
+    await waitFor(() => expect(onIsPresentedChange).toHaveBeenCalledWith(false))
+  })
+
+  test('onOpenChange도 onIsPresentedChange와 동일하게 동작한다 (alias)', async () => {
+    const user = userEvent.setup()
+    const onOpenChange = vi.fn()
+
+    render(
+      <Dialog onOpenChange={onOpenChange}>
+        <Dialog.Trigger>열기</Dialog.Trigger>
+        <Dialog.Top>
+          <Dialog.Title>제목</Dialog.Title>
+        </Dialog.Top>
+      </Dialog>,
+    )
+
+    await user.click(screen.getByText('열기'))
+
+    await waitFor(() => expect(onOpenChange).toHaveBeenCalledWith(true))
+  })
 })
