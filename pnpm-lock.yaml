@@ -246,8 +246,8 @@ importers:
         specifier: ^8.6.15
         version: 8.6.18(react@19.2.6)(storybook@8.6.18(prettier@3.7.4))
       '@storybook/addon-viewport':
-        specifier: ^8.6.15
-        version: 8.6.18(storybook@8.6.18(prettier@3.7.4))
+        specifier: ^9.0.8
+        version: 9.0.8
       '@storybook/blocks':
         specifier: ^8.6.15
         version: 8.6.18(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(storybook@8.6.18(prettier@3.7.4))
@@ -511,8 +511,8 @@ importers:
         specifier: ^8.6.15
         version: 8.6.18(react@19.2.6)(storybook@8.6.18(prettier@3.7.4))
       '@storybook/addon-viewport':
-        specifier: ^8.6.15
-        version: 8.6.18(storybook@8.6.18(prettier@3.7.4))
+        specifier: ^9.0.8
+        version: 9.0.8
       '@storybook/blocks':
         specifier: ^8.6.15
         version: 8.6.18(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(storybook@8.6.18(prettier@3.7.4))
@@ -2444,6 +2444,9 @@ packages:
     resolution: {integrity: sha512-z9sDJSkuWQb4BP+Z1+H+y/Q0rFbPSDcw+OBBEhMfRcJPPXavdC2pNQ0GdQNVw+tDwhAXj+U7jehKnMDKaP7TyA==}
     peerDependencies:
       storybook: ^8.6.18
+
+  '@storybook/addon-viewport@9.0.8':
+    resolution: {integrity: sha512-HgIFDzNXvMx0zQBM5mhwBoAJlrF9KRlxNCZnJbqrFLCJO4Ps2PMtB0HRGHcg0gm3RLcqyps0DpiF7wll3udb7Q==}
 
   '@storybook/blocks@8.6.18':
     resolution: {integrity: sha512-esZv4msPQ9LxgTb8YUIZhhxVMuI6BPi5bkXtk8c7w7sWuAsqsCe/RnVInn7ooUry2gjnD4hd9+8Eqj0b8oTVoA==}
@@ -8056,6 +8059,8 @@ snapshots:
     dependencies:
       memoizerific: 1.11.3
       storybook: 8.6.18(prettier@3.7.4)
+
+  '@storybook/addon-viewport@9.0.8': {}
 
   '@storybook/blocks@8.6.18(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(storybook@8.6.18(prettier@3.7.4))':
     dependencies:
