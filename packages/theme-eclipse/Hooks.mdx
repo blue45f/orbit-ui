@@ -80,9 +80,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div>
           <div className='orbit-eyebrow'><span className='num'>01</span>Hooks</div>
           <h1 className='orbit-h1'>훅 카탈로그</h1>
-          <p className='orbit-lede'>
+          <div className='orbit-lede'>
             컴포넌트 외부에서 자주 쓰는 합성 로직을 18개의 공식 훅으로 노출합니다. 모두 SSR 안전, 의존성 0개, TypeScript 타입 추론.
-          </p>
+          </div>
         </div>
         <div className='orbit-page-meta'>
           <div><strong>18</strong> hooks</div>
@@ -96,7 +96,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>02</span>State</div>
             <h2>상태와 폼.</h2>
-            <p>제어·비제어를 한 줄로 통일하고, 입력값을 안정 시점에 반영합니다.</p>
+            <div>제어·비제어를 한 줄로 통일하고, 입력값을 안정 시점에 반영합니다.</div>
           </div>
         </div>
 
@@ -207,7 +207,7 @@ useEffect(() => {
           <div>
             <div className='orbit-eyebrow'><span className='num'>03b</span>Timing</div>
             <h2>타이밍.</h2>
-            <p><code>delay</code>가 null이면 일시정지. 콜백은 ref로 보관되어 매 tick 최신 함수가 호출.</p>
+            <div><code>delay</code>가 null이면 일시정지. 콜백은 ref로 보관되어 매 tick 최신 함수가 호출.</div>
           </div>
         </div>
 
@@ -244,7 +244,7 @@ useInterval(() => setSeconds((s) => s + 1), paused ? null : 1000)`}</pre>
           <div>
             <div className='orbit-eyebrow'><span className='num'>03</span>Theme</div>
             <h2>테마와 환경.</h2>
-            <p>현재 모드·플랫폼을 읽고, 미디어 쿼리와 모션 선호를 구독합니다.</p>
+            <div>현재 모드·플랫폼을 읽고, 미디어 쿼리와 모션 선호를 구독합니다.</div>
           </div>
         </div>
 
@@ -303,7 +303,7 @@ const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')`}</pre>
           <div>
             <div className='orbit-eyebrow'><span className='num'>04</span>Interaction</div>
             <h2>이벤트와 단축키.</h2>
-            <p>이벤트 리스너와 키보드 단축키를 선언적으로.</p>
+            <div>이벤트 리스너와 키보드 단축키를 선언적으로.</div>
           </div>
         </div>
 
@@ -363,7 +363,7 @@ useHotkey('escape', onClose, { ignoreInputs: false })`}</pre>
           <div>
             <div className='orbit-eyebrow'><span className='num'>04b</span>Observer</div>
             <h2>관찰자.</h2>
-            <p>요소의 가시성·크기를 polling 없이 즉시 추적.</p>
+            <div>요소의 가시성·크기를 polling 없이 즉시 추적.</div>
           </div>
         </div>
 
@@ -406,7 +406,7 @@ return <div ref={ref}>{size && \`\${Math.round(size.width)}px\`}</div>`}</pre>
           <div>
             <div className='orbit-eyebrow'><span className='num'>05</span>Utility</div>
             <h2>유틸리티.</h2>
-            <p>스크롤 잠금, 클립보드, 마운트 상태, 짧고 정확하게.</p>
+            <div>스크롤 잠금, 클립보드, 마운트 상태, 짧고 정확하게.</div>
           </div>
         </div>
 

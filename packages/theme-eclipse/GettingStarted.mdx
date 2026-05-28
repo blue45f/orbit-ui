@@ -237,9 +237,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div>
           <div className='orbit-eyebrow'><span className='num'>01</span>Getting Started</div>
           <h1 className='orbit-h1'>시작하기</h1>
-          <p className='orbit-lede'>
+          <div className='orbit-lede'>
             Eclipse 테마를 프로젝트에 적용하는 데 필요한 4단계. 설치 후 30초 안에 첫 컴포넌트를 렌더링할 수 있습니다.
-          </p>
+          </div>
         </div>
         <div className='orbit-page-meta'>
           <div><strong>4</strong> steps</div>
@@ -256,10 +256,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
         </div>
         <div>
           <h2>패키지 설치</h2>
-          <p className='step-desc'>
+          <div className='step-desc'>
             대부분의 프로젝트는 <code>theme-eclipse</code>와 <code>icons</code> 두 패키지면 충분합니다.
             헤드리스 layer가 필요하면 <code>@heejun-com/core</code>도 추가하세요.
-          </p>
+          </div>
 
           <div className='orbit-pkgs'>
             <div className='row'>
@@ -289,10 +289,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
         </div>
         <div>
           <h2>EclipseProvider 적용</h2>
-          <p className='step-desc'>
+          <div className='step-desc'>
             앱 루트에 <code>EclipseProvider</code>를 두고 글로벌 CSS를 import 합니다.
             테마 토큰, 폰트 스케일, Portal·Lottie 컨텍스트가 한 번에 주입됩니다.
-          </p>
+          </div>
 
           <div className='orbit-code'>
             <div className='orbit-code-head'>
@@ -352,10 +352,10 @@ function App() {
         </div>
         <div>
           <h2>Server Side Rendering</h2>
-          <p className='step-desc'>
+          <div className='step-desc'>
             SSR 환경에서 초기 렌더 깜빡임을 방지하려면 <code>getTheme()</code>으로 클래스 이름을
             <code>html</code> 또는 <code>body</code>에 미리 박아 둡니다.
-          </p>
+          </div>
 
           <div className='orbit-twocode'>
             <div className='orbit-code'>
@@ -414,10 +414,10 @@ export default function RootLayout({
         </div>
         <div>
           <h2>첫 컴포넌트 조립</h2>
-          <p className='step-desc'>
+          <div className='step-desc'>
             슬롯 컴파운드 패턴으로 컴포넌트 내부를 구성합니다. <code>Leading</code> · <code>Center</code> · <code>Trailing</code>{' '}
             세 슬롯이 시각과 콘텐츠를 분리합니다.
-          </p>
+          </div>
 
           <div className='orbit-code'>
             <div className='orbit-code-head'>

@@ -322,9 +322,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div>
           <div className='orbit-eyebrow'><span className='num'>01</span>Theme Guide</div>
           <h1 className='orbit-h1'>테마 가이드</h1>
-          <p className='orbit-lede'>
+          <div className='orbit-lede'>
             Light·Dark 두 모드는 동등하게 발행됩니다. <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>EclipseProvider</code>가 토큰 클래스, Portal, 모션 컨텍스트를 한 번에 켭니다.
-          </p>
+          </div>
         </div>
         <div className='orbit-page-meta'>
           <div><strong>2</strong> modes</div>
@@ -339,7 +339,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>02</span>Light & Dark</div>
             <h2>두 모드, 같은 vocabulary.</h2>
-            <p>같은 컴포넌트, 같은 토큰 이름. 매핑만 모드에 따라 달라집니다. Storybook 툴바에서 즉시 전환.</p>
+            <div>같은 컴포넌트, 같은 토큰 이름. 매핑만 모드에 따라 달라집니다. Storybook 툴바에서 즉시 전환.</div>
           </div>
         </div>
 
@@ -397,7 +397,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>03</span>Provider</div>
             <h2>EclipseProvider 한 줄.</h2>
-            <p>ThemeProvider, Portal, LottieProvider, ReusableSVG가 내부에서 합쳐집니다.</p>
+            <div>ThemeProvider, Portal, LottieProvider, ReusableSVG가 내부에서 합쳐집니다.</div>
           </div>
         </div>
 
@@ -458,7 +458,7 @@ export function App() {
           <div>
             <div className='orbit-eyebrow'><span className='num'>04</span>Runtime Switching</div>
             <h2>모드는 외부 상태에 묶습니다.</h2>
-            <p>useState·zustand·redux 어디든 OK. mode 프롭에 상태값을 그대로 흘려보내면 끝.</p>
+            <div>useState·zustand·redux 어디든 OK. mode 프롭에 상태값을 그대로 흘려보내면 끝.</div>
           </div>
         </div>
 
@@ -516,7 +516,7 @@ export function useSystemTheme() {
           <div>
             <div className='orbit-eyebrow'><span className='num'>05</span>SSR</div>
             <h2>첫 페인트 깜빡임 방지.</h2>
-            <p><code>getTheme()</code>이 서버에서 클래스 문자열을 반환합니다. <code>html</code>에 박아두면 하이드레이션 전부터 토큰이 적용.</p>
+            <div><code>getTheme()</code>이 서버에서 클래스 문자열을 반환합니다. <code>html</code>에 박아두면 하이드레이션 전부터 토큰이 적용.</div>
           </div>
         </div>
 
@@ -575,7 +575,7 @@ export default function RootLayout({
           <div>
             <div className='orbit-eyebrow'><span className='num'>06</span>theme Prop</div>
             <h2>컴포넌트 단위 surgical 오버라이드.</h2>
-            <p>CSS 작성 없이 TypeScript로 단일 컴포넌트의 토큰만 갈아끼웁니다.</p>
+            <div>CSS 작성 없이 TypeScript로 단일 컴포넌트의 토큰만 갈아끼웁니다.</div>
           </div>
         </div>
 
@@ -615,7 +615,7 @@ export default function RootLayout({
           <div>
             <div className='orbit-eyebrow'><span className='num'>07</span>Global Token Override</div>
             <h2>CSS 변수로 시스템 전체 톤 조정.</h2>
-            <p>소비자 브랜드 컬러로 갈아끼우고 싶다면 reference·semantic 변수를 한 번 덮어쓰면 모든 컴포넌트가 따라옵니다.</p>
+            <div>소비자 브랜드 컬러로 갈아끼우고 싶다면 reference·semantic 변수를 한 번 덮어쓰면 모든 컴포넌트가 따라옵니다.</div>
           </div>
         </div>
 
