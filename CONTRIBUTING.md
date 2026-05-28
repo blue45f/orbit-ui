@@ -28,7 +28,7 @@ Orbit UI에 관심을 가져주셔서 감사합니다!
 
 ```bash
 # 저장소 클론
-git clone https://github.com/orbit-ui/orbit-ui.git
+git clone https://github.com/blue45f/orbit-ui.git
 cd orbit-ui
 
 # 의존성 설치
@@ -271,4 +271,4 @@ CodeRabbit은 PR이 열리거나 새 커밋이 푸시될 때 자동으로 리뷰
 ## 도움이 필요하신가요?
 
 - 📖 [아키텍처 문서](./docs/ARCHITECTURE.md)
-- 🐛 [이슈 리포트](https://github.com/orbit-ui/orbit-ui/issues)
+- 🐛 [이슈 리포트](https://github.com/blue45f/orbit-ui/issues)

@@ -17,9 +17,9 @@ body:
       label: 패키지
       multiple: true
       options:
-        - "@orbit-ui/core"
-        - "@orbit-ui/theme-eclipse"
-        - "@orbit-ui/icons"
+        - "@heejun-com/core"
+        - "@heejun-com/theme-eclipse"
+        - "@heejun-com/icons"
     validations:
       required: true
 
