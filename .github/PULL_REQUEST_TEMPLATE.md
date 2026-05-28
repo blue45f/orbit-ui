@@ -1,38 +1,38 @@
-## 요약
+<!-- 제목은 Conventional Commits 규칙을 따릅니다. 예: feat(core): add token resolver -->
 
-<!-- 변경 사항 간단히 설명 -->
+## 변경 사항 요약
 
-## 유형
+<!-- 무엇을, 왜 바꿨는지 1~3줄 -->
 
-- [ ] 🐛 버그 수정
-- [ ] ✨ 새 기능
-- [ ] 💥 Breaking Change
-- [ ] 📚 문서
-- [ ] 🔧 리팩토링
+## 변경 종류
 
-## 관련 이슈
+- [ ] feat
+- [ ] fix
+- [ ] docs
+- [ ] refactor
+- [ ] test
+- [ ] chore
+- [ ] breaking change
 
-Fixes #
+## 영향 범위
 
-## 변경 내용
-
--
--
--
-
-## 테스트
-
-- [ ] 단위 테스트 추가/수정
-- [ ] 스토리북 추가/수정
-- [ ] 수동 테스트 완료
+- [ ] packages/core
+- [ ] packages/icons
+- [ ] packages/theme-eclipse
+- [ ] packages/generator
+- [ ] packages/vite-plugin
+- [ ] config
+- [ ] 루트 인프라(CI, scripts, config)
+- [ ] 문서
 
 ## 체크리스트
 
-- [ ] 타입 체크 통과 (`pnpm typecheck`)
-- [ ] 테스트 통과 (`pnpm test`)
-- [ ] 빌드 성공 (`pnpm build`)
-- [ ] changeset 추가 (`pnpm changeset`)
+- [ ] `pnpm run verify` 통과
+- [ ] `CodeRabbit review gate` 통과
+- [ ] E2E/시각 회귀 영향이 있으면 `E2E` 워크플로 결과 확인
+- [ ] 패키지 공개 영향이 있으면 `pnpm changeset` 추가
+- [ ] 디자인 토큰/API 변경 시 migration note 작성
 
-## 스크린샷
+## 스크린샷 / 데모
 
-<!-- 필요시 첨부 -->
+<!-- UI 변경 시 첨부 -->
