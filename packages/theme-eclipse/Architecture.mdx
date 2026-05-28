@@ -1,257 +1,590 @@
 import { Meta, Unstyled } from '@storybook/blocks'
 
-<Meta title="Intro/아키텍처" />
+<Meta title='Intro/아키텍처' />
 
 <Unstyled>
-  <div style={{
-    maxWidth: '960px',
-    margin: '0 auto',
-    fontFamily: '"Pretendard Variable", "Pretendard", system-ui, sans-serif',
-  }}>
+  <style>{`
+    [data-orbit-doc] .orbit-stack {
+      margin-top: 32px;
+      border: 1px solid var(--orbit-line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--orbit-surface);
+    }
+    [data-orbit-doc] .orbit-stack .layer {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      padding: 22px 24px;
+      border-top: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-stack .layer:first-child { border-top: 0; }
+    [data-orbit-doc] .orbit-stack .layer .num {
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-stack .layer .num strong {
+      display: block;
+      margin-top: 2px;
+      font-family: var(--orbit-display);
+      font-size: 22px;
+      font-weight: 680;
+      letter-spacing: -0.02em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-stack .layer .desc {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-stack .layer .desc code,
+    [data-orbit-doc] .orbit-stack .layer .pkg {
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      color: var(--orbit-ink-2);
+      letter-spacing: -0.005em;
+    }
+    [data-orbit-doc] .orbit-stack .arrow {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      padding: 4px 0;
+      font-family: var(--orbit-mono);
+      font-size: 10px;
+      color: var(--orbit-ink-4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
 
-    {/* Header */}
-    <div style={{ marginBottom: '48px' }}>
-      <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>Architecture</div>
-      <h1 style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', letterSpacing: '-0.03em', margin: '0 0 12px' }}>3-Tier Architecture</h1>
-      <div style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
-        Orbit UI는 <strong style={{ color: '#1e293b' }}>Primitives → Core → Theme</strong> 3계층 구조로 설계되어,
-        각 레이어가 명확한 책임을 가지며 유연한 확장이 가능합니다.
-      </div>
-    </div>
+    [data-orbit-doc] .orbit-layer-row {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 32px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--orbit-line);
+      align-items: start;
+    }
+    [data-orbit-doc] .orbit-layer-row:last-of-type { border-bottom: 0; }
+    [data-orbit-doc] .orbit-layer-row .lab {
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-layer-row h3 {
+      margin: 4px 0 8px;
+      font-size: 20px;
+      font-weight: 680;
+      letter-spacing: -0.018em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-layer-row .file {
+      margin-top: 8px;
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-3);
+      letter-spacing: -0.005em;
+    }
+    [data-orbit-doc] .orbit-layer-row p {
+      margin: 0 0 12px;
+      max-width: 60ch;
+      font-size: 14.5px;
+      line-height: 1.62;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-layer-row p code,
+    [data-orbit-doc] .orbit-layer-row .meta code {
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-layer-row .examples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    [data-orbit-doc] .orbit-layer-row .examples code {
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-2);
+    }
 
-    {/* Architecture Diagram */}
-    <section style={{ marginBottom: '56px' }}>
-      <div style={{
-        borderRadius: '20px',
-        border: '1px solid #e2e8f0',
-        overflow: 'hidden',
-        background: '#ffffff',
-      }}>
-        {/* Layer 3: Theme */}
-        <div style={{
-          padding: '32px 32px 24px',
-          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.04))',
-          borderBottom: '1px solid #e2e8f0',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-            <div style={{
-              padding: '4px 12px', borderRadius: '100px', fontSize: '11px', fontWeight: '700',
-              background: '#6366f1', color: '#ffffff', letterSpacing: '0.05em',
-            }}>LAYER 3</div>
-            <span style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b' }}>Theme Layer</span>
-            <code style={{ fontSize: '12px', color: '#6366f1', background: '#f1f5f9', padding: '2px 8px', borderRadius: '4px', fontFamily: '"JetBrains Mono", monospace' }}>@heejun-com/theme-eclipse</code>
-          </div>
-          <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', margin: '0 0 16px' }}>
-            사용자가 직접 사용하는 완성된 컴포넌트입니다. 디자인 토큰(색상, 크기, 간격)이 적용되어 있으며,
-            <code style={{ fontSize: '12px', color: '#6366f1', background: '#f1f5f9', padding: '1px 4px', borderRadius: '3px' }}>EclipseProvider</code>를 통해 Light/Dark 테마를 전환할 수 있습니다.
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-            {['SolidButton', 'OutlineButton', 'TextField', 'DataTable', 'Modal', 'Toast', 'Avatar', 'Chip'].map(c => (
-              <span key={c} style={{
-                padding: '4px 10px', borderRadius: '6px', fontSize: '12px', fontWeight: '500',
-                background: 'rgba(99, 102, 241, 0.08)', color: '#6366f1', border: '1px solid rgba(99, 102, 241, 0.15)',
-              }}>{c}</span>
-            ))}
+    [data-orbit-doc] .orbit-code {
+      margin: 0;
+      border: 1px solid var(--orbit-line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--orbit-surface);
+    }
+    [data-orbit-doc] .orbit-code-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--orbit-line);
+      background: var(--orbit-surface-sunken);
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-3);
+    }
+    [data-orbit-doc] .orbit-code-head .tag {
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-code pre {
+      margin: 0;
+      padding: 18px 20px;
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: var(--orbit-ink);
+      background: transparent;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    [data-orbit-doc] .orbit-twocode {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    [data-orbit-doc] .orbit-flow {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 24px 1fr 24px 1fr;
+      gap: 0;
+      align-items: stretch;
+      border-top: 1px solid var(--orbit-line-2);
+      border-bottom: 1px solid var(--orbit-line-2);
+    }
+    [data-orbit-doc] .orbit-flow .tier {
+      padding: 24px 24px 24px 0;
+    }
+    [data-orbit-doc] .orbit-flow .tier:not(:first-child) { padding-left: 0; }
+    [data-orbit-doc] .orbit-flow .tier .name {
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      color: var(--orbit-ink-4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    [data-orbit-doc] .orbit-flow .tier .title {
+      margin-top: 6px;
+      font-size: 17px;
+      font-weight: 660;
+      letter-spacing: -0.012em;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-flow .tier .ex {
+      margin-top: 10px;
+      padding: 6px 8px;
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-2);
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      border-radius: 6px;
+      letter-spacing: -0.005em;
+    }
+    [data-orbit-doc] .orbit-flow .tier .role {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--orbit-ink-3);
+      line-height: 1.5;
+    }
+    [data-orbit-doc] .orbit-flow .sep {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--orbit-mono);
+      font-size: 16px;
+      color: var(--orbit-ink-4);
+    }
+
+    [data-orbit-doc] .orbit-layer-viz {
+      margin-top: 24px;
+      padding: 36px 32px;
+      border: 1px solid var(--orbit-line);
+      border-radius: 14px;
+      background: var(--orbit-surface);
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+    }
+    [data-orbit-doc] .orbit-layer-viz .stage {
+      position: relative;
+      width: 100%;
+      height: 220px;
+    }
+    [data-orbit-doc] .orbit-layer-viz .stage .box {
+      position: absolute;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 6px 10px;
+      font-family: var(--orbit-mono);
+      font-size: 10px;
+      color: var(--orbit-ink-3);
+      letter-spacing: -0.005em;
+      border-radius: 12px;
+    }
+    [data-orbit-doc] .orbit-layer-viz .stage .container {
+      inset: 0;
+      border: 1px dashed var(--orbit-line-2);
+      background: transparent;
+    }
+    [data-orbit-doc] .orbit-layer-viz .stage .state {
+      top: 16px; left: 16px; right: 16px; bottom: 36px;
+      border: 1px solid var(--orbit-line);
+      background: var(--orbit-accent-soft);
+      border-radius: 10px;
+    }
+    [data-orbit-doc] .orbit-layer-viz .stage .border {
+      top: 32px; left: 32px; right: 32px; bottom: 56px;
+      border: 1.5px solid var(--orbit-accent);
+      border-radius: 8px;
+      background: transparent;
+    }
+    [data-orbit-doc] .orbit-layer-viz .stage .content {
+      top: 52px; left: 52px; right: 52px; bottom: 76px;
+      background: var(--orbit-accent);
+      border-radius: 6px;
+      color: var(--orbit-surface);
+      font-size: 11px;
+      font-weight: 600;
+      align-items: center;
+    }
+    :root.dark [data-orbit-doc] .orbit-layer-viz .stage .content {
+      color: rgb(15, 17, 19);
+    }
+    [data-orbit-doc] .orbit-layer-viz .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    [data-orbit-doc] .orbit-layer-viz .legend .item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-layer-viz .legend .item:last-child { border-bottom: 0; }
+    [data-orbit-doc] .orbit-layer-viz .legend .item .name {
+      font-family: var(--orbit-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--orbit-ink);
+    }
+    [data-orbit-doc] .orbit-layer-viz .legend .item .desc {
+      font-size: 13px;
+      color: var(--orbit-ink-3);
+      line-height: 1.55;
+    }
+
+    [data-orbit-doc] .orbit-pkg {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-pkg:last-child { border-bottom: 0; }
+    [data-orbit-doc] .orbit-pkg .head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    [data-orbit-doc] .orbit-pkg .head code {
+      font-family: var(--orbit-mono);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--orbit-ink);
+      letter-spacing: -0.012em;
+    }
+    [data-orbit-doc] .orbit-pkg .head .badge {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-family: var(--orbit-mono);
+      font-size: 10.5px;
+      color: var(--orbit-ink-3);
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    [data-orbit-doc] .orbit-pkg .head .badge.is-rec {
+      color: var(--orbit-accent);
+      background: var(--orbit-accent-soft);
+      border-color: var(--orbit-accent-soft);
+    }
+    [data-orbit-doc] .orbit-pkg p {
+      margin: 12px 0 16px;
+      max-width: 64ch;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-pkg p strong { color: var(--orbit-ink); font-weight: 600; }
+    [data-orbit-doc] .orbit-pkg .why {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    [data-orbit-doc] .orbit-pkg .why code {
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 11.5px;
+      color: var(--orbit-ink-2);
+    }
+
+    @media (max-width: 760px) {
+      [data-orbit-doc] .orbit-stack .layer { grid-template-columns: 1fr; gap: 8px; }
+      [data-orbit-doc] .orbit-layer-row { grid-template-columns: 1fr; gap: 12px; }
+      [data-orbit-doc] .orbit-twocode { grid-template-columns: 1fr; }
+      [data-orbit-doc] .orbit-flow { grid-template-columns: 1fr; }
+      [data-orbit-doc] .orbit-flow .sep { display: none; }
+      [data-orbit-doc] .orbit-layer-viz { grid-template-columns: 1fr; gap: 24px; }
+      [data-orbit-doc] .orbit-layer-viz .stage { height: 180px; }
+    }
+  `}</style>
+
+  <div data-orbit-doc>
+    <div className='orbit-wrap'>
+
+      {/* HEADER */}
+      <header className='orbit-page-head'>
+        <div>
+          <div className='orbit-eyebrow'><span className='num'>01</span>Architecture</div>
+          <h1 className='orbit-h1'>3-tier 아키텍처</h1>
+          <p className='orbit-lede'>
+            Theme · Core · Primitives 세 레이어가 서로 다른 책임을 가집니다.
+            소비자는 Theme만 import하고, 커스텀 시스템 구축 시 Core로 내려가며, Primitives는 항상 내부에 머무릅니다.
+          </p>
+        </div>
+        <div className='orbit-page-meta'>
+          <div><strong>3</strong> tiers</div>
+          <div><strong>3</strong> npm packages</div>
+          <div>headless · themable</div>
+        </div>
+      </header>
+
+      {/* STACK DIAGRAM */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>02</span>Layers at a Glance</div>
+            <h2>위에서 아래로, 추상에서 구체로.</h2>
+            <p>위쪽으로 갈수록 디자인 결정이 들어가고, 아래쪽으로 갈수록 순수 동작과 빌딩 블록만 남습니다.</p>
           </div>
         </div>
 
-        {/* Arrow */}
-        <div style={{ textAlign: 'center', padding: '8px 0', background: '#ffffff', fontSize: '16px', color: '#cbd5e1' }}>
-          extends
-        </div>
-
-        {/* Layer 2: Core */}
-        <div style={{
-          padding: '24px 32px',
-          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.04), rgba(6, 182, 212, 0.03))',
-          borderTop: '1px solid #e2e8f0',
-          borderBottom: '1px solid #e2e8f0',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-            <div style={{
-              padding: '4px 12px', borderRadius: '100px', fontSize: '11px', fontWeight: '700',
-              background: '#3b82f6', color: '#ffffff', letterSpacing: '0.05em',
-            }}>LAYER 2</div>
-            <span style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b' }}>Core Layer</span>
-            <code style={{ fontSize: '12px', color: '#3b82f6', background: '#f1f5f9', padding: '2px 8px', borderRadius: '4px', fontFamily: '"JetBrains Mono", monospace' }}>@heejun-com/core</code>
+        <div className='orbit-stack'>
+          <div className='layer'>
+            <div className='num'>Layer 3<strong>Theme</strong></div>
+            <div className='desc'>
+              디자인 토큰이 적용된 완성 컴포넌트. 대부분의 프로젝트는 이 패키지 하나만으로 충분.
+              <code>EclipseProvider</code>로 Light·Dark 전환.
+            </div>
+            <span className='pkg'>@heejun-com/theme-eclipse</span>
           </div>
-          <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', margin: '0 0 16px' }}>
-            스타일이 없는(Headless) 기본 컴포넌트입니다. 접근성(WAI-ARIA), 키보드 인터랙션, 상태 관리 로직을 담당합니다.
-            <code style={{ fontSize: '12px', color: '#3b82f6', background: '#f1f5f9', padding: '1px 4px', borderRadius: '3px' }}>theme</code> prop으로 외부에서 스타일 토큰을 주입받습니다.
+          <div className='arrow'>↑ wraps & themes</div>
+          <div className='layer'>
+            <div className='num'>Layer 2<strong>Core</strong></div>
+            <div className='desc'>
+              Headless 프리미티브. WAI-ARIA, 키보드, 상태 로직 담당.
+              <code>theme</code> 프롭으로 외부 토큰을 받아 스타일링.
+            </div>
+            <span className='pkg'>@heejun-com/core</span>
           </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-            {['Button', 'TextField', 'Checkbox', 'RadioButton', 'Toggle', 'Dropdown', 'Sheet', 'Badge'].map(c => (
-              <span key={c} style={{
-                padding: '4px 10px', borderRadius: '6px', fontSize: '12px', fontWeight: '500',
-                background: 'rgba(59, 130, 246, 0.06)', color: '#3b82f6', border: '1px solid rgba(59, 130, 246, 0.12)',
-              }}>{c}</span>
-            ))}
+          <div className='arrow'>↑ composes</div>
+          <div className='layer'>
+            <div className='num'>Layer 1<strong>Primitives</strong></div>
+            <div className='desc'>
+              Layer·Slot·Animation·Portal 같은 빌딩 블록. 직접 import 하지 않음. Core를 만들기 위한 도구.
+            </div>
+            <span className='pkg'>internal</span>
           </div>
         </div>
+      </section>
 
-        {/* Arrow */}
-        <div style={{ textAlign: 'center', padding: '8px 0', background: '#ffffff', fontSize: '16px', color: '#cbd5e1' }}>
-          uses
+      {/* PER LAYER DETAIL */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>03</span>Per Layer</div>
+            <h2>각 레이어의 책임.</h2>
+            <p>같은 컴포넌트 이름이 레이어마다 다른 형태로 존재합니다. <code>Button</code>은 Core에 있고, <code>SolidButton</code>은 Theme에 있습니다.</p>
+          </div>
+          <span className='orbit-eyebrow'>3 layers</span>
         </div>
 
-        {/* Layer 1: Primitives */}
-        <div style={{
-          padding: '24px 32px 32px',
-          background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.04), rgba(245, 158, 11, 0.03))',
-          borderTop: '1px solid #e2e8f0',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-            <div style={{
-              padding: '4px 12px', borderRadius: '100px', fontSize: '11px', fontWeight: '700',
-              background: '#10b981', color: '#ffffff', letterSpacing: '0.05em',
-            }}>LAYER 1</div>
-            <span style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b' }}>Primitives Layer</span>
-            <span style={{ fontSize: '12px', color: '#94a3b8', fontStyle: 'italic' }}>Internal</span>
+        <div className='orbit-layer-row'>
+          <div>
+            <div className='lab'>Layer 3</div>
+            <h3>Theme</h3>
+            <div className='file'>packages/theme-eclipse</div>
           </div>
-          <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', margin: '0 0 16px' }}>
-            가장 낮은 수준의 빌딩 블록입니다. UI를 직접 구성하기보다는 Core/Theme 컴포넌트를 만들기 위한 도구입니다.
-            레이어링, 슬롯, 애니메이션, 포탈 등 프레임워크 유틸리티를 제공합니다.
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-            {['Layer', 'Slot', 'Animation', 'Presence', 'Flex', 'Portal', 'Spinner', 'ThemeProvider'].map(c => (
-              <span key={c} style={{
-                padding: '4px 10px', borderRadius: '6px', fontSize: '12px', fontWeight: '500',
-                background: 'rgba(16, 185, 129, 0.06)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.12)',
-              }}>{c}</span>
-            ))}
+          <div>
+            <p>
+              디자인 토큰이 모두 적용된 최종 컴포넌트. <code>SolidButton color='primary'</code>처럼 결정 한 줄로
+              완성된 시각을 얻습니다. 토큰 일부 오버라이드가 필요하면 <code>theme</code> 프롭을 사용.
+            </p>
+            <div className='examples'>
+              <code>SolidButton</code><code>OutlineButton</code><code>FloatingTextField</code>
+              <code>DataTable</code><code>Modal</code><code>Toast</code><code>AppBar</code>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    {/* How it works */}
-    <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>레이어 간 관계</h2>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-
-        {/* Primitives → Core */}
-        <div style={{
-          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
-        }}>
-          <div style={{
-            padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-            fontSize: '13px', fontWeight: '600', color: '#475569',
-          }}>
-            Primitives → Core: Layer 합성
+        <div className='orbit-layer-row'>
+          <div>
+            <div className='lab'>Layer 2</div>
+            <h3>Core (headless)</h3>
+            <div className='file'>packages/core</div>
           </div>
-          <pre style={{
-            margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0',
-            fontSize: '12px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto',
-          }}>
-{`// Core의 Button 내부 구조
-import { Layer, Slot } from '../primitives'
+          <div>
+            <p>
+              스타일이 비어 있는 컴포넌트. 접근성·키보드·상태 로직만 담당합니다.
+              자체 디자인 시스템을 만들고 싶을 때 Theme 대신 Core를 직접 사용. <code>theme</code> 프롭으로 토큰 주입.
+            </p>
+            <div className='examples'>
+              <code>Button</code><code>TextField</code><code>Checkbox</code><code>Toggle</code>
+              <code>Dropdown</code><code>Sheet</code><code>Badge</code><code>ThemeProvider</code>
+            </div>
+          </div>
+        </div>
 
-const Button = ({ theme, children }) => (
+        <div className='orbit-layer-row'>
+          <div>
+            <div className='lab'>Layer 1</div>
+            <h3>Primitives (internal)</h3>
+            <div className='file'>packages/core/src/primitives</div>
+          </div>
+          <div>
+            <p>
+              레이어링, 슬롯, 모션, 포탈, 플렉스 같은 React 프레임워크 유틸리티. 직접 import 하지 않습니다.
+              Core가 이 모듈로 자기 자신을 만듭니다.
+            </p>
+            <div className='examples'>
+              <code>Layer</code><code>Slot</code><code>Animation</code><code>Presence</code>
+              <code>Flex</code><code>Portal</code><code>Spinner</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* COMPOSITION */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>04</span>Composition</div>
+            <h2>레이어 간 합성.</h2>
+            <p>아래 두 코드 조각이 시스템 전체를 요약합니다. Primitives를 Core가 합성하고, Core를 Theme이 입힙니다.</p>
+          </div>
+        </div>
+
+        <div className='orbit-twocode'>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'>
+              <span className='tag'>Primitives → Core</span>
+              <span>core/src/components/Button.tsx</span>
+            </div>
+            <pre>{`import { Layer, Slot } from '../primitives'
+
+export const Button = ({ theme, children }) => (
   <Layer.Container>
-    <Layer.State />     {/* hover/press 효과 */}
-    <Layer.Border />    {/* 테두리 렌더링 */}
+    <Layer.State />
+    <Layer.Border />
     <Layer.Content>
       <Slot>{children}</Slot>
     </Layer.Content>
   </Layer.Container>
-)`}
-          </pre>
-        </div>
-
-        {/* Core → Theme */}
-        <div style={{
-          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
-        }}>
-          <div style={{
-            padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-            fontSize: '13px', fontWeight: '600', color: '#475569',
-          }}>
-            Core → Theme: 토큰 주입
+)`}</pre>
           </div>
-          <pre style={{
-            margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0',
-            fontSize: '12px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto',
-          }}>
-{`// Theme의 SolidButton
-import { Button } from '@heejun-com/core'
+          <div className='orbit-code'>
+            <div className='orbit-code-head'>
+              <span className='tag'>Core → Theme</span>
+              <span>theme-eclipse/src/components/SolidButton.tsx</span>
+            </div>
+            <pre>{`import { Button } from '@heejun-com/core'
 import { vars } from '../../styles'
 
-const SolidButton = ({ color, size, ...props }) => (
+export const SolidButton = ({ color, size, ...rest }) => (
   <Button
     theme={{
       ...vars.com.filledButton,
       ...vars.com.filledButton.variant.color[color],
       ...vars.com.filledButton.variant.size[size],
     }}
-    {...props}
+    {...rest}
   />
-)`}
-          </pre>
-        </div>
-      </div>
-    </section>
-
-    {/* Compound Component Pattern */}
-    <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Compound Component Pattern</h2>
-
-      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '20px' }}>
-        대부분의 컴포넌트는 <strong style={{ color: '#1e293b' }}>서브 컴포넌트 합성 패턴</strong>을 사용합니다.
-        내부 로직을 건드리지 않고 원하는 요소를 자유롭게 배치할 수 있습니다.
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-        <div style={{
-          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
-        }}>
-          <div style={{
-            padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-            display: 'flex', alignItems: 'center', gap: '6px',
-          }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
-            <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>Button Compound</span>
+)`}</pre>
           </div>
-          <pre style={{
-            margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0',
-            fontSize: '12px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto',
-          }}>
-{`<SolidButton color="black" size="medium">
+        </div>
+      </section>
+
+      {/* COMPOUND PATTERN */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>05</span>Compound Pattern</div>
+            <h2>슬롯으로 합성.</h2>
+            <p>props 배열이 아닌 컴포넌트 트리가 API. Leading · Center · Trailing 슬롯이 시각 구조를 노출합니다.</p>
+          </div>
+        </div>
+
+        <div className='orbit-twocode'>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'>
+              <span className='tag'>Button</span>
+              <span>compound</span>
+            </div>
+            <pre>{`<SolidButton color='black' size='medium'>
   <SolidButton.Leading>
-    <PlusIcon />
+    <IconPlus />
   </SolidButton.Leading>
   <SolidButton.Center>
     새 항목 추가
   </SolidButton.Center>
   <SolidButton.Trailing>
-    <ChevronRightIcon />
+    <IconChevronRight />
   </SolidButton.Trailing>
-</SolidButton>`}
-          </pre>
-        </div>
-
-        <div style={{
-          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
-        }}>
-          <div style={{
-            padding: '12px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-            display: 'flex', alignItems: 'center', gap: '6px',
-          }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f87171' }} />
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }} />
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399' }} />
-            <span style={{ marginLeft: '8px', fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>AppBar Compound</span>
+</SolidButton>`}</pre>
           </div>
-          <pre style={{
-            margin: 0, padding: '20px', background: '#0f172a', color: '#e2e8f0',
-            fontSize: '12px', lineHeight: '1.8', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto',
-          }}>
-{`<AppBar>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'>
+              <span className='tag'>AppBar</span>
+              <span>compound</span>
+            </div>
+            <pre>{`<AppBar>
   <AppBar.Leading>
-    <GhostButton size="small" color="black">
-      <MenuIcon />
+    <GhostButton size='small' color='black'>
+      <IconMenu />
     </GhostButton>
   </AppBar.Leading>
   <AppBar.Center>
@@ -260,233 +593,144 @@ const SolidButton = ({ color, size, ...props }) => (
   <AppBar.Trailing>
     <Avatar />
   </AppBar.Trailing>
-</AppBar>`}
-          </pre>
-        </div>
-      </div>
-    </section>
-
-    {/* Token Hierarchy */}
-    <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '24px' }}>Design Token Flow</h2>
-
-      <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0',
-        borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
-      }}>
-        {[
-          { level: 'Reference', example: 'blue500 = #3b82f6', desc: '변하지 않는 원시 값', color: '#3b82f6' },
-          { level: 'Semantic', example: 'fillPrimary = blue500', desc: '맥락에 따른 의미 매핑', color: '#6366f1' },
-          { level: 'Component', example: 'btnFill = fillPrimary', desc: '컴포넌트 전용 바인딩', color: '#8b5cf6' },
-        ].map((t, i) => (
-          <div key={i} style={{
-            padding: '24px', background: '#ffffff',
-            borderRight: i < 2 ? '1px solid #e2e8f0' : 'none',
-            position: 'relative',
-          }}>
-            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: t.color, marginBottom: '12px' }} />
-            <div style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{t.level} Token</div>
-            <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px', lineHeight: '1.5' }}>{t.desc}</div>
-            <code style={{
-              display: 'block', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc',
-              fontSize: '11px', color: t.color, fontFamily: '"JetBrains Mono", monospace', border: '1px solid #f1f5f9',
-            }}>{t.example}</code>
+</AppBar>`}</pre>
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+      </section>
 
-    {/* Layer Primitive Explanation */}
-    <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '16px' }}>Internal: Layer 시스템</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.7', marginBottom: '24px' }}>
-        Layer는 Orbit UI의 핵심 Primitive입니다. 하나의 컴포넌트를 <strong style={{ color: '#1e293b' }}>4개의 물리적 레이어</strong>로 분리하여
-        상태 효과(hover, press), 테두리, 콘텐츠를 독립적으로 제어합니다.
-      </div>
-
-      <div style={{
-        borderRadius: '16px', border: '1px solid #e2e8f0', padding: '32px',
-        background: '#fafafa',
-      }}>
-        {/* Layer visual */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
-          <div style={{ position: 'relative', width: '280px', height: '180px' }}>
-            {/* Container */}
-            <div style={{
-              position: 'absolute', inset: 0, borderRadius: '12px',
-              border: '2px dashed #cbd5e1', background: 'rgba(241, 245, 249, 0.5)',
-              display: 'flex', alignItems: 'flex-end', justifyContent: 'center', padding: '8px',
-            }}>
-              <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '600' }}>Container</span>
-            </div>
-            {/* State Layer */}
-            <div style={{
-              position: 'absolute', top: '12px', left: '12px', right: '12px', bottom: '28px',
-              borderRadius: '8px', background: 'rgba(99, 102, 241, 0.08)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
-              display: 'flex', alignItems: 'flex-end', justifyContent: 'center', padding: '6px',
-            }}>
-              <span style={{ fontSize: '10px', color: '#6366f1', fontWeight: '600' }}>StateLayer (hover/press)</span>
-            </div>
-            {/* Border Layer */}
-            <div style={{
-              position: 'absolute', top: '28px', left: '28px', right: '28px', bottom: '44px',
-              borderRadius: '6px', border: '2px solid #6366f1',
-              display: 'flex', alignItems: 'flex-end', justifyContent: 'center', padding: '4px',
-            }}>
-              <span style={{ fontSize: '10px', color: '#6366f1', fontWeight: '600' }}>BorderLayer</span>
-            </div>
-            {/* Content Layer */}
-            <div style={{
-              position: 'absolute', top: '44px', left: '44px', right: '44px', bottom: '60px',
-              borderRadius: '4px', background: '#6366f1',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <span style={{ fontSize: '11px', color: '#ffffff', fontWeight: '700' }}>ContentLayer</span>
-            </div>
+      {/* TOKEN FLOW */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>06</span>Token Flow</div>
+            <h2>Reference → Semantic → Component.</h2>
+            <p>같은 값이 세 번 명명되는 게 아니라, 의미 계층이 한 단계씩 더해집니다. 소비자는 어느 단계에서든 끼어들 수 있습니다.</p>
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
-          {[
-            { name: 'Container', desc: '최외곽 래퍼, border-radius 담당', color: '#64748b' },
-            { name: 'StateLayer', desc: 'hover/press 시각 효과 오버레이', color: '#6366f1' },
-            { name: 'BorderLayer', desc: '테두리 렌더링 전용 레이어', color: '#3b82f6' },
-            { name: 'ContentLayer', desc: '텍스트/아이콘 등 실제 콘텐츠', color: '#10b981' },
-          ].map((l, i) => (
-            <div key={i} style={{
-              padding: '12px', borderRadius: '8px', background: '#ffffff', border: '1px solid #e2e8f0',
-              textAlign: 'center',
-            }}>
-              <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: l.color, margin: '0 auto 8px' }} />
-              <div style={{ fontSize: '12px', fontWeight: '700', color: '#1e293b', marginBottom: '4px' }}>{l.name}</div>
-              <div style={{ fontSize: '11px', color: '#94a3b8', lineHeight: '1.4' }}>{l.desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* Summary */}
-    <section style={{
-      padding: '24px 28px', borderRadius: '12px',
-      background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(168, 85, 247, 0.04))',
-      border: '1px solid rgba(99, 102, 241, 0.1)',
-      marginBottom: '56px',
-    }}>
-      <div style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>Summary</div>
-      <ul style={{ margin: 0, paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <li style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}><strong style={{ color: '#10b981' }}>Primitives</strong> — Layer, Slot, Animation 등 내부 빌딩 블록 (직접 사용 X)</li>
-        <li style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}><strong style={{ color: '#3b82f6' }}>Core</strong> — 스타일 없는 Headless 컴포넌트, 접근성/키보드/상태 로직 담당</li>
-        <li style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}><strong style={{ color: '#6366f1' }}>Theme (Eclipse)</strong> — 디자인 토큰이 적용된 최종 컴포넌트, 사용자가 직접 import</li>
-      </ul>
-    </section>
-
-    {/* NPM Package Architecture */}
-    <section style={{ marginBottom: '56px' }}>
-      <div style={{ marginBottom: '32px' }}>
-        <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>NPM Package Design</div>
-        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', margin: '0 0 12px' }}>3개 패키지로 분리한 이유</h2>
-        <div style={{ fontSize: '15px', color: '#64748b', lineHeight: '1.7', margin: 0 }}>
-          Orbit UI는 하나의 모놀리식 패키지 대신 <strong style={{ color: '#1e293b' }}>3개의 독립적인 npm 패키지</strong>로 구성되어 있습니다.
-          각 패키지는 서로 다른 관심사를 분리하여 팀별 선택적 도입, 번들 최적화, 테마 확장을 가능하게 합니다.
-        </div>
-      </div>
-
-      {/* Package Cards */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
-
-        {/* @heejun-com/icons */}
-        <div style={{
-          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
-        }}>
-          <div style={{
-            padding: '20px 24px',
-            background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(251, 191, 36, 0.04))',
-            borderBottom: '1px solid #fde68a',
-            display: 'flex', alignItems: 'flex-start', gap: '16px',
-          }}>
-            <div style={{
-              padding: '8px 12px', borderRadius: '10px', background: '#f59e0b', color: '#ffffff',
-              fontSize: '18px', fontWeight: '800', flexShrink: 0, fontFamily: '"JetBrains Mono", monospace',
-            }}>ico</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                <code style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>@heejun-com/icons</code>
-                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: 'rgba(245, 158, 11, 0.12)', color: '#d97706', fontWeight: '600' }}>Zero-dependency</span>
-              </div>
-              <div style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
-                순수 SVG 기반 아이콘 컴포넌트 모음. React, CSS 프레임워크, 테마와 <strong style={{ color: '#475569' }}>완전히 무관하게</strong> 어떤 프로젝트에서도 사용 가능합니다.
-                별도의 Provider나 CSS import 없이 바로 사용합니다.
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
-                {['Line variants', 'Fill variants', 'size prop', 'color prop', 'SVG 최적화', 'Tree-shakeable'].map(f => (
-                  <span key={f} style={{ padding: '3px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: '500', background: 'rgba(245, 158, 11, 0.08)', color: '#d97706', border: '1px solid rgba(245, 158, 11, 0.15)' }}>{f}</span>
-                ))}
-              </div>
-            </div>
+        <div className='orbit-flow'>
+          <div className='tier'>
+            <div className='name'>01 · Reference</div>
+            <div className='title'>원시 값</div>
+            <code className='ex'>blue5 = #2563EB</code>
+            <div className='role'>변하지 않는 색·간격·라운드의 사전 정의 스케일.</div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#ffffff' }}>
-            <div style={{ padding: '16px 20px', borderRight: '1px solid #f1f5f9' }}>
-              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>독립 사용 (권장)</div>
-              <pre style={{ margin: 0, padding: '12px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`// 아이콘만 필요한 프로젝트
-import { HomeLineIcon, BellIcon } from '@heejun-com/icons'
+          <div className='sep'>→</div>
+          <div className='tier'>
+            <div className='name'>02 · Semantic</div>
+            <div className='title'>의미 매핑</div>
+            <code className='ex'>systemMainPrimary = blue5</code>
+            <div className='role'>"primary action color" 같은 *역할*. Light/Dark에 따라 ref 값이 달라짐.</div>
+          </div>
+          <div className='sep'>→</div>
+          <div className='tier'>
+            <div className='name'>03 · Component</div>
+            <div className='title'>컴포넌트 바인딩</div>
+            <code className='ex'>button-fill = systemMainPrimary</code>
+            <div className='role'>각 컴포넌트의 specific 토큰. <code>theme</code> 프롭으로 부분 오버라이드.</div>
+          </div>
+        </div>
+      </section>
 
-<HomeLineIcon size={24} color="#6366f1" />
-<BellIcon size={20} />`}
-              </pre>
-            </div>
-            <div style={{ padding: '16px 20px' }}>
-              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>왜 분리했나?</div>
-              <ul style={{ margin: 0, paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>기존 디자인 시스템 교체 없이 아이콘만 도입 가능</li>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>테마 패키지 없이도 번들에 포함 가능</li>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>외부 CSS-in-JS 의존성 제로로 경량 유지</li>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>Tree-shaking으로 사용한 아이콘만 번들링</li>
-              </ul>
-            </div>
+      {/* INTERNAL LAYER SYSTEM */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>07</span>Internal</div>
+            <h2>Layer 프리미티브.</h2>
+            <p>하나의 인터랙티브 요소는 사실 네 개의 물리 레이어가 합쳐진 결과입니다. 상태 효과, 보더, 콘텐츠가 분리되어 각자 책임만 집니다.</p>
           </div>
         </div>
 
-        {/* @heejun-com/core */}
-        <div style={{
-          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
-        }}>
-          <div style={{
-            padding: '20px 24px',
-            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(6, 182, 212, 0.04))',
-            borderBottom: '1px solid #bfdbfe',
-            display: 'flex', alignItems: 'flex-start', gap: '16px',
-          }}>
-            <div style={{
-              padding: '8px 12px', borderRadius: '10px', background: '#3b82f6', color: '#ffffff',
-              fontSize: '18px', fontWeight: '800', flexShrink: 0, fontFamily: '"JetBrains Mono", monospace',
-            }}>{'{}'}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                <code style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>@heejun-com/core</code>
-                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: 'rgba(59, 130, 246, 0.10)', color: '#2563eb', fontWeight: '600' }}>Headless</span>
-              </div>
-              <div style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
-                스타일이 없는 Headless 컴포넌트 레이어. 접근성(WAI-ARIA), 키보드 인터랙션, 상태 관리, 애니메이션 로직을 제공합니다.
-                <strong style={{ color: '#475569' }}> theme prop</strong>으로 외부에서 CSS 토큰을 주입받아 자신만의 디자인 시스템을 구축할 수 있습니다.
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
-                {['WAI-ARIA', '키보드 내비게이션', 'theme prop 주입', 'UtilityCSS CSS', 'Polymorphic', '상태 관리'].map(f => (
-                  <span key={f} style={{ padding: '3px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: '500', background: 'rgba(59, 130, 246, 0.06)', color: '#2563eb', border: '1px solid rgba(59, 130, 246, 0.12)' }}>{f}</span>
-                ))}
-              </div>
+        <div className='orbit-layer-viz'>
+          <div className='stage' aria-hidden='true'>
+            <div className='box container'>Container</div>
+            <div className='box state'>State</div>
+            <div className='box border'>Border</div>
+            <div className='box content'>Content</div>
+          </div>
+          <div className='legend'>
+            <div className='item'>
+              <div className='name'>Container</div>
+              <div className='desc'>최외곽 래퍼. <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>border-radius</code>와 클릭 영역을 정의합니다.</div>
+            </div>
+            <div className='item'>
+              <div className='name'>State</div>
+              <div className='desc'>hover·pressed·focused 시각 효과 전용 레이어. 메인 컬러를 건드리지 않고 상태만 표현.</div>
+            </div>
+            <div className='item'>
+              <div className='name'>Border</div>
+              <div className='desc'>테두리 렌더링 전용. 두께·색·radius를 콘텐츠와 독립적으로 제어.</div>
+            </div>
+            <div className='item'>
+              <div className='name'>Content</div>
+              <div className='desc'>텍스트·아이콘·자식 슬롯. <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>Slot</code> 프리미티브로 합성됩니다.</div>
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#ffffff' }}>
-            <div style={{ padding: '16px 20px', borderRight: '1px solid #f1f5f9' }}>
-              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>나만의 테마 제작</div>
-              <pre style={{ margin: 0, padding: '12px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`// Eclipse 대신 커스텀 테마 구축
-import { Button } from '@heejun-com/core'
+        </div>
+      </section>
 
-const MyButton = ({ children }) => (
+      {/* PACKAGES */}
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>08</span>npm Packages</div>
+            <h2>세 패키지로 분리한 이유.</h2>
+            <p>모놀리식 단일 패키지 대신 세 개로 쪼개서 선택적 도입과 번들 최소화를 가능하게 합니다.</p>
+          </div>
+          <span className='orbit-eyebrow'>3 packages</span>
+        </div>
+
+        <div className='orbit-pkg'>
+          <div className='head'>
+            <code>@heejun-com/icons</code>
+            <span className='badge'>zero-dep</span>
+          </div>
+          <p>
+            순수 SVG 아이콘 컴포넌트. React만 있으면 어떤 디자인 시스템과도 독립적으로 사용 가능. <strong>Provider 없음, CSS import 없음.</strong>
+            기존 시스템 교체 없이 아이콘만 도입할 수 있고, tree-shaking으로 사용한 아이콘만 번들에 포함됩니다.
+          </p>
+          <div className='why'>
+            <code>Line · Fill 두 스타일</code>
+            <code>size·color 프롭</code>
+            <code>Tree-shakeable</code>
+            <code>332 icons</code>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'>
+              <span className='tag'>독립 사용</span>
+              <span>import only what you need</span>
+            </div>
+            <pre>{`import { IconHomeLine, IconBell } from '@heejun-com/icons'
+
+<IconHomeLine size={24} color='currentColor' />
+<IconBell size={20} />`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-pkg'>
+          <div className='head'>
+            <code>@heejun-com/core</code>
+            <span className='badge'>headless</span>
+          </div>
+          <p>
+            스타일이 비어 있는 헤드리스 컴포넌트. <strong>접근성·키보드·상태 로직만</strong> 담고, <code>theme</code> 프롭으로 외부 토큰을 받아 스타일링.
+            자체 디자인 시스템을 구축하면서 접근성·인터랙션은 기존 구현을 재사용하고 싶을 때 사용합니다.
+          </p>
+          <div className='why'>
+            <code>WAI-ARIA 내장</code>
+            <code>키보드 내비게이션</code>
+            <code>Polymorphic as 프롭</code>
+            <code>theme 프롭 주입</code>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'>
+              <span className='tag'>커스텀 테마</span>
+              <span>build your own design system</span>
+            </div>
+            <pre>{`import { Button } from '@heejun-com/core'
+
+export const MyButton = ({ children }) => (
   <Button
     theme={{
       backgroundColor: 'var(--brand-primary)',
@@ -496,494 +740,48 @@ const MyButton = ({ children }) => (
   >
     {children}
   </Button>
-)`}
-              </pre>
-            </div>
-            <div style={{ padding: '16px 20px' }}>
-              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>왜 분리했나?</div>
-              <ul style={{ margin: 0, paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>Eclipse 외 다른 테마(Dark Mode Only 등) 구축 가능</li>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>테마 토큰(theme.css)을 테마 레이어에만 격리</li>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>접근성/로직 코드를 재사용하면서 완전히 다른 비주얼 가능</li>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>사내 디자인 시스템 fork 시 Core만 유지하고 Theme 교체</li>
-              </ul>
-            </div>
+)`}</pre>
           </div>
         </div>
 
-        {/* @heejun-com/theme-eclipse */}
-        <div style={{
-          borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden',
-        }}>
-          <div style={{
-            padding: '20px 24px',
-            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.04))',
-            borderBottom: '1px solid #c7d2fe',
-            display: 'flex', alignItems: 'flex-start', gap: '16px',
-          }}>
-            <div style={{
-              padding: '8px 12px', borderRadius: '10px', background: '#6366f1', color: '#ffffff',
-              fontSize: '18px', fontWeight: '800', flexShrink: 0, fontFamily: '"JetBrains Mono", monospace',
-            }}>UI</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                <code style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>@heejun-com/theme-eclipse</code>
-                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: 'rgba(99, 102, 241, 0.10)', color: '#6366f1', fontWeight: '600' }}>Production Ready</span>
-              </div>
-              <div style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px', lineHeight: '1.6' }}>
-                Core + Eclipse 디자인 토큰이 결합된 최종 컴포넌트. theme.css의 CSS 변수로 토큰을 관리하며,
-                EclipseProvider 하나로 Light/Dark 테마와 모바일/PC 플랫폼을 동시에 제어합니다.
-                <strong style={{ color: '#475569' }}>대부분의 프로젝트에서 이 패키지만 설치하면 됩니다.</strong>
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
-                {['Light/Dark Mode', 'Mobile/PC 대응', 'UtilityCSS + CSS 변수', '디자인 토큰', '50+ Components', 'SSR 지원'].map(f => (
-                  <span key={f} style={{ padding: '3px 8px', borderRadius: '5px', fontSize: '11px', fontWeight: '500', background: 'rgba(99, 102, 241, 0.06)', color: '#6366f1', border: '1px solid rgba(99, 102, 241, 0.12)' }}>{f}</span>
-                ))}
-              </div>
-            </div>
+        <div className='orbit-pkg'>
+          <div className='head'>
+            <code>@heejun-com/theme-eclipse</code>
+            <span className='badge is-rec'>recommended</span>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#ffffff' }}>
-            <div style={{ padding: '16px 20px', borderRight: '1px solid #f1f5f9' }}>
-              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>일반적인 사용법</div>
-              <pre style={{ margin: 0, padding: '12px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '11px', lineHeight: '1.7', fontFamily: '"JetBrains Mono", monospace', overflow: 'auto' }}>
-{`import { EclipseProvider, SolidButton, TextField }
-  from '@heejun-com/theme-eclipse'
+          <p>
+            토큰이 모두 적용된 완성 컴포넌트 + <code>EclipseProvider</code>. 대부분의 프로젝트는 이 패키지 하나로 충분합니다.
+            Light·Dark 모드, 모바일·PC 분기, baseTextSize 스케일이 Provider 한 줄로 켜집니다.
+          </p>
+          <div className='why'>
+            <code>56 components</code>
+            <code>Light + Dark</code>
+            <code>Mobile + PC</code>
+            <code>SSR (Next.js)</code>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'>
+              <span className='tag'>일반 사용</span>
+              <span>just install and ship</span>
+            </div>
+            <pre>{`import { EclipseProvider, SolidButton } from '@heejun-com/theme-eclipse'
 import '@heejun-com/theme-eclipse/style.css'
 
-<EclipseProvider mode="light">
-  <TextField placeholder="검색" />
-  <SolidButton color="black">
-    <SolidButton.Center>확인</SolidButton.Center>
-  </SolidButton>
-</EclipseProvider>`}
-              </pre>
-            </div>
-            <div style={{ padding: '16px 20px' }}>
-              <div style={{ fontSize: '11px', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>왜 분리했나?</div>
-              <ul style={{ margin: 0, paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>Eclipse 디자인 토큰을 원하지 않는 팀이 Core만 도입 가능</li>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>Eclipse 외 테마(예: Midnight, Coral)를 별도 패키지로 배포 가능</li>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>style.css 번들이 Core가 아닌 테마 패키지에만 존재</li>
-                <li style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>디자이너가 테마 토큰만 수정하여 새 테마 패키지 발행 가능</li>
-              </ul>
-            </div>
+<EclipseProvider mode='light'>
+  <SolidButton color='primary'>결제 진행</SolidButton>
+</EclipseProvider>`}</pre>
           </div>
         </div>
+      </section>
 
-      </div>
-
-      {/* Dependency Graph */}
-      <div style={{ marginBottom: '32px' }}>
-        <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px', letterSpacing: '-0.01em' }}>패키지 의존 관계</h3>
-        <div style={{
-          padding: '28px', borderRadius: '16px', border: '1px solid #e2e8f0', background: '#fafafa',
-          fontFamily: '"JetBrains Mono", monospace',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0', flexWrap: 'wrap', rowGap: '12px' }}>
-            {/* icons */}
-            <div style={{ textAlign: 'center', padding: '12px 20px', borderRadius: '12px', border: '2px solid #fbbf24', background: 'rgba(245, 158, 11, 0.05)' }}>
-              <div style={{ fontSize: '12px', fontWeight: '700', color: '#d97706' }}>@heejun-com/icons</div>
-              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>No deps</div>
-            </div>
-            <div style={{ padding: '0 8px', color: '#cbd5e1', fontSize: '18px' }}>+</div>
-            {/* core */}
-            <div style={{ textAlign: 'center', padding: '12px 20px', borderRadius: '12px', border: '2px solid #93c5fd', background: 'rgba(59, 130, 246, 0.05)' }}>
-              <div style={{ fontSize: '12px', fontWeight: '700', color: '#2563eb' }}>@heejun-com/core</div>
-              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>UtilityCSS + Primitive</div>
-            </div>
-            <div style={{ padding: '0 12px', color: '#cbd5e1', fontSize: '18px' }}>→</div>
-            {/* theme-eclipse */}
-            <div style={{ textAlign: 'center', padding: '12px 20px', borderRadius: '12px', border: '2px solid #a5b4fc', background: 'rgba(99, 102, 241, 0.05)' }}>
-              <div style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1' }}>@heejun-com/theme-eclipse</div>
-              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>core + icons + theme.css</div>
-            </div>
-            <div style={{ padding: '0 12px', color: '#cbd5e1', fontSize: '18px' }}>→</div>
-            {/* your app */}
-            <div style={{ textAlign: 'center', padding: '12px 20px', borderRadius: '12px', border: '2px dashed #e2e8f0', background: '#ffffff' }}>
-              <div style={{ fontSize: '12px', fontWeight: '700', color: '#475569' }}>Your App</div>
-              <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>import theme-eclipse</div>
-            </div>
-          </div>
+      {/* FOOTER */}
+      <footer className='orbit-foot'>
+        <div>3 tiers · 3 packages · headless by design</div>
+        <div>
+          <a href='?path=/docs/intro-시작하기--docs'>시작하기 →</a>
         </div>
-      </div>
+      </footer>
 
-      {/* Usage Scenarios */}
-      <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px', letterSpacing: '-0.01em' }}>시나리오별 도입 방법</h3>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        {[
-          {
-            scenario: '일반 React 웹앱 — 가장 일반적인 케이스',
-            install: 'pnpm add @heejun-com/theme-eclipse @heejun-com/icons',
-            note: 'theme-eclipse가 core를 내부적으로 포함합니다. icons를 추가로 설치하면 아이콘 컴포넌트 사용 가능.',
-            color: '#6366f1',
-          },
-          {
-            scenario: '아이콘만 필요한 프로젝트 (기존 UI 라이브러리 유지)',
-            install: 'pnpm add @heejun-com/icons',
-            note: '어떤 React 프레임워크와도 호환. Provider 불필요. 번들 충돌 없음.',
-            color: '#f59e0b',
-          },
-          {
-            scenario: '사내 커스텀 디자인 시스템 구축 (Core 기반)',
-            install: 'pnpm add @heejun-com/core @heejun-com/icons',
-            note: 'Core의 Headless 컴포넌트에 자체 CSS 변수나 UtilityCSS 클래스를 주입하여 고유한 테마를 만들 수 있습니다.',
-            color: '#3b82f6',
-          },
-          {
-            scenario: 'Next.js App Router / SSR 환경',
-            install: 'pnpm add @heejun-com/theme-eclipse @heejun-com/icons',
-            note: "getTheme()을 RootLayout에 적용하여 SSR 초기 렌더링 시 테마 깜빡임(FOUC)을 방지합니다.",
-            color: '#10b981',
-          },
-        ].map((s, i) => (
-          <div key={i} style={{
-            borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden',
-          }}>
-            <div style={{
-              padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-              display: 'flex', alignItems: 'center', gap: '8px',
-            }}>
-              <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: s.color, flexShrink: 0 }} />
-              <span style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{s.scenario}</span>
-            </div>
-            <div style={{ padding: '12px 16px', background: '#ffffff' }}>
-              <pre style={{ margin: '0 0 8px', padding: '10px 14px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '12px', fontFamily: '"JetBrains Mono", monospace' }}>{s.install}</pre>
-              <div style={{ margin: 0, fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>{s.note}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-    </section>
-
-    {/* Benchmark: DataProductUI vs UtilityUI vs Orbit UI */}
-    <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>벤치마크: DataProductUI / UtilityUI 비교</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', marginBottom: '28px' }}>
-        Orbit UI는 여러 디자인 시스템에서 영감을 받아 설계되었습니다. 각 시스템의 강점을 분석하고 우리 컨텍스트에 맞게 재해석합니다.
-      </div>
-
-      {/* 비교 테이블 */}
-      <div style={{ overflowX: 'auto', marginBottom: '32px' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-          <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              {['항목', 'DataProductUI', 'UtilityUI', 'Orbit UI'].map((h, i) => (
-                <th key={h} style={{
-                  padding: '10px 14px',
-                  textAlign: i === 0 ? 'left' : 'center',
-                  fontWeight: '700',
-                  color: '#1e293b',
-                  border: '1px solid #e2e8f0',
-                  whiteSpace: 'nowrap',
-                }}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ['스타일 방식', 'CSS-in-JS (Less)', 'Utility CSS (UtilityCSS)', 'UtilityCSS + CSS 변수 토큰'],
-              ['컴포넌트 구조', '단일 컴포넌트 중심', 'HTML 스니펫 중심', '3계층 Headless 구조'],
-              ['테마 변경', 'ConfigProvider + Design Token', '직접 CSS 수정', 'EclipseProvider + CSS Variables'],
-              ['타입 안전성', 'TypeScript 지원', '정적 HTML/JSX', '완전한 TypeScript 타입 추론'],
-              ['번들 크기', '대형 (전체 임포트 시)', '없음 (HTML 복붙)', '트리쉐이킹 지원 ESM'],
-              ['접근성', 'WAI-ARIA 일부 지원', '수동 ARIA 추가 필요', 'WAI-ARIA Core 내장'],
-              ['React Server 지원', 'Client 컴포넌트 중심', '해당 없음', 'server/ 경로로 RSC 지원'],
-              ['커스텀 테마', 'token 파일 수정', 'tailwind.config.js', 'theme prop + CSS 변수 주입'],
-            ].map(([item, arco, tailwind, orbit], i) => (
-              <tr key={item} style={{ background: i % 2 === 0 ? '#ffffff' : '#fafafa' }}>
-                <td style={{ padding: '10px 14px', fontWeight: '600', color: '#374151', border: '1px solid #e2e8f0' }}>{item}</td>
-                <td style={{ padding: '10px 14px', textAlign: 'center', color: '#64748b', border: '1px solid #e2e8f0' }}>{arco}</td>
-                <td style={{ padding: '10px 14px', textAlign: 'center', color: '#64748b', border: '1px solid #e2e8f0' }}>{tailwind}</td>
-                <td style={{ padding: '10px 14px', textAlign: 'center', color: '#6366f1', fontWeight: '600', border: '1px solid #e2e8f0' }}>{orbit}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* DataProductUI 학습 포인트 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-        {[
-          {
-            title: 'DataProductUI에서 가져온 패턴',
-            color: '#2563eb',
-            bg: 'rgba(37,99,235,0.04)',
-            border: 'rgba(37,99,235,0.12)',
-            items: [
-              'SegmentedControl 통계 카드 기간 선택 UI',
-              'Input.Number 증가/감소 버튼 + 포맷',
-              '태그 입력: 자동완성 + 복수 선택',
-              '트리 선택기: 중첩 데이터 표현 방식',
-              '통계 카드: 수치 + 변화율 + 상태 표시',
-            ],
-          },
-          {
-            title: 'UtilityUI에서 가져온 패턴',
-            color: '#0f766e',
-            bg: 'rgba(15,118,110,0.04)',
-            border: 'rgba(15,118,110,0.12)',
-            items: [
-              '3열 폼 레이아웃 (레이블 + 설명 + 입력)',
-              '사이드바 + 스티키 헤더 레이아웃',
-              '버튼 그룹 (인접 테두리 공유)',
-              '반응형 그리드 카드 레이아웃',
-              '테이블 + 인라인 필터 바 패턴',
-            ],
-          },
-        ].map((section) => (
-          <div key={section.title} style={{
-            borderRadius: '12px',
-            border: `1px solid ${section.border}`,
-            background: section.bg,
-            padding: '20px',
-          }}>
-            <div style={{ fontSize: '14px', fontWeight: '700', color: section.color, marginBottom: '12px' }}>{section.title}</div>
-            <ul style={{ margin: 0, padding: '0 0 0 16px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              {section.items.map((item) => (
-                <li key={item} style={{ fontSize: '13px', color: '#374151', lineHeight: '1.5' }}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* 커스텀 테마 Step-by-Step */}
-    <section style={{ marginBottom: '56px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', letterSpacing: '-0.02em', marginBottom: '8px' }}>커스텀 테마 만들기</h2>
-      <div style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.65', marginBottom: '28px' }}>
-        Orbit UI의 3계층 구조를 활용하여 완전히 새로운 테마를 만드는 방법입니다.
-        Core 컴포넌트의 <code style={{ fontSize: '12px', color: '#6366f1', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>theme</code> prop에 CSS 변수 값을 주입하는 방식으로 동작합니다.
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        {[
-          {
-            step: '01',
-            title: 'CSS 변수 정의',
-            color: '#6366f1',
-            code: `/* my-theme.css */
-:root {
-  --my-color-primary: #e11d48;     /* rose-600 */
-  --my-color-surface: #fff1f2;     /* rose-50  */
-  --my-color-fg-primary: #1c1917;  /* stone-900 */
-}`,
-            desc: '디자인 시스템의 Reference Token을 CSS 변수로 정의합니다.',
-          },
-          {
-            step: '02',
-            title: 'theme prop으로 토큰 주입',
-            color: '#3b82f6',
-            code: `import { SolidButton } from '@heejun-com/theme-eclipse'
-
-function MyButton({ children }) {
-  return (
-    <SolidButton
-      color="primary"
-      size="medium"
-      theme={{
-        enabledFillColor: 'var(--my-color-primary)',
-        enabledLabelColor: '#ffffff',
-      }}
-    >
-      <SolidButton.Center>{children}</SolidButton.Center>
-    </SolidButton>
-  )
-}`,
-            desc: 'theme prop은 컴포넌트 토큰을 직접 오버라이드합니다. CSS 변수를 값으로 사용할 수 있습니다.',
-          },
-          {
-            step: '03',
-            title: 'EclipseProvider에서 전역 테마 적용',
-            color: '#10b981',
-            code: `import { EclipseProvider } from '@heejun-com/theme-eclipse'
-
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <head>
-        <link rel="stylesheet" href="/my-theme.css" />
-      </head>
-      <body>
-        <EclipseProvider defaultColorScheme="light">
-          {children}
-        </EclipseProvider>
-      </body>
-    </html>
-  )
-}`,
-            desc: 'EclipseProvider가 Light/Dark 테마 전환을 관리합니다. CSS 변수를 이 레벨에서 오버라이드하면 전역 적용됩니다.',
-          },
-        ].map((step) => (
-          <div key={step.step} style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-            <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{ width: '24px', height: '24px', borderRadius: '6px', background: step.color, color: '#fff', fontSize: '11px', fontWeight: '800', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{step.step}</div>
-              <span style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b' }}>{step.title}</span>
-            </div>
-            <div style={{ padding: '16px' }}>
-              <pre style={{ margin: '0 0 10px', padding: '12px 16px', background: '#0f172a', borderRadius: '8px', color: '#e2e8f0', fontSize: '12px', fontFamily: '"JetBrains Mono", monospace', overflowX: 'auto', whiteSpace: 'pre' }}>{step.code}</pre>
-              <div style={{ margin: 0, fontSize: '13px', color: '#64748b', lineHeight: '1.5' }}>{step.desc}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-  {/* Cycle 41: DeployPlatform Design 벤치마크 섹션 */}
-  <section style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)', borderRadius: '20px', color: '#e2e8f0' }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-      <div style={{ width: 36, height: 36, borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 16, color: '#0f172a' }}>▲</div>
-      <div>
-        <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 800, color: '#fff' }}>DeployPlatform Design (System) 벤치마크</h2>
-        <div style={{ margin: '2px 0 0', fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>Cycle 41 — DeployPlatform의 System 디자인 시스템 주요 패턴 분석</div>
-      </div>
     </div>
-
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-      {[
-        {
-          title: '모노크롬 팔레트',
-          icon: '◐',
-          desc: '회색 계열(Gray 100~1000) + 시맨틱 컬러(Blue, Green, Red, Amber)의 이분법적 구성. Dark mode가 기본값이며 Light mode는 보조.',
-          orbit: 'Eclipse 테마의 color: "black" | "gray" | "primary" 체계와 직접 대응. 추가 semantic 색상 확장 가능.',
-        },
-        {
-          title: 'System 타이포그래피',
-          icon: 'Aa',
-          desc: 'System Sans(UI) + System Mono(코드) 이중 폰트 체계. tabular-nums로 숫자 정렬, text-underline-offset: 2.5px로 링크 품질 향상.',
-          orbit: 'Typography 컴포넌트의 textStyle prop이 System의 명명 체계와 유사. monospace 폰트는 코드 블록에 적용 권장.',
-        },
-        {
-          title: '컴팩트 밀도 그리드',
-          icon: '⊞',
-          desc: '32px 버튼 높이, 16px 아이콘, 6px 아이콘-텍스트 간격. xs/sm/md/lg 4단계 반응형 브레이크포인트.',
-          orbit: 'size="small"(32px)이 DeployPlatform 기본 밀도에 대응. 8px 그리드 기반 spacing 시스템으로 정렬.',
-        },
-      ].map(({ title, icon, desc, orbit }) => (
-        <div key={title} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.1)', padding: '18px' }}>
-          <div style={{ fontSize: '22px', marginBottom: '10px' }}>{icon}</div>
-          <div style={{ fontSize: '13px', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>{title}</div>
-          <div style={{ margin: '0 0 10px', fontSize: '12px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>{desc}</div>
-          <div style={{ padding: '8px 10px', borderRadius: '8px', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)' }}>
-            <span style={{ fontSize: '10px', fontWeight: 700, color: '#818cf8', display: 'block', marginBottom: '3px' }}>Orbit UI 적용</span>
-            <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 }}>{orbit}</span>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <div style={{ padding: '16px 20px', borderRadius: '12px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}>
-      <div style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '10px' }}>Ant Design 테이블 컴포넌트 대비 Orbit UI 특징</div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-        {[
-          { label: 'Ant Design', items: ['Table 컴포넌트 내장 ellipsis + tooltip', 'Form.Item validateStatus + help 패턴', '전체 기능 번들 (약 2MB gzip)', 'CSS-in-JS 런타임 오버헤드'], accent: '#f59e0b' },
-          { label: 'Orbit UI', items: ['Tooltip 독립 컴포넌트로 자유 조합', 'FloatingTextField + 커스텀 도움말 조합', '트리-쉐이킹 가능 (필요한 것만 import)', 'UtilityCSS 유틸리티 + CSS 변수 토큰'], accent: '#6366f1' },
-        ].map(({ label, items, accent }) => (
-          <div key={label}>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: accent, marginBottom: '6px' }}>{label}</div>
-            <ul style={{ margin: 0, padding: '0 0 0 16px' }}>
-              {items.map((item) => (
-                <li key={item} style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  {/* ─────────────────────────────────────────────────────
-      ComposableUI + PrimitiveUI 벤치마크 (Cycle 47)
-      ───────────────────────────────────────────────────── */}
-  <section style={{ marginTop: '48px' }}>
-    <div style={{ fontSize: '22px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
-      ComposableUI &amp; PrimitiveUI 아키텍처 벤치마크
-    </div>
-    <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', lineHeight: '1.6' }}>
-      ComposableUI의 Copy-paste 친화적 API 설계와 PrimitiveUI의 Primitive 기반 접근성 아키텍처를 Orbit UI와 비교합니다.
-    </div>
-
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '24px' }}>
-      {/* ComposableUI */}
-      <div style={{ padding: '18px', borderRadius: '12px', background: '#fafaf9', border: '2px solid #e7e5e4' }}>
-        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>ComposableUI</div>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '12px', color: '#44403c', lineHeight: '1.9' }}>
-          <li>Primitive Primitive 위에 UtilityCSS CSS 스타일 레이어</li>
-          <li>소스 코드 직접 복사 (dependency-free)</li>
-          <li>레지스트리 기반 컴포넌트 추가</li>
-          <li>OR/AND 구분선, 피처 캐러셀 등 실무 패턴 포함</li>
-          <li>New York / Default 두 가지 스타일 테마</li>
-        </ul>
-      </div>
-
-      {/* PrimitiveUI */}
-      <div style={{ padding: '18px', borderRadius: '12px', background: '#f5f3ff', border: '2px solid #ede9fe' }}>
-        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>PrimitiveUI</div>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '12px', color: '#4c1d95', lineHeight: '1.9' }}>
-          <li>스타일 없는 Primitive — 완전 커스텀 가능</li>
-          <li>WAI-ARIA 완전 구현 (focus trap, keyboard nav)</li>
-          <li>비제어/제어 패턴 모두 지원</li>
-          <li>ContextMenu, Tooltip 등 접근성 복잡 컴포넌트</li>
-          <li>포털 기반 오버레이 (z-index 자동 관리)</li>
-        </ul>
-      </div>
-
-      {/* Orbit UI */}
-      <div style={{ padding: '18px', borderRadius: '12px', background: '#f0fdf4', border: '2px solid #bbf7d0' }}>
-        <div style={{ fontWeight: '700', fontSize: '14px', color: '#1e293b', marginBottom: '12px' }}>Orbit UI</div>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '12px', color: '#14532d', lineHeight: '1.9' }}>
-          <li>Primitive Primitive 기반 + UtilityCSS 유틸리티 스타일</li>
-          <li>3-Tier 토큰으로 브랜드 테마 전환</li>
-          <li>Compound 컴포넌트로 유연한 조합 API</li>
-          <li>theme prop으로 런타임 토큰 오버라이드</li>
-          <li>ComposableUI 패턴 + Primitive 접근성 = Orbit UI 장점</li>
-        </ul>
-      </div>
-    </div>
-
-    <div style={{ padding: '20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-      <div style={{ fontSize: '13px', fontWeight: '700', color: '#1e293b', marginBottom: '14px' }}>주요 아키텍처 비교</div>
-      <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
-          <thead>
-            <tr style={{ background: '#f1f5f9' }}>
-              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#475569', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>특성</th>
-              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#44403c', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>ComposableUI</th>
-              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#4c1d95', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>PrimitiveUI</th>
-              <th style={{ padding: '9px 12px', textAlign: 'left', color: '#14532d', fontWeight: '700', borderBottom: '2px solid #e2e8f0' }}>Orbit UI</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>스타일 방식</td>
-              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>UtilityCSS CSS</td>
-              <td style={{ padding: '9px 12px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>스타일 없음</td>
-              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>UtilityCSS + CSS 변수 (빌드타임)</td>
-            </tr>
-            <tr style={{ background: '#f8fafc' }}>
-              <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>설치 방식</td>
-              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>소스 복사</td>
-              <td style={{ padding: '9px 12px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>npm 패키지</td>
-              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>npm 패키지 (monorepo)</td>
-            </tr>
-            <tr>
-              <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>테마 커스텀</td>
-              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>CSS 변수 + 소스 수정</td>
-              <td style={{ padding: '9px 12px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>직접 스타일 작성</td>
-              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>theme prop 오버라이드</td>
-            </tr>
-            <tr style={{ background: '#f8fafc' }}>
-              <td style={{ padding: '9px 12px', fontWeight: '600', color: '#374151', borderBottom: '1px solid #e2e8f0' }}>타입 안전성</td>
-              <td style={{ padding: '9px 12px', color: '#44403c', borderBottom: '1px solid #e2e8f0' }}>부분적</td>
-              <td style={{ padding: '9px 12px', color: '#4c1d95', borderBottom: '1px solid #e2e8f0' }}>완전</td>
-              <td style={{ padding: '9px 12px', color: '#14532d', fontWeight: '600', borderBottom: '1px solid #e2e8f0' }}>완전 (TS + 토큰 자동 추론)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
   </div>
 </Unstyled>

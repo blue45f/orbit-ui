@@ -61,7 +61,6 @@ function App() {
 :root {
   --heejun-icon-tone-soft-filter: drop-shadow(0 1px 1px rgba(14, 20, 34, 0.08));
   --heejun-icon-tone-premium-filter: drop-shadow(0 1px 4px rgba(14, 20, 34, 0.16));
-  --heejun-icon-tone-premium-opacity: 0.98;
 }
 ```
 

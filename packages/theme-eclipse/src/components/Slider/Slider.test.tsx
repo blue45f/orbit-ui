@@ -68,4 +68,98 @@ describe('Slider (eclipse)', () => {
 
     expect(onValueChange).toHaveBeenCalled()
   })
+
+  test('Home 키로 최소값(min)으로 점프한다', async () => {
+    const onValueChange = vi.fn()
+    render(<Slider defaultValue={[50]} min={0} max={100} step={1} onValueChange={onValueChange} />)
+
+    const slider = screen.getByRole('slider')
+    slider.focus()
+    await userEvent.keyboard('{Home}')
+
+    expect(onValueChange).toHaveBeenCalledWith([0])
+  })
+
+  test('End 키로 최대값(max)으로 점프한다', async () => {
+    const onValueChange = vi.fn()
+    render(<Slider defaultValue={[50]} min={0} max={100} step={1} onValueChange={onValueChange} />)
+
+    const slider = screen.getByRole('slider')
+    slider.focus()
+    await userEvent.keyboard('{End}')
+
+    expect(onValueChange).toHaveBeenCalledWith([100])
+  })
+
+  test('PageUp 키로 큰 폭 step 증가가 발생한다', async () => {
+    const onValueChange = vi.fn()
+    render(<Slider defaultValue={[50]} min={0} max={100} step={1} onValueChange={onValueChange} />)
+
+    const slider = screen.getByRole('slider')
+    slider.focus()
+    await userEvent.keyboard('{PageUp}')
+
+    expect(onValueChange).toHaveBeenCalled()
+    const calledWith = onValueChange.mock.calls.at(-1)?.[0] as number[]
+    expect(calledWith[0]).toBeGreaterThan(50)
+  })
+
+  test('PageDown 키로 큰 폭 step 감소가 발생한다', async () => {
+    const onValueChange = vi.fn()
+    render(<Slider defaultValue={[50]} min={0} max={100} step={1} onValueChange={onValueChange} />)
+
+    const slider = screen.getByRole('slider')
+    slider.focus()
+    await userEvent.keyboard('{PageDown}')
+
+    expect(onValueChange).toHaveBeenCalled()
+    const calledWith = onValueChange.mock.calls.at(-1)?.[0] as number[]
+    expect(calledWith[0]).toBeLessThan(50)
+  })
+
+  test('왼쪽 화살표로 step 만큼 감소한다', async () => {
+    const onValueChange = vi.fn()
+    render(<Slider defaultValue={[50]} min={0} max={100} step={1} onValueChange={onValueChange} />)
+
+    const slider = screen.getByRole('slider')
+    slider.focus()
+    await userEvent.keyboard('{ArrowLeft}')
+
+    expect(onValueChange).toHaveBeenCalledWith([49])
+  })
+
+  test('range 슬라이더에서 두 thumb 모두 키보드 조작이 가능하다', async () => {
+    const onValueChange = vi.fn()
+    render(<Slider defaultValue={[20, 80]} min={0} max={100} step={1} onValueChange={onValueChange} />)
+
+    const thumbs = screen.getAllByRole('slider')
+    expect(thumbs).toHaveLength(2)
+
+    thumbs[1].focus()
+    await userEvent.keyboard('{ArrowRight}')
+
+    expect(onValueChange).toHaveBeenCalled()
+    const calledWith = onValueChange.mock.calls.at(-1)?.[0] as number[]
+    expect(calledWith[1]).toBeGreaterThan(80)
+  })
+
+  test('disabled 슬라이더는 키보드 입력을 무시한다', async () => {
+    const onValueChange = vi.fn()
+    render(
+      <Slider
+        defaultValue={[50]}
+        min={0}
+        max={100}
+        step={1}
+        disabled
+        onValueChange={onValueChange}
+      />,
+    )
+
+    const slider = screen.getByRole('slider')
+    slider.focus()
+    await userEvent.keyboard('{Home}{End}{ArrowRight}')
+
+    expect(onValueChange).not.toHaveBeenCalled()
+  })
 })

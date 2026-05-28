@@ -32,9 +32,10 @@ test('size 프롭이 없고 IconPropsContext에 size가 있으면 그 크기를 
 test('tone 프롭으로 스타일이 적용된다', () => {
   render(<IconRoot tone="premium">icon</IconRoot>)
   const icon = screen.getByText('icon')
+  const style = icon.getAttribute('style')
 
-  expect(icon.getAttribute('style')).toContain('drop-shadow')
-  expect(icon).toHaveStyle({ opacity: 'var(--heejun-icon-tone-premium-opacity, 0.98)' })
+  expect(style).toContain('drop-shadow')
+  expect(style).toContain('opacity: 0.98')
 })
 
 test('IconPropsContext의 tone이 prop보다 우선한다', () => {

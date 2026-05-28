@@ -14,7 +14,7 @@
     "format": "prettier --write \"packages/**/*.{ts,tsx,json,md}\"",
     "format:check": "pnpm -r --if-present run format:check",
     "clean": "pnpm -r clean && rm -rf node_modules",
-    "ci": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
+    "ci": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run build && pnpm run test",
     "verify": "pnpm run ci",
     "verify:push": "pnpm run verify",
     "gen": "pnpm --filter @orbit-ui/generator gen",
