@@ -1,0 +1,341 @@
+import { Meta, Unstyled } from '@storybook/blocks'
+
+<Meta title='Intro/훅' />
+
+<Unstyled>
+  <style>{`
+    [data-orbit-doc] .orbit-hook {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--orbit-line);
+    }
+    [data-orbit-doc] .orbit-hook:last-of-type { border-bottom: 0; }
+    [data-orbit-doc] .orbit-hook .orbit-hook-head {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 32px;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+    [data-orbit-doc] .orbit-hook code.signature {
+      font-family: var(--orbit-mono);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--orbit-accent);
+      letter-spacing: -0.012em;
+    }
+    [data-orbit-doc] .orbit-hook .tagline {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-hook .tagline code {
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: var(--orbit-surface-sunken);
+      border: 1px solid var(--orbit-line);
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      color: var(--orbit-ink-2);
+    }
+    [data-orbit-doc] .orbit-hook .orbit-code {
+      margin-top: 12px;
+      border: 1px solid var(--orbit-line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--orbit-surface);
+    }
+    [data-orbit-doc] .orbit-hook .orbit-code-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--orbit-line);
+      background: var(--orbit-surface-sunken);
+      font-family: var(--orbit-mono);
+      font-size: 11px;
+      color: var(--orbit-ink-3);
+    }
+    [data-orbit-doc] .orbit-hook .orbit-code pre {
+      margin: 0;
+      padding: 16px 18px;
+      font-family: var(--orbit-mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: var(--orbit-ink);
+      background: transparent;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    @media (max-width: 760px) {
+      [data-orbit-doc] .orbit-hook .orbit-hook-head { grid-template-columns: 1fr; gap: 6px; }
+    }
+  `}</style>
+
+  <div data-orbit-doc>
+    <div className='orbit-wrap'>
+
+      {/* HEADER */}
+      <header className='orbit-page-head'>
+        <div>
+          <div className='orbit-eyebrow'><span className='num'>01</span>Hooks</div>
+          <h1 className='orbit-h1'>훅 카탈로그</h1>
+          <p className='orbit-lede'>
+            컴포넌트 외부에서 자주 쓰는 합성 로직을 9개의 공식 훅으로 노출합니다. 모두 SSR 안전, 의존성 0개, TypeScript 타입 추론.
+          </p>
+        </div>
+        <div className='orbit-page-meta'>
+          <div><strong>9</strong> hooks</div>
+          <div>tree-shakeable</div>
+          <div>SSR-safe</div>
+        </div>
+      </header>
+
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>02</span>State</div>
+            <h2>상태와 폼.</h2>
+            <p>제어·비제어를 한 줄로 통일하고, 입력값을 안정 시점에 반영합니다.</p>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useDisclosure</code>
+            <div className='tagline'>
+              Modal·Drawer·Popover의 열림·닫힘 상태를 제어·비제어 모두 한 줄로 통일. <code>aria-expanded</code>·<code>aria-controls</code>를 자동 와이어링하는 <code>getTriggerProps</code> · <code>getDisclosureProps</code> 동봉.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useDisclosure</span></div>
+            <pre>{`import { useDisclosure, Modal, SolidButton } from '@heejun-com/theme-eclipse'
+
+function ConfirmPay() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  return (
+    <>
+      <SolidButton onClick={onOpen}>결제 진행</SolidButton>
+      <Modal isPresented={isOpen} onIsPresentedChange={onClose}>...</Modal>
+    </>
+  )
+}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useDebounce</code>
+            <div className='tagline'>
+              값이 <code>delay</code>ms 동안 안정되면 갱신해 반환. 검색·필터 입력의 핵심 패턴. 기본 200ms는 모션 토큰 <code>--sem-eclipse-motion-duration-base</code>와 일치.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useDebounce</span></div>
+            <pre>{`const [query, setQuery] = useState('')
+const debounced = useDebounce(query, 300)
+
+useEffect(() => {
+  if (debounced) fetchResults(debounced)
+}, [debounced])`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useLocalStorage</code>
+            <div className='tagline'>
+              값을 <code>localStorage</code>에 자동 직렬화·복원. 함수형 setter, 다른 탭 변경 sync(<code>syncTabs</code>), 커스텀 직렬화 지원. quota·denied 오류는 throw 대신 무시.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useLocalStorage</span></div>
+            <pre>{`const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('theme', 'light')
+
+setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))`}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>03</span>Theme</div>
+            <h2>테마와 환경.</h2>
+            <p>현재 모드·플랫폼을 읽고, 미디어 쿼리와 모션 선호를 구독합니다.</p>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useEclipseTheme</code>
+            <div className='tagline'>
+              <code>EclipseProvider</code>의 현재 컨텍스트(<code>mode</code> · <code>platform</code> · <code>baseTextSize</code>)를 반환. Provider 외부 호출 시 명시적 에러로 빠른 실패.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useEclipseTheme</span></div>
+            <pre>{`function Logo() {
+  const { mode } = useEclipseTheme()
+  return mode === 'dark' ? <LogoDark /> : <LogoLight />
+}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useMediaQuery</code>
+            <div className='tagline'>
+              <code>matchMedia</code> 결과를 구독해 boolean으로 반환. SSR 안전. modern <code>addEventListener</code> + Safari &lt; 14의 <code>addListener</code> 폴백.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useMediaQuery</span></div>
+            <pre>{`const isCompact = useMediaQuery('(max-width: 640px)')
+const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>usePrefersReducedMotion</code>
+            <div className='tagline'>
+              <code>(prefers-reduced-motion: reduce)</code> 매치 여부 반환. JS 레벨 애니메이션(Lottie, scroll reveal) 분기에 사용. 전역 CSS 리셋은 이미 <code>motion-focus.css</code>가 처리.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>usePrefersReducedMotion</span></div>
+            <pre>{`const reduce = usePrefersReducedMotion()
+
+<Lottie
+  animationData={data}
+  autoplay={!reduce}
+  loop={!reduce}
+/>`}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>04</span>Interaction</div>
+            <h2>이벤트와 단축키.</h2>
+            <p>이벤트 리스너와 키보드 단축키를 선언적으로.</p>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useEventListener</code>
+            <div className='tagline'>
+              <code>window</code> · <code>document</code> · DOM element에 이벤트 리스너를 부착하고 unmount 시 자동 해제. 핸들러는 ref로 보관되어 매 렌더의 최신 함수를 안정 식별자로 호출.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useEventListener</span></div>
+            <pre>{`// window keydown
+useEventListener('keydown', (e) => {
+  if (e.key === 'Escape') onClose()
+})
+
+// 특정 element
+const ref = useRef<HTMLDivElement>(null)
+useEventListener('mousemove', handleMove, ref)`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useHotkey</code>
+            <div className='tagline'>
+              키보드 단축키를 전역에 바인딩. <code>mod</code>는 macOS에서 <code>Cmd</code>, 그 외 <code>Ctrl</code>로 자동 매핑. 기본적으로 input·textarea·contenteditable 포커스 시 무시.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useHotkey</span></div>
+            <pre>{`// 커맨드 팔레트
+useHotkey('mod+k', () => commandPalette.open())
+
+// 모달 dismiss (입력 중에도)
+useHotkey('escape', onClose, { ignoreInputs: false })`}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section className='orbit-sect'>
+        <div className='orbit-sect-head'>
+          <div>
+            <div className='orbit-eyebrow'><span className='num'>05</span>Utility</div>
+            <h2>유틸리티.</h2>
+            <p>스크롤 잠금, 클립보드, 마운트 상태, 짧고 정확하게.</p>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useClipboard</code>
+            <div className='tagline'>
+              <code>navigator.clipboard.writeText</code>를 래핑하고 자동 리셋되는 <code>hasCopied</code> 플래그 노출. <code>execCommand('copy')</code> 폴백으로 비-secure context도 지원. 실패 시 throw 대신 false 반환.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useClipboard</span></div>
+            <pre>{`function ShareButton({ url }: { url: string }) {
+  const { hasCopied, onCopy } = useClipboard()
+  return (
+    <SolidButton onClick={() => onCopy(url)}>
+      <SolidButton.Center>{hasCopied ? '복사됨' : '링크 복사'}</SolidButton.Center>
+    </SolidButton>
+  )
+}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useScrollLock</code>
+            <div className='tagline'>
+              <code>&lt;body&gt;</code> 스크롤을 잠그고 스크롤바 너비만큼 <code>padding-right</code>를 보존해 콘텐츠가 좌우로 튀지 않도록 합니다. unmount 또는 <code>enabled=false</code>면 자동 복원.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useScrollLock</span></div>
+            <pre>{`function CustomModal({ open, children }) {
+  useScrollLock({ enabled: open })
+  return open ? <div role='dialog'>{children}</div> : null
+}`}</pre>
+          </div>
+        </div>
+
+        <div className='orbit-hook'>
+          <div className='orbit-hook-head'>
+            <code className='signature'>useIsMounted</code>
+            <div className='tagline'>
+              현재 마운트 상태를 ref로 반환. 비동기 setState 전 가드, navigation 도중 unmount된 컴포넌트의 setState 경고 회피에 사용.
+            </div>
+          </div>
+          <div className='orbit-code'>
+            <div className='orbit-code-head'><span>example</span><span>useIsMounted</span></div>
+            <pre>{`const isMounted = useIsMounted()
+
+useEffect(() => {
+  fetchData().then((data) => {
+    if (!isMounted.current) return
+    setData(data)
+  })
+}, [])`}</pre>
+          </div>
+        </div>
+      </section>
+
+      <footer className='orbit-foot'>
+        <div>9 hooks · SSR-safe · tree-shakeable · zero deps</div>
+        <div>
+          <a href='?path=/docs/intro-시작하기--docs'>← 시작하기</a>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</Unstyled>
