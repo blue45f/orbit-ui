@@ -254,6 +254,18 @@ pnpm changeset
 2. 버전 유형 선택 (patch/minor/major)
 3. 변경 내용 요약 작성
 
+### 머지 게이트
+
+`main` 브랜치는 다음 세 개의 필수 상태 체크가 모두 통과해야 머지할 수 있습니다.
+
+1. **빌드 및 테스트** — `pnpm verify` (타입체크 · 테스트 · 빌드)
+2. **린트** — `pnpm lint`
+3. **CodeRabbit 리뷰 통과** — CodeRabbit이 PR을 `APPROVED` 상태로 리뷰해야 합니다.
+
+CodeRabbit은 PR이 열리거나 새 커밋이 푸시될 때 자동으로 리뷰를 수행합니다. 변경 요청(`CHANGES_REQUESTED`)이 들어오면 코멘트를 확인하고 수정 후 다시 푸시해 재리뷰를 트리거하세요. 수동 재리뷰는 PR 코멘트에 `@coderabbitai review` 를 입력합니다.
+
+추가로 `required_approving_review_count: 1` 이 설정되어 있어 적어도 한 명의 리뷰어(CodeRabbit 봇 포함) 승인이 필요합니다. 보호 규칙은 `.github/workflows/branch-protection.yml` 을 admin 권한 토큰(`GH_ADMIN_TOKEN`)으로 한 번 실행해 적용합니다.
+
 ---
 
 ## 도움이 필요하신가요?
