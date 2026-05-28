@@ -303,10 +303,10 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div>
           <div className='orbit-eyebrow'><span className='num'>01</span>Design Tokens</div>
           <h1 className='orbit-h1'>디자인 토큰</h1>
-          <p className='orbit-lede'>
+          <div className='orbit-lede'>
             Reference → Semantic → Component 세 계층의 토큰 시스템. <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>--ref-*</code>,
             <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>--sem-eclipse-*</code>, <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>--com-eclipse-*</code> CSS 변수로 노출됩니다.
-          </p>
+          </div>
         </div>
         <div className='orbit-page-meta'>
           <div><strong>3</strong> tiers</div>
@@ -321,7 +321,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>02</span>Hierarchy</div>
             <h2>세 계층, 한 방향.</h2>
-            <p>아래 계층이 값을 정의하고 위 계층이 의미를 입힙니다. 소비자는 어느 계층에서든 끼어들 수 있습니다.</p>
+            <div>아래 계층이 값을 정의하고 위 계층이 의미를 입힙니다. 소비자는 어느 계층에서든 끼어들 수 있습니다.</div>
           </div>
         </div>
 
@@ -355,7 +355,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>03</span>Color · Primary</div>
             <h2>Cobalt: 시스템 단일 액센트.</h2>
-            <p>One Voice Rule. 어떤 화면에서도 10% 이하로 사용. Hover에 deep, 배경 강조에 tint.</p>
+            <div>One Voice Rule. 어떤 화면에서도 10% 이하로 사용. Hover에 deep, 배경 강조에 tint.</div>
           </div>
           <span className='orbit-eyebrow'>8 steps</span>
         </div>
@@ -427,7 +427,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>04</span>Color · Neutral</div>
             <h2>Ash Cream에서 Ash Ink까지.</h2>
-            <p>Light는 차분한 ash 톤, Dark는 carbon 톤. 모든 neutral은 브랜드 축으로 살짝 기울어 있습니다.</p>
+            <div>Light는 차분한 ash 톤, Dark는 carbon 톤. 모든 neutral은 브랜드 축으로 살짝 기울어 있습니다.</div>
           </div>
           <span className='orbit-eyebrow'>12 steps</span>
         </div>
@@ -525,7 +525,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>05</span>Color · Status</div>
             <h2>네 가지 의미.</h2>
-            <p>Positive / Negative / Warning / Benefit. 의미가 적용될 때만 사용, 장식 컬러로 절대 사용하지 않습니다.</p>
+            <div>Positive / Negative / Warning / Benefit. 의미가 적용될 때만 사용, 장식 컬러로 절대 사용하지 않습니다.</div>
           </div>
         </div>
 
@@ -576,7 +576,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>06</span>Spacing</div>
             <h2>4px 그리드.</h2>
-            <p>모든 간격은 <code>--ref-spacing-*</code>의 4px 배수. 스케일 밖의 값은 코드 스멜.</p>
+            <div>모든 간격은 <code>--ref-spacing-*</code>의 4px 배수. 스케일 밖의 값은 코드 스멜.</div>
           </div>
           <span className='orbit-eyebrow'>13 steps</span>
         </div>
@@ -624,7 +624,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>07</span>Radius</div>
             <h2>8단계 라운드.</h2>
-            <p>버튼·필드는 md(8px), 카드는 lg(12px), 모달은 xl(16px), 칩은 pill(9999px).</p>
+            <div>버튼·필드는 md(8px), 카드는 lg(12px), 모달은 xl(16px), 칩은 pill(9999px).</div>
           </div>
           <span className='orbit-eyebrow'>8 steps</span>
         </div>
@@ -668,7 +668,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>08</span>Elevation</div>
             <h2>네 단계 lift, 그러나 기본은 0.</h2>
-            <p>The Flat-By-Default Rule. 어떤 컴포넌트도 기본 상태에서 그림자를 갖지 않습니다.</p>
+            <div>The Flat-By-Default Rule. 어떤 컴포넌트도 기본 상태에서 그림자를 갖지 않습니다.</div>
           </div>
           <span className='orbit-eyebrow'>4 levels</span>
         </div>
@@ -717,7 +717,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>09</span>Typography</div>
             <h2>한 패밀리, 가중치로 위계.</h2>
-            <p>Pretendard Variable이 display부터 caption까지 모든 위계를 운반. weight 400 / 500 / 700과 1.2-1.4 scale ratio.</p>
+            <div>Pretendard Variable이 display부터 caption까지 모든 위계를 운반. weight 400 / 500 / 700과 1.2-1.4 scale ratio.</div>
           </div>
           <span className='orbit-eyebrow'>9 styles</span>
         </div>
@@ -802,7 +802,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>10</span>Motion</div>
             <h2>Sub-second, ease-out.</h2>
-            <p>5단계 duration + 5종 easing. <code>prefers-reduced-motion</code>은 자동 적용.</p>
+            <div>5단계 duration + 5종 easing. <code>prefers-reduced-motion</code>은 자동 적용.</div>
           </div>
           <span className='orbit-eyebrow'>10 tokens</span>
         </div>

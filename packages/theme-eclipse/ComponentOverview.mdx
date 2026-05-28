@@ -542,9 +542,9 @@ import { Meta, Unstyled } from '@storybook/blocks'
         <div>
           <div className='orbit-eyebrow'><span className='num'>01</span>Catalog</div>
           <h1 className='orbit-h1'>컴포넌트 개요</h1>
-          <p className='orbit-lede'>
+          <div className='orbit-lede'>
             56개 컴포넌트가 5개 카테고리로 정리되어 있습니다. 모든 컴포넌트는 <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>forwardRef</code>, 폴리모픽 <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>as</code> 프롭, 슬롯 컴파운드, <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>theme</code> 프롭 오버라이드를 동일한 인터페이스로 따릅니다.
-          </p>
+          </div>
         </div>
         <div className='orbit-page-meta'>
           <div><strong>56</strong> components</div>
@@ -559,7 +559,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>02</span>By Category</div>
             <h2>카테고리별 컴포넌트</h2>
-            <p>같은 vocabulary, 다른 affordance. 컴포넌트 이름을 클릭하면 해당 페이지로 이동합니다.</p>
+            <div>같은 vocabulary, 다른 affordance. 컴포넌트 이름을 클릭하면 해당 페이지로 이동합니다.</div>
           </div>
           <span className='orbit-eyebrow'>6 groups</span>
         </div>
@@ -688,7 +688,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>03</span>Principles</div>
             <h2>네 가지 원칙.</h2>
-            <p>모든 컴포넌트가 이 네 줄을 따릅니다. DESIGN.md의 named rules 발췌.</p>
+            <div>모든 컴포넌트가 이 네 줄을 따릅니다. DESIGN.md의 named rules 발췌.</div>
           </div>
           <span className='orbit-eyebrow'>4 rules</span>
         </div>
@@ -697,37 +697,37 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div className='orbit-principle'>
             <div className='idx'>01 · Color</div>
             <h3>The One Voice Rule.</h3>
-            <p>
+            <div>
               Cobalt(<code>#2563EB</code>) accent는 어떤 화면에서도 10% 이하만 차지합니다.
               primary 액션, 포커스 링, 현재 선택 표시, 링크에만 사용. 아이콘 장식, 카드 배경,
               제목 밑줄로 절대 사용하지 않습니다.
-            </p>
+            </div>
           </div>
           <div className='orbit-principle'>
             <div className='idx'>02 · Elevation</div>
             <h3>The Flat-By-Default Rule.</h3>
-            <p>
+            <div>
               어떤 컴포넌트도 기본 상태에서 <code>box-shadow</code>를 갖지 않습니다.
               깊이는 surface 톤 차이(Ash Cream 아래, Paper White 위)와 1px hairline border로 표현.
               그림자는 modal·dropdown·drag처럼 *진짜 떠야 하는* 순간에만.
-            </p>
+            </div>
           </div>
           <div className='orbit-principle'>
             <div className='idx'>03 · Typography</div>
             <h3>The One Family Rule.</h3>
-            <p>
+            <div>
               Pretendard 한 패밀리가 display부터 caption까지 모든 위계를 운반합니다.
               hierarchy는 weight 대비(400/500/700)와 1.2-1.4 scale ratio로. display font 페어링은 금지.
-            </p>
+            </div>
           </div>
           <div className='orbit-principle'>
             <div className='idx'>04 · Composition</div>
             <h3>The Slot Pattern.</h3>
-            <p>
+            <div>
               Button, ListTile, Chip 모두 <code>Leading</code>·<code>Center</code>·<code>Trailing</code>{' '}
               슬롯으로 구성됩니다. props 배열이 아닌 *합성*이 API. <code>as</code> 프롭으로 태그 교체,
               <code>theme</code> 프롭으로 부분 토큰 오버라이드.
-            </p>
+            </div>
           </div>
         </div>
       </section>
@@ -738,7 +738,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>04</span>API Surface</div>
             <h2>모든 컴포넌트가 같은 인터페이스.</h2>
-            <p>예측 가능성이 곧 학습 비용. 6개 프롭이 전체 카탈로그의 90%를 설명합니다.</p>
+            <div>예측 가능성이 곧 학습 비용. 6개 프롭이 전체 카탈로그의 90%를 설명합니다.</div>
           </div>
           <span className='orbit-eyebrow'>6 props</span>
         </div>
@@ -792,7 +792,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
           <div>
             <div className='orbit-eyebrow'><span className='num'>05</span>Do / Don't</div>
             <h2>자주 어긋나는 4가지.</h2>
-            <p>슬롯을 무시하거나, 인터페이스를 우회하거나, 색상을 직접 박는 패턴은 시스템과 충돌합니다.</p>
+            <div>슬롯을 무시하거나, 인터페이스를 우회하거나, 색상을 직접 박는 패턴은 시스템과 충돌합니다.</div>
           </div>
           <span className='orbit-eyebrow'>4 topics</span>
         </div>
@@ -809,7 +809,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
                 <svg viewBox='0 0 16 16'><path d='M3 8l3 3 7-7' strokeLinecap='round' strokeLinejoin='round' /></svg>
                 Do
               </div>
-              <p>Center·Leading·Trailing 슬롯을 사용해 시각 구조와 콘텐츠를 분리합니다.</p>
+              <div>Center·Leading·Trailing 슬롯을 사용해 시각 구조와 콘텐츠를 분리합니다.</div>
               <pre>{`<SolidButton color="primary" size="medium">
   <SolidButton.Leading>
     <IconPlus />
@@ -824,7 +824,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
                 <svg viewBox='0 0 16 16'><path d='M4 4l8 8M12 4l-8 8' strokeLinecap='round' /></svg>
                 Don't
               </div>
-              <p>버튼 내부에 임의 div·span을 직접 삽입하면 스타일과 접근성이 깨집니다.</p>
+              <div>버튼 내부에 임의 div·span을 직접 삽입하면 스타일과 접근성이 깨집니다.</div>
               <pre>{`<SolidButton color="primary" size="medium">
   <div style={{ display: 'flex', gap: 8 }}>
     <IconPlus />
@@ -844,7 +844,7 @@ import { Meta, Unstyled } from '@storybook/blocks'
                 <svg viewBox='0 0 16 16'><path d='M3 8l3 3 7-7' strokeLinecap='round' strokeLinejoin='round' /></svg>
                 Do
               </div>
-              <p>toast.success·toast.error·toast.warning·toast.info를 의미에 맞게 호출합니다.</p>
+              <div>toast.success·toast.error·toast.warning·toast.info를 의미에 맞게 호출합니다.</div>
               <pre>{`toast.success('변경사항이 저장되었습니다.')
 
 toast.error('요청에 실패했습니다.', {
@@ -856,7 +856,7 @@ toast.error('요청에 실패했습니다.', {
                 <svg viewBox='0 0 16 16'><path d='M4 4l8 8M12 4l-8 8' strokeLinecap='round' /></svg>
                 Don't
               </div>
-              <p>모든 피드백에 기본 toast()를 사용하면 사용자가 결과를 구분하기 어렵습니다.</p>
+              <div>모든 피드백에 기본 toast()를 사용하면 사용자가 결과를 구분하기 어렵습니다.</div>
               <pre>{`toast('저장되었습니다.')
 toast('실패했습니다.')
 toast('주의가 필요합니다.')`}</pre>
@@ -873,7 +873,7 @@ toast('주의가 필요합니다.')`}</pre>
                 <svg viewBox='0 0 16 16'><path d='M3 8l3 3 7-7' strokeLinecap='round' strokeLinejoin='round' /></svg>
                 Do
               </div>
-              <p>checked와 onCheckedChange를 함께 지정해 외부 상태와 동기화합니다.</p>
+              <div>checked와 onCheckedChange를 함께 지정해 외부 상태와 동기화합니다.</div>
               <pre>{`const [enabled, setEnabled] = useState(false)
 
 <Switch
@@ -886,7 +886,7 @@ toast('주의가 필요합니다.')`}</pre>
                 <svg viewBox='0 0 16 16'><path d='M4 4l8 8M12 4l-8 8' strokeLinecap='round' /></svg>
                 Don't
               </div>
-              <p>checked만 지정하고 onCheckedChange를 생략하면 토글이 동작하지 않습니다.</p>
+              <div>checked만 지정하고 onCheckedChange를 생략하면 토글이 동작하지 않습니다.</div>
               <pre>{`<Switch checked={true} />`}</pre>
             </div>
           </div>
@@ -901,7 +901,7 @@ toast('주의가 필요합니다.')`}</pre>
                 <svg viewBox='0 0 16 16'><path d='M3 8l3 3 7-7' strokeLinecap='round' strokeLinejoin='round' /></svg>
                 Do
               </div>
-              <p>표준 인터페이스를 사용해 시스템이 토큰을 라우팅하도록 합니다.</p>
+              <div>표준 인터페이스를 사용해 시스템이 토큰을 라우팅하도록 합니다.</div>
               <pre>{`<SolidButton color="primary" size="medium" disabled />
 <OutlineButton color="black" size="large" disabled />
 <GhostButton color="gray" size="small" disabled />`}</pre>
@@ -911,7 +911,7 @@ toast('주의가 필요합니다.')`}</pre>
                 <svg viewBox='0 0 16 16'><path d='M4 4l8 8M12 4l-8 8' strokeLinecap='round' /></svg>
                 Don't
               </div>
-              <p>인라인 스타일로 컴포넌트 시각을 깨뜨리지 않습니다. theme 프롭이 정답.</p>
+              <div>인라인 스타일로 컴포넌트 시각을 깨뜨리지 않습니다. theme 프롭이 정답.</div>
               <pre>{`<SolidButton style={{ background: '#ff0000' }}>
   버튼
 </SolidButton>`}</pre>
@@ -927,7 +927,7 @@ toast('주의가 필요합니다.')`}</pre>
           <div>
             <div className='orbit-eyebrow'><span className='num'>06</span>Accessibility</div>
             <h2>접근성 체크리스트.</h2>
-            <p>WAI-ARIA 기반. 필수 항목은 컴포넌트가 자동 처리, 선택 항목은 사용처에서 지정.</p>
+            <div>WAI-ARIA 기반. 필수 항목은 컴포넌트가 자동 처리, 선택 항목은 사용처에서 지정.</div>
           </div>
           <span className='orbit-eyebrow'>20 items</span>
         </div>
@@ -1039,7 +1039,7 @@ toast('주의가 필요합니다.')`}</pre>
           <div>
             <div className='orbit-eyebrow'><span className='num'>07</span>Composition</div>
             <h2>실무 조합 패턴.</h2>
-            <p>자주 등장하는 6가지 조합. 같은 vocabulary로 다양한 화면이 만들어집니다.</p>
+            <div>자주 등장하는 6가지 조합. 같은 vocabulary로 다양한 화면이 만들어집니다.</div>
           </div>
           <span className='orbit-eyebrow'>6 patterns</span>
         </div>
@@ -1089,7 +1089,7 @@ toast('주의가 필요합니다.')`}</pre>
                 <div className='pattern-use'>{p.use}</div>
               </div>
               <div className='pattern-body'>
-                <p>{p.desc}</p>
+                <div>{p.desc}</div>
                 <div className='chips'>
                   {p.chips.map((c) => <code key={c}>{c}</code>)}
                 </div>
