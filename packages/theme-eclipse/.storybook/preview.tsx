@@ -91,6 +91,8 @@ const preview: Preview = {
             '접근성',
             '마이그레이션',
           ],
+          'Hooks',
+          ['State', 'Timing', 'Lifecycle', 'Interaction', 'Observer', 'Environment'],
           'Templates',
           'eclipse',
           [
