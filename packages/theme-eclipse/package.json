@@ -88,9 +88,9 @@
     "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/plugin-transform-runtime": "^7.25.9",
-    "@babel/preset-env": "^7.26.0",
+    "@babel/core": "^7.29.7",
+    "@babel/plugin-transform-runtime": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
     "@orbit-ui/tsconfig": "workspace:*",
     "@orbit-ui/vite-plugin": "workspace:*",
     "@playwright/test": "^1.49.1",
