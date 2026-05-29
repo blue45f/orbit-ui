@@ -94,4 +94,15 @@ describe('usePermission', () => {
     expect(mockQuery).toHaveBeenCalledTimes(2)
     expect(mockQuery).toHaveBeenCalledWith({ name: 'microphone' })
   })
+
+  test('permissions.query가 거부되면 unsupported로 전환된다', async () => {
+    const mockQuery = vi.fn().mockRejectedValue(new Error('invalid permission name'))
+    vi.stubGlobal('navigator', { permissions: { query: mockQuery } })
+
+    const { result } = renderHook(() => usePermission('camera'))
+
+    await act(async () => {})
+
+    expect(result.current).toBe('unsupported')
+  })
 })
