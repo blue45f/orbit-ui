@@ -45,9 +45,9 @@
   },
   "engines": {
     "node": ">=20",
-    "pnpm": ">=11"
+    "pnpm": ">=9"
   },
-  "packageManager": "pnpm@11.4.0",
+  "packageManager": "pnpm@9.14.4",
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
