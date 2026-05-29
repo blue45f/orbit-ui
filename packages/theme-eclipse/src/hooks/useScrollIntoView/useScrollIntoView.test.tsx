@@ -6,6 +6,8 @@ import { cleanup } from '../../test-utils'
 
 import { useScrollIntoView } from './useScrollIntoView'
 
+const originalScrollTo = window.scrollTo
+
 const setupTarget = () => {
   const target = document.createElement('div')
   document.body.appendChild(target)
@@ -30,6 +32,8 @@ describe('useScrollIntoView', () => {
     cleanup()
     document.body.innerHTML = ''
     vi.restoreAllMocks()
+    // 테스트가 덮어쓴 window.scrollTo를 복원해 isolate:false 파일 간 누수를 막는다
+    window.scrollTo = originalScrollTo
   })
 
   test('offset=0 이면 element.scrollIntoView 를 호출한다', () => {
