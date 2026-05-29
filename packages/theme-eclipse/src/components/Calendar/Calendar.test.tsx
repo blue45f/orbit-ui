@@ -1,18 +1,9 @@
 import userEvent from '@testing-library/user-event'
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { cleanup, render, screen } from '../../test-utils'
 
 import { Calendar } from './Calendar'
-
-beforeEach(() => {
-  global.ResizeObserver = class {
-    observe = vi.fn()
-    unobserve = vi.fn()
-    disconnect = vi.fn()
-    constructor(_cb: ResizeObserverCallback) {}
-  } as unknown as typeof ResizeObserver
-})
 
 afterEach(() => {
   cleanup()

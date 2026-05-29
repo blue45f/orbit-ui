@@ -1,29 +1,9 @@
 import { createRef } from 'react'
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { cleanup, render, screen } from '../../test-utils'
 
 import { Carousel } from './Carousel'
-
-beforeEach(() => {
-  global.ResizeObserver = class {
-    observe = vi.fn()
-    unobserve = vi.fn()
-    disconnect = vi.fn()
-    constructor(_cb: ResizeObserverCallback) {}
-  } as unknown as typeof ResizeObserver
-  // embla-carousel는 IntersectionObserver/MatchMedia를 사용할 수 있음
-  global.IntersectionObserver = class {
-    observe = vi.fn()
-    unobserve = vi.fn()
-    disconnect = vi.fn()
-    takeRecords = vi.fn(() => [])
-    root = null
-    rootMargin = ''
-    thresholds: number[] = []
-    constructor(_cb: IntersectionObserverCallback) {}
-  } as unknown as typeof IntersectionObserver
-})
 
 afterEach(() => {
   cleanup()
