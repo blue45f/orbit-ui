@@ -148,4 +148,21 @@ describe('useHotkey', () => {
     dispatchKey('Escape')
     expect((received as KeyboardEvent | null)?.key).toBe('id-2')
   })
+
+  // 수정자 별칭/매핑 분기: cmd→meta, alt/option/opt→alt, control→ctrl, mod→ctrl(비-Mac)
+  test.each<[string, { ctrl?: boolean; meta?: boolean; shift?: boolean; alt?: boolean }]>([
+    ['cmd+k', { meta: true }],
+    ['alt+k', { alt: true }],
+    ['option+k', { alt: true }],
+    ['opt+k', { alt: true }],
+    ['control+k', { ctrl: true }],
+    ['mod+k', { ctrl: true }],
+  ])('수정자 별칭 조합 %s 가 올바른 수정자로 매치된다', (combo, mods) => {
+    const handler = vi.fn()
+    renderHook(() => useHotkey(combo, handler))
+
+    dispatchKey('k', mods)
+
+    expect(handler).toHaveBeenCalledTimes(1)
+  })
 })
