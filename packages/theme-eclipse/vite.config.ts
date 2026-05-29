@@ -121,6 +121,9 @@ export default defineConfig(({ mode }) => {
       maxWorkers: 1,
       fileParallelism: false,
       isolate: false,
+      // isolate:false에서는 vi.stubGlobal이 테스트 파일 간으로 누수될 수 있으므로
+      // 매 테스트 후 모든 stub을 자동 복원한다 (navigator 등 전역 누수로 인한 순서 의존 실패 방지)
+      unstubGlobals: true,
       testTimeout: 10000,
       exclude: [...configDefaults.exclude, 'e2e/*'],
       coverage: {
