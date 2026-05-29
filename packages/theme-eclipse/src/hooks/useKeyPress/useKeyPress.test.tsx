@@ -95,4 +95,19 @@ describe('useKeyPress', () => {
     // After unmount, firing key should not throw or update anything.
     expect(() => fireKey('keydown', 'Shift')).not.toThrow()
   })
+
+  test('ignoreInputs면 contentEditable 요소 안에서도 무시한다', () => {
+    const div = document.createElement('div')
+    // jsdom은 isContentEditable을 완전히 구현하지 않으므로 명시적으로 정의한다
+    Object.defineProperty(div, 'isContentEditable', { value: true, configurable: true })
+    document.body.appendChild(div)
+
+    const { result } = renderHook(() => useKeyPress('Enter'))
+    act(() => {
+      div.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }))
+    })
+
+    expect(result.current).toBe(false)
+    document.body.removeChild(div)
+  })
 })

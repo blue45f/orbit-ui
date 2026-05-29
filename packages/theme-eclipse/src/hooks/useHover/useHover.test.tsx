@@ -73,4 +73,13 @@ describe('useHover', () => {
 
     document.body.removeChild(el)
   })
+
+  test('ref가 비어 있으면(current=null) false를 유지한다', () => {
+    const { result } = renderHook(() => {
+      const ref = useRef<HTMLDivElement>(null)
+      return useHover(ref)
+    })
+
+    expect(result.current).toBe(false)
+  })
 })
