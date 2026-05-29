@@ -15,12 +15,10 @@ export type SpinnerProps = {
    */
   size?: number
   /**
-   * aria-label
-   *
-   * TODO: 로딩 접근성 문구를 default로 가져가면 좋을 것 같은데, 디자이너분께 논의
-   * Loading 상태에 대한 접근성 문구
+   * Loading 상태에 대한 접근성 문구 (스크린 리더가 읽는 `aria-label`)
    * @defaultValue `화면을 불러오는 중입니다.`
    */
+  'aria-label'?: string
 } & React.HTMLAttributes<HTMLDivElement>
 
 /**
