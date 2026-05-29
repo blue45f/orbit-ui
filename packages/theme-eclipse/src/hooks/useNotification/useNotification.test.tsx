@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { cleanup } from '../../test-utils'
@@ -53,5 +53,53 @@ describe('useNotification', () => {
     const { result } = renderHook(() => useNotification())
     const notification = result.current.notify('Test')
     expect(notification).toBeNull()
+  })
+
+  it('notify() creates a Notification when permission is granted', () => {
+    const MockNotification = vi.fn() as unknown as typeof Notification
+    Object.defineProperty(MockNotification, 'permission', { configurable: true, value: 'granted' })
+    globalThis.Notification = MockNotification
+
+    const { result } = renderHook(() => useNotification())
+    const notification = result.current.notify('Hello', { body: 'world' })
+
+    expect(MockNotification).toHaveBeenCalledWith('Hello', { body: 'world' })
+    expect(notification).not.toBeNull()
+  })
+
+  it('requestPermission requests and updates the permission when supported', async () => {
+    const requestSpy = vi.fn().mockResolvedValue('granted')
+    const MockNotification = vi.fn() as unknown as typeof Notification
+    Object.defineProperty(MockNotification, 'permission', { configurable: true, value: 'default' })
+    Object.defineProperty(MockNotification, 'requestPermission', {
+      configurable: true,
+      value: requestSpy,
+    })
+    globalThis.Notification = MockNotification
+
+    const { result } = renderHook(() => useNotification())
+
+    let returned: string | undefined
+    await act(async () => {
+      returned = await result.current.requestPermission()
+    })
+
+    expect(requestSpy).toHaveBeenCalled()
+    expect(returned).toBe('granted')
+    expect(result.current.permission).toBe('granted')
+  })
+
+  it('requestPermission returns default when unsupported', async () => {
+    // @ts-expect-error intentionally removing Notification
+    delete globalThis.Notification
+
+    const { result } = renderHook(() => useNotification())
+
+    let returned: string | undefined
+    await act(async () => {
+      returned = await result.current.requestPermission()
+    })
+
+    expect(returned).toBe('default')
   })
 })
