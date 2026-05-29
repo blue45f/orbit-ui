@@ -128,4 +128,27 @@ describe('useLongPress', () => {
 
     expect(onLongPress).not.toHaveBeenCalled()
   })
+
+  test('long-press 발화 후에는 contextmenu 기본 동작을 막는다', () => {
+    const onLongPress = vi.fn()
+    render(<Probe onLongPress={onLongPress} delay={500} />)
+    const target = screen.getByRole('button')
+
+    fireEvent.pointerDown(target, pointerEvent())
+    vi.advanceTimersByTime(500)
+    expect(onLongPress).toHaveBeenCalledTimes(1) // fired → firedRef=true
+
+    const ctx = new MouseEvent('contextmenu', { bubbles: true, cancelable: true })
+    target.dispatchEvent(ctx)
+    expect(ctx.defaultPrevented).toBe(true)
+  })
+
+  test('long-press 발화 없이는 contextmenu를 막지 않는다', () => {
+    render(<Probe onLongPress={vi.fn()} delay={500} />)
+    const target = screen.getByRole('button')
+
+    const ctx = new MouseEvent('contextmenu', { bubbles: true, cancelable: true })
+    target.dispatchEvent(ctx)
+    expect(ctx.defaultPrevented).toBe(false)
+  })
 })
