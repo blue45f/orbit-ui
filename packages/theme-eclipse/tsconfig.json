@@ -3,7 +3,8 @@
   "extends": "@orbit-ui/tsconfig/base.json",
   "include": ["src/**/*", ".storybook/**/*", "e2e/**/*", "./*.ts"],
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./types"]
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "noImplicitAny": false
   },
   "ts-node": {
     "esm": true
