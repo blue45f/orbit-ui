@@ -103,11 +103,24 @@ type ScrollableTabGroupComponent = typeof ScrollableTabGroupRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
+ * import { useState } from 'react'
  * import { ScrollableTabGroup } from '@heejun-com/theme-eclipse'
  *
  * function App() {
+ *   const [selected, setSelected] = useState(0)
+ *
  *   return (
-// TODO: @hya.kwon 예시 추가
+ *     <ScrollableTabGroup selectedIndex={selected} onTabChange={setSelected}>
+ *       <ScrollableTabGroup.Tab value="all">
+ *         <ScrollableTabGroup.TabCenter>All</ScrollableTabGroup.TabCenter>
+ *       </ScrollableTabGroup.Tab>
+ *       <ScrollableTabGroup.Tab value="featured">
+ *         <ScrollableTabGroup.TabCenter>Featured</ScrollableTabGroup.TabCenter>
+ *       </ScrollableTabGroup.Tab>
+ *       <ScrollableTabGroup.Tab value="new">
+ *         <ScrollableTabGroup.TabCenter>New Arrivals</ScrollableTabGroup.TabCenter>
+ *       </ScrollableTabGroup.Tab>
+ *     </ScrollableTabGroup>
  *   )
  * }
  * ```

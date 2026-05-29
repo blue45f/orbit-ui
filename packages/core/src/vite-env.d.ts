@@ -15,3 +15,5 @@ declare module '*.stories.css' {
   const content: { [key: string]: string }
   export = content
 }
+
+declare module '@heejun-com/icons'

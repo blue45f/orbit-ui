@@ -54,11 +54,21 @@ type TabComponent = typeof TabRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { SegmentedControl } from '@heejun-com/theme-eclipse'
+ * import { useState } from 'react'
+ * import { Tab } from '@heejun-com/theme-eclipse'
  *
  * function App() {
+ *   const [active, setActive] = useState('home')
+ *
  *   return (
-// TODO: @hya.kwon 예시 추가
+ *     <div style={{ display: 'flex' }}>
+ *       <Tab value="home" selected={active === 'home'} onClick={() => setActive('home')}>
+ *         <Tab.Center>홈</Tab.Center>
+ *       </Tab>
+ *       <Tab value="settings" selected={active === 'settings'} onClick={() => setActive('settings')}>
+ *         <Tab.Center>설정</Tab.Center>
+ *       </Tab>
+ *     </div>
  *   )
  * }
  * ```

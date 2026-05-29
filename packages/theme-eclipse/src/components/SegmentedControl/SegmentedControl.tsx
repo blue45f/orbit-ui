@@ -97,7 +97,14 @@ type SegmentedControlComponent = typeof SegmentedControlRoot & {
  *
  * function App() {
  *   return (
-// TODO: @hya.kwon 예시 추가
+ *     <SegmentedControl defaultValue="list">
+ *       <SegmentedControl.Tab value="list">
+ *         <SegmentedControl.TabCenter>목록</SegmentedControl.TabCenter>
+ *       </SegmentedControl.Tab>
+ *       <SegmentedControl.Tab value="grid">
+ *         <SegmentedControl.TabCenter>그리드</SegmentedControl.TabCenter>
+ *       </SegmentedControl.Tab>
+ *     </SegmentedControl>
  *   )
  * }
  * ```

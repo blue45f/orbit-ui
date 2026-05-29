@@ -92,11 +92,21 @@ type FixedTabsComponent = typeof FixedTabsRoot & {
  * @example
  * ### 👇 기본 사용법
  * ```
- * import { Tabs } from '@heejun-com/theme-eclipse'
+ * import { useState } from 'react'
+ * import { FixedTabs } from '@heejun-com/theme-eclipse'
  *
  * function App() {
+ *   const [selected, setSelected] = useState(0)
+ *
  *   return (
-// TODO: @hya.kwon 예시 추가
+ *     <FixedTabs selectedIndex={selected} onTabChange={setSelected}>
+ *       <FixedTabs.Tab value="overview">
+ *         <FixedTabs.TabCenter>Overview</FixedTabs.TabCenter>
+ *       </FixedTabs.Tab>
+ *       <FixedTabs.Tab value="settings">
+ *         <FixedTabs.TabCenter>Settings</FixedTabs.TabCenter>
+ *       </FixedTabs.Tab>
+ *     </FixedTabs>
  *   )
  * }
  * ```
