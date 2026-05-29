@@ -47,4 +47,30 @@ describe('useOs', () => {
     const { result } = renderHook(() => useOs())
     expect(result.current).toBe('undetermined')
   })
+
+  it('Android UA에서 android를 감지한다 (Linux 토큰보다 우선)', () => {
+    vi.stubGlobal('navigator', {
+      userAgent:
+        'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36',
+    })
+
+    const { result } = renderHook(() => useOs())
+    expect(result.current).toBe('android')
+  })
+
+  it('데스크톱 Linux UA에서 linux를 감지한다', () => {
+    vi.stubGlobal('navigator', {
+      userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
+    })
+
+    const { result } = renderHook(() => useOs())
+    expect(result.current).toBe('linux')
+  })
+
+  it('어떤 OS 패턴도 매칭되지 않으면 undetermined를 반환한다', () => {
+    vi.stubGlobal('navigator', { userAgent: 'CustomAgent/1.0 (Unknown Platform)' })
+
+    const { result } = renderHook(() => useOs())
+    expect(result.current).toBe('undetermined')
+  })
 })
