@@ -32,11 +32,26 @@
 .eclipse-light {
   --sem-eclipse-focus-ring-color: rgba(37, 99, 235, 0.85);
   --sem-eclipse-focus-ring-color-contrast: rgba(255, 255, 255, 0.95);
+
+  /*
+   * core 의 `.focus-ring-token` / `.input-focus-ring-token` 헬퍼는 `--sem-base-focus-ring-*`
+   * 를 읽는다. eclipse 는 body 에 `.dark` 가 아니라 `.eclipse-*` 를 붙이므로, 여기서
+   * base 토큰을 eclipse 토큰으로 브리지해 다크 모드에서도 Cobalt Lifted ring 이 적용되게 한다.
+   */
+  --sem-base-focus-ring-width: var(--sem-eclipse-focus-ring-width);
+  --sem-base-focus-ring-offset: var(--sem-eclipse-focus-ring-offset);
+  --sem-base-focus-ring-color: var(--sem-eclipse-focus-ring-color);
+  --sem-base-focus-ring-color-contrast: var(--sem-eclipse-focus-ring-color-contrast);
 }
 
 .eclipse-dark {
   --sem-eclipse-focus-ring-color: rgba(96, 165, 250, 0.95);
   --sem-eclipse-focus-ring-color-contrast: rgba(0, 0, 0, 0.85);
+
+  --sem-base-focus-ring-width: var(--sem-eclipse-focus-ring-width);
+  --sem-base-focus-ring-offset: var(--sem-eclipse-focus-ring-offset);
+  --sem-base-focus-ring-color: var(--sem-eclipse-focus-ring-color);
+  --sem-base-focus-ring-color-contrast: var(--sem-eclipse-focus-ring-color-contrast);
 }
 
 /* ========================================================================

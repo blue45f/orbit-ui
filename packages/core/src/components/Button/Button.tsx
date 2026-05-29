@@ -1,8 +1,8 @@
 import { IconPropsContext } from '@heejun-com/icons'
 import { Children, HTMLAttributes, ReactNode, forwardRef, useEffect, useReducer } from 'react'
 
-import { cn, stateClasses } from '../../styles'
-import { composeRefs, filterComponents, useFocus } from '../../libs'
+import { cn } from '../../styles'
+import { filterComponents } from '../../libs'
 
 import { ButtonContext, useButtonContext } from './Button.lib'
 
@@ -39,6 +39,16 @@ export type ButtonProps = ButtonSpecificProps & {
   children?: ReactNode
 } & Omit<HTMLAttributes<HTMLElement>, 'as'>
 
+/**
+ * Button 테마 토큰 계약.
+ *
+ * 모든 키는 core Button 에서 `--btn-*` CSS custom property 로 emit 되고,
+ * globals.css `.button-token` 헬퍼가 :hover / :active / :focus-visible / disabled
+ * 상태를 이 변수들로 구동한다. theme 패키지 component-token 이 emit 하는 키와 1:1.
+ *
+ * `textStyle*` 는 per-size 토큰(variant.size 에서 suffix 가 벗겨진 평탄 키)을 받아
+ * 타이포그래피(face/weight/size/lineHeight/tracking)를 토큰으로 렌더한다.
+ */
 export type ButtonTheme = {
   enabledFillColor?: string
   enabledBorderColor?: string
@@ -52,24 +62,56 @@ export type ButtonTheme = {
   radius?: string
   paddingHorizontal?: string
   gap?: string
+  /** resting shadow. DESIGN §4 Flat-By-Default 에 따라 보통 none. */
+  shadow?: string
+  // 타이포그래피 토큰 (Label * Emphasized 등)
+  textStyleFace?: string
+  textStyleWeight?: string
+  textStyleSize?: string
+  textStyleLineHeight?: string
+  textStyleTracking?: string
+}
+
+/**
+ * ButtonTheme 키 → `.button-token` 헬퍼가 읽는 `--btn-*` custom property 이름 매핑.
+ */
+const THEME_TO_CSS_VAR: Record<keyof ButtonTheme, string> = {
+  enabledFillColor: '--btn-enabled-fill',
+  hoveredFillColor: '--btn-hovered-fill',
+  pressedFillColor: '--btn-pressed-fill',
+  disabledFillColor: '--btn-disabled-fill',
+  enabledBorderColor: '--btn-enabled-border',
+  disabledBorderColor: '--btn-disabled-border',
+  focusedBorderColor: '--btn-focused-border',
+  enabledForegroundColor: '--btn-enabled-foreground',
+  disabledForegroundColor: '--btn-disabled-foreground',
+  textStyleFace: '--btn-text-face',
+  textStyleWeight: '--btn-text-weight',
+  textStyleSize: '--btn-text-size',
+  textStyleLineHeight: '--btn-text-line-height',
+  textStyleTracking: '--btn-text-tracking',
+  // 아래는 의사 클래스가 필요 없어 직접 style 속성으로 적용
+  radius: '',
+  paddingHorizontal: '',
+  gap: '',
+  shadow: '',
 }
 
 /* ========================================================================
  * Styles
  * ======================================================================== */
 
-const buttonStyles = stateClasses({
-  base: cn(
+// 시각 상태는 `.button-token` 헬퍼(globals.css)가 CSS 의사 클래스로 구동한다.
+// 여기서는 레이아웃/포인터/트랜지션과 disabled 의 커서만 담당한다.
+// opacity-50 은 제거: disabled 는 전용 disabledFill/disabledForeground 토큰으로 렌더.
+const buttonStyles = (disabled: boolean) =>
+  cn(
+    'button-token',
     'relative inline-flex items-center justify-center',
     'rounded-md px-400',
-    'text-base font-medium',
     'transition-all duration-fast',
-    'outline-none'
-  ),
-  enabled: 'cursor-pointer',
-  disabled: 'cursor-not-allowed opacity-50',
-  focused: 'ring-2 ring-offset-2 ring-blue-500',
-})
+    disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+  )
 
 const arrangementStyles = {
   start: 'justify-start',
@@ -98,24 +140,10 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
       alwaysVisible,
       as: Component = 'button',
       loading: loadingProp = false,
-      onFocus,
-      onBlur,
       ...rest
     } = props
 
     const a11y = useButtonA11y({ disabled, loading: loadingProp })
-
-    const {
-      isFocused,
-      ref: selfRef,
-      handlers,
-    } = useFocus<HTMLButtonElement>({
-      onFocus,
-      onBlur,
-      disabled,
-    })
-
-    const refs = composeRefs(ref, selfRef)
 
     const {
       filtered: [leading, trailing, loading],
@@ -129,26 +157,32 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
 
     const busy = !alwaysVisible && !disabled && loadingProp
 
-    const className = cn(
-      buttonStyles({ disabled, focused: isFocused }),
-      arrangementStyles[arrangement],
-      classProp
-    )
+    const className = cn(buttonStyles(disabled), arrangementStyles[arrangement], classProp)
+
+    // 모든 색상/타이포 토큰을 `--btn-*` custom property 로 emit → `.button-token`
+    // 헬퍼가 hover/active/focus-visible/disabled 상태에서 읽는다.
+    const tokenVars: Record<string, string> = {}
+    if (theme) {
+      for (const [key, cssVar] of Object.entries(THEME_TO_CSS_VAR)) {
+        const value = theme[key as keyof ButtonTheme]
+        if (cssVar && value) tokenVars[cssVar] = value
+      }
+    }
 
     const style: React.CSSProperties = {
       width: typeof width === 'number' ? `${width}px` : width,
       height: typeof height === 'number' ? `${height}px` : height,
       borderWidth: `${borderWidth}px`,
       borderStyle: borderWidth > 0 ? 'solid' : 'none',
-      backgroundColor: disabled ? theme?.disabledFillColor : theme?.enabledFillColor,
-      borderColor: disabled ? theme?.disabledBorderColor : theme?.enabledBorderColor,
-      color: disabled ? theme?.disabledForegroundColor : theme?.enabledForegroundColor,
       borderRadius: theme?.radius,
       paddingLeft: theme?.paddingHorizontal,
       paddingRight: theme?.paddingHorizontal,
       gap: theme?.gap,
+      // 휴식 상태 그림자(보통 none). DESIGN §4 Flat-By-Default.
+      boxShadow: theme?.shadow,
+      ...tokenVars,
       ...styleProp,
-    }
+    } as React.CSSProperties
 
     const userOnClick = (rest as { onClick?: (e: React.MouseEvent) => void }).onClick
 
@@ -156,14 +190,14 @@ const InternalButtonRoot = forwardRef<HTMLButtonElement | HTMLAnchorElement, But
       <ButtonContext disabled={disabled} loading={loadingProp}>
         <Component
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ref={refs as any}
+          ref={ref as any}
           className={className}
           style={style}
           data-loading={loadingProp}
+          // `.button-token` 의 disabled 스타일 hook. loading 과 분리(aria-disabled 와 달리).
+          data-disabled={disabled || undefined}
           {...rest}
           {...a11y}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          {...(handlers as any)}
           // disabled/loading 상태에서 native click을 차단.
           // `as='a'`인 경우 native disabled 속성이 없어 onClick 가드가 필요함.
           disabled={Component === 'button' && (disabled || busy) ? true : undefined}
