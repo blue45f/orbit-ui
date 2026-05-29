@@ -65,3 +65,21 @@ test('textStyle: 제공된 값에 해당하는 변수만 포함한다', () => {
 test('textStyle: 값이 없으면 빈 객체를 반환한다', () => {
   expect(textStyle({})).toEqual({})
 })
+
+test('textStyle: 다섯 필드를 모두 제공하면 모든 변수를 매핑한다', () => {
+  expect(
+    textStyle({
+      textStyleLineHeight: '1.5',
+      textStyleSize: '14px',
+      textStyleWeight: '600',
+      textStyleTracking: '-0.01em',
+      textStyleFace: 'Pretendard',
+    })
+  ).toEqual({
+    '--layer-text-line-height': '1.5',
+    '--layer-text-size': '14px',
+    '--layer-text-weight': '600',
+    '--layer-text-tracking': '-0.01em',
+    '--layer-text-face': 'Pretendard',
+  })
+})

@@ -91,3 +91,16 @@ test('mapChildrenWithSelection: displayName이 Indicator로 끝나는 자식은 
   expect(arr[1].props.selected).toBe(false) // 선택 가능 index 0
   expect(arr[2].props.selected).toBe(true) // 선택 가능 index 1 === selectedIndex
 })
+
+test('mapChildrenWithSelection: object가 아닌 자식(문자열)은 인덱스 소비 없이 그대로 반환한다', () => {
+  // Arrange: 문자열 자식은 선택 대상이 아니다
+  const children = ['plain text', <Center key="0" />]
+
+  // Act
+  const result = mapChildrenWithSelection(children, 0, () => {})
+
+  // Assert
+  const arr = Children.toArray(result) as Array<string | ReactElement<{ selected?: boolean }>>
+  expect(arr[0]).toBe('plain text')
+  expect((arr[1] as ReactElement<{ selected?: boolean }>).props.selected).toBe(true)
+})
