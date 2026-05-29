@@ -142,8 +142,11 @@ export const SheetRoot = forwardRef<HTMLDivElement, SheetProps>(
           <Scrim isPresented={isPresented} elevation={elevation} />
           <Presence present={isPresented}>
             <OverlayContainerLayer
+              role="dialog"
+              aria-modal="true"
               {...rest}
               ref={forwardedRef}
+              id={id}
               className={className}
               style={style}
               onDismiss={() => {

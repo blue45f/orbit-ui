@@ -32,6 +32,27 @@ describe('Sheet', () => {
       expect(screen.getByText('Footer Content')).toBeInTheDocument()
     })
 
+    it('열린 시트는 role="dialog" + aria-modal 을 갖고 트리거 aria-controls 와 연결된다', () => {
+      render(
+        <Sheet defaultIsPresented={true}>
+          <Sheet.Trigger>
+            <button type="button">열기</button>
+          </Sheet.Trigger>
+          <Sheet.Content>
+            <div>Body Content</div>
+          </Sheet.Content>
+        </Sheet>
+      )
+
+      const dialog = screen.getByRole('dialog')
+      expect(dialog).toHaveAttribute('aria-modal', 'true')
+      expect(dialog.getAttribute('id')).toBeTruthy()
+
+      const trigger = screen.getByRole('button', { name: '열기' })
+      expect(trigger).toHaveAttribute('aria-haspopup', 'dialog')
+      expect(trigger.getAttribute('aria-controls')).toBe(dialog.getAttribute('id'))
+    })
+
     it('isPresented가 false일 때는 Sheet가 렌더링되지 않아야 한다', () => {
       render(
         <Sheet isPresented={false}>
