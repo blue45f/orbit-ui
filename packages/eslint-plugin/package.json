@@ -6,6 +6,7 @@
   "author": "Orbit UI Team",
   "main": "lib/index.js",
   "scripts": {
+    "test": "mocha --reporter dot --experimental-modules tests/**/*.spec.js",
     "test:rule": "mocha --reporter nyan --experimental-modules tests/**/*.spec.js"
   },
   "devDependencies": {
