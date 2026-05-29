@@ -28,12 +28,18 @@ class MockMutationObserver {
     this.observed = null
   }
 
+  takeRecords(): MutationRecord[] {
+    return []
+  }
+
   trigger(mutations: Partial<MutationRecord>[]) {
     this.callback(mutations as MutationRecord[], this as unknown as MutationObserver)
   }
 }
 
 describe('useMutationObserver', () => {
+  const originalMutationObserver = globalThis.MutationObserver
+
   beforeEach(() => {
     MockMutationObserver.instances = []
     Object.defineProperty(globalThis, 'MutationObserver', {
@@ -45,6 +51,15 @@ describe('useMutationObserver', () => {
 
   afterEach(() => {
     cleanup()
+    // 전역 MutationObserver를 원복한다. vi.restoreAllMocks()는 defineProperty로
+    // 교체한 전역을 되돌리지 못하므로, isolate:false 환경에서 이 모의 객체가
+    // 다른 테스트 파일(예: ProseMirror 기반 Editor)로 새어 나가 takeRecords 호출 시
+    // 깨지는 것을 막는다.
+    Object.defineProperty(globalThis, 'MutationObserver', {
+      writable: true,
+      configurable: true,
+      value: originalMutationObserver,
+    })
     vi.restoreAllMocks()
   })
 
