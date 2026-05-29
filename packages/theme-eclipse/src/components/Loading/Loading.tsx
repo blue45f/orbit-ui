@@ -45,7 +45,7 @@ export const Loading = ({
 
   const containerClasses = cn(
     'flex flex-col items-center justify-center gap-3',
-    fullScreen && 'fixed inset-0 z-[9999] bg-white/80 backdrop-blur-sm dark:bg-slate-950/80',
+    fullScreen && 'fixed inset-0 z-[9999] bg-white/80 dark:bg-slate-950/80',
     className
   )
 

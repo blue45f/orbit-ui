@@ -99,6 +99,11 @@
   --ref-shadow-level2: 0px 2px 4px rgba(0, 0, 0, 0.05), 0px 4px 6px rgba(0, 0, 0, 0.02);
   --ref-shadow-level3: 0px 4px 6px rgba(0, 0, 0, 0.05), 0px 8px 12px rgba(0, 0, 0, 0.04);
   --ref-shadow-level4: 0px 10px 24px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.03);
+  --sem-eclipse-shadow-none: none;
+  --sem-eclipse-shadow-level1: var(--ref-shadow-level1);
+  --sem-eclipse-shadow-level2: var(--ref-shadow-level2);
+  --sem-eclipse-shadow-level3: var(--ref-shadow-level3);
+  --sem-eclipse-shadow-level4: var(--ref-shadow-level4);
   --ref-spacing-1: 1px;
   --ref-spacing-25: 2px;
   --ref-spacing-50: 4px;
@@ -1029,6 +1034,11 @@
   --ref-shadow-level2: 0px 2px 4px rgba(0, 0, 0, 0.05), 0px 4px 6px rgba(0, 0, 0, 0.02);
   --ref-shadow-level3: 0px 4px 6px rgba(0, 0, 0, 0.05), 0px 8px 12px rgba(0, 0, 0, 0.04);
   --ref-shadow-level4: 0px 10px 24px rgba(0, 0, 0, 0.06), 0px 4px 8px rgba(0, 0, 0, 0.03);
+  --sem-eclipse-shadow-none: none;
+  --sem-eclipse-shadow-level1: var(--ref-shadow-level1);
+  --sem-eclipse-shadow-level2: var(--ref-shadow-level2);
+  --sem-eclipse-shadow-level3: var(--ref-shadow-level3);
+  --sem-eclipse-shadow-level4: var(--ref-shadow-level4);
   --ref-spacing-1: 1px;
   --ref-spacing-25: 2px;
   --ref-spacing-50: 4px;

@@ -71,7 +71,7 @@ type SolidIconButtonPropsWithAs = SolidIconButtonProps & { as?: PossibleElement 
 const SolidIconButtonRoot: React.ForwardRefExoticComponent<
   SolidIconButtonPropsWithAs & React.RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, SolidIconButtonPropsWithAs>((props, ref) => {
-  const { color, size, iconTone = 'premium', theme, children, ...rest } = props
+  const { color, size, iconTone = 'flat', theme, children, ...rest } = props
 
   const { variant, ...filledIconButtonTokens } = vars.com.filledIconButton
 
