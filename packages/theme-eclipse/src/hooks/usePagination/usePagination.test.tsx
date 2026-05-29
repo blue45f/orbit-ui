@@ -85,6 +85,17 @@ describe('usePagination', () => {
     expect(compact).toEqual(['1', '2', '3', '...', '20'])
   })
 
+  test('현재 페이지가 끝 근처면 오른쪽 ellipsis 생략, 왼쪽만 노출', () => {
+    const { result } = renderHook(() =>
+      usePagination({ total: 20, initialPage: 17, siblings: 1 }),
+    )
+    const compact = result.current.items.map((i) =>
+      i.type === 'page' ? String(i.value) : '...',
+    )
+    // boundary 1 + ellipsis + window 16,17,18 + 오른쪽 명시 채움 19 + boundary 20
+    expect(compact).toEqual(['1', '...', '16', '17', '18', '19', '20'])
+  })
+
   test('isActive 가 현재 페이지에서만 true', () => {
     const { result } = renderHook(() =>
       usePagination({ total: 5, initialPage: 3 }),
