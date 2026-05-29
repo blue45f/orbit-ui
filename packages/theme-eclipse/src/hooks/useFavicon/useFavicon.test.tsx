@@ -57,4 +57,31 @@ describe('useFavicon', () => {
     expect(findLink('icon')?.href).toContain('/b.svg')
     expect(document.querySelectorAll('link[rel="icon"]')).toHaveLength(1)
   })
+
+  test('기존 link 에 type 옵션을 주면 type 을 갱신한다', () => {
+    const existing = document.createElement('link')
+    existing.rel = 'icon'
+    existing.href = '/old.svg'
+    document.head.appendChild(existing)
+
+    renderHook(() => useFavicon('/new.svg', { type: 'image/png' }))
+
+    const link = findLink('icon')
+    expect(link?.type).toBe('image/png')
+    expect(link?.href).toContain('/new.svg')
+    expect(document.querySelectorAll('link[rel="icon"]')).toHaveLength(1)
+  })
+
+  test('기존 link 의 href 가 동일하면 갱신하지 않는다 (no-op)', () => {
+    const existing = document.createElement('link')
+    existing.rel = 'icon'
+    existing.href = '/same.svg'
+    document.head.appendChild(existing)
+    const resolved = existing.href // jsdom이 해석한 절대 URL
+
+    renderHook(() => useFavicon(resolved))
+
+    expect(findLink('icon')?.href).toBe(resolved)
+    expect(document.querySelectorAll('link[rel="icon"]')).toHaveLength(1)
+  })
 })
