@@ -17,12 +17,13 @@ describe('TextFieldWithLabelAnimation', () => {
     expect(label).toBeInTheDocument()
   })
 
-  it('label is initially inactive (centered)', () => {
+  it('label is initially inactive (resting)', () => {
     render(<TextFieldWithLabelAnimation label="라벨" />)
 
     const label = screen.getByText('라벨')
-    // When not focused and not populated, label is centered (has -translate-y-1/2 class)
-    expect(label).toHaveClass('top-1/2')
+    // 비포커스/비입력 상태: 라벨은 입력 영역 안쪽(아래)에 위치
+    expect(label).toHaveAttribute('data-floating', 'false')
+    expect(label).toHaveClass('translate-y-[1.25rem]')
   })
 
   it('label becomes active when focused', () => {
@@ -33,9 +34,9 @@ describe('TextFieldWithLabelAnimation', () => {
 
     fireEvent.focus(input)
 
-    // When focused, label floats to top
-    expect(label).toHaveClass('top-0')
-    expect(label).toHaveClass('text-xs')
+    // 포커스 시 라벨이 위로 떠오름 (transform/opacity)
+    expect(label).toHaveAttribute('data-floating', 'true')
+    expect(label).toHaveClass('translate-y-0')
   })
 
   it('label remains active when populated', () => {
@@ -46,9 +47,8 @@ describe('TextFieldWithLabelAnimation', () => {
 
     fireEvent.change(input, { target: { value: 'test' } })
 
-    // When populated, label floats to top
-    expect(label).toHaveClass('top-0')
-    expect(label).toHaveClass('text-xs')
+    expect(label).toHaveAttribute('data-floating', 'true')
+    expect(label).toHaveClass('translate-y-0')
   })
 
   it('label stays active after blur when populated', () => {
@@ -60,9 +60,8 @@ describe('TextFieldWithLabelAnimation', () => {
     fireEvent.change(input, { target: { value: 'test' } })
     fireEvent.blur(input)
 
-    // When populated (even after blur), label stays floated
-    expect(label).toHaveClass('top-0')
-    expect(label).toHaveClass('text-xs')
+    // 값이 있으면 blur 후에도 떠오른 상태 유지
+    expect(label).toHaveAttribute('data-floating', 'true')
   })
 
   it('label becomes inactive after blur when empty', () => {
@@ -72,19 +71,19 @@ describe('TextFieldWithLabelAnimation', () => {
     const label = screen.getByText('라벨')
 
     fireEvent.focus(input)
-    expect(label).toHaveClass('top-0')
+    expect(label).toHaveAttribute('data-floating', 'true')
 
     fireEvent.blur(input)
-    // When empty and not focused, label returns to center
-    expect(label).toHaveClass('top-1/2')
+    // 비어 있고 비포커스면 라벨이 다시 입력 영역 안쪽으로 복귀
+    expect(label).toHaveAttribute('data-floating', 'false')
   })
 
   it('label is active initially when defaultValue is provided', () => {
     render(<TextFieldWithLabelAnimation label="라벨" defaultValue="initial value" />)
 
     const label = screen.getByText('라벨')
-    expect(label).toHaveClass('top-0')
-    expect(label).toHaveClass('text-xs')
+    expect(label).toHaveAttribute('data-floating', 'true')
+    expect(label).toHaveClass('translate-y-0')
   })
 
   it('handles onChange event', () => {

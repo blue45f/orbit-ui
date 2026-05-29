@@ -1,20 +1,36 @@
-import { forwardRef } from 'react'
+import { HideIcon, ShowIcon } from '@heejun-com/icons'
+import React, { forwardRef, useState } from 'react'
 
 import { type ComponentThemeProps } from '../../libs'
-import { vars } from '../../styles'
+import { cn, vars } from '../../styles'
 import { TextField } from '../TextField'
 
 export type PasswordFieldSpecificProps = {
   /**
    * PasswordField 높이
-   * @defaultValue '48'
+   * @defaultValue '44'
    */
   height?: number | string
+  /**
+   * 비밀번호 표시/숨기기 토글 버튼 노출 여부
+   * @defaultValue true
+   */
+  revealable?: boolean
 }
 
 export type PasswordFieldProps = PasswordFieldSpecificProps & {
   placeholder?: string
   disabled?: boolean
+  /** 유효성 검증 실패 여부 */
+  error?: boolean
+  /** 에러 메시지 */
+  errorText?: React.ReactNode
+  /** 보조 설명 텍스트 */
+  helperText?: React.ReactNode
+  /** 라벨 */
+  label?: React.ReactNode
+  /** 필수 입력 여부 */
+  required?: boolean
   value?: string
   defaultValue?: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
@@ -69,12 +85,17 @@ export type PasswordFieldProps = PasswordFieldSpecificProps & {
  * ```
  */
 export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>((props, ref) => {
-  const { theme, height = 48, ...rest } = props
+  const { theme, height = 44, revealable = true, ...rest } = props
+
+  // 입력 글자 표시 여부. 기본은 숨김(type=password).
+  const [revealed, setRevealed] = useState(false)
+
+  const toggleLabel = revealed ? '비밀번호 숨기기' : '비밀번호 표시'
 
   return (
     <TextField
       ref={ref}
-      type="password"
+      type={revealed ? 'text' : 'password'}
       axis="horizontal"
       height={height}
       theme={{
@@ -82,7 +103,34 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>((p
         ...theme,
       }}
       {...rest}
-    />
+    >
+      {revealable && (
+        <TextField.Trailing>
+          <button
+            type="button"
+            aria-pressed={revealed}
+            aria-label={toggleLabel}
+            title={toggleLabel}
+            // mousedown 의 기본동작(blur)을 막아 토글 후에도 input 포커스 유지
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => setRevealed((v) => !v)}
+            className={cn(
+              'inline-flex items-center justify-center flex-shrink-0',
+              // 최소 44x44 hit area, 아이콘은 16px 유지
+              'min-w-11 min-h-11 -mr-2.5 rounded-full',
+              'cursor-pointer transition-colors duration-150',
+              'hover:[&>span]:bg-[var(--sem-eclipse-color-fillSecondary,rgba(0,0,20,0.1))]',
+              '[&>span]:flex [&>span]:items-center [&>span]:justify-center',
+              '[&>span]:w-6 [&>span]:h-6 [&>span]:rounded-full'
+            )}
+          >
+            <span>
+              {revealed ? <HideIcon size={16} tone="soft" /> : <ShowIcon size={16} tone="soft" />}
+            </span>
+          </button>
+        </TextField.Trailing>
+      )}
+    </TextField>
   )
 })
 

@@ -16,7 +16,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>((props, for
     <CoreAccordion.Item
       ref={forwardedRef}
       {...props}
-      className={`border-b border-b-[var(--sem-color-border-disabled)] ${props.className || ''}`}
+      className={`border-b border-b-[var(--sem-eclipse-color-borderDisabled)] ${props.className || ''}`}
     />
   )
 })
@@ -50,7 +50,7 @@ const AccordionContent = forwardRef<
     >
       <Typography
         textStyle="descriptionLarge"
-        className="text-[var(--sem-color-foreground-secondary)]"
+        className="text-[var(--sem-eclipse-color-foregroundSecondary)]"
       >
         {props.children}
       </Typography>

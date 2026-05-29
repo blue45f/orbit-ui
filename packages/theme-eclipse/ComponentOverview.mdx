@@ -148,17 +148,19 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
       letter-spacing: -0.02em;
       color: var(--orbit-ink);
     }
-    [data-orbit-doc] .orbit-sect-head p {
-      margin: 4px 0 0;
-      max-width: 60ch;
+    [data-orbit-doc] .orbit-sect-head p,
+    [data-orbit-doc] .orbit-sect-head h2 + div {
+      margin: 6px 0 0;
+      max-width: 64ch;
       font-size: 14px;
       color: var(--orbit-ink-3);
       line-height: 1.6;
+      letter-spacing: -0.005em;
     }
 
-    /* CATALOG */
+    /* CATALOG — per-category rhythm; layout varies by group size & character */
     [data-orbit-doc] .orbit-cat {
-      padding: 32px 0;
+      padding: 36px 0;
       border-bottom: 1px solid var(--orbit-line);
     }
     [data-orbit-doc] .orbit-cat:last-child { border-bottom: 0; }
@@ -168,6 +170,18 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
       gap: 48px;
       align-items: start;
     }
+    /* band variant: head sits above a full-width body */
+    [data-orbit-doc] .orbit-cat--band .orbit-cat-row {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+    [data-orbit-doc] .orbit-cat--band .orbit-cat-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+    [data-orbit-doc] .orbit-cat--band .orbit-cat-head .title { margin-top: 0; }
+    [data-orbit-doc] .orbit-cat--band .orbit-cat-head .count { margin-top: 0; margin-left: auto; }
     [data-orbit-doc] .orbit-cat-head .tag {
       display: inline-block;
       font-family: var(--orbit-mono);
@@ -189,6 +203,8 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
       font-size: 11.5px;
       color: var(--orbit-ink-3);
     }
+
+    /* default 2-col: name left, desc right-aligned */
     [data-orbit-doc] .orbit-cat-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -215,6 +231,63 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
       color: var(--orbit-ink-3);
       text-align: right;
       letter-spacing: -0.005em;
+    }
+
+    /* dense variant: 3 columns, name over desc (for the largest groups) */
+    [data-orbit-doc] .orbit-cat-list--dense {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: 28px;
+      row-gap: 0;
+    }
+    [data-orbit-doc] .orbit-cat-list--dense .item {
+      display: block;
+      padding: 12px 0;
+    }
+    [data-orbit-doc] .orbit-cat-list--dense .item .desc {
+      display: block;
+      margin-top: 3px;
+      text-align: left;
+    }
+
+    /* stack variant: 2 columns, name over desc, roomier */
+    [data-orbit-doc] .orbit-cat-list--stack {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 40px;
+    }
+    [data-orbit-doc] .orbit-cat-list--stack .item {
+      display: block;
+      padding: 11px 0;
+    }
+    [data-orbit-doc] .orbit-cat-list--stack .item .name { font-size: 13.5px; }
+    [data-orbit-doc] .orbit-cat-list--stack .item .desc {
+      display: block;
+      margin-top: 3px;
+      text-align: left;
+    }
+
+    /* feature variant: few items, large names, 3-up emphasis */
+    [data-orbit-doc] .orbit-cat-list--feature {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: 24px;
+      row-gap: 0;
+    }
+    [data-orbit-doc] .orbit-cat-list--feature .item {
+      display: block;
+      padding: 4px 0;
+      border-bottom: 0;
+    }
+    [data-orbit-doc] .orbit-cat-list--feature .item .name {
+      font-family: var(--orbit-display);
+      font-size: 17px;
+      font-weight: 640;
+      letter-spacing: -0.014em;
+    }
+    [data-orbit-doc] .orbit-cat-list--feature .item .desc {
+      display: block;
+      margin-top: 5px;
+      text-align: left;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     /* PRINCIPLES */
@@ -520,12 +593,23 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
     }
     [data-orbit-doc] .orbit-foot a:hover { text-decoration: underline !important; text-underline-offset: 3px; }
 
+    /* tablet: drop 3-col variants to 2 before the full 1-col collapse */
+    @media (max-width: 1000px) {
+      [data-orbit-doc] .orbit-cat-list--dense,
+      [data-orbit-doc] .orbit-cat-list--feature {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 760px) {
       [data-orbit-doc] { padding: 48px 22px 72px; }
       [data-orbit-doc] .orbit-page-head { grid-template-columns: 1fr; align-items: start; }
       [data-orbit-doc] .orbit-page-meta { align-items: flex-start; }
       [data-orbit-doc] .orbit-cat-row { grid-template-columns: 1fr; gap: 16px; }
-      [data-orbit-doc] .orbit-cat-list { grid-template-columns: 1fr; }
+      [data-orbit-doc] .orbit-cat-list,
+      [data-orbit-doc] .orbit-cat-list--dense,
+      [data-orbit-doc] .orbit-cat-list--stack,
+      [data-orbit-doc] .orbit-cat-list--feature { grid-template-columns: 1fr; }
       [data-orbit-doc] .orbit-principle { grid-template-columns: 1fr; gap: 8px; }
       [data-orbit-doc] .orbit-dodont-topic { grid-template-columns: 1fr; gap: 16px; }
       [data-orbit-doc] .orbit-a11y { grid-template-columns: 1fr; gap: 32px; }
@@ -543,13 +627,13 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
           <div className='orbit-eyebrow'><span className='num'>01</span>Catalog</div>
           <h1 className='orbit-h1'>컴포넌트 개요</h1>
           <div className='orbit-lede'>
-            56개 컴포넌트가 5개 카테고리로 정리되어 있습니다. 모든 컴포넌트는 <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>forwardRef</code>, 폴리모픽 <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>as</code> 프롭, 슬롯 컴파운드, <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>theme</code> 프롭 오버라이드를 동일한 인터페이스로 따릅니다.
+            56개 컴포넌트가 6개 그룹으로 정리되어 있습니다. 모두 <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>forwardRef</code>, 폴리모픽 <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>as</code> 프롭, 슬롯 컴파운드, <code style={{ fontFamily: 'var(--orbit-mono)', fontSize: '0.9em', padding: '1px 6px', borderRadius: 5, background: 'var(--orbit-surface-sunken)', border: '1px solid var(--orbit-line)' }}>theme</code> 오버라이드라는 같은 인터페이스를 공유합니다. 이름을 누르면 해당 컴포넌트 문서로 이동합니다.
           </div>
         </div>
         <div className='orbit-page-meta'>
-          <div><strong>56</strong> components</div>
-          <div>3 npm packages</div>
-          <div>WCAG&nbsp;AA</div>
+          <div>Actions · Inputs</div>
+          <div>Data · Feedback</div>
+          <div>Nav · Layout</div>
         </div>
       </header>
 
@@ -569,6 +653,8 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
             tag: 'Actions',
             title: '액션',
             count: '10 components',
+            // anchor style: side label + 2-col name/desc reference list
+            list: 'orbit-cat-list',
             items: [
               { name: 'SolidButton', desc: '결정적 primary' },
               { name: 'OutlineButton', desc: '보조 secondary' },
@@ -586,6 +672,9 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
             tag: 'Inputs',
             title: '입력',
             count: '15 components',
+            // largest group: full-width band, dense 3-col, name over desc
+            band: true,
+            list: 'orbit-cat-list orbit-cat-list--dense',
             items: [
               { name: 'TextField', desc: '단일 행 텍스트 입력' },
               { name: 'FloatingTextField', desc: '플로팅 라벨 필드' },
@@ -608,6 +697,8 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
             tag: 'Data Display',
             title: '데이터 표시',
             count: '11 components',
+            // side label + 2-col stacked (name over desc), roomier
+            list: 'orbit-cat-list orbit-cat-list--stack',
             items: [
               { name: 'DataTable', desc: '정렬·선택·페이지네이션' },
               { name: 'Avatar', desc: '사용자 아바타' },
@@ -626,6 +717,9 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
             tag: 'Feedback',
             title: '피드백·오버레이',
             count: '8 components',
+            // full-width band, dense 3-col
+            band: true,
+            list: 'orbit-cat-list orbit-cat-list--dense',
             items: [
               { name: 'Modal', desc: '다이얼로그 모달' },
               { name: 'AlertDialog', desc: '확인·경고 모달' },
@@ -641,6 +735,8 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
             tag: 'Navigation',
             title: '내비게이션',
             count: '7 components',
+            // side label + 2-col reference list
+            list: 'orbit-cat-list',
             items: [
               { name: 'AppBar', desc: '앱 상단바' },
               { name: 'Breadcrumb', desc: '경로 탐색' },
@@ -655,21 +751,24 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
             tag: 'Layout',
             title: '레이아웃',
             count: '3 components',
+            // few items: full-width band, 3-up feature emphasis
+            band: true,
+            list: 'orbit-cat-list orbit-cat-list--feature',
             items: [
-              { name: 'Divider', desc: '구분선' },
-              { name: 'Space', desc: '간격 유틸' },
-              { name: 'Text', desc: '타이포그래피 텍스트' },
+              { name: 'Divider', desc: '내용을 나누는 1px hairline 구분선' },
+              { name: 'Space', desc: '8px 그리드에 맞춘 간격 유틸' },
+              { name: 'Text', desc: '9개 텍스트 스타일을 적용하는 타이포 컴포넌트' },
             ],
           },
         ].map((cat, i) => (
-          <div className='orbit-cat' key={i}>
+          <div className={`orbit-cat${cat.band ? ' orbit-cat--band' : ''}`} key={i}>
             <div className='orbit-cat-row'>
               <div className='orbit-cat-head'>
                 <div className='tag'>{cat.tag}</div>
                 <div className='title'>{cat.title}</div>
                 <div className='count'>{cat.count}</div>
               </div>
-              <div className='orbit-cat-list'>
+              <div className={cat.list}>
                 {cat.items.map((it, j) => (
                   <div className='item' key={j}>
                     <span className='name'>{it.name}</span>

@@ -148,6 +148,66 @@
     outline-offset: var(--sem-base-focus-ring-offset);
   }
 
+  /*
+   * Button 토큰 기반 상태 스타일.
+   *
+   * 모든 ButtonTheme 토큰을 요소의 CSS custom property(`--btn-*`)로 emit 하고,
+   * 여기서 :hover / :active / :focus-visible / disabled 의사 클래스로 상태를 구동한다.
+   * 인라인 style 로는 표현할 수 없는 hover/pressed/focus 토큰이 실제로 렌더되며,
+   * 소비자 theme override 도 동일한 custom property 로 DOM 에 도달한다.
+   *
+   * fill/foreground/border 는 enabled 값을 기본으로 두고 각 상태에서 덮어쓴다.
+   * `*-pressed`/`*-hovered` 가 비어 있으면 enabled 값으로 폴백한다(스택형 var fallback).
+   */
+  .button-token {
+    background-color: var(--btn-enabled-fill, transparent);
+    border-color: var(--btn-enabled-border, transparent);
+    color: var(--btn-enabled-foreground, inherit);
+    /* 타이포그래피 토큰 — theme 의 per-size textStyle* 키에서 주입 */
+    font-family: var(--btn-text-face);
+    font-weight: var(--btn-text-weight);
+    font-size: var(--btn-text-size);
+    line-height: var(--btn-text-line-height);
+    letter-spacing: var(--btn-text-tracking);
+  }
+  /*
+   * 상태 hook 은 `data-disabled` 를 쓴다. `aria-disabled` 는 loading 일 때도 true 라서
+   * (스피너 표시 중) disabled 색이 새는 것을 막기 위해서다. loading 중에는 enabled
+   * fill 을 유지한다.
+   */
+  /* hover: pressed 와 충돌하지 않도록 active 가 아닐 때만 */
+  .button-token:not([data-disabled='true']):hover {
+    background-color: var(--btn-hovered-fill, var(--btn-enabled-fill, transparent));
+  }
+  .button-token:not([data-disabled='true']):active {
+    background-color: var(--btn-pressed-fill, var(--btn-hovered-fill, var(--btn-enabled-fill, transparent)));
+  }
+  /* focus-visible: Cobalt focus ring + 토큰 기반 border 시프트 */
+  .button-token:focus-visible {
+    outline: var(--sem-base-focus-ring-width) solid var(--sem-base-focus-ring-color);
+    outline-offset: var(--sem-base-focus-ring-offset);
+    border-color: var(--btn-focused-border, var(--btn-enabled-border, transparent));
+  }
+  /* disabled: enabled 색을 흐리게 하지 않고 전용 disabled 토큰을 사용 */
+  .button-token[data-disabled='true'] {
+    background-color: var(--btn-disabled-fill, var(--btn-enabled-fill, transparent));
+    border-color: var(--btn-disabled-border, var(--btn-enabled-border, transparent));
+    color: var(--btn-disabled-foreground, var(--btn-enabled-foreground, inherit));
+  }
+
+  /*
+   * Input 컨테이너용 focus ring.
+   * 포커스 가능한 요소는 내부 input/textarea 이므로, 내부 컨트롤이 키보드 포커스를
+   * 받았을 때만(:focus-visible) 컨테이너에 ring 을 그린다. 마우스 클릭 포커스는 제외.
+   */
+  .input-focus-ring-token {
+    outline: none;
+  }
+  .input-focus-ring-token:has(:focus-visible) {
+    outline: var(--sem-base-focus-ring-width) solid var(--sem-base-focus-ring-color);
+    outline-offset: var(--sem-base-focus-ring-offset);
+  }
+
   /* Container Layer */
   .container-layer {
     @apply relative inline-flex;
