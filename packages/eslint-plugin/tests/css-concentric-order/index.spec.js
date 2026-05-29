@@ -6,7 +6,7 @@ const { INVALID_CASES } = require('./invalid-case.js')
 const concentricCSSRule = require('../../lib/css-concentric-order/index.js')
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },

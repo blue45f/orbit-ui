@@ -9,7 +9,7 @@ const SPECIAL_KEY = ['variants', 'variant', 'defaultVariants']
 class Manager {
   constructor(context, node) {
     this.context = context
-    this.sourceCode = context.getSourceCode()
+    this.sourceCode = context.sourceCode
     this.node = node
     this.groups = []
   }
@@ -99,7 +99,7 @@ class Manager {
     const DEFAULT_TARGET_FORMATS = ['css.ts']
     const { targetFormats = DEFAULT_TARGET_FORMATS } = this.context.options[0] ?? {}
 
-    return targetFormats.some((format) => this.context.getFilename().endsWith(format))
+    return targetFormats.some((format) => this.context.filename.endsWith(format))
   }
   get isTargetCallee() {
     const DEFAULT_TARGET_CALLEE_NAMES = ['recipe', 'style', 'sprinkles', 'keyframes']
