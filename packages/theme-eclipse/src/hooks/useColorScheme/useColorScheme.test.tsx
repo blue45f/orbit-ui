@@ -92,4 +92,11 @@ describe('useColorScheme', () => {
 
     expect(colorScheme).toBe('light')
   })
+
+  it('dark/light 어느 쪽도 매칭되지 않으면 no-preference를 반환한다', () => {
+    vi.mocked(window.matchMedia).mockImplementation(() => createMockMediaQuery(false))
+
+    const { result } = renderHook(() => useColorScheme())
+    expect(result.current).toBe('no-preference')
+  })
 })
