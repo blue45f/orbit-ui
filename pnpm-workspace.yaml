@@ -3,6 +3,19 @@ packages:
   - 'packages/*'
   - 'config/*'
 
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - electron-to-chromium
+  - enhanced-resolve
+  - eslint-module-utils
+  - hasown
+  - tldts-core
+  - typed-array-length
+
 # Workspace catalog: 단일 진실 공급원으로 버전을 통일합니다.
 # 패키지에서 "catalog:"로 참조하면 여기 값이 사용됩니다.
 catalog:

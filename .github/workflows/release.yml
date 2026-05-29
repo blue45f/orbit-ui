@@ -2,7 +2,7 @@ name: 릴리스
 
 on:
   workflow_run:
-    workflows: ["CI"]
+    workflows: ['CI']
     branches: [main]
     types:
       - completed
@@ -51,7 +51,7 @@ jobs:
       - name: pnpm 설정
         uses: pnpm/action-setup@v6
         with:
-          version: 9.14.4
+          version: 11.4.0
 
       - name: Node.js 설정
         uses: actions/setup-node@v6
