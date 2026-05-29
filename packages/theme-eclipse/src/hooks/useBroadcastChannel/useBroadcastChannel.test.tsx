@@ -5,9 +5,18 @@ import { cleanup } from '../../test-utils'
 
 import { useBroadcastChannel } from './useBroadcastChannel'
 
+const originalBroadcastChannel = global.BroadcastChannel
+
 afterEach(() => {
   cleanup()
   vi.restoreAllMocks()
+  // delete한 전역을 원래 상태로 정확히 복원 (isolate:false 파일 간 누수 방지)
+  if (originalBroadcastChannel === undefined) {
+    // @ts-expect-error 원래 없던 전역은 삭제로 복원
+    delete global.BroadcastChannel
+  } else {
+    global.BroadcastChannel = originalBroadcastChannel
+  }
 })
 
 describe('useBroadcastChannel', () => {
@@ -26,7 +35,6 @@ describe('useBroadcastChannel', () => {
   })
 
   it('returns no-op functions when BroadcastChannel is unsupported', () => {
-    const original = global.BroadcastChannel
     // @ts-expect-error intentionally removing BroadcastChannel
     delete global.BroadcastChannel
 
@@ -34,7 +42,6 @@ describe('useBroadcastChannel', () => {
     expect(result.current.lastMessage).toBeNull()
     expect(() => result.current.postMessage('hello')).not.toThrow()
     expect(() => result.current.close()).not.toThrow()
-
-    global.BroadcastChannel = original
+    // 복원은 afterEach가 보장
   })
 })

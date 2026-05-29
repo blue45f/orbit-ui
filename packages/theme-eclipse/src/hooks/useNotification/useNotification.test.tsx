@@ -5,21 +5,29 @@ import { cleanup } from '../../test-utils'
 
 import { useNotification } from './useNotification'
 
+const originalNotification = globalThis.Notification
+
 describe('useNotification', () => {
   afterEach(() => {
     cleanup()
     vi.restoreAllMocks()
+    // delete/대입한 전역 Notification을 원래 상태로 정확히 복원 (isolate:false 누수 방지).
+    // 원래 없던(undefined) 경우엔 delete로 복원해 `'Notification' in window` 체크까지 보존한다.
+    if (originalNotification === undefined) {
+      // @ts-expect-error 원래 없던 전역은 삭제로 복원
+      delete globalThis.Notification
+    } else {
+      globalThis.Notification = originalNotification
+    }
   })
 
   it('isSupported is false when Notification is not defined', () => {
-    const original = globalThis.Notification
     // @ts-expect-error intentionally removing Notification
     delete globalThis.Notification
 
     const { result } = renderHook(() => useNotification())
     expect(result.current.isSupported).toBe(false)
-
-    globalThis.Notification = original
+    // 복원은 afterEach가 보장
   })
 
   it('permission reads from Notification.permission when supported', () => {
