@@ -130,4 +130,36 @@ describe('useCountdown', () => {
     })
     expect(onFinish).not.toHaveBeenCalled()
   })
+
+  test('이미 진행 중이면 start() 는 무시된다 (no-op)', () => {
+    const { result } = renderHook(() =>
+      useCountdown({ from: 3000, interval: 1000, autoStart: true }),
+    )
+    act(() => {
+      vi.advanceTimersByTime(1000)
+    })
+    expect(result.current.remaining).toBe(2000)
+
+    // 이미 running 이므로 start()는 재시작하지 않는다
+    act(() => {
+      result.current.start()
+    })
+    act(() => {
+      vi.advanceTimersByTime(1000)
+    })
+    expect(result.current.remaining).toBe(1000)
+    expect(result.current.isRunning).toBe(true)
+  })
+
+  test('정지 상태에서 pause() 는 무시된다 (no-op)', () => {
+    const { result } = renderHook(() => useCountdown({ from: 3000, interval: 1000 }))
+    expect(result.current.isRunning).toBe(false)
+
+    act(() => {
+      result.current.pause()
+    })
+
+    expect(result.current.isRunning).toBe(false)
+    expect(result.current.remaining).toBe(3000)
+  })
 })
