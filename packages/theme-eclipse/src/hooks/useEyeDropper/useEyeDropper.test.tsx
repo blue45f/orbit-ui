@@ -83,4 +83,28 @@ describe('useEyeDropper', () => {
       delete (window as unknown as Record<string, unknown>).EyeDropper
     }
   })
+
+  it('open() wraps non-Error rejection in Error instance', async () => {
+    class MockEyeDropper {
+      open() {
+        return Promise.reject('string error')
+      }
+    }
+    ;(window as unknown as Record<string, unknown>).EyeDropper = MockEyeDropper
+
+    try {
+      const { result } = renderHook(() => useEyeDropper())
+
+      let returned: string | null = '#unset'
+      await act(async () => {
+        returned = await result.current.open()
+      })
+
+      expect(returned).toBeNull()
+      expect(result.current.error).toBeInstanceOf(Error)
+      expect(result.current.error?.message).toBe('string error')
+    } finally {
+      delete (window as unknown as Record<string, unknown>).EyeDropper
+    }
+  })
 })
