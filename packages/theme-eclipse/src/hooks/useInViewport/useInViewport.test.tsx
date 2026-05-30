@@ -70,4 +70,65 @@ describe('useInViewport', () => {
 
     expect(mockDisconnect).toHaveBeenCalled()
   })
+
+  it('once=false이면 여러 번 교차/미교차 상태 변화를 감지한다', () => {
+    const el = document.createElement('div')
+    const ref = { current: el }
+
+    const { result } = renderHook(() => useInViewport(ref, { once: false }))
+
+    act(() => {
+      observerCallback?.([{ isIntersecting: true } as IntersectionObserverEntry])
+    })
+    expect(result.current).toBe(true)
+
+    act(() => {
+      observerCallback?.([{ isIntersecting: false } as IntersectionObserverEntry])
+    })
+    expect(result.current).toBe(false)
+
+    // 다시 교차
+    act(() => {
+      observerCallback?.([{ isIntersecting: true } as IntersectionObserverEntry])
+    })
+    expect(result.current).toBe(true)
+
+    // observer는 여전히 연결 (disconnect 안 함)
+    expect(mockDisconnect).not.toHaveBeenCalled()
+  })
+
+  it('entry가 없을 때 isIntersecting=false로 안전하게 처리한다', () => {
+    const el = document.createElement('div')
+    const ref = { current: el }
+
+    const { result } = renderHook(() => useInViewport(ref))
+    expect(result.current).toBe(false)
+
+    // 빈 entry 또는 undefined
+    act(() => {
+      observerCallback?.([{} as IntersectionObserverEntry])
+    })
+    expect(result.current).toBe(false)
+  })
+
+  it('false->false 상태도 업데이트된다', () => {
+    const el = document.createElement('div')
+    const ref = { current: el }
+
+    const { result } = renderHook(() => useInViewport(ref))
+    expect(result.current).toBe(false)
+
+    // isIntersecting=false 명시적 트리거
+    act(() => {
+      observerCallback?.([{ isIntersecting: false } as IntersectionObserverEntry])
+    })
+    // 여전히 false지만 setIsInViewport가 호출되었음을 보이기 위해
+    // 후속 true 상태 변화가 감지되는지 확인
+    expect(result.current).toBe(false)
+
+    act(() => {
+      observerCallback?.([{ isIntersecting: true } as IntersectionObserverEntry])
+    })
+    expect(result.current).toBe(true)
+  })
 })
