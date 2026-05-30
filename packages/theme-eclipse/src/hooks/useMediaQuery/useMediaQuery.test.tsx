@@ -124,4 +124,35 @@ describe('useMediaQuery', () => {
       mm.get('(min-width: 320px)')?.__trigger(true)
     }).not.toThrow()
   })
+
+  test('addEventListener가 없으면 legacy addListener로 폴백한다 (Safari < 14)', () => {
+    let listener: ((event: MediaQueryListEvent) => void) | null = null
+    const removeListener = vi.fn()
+    const mql = {
+      media: '(min-width: 500px)',
+      matches: false,
+      addListener: (cb: (event: MediaQueryListEvent) => void) => {
+        listener = cb
+      },
+      removeListener,
+      // addEventListener를 의도적으로 제공하지 않음
+    }
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: vi.fn(() => mql as unknown as MediaQueryList),
+    })
+
+    const { result, unmount } = renderHook(() => useMediaQuery('(min-width: 500px)'))
+    expect(result.current).toBe(false)
+
+    act(() => {
+      mql.matches = true
+      listener?.({ matches: true, media: '(min-width: 500px)' } as MediaQueryListEvent)
+    })
+    expect(result.current).toBe(true)
+
+    unmount()
+    expect(removeListener).toHaveBeenCalled()
+  })
 })
