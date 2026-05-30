@@ -99,4 +99,54 @@ describe('useColorScheme', () => {
     const { result } = renderHook(() => useColorScheme())
     expect(result.current).toBe('no-preference')
   })
+
+  it('dark 선호도가 감지되면 dark를 반환한다', () => {
+    darkMq = createMockMediaQuery(true) as MediaQueryList & {
+      _listeners: MediaQueryListEventListener[]
+    }
+    lightMq = createMockMediaQuery(false) as MediaQueryList & {
+      _listeners: MediaQueryListEventListener[]
+    }
+
+    vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => {
+      if (query === '(prefers-color-scheme: dark)') return darkMq
+      if (query === '(prefers-color-scheme: light)') return lightMq
+      return createMockMediaQuery(false)
+    })
+
+    const { result } = renderHook(() => useColorScheme())
+    expect(result.current).toBe('dark')
+  })
+
+  it('색상 구성표 변경 시 리스너가 호출되어 상태를 업데이트한다', () => {
+    const { result } = renderHook(() => useColorScheme())
+    expect(result.current).toBe('light')
+
+    // dark 모드로 변경
+    act(() => {
+      Object.defineProperty(darkMq, 'matches', { value: true, configurable: true })
+      Object.defineProperty(lightMq, 'matches', { value: false, configurable: true })
+      darkMq._listeners.forEach((listener) => listener({} as MediaQueryListEvent))
+    })
+
+    expect(result.current).toBe('dark')
+
+    // light 모드로 돌아가기
+    act(() => {
+      Object.defineProperty(darkMq, 'matches', { value: false, configurable: true })
+      Object.defineProperty(lightMq, 'matches', { value: true, configurable: true })
+      lightMq._listeners.forEach((listener) => listener({} as MediaQueryListEvent))
+    })
+
+    expect(result.current).toBe('light')
+  })
+
+  it('unmount 시 dark와 light 리스너를 제거한다', () => {
+    const removeSpy = vi.spyOn(window.matchMedia('(prefers-color-scheme: dark)'), 'removeEventListener')
+    const { unmount } = renderHook(() => useColorScheme())
+
+    unmount()
+
+    expect(removeSpy).toHaveBeenCalled()
+  })
 })
