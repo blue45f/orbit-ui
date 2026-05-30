@@ -41,4 +41,41 @@ describe('useShareAPI', () => {
     const { result } = renderHook(() => useShareAPI())
     expect(result.current.isSupported).toBe(false)
   })
+
+  it('share() is a no-op when not supported', async () => {
+    setNavigatorShare(undefined)
+
+    const { result } = renderHook(() => useShareAPI())
+    await expect(result.current.share({ title: 'x' })).resolves.toBeUndefined()
+  })
+
+  it('canShare delegates to navigator.canShare when supported', () => {
+    const base = navigator as unknown as Record<string, unknown>
+    const mockCanShare = vi.fn().mockReturnValue(true)
+    vi.stubGlobal('navigator', {
+      ...base,
+      share: vi.fn().mockResolvedValue(undefined),
+      canShare: mockCanShare,
+    } as unknown as Navigator)
+
+    const { result } = renderHook(() => useShareAPI())
+    const data = { title: 'x', url: 'https://e.com' }
+    expect(result.current.canShare(data)).toBe(true)
+    expect(mockCanShare).toHaveBeenCalledWith(data)
+  })
+
+  it('canShare returns false when navigator.canShare is absent', () => {
+    // share만 있고 canShare는 없음 → ?? false 폴백
+    setNavigatorShare(vi.fn().mockResolvedValue(undefined))
+
+    const { result } = renderHook(() => useShareAPI())
+    expect(result.current.canShare({ title: 'x' })).toBe(false)
+  })
+
+  it('canShare returns false when not supported', () => {
+    setNavigatorShare(undefined)
+
+    const { result } = renderHook(() => useShareAPI())
+    expect(result.current.canShare({ title: 'x' })).toBe(false)
+  })
 })
