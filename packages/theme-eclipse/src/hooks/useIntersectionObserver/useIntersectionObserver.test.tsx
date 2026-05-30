@@ -181,4 +181,90 @@ describe('useIntersectionObserver', () => {
 
     document.body.removeChild(el)
   })
+
+  test('frozen=true인 상태에서 enabled=true로 토글해도 observer를 재생성하지 않는다', () => {
+    const el = document.createElement('div')
+    document.body.appendChild(el)
+
+    const { result, rerender } = renderHook(
+      ({ enabled }: { enabled: boolean }) => {
+        const ref = useRef<HTMLDivElement>(el)
+        return useIntersectionObserver(ref as RefObject<HTMLDivElement | null>, {
+          enabled,
+          freezeOnceVisible: true,
+        })
+      },
+      { initialProps: { enabled: true } }
+    )
+
+    // 초기 observer 생성
+    expect(MockIntersectionObserver.instances.length).toBe(1)
+    const firstInstance = MockIntersectionObserver.instances[0]
+
+    // freezeOnceVisible 트리거
+    act(() => {
+      MockIntersectionObserver.instances[0].trigger(true)
+    })
+    expect(result.current.isIntersecting).toBe(true)
+
+    // frozen 상태이므로 disconnect 호출됨
+    expect(firstInstance.observed.length).toBe(0)
+
+    // enabled 재렌더링해도 새 observer 생성 안 함 (frozen)
+    rerender({ enabled: false })
+    rerender({ enabled: true })
+    expect(MockIntersectionObserver.instances.length).toBe(1)
+
+    document.body.removeChild(el)
+  })
+
+  test('entry가 undefined일 때 isIntersecting=false로 안전하게 처리한다', () => {
+    const el = document.createElement('div')
+    document.body.appendChild(el)
+
+    const { result } = renderHook(() => {
+      const ref = useRef<HTMLDivElement>(el)
+      return useIntersectionObserver(ref as RefObject<HTMLDivElement | null>)
+    })
+
+    // 초기: entry=null, isIntersecting=false
+    expect(result.current.isIntersecting).toBe(false)
+
+    // 빈 entries 배열 콜백 (entry undefined)
+    act(() => {
+      MockIntersectionObserver.instances[0].callback([])
+    })
+
+    // 여전히 false 유지
+    expect(result.current.isIntersecting).toBe(false)
+
+    document.body.removeChild(el)
+  })
+
+  test('options 변경 시 observer를 재연결한다', () => {
+    const el = document.createElement('div')
+    document.body.appendChild(el)
+
+    const { rerender } = renderHook(
+      ({ margin }: { margin: string }) => {
+        const ref = useRef<HTMLDivElement>(el)
+        return useIntersectionObserver(ref as RefObject<HTMLDivElement | null>, {
+          rootMargin: margin,
+        })
+      },
+      { initialProps: { margin: '0px' } }
+    )
+
+    expect(MockIntersectionObserver.instances.length).toBe(1)
+    const firstInstance = MockIntersectionObserver.instances[0]
+
+    // rootMargin 변경 → effect 재실행 → 기존 observer disconnect
+    rerender({ margin: '100px' })
+
+    expect(firstInstance.observed.length).toBe(0)
+    expect(MockIntersectionObserver.instances.length).toBe(2)
+    expect(MockIntersectionObserver.instances[1].options.rootMargin).toBe('100px')
+
+    document.body.removeChild(el)
+  })
 })
