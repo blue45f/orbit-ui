@@ -37,6 +37,32 @@ function TrapShell({
   )
 }
 
+function DisabledFirstShell() {
+  const ref = useRef<HTMLDivElement>(null)
+  useFocusTrap(ref)
+  return (
+    <div ref={ref} role="dialog" aria-label="disabled-first">
+      <button disabled data-testid="disabled-btn">
+        disabled
+      </button>
+      <button data-testid="enabled-btn">enabled</button>
+    </div>
+  )
+}
+
+function AriaHiddenShell() {
+  const ref = useRef<HTMLDivElement>(null)
+  useFocusTrap(ref)
+  return (
+    <div ref={ref} role="dialog" aria-label="aria-hidden">
+      <button aria-hidden="true" data-testid="hidden-btn">
+        hidden
+      </button>
+      <button data-testid="visible-btn">visible</button>
+    </div>
+  )
+}
+
 describe('useFocusTrap', () => {
   afterEach(() => {
     cleanup()
@@ -100,5 +126,56 @@ describe('useFocusTrap', () => {
     screen.getByTestId('first').focus()
     fireEvent.keyDown(document, { key: 'a' })
     expect(document.activeElement).toBe(screen.getByTestId('first'))
+  })
+
+  test('disabled 요소는 건너뛰고 다음 포커스 가능 요소에 포커스한다', () => {
+    render(<DisabledFirstShell />)
+    expect(document.activeElement).toBe(screen.getByTestId('enabled-btn'))
+  })
+
+  test('aria-hidden="true" 요소는 건너뛴다', () => {
+    render(<AriaHiddenShell />)
+    expect(document.activeElement).toBe(screen.getByTestId('visible-btn'))
+  })
+
+  test('포커스 가능 요소가 없으면 컨테이너에 tabindex=-1을 부여하고 포커스한다', () => {
+    render(<TrapShell withInputs={false} />)
+    const dialog = screen.getByRole('dialog')
+    expect(dialog.getAttribute('tabindex')).toBe('-1')
+    expect(document.activeElement).toBe(dialog)
+  })
+
+  test('빈 컨테이너에서 Tab은 컨테이너로 포커스를 유지한다', () => {
+    render(<TrapShell withInputs={false} />)
+    const dialog = screen.getByRole('dialog')
+    fireEvent.keyDown(document, { key: 'Tab' })
+    expect(document.activeElement).toBe(dialog)
+  })
+
+  test('autoFocus=false면 자동 포커스하지 않는다', () => {
+    const outside = document.createElement('button')
+    document.body.appendChild(outside)
+    outside.focus()
+
+    render(<TrapShell autoFocus={false} />)
+
+    // 트랩은 활성이지만 자동 포커스는 하지 않으므로 기존 포커스 유지
+    expect(document.activeElement).toBe(outside)
+    document.body.removeChild(outside)
+  })
+
+  test('restoreFocus=false면 unmount 시 포커스를 복원하지 않는다', () => {
+    const opener = document.createElement('button')
+    document.body.appendChild(opener)
+    opener.focus()
+
+    const { unmount } = render(<TrapShell restoreFocus={false} />)
+    expect(document.activeElement).toBe(screen.getByTestId('first'))
+
+    unmount()
+
+    // 복원하지 않으므로 opener로 돌아가지 않는다
+    expect(document.activeElement).not.toBe(opener)
+    document.body.removeChild(opener)
   })
 })
