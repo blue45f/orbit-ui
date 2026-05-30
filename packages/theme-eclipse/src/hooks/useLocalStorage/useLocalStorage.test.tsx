@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { cleanup } from '../../test-utils'
 
@@ -95,7 +95,7 @@ describe('useLocalStorage', () => {
           key: KEY,
           newValue: JSON.stringify('from-other-tab'),
           storageArea: window.localStorage,
-        }),
+        })
       )
     })
 
@@ -114,7 +114,7 @@ describe('useLocalStorage', () => {
           key: KEY,
           newValue: null,
           storageArea: window.localStorage,
-        }),
+        })
       )
     })
 
@@ -130,7 +130,7 @@ describe('useLocalStorage', () => {
           key: 'other-key',
           newValue: JSON.stringify('z'),
           storageArea: window.localStorage,
-        }),
+        })
       )
     })
 
@@ -144,9 +144,7 @@ describe('useLocalStorage', () => {
   })
 
   test('syncTabs=false면 storage 이벤트를 무시한다', () => {
-    const { result } = renderHook(() =>
-      useLocalStorage(KEY, 'a', { syncTabs: false }),
-    )
+    const { result } = renderHook(() => useLocalStorage(KEY, 'a', { syncTabs: false }))
 
     act(() => {
       window.dispatchEvent(
@@ -154,10 +152,58 @@ describe('useLocalStorage', () => {
           key: KEY,
           newValue: JSON.stringify('z'),
           storageArea: window.localStorage,
-        }),
+        })
       )
     })
 
+    expect(result.current[0]).toBe('a')
+  })
+
+  test('setItem이 실패(quota 등)해도 throw하지 않고 state는 갱신된다', () => {
+    const spy = vi.spyOn(window.localStorage, 'setItem').mockImplementation(() => {
+      throw new DOMException('quota exceeded', 'QuotaExceededError')
+    })
+    const { result } = renderHook(() => useLocalStorage(KEY, 'a'))
+
+    act(() => {
+      result.current[1]('b')
+    })
+
+    expect(result.current[0]).toBe('b')
+    spy.mockRestore()
+  })
+
+  test('removeItem이 실패해도 throw하지 않고 state는 initialValue로 리셋된다', () => {
+    const spy = vi.spyOn(window.localStorage, 'removeItem').mockImplementation(() => {
+      throw new Error('access denied')
+    })
+    const { result } = renderHook(() => useLocalStorage(KEY, 'default'))
+
+    act(() => {
+      result.current[1]('changed')
+    })
+    act(() => {
+      result.current[2]()
+    })
+
+    expect(result.current[0]).toBe('default')
+    spy.mockRestore()
+  })
+
+  test('storage 이벤트의 newValue가 잘못된 JSON이면 무시한다', () => {
+    const { result } = renderHook(() => useLocalStorage(KEY, 'a'))
+
+    act(() => {
+      window.dispatchEvent(
+        new StorageEvent('storage', {
+          key: KEY,
+          newValue: '{ not valid json',
+          storageArea: window.localStorage,
+        })
+      )
+    })
+
+    // 파싱 실패는 catch되어 state는 그대로 유지된다
     expect(result.current[0]).toBe('a')
   })
 })
