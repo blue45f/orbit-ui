@@ -165,4 +165,29 @@ describe('useHotkey', () => {
 
     expect(handler).toHaveBeenCalledTimes(1)
   })
+
+  test('select 요소에 포커스 있을 때는 기본 무시한다', () => {
+    const handler = vi.fn()
+    const select = document.createElement('select')
+    document.body.appendChild(select)
+    renderHook(() => useHotkey('escape', handler))
+
+    dispatchKey('Escape', {}, select)
+    expect(handler).not.toHaveBeenCalled()
+
+    document.body.removeChild(select)
+  })
+
+  test('contentEditable 요소에 포커스 있을 때는 기본 무시한다', () => {
+    const handler = vi.fn()
+    const div = document.createElement('div')
+    Object.defineProperty(div, 'isContentEditable', { value: true, configurable: true })
+    document.body.appendChild(div)
+    renderHook(() => useHotkey('escape', handler))
+
+    dispatchKey('Escape', {}, div)
+    expect(handler).not.toHaveBeenCalled()
+
+    document.body.removeChild(div)
+  })
 })
