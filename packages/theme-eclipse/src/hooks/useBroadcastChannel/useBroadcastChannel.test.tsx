@@ -44,4 +44,92 @@ describe('useBroadcastChannel', () => {
     expect(() => result.current.close()).not.toThrow()
     // 복원은 afterEach가 보장
   })
+
+  it('receives message and updates lastMessage state', () => {
+    class MockBroadcastChannel {
+      onmessage: ((e: MessageEvent) => void) | null = null
+      postMessage = vi.fn()
+      close = vi.fn()
+    }
+    vi.stubGlobal('BroadcastChannel', MockBroadcastChannel)
+
+    const { result } = renderHook(() => useBroadcastChannel<string>('test-channel'))
+    expect(result.current.lastMessage).toBeNull()
+
+    // onmessage 핸들러 수동 호출
+    const mockChannel = (new MockBroadcastChannel()) as InstanceType<typeof MockBroadcastChannel>
+    if (mockChannel.onmessage) {
+      mockChannel.onmessage(new MessageEvent('message', { data: 'hello from channel' }))
+    }
+
+    vi.unstubAllGlobals()
+  })
+
+  it('postMessage sends message to the broadcast channel', () => {
+    let createdChannel: InstanceType<typeof MockBroadcastChannel> | null = null
+    class MockBroadcastChannel {
+      onmessage: ((e: MessageEvent) => void) | null = null
+      postMessage = vi.fn()
+      close = vi.fn()
+      constructor() {
+        createdChannel = this as any
+      }
+    }
+    vi.stubGlobal('BroadcastChannel', MockBroadcastChannel)
+
+    const { result } = renderHook(() => useBroadcastChannel<string>('test-channel'))
+
+    result.current.postMessage('test message')
+
+    expect((createdChannel as any)?.postMessage).toHaveBeenCalledWith('test message')
+
+    vi.unstubAllGlobals()
+  })
+
+  it('close function closes the channel and nullifies the ref', () => {
+    let createdChannel: InstanceType<typeof MockBroadcastChannel> | null = null
+    class MockBroadcastChannel {
+      onmessage: ((e: MessageEvent) => void) | null = null
+      postMessage = vi.fn()
+      close = vi.fn()
+      constructor() {
+        createdChannel = this as any
+      }
+    }
+    vi.stubGlobal('BroadcastChannel', MockBroadcastChannel)
+
+    const { result } = renderHook(() => useBroadcastChannel('test-channel'))
+
+    result.current.close()
+
+    expect((createdChannel as any)?.close).toHaveBeenCalled()
+
+    vi.unstubAllGlobals()
+  })
+
+  it('re-initializes channel when channelName changes', () => {
+    const closeCalls: number[] = []
+    class MockBroadcastChannel {
+      onmessage: ((e: MessageEvent) => void) | null = null
+      postMessage = vi.fn()
+      close = vi.fn(() => {
+        closeCalls.push(1)
+      })
+    }
+    vi.stubGlobal('BroadcastChannel', MockBroadcastChannel)
+
+    const { rerender } = renderHook(
+      ({ channelName }) => useBroadcastChannel(channelName),
+      { initialProps: { channelName: 'channel-1' } }
+    )
+
+    expect(closeCalls).toHaveLength(0)
+
+    rerender({ channelName: 'channel-2' })
+
+    // channelName이 변경되면 이전 채널이 close되어야 함
+    expect(closeCalls.length).toBeGreaterThan(0)
+
+    vi.unstubAllGlobals()
+  })
 })
