@@ -60,7 +60,7 @@ describe('useElementSize', () => {
               devicePixelContentBoxSize: [],
             },
           ],
-          {} as ResizeObserver,
+          {} as ResizeObserver
         )
       }
     })
@@ -102,10 +102,7 @@ describe('useElementSize', () => {
     // Call the observer callback with a falsy entry (undefined in the array)
     act(() => {
       if (observeCallback) {
-        observeCallback(
-          [undefined as unknown as ResizeObserverEntry],
-          {} as ResizeObserver,
-        )
+        observeCallback([undefined as unknown as ResizeObserverEntry], {} as ResizeObserver)
       }
     })
 

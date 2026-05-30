@@ -21,7 +21,10 @@ describe('usePermission', () => {
   })
 
   test('permissions.query 결과의 초기 상태를 반환한다', async () => {
-    const mockStatus = { state: 'granted' as PermissionState, onchange: null as (() => void) | null }
+    const mockStatus = {
+      state: 'granted' as PermissionState,
+      onchange: null as (() => void) | null,
+    }
     const mockQuery = vi.fn().mockResolvedValue(mockStatus)
     vi.stubGlobal('navigator', { permissions: { query: mockQuery } })
 
@@ -58,7 +61,10 @@ describe('usePermission', () => {
   })
 
   test('unmount 시 onchange 리스너가 해제된다', async () => {
-    const mockStatus = { state: 'granted' as PermissionState, onchange: null as (() => void) | null }
+    const mockStatus = {
+      state: 'granted' as PermissionState,
+      onchange: null as (() => void) | null,
+    }
     const mockQuery = vi.fn().mockResolvedValue(mockStatus)
     vi.stubGlobal('navigator', { permissions: { query: mockQuery } })
 
@@ -74,7 +80,10 @@ describe('usePermission', () => {
   })
 
   test('name이 변경되면 새로운 권한을 재쿼리한다', async () => {
-    const mockStatus = { state: 'granted' as PermissionState, onchange: null as (() => void) | null }
+    const mockStatus = {
+      state: 'granted' as PermissionState,
+      onchange: null as (() => void) | null,
+    }
     const mockQuery = vi.fn().mockResolvedValue(mockStatus)
     vi.stubGlobal('navigator', { permissions: { query: mockQuery } })
 
@@ -107,7 +116,10 @@ describe('usePermission', () => {
   })
 
   test('unmount 전 query가 완료되면 onchange를 설정하고, 그 후 unmount하면 cleanup이 적용된다', async () => {
-    const mockStatus = { state: 'granted' as PermissionState, onchange: null as (() => void) | null }
+    const mockStatus = {
+      state: 'granted' as PermissionState,
+      onchange: null as (() => void) | null,
+    }
     const mockQuery = vi.fn().mockResolvedValue(mockStatus)
     vi.stubGlobal('navigator', { permissions: { query: mockQuery } })
 
@@ -129,7 +141,10 @@ describe('usePermission', () => {
     const queryPromise = new Promise<PermissionStatus>((resolve) => {
       resolveQuery = resolve
     })
-    const mockStatus = { state: 'granted' as PermissionState, onchange: null as (() => void) | null }
+    const mockStatus = {
+      state: 'granted' as PermissionState,
+      onchange: null as (() => void) | null,
+    }
     const mockQuery = vi.fn().mockReturnValue(queryPromise)
     vi.stubGlobal('navigator', { permissions: { query: mockQuery } })
 

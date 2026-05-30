@@ -13,12 +13,14 @@ type MockMQL = {
 }
 
 function installMatchMedia(matchesMap: Record<string, boolean> = {}) {
-  const factory = vi.fn((query: string): MockMQL => ({
-    matches: matchesMap[query] ?? false,
-    media: query,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-  }))
+  const factory = vi.fn(
+    (query: string): MockMQL => ({
+      matches: matchesMap[query] ?? false,
+      media: query,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    })
+  )
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
     configurable: true,

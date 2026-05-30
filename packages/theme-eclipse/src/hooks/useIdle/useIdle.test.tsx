@@ -91,9 +91,7 @@ describe('useIdle', () => {
   })
 
   test('커스텀 events 목록만 활동으로 인정한다', () => {
-    const { result } = renderHook(() =>
-      useIdle({ timeout: 1000, events: ['keydown'] }),
-    )
+    const { result } = renderHook(() => useIdle({ timeout: 1000, events: ['keydown'] }))
 
     act(() => {
       vi.advanceTimersByTime(1000)
@@ -163,7 +161,7 @@ describe('useIdle', () => {
   test('enabled 변경 시 타이머와 리스너가 재설치된다', () => {
     const { result, rerender } = renderHook(
       ({ enabled }: { enabled: boolean }) => useIdle({ timeout: 1000, enabled }),
-      { initialProps: { enabled: true } },
+      { initialProps: { enabled: true } }
     )
 
     expect(result.current).toBe(false)

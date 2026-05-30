@@ -51,14 +51,14 @@ describe('useDrag', () => {
       result.current.dragProps.onDragStart(makeDragEvent(10, 20))
     })
     expect(onDragStart).toHaveBeenCalledWith(
-      expect.objectContaining({ isDragging: true, startX: 10, startY: 20 }),
+      expect.objectContaining({ isDragging: true, startX: 10, startY: 20 })
     )
 
     act(() => {
       result.current.dragProps.onDragEnd(makeDragEvent(50, 60))
     })
     expect(onDragEnd).toHaveBeenCalledWith(
-      expect.objectContaining({ isDragging: false, x: 50, y: 60 }),
+      expect.objectContaining({ isDragging: false, x: 50, y: 60 })
     )
   })
 
@@ -82,7 +82,7 @@ describe('useDrag', () => {
         startY: 20,
         deltaX: 40,
         deltaY: 50,
-      }),
+      })
     )
   })
 

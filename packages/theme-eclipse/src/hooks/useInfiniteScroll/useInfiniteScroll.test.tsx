@@ -58,9 +58,7 @@ describe('useInfiniteScroll', () => {
 
   test('hasMore=true일 때 센티넬이 교차하면 onLoadMore가 호출된다', () => {
     const onLoadMore = vi.fn()
-    const { result } = renderHook(() =>
-      useInfiniteScroll({ hasMore: true, onLoadMore }),
-    )
+    const { result } = renderHook(() => useInfiniteScroll({ hasMore: true, onLoadMore }))
 
     const sentinel = document.createElement('div')
     document.body.appendChild(sentinel)
@@ -80,9 +78,7 @@ describe('useInfiniteScroll', () => {
 
   test('hasMore=false일 때 센티넬이 교차해도 onLoadMore가 호출되지 않는다', () => {
     const onLoadMore = vi.fn()
-    const { result } = renderHook(() =>
-      useInfiniteScroll({ hasMore: false, onLoadMore }),
-    )
+    const { result } = renderHook(() => useInfiniteScroll({ hasMore: false, onLoadMore }))
 
     const sentinel = document.createElement('div')
     document.body.appendChild(sentinel)
@@ -102,9 +98,7 @@ describe('useInfiniteScroll', () => {
 
   test('unmount 시 observer가 disconnect된다', () => {
     const onLoadMore = vi.fn()
-    const { result, unmount } = renderHook(() =>
-      useInfiniteScroll({ hasMore: true, onLoadMore }),
-    )
+    const { result, unmount } = renderHook(() => useInfiniteScroll({ hasMore: true, onLoadMore }))
 
     const sentinel = document.createElement('div')
     document.body.appendChild(sentinel)
@@ -130,7 +124,7 @@ describe('useInfiniteScroll', () => {
   test('IntersectionObserver가 custom rootMargin으로 초기화된다', () => {
     const onLoadMore = vi.fn()
     const { result } = renderHook(() =>
-      useInfiniteScroll({ hasMore: true, onLoadMore, rootMargin: '200px' }),
+      useInfiniteScroll({ hasMore: true, onLoadMore, rootMargin: '200px' })
     )
 
     const sentinel = document.createElement('div')
@@ -151,7 +145,7 @@ describe('useInfiniteScroll', () => {
   test('IntersectionObserver가 custom threshold로 초기화된다', () => {
     const onLoadMore = vi.fn()
     const { result } = renderHook(() =>
-      useInfiniteScroll({ hasMore: true, onLoadMore, threshold: 0.5 }),
+      useInfiniteScroll({ hasMore: true, onLoadMore, threshold: 0.5 })
     )
 
     const sentinel = document.createElement('div')
@@ -170,9 +164,8 @@ describe('useInfiniteScroll', () => {
   test('hasMore가 false에서 true로 변경되면 isLoading이 false로 리셋된다', () => {
     const onLoadMore = vi.fn()
     const { result, rerender } = renderHook(
-      ({ hasMore }: { hasMore: boolean }) =>
-        useInfiniteScroll({ hasMore, onLoadMore }),
-      { initialProps: { hasMore: false } },
+      ({ hasMore }: { hasMore: boolean }) => useInfiniteScroll({ hasMore, onLoadMore }),
+      { initialProps: { hasMore: false } }
     )
 
     const sentinel = document.createElement('div')

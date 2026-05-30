@@ -142,7 +142,10 @@ describe('useColorScheme', () => {
   })
 
   it('unmount 시 dark와 light 리스너를 제거한다', () => {
-    const removeSpy = vi.spyOn(window.matchMedia('(prefers-color-scheme: dark)'), 'removeEventListener')
+    const removeSpy = vi.spyOn(
+      window.matchMedia('(prefers-color-scheme: dark)'),
+      'removeEventListener'
+    )
     const { unmount } = renderHook(() => useColorScheme())
 
     unmount()

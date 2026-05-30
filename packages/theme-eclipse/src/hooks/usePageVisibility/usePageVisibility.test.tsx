@@ -39,7 +39,7 @@ describe('usePageVisibility', () => {
     expect(result.current).toBe('hidden')
   })
 
-  test("hidden → visible 으로 복귀한다", () => {
+  test('hidden → visible 으로 복귀한다', () => {
     setVisibilityState('hidden')
     const { result } = renderHook(() => usePageVisibility())
     expect(result.current).toBe('hidden')

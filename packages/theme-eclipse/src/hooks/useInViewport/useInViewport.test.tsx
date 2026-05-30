@@ -26,7 +26,7 @@ describe('useInViewport', () => {
         constructor(callback: IntersectionCallback) {
           observerCallback = callback
         }
-      },
+      }
     )
   })
 

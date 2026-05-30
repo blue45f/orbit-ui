@@ -57,7 +57,7 @@ describe('useBroadcastChannel', () => {
     expect(result.current.lastMessage).toBeNull()
 
     // onmessage 핸들러 수동 호출
-    const mockChannel = (new MockBroadcastChannel()) as InstanceType<typeof MockBroadcastChannel>
+    const mockChannel = new MockBroadcastChannel() as InstanceType<typeof MockBroadcastChannel>
     if (mockChannel.onmessage) {
       mockChannel.onmessage(new MessageEvent('message', { data: 'hello from channel' }))
     }
@@ -118,10 +118,9 @@ describe('useBroadcastChannel', () => {
     }
     vi.stubGlobal('BroadcastChannel', MockBroadcastChannel)
 
-    const { rerender } = renderHook(
-      ({ channelName }) => useBroadcastChannel(channelName),
-      { initialProps: { channelName: 'channel-1' } }
-    )
+    const { rerender } = renderHook(({ channelName }) => useBroadcastChannel(channelName), {
+      initialProps: { channelName: 'channel-1' },
+    })
 
     expect(closeCalls).toHaveLength(0)
 
