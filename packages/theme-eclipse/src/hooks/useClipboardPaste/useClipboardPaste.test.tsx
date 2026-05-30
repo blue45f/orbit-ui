@@ -55,4 +55,28 @@ describe('useClipboardPaste', () => {
       expect.objectContaining({ text: 'test text' }),
     )
   })
+
+  it('paste 이벤트의 파일을 추출한다', () => {
+    const file = new File(['content'], 'image.png', { type: 'image/png' })
+    const { result } = renderHook(() => useClipboardPaste())
+
+    dispatchPasteEvent('caption', [file])
+
+    expect(result.current.files).toHaveLength(1)
+    expect(result.current.files[0].name).toBe('image.png')
+    expect(result.current.text).toBe('caption')
+  })
+
+  it('clipboardData가 없으면 빈 text/files로 처리한다', () => {
+    const { result } = renderHook(() => useClipboardPaste())
+
+    act(() => {
+      const event = new Event('paste') as ClipboardEvent
+      Object.defineProperty(event, 'clipboardData', { value: null, writable: false })
+      document.dispatchEvent(event)
+    })
+
+    expect(result.current.text).toBe('')
+    expect(result.current.files).toEqual([])
+  })
 })
