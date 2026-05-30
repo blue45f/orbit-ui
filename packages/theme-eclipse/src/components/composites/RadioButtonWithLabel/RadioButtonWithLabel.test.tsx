@@ -96,7 +96,11 @@ describe('RadioButtonWithLabel (eclipse)', () => {
   })
 
   test('controlled 모드 (checked prop)로도 동작한다', () => {
-    render(<RadioButtonWithLabel value="a" name="grp" checked>옵션 A</RadioButtonWithLabel>)
+    render(
+      <RadioButtonWithLabel value="a" name="grp" checked>
+        옵션 A
+      </RadioButtonWithLabel>
+    )
 
     expect(screen.getByLabelText('옵션 A')).toHaveAttribute('aria-checked', 'true')
   })
@@ -105,7 +109,9 @@ describe('RadioButtonWithLabel (eclipse)', () => {
     const ref = createRef<HTMLButtonElement>()
     render(
       <RadioGroup name="color" defaultValue="blue">
-        <RadioButtonWithLabel ref={ref} value="blue">블루</RadioButtonWithLabel>
+        <RadioButtonWithLabel ref={ref} value="blue">
+          블루
+        </RadioButtonWithLabel>
       </RadioGroup>
     )
 
@@ -115,11 +121,25 @@ describe('RadioButtonWithLabel (eclipse)', () => {
   test('id를 명시적으로 전달하면 label htmlFor와 일치한다', () => {
     render(
       <RadioGroup name="color" defaultValue="blue">
-        <RadioButtonWithLabel id="rb-blue" value="blue">블루</RadioButtonWithLabel>
+        <RadioButtonWithLabel id="rb-blue" value="blue">
+          블루
+        </RadioButtonWithLabel>
       </RadioGroup>
     )
 
     const label = screen.getByText('블루').closest('label')
     expect(label).toHaveAttribute('for', 'rb-blue')
+  })
+
+  test('calls errorDev when checked undefined and not in RadioGroup', () => {
+    render(
+      <RadioButtonWithLabel value="a" name="grp">
+        옵션 A
+      </RadioButtonWithLabel>
+    )
+
+    expect(console.error).toHaveBeenCalled()
+    const errorMsg = (console.error as ReturnType<typeof vi.fn>).mock.calls.flat().join(' ')
+    expect(errorMsg).toContain('Radio')
   })
 })
