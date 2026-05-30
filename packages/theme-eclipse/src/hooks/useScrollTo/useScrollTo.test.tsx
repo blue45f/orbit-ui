@@ -55,4 +55,85 @@ describe('useScrollTo', () => {
 
     expect(firstRef).toBe(secondRef)
   })
+
+  test('좌표 객체에서 x만 전달하면 y는 0이 된다', () => {
+    const { result } = renderHook(() => useScrollTo())
+
+    result.current.scrollTo({ x: 100 })
+
+    expect(window.scrollTo).toHaveBeenCalledWith({
+      left: 100,
+      top: 0,
+      behavior: 'smooth',
+    })
+  })
+
+  test('좌표 객체에서 y만 전달하면 x는 0이 된다', () => {
+    const { result } = renderHook(() => useScrollTo())
+
+    result.current.scrollTo({ y: 500 })
+
+    expect(window.scrollTo).toHaveBeenCalledWith({
+      left: 0,
+      top: 500,
+      behavior: 'smooth',
+    })
+  })
+
+  test('Element에 대해 custom behavior 옵션을 적용한다', () => {
+    const { result } = renderHook(() => useScrollTo())
+
+    const el = document.createElement('div')
+    const scrollIntoViewMock = vi.fn()
+    el.scrollIntoView = scrollIntoViewMock
+    document.body.appendChild(el)
+
+    result.current.scrollTo(el, { behavior: 'auto' })
+
+    expect(scrollIntoViewMock).toHaveBeenCalledWith({
+      behavior: 'auto',
+      block: 'start',
+      inline: 'nearest',
+    })
+
+    document.body.removeChild(el)
+  })
+
+  test('Element에 대해 custom block 옵션을 적용한다', () => {
+    const { result } = renderHook(() => useScrollTo())
+
+    const el = document.createElement('div')
+    const scrollIntoViewMock = vi.fn()
+    el.scrollIntoView = scrollIntoViewMock
+    document.body.appendChild(el)
+
+    result.current.scrollTo(el, { block: 'center' })
+
+    expect(scrollIntoViewMock).toHaveBeenCalledWith({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest',
+    })
+
+    document.body.removeChild(el)
+  })
+
+  test('Element에 대해 custom inline 옵션을 적용한다', () => {
+    const { result } = renderHook(() => useScrollTo())
+
+    const el = document.createElement('div')
+    const scrollIntoViewMock = vi.fn()
+    el.scrollIntoView = scrollIntoViewMock
+    document.body.appendChild(el)
+
+    result.current.scrollTo(el, { inline: 'center' })
+
+    expect(scrollIntoViewMock).toHaveBeenCalledWith({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'center',
+    })
+
+    document.body.removeChild(el)
+  })
 })
