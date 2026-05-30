@@ -65,4 +65,27 @@ describe('useUndoable', () => {
     expect(result.current.history).toEqual(['a'])
     expect(result.current.future).toHaveLength(0)
   })
+
+  it('undo is a no-op when there is no history', () => {
+    const { result } = renderHook(() => useUndoable('a'))
+
+    act(() => {
+      result.current.undo()
+    })
+
+    expect(result.current.value).toBe('a')
+    expect(result.current.history).toHaveLength(0)
+    expect(result.current.future).toHaveLength(0)
+  })
+
+  it('redo is a no-op when there is no future', () => {
+    const { result } = renderHook(() => useUndoable('a'))
+
+    act(() => {
+      result.current.redo()
+    })
+
+    expect(result.current.value).toBe('a')
+    expect(result.current.future).toHaveLength(0)
+  })
 })
