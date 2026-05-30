@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { cleanup } from '../../test-utils'
@@ -33,5 +33,31 @@ describe('useCssVariable', () => {
 
     expect(mockGetPropertyValue).toHaveBeenCalledWith('--color-primary')
     expect(result.current[0]).toBe('#ff0000')
+  })
+
+  it('setProperty writes to the element style and updates the value', () => {
+    const el = document.createElement('div')
+    const ref = { current: el }
+
+    const { result } = renderHook(() => useCssVariable('--gap', ref))
+
+    act(() => {
+      result.current[1]('8px')
+    })
+
+    expect(el.style.getPropertyValue('--gap')).toBe('8px')
+    expect(result.current[0]).toBe('8px')
+  })
+
+  it('setProperty is a no-op when the ref is null', () => {
+    const ref: { current: HTMLElement | null } = { current: null }
+    const { result } = renderHook(() => useCssVariable('--gap', ref))
+
+    act(() => {
+      result.current[1]('8px')
+    })
+
+    // ref가 비어 있으면 throw 없이 무시되고 값은 그대로
+    expect(result.current[0]).toBe('')
   })
 })
