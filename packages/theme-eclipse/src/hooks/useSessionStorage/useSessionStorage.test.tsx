@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { cleanup } from '../../test-utils'
 
@@ -72,6 +72,21 @@ describe('useSessionStorage', () => {
     window.sessionStorage.setItem(KEY, '{ not json')
     const { result } = renderHook(() => useSessionStorage(KEY, 'safe'))
     expect(result.current[0]).toBe('safe')
+  })
+
+  test('setItem이 실패(quota 등)해도 throw하지 않고 state는 갱신된다', () => {
+    const spy = vi.spyOn(window.sessionStorage, 'setItem').mockImplementation(() => {
+      throw new DOMException('quota exceeded', 'QuotaExceededError')
+    })
+    const { result } = renderHook(() => useSessionStorage(KEY, 'a'))
+
+    act(() => {
+      result.current[1]('b')
+    })
+
+    // storage 쓰기는 실패했지만 in-memory state는 유지된다
+    expect(result.current[0]).toBe('b')
+    spy.mockRestore()
   })
 
   test('커스텀 serialize·deserialize 사용', () => {
