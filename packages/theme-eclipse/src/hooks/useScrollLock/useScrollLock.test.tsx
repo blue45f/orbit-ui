@@ -70,4 +70,30 @@ describe('useScrollLock', () => {
 
     expect(document.body.style.paddingRight).toBe('12px')
   })
+
+  test('스크롤바가 있으면 그 너비만큼 padding-right로 보정한다', () => {
+    // jsdom은 layout이 없어 scrollHeight/clientHeight=0 → 스크롤바 상황을 모의한다
+    const docEl = document.documentElement
+    const define = (obj: object, prop: string, value: number) =>
+      Object.defineProperty(obj, prop, { configurable: true, value })
+    const innerWidthDesc = Object.getOwnPropertyDescriptor(window, 'innerWidth')
+
+    define(docEl, 'scrollHeight', 2000)
+    define(docEl, 'clientHeight', 1000)
+    define(docEl, 'clientWidth', 985)
+    define(window, 'innerWidth', 1000) // 1000 - 985 = 15px 스크롤바
+
+    try {
+      const { unmount } = renderHook(() => useScrollLock())
+      expect(document.body.style.paddingRight).toBe('15px')
+
+      unmount()
+      expect(document.body.style.paddingRight).toBe('')
+    } finally {
+      delete (docEl as unknown as Record<string, unknown>).scrollHeight
+      delete (docEl as unknown as Record<string, unknown>).clientHeight
+      delete (docEl as unknown as Record<string, unknown>).clientWidth
+      if (innerWidthDesc) Object.defineProperty(window, 'innerWidth', innerWidthDesc)
+    }
+  })
 })
