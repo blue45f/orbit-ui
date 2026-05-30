@@ -76,4 +76,42 @@ describe('useFocusVisible', () => {
 
     expect(result.current.isFocusVisible).toBe(false)
   })
+
+  test('ctrlKey 단독으로는 키보드 모드를 설정하지 않는다', () => {
+    const { result } = renderHook(() => useFocusVisible())
+
+    act(() => {
+      fireEvent.keyDown(document, { key: 'Control', ctrlKey: true })
+      fireEvent.focusIn(document)
+    })
+
+    expect(result.current.isFocusVisible).toBe(false)
+  })
+
+  test('altKey 단독으로는 키보드 모드를 설정하지 않는다', () => {
+    const { result } = renderHook(() => useFocusVisible())
+
+    act(() => {
+      fireEvent.keyDown(document, { key: 'Alt', altKey: true })
+      fireEvent.focusIn(document)
+    })
+
+    expect(result.current.isFocusVisible).toBe(false)
+  })
+
+  test('pointerdown 이벤트는 키보드 모드를 초기화한다', () => {
+    const { result } = renderHook(() => useFocusVisible())
+
+    act(() => {
+      fireEvent.keyDown(document, { key: 'Tab' })
+    })
+    expect(result.current.isFocusVisible).toBe(false) // No focus yet
+
+    act(() => {
+      fireEvent.pointerDown(document)
+      fireEvent.focusIn(document)
+    })
+
+    expect(result.current.isFocusVisible).toBe(false)
+  })
 })
