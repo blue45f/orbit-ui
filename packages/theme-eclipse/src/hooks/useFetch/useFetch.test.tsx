@@ -57,6 +57,36 @@ describe('useFetch', () => {
     expect(result.current.error).toBeInstanceOf(Error)
   })
 
+  it('ignores AbortError without transitioning to error state', async () => {
+    const abortErr = new Error('aborted')
+    abortErr.name = 'AbortError'
+    vi.spyOn(window, 'fetch').mockRejectedValue(abortErr)
+
+    const { result } = renderHook(() => useFetch('/api/abort'))
+
+    await act(async () => {
+      await Promise.resolve()
+    })
+
+    // AbortError는 조용히 무시되어 loading 상태가 유지된다
+    expect(result.current.status).toBe('loading')
+    expect(result.current.error).toBeNull()
+  })
+
+  it('wraps a non-Error rejection in an Error', async () => {
+    vi.spyOn(window, 'fetch').mockRejectedValue('boom')
+
+    const { result } = renderHook(() => useFetch('/api/str'))
+
+    await act(async () => {
+      await Promise.resolve()
+    })
+
+    expect(result.current.status).toBe('error')
+    expect(result.current.error).toBeInstanceOf(Error)
+    expect(result.current.error?.message).toBe('boom')
+  })
+
   it('refetch triggers a new request and re-enters loading', async () => {
     const fetchSpy = vi.spyOn(window, 'fetch').mockResolvedValue({
       ok: true,
