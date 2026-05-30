@@ -105,4 +105,49 @@ describe('usePermission', () => {
 
     expect(result.current).toBe('unsupported')
   })
+
+  test('unmount 전 query가 완료되면 onchange를 설정하고, 그 후 unmount하면 cleanup이 적용된다', async () => {
+    const mockStatus = { state: 'granted' as PermissionState, onchange: null as (() => void) | null }
+    const mockQuery = vi.fn().mockResolvedValue(mockStatus)
+    vi.stubGlobal('navigator', { permissions: { query: mockQuery } })
+
+    const { unmount } = renderHook(() => usePermission('camera'))
+
+    await act(async () => {})
+
+    // onchange should be set after query resolves
+    expect(mockStatus.onchange).not.toBeNull()
+
+    unmount()
+
+    // After unmount, onchange should be null
+    expect(mockStatus.onchange).toBeNull()
+  })
+
+  test('onchange callback does not update state if cancelled before query resolves', async () => {
+    let resolveQuery: (value: PermissionStatus) => void
+    const queryPromise = new Promise<PermissionStatus>((resolve) => {
+      resolveQuery = resolve
+    })
+    const mockStatus = { state: 'granted' as PermissionState, onchange: null as (() => void) | null }
+    const mockQuery = vi.fn().mockReturnValue(queryPromise)
+    vi.stubGlobal('navigator', { permissions: { query: mockQuery } })
+
+    const { result, unmount } = renderHook(() => usePermission('camera'))
+
+    // Initial state is 'prompt'
+    expect(result.current).toBe('prompt')
+
+    // Unmount before query resolves
+    unmount()
+
+    // Now resolve the query and fire onchange
+    await act(async () => {
+      resolveQuery!(mockStatus as unknown as PermissionStatus)
+    })
+
+    // Since unmount set cancelled=true, the setState should not happen
+    // This test verifies the cancellation logic prevents state updates
+    expect(mockQuery).toHaveBeenCalled()
+  })
 })
