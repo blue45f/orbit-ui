@@ -160,4 +160,42 @@ describe('Alert (AlertDialog)', () => {
     expect(consoleError.mock.calls.flat().join(' ')).not.toContain('requires a description')
     expect(consoleError.mock.calls.flat().join(' ')).not.toContain('Missing `Description`')
   })
+
+  test('AlertBottom vertical direction applies correct className', async () => {
+    render(
+      <Alert defaultIsPresented>
+        <Alert.Top>
+          <Alert.Title>확인</Alert.Title>
+        </Alert.Top>
+        <Alert.Bottom direction="vertical">
+          <button>버튼1</button>
+          <button>버튼2</button>
+        </Alert.Bottom>
+      </Alert>
+    )
+
+    await waitFor(() => {
+      const footer =
+        screen.getByText('버튼1').closest('[role="group"]')?.parentElement ||
+        screen.getByText('버튼1').parentElement
+      expect(footer?.className).toContain('flex-col')
+      expect(footer?.className).toContain('space-y-2')
+    })
+  })
+
+  test('handles non-element children in Top slot gracefully', async () => {
+    render(
+      <Alert defaultIsPresented>
+        {null}
+        Some text
+        <Alert.Top>
+          <Alert.Title>제목</Alert.Title>
+        </Alert.Top>
+      </Alert>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByText('제목')).toBeInTheDocument()
+    })
+  })
 })
