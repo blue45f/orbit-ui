@@ -117,4 +117,22 @@ describe('useBreakpoint', () => {
 
     expect(result.current.breakpoint).toBe('xl')
   })
+
+  test('unmount 시 resize 이벤트 리스너가 제거된다', () => {
+    installMatchMedia({
+      '(min-width: 1536px)': false,
+      '(min-width: 1280px)': false,
+      '(min-width: 1024px)': false,
+      '(min-width: 768px)': false,
+      '(min-width: 640px)': false,
+    })
+
+    const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener')
+    const { unmount } = renderHook(() => useBreakpoint())
+
+    unmount()
+
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function))
+    removeEventListenerSpy.mockRestore()
+  })
 })
