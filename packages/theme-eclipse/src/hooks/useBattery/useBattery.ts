@@ -66,6 +66,10 @@ export function useBattery(): BatteryState {
         b.addEventListener('chargingtimechange', () => update(b))
         b.addEventListener('dischargingtimechange', () => update(b))
       })
+      .catch(() => {
+        // Battery API 사용 불가(getBattery 거부) — unhandled rejection 방지 및 로딩 종료
+        setState((s) => ({ ...s, loading: false }))
+      })
 
     return () => {
       if (battery) {
