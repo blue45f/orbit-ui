@@ -65,4 +65,30 @@ describe('usePageVisibility', () => {
     const removed = removeSpy.mock.calls.map(([type]) => type)
     expect(removed).toContain('visibilitychange')
   })
+
+  test('마운트 직후 handler를 호출하여 SSR/CSR 상태 동기화', () => {
+    // 초기 상태를 'hidden'으로 설정
+    setVisibilityState('hidden')
+    const { result } = renderHook(() => usePageVisibility())
+
+    // useEffect 내 handler()가 호출되어 'hidden'으로 동기화되어야 함
+    expect(result.current).toBe('hidden')
+  })
+
+  test('visibilitychange 이벤트 리스너가 등록되고 호출된다', () => {
+    const addSpy = vi.spyOn(document, 'addEventListener')
+    const { result } = renderHook(() => usePageVisibility())
+
+    // addEventListener가 'visibilitychange'와 함께 호출되었는지 확인
+    const addedEvents = addSpy.mock.calls.map(([type]) => type)
+    expect(addedEvents).toContain('visibilitychange')
+
+    // 리스너가 실제로 호출되면 상태가 업데이트됨을 확인
+    act(() => {
+      setVisibilityState('hidden')
+      fireVisibilityChange()
+    })
+
+    expect(result.current).toBe('hidden')
+  })
 })
