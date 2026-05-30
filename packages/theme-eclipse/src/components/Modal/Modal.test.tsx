@@ -163,7 +163,7 @@ describe('Dialog (Modal)', () => {
         <Dialog.Top>
           <Dialog.Title>제목</Dialog.Title>
         </Dialog.Top>
-      </Dialog>,
+      </Dialog>
     )
 
     await waitFor(() => {
@@ -178,7 +178,7 @@ describe('Dialog (Modal)', () => {
         <Dialog.Top>
           <Dialog.Title>결제 확인</Dialog.Title>
         </Dialog.Top>
-      </Dialog>,
+      </Dialog>
     )
 
     await waitFor(() => {
@@ -197,7 +197,7 @@ describe('Dialog (Modal)', () => {
           <Dialog.Title>결제 확인</Dialog.Title>
           <Dialog.Description>이 결제를 진행하시겠습니까?</Dialog.Description>
         </Dialog.Top>
-      </Dialog>,
+      </Dialog>
     )
 
     await waitFor(() => {
@@ -219,7 +219,7 @@ describe('Dialog (Modal)', () => {
           <Dialog.Title>제목</Dialog.Title>
           <div>내용</div>
         </Dialog.Top>
-      </Dialog>,
+      </Dialog>
     )
 
     await waitFor(() => expect(screen.getByText('내용')).toBeInTheDocument())
@@ -238,7 +238,7 @@ describe('Dialog (Modal)', () => {
           <Dialog.Title>제목</Dialog.Title>
           <div>controlled 내용</div>
         </Dialog.Top>
-      </Dialog>,
+      </Dialog>
     )
 
     expect(screen.queryByText('controlled 내용')).not.toBeInTheDocument()
@@ -249,7 +249,7 @@ describe('Dialog (Modal)', () => {
           <Dialog.Title>제목</Dialog.Title>
           <div>controlled 내용</div>
         </Dialog.Top>
-      </Dialog>,
+      </Dialog>
     )
 
     await waitFor(() => {
@@ -269,7 +269,7 @@ describe('Dialog (Modal)', () => {
         <Dialog.Bottom>
           <Dialog.Close>cancel</Dialog.Close>
         </Dialog.Bottom>
-      </Dialog>,
+      </Dialog>
     )
 
     await waitFor(() => expect(screen.getByRole('dialog')).toBeInTheDocument())
@@ -289,11 +289,27 @@ describe('Dialog (Modal)', () => {
         <Dialog.Top>
           <Dialog.Title>제목</Dialog.Title>
         </Dialog.Top>
-      </Dialog>,
+      </Dialog>
     )
 
     await user.click(screen.getByText('열기'))
 
     await waitFor(() => expect(onOpenChange).toHaveBeenCalledWith(true))
+  })
+
+  test('handles non-element children in dialog gracefully', async () => {
+    render(
+      <Dialog defaultIsPresented>
+        {null}
+        Some text
+        <Dialog.Top>
+          <Dialog.Title>제목</Dialog.Title>
+        </Dialog.Top>
+      </Dialog>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByText('제목')).toBeInTheDocument()
+    })
   })
 })
