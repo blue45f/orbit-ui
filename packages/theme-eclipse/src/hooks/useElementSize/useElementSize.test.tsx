@@ -89,4 +89,28 @@ describe('useElementSize', () => {
 
     expect(mockDisconnect).toHaveBeenCalled()
   })
+
+  it('ResizeObserver 콜백에서 entry가 undefined인 경우를 처리한다', () => {
+    const { result } = renderHook(() => useElementSize())
+
+    const fakeElement = document.createElement('div')
+
+    act(() => {
+      result.current.ref(fakeElement)
+    })
+
+    // Call the observer callback with a falsy entry (undefined in the array)
+    act(() => {
+      if (observeCallback) {
+        observeCallback(
+          [undefined as unknown as ResizeObserverEntry],
+          {} as ResizeObserver,
+        )
+      }
+    })
+
+    // Size should remain 0,0 since entry was falsy and guard prevents update
+    expect(result.current.width).toBe(0)
+    expect(result.current.height).toBe(0)
+  })
 })
