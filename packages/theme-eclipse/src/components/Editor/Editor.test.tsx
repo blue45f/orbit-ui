@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
 
-import { cleanup, render, screen } from '../../test-utils'
+import { cleanup, fireEvent, render, screen } from '../../test-utils'
 
 import { Editor } from './Editor'
 
@@ -61,5 +61,19 @@ describe('Editor (eclipse) - smoke tests', () => {
     render(<Editor placeholder="내용 입력" />)
 
     expect(consoleWarn.mock.calls.flat().join(' ')).not.toContain('Duplicate extension names')
+  })
+
+  test('비활성 툴바 버튼에 hover 시 배경이 강조되고 leave 시 복원된다', () => {
+    render(<Editor toolbar={<Editor.Toolbar />} />)
+    const boldButton = screen.getByTitle('굵게 (Ctrl+B)')
+
+    // 비활성 상태의 초기 배경
+    expect(boldButton.style.background).toBe('transparent')
+
+    fireEvent.mouseEnter(boldButton)
+    expect(boldButton.style.background).toBe('var(--sem-eclipse-color-backgroundTertiary)')
+
+    fireEvent.mouseLeave(boldButton)
+    expect(boldButton.style.background).toBe('transparent')
   })
 })
