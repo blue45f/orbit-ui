@@ -97,7 +97,7 @@
     "@orbit-ui/tsconfig": "workspace:*",
     "@orbit-ui/vite-plugin": "workspace:*",
     "@playwright/test": "^1.60.0",
-    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-babel": "^7.1.0",
     "@storybook/addon-a11y": "^10.4.1",
     "@storybook/addon-docs": "^10.4.1",
     "@storybook/addon-links": "^10.4.1",
