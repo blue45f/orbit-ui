@@ -1,4 +1,11 @@
-import { CheckIcon, StarLineIcon, HeartLineIcon, SearchIcon, LinkIcon, SettingLineIcon } from '@heejun-com/icons'
+import {
+  CheckIcon,
+  StarLineIcon,
+  HeartLineIcon,
+  SearchIcon,
+  LinkIcon,
+  SettingLineIcon,
+} from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 
@@ -29,7 +36,6 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const 기본 = {
-
   render: () => {
     return (
       <ChipLink href="https://code.example.com/orbit-ui" target="_blank">
@@ -98,24 +104,52 @@ export const 디자인_QA = {
 -------------------------------------------------------------------------- */
 export const 태그_컬렉션: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '480px', padding: '24px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        maxWidth: '480px',
+        padding: '24px',
+      }}
+    >
       <div>
-        <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '10px' }}>
+        <div
+          style={{
+            fontSize: '11px',
+            fontWeight: 700,
+            color: '#94a3b8',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            marginBottom: '10px',
+          }}
+        >
           Components
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-          {['Button', 'TextField', 'Modal', 'Dropdown', 'Chip', 'Toggle', 'Carousel'].map((name) => (
-            <ChipLink key={name} href="#">
-              <ChipLink.Leading>
-                <CheckIcon />
-              </ChipLink.Leading>
-              {name}
-            </ChipLink>
-          ))}
+          {['Button', 'TextField', 'Modal', 'Dropdown', 'Chip', 'Toggle', 'Carousel'].map(
+            (name) => (
+              <ChipLink key={name} href="#">
+                <ChipLink.Leading>
+                  <CheckIcon />
+                </ChipLink.Leading>
+                {name}
+              </ChipLink>
+            )
+          )}
         </div>
       </div>
       <div>
-        <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '10px' }}>
+        <div
+          style={{
+            fontSize: '11px',
+            fontWeight: 700,
+            color: '#94a3b8',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            marginBottom: '10px',
+          }}
+        >
           Resources
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -162,7 +196,15 @@ const FilterTagsRender = () => {
   const [selected, setSelected] = useState('all')
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '560px', padding: '24px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        maxWidth: '560px',
+        padding: '24px',
+      }}
+    >
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
         {filterCategories.map(({ id, label }) => (
           <span key={id}>
@@ -207,8 +249,18 @@ const FilterTagsRender = () => {
           border: '1px solid #e2e8f0',
         }}
       >
-        <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-          {filterCategories.find((c) => c.id === selected)?.label} ({componentsByCategory[selected].length})
+        <div
+          style={{
+            fontSize: '11px',
+            fontWeight: 700,
+            color: '#94a3b8',
+            marginBottom: '12px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          {filterCategories.find((c) => c.id === selected)?.label} (
+          {componentsByCategory[selected].length})
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
           {componentsByCategory[selected].map((name) => (
@@ -224,7 +276,6 @@ const FilterTagsRender = () => {
     </div>
   )
 }
-
 
 export const 인터랙티브_필터_태그: Story = {
   render: () => <FilterTagsRender />,
@@ -242,7 +293,8 @@ export const 관련_링크_패턴: Story = {
           Orbit UI Design System
         </h3>
         <p style={{ margin: 0, fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
-          React 기반 3-tier 아키텍처 디자인 시스템. Base components, Theme layer, Custom extensions로 구성됩니다.
+          React 기반 3-tier 아키텍처 디자인 시스템. Base components, Theme layer, Custom
+          extensions로 구성됩니다.
         </p>
       </div>
 
@@ -253,19 +305,27 @@ export const 관련_링크_패턴: Story = {
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             <ChipLink href="#">
-              <ChipLink.Leading><LinkIcon /></ChipLink.Leading>
+              <ChipLink.Leading>
+                <LinkIcon />
+              </ChipLink.Leading>
               Getting Started
             </ChipLink>
             <ChipLink href="#">
-              <ChipLink.Leading><LinkIcon /></ChipLink.Leading>
+              <ChipLink.Leading>
+                <LinkIcon />
+              </ChipLink.Leading>
               Component API
             </ChipLink>
             <ChipLink href="#">
-              <ChipLink.Leading><LinkIcon /></ChipLink.Leading>
+              <ChipLink.Leading>
+                <LinkIcon />
+              </ChipLink.Leading>
               Design Tokens
             </ChipLink>
             <ChipLink href="#">
-              <ChipLink.Leading><LinkIcon /></ChipLink.Leading>
+              <ChipLink.Leading>
+                <LinkIcon />
+              </ChipLink.Leading>
               Changelog
             </ChipLink>
           </div>
@@ -277,19 +337,27 @@ export const 관련_링크_패턴: Story = {
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             <ChipLink href="#">
-              <ChipLink.Leading><HeartLineIcon /></ChipLink.Leading>
+              <ChipLink.Leading>
+                <HeartLineIcon />
+              </ChipLink.Leading>
               Chip
             </ChipLink>
             <ChipLink href="#">
-              <ChipLink.Leading><HeartLineIcon /></ChipLink.Leading>
+              <ChipLink.Leading>
+                <HeartLineIcon />
+              </ChipLink.Leading>
               LabelBadge
             </ChipLink>
             <ChipLink href="#">
-              <ChipLink.Leading><HeartLineIcon /></ChipLink.Leading>
+              <ChipLink.Leading>
+                <HeartLineIcon />
+              </ChipLink.Leading>
               AnimatedBadge
             </ChipLink>
             <ChipLink href="#">
-              <ChipLink.Leading><HeartLineIcon /></ChipLink.Leading>
+              <ChipLink.Leading>
+                <HeartLineIcon />
+              </ChipLink.Leading>
               SpeechBadge
             </ChipLink>
           </div>
@@ -316,12 +384,14 @@ const AppUIChipGroupRender = () => {
   const [selected, setSelected] = useState<string[]>(['react', 'ts'])
 
   const toggle = (id: string) => {
-    setSelected((prev) => prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id])
+    setSelected((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]))
   }
 
   return (
     <div style={{ maxWidth: 480, padding: 28, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>기술 스택 필터</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+        기술 스택 필터
+      </div>
       <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>
         {selected.length > 0 ? `${selected.length}개 선택됨` : '선택 없음'}
       </div>
@@ -333,7 +403,20 @@ const AppUIChipGroupRender = () => {
             <span key={id}>
               {isSelected ? (
                 <span
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '5px 12px', borderRadius: 20, fontSize: 13, fontWeight: 600, background: '#6366f1', color: '#fff', cursor: 'pointer', userSelect: 'none', border: '1.5px solid #6366f1' }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 5,
+                    padding: '5px 12px',
+                    borderRadius: 20,
+                    fontSize: 13,
+                    fontWeight: 600,
+                    background: '#6366f1',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    userSelect: 'none',
+                    border: '1.5px solid #6366f1',
+                  }}
                   onClick={() => toggle(id)}
                 >
                   <span style={{ display: 'flex', width: 14, height: 14 }}>{icon}</span>
@@ -342,7 +425,10 @@ const AppUIChipGroupRender = () => {
               ) : (
                 <ChipLink
                   href="#"
-                  onClick={(e: React.MouseEvent) => { e.preventDefault(); toggle(id) }}
+                  onClick={(e: React.MouseEvent) => {
+                    e.preventDefault()
+                    toggle(id)
+                  }}
                 >
                   <ChipLink.Leading>{icon}</ChipLink.Leading>
                   {label}
@@ -354,20 +440,56 @@ const AppUIChipGroupRender = () => {
       </div>
 
       {selected.length > 0 && (
-        <div style={{ padding: '12px 16px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>선택된 스택</div>
+        <div
+          style={{
+            padding: '12px 16px',
+            borderRadius: 10,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+          }}
+        >
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 8,
+            }}
+          >
+            선택된 스택
+          </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
             {selected.map((id) => {
               const tech = TECH_STACKS.find((t) => t.id === id)
               return tech ? (
-                <span key={id} style={{ fontSize: 12, padding: '3px 10px', borderRadius: 12, background: '#eef2ff', color: '#6366f1', fontWeight: 600 }}>
+                <span
+                  key={id}
+                  style={{
+                    fontSize: 12,
+                    padding: '3px 10px',
+                    borderRadius: 12,
+                    background: '#eef2ff',
+                    color: '#6366f1',
+                    fontWeight: 600,
+                  }}
+                >
                   {tech.label}
                 </span>
               ) : null
             })}
           </div>
           <button
-            style={{ marginTop: 10, fontSize: 11, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            style={{
+              marginTop: 10,
+              fontSize: 11,
+              color: '#94a3b8',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+            }}
             onClick={() => setSelected([])}
           >
             전체 해제
@@ -409,15 +531,37 @@ const STACK_CATEGORIES = [
 
 export const DataProduct_기술스택_배지: Story = {
   render: () => (
-    <div style={{ maxWidth: 520, padding: 28, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20 }}>
+    <div
+      style={{
+        maxWidth: 520,
+        padding: 28,
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+      }}
+    >
       <div>
-        <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>기술 스택</div>
-        <div style={{ fontSize: 12, color: '#64748b' }}>Orbit UI 프로젝트를 구성하는 기술 스택입니다</div>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>
+          기술 스택
+        </div>
+        <div style={{ fontSize: 12, color: '#64748b' }}>
+          Orbit UI 프로젝트를 구성하는 기술 스택입니다
+        </div>
       </div>
 
       {STACK_CATEGORIES.map(({ name, color, items }) => (
         <div key={name}>
-          <div style={{ fontSize: 11, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 10 }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color,
+              textTransform: 'uppercase',
+              letterSpacing: '0.07em',
+              marginBottom: 10,
+            }}
+          >
             {name}
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
@@ -458,25 +602,55 @@ const SearchTagsRender = () => {
 
   return (
     <div style={{ maxWidth: 460, padding: 28, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>태그 검색</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>
+        태그 검색
+      </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, padding: '10px 12px', border: '1.5px solid #6366f1', borderRadius: 10, background: '#fff', minHeight: 48, marginBottom: 12, alignItems: 'center' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 6,
+          padding: '10px 12px',
+          border: '1.5px solid #6366f1',
+          borderRadius: 10,
+          background: '#fff',
+          minHeight: 48,
+          marginBottom: 12,
+          alignItems: 'center',
+        }}
+      >
         {tags.map((tag) => (
           <ChipLink
             key={tag}
             href="#"
-            onClick={(e: React.MouseEvent) => { e.preventDefault(); removeTag(tag) }}
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault()
+              removeTag(tag)
+            }}
           >
-            <ChipLink.Leading><CheckIcon /></ChipLink.Leading>
+            <ChipLink.Leading>
+              <CheckIcon />
+            </ChipLink.Leading>
             {tag}
           </ChipLink>
         ))}
         <input
           value={input}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
-          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') addTag() }}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') addTag()
+          }}
           placeholder={tags.length === 0 ? '태그 입력 후 Enter' : '태그 추가...'}
-          style={{ border: 'none', outline: 'none', fontSize: 13, color: '#374151', background: 'transparent', minWidth: 100, flex: 1 }}
+          style={{
+            border: 'none',
+            outline: 'none',
+            fontSize: 13,
+            color: '#374151',
+            background: 'transparent',
+            minWidth: 100,
+            flex: 1,
+          }}
         />
       </div>
 
@@ -485,17 +659,33 @@ const SearchTagsRender = () => {
       </div>
 
       <div>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>추천 태그</div>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            marginBottom: 8,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          추천 태그
+        </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-          {['컴포넌트', 'UI Kit', '토큰', 'DesignTool', '접근성', '다크모드'].filter((s) => !tags.includes(s)).map((suggest) => (
-            <ChipLink
-              key={suggest}
-              href="#"
-              onClick={(e: React.MouseEvent) => { e.preventDefault(); if (!tags.includes(suggest)) setTags((prev) => [...prev, suggest]) }}
-            >
-              {suggest}
-            </ChipLink>
-          ))}
+          {['컴포넌트', 'UI Kit', '토큰', 'DesignTool', '접근성', '다크모드']
+            .filter((s) => !tags.includes(s))
+            .map((suggest) => (
+              <ChipLink
+                key={suggest}
+                href="#"
+                onClick={(e: React.MouseEvent) => {
+                  e.preventDefault()
+                  if (!tags.includes(suggest)) setTags((prev) => [...prev, suggest])
+                }}
+              >
+                {suggest}
+              </ChipLink>
+            ))}
         </div>
       </div>
     </div>
@@ -527,7 +717,7 @@ const IssueTrackerIssueLabelRender = () => {
   const [active, setActive] = useState<Set<string>>(new Set(['bug', 'feature']))
 
   const toggle = (id: string) => {
-    setActive(prev => {
+    setActive((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -537,7 +727,18 @@ const IssueTrackerIssueLabelRender = () => {
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>이슈 레이블 필터</div>
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#94a3b8',
+          marginBottom: 10,
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}
+      >
+        이슈 레이블 필터
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
         {TRACKER_LABELS.map((label) => {
           const _isOn = active.has(label.id)
@@ -545,11 +746,15 @@ const IssueTrackerIssueLabelRender = () => {
             <ChipLink
               key={label.id}
               href="#"
-              onClick={(e: React.MouseEvent) => { e.preventDefault(); toggle(label.id) }}
-
+              onClick={(e: React.MouseEvent) => {
+                e.preventDefault()
+                toggle(label.id)
+              }}
             >
               <ChipLink.Leading>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: label.color }} />
+                <div
+                  style={{ width: 8, height: 8, borderRadius: '50%', background: label.color }}
+                />
               </ChipLink.Leading>
               {label.name}
             </ChipLink>
@@ -557,10 +762,14 @@ const IssueTrackerIssueLabelRender = () => {
         })}
       </div>
       <div style={{ fontSize: 12, color: '#64748b' }}>
-        선택된 레이블: <strong style={{ color: '#0f172a' }}>{active.size}개</strong> ·
-        표시 이슈: <strong style={{ color: '#6366f1' }}>{TRACKER_LABELS.filter(l => active.has(l.id)).reduce((s, l) => s + l.count, 0)}개</strong>
+        선택된 레이블: <strong style={{ color: '#0f172a' }}>{active.size}개</strong> · 표시 이슈:{' '}
+        <strong style={{ color: '#6366f1' }}>
+          {TRACKER_LABELS.filter((l) => active.has(l.id)).reduce((s, l) => s + l.count, 0)}개
+        </strong>
       </div>
-      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>IssueTracker 이슈 레이블 필터 패턴</div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
+        IssueTracker 이슈 레이블 필터 패턴
+      </div>
     </div>
   )
 }
@@ -570,7 +779,8 @@ export const IssueTracker_이슈_레이블_필터: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker의 이슈 레이블 필터 패턴. ChipLink에 color dot Leading을 배치하고, 선택 여부에 따라 투명도로 활성 상태를 표현합니다. 선택된 레이블에 해당하는 이슈 수가 실시간으로 집계됩니다.',
+        story:
+          'IssueTracker의 이슈 레이블 필터 패턴. ChipLink에 color dot Leading을 배치하고, 선택 여부에 따라 투명도로 활성 상태를 표현합니다. 선택된 레이블에 해당하는 이슈 수가 실시간으로 집계됩니다.',
       },
     },
   },
@@ -595,21 +805,34 @@ const DESIGN_COMPONENTS: DesignToolComponent[] = [
 
 const DesignToolComponentLinkRender = () => {
   const [filter, setFilter] = useState('전체')
-  const categories = ['전체', ...Array.from(new Set(DESIGN_COMPONENTS.map(c => c.category)))]
+  const categories = ['전체', ...Array.from(new Set(DESIGN_COMPONENTS.map((c) => c.category)))]
 
-  const filtered = DESIGN_COMPONENTS.filter(c => filter === '전체' || c.category === filter)
+  const filtered = DESIGN_COMPONENTS.filter((c) => filter === '전체' || c.category === filter)
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>DesignTool 컴포넌트 소스 링크</div>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          marginBottom: 10,
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}
+      >
+        DesignTool 컴포넌트 소스 링크
+      </div>
       {/* Category filter */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
         {categories.map((cat) => (
           <ChipLink
             key={cat}
             href="#"
-            onClick={(e: React.MouseEvent) => { e.preventDefault(); setFilter(cat) }}
-
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault()
+              setFilter(cat)
+            }}
           >
             {cat}
           </ChipLink>
@@ -618,7 +841,18 @@ const DesignToolComponentLinkRender = () => {
       {/* Component list */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {filtered.map((comp) => (
-          <div key={comp.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
+          <div
+            key={comp.id}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '10px 12px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+            }}
+          >
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{comp.name}</div>
               <div style={{ fontSize: 11, color: '#94a3b8' }}>{comp.category}</div>
@@ -632,7 +866,9 @@ const DesignToolComponentLinkRender = () => {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>DesignTool 컴포넌트 라이브러리 링크 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+        DesignTool 컴포넌트 라이브러리 링크 패턴
+      </div>
     </div>
   )
 }
@@ -642,7 +878,8 @@ export const DesignTool_컴포넌트_라이브러리_링크: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool Plugin UI의 컴포넌트 소스 링크 패턴. 카테고리 필터 ChipLink + 컴포넌트별 라이브러리 출처 ChipLink를 조합합니다. Leading에 DesignTool 아이콘 색상 도트를 배치해 라이브러리 출처를 표현합니다.',
+        story:
+          'DesignTool Plugin UI의 컴포넌트 소스 링크 패턴. 카테고리 필터 ChipLink + 컴포넌트별 라이브러리 출처 ChipLink를 조합합니다. Leading에 DesignTool 아이콘 색상 도트를 배치해 라이브러리 출처를 표현합니다.',
       },
     },
   },
@@ -670,39 +907,79 @@ const IssueTrackerProjectTagRender = () => {
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>프로젝트 태그 탐색</div>
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#94a3b8',
+          marginBottom: 10,
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}
+      >
+        프로젝트 태그 탐색
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
         {TRACKER_PROJECTS.map((proj) => (
           <ChipLink
             key={proj.id}
             href="#"
-            onClick={(e: React.MouseEvent) => { e.preventDefault(); setSelectedId(selectedId === proj.id ? null : proj.id) }}
-
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault()
+              setSelectedId(selectedId === proj.id ? null : proj.id)
+            }}
           >
             <ChipLink.Leading>
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: proj.statusColor }} />
+              <div
+                style={{ width: 6, height: 6, borderRadius: '50%', background: proj.statusColor }}
+              />
             </ChipLink.Leading>
             {proj.name}
             {proj.count > 0 && (
-              <span style={{ marginLeft: 4, fontSize: 10, fontWeight: 700, color: proj.statusColor }}>({proj.count})</span>
+              <span
+                style={{ marginLeft: 4, fontSize: 10, fontWeight: 700, color: proj.statusColor }}
+              >
+                ({proj.count})
+              </span>
             )}
           </ChipLink>
         ))}
       </div>
-      {selectedId && (() => {
-        const proj = TRACKER_PROJECTS.find(p => p.id === selectedId)
-        if (!proj) return null
-        return (
-          <div style={{ padding: '12px 14px', borderRadius: 10, border: `1px solid ${proj.statusColor}30`, background: proj.statusColor + '08' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{proj.name}</div>
-              <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 100, background: proj.statusColor + '20', color: proj.statusColor, fontWeight: 600 }}>{proj.status}</span>
+      {selectedId &&
+        (() => {
+          const proj = TRACKER_PROJECTS.find((p) => p.id === selectedId)
+          if (!proj) return null
+          return (
+            <div
+              style={{
+                padding: '12px 14px',
+                borderRadius: 10,
+                border: `1px solid ${proj.statusColor}30`,
+                background: proj.statusColor + '08',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{proj.name}</div>
+                <span
+                  style={{
+                    fontSize: 11,
+                    padding: '2px 8px',
+                    borderRadius: 100,
+                    background: proj.statusColor + '20',
+                    color: proj.statusColor,
+                    fontWeight: 600,
+                  }}
+                >
+                  {proj.status}
+                </span>
+              </div>
+              <div style={{ fontSize: 12, color: '#64748b' }}>진행 중 이슈 {proj.count}개</div>
             </div>
-            <div style={{ fontSize: 12, color: '#64748b' }}>진행 중 이슈 {proj.count}개</div>
-          </div>
-        )
-      })()}
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>IssueTracker 프로젝트 태그 링크 탐색 패턴</div>
+          )
+        })()}
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+        IssueTracker 프로젝트 태그 링크 탐색 패턴
+      </div>
     </div>
   )
 }
@@ -712,7 +989,8 @@ export const IssueTracker_프로젝트_태그_탐색: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker의 프로젝트 태그 탐색 패턴. ChipLink에 상태 색상 Leading 도트를 배치하고 선택 시 상세 정보 카드를 인라인으로 표시합니다. 프로젝트 탐색, 빠른 필터 링크 UI에 활용됩니다.',
+        story:
+          'IssueTracker의 프로젝트 태그 탐색 패턴. ChipLink에 상태 색상 Leading 도트를 배치하고 선택 시 상세 정보 카드를 인라인으로 표시합니다. 프로젝트 탐색, 빠른 필터 링크 UI에 활용됩니다.',
       },
     },
   },
@@ -731,14 +1009,37 @@ const CommandPaletteQuickActionLinksRender = () => {
   const [activeId, setActiveId] = useState<string | null>(null)
 
   return (
-    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', background: '#1c1c1e', borderRadius: 12, padding: '12px 0', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
-      <div style={{ padding: '4px 12px 10px', fontSize: 11, fontWeight: 600, color: '#8e8e93', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Quick Actions</div>
+    <div
+      style={{
+        width: 320,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        background: '#1c1c1e',
+        borderRadius: 12,
+        padding: '12px 0',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+      }}
+    >
+      <div
+        style={{
+          padding: '4px 12px 10px',
+          fontSize: 11,
+          fontWeight: 600,
+          color: '#8e8e93',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}
+      >
+        Quick Actions
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '0 6px' }}>
-        {LAUNCHER_ACTIONS.map(action => (
+        {LAUNCHER_ACTIONS.map((action) => (
           <div key={action.id} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <ChipLink
               href="#"
-              onClick={(e: React.MouseEvent) => { e.preventDefault(); setActiveId(action.id) }}
+              onClick={(e: React.MouseEvent) => {
+                e.preventDefault()
+                setActiveId(action.id)
+              }}
               selected={activeId === action.id}
             >
               <ChipLink.Leading>
@@ -746,11 +1047,26 @@ const CommandPaletteQuickActionLinksRender = () => {
               </ChipLink.Leading>
               {action.label}
             </ChipLink>
-            <span style={{ marginLeft: 'auto', fontSize: 11, color: '#636366', background: '#2c2c2e', padding: '1px 6px', borderRadius: 4 }}>{action.shortcut}</span>
+            <span
+              style={{
+                marginLeft: 'auto',
+                fontSize: 11,
+                color: '#636366',
+                background: '#2c2c2e',
+                padding: '1px 6px',
+                borderRadius: 4,
+              }}
+            >
+              {action.shortcut}
+            </span>
           </div>
         ))}
       </div>
-      <div style={{ padding: '10px 12px 4px', fontSize: 10, color: '#48484a', textAlign: 'center' }}>CommandPalette Quick Action 패턴</div>
+      <div
+        style={{ padding: '10px 12px 4px', fontSize: 10, color: '#48484a', textAlign: 'center' }}
+      >
+        CommandPalette Quick Action 패턴
+      </div>
     </div>
   )
 }
@@ -760,7 +1076,8 @@ export const CommandPalette_퀵액션_링크: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette 커맨드 팔레트의 액션 목록 패턴. 다크 배경에 ChipLink를 세로로 배치하고 키보드 단축키를 우측에 표시합니다. 커맨드 팔레트, 컨텍스트 메뉴, 퀵 액션 UI에 적합합니다.',
+        story:
+          'CommandPalette 커맨드 팔레트의 액션 목록 패턴. 다크 배경에 ChipLink를 세로로 배치하고 키보드 단축키를 우측에 표시합니다. 커맨드 팔레트, 컨텍스트 메뉴, 퀵 액션 UI에 적합합니다.',
       },
     },
   },
@@ -787,7 +1104,16 @@ const ComposableUIBreadcrumbRender = () => (
         </React.Fragment>
       ))}
     </div>
-    <div style={{ marginTop: 12, padding: '12px 14px', background: '#f8fafc', borderRadius: 8, fontSize: 12, color: '#64748b' }}>
+    <div
+      style={{
+        marginTop: 12,
+        padding: '12px 14px',
+        background: '#f8fafc',
+        borderRadius: 8,
+        fontSize: 12,
+        color: '#64748b',
+      }}
+    >
       ComposableUI 브레드크럼 네비게이션 패턴 — 계층적 경로를 ChipLink로 구현
     </div>
   </div>
@@ -798,7 +1124,8 @@ export const ComposableUI_브레드크럼_네비게이션: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI Breadcrumb 컴포넌트 패턴을 ChipLink로 구현. 계층적 경로를 구분자(/)와 함께 수평으로 나열합니다. 문서 사이트, 관리자 대시보드, 파일 탐색기 UI에 적합합니다.',
+        story:
+          'ComposableUI Breadcrumb 컴포넌트 패턴을 ChipLink로 구현. 계층적 경로를 구분자(/)와 함께 수평으로 나열합니다. 문서 사이트, 관리자 대시보드, 파일 탐색기 UI에 적합합니다.',
       },
     },
   },
@@ -818,21 +1145,45 @@ const WorkspaceEditorBlockTypeLinkRender = () => {
   const [selected, setSelected] = useState<string>('text')
 
   return (
-    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
-      <div style={{ padding: '10px 14px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}>
+    <div
+      style={{
+        width: 320,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        border: '1px solid #e5e7eb',
+        borderRadius: 10,
+        overflow: 'hidden',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+      }}
+    >
+      <div
+        style={{ padding: '10px 14px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}
+      >
         <div style={{ fontSize: 12, fontWeight: 700, color: '#111' }}>블록 유형 전환</div>
         <div style={{ fontSize: 11, color: '#9ca3af' }}>WorkspaceEditor 블록 타입 선택 패턴</div>
       </div>
       <div style={{ padding: 8 }}>
-        {WORKSPACE_BLOCK_TYPES.map(block => (
+        {WORKSPACE_BLOCK_TYPES.map((block) => (
           <div key={block.id} style={{ marginBottom: 2 }}>
             <ChipLink
               href="#"
-              onClick={(e: React.MouseEvent) => { e.preventDefault(); setSelected(block.id) }}
+              onClick={(e: React.MouseEvent) => {
+                e.preventDefault()
+                setSelected(block.id)
+              }}
               selected={selected === block.id}
             >
               <ChipLink.Leading>
-                <span style={{ fontSize: 12, fontWeight: 700, width: 20, textAlign: 'center', color: selected === block.id ? undefined : '#6b7280' }}>{block.icon}</span>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    width: 20,
+                    textAlign: 'center',
+                    color: selected === block.id ? undefined : '#6b7280',
+                  }}
+                >
+                  {block.icon}
+                </span>
               </ChipLink.Leading>
               {block.label}
               <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 4 }}>— {block.desc}</span>
@@ -849,7 +1200,8 @@ export const WorkspaceEditor_블록_타입_전환: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'WorkspaceEditor 블록 타입 전환 팝업 패턴. 아이콘 + 이름 + 설명을 가진 ChipLink 목록으로 콘텐츠 블록 유형(Text/Heading/List/To-do 등)을 선택합니다. 인라인 슬래시 커맨드 메뉴에 적합합니다.',
+        story:
+          'WorkspaceEditor 블록 타입 전환 팝업 패턴. 아이콘 + 이름 + 설명을 가진 ChipLink 목록으로 콘텐츠 블록 유형(Text/Heading/List/To-do 등)을 선택합니다. 인라인 슬래시 커맨드 메뉴에 적합합니다.',
       },
     },
   },
@@ -905,23 +1257,56 @@ export const EnterpriseUI_경로_탐색_링크_칩: Story = {
 
     return (
       <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10 }}>
+        <div
+          style={{
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            marginBottom: 10,
+          }}
+        >
           카테고리 탐색
         </div>
 
         {/* Breadcrumb chips */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap', marginBottom: 16 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            flexWrap: 'wrap',
+            marginBottom: 16,
+          }}
+        >
           {path.map((id, i) => {
             const node = getNode(id)
             const isLast = i === path.length - 1
             return (
               <React.Fragment key={id}>
                 {isLast ? (
-                  <span style={{ fontSize: 13, fontWeight: 700, padding: '4px 10px', borderRadius: 20, background: '#6366f1', color: '#fff' }}>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      padding: '4px 10px',
+                      borderRadius: 20,
+                      background: '#6366f1',
+                      color: '#fff',
+                    }}
+                  >
                     {node?.label}
                   </span>
                 ) : (
-                  <ChipLink href="#" onClick={(e: React.MouseEvent) => { e.preventDefault(); navigate(id, i) }} selected={false}>
+                  <ChipLink
+                    href="#"
+                    onClick={(e: React.MouseEvent) => {
+                      e.preventDefault()
+                      navigate(id, i)
+                    }}
+                    selected={false}
+                  >
                     {node?.label}
                   </ChipLink>
                 )}
@@ -934,7 +1319,9 @@ export const EnterpriseUI_경로_탐색_링크_칩: Story = {
         {/* Children chips */}
         {currentNode && currentNode.children.length > 0 && (
           <div>
-            <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8 }}>하위 카테고리 선택:</div>
+            <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8 }}>
+              하위 카테고리 선택:
+            </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
               {currentNode.children.map((childId) => {
                 const child = getNode(childId)
@@ -942,10 +1329,15 @@ export const EnterpriseUI_경로_탐색_링크_칩: Story = {
                   <ChipLink
                     key={childId}
                     href="#"
-                    onClick={(e: React.MouseEvent) => { e.preventDefault(); navigate(childId, path.length) }}
+                    onClick={(e: React.MouseEvent) => {
+                      e.preventDefault()
+                      navigate(childId, path.length)
+                    }}
                     selected={false}
                   >
-                    <ChipLink.Leading><SearchIcon size={12} /></ChipLink.Leading>
+                    <ChipLink.Leading>
+                      <SearchIcon size={12} />
+                    </ChipLink.Leading>
                     {child?.label}
                   </ChipLink>
                 )
@@ -955,7 +1347,17 @@ export const EnterpriseUI_경로_탐색_링크_칩: Story = {
         )}
 
         {currentNode && currentNode.children.length === 0 && (
-          <div style={{ padding: '14px', borderRadius: 10, background: '#f0f0ff', border: '1px solid #c7d2fe', fontSize: 13, color: '#4338ca', fontWeight: 600 }}>
+          <div
+            style={{
+              padding: '14px',
+              borderRadius: 10,
+              background: '#f0f0ff',
+              border: '1px solid #c7d2fe',
+              fontSize: 13,
+              color: '#4338ca',
+              fontWeight: 600,
+            }}
+          >
             /{path.join(' / ')} — 현재 위치
           </div>
         )}
@@ -988,23 +1390,47 @@ export const UtilityCSS_검색_필터_태그_스택: Story = {
       { id: 'senior', group: '경력', label: '시니어' },
     ]
     const [active, setActive] = React.useState(new Set(ALL_FILTERS.map((f) => f.id)))
-    const remove = (id: string) => setActive((prev) => { const n = new Set(prev); n.delete(id); return n })
+    const remove = (id: string) =>
+      setActive((prev) => {
+        const n = new Set(prev)
+        n.delete(id)
+        return n
+      })
 
-    const grouped = ALL_FILTERS.filter((f) => active.has(f.id)).reduce<Record<string, typeof ALL_FILTERS>>((acc, f) => {
+    const grouped = ALL_FILTERS.filter((f) => active.has(f.id)).reduce<
+      Record<string, typeof ALL_FILTERS>
+    >((acc, f) => {
       acc[f.group] = [...(acc[f.group] ?? []), f]
       return acc
     }, {})
 
     return (
       <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 12,
+          }}
+        >
           <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>
-            검색 결과 <span style={{ color: '#6366f1' }}>{active.size > 0 ? `(${active.size}개 필터 적용)` : ''}</span>
+            검색 결과{' '}
+            <span style={{ color: '#6366f1' }}>
+              {active.size > 0 ? `(${active.size}개 필터 적용)` : ''}
+            </span>
           </div>
           {active.size > 0 && (
             <button
               onClick={() => setActive(new Set())}
-              style={{ fontSize: 12, color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}
+              style={{
+                fontSize: 12,
+                color: '#ef4444',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
             >
               전체 초기화
             </button>
@@ -1014,14 +1440,30 @@ export const UtilityCSS_검색_필터_태그_스택: Story = {
         {active.size > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {Object.entries(grouped).map(([group, items]) => (
-              <div key={group} style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', minWidth: 60 }}>{group}</span>
+              <div
+                key={group}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}
+              >
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: '#94a3b8',
+                    textTransform: 'uppercase',
+                    minWidth: 60,
+                  }}
+                >
+                  {group}
+                </span>
                 {items.map((f) => (
                   <ChipLink
                     key={f.id}
                     href="#"
                     selected
-                    onClick={(e: React.MouseEvent) => { e.preventDefault(); remove(f.id) }}
+                    onClick={(e: React.MouseEvent) => {
+                      e.preventDefault()
+                      remove(f.id)
+                    }}
                   >
                     {f.label}
                     <span style={{ marginLeft: 4, opacity: 0.7 }}>×</span>
@@ -1031,12 +1473,30 @@ export const UtilityCSS_검색_필터_태그_스택: Story = {
             ))}
           </div>
         ) : (
-          <div style={{ padding: '16px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 13, color: '#94a3b8', textAlign: 'center' }}>
+          <div
+            style={{
+              padding: '16px',
+              borderRadius: 10,
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              fontSize: 13,
+              color: '#94a3b8',
+              textAlign: 'center',
+            }}
+          >
             활성 필터 없음 — 모든 결과 표시 중
           </div>
         )}
 
-        <div style={{ marginTop: 14, fontSize: 12, color: '#94a3b8', borderTop: '1px solid #f1f5f9', paddingTop: 10 }}>
+        <div
+          style={{
+            marginTop: 14,
+            fontSize: 12,
+            color: '#94a3b8',
+            borderTop: '1px solid #f1f5f9',
+            paddingTop: 10,
+          }}
+        >
           필터를 클릭하면 해당 조건이 제거됩니다.
         </div>
       </div>
@@ -1081,19 +1541,36 @@ export const EnterpriseUI_UtilityCSS_기술_스택_매트릭스: Story = {
       ],
     }
 
-    const LEVEL_COLOR: Record<string, string> = { expert: '#10b981', advanced: '#6366f1', intermediate: '#f59e0b' }
+    const LEVEL_COLOR: Record<string, string> = {
+      expert: '#10b981',
+      advanced: '#6366f1',
+      intermediate: '#f59e0b',
+    }
 
     const [selected, setSelected] = React.useState<string | null>('react')
 
-    const selectedItem = Object.values(STACK).flat().find((i) => i.id === selected)
+    const selectedItem = Object.values(STACK)
+      .flat()
+      .find((i) => i.id === selected)
 
     return (
       <div style={{ width: 500, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>기술 스택 매트릭스</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>
+          기술 스택 매트릭스
+        </div>
 
         {Object.entries(STACK).map(([layer, items]) => (
           <div key={layer} style={{ marginBottom: 14 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                marginBottom: 6,
+              }}
+            >
               {layer}
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -1102,10 +1579,21 @@ export const EnterpriseUI_UtilityCSS_기술_스택_매트릭스: Story = {
                   key={item.id}
                   href="#"
                   selected={selected === item.id}
-                  onClick={(e: React.MouseEvent) => { e.preventDefault(); setSelected(item.id) }}
+                  onClick={(e: React.MouseEvent) => {
+                    e.preventDefault()
+                    setSelected(item.id)
+                  }}
                 >
                   <ChipLink.Leading>
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: LEVEL_COLOR[item.level], display: 'inline-block' }} />
+                    <span
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: '50%',
+                        background: LEVEL_COLOR[item.level],
+                        display: 'inline-block',
+                      }}
+                    />
                   </ChipLink.Leading>
                   {item.label}
                 </ChipLink>
@@ -1115,10 +1603,29 @@ export const EnterpriseUI_UtilityCSS_기술_스택_매트릭스: Story = {
         ))}
 
         {selectedItem && (
-          <div style={{ marginTop: 16, padding: '14px 16px', borderRadius: 12, border: '1.5px solid #6366f1', background: '#f0f0ff' }}>
+          <div
+            style={{
+              marginTop: 16,
+              padding: '14px 16px',
+              borderRadius: 12,
+              border: '1.5px solid #6366f1',
+              background: '#f0f0ff',
+            }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-              <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>{selectedItem.label}</span>
-              <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 20, background: LEVEL_COLOR[selectedItem.level], color: '#fff', fontWeight: 700 }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>
+                {selectedItem.label}
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  padding: '2px 8px',
+                  borderRadius: 20,
+                  background: LEVEL_COLOR[selectedItem.level],
+                  color: '#fff',
+                  fontWeight: 700,
+                }}
+              >
                 {selectedItem.level}
               </span>
             </div>
@@ -1147,21 +1654,46 @@ function PrimitiveNavChipRender() {
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', width: 340 }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>PrimitiveUI 스타일 내비게이션 칩</p>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 12,
+        }}
+      >
+        PrimitiveUI 스타일 내비게이션 칩
+      </p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
         {RADIX_NAV_LINKS.map((link, i) => (
           <ChipLink
             key={link.label}
             href={link.href}
             selected={i === activeIdx}
-            onClick={(e) => { e.preventDefault(); setActiveIdx(i) }}
+            onClick={(e) => {
+              e.preventDefault()
+              setActiveIdx(i)
+            }}
           >
             {link.label}
           </ChipLink>
         ))}
       </div>
-      <div style={{ marginTop: 14, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#475569' }}>
-        선택됨: <strong>{RADIX_NAV_LINKS[activeIdx].label}</strong> — section: {RADIX_NAV_LINKS[activeIdx].section}
+      <div
+        style={{
+          marginTop: 14,
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          fontSize: 12,
+          color: '#475569',
+        }}
+      >
+        선택됨: <strong>{RADIX_NAV_LINKS[activeIdx].label}</strong> — section:{' '}
+        {RADIX_NAV_LINKS[activeIdx].section}
       </div>
     </div>
   )
@@ -1172,7 +1704,8 @@ export const Primitive_내비게이션_링크_칩: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI의 NavigationMenu 링크 칩 패턴. 섹션별 내비게이션을 ChipLink로 구현하며 활성 상태를 명확히 표시합니다.',
+        story:
+          'PrimitiveUI의 NavigationMenu 링크 칩 패턴. 섹션별 내비게이션을 ChipLink로 구현하며 활성 상태를 명확히 표시합니다.',
       },
     },
   },
@@ -1195,45 +1728,93 @@ function UtilityCSSProjectFilterRender() {
   const [activeTech, setActiveTech] = useState<Set<string>>(new Set())
 
   const toggleTech = (t: string) => {
-    setActiveTech(prev => {
+    setActiveTech((prev) => {
       const next = new Set(prev)
-      if (next.has(t)) { next.delete(t) } else { next.add(t) }
+      if (next.has(t)) {
+        next.delete(t)
+      } else {
+        next.add(t)
+      }
       return next
     })
   }
 
-  const filtered = activeTech.size === 0
-    ? TAILWIND_PROJECTS
-    : TAILWIND_PROJECTS.filter(p => p.tech.some(t => activeTech.has(t)))
+  const filtered =
+    activeTech.size === 0
+      ? TAILWIND_PROJECTS
+      : TAILWIND_PROJECTS.filter((p) => p.tech.some((t) => activeTech.has(t)))
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>기술 스택 필터</p>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 10,
+        }}
+      >
+        기술 스택 필터
+      </p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 14 }}>
-        {ALL_TECH.map(t => (
+        {ALL_TECH.map((t) => (
           <ChipLink
             key={t}
             href="#"
             selected={activeTech.has(t)}
-            onClick={(e) => { e.preventDefault(); toggleTech(t) }}
+            onClick={(e) => {
+              e.preventDefault()
+              toggleTech(t)
+            }}
           >
             {t}
           </ChipLink>
         ))}
         {activeTech.size > 0 && (
-          <ChipLink href="#" onClick={(e) => { e.preventDefault(); setActiveTech(new Set()) }}>
+          <ChipLink
+            href="#"
+            onClick={(e) => {
+              e.preventDefault()
+              setActiveTech(new Set())
+            }}
+          >
             전체 보기
           </ChipLink>
         )}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {filtered.map(p => (
-          <div key={p.name} style={{ padding: '10px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#fff', display: 'flex', alignItems: 'center', gap: 10 }}>
+        {filtered.map((p) => (
+          <div
+            key={p.name}
+            style={{
+              padding: '10px 14px',
+              borderRadius: 10,
+              border: '1.5px solid #e2e8f0',
+              background: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+            }}
+          >
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{p.name}</div>
               <div style={{ display: 'flex', gap: 4, marginTop: 5, flexWrap: 'wrap' }}>
-                {p.tech.map(t => (
-                  <span key={t} style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: activeTech.has(t) ? '#f0eeff' : '#f1f5f9', color: activeTech.has(t) ? '#6366f1' : '#64748b', fontWeight: activeTech.has(t) ? 700 : 400 }}>{t}</span>
+                {p.tech.map((t) => (
+                  <span
+                    key={t}
+                    style={{
+                      fontSize: 10,
+                      padding: '2px 6px',
+                      borderRadius: 4,
+                      background: activeTech.has(t) ? '#f0eeff' : '#f1f5f9',
+                      color: activeTech.has(t) ? '#6366f1' : '#64748b',
+                      fontWeight: activeTech.has(t) ? 700 : 400,
+                    }}
+                  >
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
@@ -1241,7 +1822,19 @@ function UtilityCSSProjectFilterRender() {
           </div>
         ))}
         {filtered.length === 0 && (
-          <div style={{ padding: 16, textAlign: 'center', fontSize: 12, color: '#94a3b8', background: '#f8fafc', borderRadius: 10, border: '1px dashed #e2e8f0' }}>결과 없음</div>
+          <div
+            style={{
+              padding: 16,
+              textAlign: 'center',
+              fontSize: 12,
+              color: '#94a3b8',
+              background: '#f8fafc',
+              borderRadius: 10,
+              border: '1px dashed #e2e8f0',
+            }}
+          >
+            결과 없음
+          </div>
         )}
       </div>
     </div>
@@ -1253,7 +1846,8 @@ export const UtilityCSS_프로젝트_기술스택_필터: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI의 Filter Chips 패턴. ChipLink로 기술 스택 필터를 멀티선택하고 프로젝트 카드를 동적으로 필터링합니다.',
+        story:
+          'UtilityUI의 Filter Chips 패턴. ChipLink로 기술 스택 필터를 멀티선택하고 프로젝트 카드를 동적으로 필터링합니다.',
       },
     },
   },
@@ -1278,14 +1872,28 @@ function PrimitiveUtilityCSSDocSidebarRender() {
   return (
     <div style={{ display: 'flex', gap: 20, fontFamily: 'system-ui, sans-serif', width: 400 }}>
       <div style={{ width: 180 }}>
-        <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>문서 카테고리</p>
+        <p
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            marginBottom: 10,
+          }}
+        >
+          문서 카테고리
+        </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          {DOC_CATEGORIES.map(cat => (
+          {DOC_CATEGORIES.map((cat) => (
             <div key={cat.id} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <ChipLink
                 href="#"
                 selected={selected === cat.id}
-                onClick={(e) => { e.preventDefault(); setSelected(cat.id) }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setSelected(cat.id)
+                }}
               >
                 {cat.label}
               </ChipLink>
@@ -1294,12 +1902,20 @@ function PrimitiveUtilityCSSDocSidebarRender() {
           ))}
         </div>
       </div>
-      <div style={{ flex: 1, padding: '12px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#f8fafc' }}>
+      <div
+        style={{
+          flex: 1,
+          padding: '12px 16px',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          background: '#f8fafc',
+        }}
+      >
         <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', margin: '0 0 6px' }}>
-          {DOC_CATEGORIES.find(c => c.id === selected)?.label}
+          {DOC_CATEGORIES.find((c) => c.id === selected)?.label}
         </p>
         <p style={{ fontSize: 11, color: '#64748b', margin: 0, lineHeight: 1.6 }}>
-          {DOC_CATEGORIES.find(c => c.id === selected)?.count}개 항목
+          {DOC_CATEGORIES.find((c) => c.id === selected)?.count}개 항목
         </p>
         <p style={{ fontSize: 11, color: '#94a3b8', margin: '8px 0 0', lineHeight: 1.6 }}>
           Primitive + UtilityUI 사이드바 내비게이션 패턴. ChipLink로 카테고리 전환을 구현합니다.
@@ -1314,7 +1930,8 @@ export const Primitive_UtilityCSS_문서_사이드바_내비게이션: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI + UtilityUI 복합 패턴. ChipLink로 사이드바 문서 카테고리 내비게이션을 구현하며 선택된 섹션을 동적으로 표시합니다.',
+        story:
+          'PrimitiveUI + UtilityUI 복합 패턴. ChipLink로 사이드바 문서 카테고리 내비게이션을 구현하며 선택된 섹션을 동적으로 표시합니다.',
       },
     },
   },
@@ -1350,16 +1967,21 @@ function ComposableUITagCloudRender() {
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 12 }}>컴포넌트 태그 클라우드</div>
+      <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 12 }}>
+        컴포넌트 태그 클라우드
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-        {UTILITYUI_TAGS.map(tag => {
+        {UTILITYUI_TAGS.map((tag) => {
           const ws = WEIGHT_STYLE[tag.weight]
           return (
             <span key={tag.id} style={{ fontSize: ws.fontSize }}>
               <ChipLink
                 href="#"
                 selected={active === tag.id}
-                onClick={e => { e.preventDefault(); setActive(active === tag.id ? null : tag.id) }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setActive(active === tag.id ? null : tag.id)
+                }}
               >
                 {tag.label}
               </ChipLink>
@@ -1368,9 +1990,24 @@ function ComposableUITagCloudRender() {
         })}
       </div>
       {active && (
-        <div style={{ marginTop: 14, padding: '12px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#475569' }}>
-          <span style={{ fontWeight: 600, color: '#1e293b' }}>{UTILITYUI_TAGS.find(t => t.id === active)?.label}</span> 컴포넌트를 선택했습니다.
-          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>ComposableUI 태그 클라우드 — 사용 빈도에 따라 크기가 다릅니다.</div>
+        <div
+          style={{
+            marginTop: 14,
+            padding: '12px 14px',
+            borderRadius: 8,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            fontSize: 12,
+            color: '#475569',
+          }}
+        >
+          <span style={{ fontWeight: 600, color: '#1e293b' }}>
+            {UTILITYUI_TAGS.find((t) => t.id === active)?.label}
+          </span>{' '}
+          컴포넌트를 선택했습니다.
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>
+            ComposableUI 태그 클라우드 — 사용 빈도에 따라 크기가 다릅니다.
+          </div>
         </div>
       )}
     </div>
@@ -1411,38 +2048,83 @@ const TRACKER_ISSUES = [
   { id: 'ORB-246', title: 'TextField 자동완성 지원', label: 'improvement', priority: 'medium' },
 ]
 
-const PRIORITY_COLOR: Record<string, string> = { urgent: '#ef4444', high: '#f97316', medium: '#eab308', low: '#94a3b8' }
+const PRIORITY_COLOR: Record<string, string> = {
+  urgent: '#ef4444',
+  high: '#f97316',
+  medium: '#eab308',
+  low: '#94a3b8',
+}
 
 function IssueTrackerIssueLabelFilterRender() {
   const [activeLabel, setActiveLabel] = useState('all')
 
-  const filtered = activeLabel === 'all' ? TRACKER_ISSUES : TRACKER_ISSUES.filter(i => i.label === activeLabel)
+  const filtered =
+    activeLabel === 'all' ? TRACKER_ISSUES : TRACKER_ISSUES.filter((i) => i.label === activeLabel)
 
   return (
     <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif" }}>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
-        {TRACKER_FILTER_LABELS.map(lbl => (
+        {TRACKER_FILTER_LABELS.map((lbl) => (
           <ChipLink
             key={lbl.id}
             href="#"
             selected={activeLabel === lbl.id}
-            onClick={e => { e.preventDefault(); setActiveLabel(lbl.id) }}
+            onClick={(e) => {
+              e.preventDefault()
+              setActiveLabel(lbl.id)
+            }}
           >
             {lbl.label}
           </ChipLink>
         ))}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-        {filtered.map(issue => (
-          <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 6, background: '#fff', border: '1px solid #f1f5f9', cursor: 'pointer' }}>
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: PRIORITY_COLOR[issue.priority], flexShrink: 0 }} />
-            <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{issue.id}</span>
+        {filtered.map((issue) => (
+          <div
+            key={issue.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '8px 10px',
+              borderRadius: 6,
+              background: '#fff',
+              border: '1px solid #f1f5f9',
+              cursor: 'pointer',
+            }}
+          >
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: PRIORITY_COLOR[issue.priority],
+                flexShrink: 0,
+              }}
+            />
+            <span
+              style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}
+            >
+              {issue.id}
+            </span>
             <span style={{ fontSize: 12, color: '#1e293b', flex: 1 }}>{issue.title}</span>
-            <span style={{ fontSize: 10, color: '#64748b', background: '#f8fafc', padding: '2px 6px', borderRadius: 4 }}>{issue.label}</span>
+            <span
+              style={{
+                fontSize: 10,
+                color: '#64748b',
+                background: '#f8fafc',
+                padding: '2px 6px',
+                borderRadius: 4,
+              }}
+            >
+              {issue.label}
+            </span>
           </div>
         ))}
         {filtered.length === 0 && (
-          <div style={{ padding: '16px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>결과 없음</div>
+          <div style={{ padding: '16px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>
+            결과 없음
+          </div>
         )}
       </div>
     </div>
@@ -1468,10 +2150,10 @@ export const IssueTracker_이슈_라벨_필터_칩_링크: Story = {
 -------------------------------------------------------------------------- */
 const TECH_CATEGORIES_184 = ['프론트엔드', '백엔드', '인프라', '디자인']
 const TECH_MAP_184: Record<string, string[]> = {
-  '프론트엔드': ['React', 'TypeScript', 'UtilityCSS', 'Vite', 'Storybook'],
-  '백엔드': ['Node.js', 'Prisma', 'PostgreSQL', 'Redis', 'GraphQL'],
-  '인프라': ['DeployPlatform', 'CodeHost Actions', 'Docker', 'AWS S3'],
-  '디자인': ['DesignTool', 'Orbit UI', 'PrimitiveUI', 'Inter'],
+  프론트엔드: ['React', 'TypeScript', 'UtilityCSS', 'Vite', 'Storybook'],
+  백엔드: ['Node.js', 'Prisma', 'PostgreSQL', 'Redis', 'GraphQL'],
+  인프라: ['DeployPlatform', 'CodeHost Actions', 'Docker', 'AWS S3'],
+  디자인: ['DesignTool', 'Orbit UI', 'PrimitiveUI', 'Inter'],
 }
 
 function ComposableUIIssueTrackerTechBrowserRender() {
@@ -1479,7 +2161,7 @@ function ComposableUIIssueTrackerTechBrowserRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
   const toggleTech = (tech: string) => {
-    setSelected(prev => {
+    setSelected((prev) => {
       const next = new Set(prev)
       if (next.has(tech)) next.delete(tech)
       else next.add(tech)
@@ -1489,15 +2171,20 @@ function ComposableUIIssueTrackerTechBrowserRender() {
 
   return (
     <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 10 }}>기술 스택 브라우저</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 10 }}>
+        기술 스택 브라우저
+      </div>
       {/* Category chips */}
       <div style={{ display: 'flex', gap: 5, marginBottom: 12 }}>
-        {TECH_CATEGORIES_184.map(cat => (
+        {TECH_CATEGORIES_184.map((cat) => (
           <ChipLink
             key={cat}
             href="#"
             selected={category === cat}
-            onClick={e => { e.preventDefault(); setCategory(cat) }}
+            onClick={(e) => {
+              e.preventDefault()
+              setCategory(cat)
+            }}
           >
             {cat}
           </ChipLink>
@@ -1505,26 +2192,58 @@ function ComposableUIIssueTrackerTechBrowserRender() {
       </div>
       {/* Tech items */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
-        {(TECH_MAP_184[category] ?? []).map(tech => (
+        {(TECH_MAP_184[category] ?? []).map((tech) => (
           <ChipLink
             key={tech}
             href="#"
             selected={selected.has(tech)}
-            onClick={e => { e.preventDefault(); toggleTech(tech) }}
+            onClick={(e) => {
+              e.preventDefault()
+              toggleTech(tech)
+            }}
           >
             <ChipLink.Leading>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: selected.has(tech) ? '#6366f1' : '#cbd5e1', display: 'inline-block' }} />
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: selected.has(tech) ? '#6366f1' : '#cbd5e1',
+                  display: 'inline-block',
+                }}
+              />
             </ChipLink.Leading>
             {tech}
           </ChipLink>
         ))}
       </div>
       {selected.size > 0 && (
-        <div style={{ padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 6 }}>선택된 스택 ({selected.size})</div>
+        <div
+          style={{
+            padding: '10px 12px',
+            borderRadius: 8,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+          }}
+        >
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 6 }}>
+            선택된 스택 ({selected.size})
+          </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-            {Array.from(selected).map(tech => (
-              <span key={tech} style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, background: '#eef2ff', color: '#6366f1', fontWeight: 500 }}>{tech}</span>
+            {Array.from(selected).map((tech) => (
+              <span
+                key={tech}
+                style={{
+                  fontSize: 10,
+                  padding: '2px 8px',
+                  borderRadius: 10,
+                  background: '#eef2ff',
+                  color: '#6366f1',
+                  fontWeight: 500,
+                }}
+              >
+                {tech}
+              </span>
             ))}
           </div>
         </div>

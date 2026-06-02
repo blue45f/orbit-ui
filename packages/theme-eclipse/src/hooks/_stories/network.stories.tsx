@@ -1,12 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect, useState } from 'react'
 
-import {
-  useBroadcastChannel,
-  useFetch,
-  useNotification,
-  useWebSocket,
-} from '../index'
+import { useBroadcastChannel, useFetch, useNotification, useWebSocket } from '../index'
 
 const meta = {
   title: 'Hooks/Network',
@@ -111,10 +106,7 @@ function FetchDemo() {
   }
 
   return (
-    <Panel
-      title="useFetch"
-      signature="const { status, data, error, refetch } = useFetch<T>(url)"
-    >
+    <Panel title="useFetch" signature="const { status, data, error, refetch } = useFetch<T>(url)">
       <div style={{ marginBottom: 10 }}>
         <input
           type="text"
@@ -143,10 +135,7 @@ function FetchDemo() {
             padding: '0 14px',
             borderRadius: 8,
             border: 0,
-            background:
-              !url || status === 'loading'
-                ? 'rgba(37,99,235,0.4)'
-                : 'rgb(37,99,235)',
+            background: !url || status === 'loading' ? 'rgba(37,99,235,0.4)' : 'rgb(37,99,235)',
             color: 'rgb(255,255,255)',
             fontFamily: 'inherit',
             fontSize: 13.5,
@@ -176,9 +165,7 @@ function FetchDemo() {
         </button>
       </div>
       <div style={{ marginBottom: 10 }}>
-        <span style={badgeStyle(statusColor[status] ?? 'rgb(150,150,150)')}>
-          {status}
-        </span>
+        <span style={badgeStyle(statusColor[status] ?? 'rgb(150,150,150)')}>{status}</span>
       </div>
       {status === 'success' && data && (
         <div
@@ -235,20 +222,17 @@ function WebSocketDemo() {
   const [connected, setConnected] = useState(false)
   const [activeUrl, setActiveUrl] = useState('')
 
-  const { status, send, close } = useWebSocket(
-    activeUrl,
-    {
-      onMessage: (event: MessageEvent) => {
-        setMessages((prev) => [`← ${String(event.data)}`, ...prev].slice(0, 10))
-      },
-      onOpen: () => {
-        setMessages((prev) => ['[연결됨]', ...prev])
-      },
-      onClose: () => {
-        setMessages((prev) => ['[연결 해제됨]', ...prev])
-      },
+  const { status, send, close } = useWebSocket(activeUrl, {
+    onMessage: (event: MessageEvent) => {
+      setMessages((prev) => [`← ${String(event.data)}`, ...prev].slice(0, 10))
     },
-  )
+    onOpen: () => {
+      setMessages((prev) => ['[연결됨]', ...prev])
+    },
+    onClose: () => {
+      setMessages((prev) => ['[연결 해제됨]', ...prev])
+    },
+  })
 
   const statusColor: Record<string, string> = {
     connecting: 'rgb(217,119,6)',
@@ -331,7 +315,9 @@ function WebSocketDemo() {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => { if (e.key === 'Enter') handleSend() }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleSend()
+          }}
           placeholder="메시지 입력"
           disabled={status !== 'open'}
           style={{
@@ -381,17 +367,16 @@ function WebSocketDemo() {
         }}
       >
         {messages.length === 0 ? (
-          <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>
-            (메시지 없음)
-          </span>
+          <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>(메시지 없음)</span>
         ) : (
           messages.map((m, i) => (
             <div
               key={i}
               style={{
-                color: i === 0
-                  ? 'var(--orbit-ink, rgb(24,26,28))'
-                  : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+                color:
+                  i === 0
+                    ? 'var(--orbit-ink, rgb(24,26,28))'
+                    : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
               }}
             >
               {m}
@@ -408,7 +393,8 @@ function WebSocketDemo() {
           lineHeight: 1.5,
         }}
       >
-        실제 WebSocket 서버 URL이 필요합니다. Echo 서버(예: wss://echo.websocket.org)를 사용해 테스트할 수 있습니다.
+        실제 WebSocket 서버 URL이 필요합니다. Echo 서버(예: wss://echo.websocket.org)를 사용해
+        테스트할 수 있습니다.
       </div>
     </Panel>
   )
@@ -432,7 +418,9 @@ function BroadcastChannelDemo() {
       const ts = new Date().toISOString().slice(11, 19)
       setReceivedLog((prev) => [`${ts}  ${event.data}`, ...prev].slice(0, 8))
     }
-    return () => { listener.close() }
+    return () => {
+      listener.close()
+    }
   }, [])
 
   const handleBroadcast = () => {
@@ -453,7 +441,9 @@ function BroadcastChannelDemo() {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => { if (e.key === 'Enter') handleBroadcast() }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleBroadcast()
+          }}
           placeholder="브로드캐스트할 메시지"
           style={{
             flex: 1,
@@ -519,7 +509,9 @@ function BroadcastChannelDemo() {
               sentLog.map((m, i) => (
                 <div
                   key={i}
-                  style={{ color: i === 0 ? 'rgb(37,99,235)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}
+                  style={{
+                    color: i === 0 ? 'rgb(37,99,235)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+                  }}
                 >
                   {m}
                 </div>
@@ -560,7 +552,9 @@ function BroadcastChannelDemo() {
               receivedLog.map((m, i) => (
                 <div
                   key={i}
-                  style={{ color: i === 0 ? 'rgb(0,132,77)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}
+                  style={{
+                    color: i === 0 ? 'rgb(0,132,77)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+                  }}
                 >
                   {m}
                 </div>
@@ -579,7 +573,8 @@ function BroadcastChannelDemo() {
           lineHeight: 1.5,
         }}
       >
-        동일 출처의 다른 탭에서도 메시지를 수신합니다. 같은 채널명을 사용한 다른 탭에서 전송해 보세요.
+        동일 출처의 다른 탭에서도 메시지를 수신합니다. 같은 채널명을 사용한 다른 탭에서 전송해
+        보세요.
       </div>
     </Panel>
   )
@@ -603,14 +598,14 @@ function NotificationDemo() {
       signature="const { permission, requestPermission, notify } = useNotification()"
     >
       <div style={{ marginBottom: 14 }}>
-        <span style={badgeStyle(permColor[permission] ?? 'rgb(150,150,150)')}>
-          {permission}
-        </span>
+        <span style={badgeStyle(permColor[permission] ?? 'rgb(150,150,150)')}>{permission}</span>
       </div>
       <div style={{ display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
         <button
           type="button"
-          onClick={() => { void requestPermission() }}
+          onClick={() => {
+            void requestPermission()
+          }}
           disabled={!isSupported || permission === 'granted' || permission === 'denied'}
           style={{
             height: 34,
@@ -626,8 +621,7 @@ function NotificationDemo() {
               !isSupported || permission === 'granted' || permission === 'denied'
                 ? 'not-allowed'
                 : 'pointer',
-            opacity:
-              !isSupported || permission === 'granted' || permission === 'denied' ? 0.5 : 1,
+            opacity: !isSupported || permission === 'granted' || permission === 'denied' ? 0.5 : 1,
           }}
         >
           권한 요청
@@ -684,8 +678,8 @@ function NotificationDemo() {
           lineHeight: 1.5,
         }}
       >
-        브라우저 알림 권한이 &quot;granted&quot; 상태여야 알림이 전송됩니다.
-        &quot;denied&quot; 상태에서는 브라우저 설정에서 직접 변경해야 합니다.
+        브라우저 알림 권한이 &quot;granted&quot; 상태여야 알림이 전송됩니다. &quot;denied&quot;
+        상태에서는 브라우저 설정에서 직접 변경해야 합니다.
       </div>
     </Panel>
   )

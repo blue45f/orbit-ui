@@ -20,7 +20,7 @@ describe('useDeepCompareEffect', () => {
     const effect = vi.fn()
     const { rerender } = renderHook(
       ({ deps }: { deps: object[] }) => useDeepCompareEffect(effect, deps),
-      { initialProps: { deps: [{ a: 1, b: 2 }] } },
+      { initialProps: { deps: [{ a: 1, b: 2 }] } }
     )
 
     rerender({ deps: [{ a: 1, b: 2 }] })
@@ -33,7 +33,7 @@ describe('useDeepCompareEffect', () => {
     const effect = vi.fn()
     const { rerender } = renderHook(
       ({ deps }: { deps: object[] }) => useDeepCompareEffect(effect, deps),
-      { initialProps: { deps: [{ a: 1 }] } },
+      { initialProps: { deps: [{ a: 1 }] } }
     )
 
     rerender({ deps: [{ a: 2 }] })
@@ -45,7 +45,7 @@ describe('useDeepCompareEffect', () => {
     const effect = vi.fn()
     const { rerender } = renderHook(
       ({ deps }: { deps: unknown[][] }) => useDeepCompareEffect(effect, deps),
-      { initialProps: { deps: [[1, 2, 3]] } },
+      { initialProps: { deps: [[1, 2, 3]] } }
     )
 
     rerender({ deps: [[1, 2, 3]] })
@@ -61,7 +61,7 @@ describe('useDeepCompareEffect', () => {
     const effect = vi.fn()
     const { rerender } = renderHook(
       ({ deps }: { deps: object[] }) => useDeepCompareEffect(effect, deps),
-      { initialProps: { deps: [{ a: 1, b: 2 }] } },
+      { initialProps: { deps: [{ a: 1, b: 2 }] } }
     )
 
     rerender({ deps: [{ b: 2, a: 1 }] })
@@ -76,7 +76,7 @@ describe('useDeepCompareEffect', () => {
     const fn = () => {}
     const { rerender } = renderHook(
       ({ deps }: { deps: object[] }) => useDeepCompareEffect(effect, deps),
-      { initialProps: { deps: [{ fn, value: undefined }] } },
+      { initialProps: { deps: [{ fn, value: undefined }] } }
     )
 
     rerender({ deps: [{ fn, value: undefined }] })

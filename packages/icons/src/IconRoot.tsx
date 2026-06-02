@@ -14,7 +14,8 @@ export interface IconProps<
   Color extends string = string,
   ColorPart extends string = string,
   ColorPartKey extends string = string,
-> extends IconA11YProps, React.SVGAttributes<SVGElement> {
+>
+  extends IconA11YProps, React.SVGAttributes<SVGElement> {
   color?: Color
   colorParts?: Record<ColorPartKey, ColorPart>
   size?: Size
@@ -24,17 +25,19 @@ export interface IconProps<
 const iconToneStyles: Record<IconTone, React.CSSProperties> = {
   flat: {},
   soft: {
-    filter:
-      'var(--heejun-icon-tone-soft-filter, drop-shadow(0 1px 1px rgba(14, 20, 34, 0.08)))',
+    filter: 'var(--heejun-icon-tone-soft-filter, drop-shadow(0 1px 1px rgba(14, 20, 34, 0.08)))',
   },
   premium: {
-    filter:
-      'var(--heejun-icon-tone-premium-filter, drop-shadow(0 1px 4px rgba(14, 20, 34, 0.16)))',
+    filter: 'var(--heejun-icon-tone-premium-filter, drop-shadow(0 1px 4px rgba(14, 20, 34, 0.16)))',
     opacity: 0.98,
   },
 }
 
-export const IconPropsContext = createContext<{ size?: Size; forcedColor?: string; tone?: IconTone }>({})
+export const IconPropsContext = createContext<{
+  size?: Size
+  forcedColor?: string
+  tone?: IconTone
+}>({})
 
 interface Props extends IconProps {
   children: React.ReactNode

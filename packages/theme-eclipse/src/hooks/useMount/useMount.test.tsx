@@ -26,9 +26,7 @@ describe('useMount', () => {
 
   test('unmount 시 cleanup이 호출된다', () => {
     const cleanupFn = vi.fn()
-    const { unmount } = renderHook(() =>
-      useMount(() => cleanupFn),
-    )
+    const { unmount } = renderHook(() => useMount(() => cleanupFn))
 
     expect(cleanupFn).not.toHaveBeenCalled()
 

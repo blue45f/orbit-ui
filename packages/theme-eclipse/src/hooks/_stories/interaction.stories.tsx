@@ -151,7 +151,15 @@ function HotkeyDemo() {
   useHotkey('mod+enter', () => setSubmits((n) => n + 1))
   return (
     <Panel title="useHotkey" signature="useHotkey('mod+k', handler)">
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 14, flexWrap: 'wrap' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 8,
+          alignItems: 'center',
+          marginBottom: 14,
+          flexWrap: 'wrap',
+        }}
+      >
         <span style={{ fontSize: 14 }}>지금 누르세요:</span>
         <Kbd>⌘</Kbd>
         <Kbd>K</Kbd>
@@ -256,7 +264,9 @@ function HoverDemo() {
           fontSize: 14,
           fontWeight: 600,
           transition: 'background-color 160ms cubic-bezier(0.2,0,0,1)',
-          background: hovering ? 'rgba(37, 99, 235, 0.08)' : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+          background: hovering
+            ? 'rgba(37, 99, 235, 0.08)'
+            : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
           color: hovering ? 'rgb(37, 99, 235)' : 'var(--orbit-ink, rgb(24,26,28))',
           marginBottom: 14,
           cursor: 'pointer',
@@ -289,9 +299,7 @@ function FocusVisibleDemo() {
             fontWeight: 600,
             fontSize: 13.5,
             cursor: 'pointer',
-            outline: isFocusVisible
-              ? '2px solid rgba(37, 99, 235, 0.85)'
-              : 'none',
+            outline: isFocusVisible ? '2px solid rgba(37, 99, 235, 0.85)' : 'none',
             outlineOffset: 2,
           }}
         >
@@ -311,7 +319,8 @@ function FocusVisibleDemo() {
           lineHeight: 1.55,
         }}
       >
-        키보드(Tab)로 포커스했을 때만 outline이 보이고, 마우스 클릭으로 포커스했을 때는 outline이 사라집니다.
+        키보드(Tab)로 포커스했을 때만 outline이 보이고, 마우스 클릭으로 포커스했을 때는 outline이
+        사라집니다.
       </div>
     </Panel>
   )
@@ -390,7 +399,7 @@ function LongPressDemo() {
       setCount((c) => c + 1)
       setProgress(0)
     },
-    { delay: 600 },
+    { delay: 600 }
   )
 
   const startProgress = () => {
@@ -600,7 +609,8 @@ function FocusTrapDemo() {
           lineHeight: 1.55,
         }}
       >
-        다이얼로그를 열면 Tab·Shift+Tab 이 내부 두 input · Cancel · Confirm 만 순환합니다. 닫으면 Open dialog 버튼으로 포커스가 복원됩니다.
+        다이얼로그를 열면 Tab·Shift+Tab 이 내부 두 input · Cancel · Confirm 만 순환합니다. 닫으면
+        Open dialog 버튼으로 포커스가 복원됩니다.
       </div>
     </Panel>
   )
@@ -645,7 +655,10 @@ function ScrollIntoViewDemo() {
               height: 30,
               padding: '0 12px',
               borderRadius: 6,
-              border: selected === idx ? '1px solid transparent' : '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+              border:
+                selected === idx
+                  ? '1px solid transparent'
+                  : '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
               background: selected === idx ? 'rgb(24, 26, 28)' : 'transparent',
               color: selected === idx ? 'rgb(255,255,255)' : 'var(--orbit-ink, rgb(24,26,28))',
               fontFamily: 'inherit',
@@ -679,7 +692,8 @@ function ScrollIntoViewDemo() {
               padding: 14,
               marginBottom: 8,
               borderRadius: 8,
-              background: selected === idx ? 'rgb(37, 99, 235)' : 'var(--orbit-surface, rgb(255,255,255))',
+              background:
+                selected === idx ? 'rgb(37, 99, 235)' : 'var(--orbit-surface, rgb(255,255,255))',
               color: selected === idx ? 'rgb(255,255,255)' : 'var(--orbit-ink, rgb(24,26,28))',
               border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
               fontSize: 13.5,
@@ -700,7 +714,8 @@ function ScrollIntoViewDemo() {
           lineHeight: 1.55,
         }}
       >
-        useScrollIntoView 자체는 window 스크롤을 다룹니다. 이 데모는 같은 API 패턴을 컨테이너 스크롤로 보여줍니다.
+        useScrollIntoView 자체는 window 스크롤을 다룹니다. 이 데모는 같은 API 패턴을 컨테이너
+        스크롤로 보여줍니다.
       </div>
     </Panel>
   )
@@ -748,8 +763,12 @@ function KeyIndicator({ label, active }: { label: string; active: boolean }) {
         fontFamily: '"JetBrains Mono", monospace',
         fontSize: 13,
         fontWeight: 660,
-        border: active ? '1px solid transparent' : '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
-        background: active ? 'rgb(37, 99, 235)' : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+        border: active
+          ? '1px solid transparent'
+          : '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
+        background: active
+          ? 'rgb(37, 99, 235)'
+          : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
         color: active ? 'rgb(255,255,255)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
         transition: 'background-color 80ms ease, color 80ms ease',
       }}
@@ -766,10 +785,9 @@ function MergeRefsDemo() {
   const internalRef = useRef<HTMLButtonElement>(null)
   const [hovered, setHovered] = useState(false)
   const [refAttached, setRefAttached] = useState(false)
-  const mergedRef = useMergeRefs<HTMLButtonElement>(
-    internalRef,
-    (el) => { setRefAttached(el !== null) },
-  )
+  const mergedRef = useMergeRefs<HTMLButtonElement>(internalRef, (el) => {
+    setRefAttached(el !== null)
+  })
   useEffect(() => {
     const el = internalRef.current
     if (!el) return
@@ -777,25 +795,54 @@ function MergeRefsDemo() {
     const leave = () => setHovered(false)
     el.addEventListener('mouseenter', enter)
     el.addEventListener('mouseleave', leave)
-    return () => { el.removeEventListener('mouseenter', enter); el.removeEventListener('mouseleave', leave) }
+    return () => {
+      el.removeEventListener('mouseenter', enter)
+      el.removeEventListener('mouseleave', leave)
+    }
   }, [])
   return (
     <Panel title="useMergeRefs" signature="const ref = useMergeRefs(refA, refB, callbackRef)">
-      <button ref={mergedRef} type="button" style={{
-        height: 44, padding: '0 20px', borderRadius: 10, border: 0,
-        background: hovered ? 'rgb(37,99,235)' : 'rgba(37,99,235,0.1)',
-        color: hovered ? 'rgb(255,255,255)' : 'rgb(37,99,235)',
-        fontFamily: 'inherit', fontSize: 14, fontWeight: 600, cursor: 'pointer',
-        transition: 'background 160ms, color 160ms',
-      }}>
+      <button
+        ref={mergedRef}
+        type="button"
+        style={{
+          height: 44,
+          padding: '0 20px',
+          borderRadius: 10,
+          border: 0,
+          background: hovered ? 'rgb(37,99,235)' : 'rgba(37,99,235,0.1)',
+          color: hovered ? 'rgb(255,255,255)' : 'rgb(37,99,235)',
+          fontFamily: 'inherit',
+          fontSize: 14,
+          fontWeight: 600,
+          cursor: 'pointer',
+          transition: 'background 160ms, color 160ms',
+        }}
+      >
         hover me
       </button>
-      <div style={{ marginTop: 12, fontFamily: '"JetBrains Mono", monospace', fontSize: 12, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+      <div
+        style={{
+          marginTop: 12,
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 12,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+        }}
+      >
         internalRef attached: <strong>{refAttached ? 'HTMLButtonElement' : 'null'}</strong>
-        <br />hovered: <strong>{String(hovered)}</strong>
+        <br />
+        hovered: <strong>{String(hovered)}</strong>
       </div>
-      <div style={{ marginTop: 8, fontSize: 13, color: 'var(--orbit-ink-2, rgba(24,26,28,0.72))', lineHeight: 1.55 }}>
-        두 개의 ref(RefObject + RefCallback)가 동일한 DOM 노드를 동시에 참조합니다. forwardRef 컴포넌트의 내부+외부 ref 병합 패턴.
+      <div
+        style={{
+          marginTop: 8,
+          fontSize: 13,
+          color: 'var(--orbit-ink-2, rgba(24,26,28,0.72))',
+          lineHeight: 1.55,
+        }}
+      >
+        두 개의 ref(RefObject + RefCallback)가 동일한 DOM 노드를 동시에 참조합니다. forwardRef
+        컴포넌트의 내부+외부 ref 병합 패턴.
       </div>
     </Panel>
   )
@@ -810,29 +857,61 @@ function MouseDemo() {
       <div
         ref={ref}
         style={{
-          height: 160, borderRadius: 12,
+          height: 160,
+          borderRadius: 12,
           background: 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
           border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          marginBottom: 14, position: 'relative', cursor: 'crosshair', overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 14,
+          position: 'relative',
+          cursor: 'crosshair',
+          overflow: 'hidden',
         }}
       >
         {mouse.elementX !== null && (
-          <div style={{
-            position: 'absolute',
-            left: mouse.elementX, top: mouse.elementY ?? 0,
-            width: 8, height: 8, borderRadius: '50%',
-            background: 'rgb(37,99,235)', transform: 'translate(-50%, -50%)',
-            pointerEvents: 'none',
-          }} />
+          <div
+            style={{
+              position: 'absolute',
+              left: mouse.elementX,
+              top: mouse.elementY ?? 0,
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: 'rgb(37,99,235)',
+              transform: 'translate(-50%, -50%)',
+              pointerEvents: 'none',
+            }}
+          />
         )}
-        <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 12, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+        <span
+          style={{
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 12,
+            color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          }}
+        >
           박스 안에서 마우스를 움직여 보세요
         </span>
       </div>
-      <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 11.5, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))', lineHeight: 1.8 }}>
-        viewport: <strong>{mouse.x}, {mouse.y}</strong><br />
-        element: <strong>{mouse.elementX ?? '–'}, {mouse.elementY ?? '–'}</strong>
+      <div
+        style={{
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          lineHeight: 1.8,
+        }}
+      >
+        viewport:{' '}
+        <strong>
+          {mouse.x}, {mouse.y}
+        </strong>
+        <br />
+        element:{' '}
+        <strong>
+          {mouse.elementX ?? '–'}, {mouse.elementY ?? '–'}
+        </strong>
       </div>
     </Panel>
   )
@@ -845,17 +924,58 @@ function FocusWithinDemo() {
   const isFocusWithin = useFocusWithin(ref)
   return (
     <Panel title="useFocusWithin" signature="const isFocusWithin = useFocusWithin(ref)">
-      <div ref={ref} style={{
-        padding: 16, borderRadius: 10,
-        border: `2px solid ${isFocusWithin ? 'rgb(37,99,235)' : 'var(--orbit-line, rgba(24,26,28,0.08))'}`,
-        background: isFocusWithin ? 'rgba(37,99,235,0.04)' : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
-        transition: 'border-color 160ms, background 160ms', marginBottom: 14, display: 'flex', flexDirection: 'column', gap: 8,
-      }}>
-        <input placeholder="이름" style={{ height: 36, padding: '0 12px', borderRadius: 8, border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))', fontFamily: 'inherit', fontSize: 14, outline: 'none' }} />
-        <input placeholder="이메일" style={{ height: 36, padding: '0 12px', borderRadius: 8, border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))', fontFamily: 'inherit', fontSize: 14, outline: 'none' }} />
+      <div
+        ref={ref}
+        style={{
+          padding: 16,
+          borderRadius: 10,
+          border: `2px solid ${isFocusWithin ? 'rgb(37,99,235)' : 'var(--orbit-line, rgba(24,26,28,0.08))'}`,
+          background: isFocusWithin
+            ? 'rgba(37,99,235,0.04)'
+            : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+          transition: 'border-color 160ms, background 160ms',
+          marginBottom: 14,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+        }}
+      >
+        <input
+          placeholder="이름"
+          style={{
+            height: 36,
+            padding: '0 12px',
+            borderRadius: 8,
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            fontFamily: 'inherit',
+            fontSize: 14,
+            outline: 'none',
+          }}
+        />
+        <input
+          placeholder="이메일"
+          style={{
+            height: 36,
+            padding: '0 12px',
+            borderRadius: 8,
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            fontFamily: 'inherit',
+            fontSize: 14,
+            outline: 'none',
+          }}
+        />
       </div>
-      <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 11.5, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
-        isFocusWithin: <strong style={{ color: isFocusWithin ? 'rgb(37,99,235)' : 'inherit' }}>{String(isFocusWithin)}</strong>
+      <div
+        style={{
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+        }}
+      >
+        isFocusWithin:{' '}
+        <strong style={{ color: isFocusWithin ? 'rgb(37,99,235)' : 'inherit' }}>
+          {String(isFocusWithin)}
+        </strong>
       </div>
     </Panel>
   )
@@ -877,8 +997,8 @@ function SelectionDemo() {
           userSelect: 'text',
         }}
       >
-        이 텍스트를 마우스로 선택해 보세요. 드래그해서 원하는 부분을 선택하면 아래에 즉시 반영됩니다.
-        다양한 위치에서 텍스트를 선택하면 rects 개수도 달라집니다.
+        이 텍스트를 마우스로 선택해 보세요. 드래그해서 원하는 부분을 선택하면 아래에 즉시
+        반영됩니다. 다양한 위치에서 텍스트를 선택하면 rects 개수도 달라집니다.
       </p>
       <div
         style={{
@@ -928,10 +1048,11 @@ function ClipboardPasteDemo() {
           marginBottom: 14,
         }}
       >
-        {text
-          ? <span style={{ color: 'var(--orbit-ink, rgb(24,26,28))' }}>붙여넣기 감지됨</span>
-          : <span>이 영역에 포커스 후 Ctrl/⌘ + V 를 눌러 붙여넣기 하세요</span>
-        }
+        {text ? (
+          <span style={{ color: 'var(--orbit-ink, rgb(24,26,28))' }}>붙여넣기 감지됨</span>
+        ) : (
+          <span>이 영역에 포커스 후 Ctrl/⌘ + V 를 눌러 붙여넣기 하세요</span>
+        )}
       </div>
       <Readout label="text" value={text || '(없음)'} />
       <Readout label="files.length" value={files.length} />
@@ -950,7 +1071,9 @@ function DragDemo() {
         style={{
           padding: '18px 24px',
           borderRadius: 10,
-          background: isDragging ? 'rgba(37,99,235,0.12)' : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+          background: isDragging
+            ? 'rgba(37,99,235,0.12)'
+            : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
           border: isDragging
             ? '2px solid rgba(37,99,235,0.5)'
             : '2px dashed var(--orbit-line-2, rgba(24,26,28,0.14))',
@@ -977,13 +1100,18 @@ function FullscreenDemo() {
   const boxRef = useRef<HTMLDivElement>(null)
   const { isFullscreen, enter, exit, supported } = useFullscreen(boxRef)
   return (
-    <Panel title="useFullscreen" signature="const { isFullscreen, enter, exit, supported } = useFullscreen(ref)">
+    <Panel
+      title="useFullscreen"
+      signature="const { isFullscreen, enter, exit, supported } = useFullscreen(ref)"
+    >
       <div
         ref={boxRef}
         style={{
           padding: 24,
           borderRadius: 10,
-          background: isFullscreen ? 'rgb(24,26,28)' : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+          background: isFullscreen
+            ? 'rgb(24,26,28)'
+            : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
           border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
           display: 'flex',
           flexDirection: 'column',
@@ -993,7 +1121,14 @@ function FullscreenDemo() {
           transition: 'background 200ms',
         }}
       >
-        <div style={{ fontSize: 13, color: isFullscreen ? 'rgba(255,255,255,0.7)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+        <div
+          style={{
+            fontSize: 13,
+            color: isFullscreen
+              ? 'rgba(255,255,255,0.7)'
+              : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          }}
+        >
           {isFullscreen ? '전체화면 모드입니다.' : '전체화면으로 전환해 보세요.'}
         </div>
         <button
@@ -1040,14 +1175,19 @@ function PointerLockDemo() {
   }, [isLocked])
 
   return (
-    <Panel title="usePointerLock" signature="const { isLocked, lock, unlock, supported } = usePointerLock(ref)">
+    <Panel
+      title="usePointerLock"
+      signature="const { isLocked, lock, unlock, supported } = usePointerLock(ref)"
+    >
       <div
         ref={targetRef}
-        onClick={isLocked ? unlock : (supported ? lock : undefined)}
+        onClick={isLocked ? unlock : supported ? lock : undefined}
         style={{
           padding: '28px 0',
           borderRadius: 10,
-          background: isLocked ? 'rgba(37,99,235,0.1)' : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+          background: isLocked
+            ? 'rgba(37,99,235,0.1)'
+            : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
           border: isLocked
             ? '2px solid rgba(37,99,235,0.4)'
             : '1px dashed var(--orbit-line-2, rgba(24,26,28,0.14))',
@@ -1129,7 +1269,18 @@ function ScrollToDemo() {
           background: 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
         }}
       >
-        <div ref={topRef} style={{ padding: '10px 12px', borderRadius: 7, background: 'rgba(37,99,235,0.1)', marginBottom: 6, fontSize: 12.5, fontWeight: 600, color: 'rgb(37,99,235)' }}>
+        <div
+          ref={topRef}
+          style={{
+            padding: '10px 12px',
+            borderRadius: 7,
+            background: 'rgba(37,99,235,0.1)',
+            marginBottom: 6,
+            fontSize: 12.5,
+            fontWeight: 600,
+            color: 'rgb(37,99,235)',
+          }}
+        >
           Top ↑
         </div>
         {items.map((i) => (
@@ -1147,7 +1298,17 @@ function ScrollToDemo() {
             아이템 #{i}
           </div>
         ))}
-        <div ref={bottomRef} style={{ padding: '10px 12px', borderRadius: 7, background: 'rgba(37,99,235,0.1)', fontSize: 12.5, fontWeight: 600, color: 'rgb(37,99,235)' }}>
+        <div
+          ref={bottomRef}
+          style={{
+            padding: '10px 12px',
+            borderRadius: 7,
+            background: 'rgba(37,99,235,0.1)',
+            fontSize: 12.5,
+            fontWeight: 600,
+            color: 'rgb(37,99,235)',
+          }}
+        >
           Bottom ↓
         </div>
       </div>
@@ -1198,7 +1359,10 @@ function SearchParamDemo() {
         </button>
         <button
           type="button"
-          onClick={() => { setQ(null); setInputValue('') }}
+          onClick={() => {
+            setQ(null)
+            setInputValue('')
+          }}
           style={{
             height: 34,
             padding: '0 14px',
@@ -1271,13 +1435,22 @@ function ShareAPIDemo() {
             공유하기
           </button>
           {status && (
-            <div style={{ marginTop: 8, fontFamily: '"JetBrains Mono", monospace', fontSize: 12, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+            <div
+              style={{
+                marginTop: 8,
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: 12,
+                color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+              }}
+            >
               {status}
             </div>
           )}
         </div>
       ) : (
-        <div style={{ marginTop: 10, fontSize: 13, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+        <div
+          style={{ marginTop: 10, fontSize: 13, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}
+        >
           이 브라우저는 Web Share API를 지원하지 않습니다.
         </div>
       )}
@@ -1290,7 +1463,10 @@ export const ShareAPI: Story = { render: () => <ShareAPIDemo /> }
 function WakeLockDemo() {
   const { isSupported, isActive, request, release, error } = useWakeLock()
   return (
-    <Panel title="useWakeLock" signature="const { isSupported, isActive, request, release, error } = useWakeLock()">
+    <Panel
+      title="useWakeLock"
+      signature="const { isSupported, isActive, request, release, error } = useWakeLock()"
+    >
       <Readout label="isSupported" value={String(isSupported)} />
       <Readout label="isActive" value={String(isActive)} />
       <div style={{ marginTop: 12 }}>
@@ -1316,7 +1492,14 @@ function WakeLockDemo() {
         </button>
       </div>
       {error && (
-        <div style={{ marginTop: 8, fontFamily: '"JetBrains Mono", monospace', fontSize: 12, color: 'rgb(187,37,35)' }}>
+        <div
+          style={{
+            marginTop: 8,
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 12,
+            color: 'rgb(187,37,35)',
+          }}
+        >
           오류: {error.message}
         </div>
       )}
@@ -1332,7 +1515,15 @@ function ReadingProgressDemo() {
   const items = Array.from({ length: 15 }, (_, i) => i)
   return (
     <Panel title="useReadingProgress" signature="const progress = useReadingProgress(containerRef)">
-      <div style={{ position: 'relative', borderRadius: 10, overflow: 'hidden', border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))', marginBottom: 14 }}>
+      <div
+        style={{
+          position: 'relative',
+          borderRadius: 10,
+          overflow: 'hidden',
+          border: '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
+          marginBottom: 14,
+        }}
+      >
         <div
           style={{
             position: 'absolute',
@@ -1382,9 +1573,14 @@ export const ReadingProgress: Story = { render: () => <ReadingProgressDemo /> }
 function EyeDropperDemo() {
   const { isSupported, sRGBHex, open, error } = useEyeDropper()
   return (
-    <Panel title="useEyeDropper" signature="const { isSupported, sRGBHex, open, error } = useEyeDropper()">
+    <Panel
+      title="useEyeDropper"
+      signature="const { isSupported, sRGBHex, open, error } = useEyeDropper()"
+    >
       <Readout label="isSupported" value={String(isSupported)} />
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 12, marginBottom: 8 }}>
+      <div
+        style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 12, marginBottom: 8 }}
+      >
         {sRGBHex && (
           <div
             style={{
@@ -1397,7 +1593,13 @@ function EyeDropperDemo() {
             }}
           />
         )}
-        <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 13, color: 'var(--orbit-ink, rgb(24,26,28))' }}>
+        <span
+          style={{
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 13,
+            color: 'var(--orbit-ink, rgb(24,26,28))',
+          }}
+        >
           {sRGBHex ?? '(색상 없음)'}
         </span>
       </div>
@@ -1422,12 +1624,21 @@ function EyeDropperDemo() {
         색상 선택 (Eye Dropper)
       </button>
       {!isSupported && (
-        <div style={{ marginTop: 8, fontSize: 13, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+        <div
+          style={{ marginTop: 8, fontSize: 13, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}
+        >
           이 브라우저는 EyeDropper API를 지원하지 않습니다.
         </div>
       )}
       {error && (
-        <div style={{ marginTop: 8, fontFamily: '"JetBrains Mono", monospace', fontSize: 12, color: 'rgb(187,37,35)' }}>
+        <div
+          style={{
+            marginTop: 8,
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 12,
+            color: 'rgb(187,37,35)',
+          }}
+        >
           오류: {error.message}
         </div>
       )}
@@ -1445,7 +1656,9 @@ function GamepadDemo() {
       <Readout label="isSupported" value={String(isSupported)} />
       <Readout label="connected gamepads" value={connected.length} />
       {connected.length === 0 ? (
-        <div style={{ marginTop: 10, fontSize: 13, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+        <div
+          style={{ marginTop: 10, fontSize: 13, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}
+        >
           게임패드를 연결한 후 아무 버튼이나 눌러 보세요.
         </div>
       ) : (
@@ -1463,8 +1676,14 @@ function GamepadDemo() {
                 lineHeight: 1.7,
               }}
             >
-              <div><span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>id: </span>{gp.id}</div>
-              <div><span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>buttons: </span>{gp.buttons.length}</div>
+              <div>
+                <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>id: </span>
+                {gp.id}
+              </div>
+              <div>
+                <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>buttons: </span>
+                {gp.buttons.length}
+              </div>
             </div>
           ))}
         </div>

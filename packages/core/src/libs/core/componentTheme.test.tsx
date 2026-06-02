@@ -55,10 +55,10 @@ test('useComponentTheme: themeStyle은 falsy(빈 문자열) 값을 CSS 변수에
 
 test('linkComponentTheme: to에 없는 키는 매핑에서 제외한다', () => {
   // Arrange & Act: to에 b가 없으므로 a만 매핑된다
-  const linked = linkComponentTheme(
-    { a: '--a', b: '--b' },
-    { a: 'red' } as unknown as Record<'a' | 'b', string>
-  )
+  const linked = linkComponentTheme({ a: '--a', b: '--b' }, { a: 'red' } as unknown as Record<
+    'a' | 'b',
+    string
+  >)
 
   // Assert
   expect(linked).toEqual({ '--a': 'red' })

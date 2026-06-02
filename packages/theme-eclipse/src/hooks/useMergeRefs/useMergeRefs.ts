@@ -19,6 +19,6 @@ export function useMergeRefs<T>(...refs: ReactRef<T>[]): React.RefCallback<T> {
       refs.forEach((ref) => assignRef(ref, node))
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
-    [...refs],
+    [...refs]
   )
 }

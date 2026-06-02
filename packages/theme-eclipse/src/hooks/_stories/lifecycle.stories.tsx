@@ -94,8 +94,7 @@ const Button = ({
       height: 34,
       padding: '0 14px',
       borderRadius: 8,
-      border:
-        variant === 'outline' ? '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))' : 0,
+      border: variant === 'outline' ? '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))' : 0,
       background: variant === 'primary' ? 'rgb(37, 99, 235)' : 'transparent',
       color: variant === 'primary' ? 'rgb(255,255,255)' : 'var(--orbit-ink, rgb(24,26,28))',
       fontFamily: 'inherit',
@@ -154,7 +153,8 @@ function MountedChild({ id, log }: { id: number; log: (line: string) => void }) 
 function MountDemo() {
   const [counter, setCounter] = useState(0)
   const [logs, setLogs] = useState<string[]>([])
-  const log = (line: string) => setLogs((prev) => [...prev, `${new Date().toISOString().slice(11, 19)}  ${line}`])
+  const log = (line: string) =>
+    setLogs((prev) => [...prev, `${new Date().toISOString().slice(11, 19)}  ${line}`])
   return (
     <Panel title="useMount" signature="useMount(() => { fireOnce() })">
       <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
@@ -198,7 +198,8 @@ function UnmountChild({ log }: { log: (line: string) => void }) {
 function UnmountDemo() {
   const [show, setShow] = useState(true)
   const [logs, setLogs] = useState<string[]>([])
-  const log = (line: string) => setLogs((prev) => [...prev, `${new Date().toISOString().slice(11, 19)}  ${line}`])
+  const log = (line: string) =>
+    setLogs((prev) => [...prev, `${new Date().toISOString().slice(11, 19)}  ${line}`])
   return (
     <Panel title="useUnmount" signature="useUnmount(() => { cleanup() })">
       <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
@@ -320,13 +321,13 @@ const fakeFetch = (shouldFail: boolean): Promise<MockPost> =>
       } else {
         resolve({ id: 1, title: '비동기 데이터 로드 성공', body: '이 내용은 1초 뒤 도착했습니다.' })
       }
-    }, 1000),
+    }, 1000)
   )
 
 function AsyncDemo() {
   const [fail, setFail] = useState(false)
   const { data, isPending, isError, isSuccess, isIdle, error, run, reset } = useAsync<MockPost>(
-    () => fakeFetch(fail),
+    () => fakeFetch(fail)
   )
 
   return (
@@ -334,7 +335,15 @@ function AsyncDemo() {
       title="useAsync"
       signature="const { data, isPending, isError, run, reset } = useAsync(asyncFn)"
     >
-      <div style={{ display: 'flex', gap: 8, marginBottom: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 8,
+          marginBottom: 12,
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}
+      >
         <button
           type="button"
           onClick={() => void run()}
@@ -374,11 +383,16 @@ function AsyncDemo() {
         >
           Reset
         </button>
-        <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, cursor: 'pointer' }}>
+        <label
+          style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, cursor: 'pointer' }}
+        >
           <input
             type="checkbox"
             checked={fail}
-            onChange={(e) => { reset(); setFail(e.target.checked) }}
+            onChange={(e) => {
+              reset()
+              setFail(e.target.checked)
+            }}
             style={{ accentColor: 'rgb(185,28,28)' }}
           />
           Simulate error
@@ -395,7 +409,13 @@ function AsyncDemo() {
           }}
         >
           <div style={{ fontWeight: 660, fontSize: 14, marginBottom: 4 }}>{data.title}</div>
-          <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 12, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+          <div
+            style={{
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: 12,
+              color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+            }}
+          >
             id: {data.id}
           </div>
         </div>
@@ -424,7 +444,10 @@ function AsyncDemo() {
           color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
         }}
       >
-        status: <strong>{isPending ? 'pending' : isSuccess ? 'success' : isError ? 'error' : 'idle'}</strong>
+        status:{' '}
+        <strong>
+          {isPending ? 'pending' : isSuccess ? 'success' : isError ? 'error' : 'idle'}
+        </strong>
       </div>
     </Panel>
   )
@@ -441,10 +464,7 @@ function ForceUpdateDemo() {
   const forceUpdate = useForceUpdate()
 
   return (
-    <Panel
-      title="useForceUpdate"
-      signature="const forceUpdate = useForceUpdate()"
-    >
+    <Panel title="useForceUpdate" signature="const forceUpdate = useForceUpdate()">
       <div
         style={{
           padding: 14,
@@ -456,8 +476,12 @@ function ForceUpdateDemo() {
           lineHeight: 1.7,
         }}
       >
-        <div>외부 store 값: <strong>{externalStore.value}</strong></div>
-        <div style={{ marginTop: 4, fontSize: 11.5, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+        <div>
+          외부 store 값: <strong>{externalStore.value}</strong>
+        </div>
+        <div
+          style={{ marginTop: 4, fontSize: 11.5, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}
+        >
           버튼을 클릭하면 외부 값이 갱신되고 강제 리렌더가 트리거됩니다.
         </div>
       </div>
@@ -506,7 +530,10 @@ function IsFirstRenderDemo() {
           lineHeight: 1.7,
         }}
       >
-        isFirstRender: <strong style={{ color: isFirstRender ? 'rgb(0,132,77)' : 'rgb(37,99,235)' }}>{String(isFirstRender)}</strong>
+        isFirstRender:{' '}
+        <strong style={{ color: isFirstRender ? 'rgb(0,132,77)' : 'rgb(37,99,235)' }}>
+          {String(isFirstRender)}
+        </strong>
       </div>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 14 }}>
         <Button onClick={() => setCount((c) => c + 1)}>Re-render ({count})</Button>
@@ -602,7 +629,9 @@ function DeepCompareEffectDemo() {
           lineHeight: 1.8,
         }}
       >
-        <div>effect 실행 횟수: <strong>{runCount}</strong></div>
+        <div>
+          effect 실행 횟수: <strong>{runCount}</strong>
+        </div>
         <div style={{ fontSize: 12, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
           filters: {JSON.stringify(filters)}
         </div>
@@ -705,16 +734,23 @@ function SafeStateChild({ onDone }: { onDone: () => void }) {
       style={{
         padding: 12,
         borderRadius: 8,
-        background: safeValue === 'done' ? 'color-mix(in oklab, rgb(0,132,77) 8%, transparent)' : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+        background:
+          safeValue === 'done'
+            ? 'color-mix(in oklab, rgb(0,132,77) 8%, transparent)'
+            : 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
         fontFamily: '"JetBrains Mono", monospace',
         fontSize: 12,
         lineHeight: 1.7,
         marginBottom: 10,
       }}
     >
-      <div>safeValue: <strong>{safeValue}</strong></div>
+      <div>
+        safeValue: <strong>{safeValue}</strong>
+      </div>
       <div style={{ color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))', fontSize: 11.5 }}>
-        {safeValue === 'idle' ? '1초 후 "done"으로 변경됩니다...' : '✓ 정상적으로 업데이트되었습니다'}
+        {safeValue === 'idle'
+          ? '1초 후 "done"으로 변경됩니다...'
+          : '✓ 정상적으로 업데이트되었습니다'}
       </div>
     </div>
   )
@@ -726,7 +762,10 @@ function SafeStateDemo() {
   const [key, setKey] = useState(0)
 
   const handleDone = () => {
-    setLog((prev) => [...prev, `${new Date().toISOString().slice(11, 19)}  setState called — component was mounted`])
+    setLog((prev) => [
+      ...prev,
+      `${new Date().toISOString().slice(11, 19)}  setState called — component was mounted`,
+    ])
   }
 
   return (
@@ -744,7 +783,10 @@ function SafeStateDemo() {
           variant="outline"
           onClick={() => {
             setShow(false)
-            setLog((prev) => [...prev, `${new Date().toISOString().slice(11, 19)}  component unmounted (pending setState ignored)`])
+            setLog((prev) => [
+              ...prev,
+              `${new Date().toISOString().slice(11, 19)}  component unmounted (pending setState ignored)`,
+            ])
           }}
         >
           Unmount (mid-async)
@@ -795,8 +837,7 @@ function IsomorphicLayoutEffectDemo() {
         }}
       >
         <div>
-          mounted by:{' '}
-          <strong style={{ color: 'rgb(37,99,235)' }}>{mountedBy}</strong>
+          mounted by: <strong style={{ color: 'rgb(37,99,235)' }}>{mountedBy}</strong>
         </div>
       </div>
       <div
@@ -887,7 +928,11 @@ export const ObjectUrl: Story = { render: () => <ObjectUrlDemo /> }
 /* ============================================================ */
 type EmitterEvent = { type: string; payload: string }
 
-function EventEmitterPanelA({ emitter }: { emitter: ReturnType<typeof useEventEmitter<EmitterEvent>> }) {
+function EventEmitterPanelA({
+  emitter,
+}: {
+  emitter: ReturnType<typeof useEventEmitter<EmitterEvent>>
+}) {
   const events = [
     { type: 'click', payload: '버튼을 클릭했습니다' },
     { type: 'hover', payload: '요소에 마우스가 올라갔습니다' },
@@ -953,7 +998,11 @@ function EventEmitterPanelA({ emitter }: { emitter: ReturnType<typeof useEventEm
   )
 }
 
-function EventEmitterPanelB({ emitter }: { emitter: ReturnType<typeof useEventEmitter<EmitterEvent>> }) {
+function EventEmitterPanelB({
+  emitter,
+}: {
+  emitter: ReturnType<typeof useEventEmitter<EmitterEvent>>
+}) {
   const [received, setReceived] = useState<EmitterEvent[]>([])
 
   useEffect(() => {
@@ -996,7 +1045,12 @@ function EventEmitterPanelB({ emitter }: { emitter: ReturnType<typeof useEventEm
           <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>(이벤트 없음)</span>
         ) : (
           received.map((ev, i) => (
-            <div key={i} style={{ color: i === 0 ? 'rgb(37,99,235)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+            <div
+              key={i}
+              style={{
+                color: i === 0 ? 'rgb(37,99,235)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+              }}
+            >
               [{ev.type}] {ev.payload}
             </div>
           ))
@@ -1009,10 +1063,7 @@ function EventEmitterPanelB({ emitter }: { emitter: ReturnType<typeof useEventEm
 function EventEmitterDemo() {
   const emitter = useEventEmitter<EmitterEvent>()
   return (
-    <Panel
-      title="useEventEmitter"
-      signature="const { emit, on, off } = useEventEmitter<T>()"
-    >
+    <Panel title="useEventEmitter" signature="const { emit, on, off } = useEventEmitter<T>()">
       <div style={{ display: 'flex', gap: 12 }}>
         <EventEmitterPanelA emitter={emitter} />
         <EventEmitterPanelB emitter={emitter} />
@@ -1038,7 +1089,7 @@ const fibFn = (n: number): number => {
 
 function WebWorkerDemo() {
   const { result, status, error, run } = useWebWorker<number>(
-    fibFn as (...args: unknown[]) => number,
+    fibFn as (...args: unknown[]) => number
   )
   const [n, setN] = useState(40)
 
@@ -1051,10 +1102,7 @@ function WebWorkerDemo() {
   }
 
   return (
-    <Panel
-      title="useWebWorker"
-      signature="const { run, result, status } = useWebWorker(fn)"
-    >
+    <Panel title="useWebWorker" signature="const { run, result, status } = useWebWorker(fn)">
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 14 }}>
         <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 13 }}>n =</span>
         <input
@@ -1073,9 +1121,7 @@ function WebWorkerDemo() {
             fontSize: 14,
           }}
         />
-        <Button onClick={() => run(n)}>
-          {status === 'running' ? 'Running…' : 'Run fib(n)'}
-        </Button>
+        <Button onClick={() => run(n)}>{status === 'running' ? 'Running…' : 'Run fib(n)'}</Button>
       </div>
       <div
         style={{
@@ -1088,17 +1134,13 @@ function WebWorkerDemo() {
         }}
       >
         <div>
-          status:{' '}
-          <strong style={{ color: statusColor[status] ?? 'inherit' }}>{status}</strong>
+          status: <strong style={{ color: statusColor[status] ?? 'inherit' }}>{status}</strong>
         </div>
         <div>
-          result:{' '}
-          <strong>{result !== null ? String(result) : '(null)'}</strong>
+          result: <strong>{result !== null ? String(result) : '(null)'}</strong>
         </div>
         {error && (
-          <div style={{ color: 'rgb(185,28,28)', fontSize: 12 }}>
-            error: {error.message}
-          </div>
+          <div style={{ color: 'rgb(185,28,28)', fontSize: 12 }}>error: {error.message}</div>
         )}
       </div>
       <div

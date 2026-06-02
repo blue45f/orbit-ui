@@ -27,10 +27,9 @@ describe('useUnmount', () => {
   test('콜백 갱신 시 unmount는 최신 함수를 호출한다', () => {
     const first = vi.fn()
     const second = vi.fn()
-    const { rerender, unmount } = renderHook(
-      ({ cb }: { cb: () => void }) => useUnmount(cb),
-      { initialProps: { cb: first } },
-    )
+    const { rerender, unmount } = renderHook(({ cb }: { cb: () => void }) => useUnmount(cb), {
+      initialProps: { cb: first },
+    })
 
     rerender({ cb: second })
     unmount()

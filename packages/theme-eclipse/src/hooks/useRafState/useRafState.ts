@@ -18,7 +18,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
  * ```
  */
 export function useRafState<T>(
-  initialState: T | (() => T),
+  initialState: T | (() => T)
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [state, setState] = useState(initialState)
   const rafRef = useRef<number | null>(null)

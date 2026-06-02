@@ -13,7 +13,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "RadioButton은 단일 선택 그룹의 라디오 버튼 컴포넌트입니다. PrimitiveUI 기반으로 완전한 키보드 접근성을 제공합니다.",
+        component:
+          'RadioButton은 단일 선택 그룹의 라디오 버튼 컴포넌트입니다. PrimitiveUI 기반으로 완전한 키보드 접근성을 제공합니다.',
       },
     },
   },
@@ -183,11 +184,16 @@ export const 플랜_선택_카드 = {
               <label
                 key={p.value}
                 style={{
-                  display: 'flex', alignItems: 'flex-start', gap: 16, cursor: 'pointer',
-                  padding: '20px 22px', borderRadius: 14,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 16,
+                  cursor: 'pointer',
+                  padding: '20px 22px',
+                  borderRadius: 14,
                   border: `2px solid ${selected ? p.color : '#e2e8f0'}`,
                   background: selected ? `${p.color}06` : '#fff',
-                  transition: 'all 0.15s', position: 'relative',
+                  transition: 'all 0.15s',
+                  position: 'relative',
                 }}
               >
                 <RadioButton
@@ -199,24 +205,64 @@ export const 플랜_선택_카드 = {
                 />
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                    <span style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>{p.name}</span>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>
+                      {p.name}
+                    </span>
                     {p.badge && (
-                      <span style={{
-                        fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 99,
-                        background: p.color, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.06em',
-                      }}>
+                      <span
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 800,
+                          padding: '2px 8px',
+                          borderRadius: 99,
+                          background: p.color,
+                          color: '#fff',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.06em',
+                        }}
+                      >
                         {p.badge}
                       </span>
                     )}
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 10 }}>
-                    <span style={{ fontSize: 24, fontWeight: 800, color: p.color }}>${p.price}</span>
+                  <div
+                    style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 10 }}
+                  >
+                    <span style={{ fontSize: 24, fontWeight: 800, color: p.color }}>
+                      ${p.price}
+                    </span>
                     <span style={{ fontSize: 12, color: '#94a3b8' }}>/ {p.period}</span>
                   </div>
-                  <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <ul
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      listStyle: 'none',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 4,
+                    }}
+                  >
                     {p.features.map((feat) => (
-                      <li key={feat} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#64748b' }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={p.color} strokeWidth="3" strokeLinecap="round">
+                      <li
+                        key={feat}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          fontSize: 12,
+                          color: '#64748b',
+                        }}
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke={p.color}
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                        >
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
                         {feat}
@@ -229,7 +275,8 @@ export const 플랜_선택_카드 = {
           })}
         </div>
         <div style={{ marginTop: 16, fontSize: 12, color: '#94a3b8', textAlign: 'center' }}>
-          선택된 플랜: <strong style={{ color: '#6366f1' }}>{plans.find((p) => p.value === plan)?.name}</strong>
+          선택된 플랜:{' '}
+          <strong style={{ color: '#6366f1' }}>{plans.find((p) => p.value === plan)?.name}</strong>
         </div>
       </fieldset>
     )
@@ -248,17 +295,40 @@ export const 배송_방법_선택 = {
     ]
 
     return (
-      <div style={{ width: 400, padding: 28, background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>배송 방법 선택</div>
-        <fieldset style={{ border: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div
+        style={{
+          width: 400,
+          padding: 28,
+          background: '#fff',
+          borderRadius: 16,
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        }}
+      >
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>
+          배송 방법 선택
+        </div>
+        <fieldset
+          style={{
+            border: 'none',
+            padding: 0,
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+          }}
+        >
           {methods.map((m) => {
             const selected = shipping === m.value
             return (
               <label
                 key={m.value}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 14, cursor: 'pointer',
-                  padding: '14px 16px', borderRadius: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 14,
+                  cursor: 'pointer',
+                  padding: '14px 16px',
+                  borderRadius: 10,
                   border: `1.5px solid ${selected ? '#6366f1' : '#e2e8f0'}`,
                   background: selected ? 'rgba(99,102,241,0.04)' : '#f8fafc',
                   transition: 'all 0.15s',
@@ -272,24 +342,38 @@ export const 배송_방법_선택 = {
                   onChange={() => setShipping(m.value)}
                 />
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 13, fontWeight: selected ? 700 : 500, color: '#0f172a' }}>{m.label}</div>
+                  <div style={{ fontSize: 13, fontWeight: selected ? 700 : 500, color: '#0f172a' }}>
+                    {m.label}
+                  </div>
                   <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{m.sub}</div>
                 </div>
-                <span style={{
-                  fontSize: 13, fontWeight: 700,
-                  color: m.price === '무료' ? '#10b981' : '#374151',
-                }}>
+                <span
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: m.price === '무료' ? '#10b981' : '#374151',
+                  }}
+                >
                   {m.price}
                 </span>
               </label>
             )
           })}
         </fieldset>
-        <button style={{
-          marginTop: 20, width: '100%', padding: '13px', borderRadius: 12, border: 'none',
-          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: '#fff',
-          fontSize: 14, fontWeight: 700, cursor: 'pointer',
-        }}>
+        <button
+          style={{
+            marginTop: 20,
+            width: '100%',
+            padding: '13px',
+            borderRadius: 12,
+            border: 'none',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            color: '#fff',
+            fontSize: 14,
+            fontWeight: 700,
+            cursor: 'pointer',
+          }}
+        >
           결제하기
         </button>
       </div>
@@ -308,8 +392,17 @@ export const 팀원_역할_선택 = {
         label: '뷰어',
         desc: '읽기 전용. 프로젝트를 보고 댓글을 남길 수 있습니다.',
         icon: (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#64748b"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
           </svg>
         ),
       },
@@ -318,8 +411,17 @@ export const 팀원_역할_선택 = {
         label: '편집자',
         desc: '편집 가능. 컴포넌트를 생성하고 수정할 수 있습니다.',
         icon: (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#6366f1"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
           </svg>
         ),
       },
@@ -328,7 +430,15 @@ export const 팀원_역할_선택 = {
         label: '관리자',
         desc: '전체 권한. 팀원 초대, 설정 변경이 가능합니다.',
         icon: (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#8b5cf6"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           </svg>
         ),
@@ -336,18 +446,43 @@ export const 팀원_역할_선택 = {
     ]
 
     return (
-      <div style={{ width: 400, padding: 28, background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>역할 지정</div>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 20 }}>팀원에게 부여할 권한 수준을 선택하세요.</div>
-        <fieldset style={{ border: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div
+        style={{
+          width: 400,
+          padding: 28,
+          background: '#fff',
+          borderRadius: 16,
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        }}
+      >
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          역할 지정
+        </div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 20 }}>
+          팀원에게 부여할 권한 수준을 선택하세요.
+        </div>
+        <fieldset
+          style={{
+            border: 'none',
+            padding: 0,
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+          }}
+        >
           {roles.map((r) => {
             const selected = role === r.value
             return (
               <label
                 key={r.value}
                 style={{
-                  display: 'flex', alignItems: 'flex-start', gap: 14, cursor: 'pointer',
-                  padding: '14px 16px', borderRadius: 10,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 14,
+                  cursor: 'pointer',
+                  padding: '14px 16px',
+                  borderRadius: 10,
                   border: `1.5px solid ${selected ? '#6366f1' : '#e2e8f0'}`,
                   background: selected ? 'rgba(99,102,241,0.04)' : '#fff',
                   transition: 'all 0.15s',
@@ -365,7 +500,16 @@ export const 팀원_역할_선택 = {
                 <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', flex: 1 }}>
                   <div style={{ marginTop: 1 }}>{r.icon}</div>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: selected ? 700 : 600, color: '#0f172a', marginBottom: 2 }}>{r.label}</div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: selected ? 700 : 600,
+                        color: '#0f172a',
+                        marginBottom: 2,
+                      }}
+                    >
+                      {r.label}
+                    </div>
                     <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5 }}>{r.desc}</div>
                   </div>
                 </div>
@@ -404,18 +548,36 @@ export const 설정페이지라디오그룹 = {
     ]
 
     const SectionTitle = ({ children }: { children: string }) => (
-      <div style={{ fontSize: '11px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
+      <div
+        style={{
+          fontSize: '11px',
+          fontWeight: 700,
+          color: '#6366f1',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: '12px',
+        }}
+      >
         {children}
       </div>
     )
 
     return (
-      <div style={{
-        width: '420px', padding: '28px', background: '#fff',
-        borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
-        display: 'flex', flexDirection: 'column', gap: '28px',
-      }}>
-        <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>환경 설정</h3>
+      <div
+        style={{
+          width: '420px',
+          padding: '28px',
+          background: '#fff',
+          borderRadius: '16px',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '28px',
+        }}
+      >
+        <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>
+          환경 설정
+        </h3>
 
         {/* 테마 */}
         <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
@@ -425,8 +587,12 @@ export const 설정페이지라디오그룹 = {
               <label
                 key={opt.value}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: '12px',
-                  padding: '12px 14px', borderRadius: '10px', cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '12px 14px',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
                   background: theme === opt.value ? 'rgba(99,102,241,0.05)' : 'transparent',
                   border: `1.5px solid ${theme === opt.value ? 'rgba(99,102,241,0.25)' : 'transparent'}`,
                   transition: 'all 0.15s',
@@ -440,8 +606,18 @@ export const 설정페이지라디오그룹 = {
                   onChange={() => setTheme(opt.value)}
                 />
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: theme === opt.value ? 600 : 400, color: '#0f172a' }}>{opt.label}</div>
-                  <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>{opt.desc}</div>
+                  <div
+                    style={{
+                      fontSize: '13px',
+                      fontWeight: theme === opt.value ? 600 : 400,
+                      color: '#0f172a',
+                    }}
+                  >
+                    {opt.label}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>
+                    {opt.desc}
+                  </div>
                 </div>
               </label>
             ))}
@@ -456,11 +632,16 @@ export const 설정페이지라디오그룹 = {
               <label
                 key={opt.value}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: '8px',
-                  padding: '8px 16px', borderRadius: '20px', cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '8px 16px',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
                   background: lang === opt.value ? 'rgba(99,102,241,0.08)' : '#f8fafc',
                   border: `1.5px solid ${lang === opt.value ? 'rgba(99,102,241,0.3)' : '#e2e8f0'}`,
-                  fontSize: '13px', fontWeight: lang === opt.value ? 600 : 400,
+                  fontSize: '13px',
+                  fontWeight: lang === opt.value ? 600 : 400,
                   color: lang === opt.value ? '#6366f1' : '#374151',
                   transition: 'all 0.15s',
                 }}
@@ -486,8 +667,12 @@ export const 설정페이지라디오그룹 = {
               <label
                 key={opt.value}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: '12px',
-                  padding: '10px 14px', borderRadius: '8px', cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
                   transition: 'background 0.1s',
                 }}
               >
@@ -499,7 +684,15 @@ export const 설정페이지라디오그룹 = {
                   onChange={() => setDensity(opt.value)}
                 />
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: density === opt.value ? 600 : 400, color: '#0f172a' }}>{opt.label}</div>
+                  <div
+                    style={{
+                      fontSize: '13px',
+                      fontWeight: density === opt.value ? 600 : 400,
+                      color: '#0f172a',
+                    }}
+                  >
+                    {opt.label}
+                  </div>
                   <div style={{ fontSize: '11px', color: '#94a3b8' }}>{opt.desc}</div>
                 </div>
               </label>
@@ -507,11 +700,18 @@ export const 설정페이지라디오그룹 = {
           </div>
         </fieldset>
 
-        <button style={{
-          padding: '12px', borderRadius: '10px', border: 'none', cursor: 'pointer',
-          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-          color: '#fff', fontSize: '14px', fontWeight: '700',
-        }}>
+        <button
+          style={{
+            padding: '12px',
+            borderRadius: '10px',
+            border: 'none',
+            cursor: 'pointer',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            color: '#fff',
+            fontSize: '14px',
+            fontWeight: '700',
+          }}
+        >
           설정 저장
         </button>
       </div>
@@ -608,11 +808,25 @@ export const 디자인QA = {
    ComposableUI RadioGroup — 박스형 요금제 카드 선택 UI
 -------------------------------------------------------------------------- */
 const PLANS = [
-  { id: 'starter', name: 'Starter', price: '무료', features: ['컴포넌트 50개', '프로젝트 3개', '커뮤니티 지원'] },
-  { id: 'pro', name: 'Pro', price: '₩29,000/월', features: ['컴포넌트 무제한', '프로젝트 무제한', '우선 지원', 'DesignTool 연동'] },
-  { id: 'team', name: 'Team', price: '₩79,000/월', features: ['Pro 모든 기능', '팀원 10명', '커스텀 테마', '전담 매니저'] },
+  {
+    id: 'starter',
+    name: 'Starter',
+    price: '무료',
+    features: ['컴포넌트 50개', '프로젝트 3개', '커뮤니티 지원'],
+  },
+  {
+    id: 'pro',
+    name: 'Pro',
+    price: '₩29,000/월',
+    features: ['컴포넌트 무제한', '프로젝트 무제한', '우선 지원', 'DesignTool 연동'],
+  },
+  {
+    id: 'team',
+    name: 'Team',
+    price: '₩79,000/월',
+    features: ['Pro 모든 기능', '팀원 10명', '커스텀 테마', '전담 매니저'],
+  },
 ]
-
 
 export const ComposableUI_요금제_선택 = {
   name: 'ComposableUI - 박스형 요금제 선택 패턴',
@@ -620,7 +834,9 @@ export const ComposableUI_요금제_선택 = {
     const [plan, setPlan] = useState('pro')
     return (
       <div style={{ maxWidth: 480 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>요금제 선택</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>
+          요금제 선택
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {PLANS.map((p) => {
             const isSelected = plan === p.id
@@ -647,14 +863,51 @@ export const ComposableUI_요금제_선택 = {
                   onChange={() => setPlan(p.id)}
                 />
                 <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                    <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{p.name}</span>
-                    <span style={{ fontSize: 14, fontWeight: 700, color: isSelected ? '#6366f1' : '#0f172a' }}>{p.price}</span>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: 6,
+                    }}
+                  >
+                    <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>
+                      {p.name}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 700,
+                        color: isSelected ? '#6366f1' : '#0f172a',
+                      }}
+                    >
+                      {p.price}
+                    </span>
                   </div>
-                  <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <ul
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      listStyle: 'none',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 3,
+                    }}
+                  >
                     {p.features.map((f) => (
-                      <li key={f} style={{ fontSize: 12, color: '#64748b', display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <span style={{ color: isSelected ? '#6366f1' : '#94a3b8', fontSize: 10 }}>✓</span>
+                      <li
+                        key={f}
+                        style={{
+                          fontSize: 12,
+                          color: '#64748b',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                        }}
+                      >
+                        <span style={{ color: isSelected ? '#6366f1' : '#94a3b8', fontSize: 10 }}>
+                          ✓
+                        </span>
                         {f}
                       </li>
                     ))}
@@ -664,7 +917,9 @@ export const ComposableUI_요금제_선택 = {
             )
           })}
         </div>
-        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>ComposableUI RadioGroup — 카드형 선택 UI 패턴</div>
+        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+          ComposableUI RadioGroup — 카드형 선택 UI 패턴
+        </div>
       </div>
     )
   },
@@ -682,7 +937,6 @@ const PRIORITIES = [
   { id: 'none', label: '없음', color: '#e2e8f0', desc: '우선순위 미지정' },
 ]
 
-
 export const IssueTracker_우선순위_선택 = {
   name: 'IssueTracker - 이슈 우선순위 선택 패턴',
   render: function Render() {
@@ -690,7 +944,9 @@ export const IssueTracker_우선순위_선택 = {
     const selected = PRIORITIES.find((p) => p.id === priority)!
     return (
       <div style={{ maxWidth: 320 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>우선순위</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>
+          우선순위
+        </div>
         <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           {PRIORITIES.map((p, i) => (
             <div
@@ -713,7 +969,15 @@ export const IssueTracker_우선순위_선택 = {
                 checked={priority === p.id}
                 onChange={() => setPriority(p.id)}
               />
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: p.color, flexShrink: 0 }} />
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: p.color,
+                  flexShrink: 0,
+                }}
+              />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{p.label}</div>
                 <div style={{ fontSize: 11, color: '#94a3b8' }}>{p.desc}</div>
@@ -721,7 +985,17 @@ export const IssueTracker_우선순위_선택 = {
             </div>
           ))}
         </div>
-        <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: selected.color + '10', border: `1px solid ${selected.color}30`, fontSize: 13, color: '#475569' }}>
+        <div
+          style={{
+            marginTop: 12,
+            padding: '8px 12px',
+            borderRadius: 8,
+            background: selected.color + '10',
+            border: `1px solid ${selected.color}30`,
+            fontSize: 13,
+            color: '#475569',
+          }}
+        >
           선택된 우선순위: <strong style={{ color: selected.color }}>{selected.label}</strong>
         </div>
       </div>
@@ -750,11 +1024,35 @@ export const Accessible_테마_색상_모드: Story = {
   },
   render: function Render(args) {
     const themes = [
-      { value: 'indigo', label: 'Indigo', primary: '#6366f1', secondary: '#8b5cf6', accent: '#c7d2fe' },
-      { value: 'emerald', label: 'Emerald', primary: '#10b981', secondary: '#059669', accent: '#a7f3d0' },
-      { value: 'amber', label: 'Amber', primary: '#f59e0b', secondary: '#d97706', accent: '#fde68a' },
+      {
+        value: 'indigo',
+        label: 'Indigo',
+        primary: '#6366f1',
+        secondary: '#8b5cf6',
+        accent: '#c7d2fe',
+      },
+      {
+        value: 'emerald',
+        label: 'Emerald',
+        primary: '#10b981',
+        secondary: '#059669',
+        accent: '#a7f3d0',
+      },
+      {
+        value: 'amber',
+        label: 'Amber',
+        primary: '#f59e0b',
+        secondary: '#d97706',
+        accent: '#fde68a',
+      },
       { value: 'rose', label: 'Rose', primary: '#f43f5e', secondary: '#e11d48', accent: '#fecdd3' },
-      { value: 'slate', label: 'Slate', primary: '#475569', secondary: '#334155', accent: '#cbd5e1' },
+      {
+        value: 'slate',
+        label: 'Slate',
+        primary: '#475569',
+        secondary: '#334155',
+        accent: '#cbd5e1',
+      },
     ]
     const [selected, setSelected] = useState('indigo')
     const current = themes.find((t) => t.value === selected)!
@@ -768,8 +1066,12 @@ export const Accessible_테마_색상_모드: Story = {
               key={theme.value}
               onClick={() => setSelected(theme.value)}
               style={{
-                display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px',
-                borderRadius: 10, cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 14px',
+                borderRadius: 10,
+                cursor: 'pointer',
                 border: `1.5px solid ${selected === theme.value ? theme.primary : '#e2e8f0'}`,
                 background: selected === theme.value ? theme.accent + '30' : '#fff',
                 transition: 'all 0.15s',
@@ -787,32 +1089,60 @@ export const Accessible_테마_색상_모드: Story = {
                   <div
                     key={color}
                     style={{
-                      width: 20, height: 20, borderRadius: 4, background: color,
+                      width: 20,
+                      height: 20,
+                      borderRadius: 4,
+                      background: color,
                       border: '1px solid rgba(0,0,0,0.08)',
                     }}
                   />
                 ))}
               </div>
-              <span style={{ fontSize: 13, fontWeight: selected === theme.value ? 700 : 500, color: '#1e293b' }}>
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: selected === theme.value ? 700 : 500,
+                  color: '#1e293b',
+                }}
+              >
                 {theme.label}
               </span>
             </div>
           ))}
         </div>
-        <div style={{
-          padding: '14px 16px', borderRadius: 10,
-          background: current.accent + '40', border: `1px solid ${current.accent}`,
-        }}>
+        <div
+          style={{
+            padding: '14px 16px',
+            borderRadius: 10,
+            background: current.accent + '40',
+            border: `1px solid ${current.accent}`,
+          }}
+        >
           <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6 }}>미리보기</div>
           <div style={{ display: 'flex', gap: 8 }}>
-            <div style={{ padding: '8px 16px', borderRadius: 7, background: current.primary, color: '#fff', fontSize: 13, fontWeight: 700 }}>
+            <div
+              style={{
+                padding: '8px 16px',
+                borderRadius: 7,
+                background: current.primary,
+                color: '#fff',
+                fontSize: 13,
+                fontWeight: 700,
+              }}
+            >
               Primary
             </div>
-            <div style={{
-              padding: '8px 16px', borderRadius: 7,
-              background: 'transparent', border: `1.5px solid ${current.primary}`,
-              color: current.primary, fontSize: 13, fontWeight: 700,
-            }}>
+            <div
+              style={{
+                padding: '8px 16px',
+                borderRadius: 7,
+                background: 'transparent',
+                border: `1.5px solid ${current.primary}`,
+                color: current.primary,
+                fontSize: 13,
+                fontWeight: 700,
+              }}
+            >
               Outline
             </div>
           </div>
@@ -885,8 +1215,12 @@ export const M3_버튼_변형_선택: Story = {
               key={v.value}
               onClick={() => setSelected(v.value)}
               style={{
-                display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px',
-                borderRadius: 10, cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 16px',
+                borderRadius: 10,
+                cursor: 'pointer',
                 border: `1.5px solid ${selected === v.value ? '#6366f1' : '#e2e8f0'}`,
                 background: selected === v.value ? '#f5f3ff' : '#fff',
                 transition: 'all 0.15s',
@@ -901,9 +1235,15 @@ export const M3_버튼_변형_선택: Story = {
               />
               <div
                 style={{
-                  padding: '6px 14px', borderRadius: 7, fontSize: 12, fontWeight: 700,
-                  minWidth: 72, textAlign: 'center',
-                  background: v.preview.bg, color: v.preview.color, border: v.preview.border,
+                  padding: '6px 14px',
+                  borderRadius: 7,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  minWidth: 72,
+                  textAlign: 'center',
+                  background: v.preview.bg,
+                  color: v.preview.color,
+                  border: v.preview.border,
                 }}
               >
                 {v.label}
@@ -912,11 +1252,16 @@ export const M3_버튼_변형_선택: Story = {
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{v.label}</div>
                 <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{v.desc}</div>
               </div>
-              <span style={{
-                fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 5,
-                background: selected === v.value ? '#6366f1' : '#f1f5f9',
-                color: selected === v.value ? '#fff' : '#64748b',
-              }}>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  padding: '2px 7px',
+                  borderRadius: 5,
+                  background: selected === v.value ? '#6366f1' : '#f1f5f9',
+                  color: selected === v.value ? '#fff' : '#64748b',
+                }}
+              >
                 {v.badge}
               </span>
             </div>
@@ -987,7 +1332,9 @@ export const Accessible_M3_구독_플랜_선택: Story = {
 
     return (
       <div style={{ maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 10 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>플랜 선택</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          플랜 선택
+        </div>
         {plans.map((plan) => {
           const isSelected = selected === plan.value
           return (
@@ -995,7 +1342,9 @@ export const Accessible_M3_구독_플랜_선택: Story = {
               key={plan.value}
               onClick={() => setSelected(plan.value)}
               style={{
-                padding: '16px 18px', borderRadius: 12, cursor: 'pointer',
+                padding: '16px 18px',
+                borderRadius: 12,
+                cursor: 'pointer',
                 border: `2px solid ${isSelected ? plan.borderSelected : '#e2e8f0'}`,
                 background: isSelected ? plan.selectedBg : plan.containerBg,
                 transition: 'all 0.15s',
@@ -1003,11 +1352,19 @@ export const Accessible_M3_구독_플랜_선택: Story = {
               }}
             >
               {plan.recommended && (
-                <span style={{
-                  position: 'absolute', top: -10, right: 16,
-                  fontSize: 10, fontWeight: 700, padding: '3px 10px', borderRadius: 99,
-                  background: '#10b981', color: '#fff',
-                }}>
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: -10,
+                    right: 16,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: '3px 10px',
+                    borderRadius: 99,
+                    background: '#10b981',
+                    color: '#fff',
+                  }}
+                >
                   추천
                 </span>
               )}
@@ -1022,21 +1379,49 @@ export const Accessible_M3_구독_플랜_선택: Story = {
                   />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      marginBottom: 8,
+                    }}
+                  >
                     <div>
-                      <span style={{ fontSize: 14, fontWeight: 800, color: '#0f172a' }}>{plan.name}</span>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: '#0f172a' }}>
+                        {plan.name}
+                      </span>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                      <span style={{ fontSize: 18, fontWeight: 800, color: isSelected ? plan.accent : '#0f172a' }}>
+                      <span
+                        style={{
+                          fontSize: 18,
+                          fontWeight: 800,
+                          color: isSelected ? plan.accent : '#0f172a',
+                        }}
+                      >
                         {plan.price}
                       </span>
-                      <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 2 }}>{plan.period}</span>
+                      <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 2 }}>
+                        {plan.period}
+                      </span>
                     </div>
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                     {plan.features.map((feature) => (
-                      <span key={feature} style={{ fontSize: 11, color: '#64748b', display: 'flex', alignItems: 'center', gap: 4 }}>
-                        <span style={{ color: isSelected ? plan.accent : '#cbd5e1', fontSize: 10 }}>✓</span>
+                      <span
+                        key={feature}
+                        style={{
+                          fontSize: 11,
+                          color: '#64748b',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 4,
+                        }}
+                      >
+                        <span style={{ color: isSelected ? plan.accent : '#cbd5e1', fontSize: 10 }}>
+                          ✓
+                        </span>
                         {feature}
                       </span>
                     ))}
@@ -1063,7 +1448,9 @@ export const Ant_설문_척도_라디오 = {
 
     return (
       <div style={{ maxWidth: 400 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>사용자 만족도 조사</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>
+          사용자 만족도 조사
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Q1 */}
           <div>
@@ -1090,8 +1477,15 @@ export const Ant_설문_척도_라디오 = {
                       minWidth: 60,
                     }}
                   >
-                    <RadioButton name="satisfaction" value={val} checked={satisfaction === val} onChange={() => setSatisfaction(val)} />
-                    <span style={{ fontSize: 11, color: '#64748b', textAlign: 'center' }}>{label}</span>
+                    <RadioButton
+                      name="satisfaction"
+                      value={val}
+                      checked={satisfaction === val}
+                      onChange={() => setSatisfaction(val)}
+                    />
+                    <span style={{ fontSize: 11, color: '#64748b', textAlign: 'center' }}>
+                      {label}
+                    </span>
                   </div>
                 )
               })}
@@ -1103,20 +1497,43 @@ export const Ant_설문_척도_라디오 = {
               2. Orbit UI를 추천하시겠습니까?
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {['네, 적극 추천합니다', '네, 상황에 따라 추천합니다', '아니오, 추천하지 않습니다'].map((label) => (
+              {[
+                '네, 적극 추천합니다',
+                '네, 상황에 따라 추천합니다',
+                '아니오, 추천하지 않습니다',
+              ].map((label) => (
                 <div
                   key={label}
                   onClick={() => setRecommend(label)}
                   style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}
                 >
-                  <RadioButton name="recommend" value={label} checked={recommend === label} onChange={() => setRecommend(label)} />
-                  <span style={{ fontSize: 13, color: recommend === label ? '#1e293b' : '#64748b' }}>{label}</span>
+                  <RadioButton
+                    name="recommend"
+                    value={label}
+                    checked={recommend === label}
+                    onChange={() => setRecommend(label)}
+                  />
+                  <span
+                    style={{ fontSize: 13, color: recommend === label ? '#1e293b' : '#64748b' }}
+                  >
+                    {label}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
           {submitted ? (
-            <div style={{ padding: '12px 16px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#16a34a', fontSize: 14, fontWeight: 600 }}>
+            <div
+              style={{
+                padding: '12px 16px',
+                borderRadius: 8,
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                color: '#16a34a',
+                fontSize: 14,
+                fontWeight: 600,
+              }}
+            >
               응답이 제출되었습니다. 감사합니다!
             </div>
           ) : (
@@ -1138,7 +1555,9 @@ export const Ant_설문_척도_라디오 = {
             </button>
           )}
         </div>
-        <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>Ant Design Radio.Group — 척도형 + 객관식 설문 패턴</div>
+        <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+          Ant Design Radio.Group — 척도형 + 객관식 설문 패턴
+        </div>
       </div>
     )
   },
@@ -1153,8 +1572,18 @@ function PrimitiveA11yRadioGroupRender() {
 
   const options = [
     { id: 'option-a', label: '옵션 A', desc: '기본 설정으로 시작합니다', recommended: true },
-    { id: 'option-b', label: '옵션 B', desc: '사용자 정의 설정을 직접 구성합니다', recommended: false },
-    { id: 'option-c', label: '옵션 C', desc: '가이드 없이 빈 프로젝트로 시작합니다', recommended: false },
+    {
+      id: 'option-b',
+      label: '옵션 B',
+      desc: '사용자 정의 설정을 직접 구성합니다',
+      recommended: false,
+    },
+    {
+      id: 'option-c',
+      label: '옵션 C',
+      desc: '가이드 없이 빈 프로젝트로 시작합니다',
+      recommended: false,
+    },
   ]
 
   return (
@@ -1166,8 +1595,12 @@ function PrimitiveA11yRadioGroupRender() {
         <label
           key={opt.id}
           style={{
-            display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 14px',
-            borderRadius: 8, cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 12,
+            padding: '12px 14px',
+            borderRadius: 8,
+            cursor: 'pointer',
             border: `1.5px solid ${value === opt.id ? '#6366f1' : '#e2e8f0'}`,
             background: value === opt.id ? '#f0f4ff' : '#fff',
             transition: 'border-color 0.15s, background 0.15s',
@@ -1183,7 +1616,18 @@ function PrimitiveA11yRadioGroupRender() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{opt.label}</span>
               {opt.recommended && (
-                <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: '#6366f1', color: '#fff' }}>추천</span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: '1px 6px',
+                    borderRadius: 4,
+                    background: '#6366f1',
+                    color: '#fff',
+                  }}
+                >
+                  추천
+                </span>
               )}
             </div>
             <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>{opt.desc}</div>
@@ -1232,10 +1676,14 @@ function UtilityCSSPaymentRadioRender() {
           <label
             key={m.id}
             style={{
-              padding: '14px', borderRadius: 8, cursor: 'pointer',
+              padding: '14px',
+              borderRadius: 8,
+              cursor: 'pointer',
               border: `1.5px solid ${method === m.id ? '#6366f1' : '#e2e8f0'}`,
               background: method === m.id ? '#f0f4ff' : '#fff',
-              display: 'flex', flexDirection: 'column', gap: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -1254,7 +1702,16 @@ function UtilityCSSPaymentRadioRender() {
           </label>
         ))}
       </div>
-      <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f0f4ff', border: '1px solid #c7d2fe', fontSize: 12, color: '#6366f1' }}>
+      <div
+        style={{
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: '#f0f4ff',
+          border: '1px solid #c7d2fe',
+          fontSize: 12,
+          color: '#6366f1',
+        }}
+      >
         선택된 결제 방법: {methods.find((m) => m.id === method)?.label}
       </div>
     </div>
@@ -1283,28 +1740,62 @@ function PrimitiveUtilityCSSPlanRadioRender() {
   const [plan, setPlan] = useState('pro')
 
   const plans = [
-    { id: 'hobby', label: 'Hobby', price: { monthly: 0, annual: 0 }, features: ['컴포넌트 40+', '스토리 600+', '커뮤니티 지원'], highlight: false },
-    { id: 'pro', label: 'Pro', price: { monthly: 19, annual: 15 }, features: ['컴포넌트 100+', '스토리 1000+', '우선 지원', 'MDX 문서'], highlight: true },
-    { id: 'team', label: 'Team', price: { monthly: 49, annual: 39 }, features: ['무제한 컴포넌트', '커스텀 테마', '전담 지원', 'SLA 99.9%'], highlight: false },
+    {
+      id: 'hobby',
+      label: 'Hobby',
+      price: { monthly: 0, annual: 0 },
+      features: ['컴포넌트 40+', '스토리 600+', '커뮤니티 지원'],
+      highlight: false,
+    },
+    {
+      id: 'pro',
+      label: 'Pro',
+      price: { monthly: 19, annual: 15 },
+      features: ['컴포넌트 100+', '스토리 1000+', '우선 지원', 'MDX 문서'],
+      highlight: true,
+    },
+    {
+      id: 'team',
+      label: 'Team',
+      price: { monthly: 49, annual: 39 },
+      features: ['무제한 컴포넌트', '커스텀 테마', '전담 지원', 'SLA 99.9%'],
+      highlight: false,
+    },
   ]
 
   return (
     <div style={{ width: 460, display: 'flex', flexDirection: 'column', gap: 16 }}>
       {/* Billing toggle */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 0, border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden', width: 'fit-content', alignSelf: 'center' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 0,
+          border: '1px solid #e2e8f0',
+          borderRadius: 8,
+          overflow: 'hidden',
+          width: 'fit-content',
+          alignSelf: 'center',
+        }}
+      >
         {(['monthly', 'annual'] as const).map((b) => (
           <button
             key={b}
             onClick={() => setBilling(b)}
             style={{
-              padding: '6px 20px', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              padding: '6px 20px',
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: 'pointer',
               background: billing === b ? '#6366f1' : '#fff',
               color: billing === b ? '#fff' : '#64748b',
               border: 'none',
             }}
           >
             {b === 'monthly' ? '월간' : '연간'}
-            {b === 'annual' && <span style={{ marginLeft: 4, fontSize: 10, opacity: 0.8 }}>(-20%)</span>}
+            {b === 'annual' && (
+              <span style={{ marginLeft: 4, fontSize: 10, opacity: 0.8 }}>(-20%)</span>
+            )}
           </button>
         ))}
       </div>
@@ -1315,18 +1806,41 @@ function PrimitiveUtilityCSSPlanRadioRender() {
           <label
             key={p.id}
             style={{
-              flex: 1, padding: '14px 12px', borderRadius: 10, cursor: 'pointer',
+              flex: 1,
+              padding: '14px 12px',
+              borderRadius: 10,
+              cursor: 'pointer',
               border: `2px solid ${plan === p.id ? '#6366f1' : p.highlight ? '#6366f1' : '#e2e8f0'}`,
               background: plan === p.id ? '#f0f4ff' : p.highlight ? '#fafafe' : '#fff',
               position: 'relative',
             }}
           >
             {p.highlight && (
-              <div style={{ position: 'absolute', top: -1, left: '50%', transform: 'translateX(-50%)', fontSize: 10, fontWeight: 700, padding: '2px 8px', background: '#6366f1', color: '#fff', borderRadius: '0 0 6px 6px' }}>인기</div>
+              <div
+                style={{
+                  position: 'absolute',
+                  top: -1,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  fontSize: 10,
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  background: '#6366f1',
+                  color: '#fff',
+                  borderRadius: '0 0 6px 6px',
+                }}
+              >
+                인기
+              </div>
             )}
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
               <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{p.label}</span>
-              <RadioButton name="plan" value={p.id} checked={plan === p.id} onChange={() => setPlan(p.id)} />
+              <RadioButton
+                name="plan"
+                value={p.id}
+                checked={plan === p.id}
+                onChange={() => setPlan(p.id)}
+              />
             </div>
             <div style={{ marginBottom: 8 }}>
               <span style={{ fontSize: 20, fontWeight: 800, color: '#6366f1' }}>
@@ -1367,16 +1881,56 @@ export const Primitive_UtilityCSS_요금제_선택: Story = {
 function UtilityCSSSubscriptionPlanRender() {
   const [selected, setSelected] = useState('pro')
   const plans = [
-    { id: 'starter', name: 'Starter', price: '무료', features: ['3개 프로젝트', '5GB 스토리지', '커뮤니티 지원'] },
-    { id: 'pro', name: 'Pro', price: '₩29,000/월', features: ['무제한 프로젝트', '50GB 스토리지', '우선 지원'] },
-    { id: 'enterprise', name: 'Enterprise', price: '문의', features: ['무제한 모든 것', '500GB 스토리지', '전담 매니저'] },
+    {
+      id: 'starter',
+      name: 'Starter',
+      price: '무료',
+      features: ['3개 프로젝트', '5GB 스토리지', '커뮤니티 지원'],
+    },
+    {
+      id: 'pro',
+      name: 'Pro',
+      price: '₩29,000/월',
+      features: ['무제한 프로젝트', '50GB 스토리지', '우선 지원'],
+    },
+    {
+      id: 'enterprise',
+      name: 'Enterprise',
+      price: '문의',
+      features: ['무제한 모든 것', '500GB 스토리지', '전담 매니저'],
+    },
   ]
   return (
     <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>구독 플랜 선택</p>
+      <p
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          marginBottom: 12,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        구독 플랜 선택
+      </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {plans.map((plan) => (
-          <label key={plan.id} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px', borderRadius: 10, border: `2px solid ${selected === plan.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: selected === plan.id ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'var(--sem-eclipse-color-surfaceDefault)', cursor: 'pointer', transition: 'all 0.15s' }}>
+          <label
+            key={plan.id}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 12,
+              padding: '14px 16px',
+              borderRadius: 10,
+              border: `2px solid ${selected === plan.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+              background:
+                selected === plan.id
+                  ? 'var(--sem-eclipse-color-fillPrimarySubtle)'
+                  : 'var(--sem-eclipse-color-surfaceDefault)',
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
             <RadioButton
               value={plan.id}
               checked={selected === plan.id}
@@ -1384,12 +1938,45 @@ function UtilityCSSSubscriptionPlanRender() {
             />
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{plan.name}</span>
-                <span style={{ fontSize: 13, fontWeight: 700, color: selected === plan.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)' }}>{plan.price}</span>
+                <span
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  }}
+                >
+                  {plan.name}
+                </span>
+                <span
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color:
+                      selected === plan.id
+                        ? 'var(--sem-eclipse-color-fillPrimary)'
+                        : 'var(--sem-eclipse-color-foregroundSecondary)',
+                  }}
+                >
+                  {plan.price}
+                </span>
               </div>
-              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <ul
+                style={{
+                  margin: 0,
+                  padding: 0,
+                  listStyle: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                }}
+              >
                 {plan.features.map((f) => (
-                  <li key={f} style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>• {f}</li>
+                  <li
+                    key={f}
+                    style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                  >
+                    • {f}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -1405,7 +1992,8 @@ export const UtilityCSS_구독_플랜_선택: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI의 card radio group 패턴. 각 라디오 옵션이 전체 카드 영역을 클릭 대상으로 삼아 선택 경험을 향상. 선택 시 border 컬러 + 배경 전환.',
+        story:
+          'UtilityUI의 card radio group 패턴. 각 라디오 옵션이 전체 카드 영역을 클릭 대상으로 삼아 선택 경험을 향상. 선택 시 border 컬러 + 배경 전환.',
       },
     },
   },
@@ -1426,20 +2014,76 @@ function AntNotificationFreqRender() {
   ]
   return (
     <div style={{ maxWidth: 360, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>알림 주기</p>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 14 }}>이메일 알림을 받을 주기를 선택하세요.</p>
+      <p
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          marginBottom: 8,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        알림 주기
+      </p>
+      <p
+        style={{
+          fontSize: 11,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 14,
+        }}
+      >
+        이메일 알림을 받을 주기를 선택하세요.
+      </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {options.map((opt) => (
-          <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '8px 0', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
-            <RadioButton value={opt.value} checked={freq === opt.value} onChange={() => setFreq(opt.value)} />
+          <label
+            key={opt.value}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              cursor: 'pointer',
+              padding: '8px 0',
+              borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+            }}
+          >
+            <RadioButton
+              value={opt.value}
+              checked={freq === opt.value}
+              onChange={() => setFreq(opt.value)}
+            />
             <div>
-              <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</span>
-              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>{opt.desc}</span>
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                }}
+              >
+                {opt.label}
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  marginLeft: 8,
+                }}
+              >
+                {opt.desc}
+              </span>
             </div>
           </label>
         ))}
       </div>
-      <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceSubtle)', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+      <div
+        style={{
+          marginTop: 16,
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: 'var(--sem-eclipse-color-surfaceSubtle)',
+          fontSize: 11,
+          color: 'var(--sem-eclipse-color-foregroundSecondary)',
+        }}
+      >
         현재 선택: <strong>{options.find((o) => o.value === freq)?.label}</strong>
       </div>
     </div>
@@ -1451,7 +2095,8 @@ export const Ant_알림_주기_설정: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design의 Radio.Group + 상세 설명 패턴. 각 옵션에 짧은 설명 텍스트를 인라인으로 배치하여 선택지 이해를 돕는 UX 패턴.',
+        story:
+          'Ant Design의 Radio.Group + 상세 설명 패턴. 각 옵션에 짧은 설명 텍스트를 인라인으로 배치하여 선택지 이해를 돕는 UX 패턴.',
       },
     },
   },
@@ -1471,20 +2116,60 @@ function EnterpriseUIPaymentMethodRender() {
   ]
   return (
     <div style={{ maxWidth: 400, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>결제 수단</p>
+      <p
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          marginBottom: 12,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        결제 수단
+      </p>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
         {methods.map((m) => (
-          <label key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', borderRadius: 10, border: `2px solid ${method === m.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)'}`, background: method === m.id ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent', cursor: 'pointer', transition: 'all 0.15s' }}>
+          <label
+            key={m.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '12px 14px',
+              borderRadius: 10,
+              border: `2px solid ${method === m.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)'}`,
+              background:
+                method === m.id ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent',
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
             <RadioButton value={m.id} checked={method === m.id} onChange={() => setMethod(m.id)} />
             <div>
               <div style={{ fontSize: 16 }}>{m.icon}</div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.label}</div>
-              <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{m.sub}</div>
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                }}
+              >
+                {m.label}
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                {m.sub}
+              </div>
             </div>
           </label>
         ))}
       </div>
-      <div style={{ marginTop: 14, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', textAlign: 'center' }}>
+      <div
+        style={{
+          marginTop: 14,
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundSecondary)',
+          textAlign: 'center',
+        }}
+      >
         선택된 결제 수단: <strong>{methods.find((m) => m.id === method)?.label}</strong>
       </div>
     </div>
@@ -1496,7 +2181,8 @@ export const EnterpriseUI_결제_수단_선택: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Enterprise UI의 Radio + Card 조합 패턴. 2열 그리드로 결제 수단을 시각적으로 배열. 아이콘과 짧은 설명으로 빠른 식별을 돕는 선택 UI.',
+        story:
+          'Enterprise UI의 Radio + Card 조합 패턴. 2열 그리드로 결제 수단을 시각적으로 배열. 아이콘과 짧은 설명으로 빠른 식별을 돕는 선택 UI.',
       },
     },
   },
@@ -1510,35 +2196,105 @@ export const EnterpriseUI_결제_수단_선택: Story = {
 function AccessibleThemeSelectionRender() {
   const [selected, setSelected] = useState('system')
   const themes = [
-    { value: 'light', label: '라이트', desc: '흰 배경의 기본 테마', preview: { bg: '#fff', text: '#0f172a', accent: '#6366f1' } },
-    { value: 'dark', label: '다크', desc: '눈의 피로를 줄이는 어두운 테마', preview: { bg: '#0f172a', text: '#f1f5f9', accent: '#818cf8' } },
-    { value: 'system', label: '시스템', desc: 'OS 설정에 자동 동기화', preview: { bg: 'linear-gradient(90deg, #fff 50%, #0f172a 50%)', text: '#64748b', accent: '#8b5cf6' } },
+    {
+      value: 'light',
+      label: '라이트',
+      desc: '흰 배경의 기본 테마',
+      preview: { bg: '#fff', text: '#0f172a', accent: '#6366f1' },
+    },
+    {
+      value: 'dark',
+      label: '다크',
+      desc: '눈의 피로를 줄이는 어두운 테마',
+      preview: { bg: '#0f172a', text: '#f1f5f9', accent: '#818cf8' },
+    },
+    {
+      value: 'system',
+      label: '시스템',
+      desc: 'OS 설정에 자동 동기화',
+      preview: {
+        bg: 'linear-gradient(90deg, #fff 50%, #0f172a 50%)',
+        text: '#64748b',
+        accent: '#8b5cf6',
+      },
+    },
   ]
 
   return (
     <div style={{ width: 400 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 12 }}>테마 설정</div>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+          marginBottom: 12,
+        }}
+      >
+        테마 설정
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {themes.map((theme) => (
           <label
             key={theme.value}
-            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 10, border: `2px solid ${selected === theme.value ? '#6366f1' : 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)'}`, cursor: 'pointer', background: selected === theme.value ? '#eff6ff' : 'var(--sem-eclipse-color-backgroundPrimary, #fff)', transition: 'all 150ms' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '12px 14px',
+              borderRadius: 10,
+              border: `2px solid ${selected === theme.value ? '#6366f1' : 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)'}`,
+              cursor: 'pointer',
+              background:
+                selected === theme.value
+                  ? '#eff6ff'
+                  : 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
+              transition: 'all 150ms',
+            }}
           >
             <RadioButton
               value={theme.value}
               checked={selected === theme.value}
               onChange={() => setSelected(theme.value)}
             />
-            <div style={{ width: 36, height: 24, borderRadius: 5, background: theme.preview.bg, border: '1px solid #e2e8f0', flexShrink: 0 }} />
+            <div
+              style={{
+                width: 36,
+                height: 24,
+                borderRadius: 5,
+                background: theme.preview.bg,
+                border: '1px solid #e2e8f0',
+                flexShrink: 0,
+              }}
+            />
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{theme.label}</div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+                }}
+              >
+                {theme.label}
+              </div>
               <div style={{ fontSize: 11, color: '#64748b' }}>{theme.desc}</div>
             </div>
           </label>
         ))}
       </div>
-      <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', fontSize: 12, color: '#64748b' }}>
-        현재 선택: <strong style={{ color: '#6366f1' }}>{themes.find((t) => t.value === selected)?.label}</strong>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '8px 12px',
+          borderRadius: 8,
+          background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+          fontSize: 12,
+          color: '#64748b',
+        }}
+      >
+        현재 선택:{' '}
+        <strong style={{ color: '#6366f1' }}>
+          {themes.find((t) => t.value === selected)?.label}
+        </strong>
       </div>
     </div>
   )
@@ -1550,7 +2306,8 @@ export const Accessible_테마_선택_라디오: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI 테마 설정 패턴. 라이트/다크/시스템 3가지 RadioButton, 선택 시 카드 border 강조 + 배경 변화. 미리보기 컬러 스와치 동반.',
+        story:
+          'AccessibleUI 테마 설정 패턴. 라이트/다크/시스템 3가지 RadioButton, 선택 시 카드 border 강조 + 배경 변화. 미리보기 컬러 스와치 동반.',
       },
     },
   },
@@ -1574,16 +2331,41 @@ function DataProductDataExportRadioRender() {
 
   return (
     <div style={{ width: 440 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 14 }}>데이터 내보내기 설정</div>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+          marginBottom: 14,
+        }}
+      >
+        데이터 내보내기 설정
+      </div>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>파일 형식</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>
+          파일 형식
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
           {formats.map((f) => (
             <label
               key={f.value}
-              style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '10px 12px', borderRadius: 8, border: `1px solid ${format === f.value ? '#6366f1' : '#e2e8f0'}`, cursor: 'pointer', background: format === f.value ? '#eff6ff' : '#fff', transition: 'all 150ms' }}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 8,
+                padding: '10px 12px',
+                borderRadius: 8,
+                border: `1px solid ${format === f.value ? '#6366f1' : '#e2e8f0'}`,
+                cursor: 'pointer',
+                background: format === f.value ? '#eff6ff' : '#fff',
+                transition: 'all 150ms',
+              }}
             >
-              <RadioButton value={f.value} checked={format === f.value} onChange={() => setFormat(f.value)} />
+              <RadioButton
+                value={f.value}
+                checked={format === f.value}
+                onChange={() => setFormat(f.value)}
+              />
               <div>
                 <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>{f.label}</div>
                 <div style={{ fontSize: 10, color: '#64748b' }}>{f.desc}</div>
@@ -1594,18 +2376,37 @@ function DataProductDataExportRadioRender() {
         </div>
       </div>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>인코딩</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>
+          인코딩
+        </div>
         <Flex gap="small">
           {encodings.map((e) => (
-            <label key={e.value} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
-              <RadioButton value={e.value} checked={encoding === e.value} onChange={() => setEncoding(e.value)} />
+            <label
+              key={e.value}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}
+            >
+              <RadioButton
+                value={e.value}
+                checked={encoding === e.value}
+                onChange={() => setEncoding(e.value)}
+              />
               <span style={{ fontSize: 12, color: '#475569' }}>{e.label}</span>
             </label>
           ))}
         </Flex>
       </div>
-      <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b' }}>
-        내보낼 파일: <strong style={{ color: '#0f172a' }}>export.{format}</strong> ({encodings.find((e) => e.value === encoding)?.label})
+      <div
+        style={{
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          fontSize: 12,
+          color: '#64748b',
+        }}
+      >
+        내보낼 파일: <strong style={{ color: '#0f172a' }}>export.{format}</strong> (
+        {encodings.find((e) => e.value === encoding)?.label})
       </div>
     </div>
   )
@@ -1617,7 +2418,8 @@ export const DataProduct_데이터_내보내기_형식_라디오: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI 데이터 내보내기 폼 패턴. 파일 형식 4가지 카드형 RadioButton + 인코딩 3가지 인라인 RadioButton. 선택값으로 파일명 동적 생성.',
+        story:
+          'DataProductUI 데이터 내보내기 폼 패턴. 파일 형식 4가지 카드형 RadioButton + 인코딩 3가지 인라인 RadioButton. 선택값으로 파일명 동적 생성.',
       },
     },
   },
@@ -1635,18 +2437,63 @@ function AccessibleDataProductNotificationRadioRender() {
     { value: 'daily', label: '매일', desc: '하루 1회 다이제스트', icon: '📅' },
     { value: 'off', label: '끄기', desc: '알림 비활성화', icon: '🔕' },
   ]
-  const channels = [{ value: 'push', label: '푸시' }, { value: 'email', label: '이메일' }, { value: 'slack', label: 'Slack' }]
-  const priorities = [{ value: 'all', label: '전체' }, { value: 'important', label: '중요만' }, { value: 'urgent', label: '긴급만' }]
+  const channels = [
+    { value: 'push', label: '푸시' },
+    { value: 'email', label: '이메일' },
+    { value: 'slack', label: 'Slack' },
+  ]
+  const priorities = [
+    { value: 'all', label: '전체' },
+    { value: 'important', label: '중요만' },
+    { value: 'urgent', label: '긴급만' },
+  ]
 
   return (
     <div style={{ width: 420 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 14 }}>알림 설정</div>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+          marginBottom: 14,
+        }}
+      >
+        알림 설정
+      </div>
       <div style={{ marginBottom: 14 }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>발송 주기</div>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+            marginBottom: 8,
+          }}
+        >
+          발송 주기
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
           {frequencies.map((f) => (
-            <label key={f.value} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 8, border: `1px solid ${frequency === f.value ? '#6366f1' : '#e2e8f0'}`, cursor: 'pointer', background: frequency === f.value ? '#eff6ff' : '#fff', transition: 'all 150ms' }}>
-              <RadioButton value={f.value} checked={frequency === f.value} onChange={() => setFrequency(f.value)} />
+            <label
+              key={f.value}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 12px',
+                borderRadius: 8,
+                border: `1px solid ${frequency === f.value ? '#6366f1' : '#e2e8f0'}`,
+                cursor: 'pointer',
+                background: frequency === f.value ? '#eff6ff' : '#fff',
+                transition: 'all 150ms',
+              }}
+            >
+              <RadioButton
+                value={f.value}
+                checked={frequency === f.value}
+                onChange={() => setFrequency(f.value)}
+              />
               <span style={{ fontSize: 14 }}>{f.icon}</span>
               <div>
                 <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a' }}>{f.label}</div>
@@ -1657,29 +2504,77 @@ function AccessibleDataProductNotificationRadioRender() {
         </div>
       </div>
       <div style={{ marginBottom: 14 }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>채널</div>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+            marginBottom: 8,
+          }}
+        >
+          채널
+        </div>
         <Flex gap="medium">
           {channels.map((c) => (
-            <label key={c.value} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
-              <RadioButton value={c.value} checked={channel === c.value} onChange={() => setChannel(c.value)} />
+            <label
+              key={c.value}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}
+            >
+              <RadioButton
+                value={c.value}
+                checked={channel === c.value}
+                onChange={() => setChannel(c.value)}
+              />
               <span style={{ fontSize: 12, color: '#475569' }}>{c.label}</span>
             </label>
           ))}
         </Flex>
       </div>
       <div style={{ marginBottom: 14 }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>우선순위 필터</div>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+            marginBottom: 8,
+          }}
+        >
+          우선순위 필터
+        </div>
         <Flex gap="medium">
           {priorities.map((p) => (
-            <label key={p.value} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
-              <RadioButton value={p.value} checked={priority === p.value} onChange={() => setPriority(p.value)} />
+            <label
+              key={p.value}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}
+            >
+              <RadioButton
+                value={p.value}
+                checked={priority === p.value}
+                onChange={() => setPriority(p.value)}
+              />
               <span style={{ fontSize: 12, color: '#475569' }}>{p.label}</span>
             </label>
           ))}
         </Flex>
       </div>
-      <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 11, color: '#64748b', lineHeight: 1.6 }}>
-        {frequencies.find((f) => f.value === frequency)?.label} · {channels.find((c) => c.value === channel)?.label} · {priorities.find((p) => p.value === priority)?.label} 알림
+      <div
+        style={{
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          fontSize: 11,
+          color: '#64748b',
+          lineHeight: 1.6,
+        }}
+      >
+        {frequencies.find((f) => f.value === frequency)?.label} ·{' '}
+        {channels.find((c) => c.value === channel)?.label} ·{' '}
+        {priorities.find((p) => p.value === priority)?.label} 알림
       </div>
     </div>
   )
@@ -1691,7 +2586,8 @@ export const Accessible_DataProduct_알림_설정_라디오: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI + DataProductUI 알림 환경설정 패턴. 발송 주기(카드형) + 채널 + 우선순위 3개 RadioButton 그룹 독립 제어. 선택 조합 요약 문구 실시간 생성.',
+        story:
+          'AccessibleUI + DataProductUI 알림 환경설정 패턴. 발송 주기(카드형) + 채널 + 우선순위 3개 RadioButton 그룹 독립 제어. 선택 조합 요약 문구 실시간 생성.',
       },
     },
   },

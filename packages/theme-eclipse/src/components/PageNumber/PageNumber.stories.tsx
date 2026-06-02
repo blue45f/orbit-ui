@@ -12,7 +12,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "PageNumber는 페이지네이션의 개별 페이지 번호 버튼 컴포넌트입니다. 현재/비활성/비활성화 상태를 지원합니다.",
+        component:
+          'PageNumber는 페이지네이션의 개별 페이지 번호 버튼 컴포넌트입니다. 현재/비활성/비활성화 상태를 지원합니다.',
       },
     },
   },
@@ -181,8 +182,22 @@ const PrimitivePaginationRender = () => {
         총 {RADIX_TOTAL_ITEMS}개 항목 중 {startItem}-{endItem} 표시
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
-        {Array.from({ length: Math.min(RADIX_PAGE_SIZE, RADIX_TOTAL_ITEMS - (current - 1) * RADIX_PAGE_SIZE) }).map((_, i) => (
-          <div key={i} style={{ padding: '10px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, color: '#0f172a', display: 'flex', justifyContent: 'space-between' }}>
+        {Array.from({
+          length: Math.min(RADIX_PAGE_SIZE, RADIX_TOTAL_ITEMS - (current - 1) * RADIX_PAGE_SIZE),
+        }).map((_, i) => (
+          <div
+            key={i}
+            style={{
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              fontSize: 13,
+              color: '#0f172a',
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
             <span>항목 #{startItem + i}</span>
             <span style={{ fontSize: 11, color: '#94a3b8' }}>데이터 {startItem + i}</span>
           </div>
@@ -190,9 +205,17 @@ const PrimitivePaginationRender = () => {
       </div>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'center' }}>
         <button
-          onClick={() => setCurrent(c => Math.max(1, c - 1))}
+          onClick={() => setCurrent((c) => Math.max(1, c - 1))}
           disabled={current === 1}
-          style={{ padding: '6px 12px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: current === 1 ? 'not-allowed' : 'pointer', opacity: current === 1 ? 0.4 : 1 }}
+          style={{
+            padding: '6px 12px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 12,
+            cursor: current === 1 ? 'not-allowed' : 'pointer',
+            opacity: current === 1 ? 0.4 : 1,
+          }}
         >
           이전
         </button>
@@ -201,25 +224,42 @@ const PrimitivePaginationRender = () => {
           const isActive = page === current
           const isNear = Math.abs(page - current) <= 1 || page === 1 || page === total
           if (!isNear) {
-            if (page === 2 || page === total - 1) return <span key={i} style={{ fontSize: 12, color: '#94a3b8' }}>···</span>
+            if (page === 2 || page === total - 1)
+              return (
+                <span key={i} style={{ fontSize: 12, color: '#94a3b8' }}>
+                  ···
+                </span>
+              )
             return null
           }
           return (
             <div key={i} onClick={() => setCurrent(page)} style={{ cursor: 'pointer' }}>
-              <PageNumber current={isActive ? 1 : 0} total={1}>{page}</PageNumber>
+              <PageNumber current={isActive ? 1 : 0} total={1}>
+                {page}
+              </PageNumber>
             </div>
           )
         })}
         <button
-          onClick={() => setCurrent(c => Math.min(total, c + 1))}
+          onClick={() => setCurrent((c) => Math.min(total, c + 1))}
           disabled={current === total}
-          style={{ padding: '6px 12px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: current === total ? 'not-allowed' : 'pointer', opacity: current === total ? 0.4 : 1 }}
+          style={{
+            padding: '6px 12px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 12,
+            cursor: current === total ? 'not-allowed' : 'pointer',
+            opacity: current === total ? 0.4 : 1,
+          }}
         >
           다음
         </button>
         <PageNumber current={current} total={total} />
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>PrimitiveUI Pagination 패턴 — 데이터 리스트 페이지 네이션</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        PrimitiveUI Pagination 패턴 — 데이터 리스트 페이지 네이션
+      </div>
     </div>
   )
 }
@@ -229,7 +269,8 @@ export const Primitive_페이지네이션_데이터_리스트: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI Pagination 패턴. 총 87개 항목을 10개씩 나눠 PageNumber와 이전/다음 버튼으로 페이지를 전환합니다. 현재 표시 범위와 total/current 상태를 실시간으로 보여줍니다.',
+        story:
+          'PrimitiveUI Pagination 패턴. 총 87개 항목을 10개씩 나눠 PageNumber와 이전/다음 버튼으로 페이지를 전환합니다. 현재 표시 범위와 total/current 상태를 실시간으로 보여줍니다.',
       },
     },
   },
@@ -262,42 +303,119 @@ const AntDesignStepperRender = () => {
           const isDone = s.id < step
           const isActive = s.id === step
           return (
-            <div key={s.id} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+            <div
+              key={s.id}
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                position: 'relative',
+              }}
+            >
               {i < ANT_STEPS.length - 1 && (
-                <div style={{ position: 'absolute', top: 14, left: '50%', width: '100%', height: 2, background: isDone ? '#6366f1' : '#e2e8f0', zIndex: 0 }} />
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 14,
+                    left: '50%',
+                    width: '100%',
+                    height: 2,
+                    background: isDone ? '#6366f1' : '#e2e8f0',
+                    zIndex: 0,
+                  }}
+                />
               )}
-              <div style={{ width: 28, height: 28, borderRadius: '50%', background: isDone ? '#6366f1' : isActive ? '#fff' : '#f1f5f9', border: `2px solid ${isActive ? '#6366f1' : isDone ? '#6366f1' : '#e2e8f0'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: isDone ? '#fff' : isActive ? '#6366f1' : '#94a3b8', zIndex: 1, position: 'relative' }}>
+              <div
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: '50%',
+                  background: isDone ? '#6366f1' : isActive ? '#fff' : '#f1f5f9',
+                  border: `2px solid ${isActive ? '#6366f1' : isDone ? '#6366f1' : '#e2e8f0'}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  color: isDone ? '#fff' : isActive ? '#6366f1' : '#94a3b8',
+                  zIndex: 1,
+                  position: 'relative',
+                }}
+              >
                 {isDone ? '✓' : s.id}
               </div>
-              <div style={{ fontSize: 10, color: isActive ? '#6366f1' : '#94a3b8', marginTop: 4, fontWeight: isActive ? 700 : 400, textAlign: 'center' }}>{s.title}</div>
+              <div
+                style={{
+                  fontSize: 10,
+                  color: isActive ? '#6366f1' : '#94a3b8',
+                  marginTop: 4,
+                  fontWeight: isActive ? 700 : 400,
+                  textAlign: 'center',
+                }}
+              >
+                {s.title}
+              </div>
             </div>
           )
         })}
       </div>
       {/* Content */}
-      <div style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: 12, background: '#fff', marginBottom: 16, minHeight: 80 }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>{current.title}</div>
+      <div
+        style={{
+          padding: '20px',
+          border: '1px solid #e2e8f0',
+          borderRadius: 12,
+          background: '#fff',
+          marginBottom: 16,
+          minHeight: 80,
+        }}
+      >
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>
+          {current.title}
+        </div>
         <div style={{ fontSize: 13, color: '#64748b' }}>{current.desc}</div>
       </div>
       {/* Footer */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <button
-          onClick={() => setStep(s => Math.max(1, s - 1))}
+          onClick={() => setStep((s) => Math.max(1, s - 1))}
           disabled={step === 1}
-          style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, fontWeight: 600, cursor: step === 1 ? 'not-allowed' : 'pointer', opacity: step === 1 ? 0.4 : 1, color: '#334155' }}
+          style={{
+            padding: '8px 16px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: step === 1 ? 'not-allowed' : 'pointer',
+            opacity: step === 1 ? 0.4 : 1,
+            color: '#334155',
+          }}
         >
           이전
         </button>
         <PageNumber current={step} total={total} />
         <button
-          onClick={() => setStep(s => Math.min(total, s + 1))}
+          onClick={() => setStep((s) => Math.min(total, s + 1))}
           disabled={step === total}
-          style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: step === total ? '#22c55e' : '#6366f1', color: '#fff', fontSize: 13, fontWeight: 600, cursor: step === total ? 'not-allowed' : 'pointer' }}
+          style={{
+            padding: '8px 16px',
+            borderRadius: 8,
+            border: 'none',
+            background: step === total ? '#22c55e' : '#6366f1',
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: step === total ? 'not-allowed' : 'pointer',
+          }}
         >
           {step === total ? '완료!' : '다음'}
         </button>
       </div>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Ant Design Steps 패턴 — 프로젝트 생성 멀티스텝 위저드</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Ant Design Steps 패턴 — 프로젝트 생성 멀티스텝 위저드
+      </div>
     </div>
   )
 }
@@ -307,7 +425,8 @@ export const Ant_멀티스텝_위저드_네비게이션: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design Steps 컴포넌트 패턴. PageNumber로 현재 단계/전체 단계를 표시하고, 이전/다음 버튼으로 스텝을 전환합니다. 프로젝트 생성, 온보딩, 결제 플로우 등에 활용됩니다.',
+        story:
+          'Ant Design Steps 컴포넌트 패턴. PageNumber로 현재 단계/전체 단계를 표시하고, 이전/다음 버튼으로 스텝을 전환합니다. 프로젝트 생성, 온보딩, 결제 플로우 등에 활용됩니다.',
       },
     },
   },
@@ -329,28 +448,80 @@ const AntGalleryPaginationRender = () => {
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 20 }}>
+      <div
+        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 20 }}
+      >
         {items.map((item) => (
-          <div key={item.id} style={{ aspectRatio: '1', borderRadius: 12, background: item.color + '15', border: `1px solid ${item.color}30`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
-            <div style={{ width: 28, height: 28, borderRadius: 8, background: item.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 800 }}>{item.id}</div>
+          <div
+            key={item.id}
+            style={{
+              aspectRatio: '1',
+              borderRadius: 12,
+              background: item.color + '15',
+              border: `1px solid ${item.color}30`,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 4,
+            }}
+          >
+            <div
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: 8,
+                background: item.color,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                fontSize: 11,
+                fontWeight: 800,
+              }}
+            >
+              {item.id}
+            </div>
             <div style={{ fontSize: 10, color: item.color, fontWeight: 700 }}>{item.category}</div>
           </div>
         ))}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
         <button
-          onClick={() => setPage(p => Math.max(1, p - 1))}
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={page === 1}
-          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
-        >{'<'}</button>
+          style={{
+            padding: '5px 10px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 12,
+            cursor: page === 1 ? 'not-allowed' : 'pointer',
+            opacity: page === 1 ? 0.4 : 1,
+          }}
+        >
+          {'<'}
+        </button>
         <PageNumber current={page} total={total} />
         <button
-          onClick={() => setPage(p => Math.min(total, p + 1))}
+          onClick={() => setPage((p) => Math.min(total, p + 1))}
           disabled={page === total}
-          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: page === total ? 'not-allowed' : 'pointer', opacity: page === total ? 0.4 : 1 }}
-        >{'>'}</button>
+          style={{
+            padding: '5px 10px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 12,
+            cursor: page === total ? 'not-allowed' : 'pointer',
+            opacity: page === total ? 0.4 : 1,
+          }}
+        >
+          {'>'}
+        </button>
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Ant Design Pagination + 갤러리 그리드 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Ant Design Pagination + 갤러리 그리드 패턴
+      </div>
     </div>
   )
 }
@@ -360,7 +531,8 @@ export const Ant_갤러리_그리드_페이지네이션: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design Pagination의 갤러리 그리드 패턴. 24개 컴포넌트 카드를 6개씩 나눠 4페이지로 표시합니다. 이미지 갤러리, 컴포넌트 카탈로그, 상품 그리드 등의 페이지네이션에 활용됩니다.',
+        story:
+          'Ant Design Pagination의 갤러리 그리드 패턴. 24개 컴포넌트 카드를 6개씩 나눠 4페이지로 표시합니다. 이미지 갤러리, 컴포넌트 카탈로그, 상품 그리드 등의 페이지네이션에 활용됩니다.',
       },
     },
   },
@@ -410,19 +582,31 @@ const ComposableUIArticlePaginationRender = () => {
           <div
             key={i}
             style={{
-              display: 'flex', alignItems: 'center', gap: 12,
-              padding: '12px 14px', borderRadius: 8, background: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '12px 14px',
+              borderRadius: 8,
+              background: '#fff',
               border: '1px solid #f1f5f9',
             }}
           >
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>{article.title}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>
+                {article.title}
+              </div>
               <div style={{ fontSize: 11, color: '#94a3b8' }}>{article.date}</div>
             </div>
-            <span style={{
-              fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20,
-              background: '#f0f9ff', color: '#0284c7',
-            }}>
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                padding: '2px 8px',
+                borderRadius: 20,
+                background: '#f0f9ff',
+                color: '#0284c7',
+              }}
+            >
               {article.category}
             </span>
           </div>
@@ -433,25 +617,53 @@ const ComposableUIArticlePaginationRender = () => {
         <button
           onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={page === 1}
-          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
+          style={{
+            padding: '5px 10px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 12,
+            cursor: page === 1 ? 'not-allowed' : 'pointer',
+            opacity: page === 1 ? 0.4 : 1,
+          }}
         >
           이전
         </button>
         {pageNums.map((n, i) =>
-          n === '...'
-            ? <span key={`ellipsis-${i}`} style={{ width: 28, textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>...</span>
-            : <div key={n} onClick={() => setPage(n as number)} style={{ cursor: "pointer" }}><PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber></div>
+          n === '...' ? (
+            <span
+              key={`ellipsis-${i}`}
+              style={{ width: 28, textAlign: 'center', fontSize: 12, color: '#94a3b8' }}
+            >
+              ...
+            </span>
+          ) : (
+            <div key={n} onClick={() => setPage(n as number)} style={{ cursor: 'pointer' }}>
+              <PageNumber current={n === page ? 1 : 0} total={1}>
+                {n}
+              </PageNumber>
+            </div>
+          )
         )}
         <button
           onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
           disabled={page === totalPages}
-          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}
+          style={{
+            padding: '5px 10px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 12,
+            cursor: page === totalPages ? 'not-allowed' : 'pointer',
+            opacity: page === totalPages ? 0.4 : 1,
+          }}
         >
           다음
         </button>
       </div>
       <div style={{ textAlign: 'center', fontSize: 11, color: '#94a3b8', marginTop: 8 }}>
-        {(page - 1) * PER_PAGE + 1}–{Math.min(page * PER_PAGE, UTILITYUI_ARTICLES.length)} / {UTILITYUI_ARTICLES.length}건
+        {(page - 1) * PER_PAGE + 1}–{Math.min(page * PER_PAGE, UTILITYUI_ARTICLES.length)} /{' '}
+        {UTILITYUI_ARTICLES.length}건
       </div>
     </div>
   )
@@ -475,7 +687,14 @@ export const ComposableUI_아티클_목록_페이지네이션: Story = {
    DeployPlatform Design 벤치마크: 배포 로그 페이지네이션
    DeployPlatform Dashboard 스타일 — 컴팩트 테이블 + 페이지 번호 패턴
 -------------------------------------------------------------------------- */
-type DeployLog = { id: string; env: string; status: string; branch: string; time: string; dur: string }
+type DeployLog = {
+  id: string
+  env: string
+  status: string
+  branch: string
+  time: string
+  dur: string
+}
 
 const DEPLOY_LOGS: DeployLog[] = Array.from({ length: 30 }, (_, i) => ({
   id: `deploy_${(Math.abs(Math.sin(i) * 1e9) | 0).toString(16).slice(0, 8)}`,
@@ -501,29 +720,114 @@ const DeployPlatformDeployLogRender = () => {
 
   return (
     <div style={{ width: 620, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 14,
+        }}
+      >
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>배포 로그</div>
-        <div style={{ fontSize: 12, color: '#94a3b8' }}>{DEPLOY_LOGS.length}건 · 페이지 {page}/{total}</div>
+        <div style={{ fontSize: 12, color: '#94a3b8' }}>
+          {DEPLOY_LOGS.length}건 · 페이지 {page}/{total}
+        </div>
       </div>
       {/* 테이블 */}
-      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: 14 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '160px 100px 80px 1fr 80px 60px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+      <div
+        style={{
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+          marginBottom: 14,
+        }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '160px 100px 80px 1fr 80px 60px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+          }}
+        >
           {['배포 ID', '환경', '상태', '브랜치', '시간', '빌드'].map((h) => (
-            <div key={h} style={{ padding: '8px 12px', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</div>
+            <div
+              key={h}
+              style={{
+                padding: '8px 12px',
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+              }}
+            >
+              {h}
+            </div>
           ))}
         </div>
         {logs.map((log, i) => {
           const st = STATUS_STYLE[log.status] ?? { color: '#64748b', bg: '#f8fafc' }
           return (
-            <div key={log.id} style={{ display: 'grid', gridTemplateColumns: '160px 100px 80px 1fr 80px 60px', borderBottom: i < logs.length - 1 ? '1px solid #f8fafc' : 'none', background: '#fff', alignItems: 'center' }}>
-              <div style={{ padding: '10px 12px', fontSize: 11, fontFamily: 'monospace', color: '#6366f1' }}>{log.id}</div>
+            <div
+              key={log.id}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '160px 100px 80px 1fr 80px 60px',
+                borderBottom: i < logs.length - 1 ? '1px solid #f8fafc' : 'none',
+                background: '#fff',
+                alignItems: 'center',
+              }}
+            >
+              <div
+                style={{
+                  padding: '10px 12px',
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: '#6366f1',
+                }}
+              >
+                {log.id}
+              </div>
               <div style={{ padding: '10px 12px', fontSize: 11, color: '#475569' }}>{log.env}</div>
               <div style={{ padding: '10px 12px' }}>
-                <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 20, color: st.color, background: st.bg }}>{log.status}</span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: '2px 7px',
+                    borderRadius: 20,
+                    color: st.color,
+                    background: st.bg,
+                  }}
+                >
+                  {log.status}
+                </span>
               </div>
-              <div style={{ padding: '10px 12px', fontSize: 11, color: '#64748b', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{log.branch}</div>
+              <div
+                style={{
+                  padding: '10px 12px',
+                  fontSize: 11,
+                  color: '#64748b',
+                  fontFamily: 'monospace',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {log.branch}
+              </div>
               <div style={{ padding: '10px 12px', fontSize: 11, color: '#94a3b8' }}>{log.time}</div>
-              <div style={{ padding: '10px 12px', fontSize: 11, color: '#94a3b8', fontVariantNumeric: 'tabular-nums' }}>{log.dur}</div>
+              <div
+                style={{
+                  padding: '10px 12px',
+                  fontSize: 11,
+                  color: '#94a3b8',
+                  fontVariantNumeric: 'tabular-nums',
+                }}
+              >
+                {log.dur}
+              </div>
             </div>
           )
         })}
@@ -533,19 +837,37 @@ const DeployPlatformDeployLogRender = () => {
         <button
           onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={page === 1}
-          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
+          style={{
+            padding: '5px 10px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 11,
+            cursor: page === 1 ? 'not-allowed' : 'pointer',
+            opacity: page === 1 ? 0.4 : 1,
+          }}
         >
           이전
         </button>
         {Array.from({ length: total }, (_, i) => i + 1).map((n) => (
           <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
-            <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+            <PageNumber current={n === page ? 1 : 0} total={1}>
+              {n}
+            </PageNumber>
           </div>
         ))}
         <button
           onClick={() => setPage((p) => Math.min(total, p + 1))}
           disabled={page === total}
-          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === total ? 'not-allowed' : 'pointer', opacity: page === total ? 0.4 : 1 }}
+          style={{
+            padding: '5px 10px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 11,
+            cursor: page === total ? 'not-allowed' : 'pointer',
+            opacity: page === total ? 0.4 : 1,
+          }}
         >
           다음
         </button>
@@ -592,7 +914,10 @@ const COMMENT_PAGE_SIZE = 5
 const ComposableUICommentPaginationRender = () => {
   const [page, setPage] = useState(1)
   const total = Math.ceil(UTILITYUI_COMMENTS.length / COMMENT_PAGE_SIZE)
-  const comments = UTILITYUI_COMMENTS.slice((page - 1) * COMMENT_PAGE_SIZE, page * COMMENT_PAGE_SIZE)
+  const comments = UTILITYUI_COMMENTS.slice(
+    (page - 1) * COMMENT_PAGE_SIZE,
+    page * COMMENT_PAGE_SIZE
+  )
 
   return (
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
@@ -602,8 +927,32 @@ const ComposableUICommentPaginationRender = () => {
       {/* 댓글 목록 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
         {comments.map((c, i) => (
-          <div key={i} style={{ display: 'flex', gap: 12, padding: '14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
-            <div style={{ width: 36, height: 36, borderRadius: '50%', background: c.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>
+          <div
+            key={i}
+            style={{
+              display: 'flex',
+              gap: 12,
+              padding: '14px',
+              borderRadius: 10,
+              border: '1px solid #f1f5f9',
+              background: '#fff',
+            }}
+          >
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                background: c.color,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                fontSize: 12,
+                fontWeight: 700,
+                flexShrink: 0,
+              }}
+            >
               {c.avatar}
             </div>
             <div style={{ flex: 1 }}>
@@ -612,9 +961,7 @@ const ComposableUICommentPaginationRender = () => {
                 <span style={{ fontSize: 11, color: '#94a3b8' }}>{c.time}</span>
               </div>
               <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.5 }}>{c.text}</div>
-              <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
-                좋아요 {c.likes}
-              </div>
+              <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>좋아요 {c.likes}</div>
             </div>
           </div>
         ))}
@@ -624,19 +971,46 @@ const ComposableUICommentPaginationRender = () => {
         <button
           onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={page === 1}
-          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
+          style={{
+            padding: '5px 10px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 11,
+            cursor: page === 1 ? 'not-allowed' : 'pointer',
+            opacity: page === 1 ? 0.4 : 1,
+          }}
         >
           이전
         </button>
         {buildPageNums(page, total).map((n, i) =>
-          n === '...'
-            ? <span key={`e-${i}`} style={{ width: 24, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>...</span>
-            : <div key={n} onClick={() => setPage(n as number)} style={{ cursor: "pointer" }}><PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber></div>
+          n === '...' ? (
+            <span
+              key={`e-${i}`}
+              style={{ width: 24, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}
+            >
+              ...
+            </span>
+          ) : (
+            <div key={n} onClick={() => setPage(n as number)} style={{ cursor: 'pointer' }}>
+              <PageNumber current={n === page ? 1 : 0} total={1}>
+                {n}
+              </PageNumber>
+            </div>
+          )
         )}
         <button
           onClick={() => setPage((p) => Math.min(total, p + 1))}
           disabled={page === total}
-          style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: page === total ? 'not-allowed' : 'pointer', opacity: page === total ? 0.4 : 1 }}
+          style={{
+            padding: '5px 10px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 11,
+            cursor: page === total ? 'not-allowed' : 'pointer',
+            opacity: page === total ? 0.4 : 1,
+          }}
         >
           다음
         </button>
@@ -666,13 +1040,27 @@ export const ComposableUI_댓글_스레드_페이지네이션: Story = {
 // IssueTracker 스타일 — 이슈 목록 컴팩트 페이지네이션 (미니멀, 밀도 높은 UI)
 const TRACKER_ISSUES = Array.from({ length: 48 }, (_, i) => ({
   id: `ORB-${1024 - i}`,
-  title: ['Button 토큰 시스템 리팩터링', 'Tooltip 접근성 개선', 'DataTable 정렬 버그', 'Modal 포커스 트랩', 'Space 컴포넌트 문서화', 'Carousel 터치 지원', 'Badge 색상 확장', 'Select 키보드 내비게이션', 'Form 유효성 검사 패턴', 'Icon 사이즈 스펙 정리'][i % 10],
+  title: [
+    'Button 토큰 시스템 리팩터링',
+    'Tooltip 접근성 개선',
+    'DataTable 정렬 버그',
+    'Modal 포커스 트랩',
+    'Space 컴포넌트 문서화',
+    'Carousel 터치 지원',
+    'Badge 색상 확장',
+    'Select 키보드 내비게이션',
+    'Form 유효성 검사 패턴',
+    'Icon 사이즈 스펙 정리',
+  ][i % 10],
   priority: (['urgent', 'high', 'medium', 'low'] as const)[i % 4],
   status: (['backlog', 'todo', 'in-progress', 'done'] as const)[i % 4],
 }))
 
 const PRIORITY_DOT: Record<string, string> = {
-  urgent: '#ef4444', high: '#f97316', medium: '#3b82f6', low: '#94a3b8',
+  urgent: '#ef4444',
+  high: '#f97316',
+  medium: '#3b82f6',
+  low: '#94a3b8',
 }
 
 const STATUS_LABEL: Record<string, { label: string; color: string }> = {
@@ -691,53 +1079,126 @@ function IssueTrackerIssueListPaginationRender() {
   return (
     <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
       {/* 헤더 */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 8,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>이슈 목록</span>
         <span style={{ fontSize: 12, color: '#94a3b8' }}>{TRACKER_ISSUES.length}개</span>
       </div>
       {/* 이슈 목록 */}
       <div style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
         {items.map((issue, i) => (
-          <div key={issue.id} style={{
-            display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px',
-            borderBottom: i < items.length - 1 ? '1px solid #f1f5f9' : 'none',
-            background: '#fff',
-          }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: PRIORITY_DOT[issue.priority], flexShrink: 0 }} />
-            <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', width: 70, flexShrink: 0 }}>{issue.id}</span>
-            <span style={{ flex: 1, fontSize: 13, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{issue.title}</span>
-            <span style={{
-              fontSize: 11, padding: '2px 7px', borderRadius: 99, fontWeight: 500,
-              background: STATUS_LABEL[issue.status].color + '18',
-              color: STATUS_LABEL[issue.status].color,
-            }}>
+          <div
+            key={issue.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '8px 12px',
+              borderBottom: i < items.length - 1 ? '1px solid #f1f5f9' : 'none',
+              background: '#fff',
+            }}
+          >
+            <span
+              style={{
+                width: 7,
+                height: 7,
+                borderRadius: '50%',
+                background: PRIORITY_DOT[issue.priority],
+                flexShrink: 0,
+              }}
+            />
+            <span
+              style={{
+                fontSize: 11,
+                color: '#94a3b8',
+                fontFamily: 'monospace',
+                width: 70,
+                flexShrink: 0,
+              }}
+            >
+              {issue.id}
+            </span>
+            <span
+              style={{
+                flex: 1,
+                fontSize: 13,
+                color: '#1e293b',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {issue.title}
+            </span>
+            <span
+              style={{
+                fontSize: 11,
+                padding: '2px 7px',
+                borderRadius: 99,
+                fontWeight: 500,
+                background: STATUS_LABEL[issue.status].color + '18',
+                color: STATUS_LABEL[issue.status].color,
+              }}
+            >
               {STATUS_LABEL[issue.status].label}
             </span>
           </div>
         ))}
       </div>
       {/* 페이지네이션 */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginTop: 10,
+        }}
+      >
         <span style={{ fontSize: 11, color: '#94a3b8' }}>
-          {(page - 1) * PAGE_SIZE_TRACKER + 1}–{Math.min(page * PAGE_SIZE_TRACKER, TRACKER_ISSUES.length)} / {TRACKER_ISSUES.length}
+          {(page - 1) * PAGE_SIZE_TRACKER + 1}–
+          {Math.min(page * PAGE_SIZE_TRACKER, TRACKER_ISSUES.length)} / {TRACKER_ISSUES.length}
         </span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            style={{ padding: '4px 8px', fontSize: 11, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}
+            style={{
+              padding: '4px 8px',
+              fontSize: 11,
+              borderRadius: 5,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              cursor: page === 1 ? 'not-allowed' : 'pointer',
+              opacity: page === 1 ? 0.4 : 1,
+            }}
           >
             ‹
           </button>
           {Array.from({ length: total }, (_, i) => i + 1).map((n) => (
             <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
-              <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+              <PageNumber current={n === page ? 1 : 0} total={1}>
+                {n}
+              </PageNumber>
             </div>
           ))}
           <button
             onClick={() => setPage((p) => Math.min(total, p + 1))}
             disabled={page === total}
-            style={{ padding: '4px 8px', fontSize: 11, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: page === total ? 'not-allowed' : 'pointer', opacity: page === total ? 0.4 : 1 }}
+            style={{
+              padding: '4px 8px',
+              fontSize: 11,
+              borderRadius: 5,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              cursor: page === total ? 'not-allowed' : 'pointer',
+              opacity: page === total ? 0.4 : 1,
+            }}
           >
             ›
           </button>
@@ -773,7 +1234,9 @@ const DEPLOY_DEPLOYS = Array.from({ length: 30 }, (_, i) => ({
 }))
 
 const DEPLOY_STATUS_COLOR: Record<string, string> = {
-  ready: '#22c55e', error: '#ef4444', building: '#f59e0b',
+  ready: '#22c55e',
+  error: '#ef4444',
+  building: '#f59e0b',
 }
 
 function DeployPlatformDeployHistoryRender() {
@@ -783,31 +1246,74 @@ function DeployPlatformDeployHistoryRender() {
   const items = DEPLOY_DEPLOYS.slice((page - 1) * pageSize, page * pageSize)
   return (
     <div style={{ width: 540, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 12,
+        }}
+      >
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>배포 이력</span>
         <PageNumber current={page} total={total} />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {items.map((d) => (
-          <div key={d.id} style={{
-            display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px',
-            borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff',
-          }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: DEPLOY_STATUS_COLOR[d.status], flexShrink: 0 }} />
+          <div
+            key={d.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+            }}
+          >
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: DEPLOY_STATUS_COLOR[d.status],
+                flexShrink: 0,
+              }}
+            />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{d.branch}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', marginTop: 1 }}>{d.sha}</div>
+              <div
+                style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', marginTop: 1 }}
+              >
+                {d.sha}
+              </div>
             </div>
             <span style={{ fontSize: 11, color: '#64748b' }}>{d.duration}</span>
             <span style={{ fontSize: 11, color: '#94a3b8' }}>{d.time}</span>
           </div>
         ))}
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 6,
+          marginTop: 16,
+        }}
+      >
         <button
           onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={page === 1}
-          style={{ padding: '6px 14px', fontSize: 12, borderRadius: 6, border: '1px solid #e2e8f0', background: page === 1 ? '#f8fafc' : '#fff', color: page === 1 ? '#94a3b8' : '#0f172a', cursor: page === 1 ? 'not-allowed' : 'pointer' }}
+          style={{
+            padding: '6px 14px',
+            fontSize: 12,
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: page === 1 ? '#f8fafc' : '#fff',
+            color: page === 1 ? '#94a3b8' : '#0f172a',
+            cursor: page === 1 ? 'not-allowed' : 'pointer',
+          }}
         >
           이전
         </button>
@@ -815,14 +1321,24 @@ function DeployPlatformDeployHistoryRender() {
           const n = Math.max(1, Math.min(page - 2, total - 4)) + i
           return n <= total ? (
             <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
-              <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+              <PageNumber current={n === page ? 1 : 0} total={1}>
+                {n}
+              </PageNumber>
             </div>
           ) : null
         })}
         <button
           onClick={() => setPage((p) => Math.min(total, p + 1))}
           disabled={page === total}
-          style={{ padding: '6px 14px', fontSize: 12, borderRadius: 6, border: '1px solid #e2e8f0', background: page === total ? '#f8fafc' : '#fff', color: page === total ? '#94a3b8' : '#0f172a', cursor: page === total ? 'not-allowed' : 'pointer' }}
+          style={{
+            padding: '6px 14px',
+            fontSize: 12,
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: page === total ? '#f8fafc' : '#fff',
+            color: page === total ? '#94a3b8' : '#0f172a',
+            cursor: page === total ? 'not-allowed' : 'pointer',
+          }}
         >
           다음
         </button>
@@ -846,7 +1362,13 @@ export const DeployPlatform_배포_이력_페이지네이션: Story = {
 }
 
 // IssueTracker + DeployPlatform — 프로젝트 파일 탐색기 페이지네이션
-type FileItem132 = { name: string; type: 'folder' | 'file'; ext: string; size: string; modified: string }
+type FileItem132 = {
+  name: string
+  type: 'folder' | 'file'
+  ext: string
+  size: string
+  modified: string
+}
 const REPO_FILES_132: FileItem132[] = [
   { name: 'packages', type: 'folder', ext: '', size: '—', modified: '2시간 전' },
   { name: 'config', type: 'folder', ext: '', size: '—', modified: '1일 전' },
@@ -855,7 +1377,13 @@ const REPO_FILES_132: FileItem132[] = [
   { name: 'pnpm-workspace.yaml', type: 'file', ext: 'yaml', size: '0.4 KB', modified: '5일 전' },
   { name: 'tsconfig.json', type: 'file', ext: 'json', size: '1.2 KB', modified: '1주 전' },
   { name: 'CLAUDE.md', type: 'file', ext: 'md', size: '8.7 KB', modified: '3시간 전' },
-  { name: 'BenchmarkComparison.mdx', type: 'file', ext: 'mdx', size: '12.4 KB', modified: '1시간 전' },
+  {
+    name: 'BenchmarkComparison.mdx',
+    type: 'file',
+    ext: 'mdx',
+    size: '12.4 KB',
+    modified: '1시간 전',
+  },
   { name: '.eslintrc.js', type: 'file', ext: 'js', size: '0.8 KB', modified: '2주 전' },
   { name: '.prettierrc', type: 'file', ext: '', size: '0.2 KB', modified: '2주 전' },
   { name: 'turbo.json', type: 'file', ext: 'json', size: '1.0 KB', modified: '1일 전' },
@@ -863,7 +1391,12 @@ const REPO_FILES_132: FileItem132[] = [
 ]
 
 const EXT_COLOR: Record<string, string> = {
-  json: '#22c55e', ts: '#3b82f6', js: '#f59e0b', yaml: '#8b5cf6', md: '#6366f1', mdx: '#ec4899',
+  json: '#22c55e',
+  ts: '#3b82f6',
+  js: '#f59e0b',
+  yaml: '#8b5cf6',
+  md: '#6366f1',
+  mdx: '#ec4899',
 }
 
 function IssueTrackerDeployPlatformFileBrowserRender() {
@@ -872,35 +1405,92 @@ function IssueTrackerDeployPlatformFileBrowserRender() {
   const total = Math.ceil(REPO_FILES_132.length / pageSize)
   const items = REPO_FILES_132.slice((page - 1) * pageSize, page * pageSize)
   return (
-    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+    <div
+      style={{
+        width: 480,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        overflow: 'hidden',
+      }}
+    >
       {/* 헤더 */}
-      <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          padding: '10px 14px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>orbit-ui / root</span>
         <PageNumber current={page} total={total} />
       </div>
       {/* 파일 목록 */}
       {items.map((f, i) => (
-        <div key={f.name} style={{
-          display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px',
-          borderBottom: i < items.length - 1 ? '1px solid #f8fafc' : 'none',
-          background: '#fff',
-        }}>
+        <div
+          key={f.name}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '9px 14px',
+            borderBottom: i < items.length - 1 ? '1px solid #f8fafc' : 'none',
+            background: '#fff',
+          }}
+        >
           <span style={{ fontSize: 16 }}>{f.type === 'folder' ? '📁' : '📄'}</span>
-          <span style={{ flex: 1, fontSize: 13, color: '#0f172a', fontWeight: f.type === 'folder' ? 600 : 400 }}>{f.name}</span>
+          <span
+            style={{
+              flex: 1,
+              fontSize: 13,
+              color: '#0f172a',
+              fontWeight: f.type === 'folder' ? 600 : 400,
+            }}
+          >
+            {f.name}
+          </span>
           {f.ext && (
-            <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: (EXT_COLOR[f.ext] || '#94a3b8') + '18', color: EXT_COLOR[f.ext] || '#94a3b8', fontFamily: 'monospace', fontWeight: 600 }}>
+            <span
+              style={{
+                fontSize: 10,
+                padding: '1px 6px',
+                borderRadius: 4,
+                background: (EXT_COLOR[f.ext] || '#94a3b8') + '18',
+                color: EXT_COLOR[f.ext] || '#94a3b8',
+                fontFamily: 'monospace',
+                fontWeight: 600,
+              }}
+            >
               {f.ext}
             </span>
           )}
-          <span style={{ fontSize: 11, color: '#94a3b8', width: 48, textAlign: 'right' }}>{f.size}</span>
-          <span style={{ fontSize: 11, color: '#94a3b8', width: 64, textAlign: 'right' }}>{f.modified}</span>
+          <span style={{ fontSize: 11, color: '#94a3b8', width: 48, textAlign: 'right' }}>
+            {f.size}
+          </span>
+          <span style={{ fontSize: 11, color: '#94a3b8', width: 64, textAlign: 'right' }}>
+            {f.modified}
+          </span>
         </div>
       ))}
       {/* 페이지네이션 */}
-      <div style={{ padding: '8px 14px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'center', gap: 4 }}>
+      <div
+        style={{
+          padding: '8px 14px',
+          background: '#f8fafc',
+          borderTop: '1px solid #e2e8f0',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 4,
+        }}
+      >
         {Array.from({ length: total }, (_, i) => i + 1).map((n) => (
           <div key={n} onClick={() => setPage(n)} style={{ cursor: 'pointer' }}>
-            <PageNumber current={n === page ? 1 : 0} total={1}>{n}</PageNumber>
+            <PageNumber current={n === page ? 1 : 0} total={1}>
+              {n}
+            </PageNumber>
           </div>
         ))}
       </div>
@@ -942,42 +1532,179 @@ function DeployPlatformRegionLogPaginationRender() {
   const [page, setPage] = useState(1)
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
 
-  const filtered = selectedRegion ? DEPLOY_LOG_ITEMS.filter(l => l.region === selectedRegion) : DEPLOY_LOG_ITEMS
+  const filtered = selectedRegion
+    ? DEPLOY_LOG_ITEMS.filter((l) => l.region === selectedRegion)
+    : DEPLOY_LOG_ITEMS
   const totalPages = Math.ceil(filtered.length / DEPLOY_PAGE_SIZE)
   const currentItems = filtered.slice((page - 1) * DEPLOY_PAGE_SIZE, page * DEPLOY_PAGE_SIZE)
 
-  const handleRegion = (r: string | null) => { setSelectedRegion(r); setPage(1) }
+  const handleRegion = (r: string | null) => {
+    setSelectedRegion(r)
+    setPage(1)
+  }
 
-  const STATUS_COLOR: Record<string, string> = { success: '#22c55e', warning: '#f59e0b', error: '#ef4444' }
+  const STATUS_COLOR: Record<string, string> = {
+    success: '#22c55e',
+    warning: '#f59e0b',
+    error: '#ef4444',
+  }
 
   return (
-    <div style={{ width: 460, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0' }}>
-      <div style={{ padding: '14px 16px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 10 }}>
+    <div
+      style={{
+        width: 460,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+      }}
+    >
+      <div
+        style={{
+          padding: '14px 16px',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>함수 실행 로그</span>
         <span style={{ fontSize: 11, color: '#94a3b8' }}>{filtered.length}개</span>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 4 }}>
-          <button onClick={() => handleRegion(null)} style={{ padding: '3px 8px', fontSize: 10, borderRadius: 5, border: `1px solid ${!selectedRegion ? '#1e293b' : '#e2e8f0'}`, background: !selectedRegion ? '#1e293b' : '#fff', color: !selectedRegion ? '#fff' : '#64748b', cursor: 'pointer', fontWeight: 600 }}>ALL</button>
-          {DEPLOY_REGIONS.map(r => (
-            <button key={r} onClick={() => handleRegion(r)} style={{ padding: '3px 7px', fontSize: 10, borderRadius: 5, border: `1px solid ${selectedRegion === r ? '#1e293b' : '#e2e8f0'}`, background: selectedRegion === r ? '#1e293b' : '#fff', color: selectedRegion === r ? '#fff' : '#64748b', cursor: 'pointer', fontFamily: 'monospace', fontWeight: 600 }}>{r}</button>
+          <button
+            onClick={() => handleRegion(null)}
+            style={{
+              padding: '3px 8px',
+              fontSize: 10,
+              borderRadius: 5,
+              border: `1px solid ${!selectedRegion ? '#1e293b' : '#e2e8f0'}`,
+              background: !selectedRegion ? '#1e293b' : '#fff',
+              color: !selectedRegion ? '#fff' : '#64748b',
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
+            ALL
+          </button>
+          {DEPLOY_REGIONS.map((r) => (
+            <button
+              key={r}
+              onClick={() => handleRegion(r)}
+              style={{
+                padding: '3px 7px',
+                fontSize: 10,
+                borderRadius: 5,
+                border: `1px solid ${selectedRegion === r ? '#1e293b' : '#e2e8f0'}`,
+                background: selectedRegion === r ? '#1e293b' : '#fff',
+                color: selectedRegion === r ? '#fff' : '#64748b',
+                cursor: 'pointer',
+                fontFamily: 'monospace',
+                fontWeight: 600,
+              }}
+            >
+              {r}
+            </button>
           ))}
         </div>
       </div>
       <div style={{ minHeight: 240 }}>
-        {currentItems.map(item => (
-          <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px', borderBottom: '1px solid #f8fafc' }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: STATUS_COLOR[item.status], flexShrink: 0 }} />
-            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', width: 40 }}>{item.timestamp}</span>
-            <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 3, background: '#f1f5f9', color: '#475569', fontFamily: 'monospace', flexShrink: 0 }}>{item.region}</span>
-            <span style={{ flex: 1, fontSize: 11, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.message}</span>
+        {currentItems.map((item) => (
+          <div
+            key={item.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '8px 16px',
+              borderBottom: '1px solid #f8fafc',
+            }}
+          >
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: STATUS_COLOR[item.status],
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', width: 40 }}>
+              {item.timestamp}
+            </span>
+            <span
+              style={{
+                fontSize: 10,
+                padding: '1px 5px',
+                borderRadius: 3,
+                background: '#f1f5f9',
+                color: '#475569',
+                fontFamily: 'monospace',
+                flexShrink: 0,
+              }}
+            >
+              {item.region}
+            </span>
+            <span
+              style={{
+                flex: 1,
+                fontSize: 11,
+                color: '#1e293b',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {item.message}
+            </span>
             <span style={{ fontSize: 10, color: '#94a3b8', flexShrink: 0 }}>{item.duration}</span>
           </div>
         ))}
       </div>
-      <div style={{ padding: '12px 16px', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}>이전</button>
+      <div
+        style={{
+          padding: '12px 16px',
+          borderTop: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <button
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={page === 1}
+          style={{
+            padding: '4px 10px',
+            fontSize: 11,
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#64748b',
+            cursor: page === 1 ? 'not-allowed' : 'pointer',
+            opacity: page === 1 ? 0.4 : 1,
+          }}
+        >
+          이전
+        </button>
         <PageNumber current={page} total={totalPages} />
-        <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}>다음</button>
-        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>리전: {selectedRegion ?? '전체'}</span>
+        <button
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+          disabled={page === totalPages}
+          style={{
+            padding: '4px 10px',
+            fontSize: 11,
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#64748b',
+            cursor: page === totalPages ? 'not-allowed' : 'pointer',
+            opacity: page === totalPages ? 0.4 : 1,
+          }}
+        >
+          다음
+        </button>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>
+          리전: {selectedRegion ?? '전체'}
+        </span>
       </div>
     </div>
   )
@@ -988,7 +1715,8 @@ export const DeployPlatform_리전별_로그_페이지네이션: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform Design의 Function Log 패턴. 리전 필터 + PageNumber로 서버리스 함수 실행 로그를 페이지네이션합니다.',
+        story:
+          'DeployPlatform Design의 Function Log 패턴. 리전 필터 + PageNumber로 서버리스 함수 실행 로그를 페이지네이션합니다.',
       },
     },
   },
@@ -1000,7 +1728,18 @@ export const DeployPlatform_리전별_로그_페이지네이션: Story = {
 -------------------------------------------------------------------------- */
 const ANT_TABLE_DATA = Array.from({ length: 63 }, (_, i) => ({
   key: `user-${i + 1}`,
-  name: ['김민준', '이서연', '박지후', '최수아', '정도윤', '윤채원', '임주원', '한서진', '오지우', '신예린'][i % 10],
+  name: [
+    '김민준',
+    '이서연',
+    '박지후',
+    '최수아',
+    '정도윤',
+    '윤채원',
+    '임주원',
+    '한서진',
+    '오지우',
+    '신예린',
+  ][i % 10],
   role: ['개발자', '디자이너', 'PM', '마케터', 'QA'][i % 5],
   status: i % 4 === 0 ? 'inactive' : 'active',
   joined: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
@@ -1023,32 +1762,106 @@ function AntTablePaginationRender() {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
-              {['이름', '역할', '상태', '가입일'].map(h => (
-                <th key={h} style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>{h}</th>
+              {['이름', '역할', '상태', '가입일'].map((h) => (
+                <th
+                  key={h}
+                  style={{
+                    padding: '8px 12px',
+                    textAlign: 'left',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: '#64748b',
+                    borderBottom: '1px solid #e2e8f0',
+                  }}
+                >
+                  {h}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {rows.map(row => (
+            {rows.map((row) => (
               <tr key={row.key} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '8px 12px', color: '#1e293b', fontWeight: 500 }}>{row.name}</td>
+                <td style={{ padding: '8px 12px', color: '#1e293b', fontWeight: 500 }}>
+                  {row.name}
+                </td>
                 <td style={{ padding: '8px 12px', color: '#475569' }}>{row.role}</td>
                 <td style={{ padding: '8px 12px' }}>
-                  <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: row.status === 'active' ? '#f0fdf4' : '#f8fafc', color: row.status === 'active' ? '#22c55e' : '#94a3b8', fontWeight: 700 }}>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      padding: '2px 7px',
+                      borderRadius: 4,
+                      background: row.status === 'active' ? '#f0fdf4' : '#f8fafc',
+                      color: row.status === 'active' ? '#22c55e' : '#94a3b8',
+                      fontWeight: 700,
+                    }}
+                  >
                     {row.status === 'active' ? '활성' : '비활성'}
                   </span>
                 </td>
-                <td style={{ padding: '8px 12px', color: '#94a3b8', fontSize: 11, fontFamily: 'monospace' }}>{row.joined}</td>
+                <td
+                  style={{
+                    padding: '8px 12px',
+                    color: '#94a3b8',
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  {row.joined}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div style={{ padding: '10px 12px', display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'space-between', background: '#fff', borderTop: '1px solid #f1f5f9' }}>
-          <span style={{ fontSize: 11, color: '#94a3b8' }}>{(page - 1) * ANT_TABLE_PAGE_SIZE + 1}–{Math.min(page * ANT_TABLE_PAGE_SIZE, ANT_TABLE_DATA.length)} / {ANT_TABLE_DATA.length}명</span>
+        <div
+          style={{
+            padding: '10px 12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            justifyContent: 'space-between',
+            background: '#fff',
+            borderTop: '1px solid #f1f5f9',
+          }}
+        >
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>
+            {(page - 1) * ANT_TABLE_PAGE_SIZE + 1}–
+            {Math.min(page * ANT_TABLE_PAGE_SIZE, ANT_TABLE_DATA.length)} / {ANT_TABLE_DATA.length}
+            명
+          </span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '3px 8px', fontSize: 11, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}>‹</button>
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              style={{
+                padding: '3px 8px',
+                fontSize: 11,
+                borderRadius: 5,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                cursor: page === 1 ? 'not-allowed' : 'pointer',
+                opacity: page === 1 ? 0.4 : 1,
+              }}
+            >
+              ‹
+            </button>
             <PageNumber current={page} total={totalPages} />
-            <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '3px 8px', fontSize: 11, borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}>›</button>
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              style={{
+                padding: '3px 8px',
+                fontSize: 11,
+                borderRadius: 5,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                cursor: page === totalPages ? 'not-allowed' : 'pointer',
+                opacity: page === totalPages ? 0.4 : 1,
+              }}
+            >
+              ›
+            </button>
           </div>
         </div>
       </div>
@@ -1061,7 +1874,8 @@ export const Ant_데이터_테이블_페이지네이션: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design의 Table Pagination 패턴. PageNumber로 사용자 목록 테이블의 페이지네이션을 구현합니다.',
+        story:
+          'Ant Design의 Table Pagination 패턴. PageNumber로 사용자 목록 테이블의 페이지네이션을 구현합니다.',
       },
     },
   },
@@ -1084,31 +1898,125 @@ const DASHBOARD_PAGE_SIZE = 6
 function DeployPlatformAntDashboardPaginationRender() {
   const [page, setPage] = useState(1)
   const totalPages = Math.ceil(DASHBOARD_METRICS.length / DASHBOARD_PAGE_SIZE)
-  const items = DASHBOARD_METRICS.slice((page - 1) * DASHBOARD_PAGE_SIZE, page * DASHBOARD_PAGE_SIZE)
+  const items = DASHBOARD_METRICS.slice(
+    (page - 1) * DASHBOARD_PAGE_SIZE,
+    page * DASHBOARD_PAGE_SIZE
+  )
 
   return (
-    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 14, overflow: 'hidden' }}>
-      <div style={{ padding: '14px 18px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div
+      style={{
+        width: 440,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#0f172a',
+        borderRadius: 14,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '14px 18px',
+          borderBottom: '1px solid #1e293b',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>성능 지표 대시보드</span>
-        <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: '#1e293b', color: '#94a3b8', fontFamily: 'monospace' }}>실시간</span>
-        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#475569' }}>{DASHBOARD_METRICS.length}개 지표</span>
+        <span
+          style={{
+            fontSize: 10,
+            padding: '2px 7px',
+            borderRadius: 4,
+            background: '#1e293b',
+            color: '#94a3b8',
+            fontFamily: 'monospace',
+          }}
+        >
+          실시간
+        </span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#475569' }}>
+          {DASHBOARD_METRICS.length}개 지표
+        </span>
       </div>
-      <div style={{ padding: '12px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-        {items.map(m => {
+      <div
+        style={{ padding: '12px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}
+      >
+        {items.map((m) => {
           const isUp = parseFloat(m.change) >= 0
           return (
-            <div key={m.id} style={{ padding: '12px 14px', borderRadius: 10, background: '#1e293b', border: '1px solid #334155' }}>
-              <div style={{ fontSize: 10, color: '#64748b', marginBottom: 4 }}>{m.name} · {m.period}</div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: '#f1f5f9', letterSpacing: '-0.03em' }}>{m.value.toLocaleString()}</div>
-              <div style={{ fontSize: 11, color: isUp ? '#4ade80' : '#f87171', marginTop: 4 }}>{isUp ? '▲' : '▼'} {Math.abs(parseFloat(m.change))}%</div>
+            <div
+              key={m.id}
+              style={{
+                padding: '12px 14px',
+                borderRadius: 10,
+                background: '#1e293b',
+                border: '1px solid #334155',
+              }}
+            >
+              <div style={{ fontSize: 10, color: '#64748b', marginBottom: 4 }}>
+                {m.name} · {m.period}
+              </div>
+              <div
+                style={{
+                  fontSize: 18,
+                  fontWeight: 800,
+                  color: '#f1f5f9',
+                  letterSpacing: '-0.03em',
+                }}
+              >
+                {m.value.toLocaleString()}
+              </div>
+              <div style={{ fontSize: 11, color: isUp ? '#4ade80' : '#f87171', marginTop: 4 }}>
+                {isUp ? '▲' : '▼'} {Math.abs(parseFloat(m.change))}%
+              </div>
             </div>
           )
         })}
       </div>
-      <div style={{ padding: '10px 16px', borderTop: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
-        <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}>←</button>
+      <div
+        style={{
+          padding: '10px 16px',
+          borderTop: '1px solid #1e293b',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          justifyContent: 'center',
+        }}
+      >
+        <button
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={page === 1}
+          style={{
+            padding: '4px 10px',
+            fontSize: 11,
+            borderRadius: 6,
+            border: '1px solid #334155',
+            background: '#1e293b',
+            color: '#64748b',
+            cursor: page === 1 ? 'not-allowed' : 'pointer',
+            opacity: page === 1 ? 0.4 : 1,
+          }}
+        >
+          ←
+        </button>
         <PageNumber current={page} total={totalPages} />
-        <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}>→</button>
+        <button
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+          disabled={page === totalPages}
+          style={{
+            padding: '4px 10px',
+            fontSize: 11,
+            borderRadius: 6,
+            border: '1px solid #334155',
+            background: '#1e293b',
+            color: '#64748b',
+            cursor: page === totalPages ? 'not-allowed' : 'pointer',
+            opacity: page === totalPages ? 0.4 : 1,
+          }}
+        >
+          →
+        </button>
       </div>
     </div>
   )
@@ -1119,7 +2027,8 @@ export const DeployPlatform_Ant_성능지표_대시보드_페이지네이션: St
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform Design + Ant Design 복합 패턴. 다크 대시보드에서 PageNumber로 성능 지표 카드 그리드를 페이지네이션합니다.',
+        story:
+          'DeployPlatform Design + Ant Design 복합 패턴. 다크 대시보드에서 PageNumber로 성능 지표 카드 그리드를 페이지네이션합니다.',
       },
     },
   },
@@ -1131,7 +2040,9 @@ export const DeployPlatform_Ant_성능지표_대시보드_페이지네이션: St
 -------------------------------------------------------------------------- */
 const DESIGN_ASSETS = Array.from({ length: 48 }, (_, i) => ({
   id: i + 1,
-  name: ['Button', 'Input', 'Card', 'Modal', 'Badge', 'Icon', 'Avatar', 'Chip'][i % 8] + `_${Math.floor(i / 8) + 1}`,
+  name:
+    ['Button', 'Input', 'Card', 'Modal', 'Badge', 'Icon', 'Avatar', 'Chip'][i % 8] +
+    `_${Math.floor(i / 8) + 1}`,
   type: ['Component', 'Frame', 'Group', 'Auto Layout'][i % 4],
   updated: `${Math.floor(Math.random() * 24) + 1}h 전`,
 }))
@@ -1141,43 +2052,155 @@ const DESIGN_PAGE_SIZE = 8
 function DesignToolAssetSearchPaginationRender() {
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
-  const filtered = DESIGN_ASSETS.filter(a => a.name.toLowerCase().includes(query.toLowerCase()))
+  const filtered = DESIGN_ASSETS.filter((a) => a.name.toLowerCase().includes(query.toLowerCase()))
   const totalPages = Math.max(1, Math.ceil(filtered.length / DESIGN_PAGE_SIZE))
   const items = filtered.slice((page - 1) * DESIGN_PAGE_SIZE, page * DESIGN_PAGE_SIZE)
 
   return (
-    <div style={{ width: 260, background: '#2c2c2c', borderRadius: 8, border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'system-ui, sans-serif', overflow: 'hidden' }}>
+    <div
+      style={{
+        width: 260,
+        background: '#2c2c2c',
+        borderRadius: 8,
+        border: '1px solid rgba(255,255,255,0.1)',
+        fontFamily: 'system-ui, sans-serif',
+        overflow: 'hidden',
+      }}
+    >
       <div style={{ padding: '10px 12px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
         <input
           value={query}
-          onChange={e => { setQuery(e.target.value); setPage(1) }}
+          onChange={(e) => {
+            setQuery(e.target.value)
+            setPage(1)
+          }}
           placeholder="에셋 검색..."
-          style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 5, padding: '5px 8px', fontSize: 11, color: 'rgba(255,255,255,0.8)', outline: 'none', boxSizing: 'border-box' }}
+          style={{
+            width: '100%',
+            background: 'rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            borderRadius: 5,
+            padding: '5px 8px',
+            fontSize: 11,
+            color: 'rgba(255,255,255,0.8)',
+            outline: 'none',
+            boxSizing: 'border-box',
+          }}
         />
       </div>
-      <div style={{ padding: '8px 12px', fontSize: 10, color: 'rgba(255,255,255,0.35)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+      <div
+        style={{
+          padding: '8px 12px',
+          fontSize: 10,
+          color: 'rgba(255,255,255,0.35)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}
+      >
         {filtered.length}개 결과
       </div>
       <div style={{ padding: '6px 0', maxHeight: 200, overflowY: 'auto' }}>
         {items.length === 0 ? (
-          <div style={{ padding: '16px', textAlign: 'center', fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>결과 없음</div>
-        ) : items.map(asset => (
-          <div key={asset.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px', cursor: 'pointer' }}>
-            <div style={{ width: 18, height: 18, borderRadius: 3, background: ['#6366f1', '#10b981', '#f59e0b', '#ef4444'][asset.id % 4] + '30', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: ['#818cf8', '#34d399', '#fbbf24', '#f87171'][asset.id % 4], flexShrink: 0, fontWeight: 700 }}>
-              {asset.type[0]}
-            </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{asset.name}</div>
-              <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)' }}>{asset.type} · {asset.updated}</div>
-            </div>
+          <div
+            style={{
+              padding: '16px',
+              textAlign: 'center',
+              fontSize: 11,
+              color: 'rgba(255,255,255,0.3)',
+            }}
+          >
+            결과 없음
           </div>
-        ))}
+        ) : (
+          items.map((asset) => (
+            <div
+              key={asset.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 12px',
+                cursor: 'pointer',
+              }}
+            >
+              <div
+                style={{
+                  width: 18,
+                  height: 18,
+                  borderRadius: 3,
+                  background: ['#6366f1', '#10b981', '#f59e0b', '#ef4444'][asset.id % 4] + '30',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 9,
+                  color: ['#818cf8', '#34d399', '#fbbf24', '#f87171'][asset.id % 4],
+                  flexShrink: 0,
+                  fontWeight: 700,
+                }}
+              >
+                {asset.type[0]}
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: 'rgba(255,255,255,0.8)',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {asset.name}
+                </div>
+                <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)' }}>
+                  {asset.type} · {asset.updated}
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
       {totalPages > 1 && (
-        <div style={{ padding: '8px 12px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ fontSize: 10, padding: '3px 7px', border: 'none', borderRadius: 4, background: 'rgba(255,255,255,0.06)', color: page === 1 ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.6)', cursor: page === 1 ? 'not-allowed' : 'pointer' }}>‹</button>
+        <div
+          style={{
+            padding: '8px 12px',
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+          }}
+        >
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            style={{
+              fontSize: 10,
+              padding: '3px 7px',
+              border: 'none',
+              borderRadius: 4,
+              background: 'rgba(255,255,255,0.06)',
+              color: page === 1 ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.6)',
+              cursor: page === 1 ? 'not-allowed' : 'pointer',
+            }}
+          >
+            ‹
+          </button>
           <PageNumber current={page} total={totalPages} />
-          <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ fontSize: 10, padding: '3px 7px', border: 'none', borderRadius: 4, background: 'rgba(255,255,255,0.06)', color: page === totalPages ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.6)', cursor: page === totalPages ? 'not-allowed' : 'pointer' }}>›</button>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            style={{
+              fontSize: 10,
+              padding: '3px 7px',
+              border: 'none',
+              borderRadius: 4,
+              background: 'rgba(255,255,255,0.06)',
+              color: page === totalPages ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.6)',
+              cursor: page === totalPages ? 'not-allowed' : 'pointer',
+            }}
+          >
+            ›
+          </button>
         </div>
       )}
     </div>
@@ -1203,14 +2226,33 @@ export const DesignTool_에셋_검색_결과_페이지네이션: Story = {
 -------------------------------------------------------------------------- */
 const ARCO_TABLE_DATA = Array.from({ length: 50 }, (_, i) => ({
   id: i + 1,
-  component: ['Button', 'Input', 'Select', 'Table', 'Modal', 'Drawer', 'Form', 'Badge', 'Avatar', 'Tag'][i % 10],
+  component: [
+    'Button',
+    'Input',
+    'Select',
+    'Table',
+    'Modal',
+    'Drawer',
+    'Form',
+    'Badge',
+    'Avatar',
+    'Tag',
+  ][i % 10],
   category: ['Inputs', 'Navigation', 'Feedback', 'Data Display', 'Layout'][i % 5],
   status: ['stable', 'beta', 'deprecated'][i % 3],
   version: `${Math.floor(i / 10) + 1}.${i % 5}.0`,
 }))
 
-const STATUS_COLOR: Record<string, string> = { stable: '#00b42a', beta: '#ff7d00', deprecated: '#86909c' }
-const STATUS_BG: Record<string, string> = { stable: '#e8ffea', beta: '#fff7e8', deprecated: '#f2f3f5' }
+const STATUS_COLOR: Record<string, string> = {
+  stable: '#00b42a',
+  beta: '#ff7d00',
+  deprecated: '#86909c',
+}
+const STATUS_BG: Record<string, string> = {
+  stable: '#e8ffea',
+  beta: '#fff7e8',
+  deprecated: '#f2f3f5',
+}
 const ARCO_PAGE_SIZE = 8
 
 function DataProductAdvancedTablePaginationRender() {
@@ -1219,40 +2261,146 @@ function DataProductAdvancedTablePaginationRender() {
   const items = ARCO_TABLE_DATA.slice((page - 1) * ARCO_PAGE_SIZE, page * ARCO_PAGE_SIZE)
 
   return (
-    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 8, border: '1px solid #e5e6eb' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #e5e6eb', display: 'flex', alignItems: 'center' }}>
+    <div
+      style={{
+        width: 420,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        borderRadius: 8,
+        border: '1px solid #e5e6eb',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #e5e6eb',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 600, color: '#1d2129' }}>컴포넌트 레지스트리</span>
-        <span style={{ marginLeft: 8, fontSize: 11, color: '#86909c' }}>총 {ARCO_TABLE_DATA.length}개</span>
+        <span style={{ marginLeft: 8, fontSize: 11, color: '#86909c' }}>
+          총 {ARCO_TABLE_DATA.length}개
+        </span>
       </div>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr style={{ background: '#f7f8fa' }}>
-            {['컴포넌트', '카테고리', '상태', '버전'].map(col => (
-              <th key={col} style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: '#4e5969', borderBottom: '1px solid #e5e6eb' }}>{col}</th>
+            {['컴포넌트', '카테고리', '상태', '버전'].map((col) => (
+              <th
+                key={col}
+                style={{
+                  padding: '8px 12px',
+                  textAlign: 'left',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: '#4e5969',
+                  borderBottom: '1px solid #e5e6eb',
+                }}
+              >
+                {col}
+              </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {items.map((row, i) => (
             <tr key={row.id} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-              <td style={{ padding: '8px 12px', fontSize: 12, color: '#1d2129', borderBottom: '1px solid #f2f3f5', fontWeight: 500 }}>{row.component}</td>
-              <td style={{ padding: '8px 12px', fontSize: 11, color: '#4e5969', borderBottom: '1px solid #f2f3f5' }}>{row.category}</td>
-              <td style={{ padding: '8px 12px', borderBottom: '1px solid #f2f3f5' }}>
-                <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 10, background: STATUS_BG[row.status], color: STATUS_COLOR[row.status], fontWeight: 500 }}>{row.status}</span>
+              <td
+                style={{
+                  padding: '8px 12px',
+                  fontSize: 12,
+                  color: '#1d2129',
+                  borderBottom: '1px solid #f2f3f5',
+                  fontWeight: 500,
+                }}
+              >
+                {row.component}
               </td>
-              <td style={{ padding: '8px 12px', fontSize: 11, color: '#86909c', borderBottom: '1px solid #f2f3f5', fontFamily: 'monospace' }}>{row.version}</td>
+              <td
+                style={{
+                  padding: '8px 12px',
+                  fontSize: 11,
+                  color: '#4e5969',
+                  borderBottom: '1px solid #f2f3f5',
+                }}
+              >
+                {row.category}
+              </td>
+              <td style={{ padding: '8px 12px', borderBottom: '1px solid #f2f3f5' }}>
+                <span
+                  style={{
+                    fontSize: 10,
+                    padding: '2px 7px',
+                    borderRadius: 10,
+                    background: STATUS_BG[row.status],
+                    color: STATUS_COLOR[row.status],
+                    fontWeight: 500,
+                  }}
+                >
+                  {row.status}
+                </span>
+              </td>
+              <td
+                style={{
+                  padding: '8px 12px',
+                  fontSize: 11,
+                  color: '#86909c',
+                  borderBottom: '1px solid #f2f3f5',
+                  fontFamily: 'monospace',
+                }}
+              >
+                {row.version}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div style={{ padding: '10px 16px', borderTop: '1px solid #e5e6eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          padding: '10px 16px',
+          borderTop: '1px solid #e5e6eb',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <div style={{ fontSize: 11, color: '#86909c' }}>
-          {(page - 1) * ARCO_PAGE_SIZE + 1}–{Math.min(page * ARCO_PAGE_SIZE, ARCO_TABLE_DATA.length)} / {ARCO_TABLE_DATA.length}
+          {(page - 1) * ARCO_PAGE_SIZE + 1}–
+          {Math.min(page * ARCO_PAGE_SIZE, ARCO_TABLE_DATA.length)} / {ARCO_TABLE_DATA.length}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 4, border: '1px solid #e5e6eb', background: '#fff', color: page === 1 ? '#c9cdd4' : '#4e5969', cursor: page === 1 ? 'not-allowed' : 'pointer' }}>이전</button>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            style={{
+              padding: '4px 10px',
+              fontSize: 11,
+              borderRadius: 4,
+              border: '1px solid #e5e6eb',
+              background: '#fff',
+              color: page === 1 ? '#c9cdd4' : '#4e5969',
+              cursor: page === 1 ? 'not-allowed' : 'pointer',
+            }}
+          >
+            이전
+          </button>
           <PageNumber current={page} total={totalPages} />
-          <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 4, border: '1px solid #e5e6eb', background: '#fff', color: page === totalPages ? '#c9cdd4' : '#4e5969', cursor: page === totalPages ? 'not-allowed' : 'pointer' }}>다음</button>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            style={{
+              padding: '4px 10px',
+              fontSize: 11,
+              borderRadius: 4,
+              border: '1px solid #e5e6eb',
+              background: '#fff',
+              color: page === totalPages ? '#c9cdd4' : '#4e5969',
+              cursor: page === totalPages ? 'not-allowed' : 'pointer',
+            }}
+          >
+            다음
+          </button>
         </div>
       </div>
     </div>
@@ -1278,7 +2426,21 @@ export const DataProduct_고급_데이터_테이블_페이지네이션: Story = 
 -------------------------------------------------------------------------- */
 const LIBRARY_COMPONENTS = Array.from({ length: 36 }, (_, i) => ({
   id: i + 1,
-  name: ['AppBar', 'Avatar', 'Badge', 'Button', 'Calendar', 'Carousel', 'Chip', 'Command', 'DataTable', 'Dialog', 'Divider', 'Drawer'][i % 12] + (i >= 12 ? `_v${Math.floor(i / 12) + 1}` : ''),
+  name:
+    [
+      'AppBar',
+      'Avatar',
+      'Badge',
+      'Button',
+      'Calendar',
+      'Carousel',
+      'Chip',
+      'Command',
+      'DataTable',
+      'Dialog',
+      'Divider',
+      'Drawer',
+    ][i % 12] + (i >= 12 ? `_v${Math.floor(i / 12) + 1}` : ''),
   stories: Math.floor(Math.random() * 10) + 15,
   hasA11y: i % 3 !== 2,
 }))
@@ -1288,39 +2450,145 @@ const LIBRARY_PAGE_SIZE = 9
 function DesignToolDataProductLibraryBrowserRender() {
   const [page, setPage] = useState(1)
   const [filterA11y, setFilterA11y] = useState(false)
-  const filtered = filterA11y ? LIBRARY_COMPONENTS.filter(c => c.hasA11y) : LIBRARY_COMPONENTS
+  const filtered = filterA11y ? LIBRARY_COMPONENTS.filter((c) => c.hasA11y) : LIBRARY_COMPONENTS
   const totalPages = Math.max(1, Math.ceil(filtered.length / LIBRARY_PAGE_SIZE))
   const items = filtered.slice((page - 1) * LIBRARY_PAGE_SIZE, page * LIBRARY_PAGE_SIZE)
 
   return (
-    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif', background: '#f7f8fa', borderRadius: 10, border: '1px solid #e5e6eb', overflow: 'hidden' }}>
-      <div style={{ padding: '12px 14px', background: '#fff', borderBottom: '1px solid #e5e6eb', display: 'flex', alignItems: 'center', gap: 10 }}>
+    <div
+      style={{
+        width: 340,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#f7f8fa',
+        borderRadius: 10,
+        border: '1px solid #e5e6eb',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 14px',
+          background: '#fff',
+          borderBottom: '1px solid #e5e6eb',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#1d2129' }}>컴포넌트 라이브러리</span>
         <button
-          onClick={() => { setFilterA11y(p => !p); setPage(1) }}
-          style={{ marginLeft: 'auto', fontSize: 10, padding: '3px 8px', borderRadius: 12, border: `1px solid ${filterA11y ? '#165dff' : '#e5e6eb'}`, background: filterA11y ? '#e8f3ff' : '#fff', color: filterA11y ? '#165dff' : '#86909c', cursor: 'pointer', fontWeight: 500 }}
+          onClick={() => {
+            setFilterA11y((p) => !p)
+            setPage(1)
+          }}
+          style={{
+            marginLeft: 'auto',
+            fontSize: 10,
+            padding: '3px 8px',
+            borderRadius: 12,
+            border: `1px solid ${filterA11y ? '#165dff' : '#e5e6eb'}`,
+            background: filterA11y ? '#e8f3ff' : '#fff',
+            color: filterA11y ? '#165dff' : '#86909c',
+            cursor: 'pointer',
+            fontWeight: 500,
+          }}
         >
           ♿ A11y만
         </button>
       </div>
       <div style={{ padding: 10, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
-        {items.map(comp => (
-          <div key={comp.id} style={{ background: '#fff', borderRadius: 8, border: '1px solid #e5e6eb', padding: '10px 8px', textAlign: 'center', cursor: 'pointer' }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: '#e8f3ff', margin: '0 auto 6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
-              {['🔘', '👤', '🏷️', '⬛', '📅', '🎠', '🏅', '🔍', '📊', '💬', '➖', '📑'][comp.id % 12]}
+        {items.map((comp) => (
+          <div
+            key={comp.id}
+            style={{
+              background: '#fff',
+              borderRadius: 8,
+              border: '1px solid #e5e6eb',
+              padding: '10px 8px',
+              textAlign: 'center',
+              cursor: 'pointer',
+            }}
+          >
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 8,
+                background: '#e8f3ff',
+                margin: '0 auto 6px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 14,
+              }}
+            >
+              {
+                ['🔘', '👤', '🏷️', '⬛', '📅', '🎠', '🏅', '🔍', '📊', '💬', '➖', '📑'][
+                  comp.id % 12
+                ]
+              }
             </div>
-            <div style={{ fontSize: 10, fontWeight: 600, color: '#1d2129', marginBottom: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{comp.name.split('_')[0]}</div>
+            <div
+              style={{
+                fontSize: 10,
+                fontWeight: 600,
+                color: '#1d2129',
+                marginBottom: 2,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {comp.name.split('_')[0]}
+            </div>
             <div style={{ fontSize: 9, color: '#86909c' }}>{comp.stories} stories</div>
             {comp.hasA11y && <div style={{ fontSize: 9, color: '#165dff', marginTop: 2 }}>♿</div>}
           </div>
         ))}
       </div>
-      <div style={{ padding: '10px 14px', background: '#fff', borderTop: '1px solid #e5e6eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          padding: '10px 14px',
+          background: '#fff',
+          borderTop: '1px solid #e5e6eb',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <span style={{ fontSize: 11, color: '#86909c' }}>{filtered.length}개 컴포넌트</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={{ padding: '3px 8px', fontSize: 11, border: '1px solid #e5e6eb', borderRadius: 4, background: '#fff', color: page === 1 ? '#c9cdd4' : '#4e5969', cursor: page === 1 ? 'not-allowed' : 'pointer' }}>‹</button>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            style={{
+              padding: '3px 8px',
+              fontSize: 11,
+              border: '1px solid #e5e6eb',
+              borderRadius: 4,
+              background: '#fff',
+              color: page === 1 ? '#c9cdd4' : '#4e5969',
+              cursor: page === 1 ? 'not-allowed' : 'pointer',
+            }}
+          >
+            ‹
+          </button>
           <PageNumber current={page} total={totalPages} />
-          <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={{ padding: '3px 8px', fontSize: 11, border: '1px solid #e5e6eb', borderRadius: 4, background: '#fff', color: page === totalPages ? '#c9cdd4' : '#4e5969', cursor: page === totalPages ? 'not-allowed' : 'pointer' }}>›</button>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            style={{
+              padding: '3px 8px',
+              fontSize: 11,
+              border: '1px solid #e5e6eb',
+              borderRadius: 4,
+              background: '#fff',
+              color: page === totalPages ? '#c9cdd4' : '#4e5969',
+              cursor: page === totalPages ? 'not-allowed' : 'pointer',
+            }}
+          >
+            ›
+          </button>
         </div>
       </div>
     </div>

@@ -50,7 +50,7 @@ export type UseIntersectionObserverEntry = {
  */
 export function useIntersectionObserver<T extends Element>(
   ref: RefObject<T | null>,
-  options: UseIntersectionObserverOptions = {},
+  options: UseIntersectionObserverOptions = {}
 ): UseIntersectionObserverEntry {
   const {
     root = null,
@@ -77,7 +77,7 @@ export function useIntersectionObserver<T extends Element>(
           setFrozen(true)
         }
       },
-      { root, rootMargin, threshold },
+      { root, rootMargin, threshold }
     )
     observer.observe(node)
 

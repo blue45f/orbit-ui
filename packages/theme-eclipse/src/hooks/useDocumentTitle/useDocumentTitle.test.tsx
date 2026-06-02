@@ -42,9 +42,7 @@ describe('useDocumentTitle', () => {
   })
 
   test('restoreOnUnmount=false면 복원되지 않는다', () => {
-    const { unmount } = renderHook(() =>
-      useDocumentTitle('Sticky', { restoreOnUnmount: false }),
-    )
+    const { unmount } = renderHook(() => useDocumentTitle('Sticky', { restoreOnUnmount: false }))
     expect(document.title).toBe('Sticky')
 
     unmount()

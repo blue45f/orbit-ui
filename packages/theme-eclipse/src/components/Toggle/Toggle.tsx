@@ -10,14 +10,12 @@ const THUMB_CLASS =
 
 export type ToggleProps = React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root>
 
-export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <SwitchPrimitive.Root ref={ref} className={clsx(ROOT_CLASS, className)} {...props}>
-        <SwitchPrimitive.Thumb className={THUMB_CLASS} />
-      </SwitchPrimitive.Root>
-    )
-  }
-)
+export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(({ className, ...props }, ref) => {
+  return (
+    <SwitchPrimitive.Root ref={ref} className={clsx(ROOT_CLASS, className)} {...props}>
+      <SwitchPrimitive.Thumb className={THUMB_CLASS} />
+    </SwitchPrimitive.Root>
+  )
+})
 
 Toggle.displayName = 'Toggle'

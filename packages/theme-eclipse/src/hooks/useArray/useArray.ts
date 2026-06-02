@@ -79,6 +79,6 @@ export function useArray<T>(initial: T[] = []): UseArrayReturn<T> {
 
   return useMemo(
     () => ({ items, push, removeAt, remove, updateAt, toggle, clear, set }),
-    [items, push, removeAt, remove, updateAt, toggle, clear, set],
+    [items, push, removeAt, remove, updateAt, toggle, clear, set]
   )
 }

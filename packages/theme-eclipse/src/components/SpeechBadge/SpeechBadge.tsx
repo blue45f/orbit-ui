@@ -3,10 +3,7 @@ import clsx from 'clsx'
 
 import { vars } from '../../styles/theme-vars'
 
-const speechBadgeTail = (opts: {
-  color: 'pink' | 'blue'
-  position: 'leading' | 'trailing'
-}) =>
+const speechBadgeTail = (opts: { color: 'pink' | 'blue'; position: 'leading' | 'trailing' }) =>
   clsx('absolute w-[9px] h-[5px]', {
     '[color:var(--com-eclipse-bubbleBadge-fillColor-color-pink)]': opts.color === 'pink',
     '[color:var(--com-eclipse-bubbleBadge-fillColor-color-blue)]': opts.color === 'blue',

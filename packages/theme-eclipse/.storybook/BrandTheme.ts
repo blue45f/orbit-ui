@@ -38,5 +38,6 @@ export default create({
   // Typography
   fontBase:
     '"Pretendard Variable", "Pretendard", system-ui, "Segoe UI", "Noto Sans KR", "Malgun Gothic", sans-serif',
-  fontCode: '"JetBrains Mono", "Fira Code", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+  fontCode:
+    '"JetBrains Mono", "Fira Code", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
 })

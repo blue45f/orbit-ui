@@ -7,10 +7,7 @@ const require = createRequire(import.meta.url)
 
 const config: StorybookConfig = {
   stories: ['../src', '../*.mdx'],
-  addons: [
-    getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/addon-a11y'),
-  ],
+  addons: [getAbsolutePath('@storybook/addon-links'), getAbsolutePath('@storybook/addon-a11y')],
   framework: getAbsolutePath('@storybook/react-vite'),
 }
 

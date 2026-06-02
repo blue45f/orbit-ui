@@ -267,9 +267,27 @@ type Article = {
 }
 
 const articles: Article[] = [
-  { title: 'Design Token 계층 구조 완전 정복', author: 'Heejun Kim', date: '2026-04-08', tag: 'Design', tagColor: '#6366f1' },
-  { title: 'PrimitiveUI vs ComposableUI 비교 분석', author: 'Park Minhye', date: '2026-04-07', tag: 'Dev', tagColor: '#10b981' },
-  { title: 'Storybook 8 마이그레이션 가이드', author: 'Lee Sujin', date: '2026-04-06', tag: 'Tool', tagColor: '#f59e0b' },
+  {
+    title: 'Design Token 계층 구조 완전 정복',
+    author: 'Heejun Kim',
+    date: '2026-04-08',
+    tag: 'Design',
+    tagColor: '#6366f1',
+  },
+  {
+    title: 'PrimitiveUI vs ComposableUI 비교 분석',
+    author: 'Park Minhye',
+    date: '2026-04-07',
+    tag: 'Dev',
+    tagColor: '#10b981',
+  },
+  {
+    title: 'Storybook 8 마이그레이션 가이드',
+    author: 'Lee Sujin',
+    date: '2026-04-06',
+    tag: 'Tool',
+    tagColor: '#f59e0b',
+  },
 ]
 
 const LoadingTransitionDemo = () => {
@@ -287,7 +305,14 @@ const LoadingTransitionDemo = () => {
 
   return (
     <div style={{ padding: '24px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 20,
+        }}
+      >
         <div>
           <p style={{ margin: '0 0 2px', fontSize: 15, fontWeight: 700, color: '#1e293b' }}>
             최신 아티클
@@ -327,7 +352,9 @@ const LoadingTransitionDemo = () => {
                   gap: '10px',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+                >
                   <Skeleton height={12} width="60%" />
                   <Skeleton height={22} width={52} style={{ borderRadius: 20 }} />
                 </div>
@@ -346,8 +373,23 @@ const LoadingTransitionDemo = () => {
                   gap: '6px',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
-                  <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: '#1e293b', lineHeight: 1.4 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    gap: 8,
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: '#1e293b',
+                      lineHeight: 1.4,
+                    }}
+                  >
                     {article.title}
                   </p>
                   <span
@@ -443,7 +485,10 @@ export const 프로필_페이지: Story = {
           }}
         >
           {[0, 1, 2].map((i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center' }}>
+            <div
+              key={i}
+              style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center' }}
+            >
               <Skeleton height={14} width={24} />
               <Skeleton height={10} width={36} />
             </div>
@@ -479,15 +524,12 @@ export const WorkspaceEditor_페이지_리스트_스켈레톤 = {
           }}
         >
           <Skeleton height={16} width={16} style={{ borderRadius: 4, flexShrink: 0 }} />
-          <Skeleton height={12} width={`${60 + Math.floor(i * 17) % 40}%`} />
+          <Skeleton height={12} width={`${60 + (Math.floor(i * 17) % 40)}%`} />
         </div>
       ))}
       <div style={{ margin: '8px 12px', height: 1, background: '#f1f5f9' }} />
       {[0, 1, 2].map((i) => (
-        <div
-          key={i}
-          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 12px' }}
-        >
+        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 12px' }}>
           <Skeleton height={16} width={16} style={{ borderRadius: 4, flexShrink: 0 }} />
           <Skeleton height={12} width={`${50 + i * 12}%`} />
         </div>
@@ -516,7 +558,10 @@ export const IssueTracker_이슈_리스트_스켈레톤 = {
         }}
       >
         {['상태', '우선순위', '제목', '담당자', '날짜'].map((col) => (
-          <div key={col} style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase' }}>
+          <div
+            key={col}
+            style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase' }}
+          >
             {col}
           </div>
         ))}
@@ -536,7 +581,7 @@ export const IssueTracker_이슈_리스트_스켈레톤 = {
         >
           <Skeleton height={16} width={16} style={{ borderRadius: '50%' }} />
           <Skeleton height={16} width={16} style={{ borderRadius: 4 }} />
-          <Skeleton height={12} width={`${50 + (i * 11) % 40}%`} />
+          <Skeleton height={12} width={`${50 + ((i * 11) % 40)}%`} />
           <Skeleton height={20} width={20} style={{ borderRadius: '50%' }} />
           <Skeleton height={12} width={60} />
         </div>
@@ -595,15 +640,36 @@ export const Primitive_아바타_그룹_스켈레톤: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI Avatar 스켈레톤 패턴. 원형 Avatar.Fallback 로딩 상태와 텍스트 라인 스켈레톤을 조합합니다. 팀 디렉토리, 협업자 목록 등 사람 정보 로딩에 활용됩니다.',
+        story:
+          'PrimitiveUI Avatar 스켈레톤 패턴. 원형 Avatar.Fallback 로딩 상태와 텍스트 라인 스켈레톤을 조합합니다. 팀 디렉토리, 협업자 목록 등 사람 정보 로딩에 활용됩니다.',
       },
     },
   },
   render: () => (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>팀 멤버 로딩 중...</div>
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#94a3b8',
+          marginBottom: 12,
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}
+      >
+        팀 멤버 로딩 중...
+      </div>
       {[1, 2, 3].map((i) => (
-        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: '1px solid #f1f5f9' }}>
+        <div
+          key={i}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            padding: '12px 0',
+            borderBottom: '1px solid #f1f5f9',
+          }}
+        >
           {/* Avatar circle skeleton */}
           <Skeleton height={40} width={40} style={{ borderRadius: '50%', flexShrink: 0 }} />
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -617,7 +683,12 @@ export const Primitive_아바타_그룹_스켈레톤: Story = {
       <div style={{ marginTop: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
         <div style={{ display: 'flex' }}>
           {[1, 2, 3, 4].map((i) => (
-            <Skeleton key={i} height={32} width={32} style={{ borderRadius: '50%', marginLeft: i > 1 ? -8 : 0, border: '2px solid #fff' }} />
+            <Skeleton
+              key={i}
+              height={32}
+              width={32}
+              style={{ borderRadius: '50%', marginLeft: i > 1 ? -8 : 0, border: '2px solid #fff' }}
+            />
           ))}
         </div>
         <Skeleton height={12} width={80} />
@@ -631,16 +702,36 @@ export const Ant_통계_카드_스켈레톤: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design Skeleton 패턴. 통계 카드의 숫자/라벨/트렌드 영역을 Skeleton으로 대체해 로딩 상태를 표현합니다. 대시보드, 리포트 페이지 초기 로딩에 활용됩니다.',
+        story:
+          'Ant Design Skeleton 패턴. 통계 카드의 숫자/라벨/트렌드 영역을 Skeleton으로 대체해 로딩 상태를 표현합니다. 대시보드, 리포트 페이지 초기 로딩에 활용됩니다.',
       },
     },
   },
   render: () => (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>통계 로딩 중...</div>
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#94a3b8',
+          marginBottom: 12,
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}
+      >
+        통계 로딩 중...
+      </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} style={{ padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+          <div
+            key={i}
+            style={{
+              padding: '16px',
+              borderRadius: 12,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+            }}
+          >
             {/* Label */}
             <Skeleton height={10} width="55%" style={{ marginBottom: 12 }} />
             {/* Big number */}
@@ -654,11 +745,23 @@ export const Ant_통계_카드_스켈레톤: Story = {
         ))}
       </div>
       {/* Mini bar chart skeleton */}
-      <div style={{ padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+      <div
+        style={{
+          padding: '16px',
+          borderRadius: 12,
+          border: '1px solid #e2e8f0',
+          background: '#fff',
+        }}
+      >
         <Skeleton height={12} width="30%" style={{ marginBottom: 14 }} />
         <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end', height: 60 }}>
           {[40, 70, 55, 85, 60, 90, 75].map((h, i) => (
-            <Skeleton key={i} height={h * 0.6} width="13%" style={{ borderRadius: '4px 4px 0 0' }} />
+            <Skeleton
+              key={i}
+              height={h * 0.6}
+              width="13%"
+              style={{ borderRadius: '4px 4px 0 0' }}
+            />
           ))}
         </div>
       </div>
@@ -671,13 +774,21 @@ export const Ant_폼_스켈레톤: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design Form Skeleton 패턴. 라벨 + 입력 필드 구조를 Skeleton으로 표현해 폼 데이터 로딩 상태를 처리합니다. 프로필 편집, 설정 페이지 로딩에 활용됩니다.',
+        story:
+          'Ant Design Form Skeleton 패턴. 라벨 + 입력 필드 구조를 Skeleton으로 표현해 폼 데이터 로딩 상태를 처리합니다. 프로필 편집, 설정 페이지 로딩에 활용됩니다.',
       },
     },
   },
   render: () => (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 20,
+        }}
+      >
         <Skeleton height={18} width="30%" />
         <Skeleton height={32} width={72} style={{ borderRadius: 8 }} />
       </div>
@@ -691,11 +802,24 @@ export const Ant_폼_스켈레톤: Story = {
         ].map((field, i) => (
           <div key={i}>
             <Skeleton height={11} width={field.labelWidth} style={{ marginBottom: 8 }} />
-            <Skeleton height={field.multiline ? 80 : 38} width={field.fieldWidth} style={{ borderRadius: 8 }} />
+            <Skeleton
+              height={field.multiline ? 80 : 38}
+              width={field.fieldWidth}
+              style={{ borderRadius: 8 }}
+            />
           </div>
         ))}
       </div>
-      <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 16, marginTop: 4, display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+      <div
+        style={{
+          borderTop: '1px solid #f1f5f9',
+          paddingTop: 16,
+          marginTop: 4,
+          display: 'flex',
+          gap: 8,
+          justifyContent: 'flex-end',
+        }}
+      >
         <Skeleton height={36} width={80} style={{ borderRadius: 8 }} />
         <Skeleton height={36} width={100} style={{ borderRadius: 8 }} />
       </div>
@@ -719,26 +843,51 @@ export const EnterpriseUI_웨이브_애니메이션_스켈레톤: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 400, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        width: 400,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+          marginBottom: 4,
+        }}
+      >
         EnterpriseUI Wave Skeleton — 뉴스피드 로딩
       </div>
       {[1, 2, 3].map((i) => (
         <div
           key={i}
           style={{
-            display: 'flex', gap: 14, padding: '14px',
-            borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff',
+            display: 'flex',
+            gap: 14,
+            padding: '14px',
+            borderRadius: 12,
+            border: '1px solid #f1f5f9',
+            background: '#fff',
           }}
         >
           {/* 썸네일 */}
-          <Skeleton
-            height={72}
-            width={72}
-            style={{ borderRadius: 8, flexShrink: 0 }}
-          />
+          <Skeleton height={72} width={72} style={{ borderRadius: 8, flexShrink: 0 }} />
           {/* 텍스트 블록 */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8, justifyContent: 'center' }}>
+          <div
+            style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+              justifyContent: 'center',
+            }}
+          >
             <Skeleton height={13} width="85%" />
             <Skeleton height={11} width="70%" />
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 2 }}>
@@ -752,11 +901,18 @@ export const EnterpriseUI_웨이브_애니메이션_스켈레톤: Story = {
       {/* EnterpriseUI-style 인라인 텍스트 스켈레톤 */}
       <div
         style={{
-          padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9',
-          background: '#fafafa', display: 'flex', flexDirection: 'column', gap: 8,
+          padding: '14px 16px',
+          borderRadius: 12,
+          border: '1px solid #f1f5f9',
+          background: '#fafafa',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
         }}
       >
-        <div style={{ fontSize: 11, fontWeight: 600, color: '#cbd5e1', marginBottom: 2 }}>Typography Skeleton</div>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#cbd5e1', marginBottom: 2 }}>
+          Typography Skeleton
+        </div>
         <Skeleton height={18} width="45%" style={{ borderRadius: 4 }} />
         <Skeleton height={12} width="100%" />
         <Skeleton height={12} width="92%" />
@@ -783,7 +939,15 @@ export const Accessible_대시보드_위젯_스켈레톤: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14, width: 460, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: 14,
+        width: 460,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       {[
         { accent: '#6366f1', label: '총 사용자' },
         { accent: '#10b981', label: '이번 달 매출' },
@@ -793,8 +957,13 @@ export const Accessible_대시보드_위젯_스켈레톤: Story = {
         <div
           key={label}
           style={{
-            padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0',
-            background: '#fff', display: 'flex', flexDirection: 'column', gap: 12,
+            padding: '16px',
+            borderRadius: 12,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12,
           }}
         >
           {/* 아이콘 + 레이블 행 */}
@@ -810,7 +979,11 @@ export const Accessible_대시보드_위젯_스켈레톤: Story = {
           <Skeleton height={28} width="55%" style={{ borderRadius: 6 }} />
           {/* 트렌드 */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Skeleton height={16} width={16} style={{ borderRadius: '50%', background: `${accent}33` }} />
+            <Skeleton
+              height={16}
+              width={16}
+              style={{ borderRadius: '50%', background: `${accent}33` }}
+            />
             <Skeleton height={10} width="50%" />
           </div>
           {/* 미니 프로그레스 */}
@@ -838,8 +1011,24 @@ export const EnterpriseUI_미디어_카드_스켈레톤: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, width: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+        width: 420,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}
+      >
         비율 보존 미디어 스켈레톤
       </div>
       {/* 16:9 비디오 카드 */}
@@ -849,10 +1038,15 @@ export const EnterpriseUI_미디어_카드_스켈레톤: Story = {
             <Skeleton height="100%" width="100%" style={{ borderRadius: 0 }} />
           </div>
           {/* 재생 버튼 오버레이 스켈레톤 */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <Skeleton height={44} width={44} style={{ borderRadius: '50%', opacity: 0.6 }} />
           </div>
         </div>
@@ -867,10 +1061,20 @@ export const EnterpriseUI_미디어_카드_스켈레톤: Story = {
       </div>
       {/* 4:3 이미지 갤러리 그리드 */}
       <div>
-        <div style={{ fontSize: 11, fontWeight: 600, color: '#cbd5e1', marginBottom: 8 }}>4:3 갤러리 그리드</div>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#cbd5e1', marginBottom: 8 }}>
+          4:3 갤러리 그리드
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
           {[0, 1, 2, 3, 4, 5].map((i) => (
-            <div key={i} style={{ position: 'relative', paddingTop: '75%', borderRadius: 8, overflow: 'hidden' }}>
+            <div
+              key={i}
+              style={{
+                position: 'relative',
+                paddingTop: '75%',
+                borderRadius: 8,
+                overflow: 'hidden',
+              }}
+            >
               <div style={{ position: 'absolute', inset: 0 }}>
                 <Skeleton height="100%" width="100%" style={{ borderRadius: 0 }} />
               </div>
@@ -905,12 +1109,38 @@ export const Accessible_소셜_피드_스켈레톤: Story = {
       { lines: ['80%', '65%', '78%'] },
     ]
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 380, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          width: 380,
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
           소셜 피드 로딩
         </div>
         {cards.map((card, i) => (
-          <div key={i} style={{ borderRadius: 14, border: '1px solid #f1f5f9', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div
+            key={i}
+            style={{
+              borderRadius: 14,
+              border: '1px solid #f1f5f9',
+              padding: '14px 16px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 12,
+            }}
+          >
             {/* 아바타 + 유저 정보 헤더 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <Skeleton height={40} width={40} style={{ borderRadius: '50%', flexShrink: 0 }} />
@@ -927,9 +1157,7 @@ export const Accessible_소셜_피드_스켈레톤: Story = {
               ))}
             </div>
             {/* 이미지 플레이스홀더 */}
-            {i === 0 && (
-              <Skeleton height={180} width="100%" style={{ borderRadius: 10 }} />
-            )}
+            {i === 0 && <Skeleton height={180} width="100%" style={{ borderRadius: 10 }} />}
             {/* 액션 바 */}
             <div style={{ display: 'flex', gap: 16, paddingTop: 4 }}>
               {[48, 36, 40].map((w, j) => (
@@ -963,9 +1191,29 @@ export const DataProduct_테이블_페이지네이션_스켈레톤: Story = {
     const cols = ['20%', '30%', '20%', '15%', '10%']
     const rows = 6
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 0, width: 560, fontFamily: 'system-ui, sans-serif', border: '1px solid #f1f5f9', borderRadius: 12, overflow: 'hidden' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0,
+          width: 560,
+          fontFamily: 'system-ui, sans-serif',
+          border: '1px solid #f1f5f9',
+          borderRadius: 12,
+          overflow: 'hidden',
+        }}
+      >
         {/* 헤더 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            padding: '12px 16px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #f1f5f9',
+          }}
+        >
           {cols.map((w, i) => (
             <Skeleton key={i} height={13} width={w} style={{ flexShrink: 0 }} />
           ))}
@@ -974,15 +1222,35 @@ export const DataProduct_테이블_페이지네이션_스켈레톤: Story = {
         {Array.from({ length: rows }).map((_, r) => (
           <div
             key={r}
-            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 16px', borderBottom: r < rows - 1 ? '1px solid #f8fafc' : 'none' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '11px 16px',
+              borderBottom: r < rows - 1 ? '1px solid #f8fafc' : 'none',
+            }}
           >
             {cols.map((w, c) => (
-              <Skeleton key={c} height={11} width={c === 0 ? '18%' : w} style={{ opacity: 1 - r * 0.06 }} />
+              <Skeleton
+                key={c}
+                height={11}
+                width={c === 0 ? '18%' : w}
+                style={{ opacity: 1 - r * 0.06 }}
+              />
             ))}
           </div>
         ))}
         {/* 페이지네이션 */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '12px 16px',
+            background: '#fafafa',
+            borderTop: '1px solid #f1f5f9',
+          }}
+        >
           <Skeleton height={10} width={80} />
           <div style={{ display: 'flex', gap: 6 }}>
             {[28, 28, 28, 28, 28, 28, 28].map((s, i) => (
@@ -1013,11 +1281,29 @@ export const Accessible_DataProduct_대시보드_위젯_스켈레톤: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 540, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        width: 540,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       {/* KPI 카드 4개 */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
         {[0, 1, 2, 3].map((i) => (
-          <div key={i} style={{ borderRadius: 12, border: '1px solid #f1f5f9', padding: '12px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div
+            key={i}
+            style={{
+              borderRadius: 12,
+              border: '1px solid #f1f5f9',
+              padding: '12px 14px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+            }}
+          >
             <Skeleton height={10} width="70%" />
             <Skeleton height={26} width="60%" style={{ borderRadius: 6 }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -1030,15 +1316,31 @@ export const Accessible_DataProduct_대시보드_위젯_스켈레톤: Story = {
       {/* 중단: 바 차트 + 최근 활동 */}
       <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 12 }}>
         {/* 바 차트 */}
-        <div style={{ borderRadius: 12, border: '1px solid #f1f5f9', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div
+          style={{
+            borderRadius: 12,
+            border: '1px solid #f1f5f9',
+            padding: '14px 16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+          }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Skeleton height={12} width="45%" />
             <Skeleton height={22} width={64} style={{ borderRadius: 20 }} />
           </div>
           {/* 바 차트 막대 */}
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 80, paddingTop: 8 }}>
+          <div
+            style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 80, paddingTop: 8 }}
+          >
             {[60, 45, 80, 35, 70, 55, 90].map((h, j) => (
-              <Skeleton key={j} height={h} width="100%" style={{ borderRadius: '4px 4px 0 0', flex: 1 }} />
+              <Skeleton
+                key={j}
+                height={h}
+                width="100%"
+                style={{ borderRadius: '4px 4px 0 0', flex: 1 }}
+              />
             ))}
           </div>
           {/* X축 레이블 */}
@@ -1049,7 +1351,16 @@ export const Accessible_DataProduct_대시보드_위젯_스켈레톤: Story = {
           </div>
         </div>
         {/* 최근 활동 리스트 */}
-        <div style={{ borderRadius: 12, border: '1px solid #f1f5f9', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div
+          style={{
+            borderRadius: 12,
+            border: '1px solid #f1f5f9',
+            padding: '14px 16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+          }}
+        >
           <Skeleton height={12} width="55%" />
           {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1075,14 +1386,27 @@ export const IssueTracker_프로젝트_보드_스켈레톤: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 3컬럼 프로젝트 보드(백로그/진행중/완료) 로딩 스켈레톤. 각 컬럼에 이슈 카드 스켈레톤 3~4개, 컬럼 헤더 카운터 포함.',
+        story:
+          'IssueTracker 3컬럼 프로젝트 보드(백로그/진행중/완료) 로딩 스켈레톤. 각 컬럼에 이슈 카드 스켈레톤 3~4개, 컬럼 헤더 카운터 포함.',
       },
     },
   },
   render: () => (
     <div style={{ display: 'flex', gap: 16, padding: 16 }}>
       {[4, 3, 5].map((count, colIdx) => (
-        <div key={colIdx} style={{ flex: 1, minWidth: 200, background: '#f8fafc', borderRadius: 10, padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div
+          key={colIdx}
+          style={{
+            flex: 1,
+            minWidth: 200,
+            background: '#f8fafc',
+            borderRadius: 10,
+            padding: 12,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+          }}
+        >
           {/* 컬럼 헤더 */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
             <Skeleton height={12} width="50%" />
@@ -1090,13 +1414,28 @@ export const IssueTracker_프로젝트_보드_스켈레톤: Story = {
           </div>
           {/* 이슈 카드들 */}
           {Array.from({ length: count }).map((_, i) => (
-            <div key={i} style={{ background: '#fff', borderRadius: 8, padding: '10px 12px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div
+              key={i}
+              style={{
+                background: '#fff',
+                borderRadius: 8,
+                padding: '10px 12px',
+                border: '1px solid #e2e8f0',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 8,
+              }}
+            >
               <Skeleton height={10} width={`${75 - i * 6}%`} />
               <Skeleton height={8} width={`${55 - i * 4}%`} />
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
                 <Skeleton height={20} width={20} style={{ borderRadius: '50%' }} />
                 <Skeleton height={8} width={40} />
-                <Skeleton height={16} width={48} style={{ borderRadius: 999, marginLeft: 'auto' }} />
+                <Skeleton
+                  height={16}
+                  width={48}
+                  style={{ borderRadius: 999, marginLeft: 'auto' }}
+                />
               </div>
             </div>
           ))}
@@ -1117,14 +1456,35 @@ export const Primitive_문서_페이지_스켈레톤: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI 스타일 문서 페이지 로딩 스켈레톤. 좌측 네비게이션 + 본문 헤딩/단락/코드 블록 + 우측 목차 패널 3단 레이아웃.',
+        story:
+          'PrimitiveUI 스타일 문서 페이지 로딩 스켈레톤. 좌측 네비게이션 + 본문 헤딩/단락/코드 블록 + 우측 목차 패널 3단 레이아웃.',
       },
     },
   },
   render: () => (
-    <div style={{ display: 'flex', gap: 0, minHeight: 480, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: 0,
+        minHeight: 480,
+        background: '#fff',
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+      }}
+    >
       {/* 좌측 사이드바 */}
-      <div style={{ width: 200, borderRight: '1px solid #f1f5f9', padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 10, flexShrink: 0 }}>
+      <div
+        style={{
+          width: 200,
+          borderRight: '1px solid #f1f5f9',
+          padding: '20px 16px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+          flexShrink: 0,
+        }}
+      >
         <Skeleton height={12} width="60%" />
         {[90, 75, 85, 70, 80, 65, 88].map((w, i) => (
           <Skeleton key={i} height={10} width={`${w}%`} />
@@ -1137,7 +1497,9 @@ export const Primitive_문서_페이지_스켈레톤: Story = {
         </div>
       </div>
       {/* 본문 */}
-      <div style={{ flex: 1, padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div
+        style={{ flex: 1, padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}
+      >
         <Skeleton height={28} width="55%" />
         <Skeleton height={14} width="90%" />
         <Skeleton height={14} width="80%" />
@@ -1149,7 +1511,17 @@ export const Primitive_문서_페이지_스켈레톤: Story = {
         <Skeleton height={100} width="100%" style={{ borderRadius: 8 }} />
       </div>
       {/* 우측 목차 */}
-      <div style={{ width: 160, borderLeft: '1px solid #f1f5f9', padding: '28px 14px', display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0 }}>
+      <div
+        style={{
+          width: 160,
+          borderLeft: '1px solid #f1f5f9',
+          padding: '28px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+          flexShrink: 0,
+        }}
+      >
         <Skeleton height={10} width="70%" />
         {[80, 65, 70, 60, 75, 58].map((w, i) => (
           <Skeleton key={i} height={9} width={`${w}%`} />
@@ -1168,14 +1540,24 @@ export const IssueTracker_Primitive_설정_폼_스켈레톤: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 설정 페이지 + Primitive 접근성 레이아웃. 섹션 헤더, 인풋 필드 행, 토글 설정 행, 저장 버튼 스켈레톤. 실제 폼 로딩 전 UX를 재현.',
+        story:
+          'IssueTracker 설정 페이지 + Primitive 접근성 레이아웃. 섹션 헤더, 인풋 필드 행, 토글 설정 행, 저장 버튼 스켈레톤. 실제 폼 로딩 전 UX를 재현.',
       },
     },
   },
   render: () => (
     <div style={{ maxWidth: 560, display: 'flex', flexDirection: 'column', gap: 24 }}>
       {/* 프로필 섹션 */}
-      <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div
+        style={{
+          border: '1px solid #e2e8f0',
+          borderRadius: 12,
+          padding: 20,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <Skeleton height={56} width={56} style={{ borderRadius: '50%' }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -1185,7 +1567,11 @@ export const IssueTracker_Primitive_설정_폼_스켈레톤: Story = {
           <Skeleton height={32} width={80} style={{ borderRadius: 8, marginLeft: 'auto' }} />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {[['표시 이름', 160], ['이메일', 200], ['사용자명', 140]].map(([label, w]) => (
+          {[
+            ['표시 이름', 160],
+            ['이메일', 200],
+            ['사용자명', 140],
+          ].map(([label, w]) => (
             <div key={label as string} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <Skeleton height={10} width={w as number} style={{ flexShrink: 0 }} />
               <Skeleton height={36} width="100%" style={{ borderRadius: 8 }} />
@@ -1194,10 +1580,22 @@ export const IssueTracker_Primitive_설정_폼_스켈레톤: Story = {
         </div>
       </div>
       {/* 알림 설정 섹션 */}
-      <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div
+        style={{
+          border: '1px solid #e2e8f0',
+          borderRadius: 12,
+          padding: 20,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
+        }}
+      >
         <Skeleton height={14} width="40%" />
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div
+            key={i}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+          >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
               <Skeleton height={11} width={`${130 + i * 15}px`} />
               <Skeleton height={9} width={`${90 + i * 10}px`} />
@@ -1226,9 +1624,25 @@ export const IssueTracker_Primitive_설정_폼_스켈레톤: Story = {
 export const EnterpriseUI_소셜_피드_스켈레톤: Story = {
   name: 'EnterpriseUI — 소셜 피드 스켈레톤 (아바타 + 텍스트 + 미디어)',
   render: () => (
-    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 16, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        width: 380,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       {[0, 1, 2].map((i) => (
-        <div key={i} style={{ border: '1px solid #f1f5f9', borderRadius: 12, padding: '16px', background: '#fff' }}>
+        <div
+          key={i}
+          style={{
+            border: '1px solid #f1f5f9',
+            borderRadius: 12,
+            padding: '16px',
+            background: '#fff',
+          }}
+        >
           {/* Author row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
             <Skeleton style={{ width: 40, height: 40, borderRadius: '50%' }} />
@@ -1243,7 +1657,9 @@ export const EnterpriseUI_소셜_피드_스켈레톤: Story = {
           <Skeleton height={12} width="80%" style={{ marginBottom: 6 }} />
           <Skeleton height={12} width="60%" style={{ marginBottom: 12 }} />
           {/* Media */}
-          {i === 0 && <Skeleton height={160} width="100%" style={{ borderRadius: 8, marginBottom: 12 }} />}
+          {i === 0 && (
+            <Skeleton height={160} width="100%" style={{ borderRadius: 8, marginBottom: 12 }} />
+          )}
           {/* Actions */}
           <div style={{ display: 'flex', gap: 16 }}>
             <Skeleton height={28} width={60} style={{ borderRadius: 6 }} />
@@ -1252,13 +1668,16 @@ export const EnterpriseUI_소셜_피드_스켈레톤: Story = {
           </div>
         </div>
       ))}
-      <div style={{ fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>EnterpriseUI Skeleton 소셜 피드 패턴</div>
+      <div style={{ fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>
+        EnterpriseUI Skeleton 소셜 피드 패턴
+      </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI Skeleton 소셜 피드 레이아웃 패턴. 아바타(원형) + 이름/날짜 텍스트 + 본문 3줄 + 미디어(조건부) + 액션 버튼 행. 카드 3개를 가변 너비 텍스트 줄로 구성해 자연스러운 로딩 UI 구현.',
+        story:
+          'EnterpriseUI Skeleton 소셜 피드 레이아웃 패턴. 아바타(원형) + 이름/날짜 텍스트 + 본문 3줄 + 미디어(조건부) + 액션 버튼 행. 카드 3개를 가변 너비 텍스트 줄로 구성해 자연스러운 로딩 UI 구현.',
       },
     },
   },
@@ -1270,7 +1689,15 @@ export const M3_카드_그리드_스켈레톤: Story = {
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
         {[0, 1, 2, 3].map((i) => (
-          <div key={i} style={{ border: '1px solid #f1f5f9', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
+          <div
+            key={i}
+            style={{
+              border: '1px solid #f1f5f9',
+              borderRadius: 14,
+              overflow: 'hidden',
+              background: '#fff',
+            }}
+          >
             {/* Image area */}
             <Skeleton height={120} width="100%" style={{ borderRadius: 0 }} />
             <div style={{ padding: '12px' }}>
@@ -1288,13 +1715,16 @@ export const M3_카드_그리드_스켈레톤: Story = {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>RoleToken Design 카드 그리드 스켈레톤 패턴</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>
+        RoleToken Design 카드 그리드 스켈레톤 패턴
+      </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'RoleToken Design 카드 컴포넌트 스켈레톤 패턴. 2열 그리드에 이미지 영역 + 카테고리 배지(둥근 pill) + 제목 2줄 + 저자 행. M3의 Emphasized Card 구조를 스켈레톤으로 표현.',
+        story:
+          'RoleToken Design 카드 컴포넌트 스켈레톤 패턴. 2열 그리드에 이미지 영역 + 카테고리 배지(둥근 pill) + 제목 2줄 + 저자 행. M3의 Emphasized Card 구조를 스켈레톤으로 표현.',
       },
     },
   },
@@ -1312,17 +1742,67 @@ function EnterpriseUI_M3_ChatSkeletonRender() {
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 12,
+        }}
+      >
         <span style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>채팅 스켈레톤</span>
-        <button onClick={() => setLoaded((p) => !p)} style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontFamily: 'system-ui', color: loaded ? '#6366f1' : '#94a3b8' }}>
+        <button
+          onClick={() => setLoaded((p) => !p)}
+          style={{
+            fontSize: 11,
+            padding: '3px 8px',
+            borderRadius: 6,
+            border: '1px solid #e5e7eb',
+            background: '#fff',
+            cursor: 'pointer',
+            fontFamily: 'system-ui',
+            color: loaded ? '#6366f1' : '#94a3b8',
+          }}
+        >
           {loaded ? '스켈레톤 표시' : '콘텐츠 로드'}
         </button>
       </div>
-      <div style={{ border: '1px solid #e5e7eb', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
-        <div style={{ background: '#f8fafc', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #f1f5f9' }}>
+      <div
+        style={{
+          border: '1px solid #e5e7eb',
+          borderRadius: 14,
+          overflow: 'hidden',
+          background: '#fff',
+        }}
+      >
+        <div
+          style={{
+            background: '#f8fafc',
+            padding: '10px 14px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            borderBottom: '1px solid #f1f5f9',
+          }}
+        >
           {loaded ? (
             <>
-              <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700 }}>HJ</div>
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  background: '#6366f1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontSize: 12,
+                  fontWeight: 700,
+                }}
+              >
+                HJ
+              </div>
               <div>
                 <div style={{ fontSize: 12, fontWeight: 600, color: '#111827' }}>HeeJun Kim</div>
                 <div style={{ fontSize: 10, color: '#10b981' }}>온라인</div>
@@ -1340,14 +1820,48 @@ function EnterpriseUI_M3_ChatSkeletonRender() {
         </div>
         <div style={{ padding: '14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
           {messages.map((msg, i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.mine ? 'flex-end' : 'flex-start' }}>
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: msg.mine ? 'flex-end' : 'flex-start',
+              }}
+            >
               {loaded ? (
-                <div style={{ maxWidth: '80%', padding: '8px 12px', borderRadius: msg.mine ? '14px 14px 4px 14px' : '14px 14px 14px 4px', background: msg.mine ? '#6366f1' : '#f3f4f6', fontSize: 12, color: msg.mine ? '#fff' : '#374151' }}>
-                  {msg.mine ? '안녕하세요! 스토리북 고도화 잘 되고 있나요?' : '네, 사이클 181 진행 중입니다. EnterpriseUI + M3 패턴 적용 중이에요.'}
-                  <div style={{ fontSize: 9, color: msg.mine ? 'rgba(255,255,255,0.6)' : '#9ca3af', marginTop: 3, textAlign: 'right' }}>{msg.time}</div>
+                <div
+                  style={{
+                    maxWidth: '80%',
+                    padding: '8px 12px',
+                    borderRadius: msg.mine ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
+                    background: msg.mine ? '#6366f1' : '#f3f4f6',
+                    fontSize: 12,
+                    color: msg.mine ? '#fff' : '#374151',
+                  }}
+                >
+                  {msg.mine
+                    ? '안녕하세요! 스토리북 고도화 잘 되고 있나요?'
+                    : '네, 사이클 181 진행 중입니다. EnterpriseUI + M3 패턴 적용 중이에요.'}
+                  <div
+                    style={{
+                      fontSize: 9,
+                      color: msg.mine ? 'rgba(255,255,255,0.6)' : '#9ca3af',
+                      marginTop: 3,
+                      textAlign: 'right',
+                    }}
+                  >
+                    {msg.time}
+                  </div>
                 </div>
               ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: msg.mine ? 'flex-end' : 'flex-start' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 4,
+                    alignItems: msg.mine ? 'flex-end' : 'flex-start',
+                  }}
+                >
                   {msg.lines.map((w, j) => (
                     <Skeleton key={j} height={32} width={`${w}%`} style={{ borderRadius: 10 }} />
                   ))}
@@ -1368,7 +1882,8 @@ export const EnterpriseUI_M3_채팅_스켈레톤: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI + M3 채팅 UI 스켈레톤 패턴. 좌(상대) / 우(나) 말풍선 구조, 헤더 아바타+이름+상태 모두 스켈레톤 처리. "콘텐츠 로드" 버튼으로 스켈레톤 → 실제 UI 전환 인터랙션 포함.',
+        story:
+          'EnterpriseUI + M3 채팅 UI 스켈레톤 패턴. 좌(상대) / 우(나) 말풍선 구조, 헤더 아바타+이름+상태 모두 스켈레톤 처리. "콘텐츠 로드" 버튼으로 스켈레톤 → 실제 UI 전환 인터랙션 포함.',
       },
     },
   },

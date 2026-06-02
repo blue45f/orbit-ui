@@ -66,7 +66,7 @@ describe('useEventListener', () => {
           count += multiplier
         })
       },
-      { initialProps: { multiplier: 1 } },
+      { initialProps: { multiplier: 1 } }
     )
 
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }))
@@ -89,7 +89,11 @@ describe('useEventListener', () => {
 
     renderHook(() => {
       const ref = useRef<HTMLDivElement>(child)
-      useEventListener('click', () => order.push('child-bubble'), ref as RefObject<HTMLElement | null>)
+      useEventListener(
+        'click',
+        () => order.push('child-bubble'),
+        ref as RefObject<HTMLElement | null>
+      )
     })
 
     child.dispatchEvent(new MouseEvent('click', { bubbles: true }))

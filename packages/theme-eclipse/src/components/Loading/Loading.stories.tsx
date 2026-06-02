@@ -73,7 +73,14 @@ const IssueTrackerIssueRowSkeleton = () => (
 
 export const IssueTracker_이슈목록_스켈레톤: Story = {
   render: () => (
-    <div style={{ maxWidth: '560px', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+    <div
+      style={{
+        maxWidth: '560px',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+      }}
+    >
       <div
         style={{
           padding: '12px 16px',
@@ -110,7 +117,9 @@ const IssueItem = ({ title, id, color }: { title: string; id: string; color: str
       borderBottom: '1px solid #f1f5f9',
     }}
   >
-    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: color, flexShrink: 0 }} />
+    <div
+      style={{ width: '8px', height: '8px', borderRadius: '50%', background: color, flexShrink: 0 }}
+    />
     <div
       style={{
         padding: '2px 8px',
@@ -259,7 +268,11 @@ const InlineLoadingDemo = () => {
           }}
         >
           <div>
-            <div style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b', marginBottom: '2px' }}>{label}</div>
+            <div
+              style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b', marginBottom: '2px' }}
+            >
+              {label}
+            </div>
             <div style={{ fontSize: '12px', color: '#94a3b8' }}>{value}</div>
           </div>
           <button
@@ -343,7 +356,14 @@ const WorkspaceEditorPageSkeleton = () => (
 
 export const WorkspaceEditor_페이지_스켈레톤: Story = {
   render: () => (
-    <div style={{ border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', maxWidth: '680px' }}>
+    <div
+      style={{
+        border: '1px solid #e2e8f0',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        maxWidth: '680px',
+      }}
+    >
       <div
         style={{
           padding: '8px 16px',
@@ -372,19 +392,34 @@ export const 디자인_QA: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
       <div>
-        <p style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '16px' }}>
+        <p
+          style={{
+            fontSize: '11px',
+            fontWeight: 600,
+            color: '#94a3b8',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            marginBottom: '16px',
+          }}
+        >
           Spinner Sizes
         </p>
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}
+          >
             <Loading size="small" />
             <span style={{ fontSize: '11px', color: '#94a3b8' }}>small</span>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}
+          >
             <Loading size="medium" />
             <span style={{ fontSize: '11px', color: '#94a3b8' }}>medium</span>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}
+          >
             <Loading size="large" />
             <span style={{ fontSize: '11px', color: '#94a3b8' }}>large</span>
           </div>
@@ -392,7 +427,16 @@ export const 디자인_QA: Story = {
       </div>
 
       <div>
-        <p style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '16px' }}>
+        <p
+          style={{
+            fontSize: '11px',
+            fontWeight: 600,
+            color: '#94a3b8',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            marginBottom: '16px',
+          }}
+        >
           With Message
         </p>
         <div style={{ display: 'flex', gap: '24px' }}>
@@ -435,15 +479,43 @@ function UtilityCSSTableLoadingRender() {
         <button
           onClick={refresh}
           disabled={loading}
-          style={{ padding: '6px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', background: '#fff', fontSize: 12, fontWeight: 600, color: loading ? '#94a3b8' : '#334155', cursor: loading ? 'not-allowed' : 'pointer' }}
+          style={{
+            padding: '6px 14px',
+            borderRadius: 8,
+            border: '1.5px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 12,
+            fontWeight: 600,
+            color: loading ? '#94a3b8' : '#334155',
+            cursor: loading ? 'not-allowed' : 'pointer',
+          }}
         >
           {loading ? '새로고침 중...' : '새로고침'}
         </button>
       </div>
-      <div style={{ position: 'relative', borderRadius: 10, border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
+      <div
+        style={{
+          position: 'relative',
+          borderRadius: 10,
+          border: '1.5px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
         {loading && (
-          <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'rgba(255,255,255,0.8)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+            }}
+          >
+            <div
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}
+            >
               <Loading size="medium" />
               <span style={{ fontSize: 12, color: '#64748b' }}>데이터 불러오는 중...</span>
             </div>
@@ -453,14 +525,28 @@ function UtilityCSSTableLoadingRender() {
           <thead>
             <tr style={{ background: '#f8fafc' }}>
               {TABLE_HEADERS.map((h) => (
-                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 700, color: '#475569', borderBottom: '1.5px solid #e2e8f0' }}>{h}</th>
+                <th
+                  key={h}
+                  style={{
+                    padding: '10px 14px',
+                    textAlign: 'left',
+                    fontWeight: 700,
+                    color: '#475569',
+                    borderBottom: '1.5px solid #e2e8f0',
+                  }}
+                >
+                  {h}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {data.length === 0 ? (
               <tr>
-                <td colSpan={4} style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+                <td
+                  colSpan={4}
+                  style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}
+                >
                   {loading ? '' : '데이터 없음'}
                 </td>
               </tr>
@@ -468,7 +554,16 @@ function UtilityCSSTableLoadingRender() {
               data.map((row, i) => (
                 <tr key={i} style={{ borderBottom: '1px solid #f1f5f9' }}>
                   {row.map((cell, j) => (
-                    <td key={j} style={{ padding: '10px 14px', color: j === 1 ? (cell === '활성' ? '#10b981' : '#ef4444') : '#334155', fontWeight: j === 1 ? 700 : 400 }}>{cell}</td>
+                    <td
+                      key={j}
+                      style={{
+                        padding: '10px 14px',
+                        color: j === 1 ? (cell === '활성' ? '#10b981' : '#ef4444') : '#334155',
+                        fontWeight: j === 1 ? 700 : 400,
+                      }}
+                    >
+                      {cell}
+                    </td>
                   ))}
                 </tr>
               ))
@@ -552,7 +647,16 @@ function DataProductMultistepLoadingRender() {
         <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>배포 파이프라인</span>
         <button
           onClick={run}
-          style={{ padding: '6px 16px', borderRadius: 8, border: 'none', background: stepIdx === null ? '#6366f1' : '#f1f5f9', color: stepIdx === null ? '#fff' : '#64748b', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+          style={{
+            padding: '6px 16px',
+            borderRadius: 8,
+            border: 'none',
+            background: stepIdx === null ? '#6366f1' : '#f1f5f9',
+            color: stepIdx === null ? '#fff' : '#64748b',
+            fontSize: 12,
+            fontWeight: 700,
+            cursor: 'pointer',
+          }}
         >
           {stepIdx === null ? '실행' : stepIdx < PROCESS_STEPS.length ? '진행 중...' : '초기화'}
         </button>
@@ -563,32 +667,61 @@ function DataProductMultistepLoadingRender() {
           const isActive = stepIdx === i
           return (
             <div key={step.id} style={{ display: 'flex', gap: 14 }}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
-                <div style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: '50%',
-                  border: `2px solid ${statusColor[status]}`,
-                  background: status === 'done' ? statusColor[status] : '#fff',
+              <div
+                style={{
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.2s',
-                }}>
+                  flexShrink: 0,
+                }}
+              >
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    border: `2px solid ${statusColor[status]}`,
+                    background: status === 'done' ? statusColor[status] : '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'all 0.2s',
+                  }}
+                >
                   {isActive && status === 'loading' ? (
                     <Loading size="small" />
                   ) : status === 'done' ? (
                     <span style={{ fontSize: 14, color: '#fff', fontWeight: 700 }}>✓</span>
                   ) : (
-                    <span style={{ fontSize: 12, fontWeight: 700, color: statusColor[status] }}>{i + 1}</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: statusColor[status] }}>
+                      {i + 1}
+                    </span>
                   )}
                 </div>
                 {i < PROCESS_STEPS.length - 1 && (
-                  <div style={{ width: 2, flex: 1, minHeight: 24, background: status === 'done' ? '#10b981' : '#e2e8f0', margin: '4px 0', transition: 'background 0.3s' }} />
+                  <div
+                    style={{
+                      width: 2,
+                      flex: 1,
+                      minHeight: 24,
+                      background: status === 'done' ? '#10b981' : '#e2e8f0',
+                      margin: '4px 0',
+                      transition: 'background 0.3s',
+                    }}
+                  />
                 )}
               </div>
               <div style={{ paddingBottom: i < PROCESS_STEPS.length - 1 ? 16 : 0, paddingTop: 4 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: isActive ? '#6366f1' : status === 'done' ? '#10b981' : '#94a3b8', transition: 'color 0.2s' }}>{step.label}</div>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: isActive ? '#6366f1' : status === 'done' ? '#10b981' : '#94a3b8',
+                    transition: 'color 0.2s',
+                  }}
+                >
+                  {step.label}
+                </div>
                 <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{step.desc}</div>
               </div>
             </div>
@@ -596,7 +729,18 @@ function DataProductMultistepLoadingRender() {
         })}
       </div>
       {stepIdx !== null && stepIdx >= PROCESS_STEPS.length && (
-        <div style={{ padding: '12px 16px', borderRadius: 10, background: '#dcfce7', border: '1.5px solid #bbf7d0', fontSize: 13, fontWeight: 700, color: '#16a34a', textAlign: 'center' }}>
+        <div
+          style={{
+            padding: '12px 16px',
+            borderRadius: 10,
+            background: '#dcfce7',
+            border: '1.5px solid #bbf7d0',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#16a34a',
+            textAlign: 'center',
+          }}
+        >
           모든 단계 완료!
         </div>
       )}
@@ -633,13 +777,9 @@ function DataProductOptimisticUpdateRender() {
   ])
 
   const toggle = (id: number) => {
-    setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, done: !t.done, saving: true } : t)),
-    )
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done, saving: true } : t)))
     setTimeout(() => {
-      setTasks((prev) =>
-        prev.map((t) => (t.id === id ? { ...t, saving: false } : t)),
-      )
+      setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, saving: false } : t)))
     }, 1000)
   }
 
@@ -649,10 +789,20 @@ function DataProductOptimisticUpdateRender() {
     <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 14 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>작업 목록</span>
-        <span style={{ fontSize: 12, color: '#64748b' }}>{doneCount}/{tasks.length} 완료</span>
+        <span style={{ fontSize: 12, color: '#64748b' }}>
+          {doneCount}/{tasks.length} 완료
+        </span>
       </div>
       <div style={{ height: 4, borderRadius: 2, background: '#f1f5f9', overflow: 'hidden' }}>
-        <div style={{ height: '100%', width: `${(doneCount / tasks.length) * 100}%`, background: '#6366f1', borderRadius: 2, transition: 'width 0.3s' }} />
+        <div
+          style={{
+            height: '100%',
+            width: `${(doneCount / tasks.length) * 100}%`,
+            background: '#6366f1',
+            borderRadius: 2,
+            transition: 'width 0.3s',
+          }}
+        />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {tasks.map((task) => (
@@ -671,21 +821,31 @@ function DataProductOptimisticUpdateRender() {
             }}
             onClick={() => !task.saving && toggle(task.id)}
           >
-            <div style={{
-              width: 20,
-              height: 20,
-              borderRadius: 4,
-              border: `2px solid ${task.done ? '#10b981' : '#d1d5db'}`,
-              background: task.done ? '#10b981' : '#fff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              transition: 'all 0.15s',
-            }}>
+            <div
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: 4,
+                border: `2px solid ${task.done ? '#10b981' : '#d1d5db'}`,
+                background: task.done ? '#10b981' : '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                transition: 'all 0.15s',
+              }}
+            >
               {task.done && <span style={{ fontSize: 11, color: '#fff', fontWeight: 900 }}>✓</span>}
             </div>
-            <span style={{ flex: 1, fontSize: 13, color: task.done ? '#94a3b8' : '#1e293b', textDecoration: task.done ? 'line-through' : 'none', transition: 'all 0.2s' }}>
+            <span
+              style={{
+                flex: 1,
+                fontSize: 13,
+                color: task.done ? '#94a3b8' : '#1e293b',
+                textDecoration: task.done ? 'line-through' : 'none',
+                transition: 'all 0.2s',
+              }}
+            >
               {task.label}
             </span>
             {task.saving && (
@@ -723,7 +883,14 @@ export const DataProduct_낙관적_업데이트_로딩: Story = {
    ComposableUI Skeleton 컴포넌트 데모 — 3열 카드 레이아웃 스켈레톤 패턴
 -------------------------------------------------------------------------- */
 const ComposableUICardSkeletonItem = () => (
-  <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+  <div
+    style={{
+      borderRadius: 12,
+      border: '1px solid #e2e8f0',
+      overflow: 'hidden',
+      background: '#fff',
+    }}
+  >
     <Skeleton height={140} width="100%" style={{ borderRadius: 0, display: 'block' }} />
     <div style={{ padding: '14px 16px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
@@ -753,7 +920,16 @@ function ComposableUICardSkeletonGridRender() {
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>최신 게시물</span>
         <button
           onClick={() => setLoaded((p) => !p)}
-          style={{ padding: '5px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', background: '#fff', fontSize: 12, fontWeight: 600, color: '#334155', cursor: 'pointer' }}
+          style={{
+            padding: '5px 14px',
+            borderRadius: 8,
+            border: '1.5px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 12,
+            fontWeight: 600,
+            color: '#334155',
+            cursor: 'pointer',
+          }}
         >
           {loaded ? '스켈레톤 보기' : '콘텐츠 로드'}
         </button>
@@ -761,28 +937,80 @@ function ComposableUICardSkeletonGridRender() {
       {loaded ? (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
           {['디자인 토큰 가이드', '컴포넌트 설계 원칙', 'Storybook 고도화'].map((title, i) => (
-            <div key={i} style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
-              <div style={{ height: 140, background: ['#eef2ff', '#f0fdf4', '#fff7ed'][i], display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div
+              key={i}
+              style={{
+                borderRadius: 12,
+                border: '1px solid #e2e8f0',
+                overflow: 'hidden',
+                background: '#fff',
+              }}
+            >
+              <div
+                style={{
+                  height: 140,
+                  background: ['#eef2ff', '#f0fdf4', '#fff7ed'][i],
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 <span style={{ fontSize: 32 }}>{'📐📦📖'[i]}</span>
               </div>
               <div style={{ padding: '14px 16px 16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: ['#6366f1', '#10b981', '#f59e0b'][i], display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                  <div
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: '50%',
+                      background: ['#6366f1', '#10b981', '#f59e0b'][i],
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: '#fff',
+                      flexShrink: 0,
+                    }}
+                  >
                     {['HJ', 'SY', 'JH'][i]}
                   </div>
                   <div>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a' }}>{['김희준', '이서연', '박지호'][i]}</div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a' }}>
+                      {['김희준', '이서연', '박지호'][i]}
+                    </div>
                     <div style={{ fontSize: 10, color: '#94a3b8' }}>2일 전</div>
                   </div>
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 6 }}>{title}</div>
-                <div style={{ fontSize: 12, color: '#64748b', marginBottom: 8, lineHeight: 1.5 }}>컴포넌트 설계의 핵심 원칙과 실무 활용 패턴을 소개합니다.</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 6 }}>
+                  {title}
+                </div>
+                <div style={{ fontSize: 12, color: '#64748b', marginBottom: 8, lineHeight: 1.5 }}>
+                  컴포넌트 설계의 핵심 원칙과 실무 활용 패턴을 소개합니다.
+                </div>
                 <div style={{ display: 'flex', gap: 6 }}>
-                  {[['Design', '#eef2ff', '#6366f1'], ['Token', '#f0fdf4', '#10b981'], ['React', '#fff7ed', '#f59e0b']][i].map((c, j) => (
+                  {[
+                    ['Design', '#eef2ff', '#6366f1'],
+                    ['Token', '#f0fdf4', '#10b981'],
+                    ['React', '#fff7ed', '#f59e0b'],
+                  ][i].map((c, j) =>
                     j === 0 ? (
-                      <span key={j} style={{ padding: '2px 8px', borderRadius: 20, background: ['#eef2ff', '#f0fdf4', '#fff7ed'][i], color: ['#6366f1', '#10b981', '#f59e0b'][i], fontSize: 11, fontWeight: 600 }}>{c}</span>
+                      <span
+                        key={j}
+                        style={{
+                          padding: '2px 8px',
+                          borderRadius: 20,
+                          background: ['#eef2ff', '#f0fdf4', '#fff7ed'][i],
+                          color: ['#6366f1', '#10b981', '#f59e0b'][i],
+                          fontSize: 11,
+                          fontWeight: 600,
+                        }}
+                      >
+                        {c}
+                      </span>
                     ) : null
-                  ))}
+                  )}
                 </div>
               </div>
             </div>
@@ -821,7 +1049,18 @@ export const ComposableUI_카드_스켈레톤_그리드: Story = {
    ComposableUI의 대표 Skeleton 데모 — Avatar + 텍스트 라인 패턴
 -------------------------------------------------------------------------- */
 const ComposableUIProfileSkeleton = () => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff', maxWidth: 360 }}>
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 14,
+      padding: '16px 20px',
+      borderRadius: 12,
+      border: '1px solid #e2e8f0',
+      background: '#fff',
+      maxWidth: 360,
+    }}
+  >
     <Skeleton height={56} width={56} style={{ borderRadius: '50%', flexShrink: 0 }} />
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
       <Skeleton height={16} width="55%" style={{ borderRadius: 4 }} />
@@ -845,7 +1084,12 @@ function ComposableUIProfileSkeletonRender() {
   }
 
   const profiles = [
-    { name: '김희준', role: 'Design Engineer @ Orbit UI', email: 'hjunkim@orbit.dev', color: '#6366f1' },
+    {
+      name: '김희준',
+      role: 'Design Engineer @ Orbit UI',
+      email: 'hjunkim@orbit.dev',
+      color: '#6366f1',
+    },
     { name: '이서연', role: 'Frontend Developer', email: 'sylee@orbit.dev', color: '#10b981' },
     { name: '박지호', role: 'Product Designer', email: 'jhpark@orbit.dev', color: '#f59e0b' },
   ]
@@ -857,7 +1101,17 @@ function ComposableUIProfileSkeletonRender() {
         <button
           onClick={loadProfile}
           disabled={loading}
-          style={{ padding: '5px 14px', borderRadius: 8, border: 'none', background: loading ? '#e2e8f0' : '#0f172a', color: loading ? '#94a3b8' : '#fff', fontSize: 12, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}
+          style={{
+            padding: '5px 14px',
+            borderRadius: 8,
+            border: 'none',
+            background: loading ? '#e2e8f0' : '#0f172a',
+            color: loading ? '#94a3b8' : '#fff',
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: loading ? 'not-allowed' : 'pointer',
+            transition: 'all 0.2s',
+          }}
         >
           {loading ? '로드 중...' : '프로필 불러오기'}
         </button>
@@ -870,12 +1124,39 @@ function ComposableUIProfileSkeletonRender() {
         </>
       ) : (
         profiles.map((p) => (
-          <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
-            <div style={{ width: 56, height: 56, borderRadius: '50%', background: p.color, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 800, color: '#fff' }}>
+          <div
+            key={p.name}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              padding: '16px 20px',
+              borderRadius: 12,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+            }}
+          >
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: '50%',
+                background: p.color,
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 18,
+                fontWeight: 800,
+                color: '#fff',
+              }}
+            >
               {p.name[0]}
             </div>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 3 }}>{p.name}</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 3 }}>
+                {p.name}
+              </div>
               <div style={{ fontSize: 12, color: '#64748b', marginBottom: 2 }}>{p.role}</div>
               <div style={{ fontSize: 12, color: '#94a3b8' }}>{p.email}</div>
             </div>
@@ -909,19 +1190,75 @@ export const ComposableUI_프로필_스켈레톤: Story = {
    ComposableUI 벤치마크: 무한 스크롤 로딩 트리거
    ComposableUI의 Table + Pagination 패턴 — 리스트 하단 점진적 로딩 시뮬레이션
 -------------------------------------------------------------------------- */
-type FeedItem = { id: number; title: string; author: string; date: string; tag: string; tagColor: string }
+type FeedItem = {
+  id: number
+  title: string
+  author: string
+  date: string
+  tag: string
+  tagColor: string
+}
 
 const INITIAL_FEED: FeedItem[] = [
-  { id: 1, title: '디자인 토큰 3단계 계층 구조 이해하기', author: '김희준', date: '2025-04-01', tag: 'Design', tagColor: '#eef2ff' },
-  { id: 2, title: 'Storybook 8.x 마이그레이션 완전 가이드', author: '이서연', date: '2025-04-02', tag: 'Storybook', tagColor: '#f0fdf4' },
-  { id: 3, title: 'UtilityCSS로 타입 안전 CSS 작성', author: '박지호', date: '2025-04-03', tag: 'CSS', tagColor: '#fff7ed' },
-  { id: 4, title: 'React 19 Actions 패턴 실전 활용', author: '최은아', date: '2025-04-04', tag: 'React', tagColor: '#fef3c7' },
+  {
+    id: 1,
+    title: '디자인 토큰 3단계 계층 구조 이해하기',
+    author: '김희준',
+    date: '2025-04-01',
+    tag: 'Design',
+    tagColor: '#eef2ff',
+  },
+  {
+    id: 2,
+    title: 'Storybook 8.x 마이그레이션 완전 가이드',
+    author: '이서연',
+    date: '2025-04-02',
+    tag: 'Storybook',
+    tagColor: '#f0fdf4',
+  },
+  {
+    id: 3,
+    title: 'UtilityCSS로 타입 안전 CSS 작성',
+    author: '박지호',
+    date: '2025-04-03',
+    tag: 'CSS',
+    tagColor: '#fff7ed',
+  },
+  {
+    id: 4,
+    title: 'React 19 Actions 패턴 실전 활용',
+    author: '최은아',
+    date: '2025-04-04',
+    tag: 'React',
+    tagColor: '#fef3c7',
+  },
 ]
 
 const MORE_FEED: FeedItem[] = [
-  { id: 5, title: 'WAI-ARIA 접근성 컴포넌트 설계 원칙', author: '김희준', date: '2025-04-05', tag: 'A11y', tagColor: '#fce7f3' },
-  { id: 6, title: 'pnpm 모노레포 워크스페이스 최적화', author: '이서연', date: '2025-04-06', tag: 'DevOps', tagColor: '#ede9fe' },
-  { id: 7, title: 'TypeScript 5.7 satisfies 연산자 활용', author: '박지호', date: '2025-04-07', tag: 'TypeScript', tagColor: '#dbeafe' },
+  {
+    id: 5,
+    title: 'WAI-ARIA 접근성 컴포넌트 설계 원칙',
+    author: '김희준',
+    date: '2025-04-05',
+    tag: 'A11y',
+    tagColor: '#fce7f3',
+  },
+  {
+    id: 6,
+    title: 'pnpm 모노레포 워크스페이스 최적화',
+    author: '이서연',
+    date: '2025-04-06',
+    tag: 'DevOps',
+    tagColor: '#ede9fe',
+  },
+  {
+    id: 7,
+    title: 'TypeScript 5.7 satisfies 연산자 활용',
+    author: '박지호',
+    date: '2025-04-07',
+    tag: 'TypeScript',
+    tagColor: '#dbeafe',
+  },
 ]
 
 function ComposableUIInfiniteScrollRender() {
@@ -942,21 +1279,69 @@ function ComposableUIInfiniteScrollRender() {
   return (
     <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>
-        아티클 피드 <span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8' }}>({items.length}개)</span>
+        아티클 피드{' '}
+        <span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8' }}>({items.length}개)</span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {items.map((item) => (
-          <div key={item.id} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 14px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
-            <div style={{ width: 36, height: 36, borderRadius: 8, background: item.tagColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 800, color: '#334155', flexShrink: 0 }}>
+          <div
+            key={item.id}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 12,
+              padding: '12px 14px',
+              borderRadius: 10,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+            }}
+          >
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 8,
+                background: item.tagColor,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 11,
+                fontWeight: 800,
+                color: '#334155',
+                flexShrink: 0,
+              }}
+            >
               {item.id}
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 4, lineHeight: 1.4 }}>{item.title}</div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: '#0f172a',
+                  marginBottom: 4,
+                  lineHeight: 1.4,
+                }}
+              >
+                {item.title}
+              </div>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                 <span style={{ fontSize: 11, color: '#64748b' }}>{item.author}</span>
                 <span style={{ fontSize: 11, color: '#d1d5db' }}>·</span>
                 <span style={{ fontSize: 11, color: '#94a3b8' }}>{item.date}</span>
-                <span style={{ padding: '1px 8px', borderRadius: 20, background: item.tagColor, fontSize: 10, fontWeight: 700, color: '#334155', marginLeft: 'auto' }}>{item.tag}</span>
+                <span
+                  style={{
+                    padding: '1px 8px',
+                    borderRadius: 20,
+                    background: item.tagColor,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    color: '#334155',
+                    marginLeft: 'auto',
+                  }}
+                >
+                  {item.tag}
+                </span>
               </div>
             </div>
           </div>
@@ -966,17 +1351,42 @@ function ComposableUIInfiniteScrollRender() {
         <button
           onClick={loadMore}
           disabled={loadingMore}
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '10px', borderRadius: 10, border: '1.5px dashed #e2e8f0', background: '#fafafa', cursor: loadingMore ? 'not-allowed' : 'pointer', fontSize: 13, fontWeight: 600, color: loadingMore ? '#94a3b8' : '#334155' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            padding: '10px',
+            borderRadius: 10,
+            border: '1.5px dashed #e2e8f0',
+            background: '#fafafa',
+            cursor: loadingMore ? 'not-allowed' : 'pointer',
+            fontSize: 13,
+            fontWeight: 600,
+            color: loadingMore ? '#94a3b8' : '#334155',
+          }}
         >
           {loadingMore ? (
             <>
               <Loading size="small" />
               <span>불러오는 중...</span>
             </>
-          ) : '더 보기'}
+          ) : (
+            '더 보기'
+          )}
         </button>
       ) : (
-        <div style={{ padding: '10px', textAlign: 'center', fontSize: 12, color: '#94a3b8', border: '1px solid #f1f5f9', borderRadius: 10, background: '#fafafa' }}>
+        <div
+          style={{
+            padding: '10px',
+            textAlign: 'center',
+            fontSize: 12,
+            color: '#94a3b8',
+            border: '1px solid #f1f5f9',
+            borderRadius: 10,
+            background: '#fafafa',
+          }}
+        >
           모든 아티클을 불러왔습니다.
         </div>
       )}
@@ -1032,22 +1442,48 @@ function M3IssueTrackerProgressRender() {
 
   return (
     <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 24, padding: 20 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>M3 IssueTrackerProgressIndicator 패턴</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+        M3 IssueTrackerProgressIndicator 패턴
+      </div>
 
       {/* Determinate */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 12, color: '#475569', fontWeight: 600 }}>확정 (Determinate) — {currentStage.label}</span>
+          <span style={{ fontSize: 12, color: '#475569', fontWeight: 600 }}>
+            확정 (Determinate) — {currentStage.label}
+          </span>
           <span style={{ fontSize: 12, fontWeight: 700, color: '#6366f1' }}>{progress}%</span>
         </div>
         <div style={{ height: 6, borderRadius: 3, background: '#e2e8f0', overflow: 'hidden' }}>
-          <div style={{ height: '100%', width: `${progress}%`, background: '#6366f1', borderRadius: 3, transition: 'width 0.2s ease' }} />
+          <div
+            style={{
+              height: '100%',
+              width: `${progress}%`,
+              background: '#6366f1',
+              borderRadius: 3,
+              transition: 'width 0.2s ease',
+            }}
+          />
         </div>
         <div style={{ display: 'flex', gap: 0 }}>
           {stages.map((s, i) => (
-            <div key={s.label} style={{ flex: 1, borderLeft: i > 0 ? '1px solid #e2e8f0' : 'none', paddingLeft: i > 0 ? 8 : 0 }}>
-              <div style={{ fontSize: 10, color: progress >= s.threshold ? '#6366f1' : '#94a3b8', fontWeight: progress >= s.threshold ? 700 : 400 }}>
-                {progress >= s.threshold ? '✓ ' : ''}{s.label}
+            <div
+              key={s.label}
+              style={{
+                flex: 1,
+                borderLeft: i > 0 ? '1px solid #e2e8f0' : 'none',
+                paddingLeft: i > 0 ? 8 : 0,
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 10,
+                  color: progress >= s.threshold ? '#6366f1' : '#94a3b8',
+                  fontWeight: progress >= s.threshold ? 700 : 400,
+                }}
+              >
+                {progress >= s.threshold ? '✓ ' : ''}
+                {s.label}
               </div>
             </div>
           ))}
@@ -1056,7 +1492,9 @@ function M3IssueTrackerProgressRender() {
 
       {/* Indeterminate */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <span style={{ fontSize: 12, color: '#475569', fontWeight: 600 }}>불확정 (Indeterminate)</span>
+        <span style={{ fontSize: 12, color: '#475569', fontWeight: 600 }}>
+          불확정 (Indeterminate)
+        </span>
         {running || progress > 0 ? (
           <Loading size="small" />
         ) : (
@@ -1065,10 +1503,36 @@ function M3IssueTrackerProgressRender() {
       </div>
 
       <div style={{ display: 'flex', gap: 8 }}>
-        <button onClick={restart} style={{ padding: '6px 14px', fontSize: 12, borderRadius: 6, background: '#6366f1', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
+        <button
+          onClick={restart}
+          style={{
+            padding: '6px 14px',
+            fontSize: 12,
+            borderRadius: 6,
+            background: '#6366f1',
+            color: '#fff',
+            border: 'none',
+            cursor: 'pointer',
+            fontWeight: 600,
+          }}
+        >
           시작
         </button>
-        <button onClick={() => { setProgress(0); setRunning(false) }} style={{ padding: '6px 14px', fontSize: 12, borderRadius: 6, background: '#f1f5f9', color: '#475569', border: 'none', cursor: 'pointer' }}>
+        <button
+          onClick={() => {
+            setProgress(0)
+            setRunning(false)
+          }}
+          style={{
+            padding: '6px 14px',
+            fontSize: 12,
+            borderRadius: 6,
+            background: '#f1f5f9',
+            color: '#475569',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+        >
           초기화
         </button>
       </div>
@@ -1094,7 +1558,9 @@ export const M3_선형_진행_지표: Story = {
    IssueTracker의 optimistic UI 패턴 — 즉각 피드백 + 백그라운드 동기화
 -------------------------------------------------------------------------- */
 function IssueTrackerIssueLoadingRender() {
-  const [issues, setIssues] = React.useState<{ id: string; title: string; status: 'todo' | 'in_progress' }[]>([
+  const [issues, setIssues] = React.useState<
+    { id: string; title: string; status: 'todo' | 'in_progress' }[]
+  >([
     { id: 'ORB-042', title: 'HoverCard 열림 지연 개선', status: 'todo' },
     { id: 'ORB-041', title: 'TextField 자동완성 드롭다운', status: 'todo' },
     { id: 'ORB-040', title: 'EclipseProvider SSR 지원', status: 'todo' },
@@ -1118,28 +1584,73 @@ function IssueTrackerIssueLoadingRender() {
 
   return (
     <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#475569',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+          marginBottom: 4,
+        }}
+      >
         이슈 목록 — IssueTracker Optimistic UI
       </div>
       {issues.map((issue) => (
-        <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
+        <div
+          key={issue.id}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '10px 12px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+          }}
+        >
           {loading === issue.id ? (
             <Loading size="small" />
           ) : (
-            <div style={{ width: 12, height: 12, borderRadius: '50%', background: statusColor[issue.status], flexShrink: 0 }} />
+            <div
+              style={{
+                width: 12,
+                height: 12,
+                borderRadius: '50%',
+                background: statusColor[issue.status],
+                flexShrink: 0,
+              }}
+            />
           )}
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 500 }}>{issue.id}</div>
             <div style={{ fontSize: 12, color: '#64748b' }}>{issue.title}</div>
           </div>
-          <span style={{ fontSize: 11, fontWeight: 600, color: statusColor[issue.status], padding: '2px 8px', borderRadius: 4, background: `${statusColor[issue.status]}15` }}>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: statusColor[issue.status],
+              padding: '2px 8px',
+              borderRadius: 4,
+              background: `${statusColor[issue.status]}15`,
+            }}
+          >
             {statusLabel[issue.status]}
           </span>
           {issue.status === 'todo' && (
             <button
               onClick={() => updateStatus(issue.id)}
               disabled={loading !== null}
-              style={{ fontSize: 11, padding: '3px 10px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#f8fafc', cursor: loading !== null ? 'not-allowed' : 'pointer', color: '#475569' }}
+              style={{
+                fontSize: 11,
+                padding: '3px 10px',
+                borderRadius: 5,
+                border: '1px solid #e2e8f0',
+                background: '#f8fafc',
+                cursor: loading !== null ? 'not-allowed' : 'pointer',
+                color: '#475569',
+              }}
             >
               시작
             </button>
@@ -1190,35 +1701,75 @@ function M3IssueTrackerOnboardingRender() {
   const isComplete = step === steps.length - 1
 
   return (
-    <div style={{ width: 400, padding: 24, border: '1px solid #e2e8f0', borderRadius: 12, background: '#fff' }}>
+    <div
+      style={{
+        width: 400,
+        padding: 24,
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        background: '#fff',
+      }}
+    >
       {/* Step indicators */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
         {steps.map((s, i) => (
           <React.Fragment key={s.title}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-              <div style={{
-                width: 28, height: 28, borderRadius: '50%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 12, fontWeight: 700,
-                background: i < step ? '#10b981' : i === step ? '#6366f1' : '#f1f5f9',
-                color: i <= step ? '#fff' : '#94a3b8',
-                transition: 'all 0.3s',
-              }}>
+              <div
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  background: i < step ? '#10b981' : i === step ? '#6366f1' : '#f1f5f9',
+                  color: i <= step ? '#fff' : '#94a3b8',
+                  transition: 'all 0.3s',
+                }}
+              >
                 {i < step ? '✓' : i + 1}
               </div>
-              <span style={{ fontSize: 9, color: i === step ? '#6366f1' : '#94a3b8', fontWeight: i === step ? 700 : 400, whiteSpace: 'nowrap' }}>
+              <span
+                style={{
+                  fontSize: 9,
+                  color: i === step ? '#6366f1' : '#94a3b8',
+                  fontWeight: i === step ? 700 : 400,
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 {s.title}
               </span>
             </div>
             {i < steps.length - 1 && (
-              <div style={{ flex: 1, height: 2, background: i < step ? '#10b981' : '#e2e8f0', marginBottom: 18, transition: 'background 0.3s' }} />
+              <div
+                style={{
+                  flex: 1,
+                  height: 2,
+                  background: i < step ? '#10b981' : '#e2e8f0',
+                  marginBottom: 18,
+                  transition: 'background 0.3s',
+                }}
+              />
             )}
           </React.Fragment>
         ))}
       </div>
 
       {/* Content */}
-      <div style={{ minHeight: 80, display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+      <div
+        style={{
+          minHeight: 80,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 12,
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
+      >
         {loading ? (
           <>
             <Loading size="medium" />
@@ -1228,11 +1779,15 @@ function M3IssueTrackerOnboardingRender() {
           <>
             <div style={{ fontSize: 32 }}>🎉</div>
             <div style={{ fontSize: 14, fontWeight: 700, color: '#10b981' }}>모든 설정 완료!</div>
-            <div style={{ fontSize: 12, color: '#64748b' }}>Orbit UI를 사용할 준비가 되었습니다.</div>
+            <div style={{ fontSize: 12, color: '#64748b' }}>
+              Orbit UI를 사용할 준비가 되었습니다.
+            </div>
           </>
         ) : (
           <>
-            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{steps[step].title}</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>
+              {steps[step].title}
+            </div>
             <div style={{ fontSize: 12, color: '#64748b' }}>{steps[step].desc}</div>
           </>
         )}
@@ -1242,7 +1797,17 @@ function M3IssueTrackerOnboardingRender() {
         <button
           onClick={nextStep}
           disabled={loading || isComplete}
-          style={{ padding: '8px 24px', fontSize: 13, fontWeight: 700, borderRadius: 8, border: 'none', cursor: loading || isComplete ? 'not-allowed' : 'pointer', background: isComplete ? '#10b981' : '#6366f1', color: '#fff', opacity: loading ? 0.7 : 1 }}
+          style={{
+            padding: '8px 24px',
+            fontSize: 13,
+            fontWeight: 700,
+            borderRadius: 8,
+            border: 'none',
+            cursor: loading || isComplete ? 'not-allowed' : 'pointer',
+            background: isComplete ? '#10b981' : '#6366f1',
+            color: '#fff',
+            opacity: loading ? 0.7 : 1,
+          }}
         >
           {isComplete ? '시작하기' : loading ? '처리 중...' : '다음 단계'}
         </button>
@@ -1283,7 +1848,10 @@ function IssueTrackerDataFetch144Render() {
     setTimeout(() => setState('success'), 1600)
   }
 
-  const reset = () => { setState('idle'); setRetryCount(0) }
+  const reset = () => {
+    setState('idle')
+    setRetryCount(0)
+  }
 
   const stateMap = {
     idle: { label: '데이터 없음', color: '#94a3b8', desc: '조회 버튼을 클릭하세요' },
@@ -1295,13 +1863,32 @@ function IssueTrackerDataFetch144Render() {
   const current = stateMap[state]
 
   return (
-    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20, background: '#fff' }}>
+    <div
+      style={{
+        width: 360,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        padding: 20,
+        background: '#fff',
+      }}
+    >
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>이슈 목록</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>IssueTracker Design — 데이터 패치 로딩 상태</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+          IssueTracker Design — 데이터 패치 로딩 상태
+        </div>
       </div>
 
-      <div style={{ padding: '32px 20px', textAlign: 'center', border: '1px dashed #e2e8f0', borderRadius: 8, marginBottom: 16 }}>
+      <div
+        style={{
+          padding: '32px 20px',
+          textAlign: 'center',
+          border: '1px dashed #e2e8f0',
+          borderRadius: 8,
+          marginBottom: 16,
+        }}
+      >
         {state === 'loading' ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
             <Loading size="large" />
@@ -1309,8 +1896,12 @@ function IssueTrackerDataFetch144Render() {
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-            <div style={{ fontSize: 28, color: current.color }}>{state === 'success' ? '✓' : state === 'error' ? '✕' : '○'}</div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: current.color }}>{current.label}</div>
+            <div style={{ fontSize: 28, color: current.color }}>
+              {state === 'success' ? '✓' : state === 'error' ? '✕' : '○'}
+            </div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: current.color }}>
+              {current.label}
+            </div>
             <div style={{ fontSize: 11, color: '#64748b' }}>{current.desc}</div>
           </div>
         )}
@@ -1318,22 +1909,72 @@ function IssueTrackerDataFetch144Render() {
 
       <div style={{ display: 'flex', gap: 8 }}>
         {state === 'idle' && (
-          <button onClick={fetch} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+          <button
+            onClick={fetch}
+            style={{
+              flex: 1,
+              padding: '9px 0',
+              borderRadius: 8,
+              border: 'none',
+              background: '#0f172a',
+              color: '#fff',
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
             데이터 조회
           </button>
         )}
         {state === 'error' && (
           <>
-            <button onClick={retry} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+            <button
+              onClick={retry}
+              style={{
+                flex: 1,
+                padding: '9px 0',
+                borderRadius: 8,
+                border: 'none',
+                background: '#3b82f6',
+                color: '#fff',
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
               다시 시도
             </button>
-            <button onClick={reset} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#475569' }}>
+            <button
+              onClick={reset}
+              style={{
+                flex: 1,
+                padding: '9px 0',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                fontSize: 12,
+                cursor: 'pointer',
+                color: '#475569',
+              }}
+            >
               취소
             </button>
           </>
         )}
         {state === 'success' && (
-          <button onClick={reset} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#475569' }}>
+          <button
+            onClick={reset}
+            style={{
+              flex: 1,
+              padding: '9px 0',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              fontSize: 12,
+              cursor: 'pointer',
+              color: '#475569',
+            }}
+          >
             초기화
           </button>
         )}
@@ -1347,7 +1988,8 @@ export const IssueTracker_데이터_패치_로딩: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker Design 데이터 패치 패턴. idle→loading→success/error 상태 전환. 첫 조회는 오류 유도, 재시도 성공. Loading 스피너 + 상태별 피드백.',
+        story:
+          'IssueTracker Design 데이터 패치 패턴. idle→loading→success/error 상태 전환. 첫 조회는 오류 유도, 재시도 성공. Loading 스피너 + 상태별 피드백.',
       },
     },
   },
@@ -1382,13 +2024,27 @@ function DeployPlatformDeployLoading144Render() {
     }, 1000)
   }
 
-  const reset = () => { setPhase(0); setRunning(false) }
+  const reset = () => {
+    setPhase(0)
+    setRunning(false)
+  }
 
   return (
-    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#0a0a0a', border: '1px solid #27272a', borderRadius: 10, padding: 20 }}>
+    <div
+      style={{
+        width: 360,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#0a0a0a',
+        border: '1px solid #27272a',
+        borderRadius: 10,
+        padding: 20,
+      }}
+    >
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#e2e8f0' }}>배포 파이프라인</div>
-        <div style={{ fontSize: 10, color: '#52525b', marginTop: 2 }}>DeployPlatform Design — 배포 진행 로딩</div>
+        <div style={{ fontSize: 10, color: '#52525b', marginTop: 2 }}>
+          DeployPlatform Design — 배포 진행 로딩
+        </div>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
@@ -1397,15 +2053,42 @@ function DeployPlatformDeployLoading144Render() {
           const isCurrent = i === phase
           return (
             <div key={p.label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <div style={{ width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: isDone ? '#10b98120' : isCurrent ? `${p.color}20` : '#18181b', border: `1px solid ${isDone ? '#10b981' : isCurrent ? p.color : '#27272a'}`, flexShrink: 0 }}>
+              <div
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: isDone ? '#10b98120' : isCurrent ? `${p.color}20` : '#18181b',
+                  border: `1px solid ${isDone ? '#10b981' : isCurrent ? p.color : '#27272a'}`,
+                  flexShrink: 0,
+                }}
+              >
                 {isCurrent && running ? (
                   <Loading size="small" />
                 ) : (
-                  <span style={{ fontSize: 12, color: isDone ? '#10b981' : isCurrent ? p.color : '#52525b' }}>{isDone ? '✓' : p.icon}</span>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      color: isDone ? '#10b981' : isCurrent ? p.color : '#52525b',
+                    }}
+                  >
+                    {isDone ? '✓' : p.icon}
+                  </span>
                 )}
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, color: isDone ? '#10b981' : isCurrent ? '#e2e8f0' : '#52525b', fontWeight: isCurrent ? 600 : 400 }}>{p.label}</div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: isDone ? '#10b981' : isCurrent ? '#e2e8f0' : '#52525b',
+                    fontWeight: isCurrent ? 600 : 400,
+                  }}
+                >
+                  {p.label}
+                </div>
                 {isCurrent && running && (
                   <div style={{ fontSize: 10, color: '#52525b', marginTop: 1 }}>처리 중...</div>
                 )}
@@ -1420,10 +2103,35 @@ function DeployPlatformDeployLoading144Render() {
       </div>
 
       <div style={{ display: 'flex', gap: 8 }}>
-        <button onClick={start} disabled={running} style={{ flex: 1, padding: '8px 0', borderRadius: 6, border: 'none', background: running ? '#27272a' : '#fff', color: running ? '#52525b' : '#0a0a0a', fontSize: 12, fontWeight: 600, cursor: running ? 'not-allowed' : 'pointer' }}>
+        <button
+          onClick={start}
+          disabled={running}
+          style={{
+            flex: 1,
+            padding: '8px 0',
+            borderRadius: 6,
+            border: 'none',
+            background: running ? '#27272a' : '#fff',
+            color: running ? '#52525b' : '#0a0a0a',
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: running ? 'not-allowed' : 'pointer',
+          }}
+        >
           {running ? '배포 중...' : '배포 시작'}
         </button>
-        <button onClick={reset} style={{ padding: '8px 14px', borderRadius: 6, border: '1px solid #27272a', background: 'transparent', color: '#71717a', fontSize: 12, cursor: 'pointer' }}>
+        <button
+          onClick={reset}
+          style={{
+            padding: '8px 14px',
+            borderRadius: 6,
+            border: '1px solid #27272a',
+            background: 'transparent',
+            color: '#71717a',
+            fontSize: 12,
+            cursor: 'pointer',
+          }}
+        >
           초기화
         </button>
       </div>
@@ -1436,7 +2144,8 @@ export const DeployPlatform_배포_파이프라인_로딩: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 다크 테마 배포 파이프라인. 4단계(Init/Build/Deploy/Ready) 순서 전환, 현재 단계 Loading 스피너, 완료 단계 초록 체크. 모노크롬 팔레트.',
+        story:
+          'DeployPlatform 다크 테마 배포 파이프라인. 4단계(Init/Build/Deploy/Ready) 순서 전환, 현재 단계 Loading 스피너, 완료 단계 초록 체크. 모노크롬 팔레트.',
       },
     },
   },
@@ -1449,7 +2158,18 @@ function IssueTrackerDeployPlatformTableLoad144Render() {
 
   const allRows = Array.from({ length: 20 }, (_, i) => ({
     id: `ORB-${200 + i}`,
-    title: ['TextField 포커스 링 개선', 'DataTable 정렬 최적화', 'Avatar 그룹 스택 추가', 'Slider 범위 선택 버그', 'Modal 접근성 보완', 'SearchBar 글로벌 검색', 'Toggle 서식 도구바', 'Dropdown API 문서화', 'Progress 업로드 패턴', 'HoverCard 프로필 호버'][i % 10],
+    title: [
+      'TextField 포커스 링 개선',
+      'DataTable 정렬 최적화',
+      'Avatar 그룹 스택 추가',
+      'Slider 범위 선택 버그',
+      'Modal 접근성 보완',
+      'SearchBar 글로벌 검색',
+      'Toggle 서식 도구바',
+      'Dropdown API 문서화',
+      'Progress 업로드 패턴',
+      'HoverCard 프로필 호버',
+    ][i % 10],
     priority: ['urgent', 'high', 'medium', 'low'][i % 4],
     status: ['todo', 'in-progress', 'done'][i % 3],
   }))
@@ -1460,39 +2180,140 @@ function IssueTrackerDeployPlatformTableLoad144Render() {
 
   const goPage = (p: number) => {
     setLoading(true)
-    setTimeout(() => { setPage(p); setLoading(false) }, 600)
+    setTimeout(() => {
+      setPage(p)
+      setLoading(false)
+    }, 600)
   }
 
-  const priorityColor: Record<string, string> = { urgent: '#ef4444', high: '#f59e0b', medium: '#3b82f6', low: '#94a3b8' }
-  const statusColor: Record<string, string> = { todo: '#94a3b8', 'in-progress': '#3b82f6', done: '#10b981' }
+  const priorityColor: Record<string, string> = {
+    urgent: '#ef4444',
+    high: '#f59e0b',
+    medium: '#3b82f6',
+    low: '#94a3b8',
+  }
+  const statusColor: Record<string, string> = {
+    todo: '#94a3b8',
+    'in-progress': '#3b82f6',
+    done: '#10b981',
+  }
 
   return (
     <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>IssueTracker + DeployPlatform — 테이블 페이지 로딩</div>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>
+        IssueTracker + DeployPlatform — 테이블 페이지 로딩
+      </div>
       <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
-        <div style={{ padding: '10px 14px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div
+          style={{
+            padding: '10px 14px',
+            borderBottom: '1px solid #e2e8f0',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>이슈 목록</span>
           <span style={{ fontSize: 11, color: '#94a3b8' }}>{allRows.length}개</span>
         </div>
         <div style={{ minHeight: 220 }}>
           {loading ? (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 220 }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 220,
+              }}
+            >
               <Loading size="large" />
             </div>
           ) : (
             rows.map((row) => (
-              <div key={row.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderBottom: '1px solid #f8fafc' }}>
-                <code style={{ fontSize: 10, color: '#64748b', fontFamily: 'monospace', width: 56, flexShrink: 0 }}>{row.id}</code>
-                <span style={{ flex: 1, fontSize: 12, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.title}</span>
-                <span style={{ fontSize: 10, fontWeight: 700, color: priorityColor[row.priority], width: 40, flexShrink: 0 }}>{row.priority}</span>
-                <span style={{ fontSize: 10, color: statusColor[row.status], width: 60, flexShrink: 0, textAlign: 'right' }}>{row.status}</span>
+              <div
+                key={row.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '10px 14px',
+                  borderBottom: '1px solid #f8fafc',
+                }}
+              >
+                <code
+                  style={{
+                    fontSize: 10,
+                    color: '#64748b',
+                    fontFamily: 'monospace',
+                    width: 56,
+                    flexShrink: 0,
+                  }}
+                >
+                  {row.id}
+                </code>
+                <span
+                  style={{
+                    flex: 1,
+                    fontSize: 12,
+                    color: '#1e293b',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {row.title}
+                </span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    color: priorityColor[row.priority],
+                    width: 40,
+                    flexShrink: 0,
+                  }}
+                >
+                  {row.priority}
+                </span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    color: statusColor[row.status],
+                    width: 60,
+                    flexShrink: 0,
+                    textAlign: 'right',
+                  }}
+                >
+                  {row.status}
+                </span>
               </div>
             ))
           )}
         </div>
-        <div style={{ padding: '10px 14px', borderTop: '1px solid #e2e8f0', display: 'flex', gap: 4, justifyContent: 'center' }}>
+        <div
+          style={{
+            padding: '10px 14px',
+            borderTop: '1px solid #e2e8f0',
+            display: 'flex',
+            gap: 4,
+            justifyContent: 'center',
+          }}
+        >
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-            <button key={p} onClick={() => goPage(p)} style={{ width: 28, height: 28, borderRadius: 6, border: `1px solid ${p === page ? '#3b82f6' : '#e2e8f0'}`, background: p === page ? '#eff6ff' : '#fff', color: p === page ? '#2563eb' : '#64748b', fontSize: 11, fontWeight: p === page ? 700 : 400, cursor: 'pointer' }}>
+            <button
+              key={p}
+              onClick={() => goPage(p)}
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: 6,
+                border: `1px solid ${p === page ? '#3b82f6' : '#e2e8f0'}`,
+                background: p === page ? '#eff6ff' : '#fff',
+                color: p === page ? '#2563eb' : '#64748b',
+                fontSize: 11,
+                fontWeight: p === page ? 700 : 400,
+                cursor: 'pointer',
+              }}
+            >
               {p}
             </button>
           ))}
@@ -1507,7 +2328,8 @@ export const IssueTracker_DeployPlatform_테이블_페이지_로딩: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 이슈 목록 + DeployPlatform 컴팩트 스타일. 페이지 전환 시 Loading 스피너, 우선순위 색상 코딩, 상태 인디케이터. 페이지네이션 버튼.',
+        story:
+          'IssueTracker 이슈 목록 + DeployPlatform 컴팩트 스타일. 페이지 전환 시 Loading 스피너, 우선순위 색상 코딩, 상태 인디케이터. 페이지네이션 버튼.',
       },
     },
   },
@@ -1531,7 +2353,10 @@ function DeployPlatformBuildPipelineRender() {
 
   React.useEffect(() => {
     if (step < BUILD_PIPELINE_STEPS.length) {
-      const timer = setTimeout(() => setStep((s) => s + 1), BUILD_PIPELINE_STEPS[step]?.duration ?? 0)
+      const timer = setTimeout(
+        () => setStep((s) => s + 1),
+        BUILD_PIPELINE_STEPS[step]?.duration ?? 0
+      )
       return () => clearTimeout(timer)
     }
   }, [step])
@@ -1539,8 +2364,23 @@ function DeployPlatformBuildPipelineRender() {
   const reset = () => setStep(0)
 
   return (
-    <div style={{ width: 400, background: '#0f172a', borderRadius: 12, overflow: 'hidden', padding: 20 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+    <div
+      style={{
+        width: 400,
+        background: '#0f172a',
+        borderRadius: 12,
+        overflow: 'hidden',
+        padding: 20,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
         <div>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#f1f5f9' }}>orbit-ui</div>
           <div style={{ fontSize: 11, color: '#64748b' }}>Production 배포 중...</div>
@@ -1557,22 +2397,73 @@ function DeployPlatformBuildPipelineRender() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {BUILD_PIPELINE_STEPS.map((s, i) => (
           <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 18, height: 18, borderRadius: 9, background: i < step ? '#22c55e20' : i === step ? '#3b82f620' : '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <div
+              style={{
+                width: 18,
+                height: 18,
+                borderRadius: 9,
+                background: i < step ? '#22c55e20' : i === step ? '#3b82f620' : '#1e293b',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
               {i < step ? (
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#22c55e" strokeWidth="3" strokeLinecap="round"/></svg>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 13l4 4L19 7" stroke="#22c55e" strokeWidth="3" strokeLinecap="round" />
+                </svg>
               ) : i === step && step < BUILD_PIPELINE_STEPS.length ? (
-                <div style={{ width: 6, height: 6, borderRadius: 3, background: '#3b82f6', animation: 'pulse 1s infinite' }} />
+                <div
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: 3,
+                    background: '#3b82f6',
+                    animation: 'pulse 1s infinite',
+                  }}
+                />
               ) : (
                 <div style={{ width: 4, height: 4, borderRadius: 2, background: '#334155' }} />
               )}
             </div>
-            <span style={{ fontSize: 12, color: i < step ? '#22c55e' : i === step && step < BUILD_PIPELINE_STEPS.length ? '#f1f5f9' : '#475569', transition: 'color 300ms' }}>{s.label}</span>
-            {i < step && <span style={{ fontSize: 10, color: '#22c55e', marginLeft: 'auto' }}>{(s.duration / 1000).toFixed(1)}s</span>}
+            <span
+              style={{
+                fontSize: 12,
+                color:
+                  i < step
+                    ? '#22c55e'
+                    : i === step && step < BUILD_PIPELINE_STEPS.length
+                      ? '#f1f5f9'
+                      : '#475569',
+                transition: 'color 300ms',
+              }}
+            >
+              {s.label}
+            </span>
+            {i < step && (
+              <span style={{ fontSize: 10, color: '#22c55e', marginLeft: 'auto' }}>
+                {(s.duration / 1000).toFixed(1)}s
+              </span>
+            )}
           </div>
         ))}
       </div>
       {step >= BUILD_PIPELINE_STEPS.length && (
-        <button onClick={reset} style={{ marginTop: 16, width: '100%', padding: '8px', borderRadius: 8, background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', fontSize: 12, cursor: 'pointer' }}>
+        <button
+          onClick={reset}
+          style={{
+            marginTop: 16,
+            width: '100%',
+            padding: '8px',
+            borderRadius: 8,
+            background: '#1e293b',
+            border: '1px solid #334155',
+            color: '#94a3b8',
+            fontSize: 12,
+            cursor: 'pointer',
+          }}
+        >
           다시 실행
         </button>
       )}
@@ -1586,7 +2477,8 @@ export const DeployPlatform_빌드_파이프라인_로딩: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 배포 파이프라인 단계별 Loading 패턴. Clone/Install/Build/Upload/Deploy 5단계 순차 진행. 완료 시 체크, 진행 중 펄스 인디케이터, 다크 배경.',
+        story:
+          'DeployPlatform 배포 파이프라인 단계별 Loading 패턴. Clone/Install/Build/Upload/Deploy 5단계 순차 진행. 완료 시 체크, 진행 중 펄스 인디케이터, 다크 배경.',
       },
     },
   },
@@ -1604,30 +2496,77 @@ function EnterpriseUISkeletonLoadingRender() {
 
   return (
     <div style={{ width: 420 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-        <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>EnterpriseUI 카드 뷰</span>
-        <button onClick={reset} style={{ padding: '4px 10px', borderRadius: 6, background: '#f1f5f9', border: 'none', fontSize: 11, cursor: 'pointer', color: '#64748b' }}>새로고침</button>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 12,
+        }}
+      >
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
+          EnterpriseUI 카드 뷰
+        </span>
+        <button
+          onClick={reset}
+          style={{
+            padding: '4px 10px',
+            borderRadius: 6,
+            background: '#f1f5f9',
+            border: 'none',
+            fontSize: 11,
+            cursor: 'pointer',
+            color: '#64748b',
+          }}
+        >
+          새로고침
+        </button>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
         {[0, 1, 2, 3].map((i) => (
-          <div key={i} style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+          <div
+            key={i}
+            style={{
+              borderRadius: 10,
+              border: '1px solid #e2e8f0',
+              overflow: 'hidden',
+              background: '#fff',
+            }}
+          >
             {loading ? (
               <div>
                 <Skeleton style={{ height: 80, borderRadius: 0 }} />
                 <div style={{ padding: '10px 12px' }}>
-                  <Skeleton style={{ height: 14, borderRadius: 4, marginBottom: 6, width: '80%' }} />
-                  <Skeleton style={{ height: 11, borderRadius: 4, marginBottom: 4, width: '60%' }} />
+                  <Skeleton
+                    style={{ height: 14, borderRadius: 4, marginBottom: 6, width: '80%' }}
+                  />
+                  <Skeleton
+                    style={{ height: 11, borderRadius: 4, marginBottom: 4, width: '60%' }}
+                  />
                   <Skeleton style={{ height: 11, borderRadius: 4, width: '40%' }} />
                 </div>
               </div>
             ) : (
               <div>
-                <div style={{ height: 80, background: `hsl(${i * 60 + 220}, 70%, 90%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+                <div
+                  style={{
+                    height: 80,
+                    background: `hsl(${i * 60 + 220}, 70%, 90%)`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 24,
+                  }}
+                >
                   {['🎨', '⚡', '🔧', '📊'][i]}
                 </div>
                 <div style={{ padding: '10px 12px' }}>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 4 }}>{['컴포넌트', '성능', '커스텀', '분석'][i]}</div>
-                  <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5 }}>{['40+ 컴포넌트', '60fps 보장', '토큰 기반', '스토리 860+'][i]}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 4 }}>
+                    {['컴포넌트', '성능', '커스텀', '분석'][i]}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5 }}>
+                    {['40+ 컴포넌트', '60fps 보장', '토큰 기반', '스토리 860+'][i]}
+                  </div>
                 </div>
               </div>
             )}
@@ -1635,7 +2574,18 @@ function EnterpriseUISkeletonLoadingRender() {
         ))}
       </div>
       {loading && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 12, padding: '8px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            marginTop: 12,
+            padding: '8px 12px',
+            borderRadius: 8,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+          }}
+        >
           <Loading />
           <span style={{ fontSize: 12, color: '#64748b' }}>카드 데이터를 불러오는 중...</span>
         </div>
@@ -1650,14 +2600,18 @@ export const EnterpriseUI_카드_스켈레톤_로딩: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI Skeleton + Loading 조합 패턴. 카드 그리드 로딩 시 Skeleton placeholder, 완료 후 실제 콘텐츠로 전환. 하단 Loading 스피너로 진행 상태 명시.',
+        story:
+          'EnterpriseUI Skeleton + Loading 조합 패턴. 카드 그리드 로딩 시 Skeleton placeholder, 완료 후 실제 콘텐츠로 전환. 하단 Loading 스피너로 진행 상태 명시.',
       },
     },
   },
 }
 
 function DeployPlatformEnterpriseUIInlineLoadingRender() {
-  const [states, setStates] = useState({ save: 'idle', publish: 'idle', sync: 'idle' } as Record<string, string>)
+  const [states, setStates] = useState({ save: 'idle', publish: 'idle', sync: 'idle' } as Record<
+    string,
+    string
+  >)
 
   const trigger = (key: string) => {
     setStates((prev) => ({ ...prev, [key]: 'loading' }))
@@ -1665,16 +2619,41 @@ function DeployPlatformEnterpriseUIInlineLoadingRender() {
     setTimeout(() => setStates((prev) => ({ ...prev, [key]: 'idle' })), 3600)
   }
 
-  const actionConfig: Record<string, { label: string; loadingLabel: string; doneLabel: string; color: string }> = {
-    save: { label: '변경사항 저장', loadingLabel: '저장 중...', doneLabel: '저장 완료', color: '#6366f1' },
-    publish: { label: '게시하기', loadingLabel: '게시 중...', doneLabel: '게시됨', color: '#16a34a' },
+  const actionConfig: Record<
+    string,
+    { label: string; loadingLabel: string; doneLabel: string; color: string }
+  > = {
+    save: {
+      label: '변경사항 저장',
+      loadingLabel: '저장 중...',
+      doneLabel: '저장 완료',
+      color: '#6366f1',
+    },
+    publish: {
+      label: '게시하기',
+      loadingLabel: '게시 중...',
+      doneLabel: '게시됨',
+      color: '#16a34a',
+    },
     sync: { label: '동기화', loadingLabel: '동기화 중...', doneLabel: '완료', color: '#3b82f6' },
   }
 
   return (
-    <div style={{ width: 360, background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: 20 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>인라인 액션 로딩</div>
-      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>DeployPlatform + EnterpriseUI 버튼 내 로딩 패턴</div>
+    <div
+      style={{
+        width: 360,
+        background: '#fff',
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+        padding: 20,
+      }}
+    >
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+        인라인 액션 로딩
+      </div>
+      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>
+        DeployPlatform + EnterpriseUI 버튼 내 로딩 패턴
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {Object.entries(actionConfig).map(([key, cfg]) => {
           const state = states[key]
@@ -1683,12 +2662,43 @@ function DeployPlatformEnterpriseUIInlineLoadingRender() {
               key={key}
               onClick={() => state === 'idle' && trigger(key)}
               disabled={state === 'loading'}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '10px 16px', borderRadius: 8, border: `1px solid ${state === 'done' ? '#dcfce7' : '#e2e8f0'}`, background: state === 'done' ? '#f0fdf4' : state === 'loading' ? '#f8fafc' : '#fff', cursor: state === 'idle' ? 'pointer' : 'default', transition: 'all 200ms', width: '100%' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
+                padding: '10px 16px',
+                borderRadius: 8,
+                border: `1px solid ${state === 'done' ? '#dcfce7' : '#e2e8f0'}`,
+                background: state === 'done' ? '#f0fdf4' : state === 'loading' ? '#f8fafc' : '#fff',
+                cursor: state === 'idle' ? 'pointer' : 'default',
+                transition: 'all 200ms',
+                width: '100%',
+              }}
             >
               {state === 'loading' && <Loading />}
-              {state === 'done' && <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round"/></svg>}
-              <span style={{ fontSize: 13, fontWeight: 600, color: state === 'done' ? '#16a34a' : state === 'loading' ? '#94a3b8' : '#0f172a' }}>
-                {state === 'loading' ? cfg.loadingLabel : state === 'done' ? cfg.doneLabel : cfg.label}
+              {state === 'done' && (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M5 13l4 4L19 7"
+                    stroke="#16a34a"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              )}
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: state === 'done' ? '#16a34a' : state === 'loading' ? '#94a3b8' : '#0f172a',
+                }}
+              >
+                {state === 'loading'
+                  ? cfg.loadingLabel
+                  : state === 'done'
+                    ? cfg.doneLabel
+                    : cfg.label}
               </span>
             </button>
           )
@@ -1704,7 +2714,8 @@ export const DeployPlatform_EnterpriseUI_인라인_액션_로딩: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform + EnterpriseUI 버튼 내 Loading 패턴. 저장/게시/동기화 3개 액션 각각 독립적 로딩 상태. idle → loading(스피너) → done(체크) → idle 순환. 실무 폼 제출 UX.',
+        story:
+          'DeployPlatform + EnterpriseUI 버튼 내 Loading 패턴. 저장/게시/동기화 3개 액션 각각 독립적 로딩 상태. idle → loading(스피너) → done(체크) → idle 순환. 실무 폼 제출 UX.',
       },
     },
   },

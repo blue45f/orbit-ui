@@ -1,4 +1,4 @@
-import { act, renderHook , fireEvent } from '@testing-library/react'
+import { act, renderHook, fireEvent } from '@testing-library/react'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { cleanup, render } from '../../test-utils'

@@ -6,7 +6,8 @@ export type GamepadState = {
 }
 
 export function useGamepad(): GamepadState {
-  const isSupported = typeof navigator !== 'undefined' && typeof navigator.getGamepads === 'function'
+  const isSupported =
+    typeof navigator !== 'undefined' && typeof navigator.getGamepads === 'function'
 
   const [gamepads, setGamepads] = useState<(Gamepad | null)[]>([])
 

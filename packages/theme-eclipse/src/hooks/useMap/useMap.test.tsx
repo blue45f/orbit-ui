@@ -13,7 +13,7 @@ describe('useMap', () => {
       useMap<string, number>([
         ['a', 1],
         ['b', 2],
-      ]),
+      ])
     )
     expect(result.current.map.size).toBe(2)
     expect(result.current.get('a')).toBe(1)
@@ -44,7 +44,7 @@ describe('useMap', () => {
       useMap<string, number>([
         ['a', 1],
         ['b', 2],
-      ]),
+      ])
     )
 
     act(() => result.current.remove('a'))
@@ -83,7 +83,7 @@ describe('useMap', () => {
       result.current.reset([
         ['x', 100],
         ['y', 200],
-      ]),
+      ])
     )
 
     expect(result.current.map.size).toBe(2)

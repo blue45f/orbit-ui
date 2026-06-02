@@ -15,7 +15,10 @@ const makeMockGeolocation = () => {
   return { mockWatchPosition, mockClearWatch }
 }
 
-const stubGeolocation = (mockWatchPosition: ReturnType<typeof vi.fn>, mockClearWatch: ReturnType<typeof vi.fn>) => {
+const stubGeolocation = (
+  mockWatchPosition: ReturnType<typeof vi.fn>,
+  mockClearWatch: ReturnType<typeof vi.fn>
+) => {
   vi.stubGlobal('navigator', {
     geolocation: { watchPosition: mockWatchPosition, clearWatch: mockClearWatch },
   })
@@ -38,7 +41,13 @@ const makePosition = (overrides?: Partial<GeolocationCoordinates>): GeolocationP
 })
 
 const makeError = (code = 1, message = 'User denied geolocation'): GeolocationPositionError =>
-  ({ code, message, PERMISSION_DENIED: 1, POSITION_UNAVAILABLE: 2, TIMEOUT: 3 }) as GeolocationPositionError
+  ({
+    code,
+    message,
+    PERMISSION_DENIED: 1,
+    POSITION_UNAVAILABLE: 2,
+    TIMEOUT: 3,
+  }) as GeolocationPositionError
 
 // ---------------------------------------------------------------------------
 // Tests

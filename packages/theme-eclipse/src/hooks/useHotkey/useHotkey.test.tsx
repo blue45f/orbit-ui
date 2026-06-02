@@ -8,7 +8,7 @@ import { useHotkey } from './useHotkey'
 function dispatchKey(
   key: string,
   modifiers: { ctrl?: boolean; meta?: boolean; shift?: boolean; alt?: boolean } = {},
-  target: EventTarget = window,
+  target: EventTarget = window
 ) {
   const event = new KeyboardEvent('keydown', {
     key,
@@ -137,7 +137,7 @@ describe('useHotkey', () => {
           received = { ...({} as KeyboardEvent), key: `id-${id}` }
         })
       },
-      { initialProps: { id: 1 } },
+      { initialProps: { id: 1 } }
     )
 
     dispatchKey('Escape')

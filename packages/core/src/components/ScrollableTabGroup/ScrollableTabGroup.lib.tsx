@@ -1,5 +1,3 @@
-
-
 import { MouseEvent, useRef } from 'react'
 
 const DRAG_THRESHOLD = 2

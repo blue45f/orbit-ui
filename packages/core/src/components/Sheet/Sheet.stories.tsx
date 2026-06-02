@@ -30,10 +30,19 @@ export const 제어 = {
 
     return (
       <>
-        <button type="button" onClick={() => setIsPresented(true)} style={{
-          padding: '8px 16px', borderRadius: '8px', border: '1px solid #d1d5db',
-          background: '#ffffff', fontSize: '14px', fontWeight: '500', cursor: 'pointer',
-        }}>
+        <button
+          type="button"
+          onClick={() => setIsPresented(true)}
+          style={{
+            padding: '8px 16px',
+            borderRadius: '8px',
+            border: '1px solid #d1d5db',
+            background: '#ffffff',
+            fontSize: '14px',
+            fontWeight: '500',
+            cursor: 'pointer',
+          }}
+        >
           열기
         </button>
         <Sheet
@@ -49,10 +58,19 @@ export const 제어 = {
           <Sheet.Content>
             <div style={{ padding: '20px' }}>
               <p>Body Content</p>
-              <button type="button" onClick={() => setIsPresented(false)} style={{
-                padding: '8px 16px', borderRadius: '8px', border: '1px solid #d1d5db',
-                background: '#ffffff', fontSize: '14px', fontWeight: '500', cursor: 'pointer',
-              }}>
+              <button
+                type="button"
+                onClick={() => setIsPresented(false)}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '8px',
+                  border: '1px solid #d1d5db',
+                  background: '#ffffff',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                }}
+              >
                 닫기
               </button>
             </div>
@@ -199,7 +217,16 @@ export const 크기조절 = {
             <button
               type="button"
               ref={handleElementRef}
-              style={{ width: '100%', cursor: 'grab', padding: '12px', border: 'none', background: 'transparent', color: '#94a3b8', fontSize: '16px', letterSpacing: '4px' }}
+              style={{
+                width: '100%',
+                cursor: 'grab',
+                padding: '12px',
+                border: 'none',
+                background: 'transparent',
+                color: '#94a3b8',
+                fontSize: '16px',
+                letterSpacing: '4px',
+              }}
             >
               ━━━
             </button>
@@ -221,7 +248,6 @@ export const 크기조절 = {
 } satisfies Story
 
 export const 디자인_QA = {
-
   args: {
     isPresented: true,
     width: '100%',
@@ -278,7 +304,6 @@ export const 디자인_QA = {
       control: 'boolean',
       description: 'Footer 표시 여부',
     },
-
   } as any,
 
   render: function Story(args: any) {
@@ -312,10 +337,19 @@ export const 디자인_QA = {
     return (
       <>
         <p>컨트롤 패널을 통해 Sheet의 속성을 조절할 수 있어요.</p>
-        <button type="button" onClick={() => setIsPresentedState(true)} style={{
-          padding: '8px 16px', borderRadius: '8px', border: '1px solid #d1d5db',
-          background: '#ffffff', fontSize: '14px', fontWeight: '500', cursor: 'pointer',
-        }}>
+        <button
+          type="button"
+          onClick={() => setIsPresentedState(true)}
+          style={{
+            padding: '8px 16px',
+            borderRadius: '8px',
+            border: '1px solid #d1d5db',
+            background: '#ffffff',
+            fontSize: '14px',
+            fontWeight: '500',
+            cursor: 'pointer',
+          }}
+        >
           Sheet 열기
         </button>
         <Sheet

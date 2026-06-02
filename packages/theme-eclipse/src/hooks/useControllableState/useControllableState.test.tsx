@@ -9,16 +9,12 @@ describe('useControllableState', () => {
   afterEach(() => cleanup())
 
   it('uncontrolled 모드에서 defaultValue를 초기값으로 사용한다', () => {
-    const { result } = renderHook(() =>
-      useControllableState({ defaultValue: 'hello' }),
-    )
+    const { result } = renderHook(() => useControllableState({ defaultValue: 'hello' }))
     expect(result.current[0]).toBe('hello')
   })
 
   it('uncontrolled 모드에서 setState 로 내부 상태가 변경된다', () => {
-    const { result } = renderHook(() =>
-      useControllableState({ defaultValue: 'initial' }),
-    )
+    const { result } = renderHook(() => useControllableState({ defaultValue: 'initial' }))
 
     act(() => {
       result.current[1]('updated')
@@ -29,9 +25,7 @@ describe('useControllableState', () => {
 
   it('controlled 모드에서 setState 는 내부 상태를 변경하지 않고 onChange를 호출한다', () => {
     const onChange = vi.fn()
-    const { result } = renderHook(() =>
-      useControllableState({ value: 'controlled', onChange }),
-    )
+    const { result } = renderHook(() => useControllableState({ value: 'controlled', onChange }))
 
     act(() => {
       result.current[1]('new-value')
@@ -45,7 +39,7 @@ describe('useControllableState', () => {
   it('onChange 는 controlled · uncontrolled 양쪽에서 모두 호출된다', () => {
     const onChangeControlled = vi.fn()
     const { result: controlled } = renderHook(() =>
-      useControllableState({ value: 'ctrl', onChange: onChangeControlled }),
+      useControllableState({ value: 'ctrl', onChange: onChangeControlled })
     )
 
     act(() => {
@@ -55,7 +49,7 @@ describe('useControllableState', () => {
 
     const onChangeUncontrolled = vi.fn()
     const { result: uncontrolled } = renderHook(() =>
-      useControllableState({ defaultValue: 'start', onChange: onChangeUncontrolled }),
+      useControllableState({ defaultValue: 'start', onChange: onChangeUncontrolled })
     )
 
     act(() => {

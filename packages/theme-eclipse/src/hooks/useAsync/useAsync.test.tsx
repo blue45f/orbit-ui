@@ -44,7 +44,10 @@ describe('useAsync', () => {
   it('run() 호출 중에는 pending 상태다', async () => {
     let resolvePromise!: (value: string) => void
     const asyncFn = vi.fn(
-      () => new Promise<string>((res) => { resolvePromise = res }),
+      () =>
+        new Promise<string>((res) => {
+          resolvePromise = res
+        })
     )
 
     const { result } = renderHook(() => useAsync(asyncFn))
@@ -114,9 +117,7 @@ describe('useAsync', () => {
   it('immediate=true이면 마운트 시 자동으로 실행된다', async () => {
     const asyncFn = vi.fn().mockResolvedValue('auto')
 
-    const { result } = renderHook(() =>
-      useAsync(asyncFn, { immediate: true }),
-    )
+    const { result } = renderHook(() => useAsync(asyncFn, { immediate: true }))
 
     // 마운트 직후에는 pending 또는 success(마이크로태스크 후)
     // act로 모든 비동기를 flush
@@ -136,10 +137,16 @@ describe('useAsync', () => {
     const asyncFn = vi
       .fn()
       .mockImplementationOnce(
-        () => new Promise<string>((res) => { resolve1 = res }),
+        () =>
+          new Promise<string>((res) => {
+            resolve1 = res
+          })
       )
       .mockImplementationOnce(
-        () => new Promise<string>((res) => { resolve2 = res }),
+        () =>
+          new Promise<string>((res) => {
+            resolve2 = res
+          })
       )
 
     const { result } = renderHook(() => useAsync(asyncFn))

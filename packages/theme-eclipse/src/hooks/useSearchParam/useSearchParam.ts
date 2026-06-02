@@ -14,9 +14,7 @@ import { useCallback, useEffect, useState } from 'react'
  * setTab(null)         // key 제거
  * ```
  */
-export function useSearchParam(
-  key: string,
-): [string | null, (value: string | null) => void] {
+export function useSearchParam(key: string): [string | null, (value: string | null) => void] {
   const [value, setValue] = useState<string | null>(() => {
     if (typeof window === 'undefined') return null
     return new URLSearchParams(window.location.search).get(key)
@@ -39,7 +37,7 @@ export function useSearchParam(
       window.history.pushState({}, '', newUrl)
       setValue(next)
     },
-    [key],
+    [key]
   )
 
   return [value, set]

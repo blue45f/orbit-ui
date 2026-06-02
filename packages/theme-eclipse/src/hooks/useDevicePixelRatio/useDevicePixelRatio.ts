@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react'
  */
 export function useDevicePixelRatio(): number {
   const [dpr, setDpr] = useState<number>(() =>
-    typeof window !== 'undefined' ? window.devicePixelRatio : 1,
+    typeof window !== 'undefined' ? window.devicePixelRatio : 1
   )
 
   useEffect(() => {

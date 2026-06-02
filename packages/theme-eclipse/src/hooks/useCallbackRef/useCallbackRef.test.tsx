@@ -14,7 +14,7 @@ describe('useCallbackRef', () => {
     const callback = vi.fn()
     const { result, rerender } = renderHook(
       ({ cb }: { cb: typeof callback }) => useCallbackRef(cb),
-      { initialProps: { cb: callback } },
+      { initialProps: { cb: callback } }
     )
 
     const first = result.current
@@ -30,7 +30,7 @@ describe('useCallbackRef', () => {
 
     const { result, rerender } = renderHook(
       ({ cb }: { cb: (...args: unknown[]) => unknown }) => useCallbackRef(cb),
-      { initialProps: { cb: callback1 as (...args: unknown[]) => unknown } },
+      { initialProps: { cb: callback1 as (...args: unknown[]) => unknown } }
     )
 
     result.current()

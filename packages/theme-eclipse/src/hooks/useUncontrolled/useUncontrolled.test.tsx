@@ -16,9 +16,7 @@ describe('useUncontrolled', () => {
 
   test('uncontrolled 모드에서 set 은 내부 state를 갱신한다', () => {
     const onChange = vi.fn()
-    const { result } = renderHook(() =>
-      useUncontrolled<string>({ defaultValue: 'a', onChange }),
-    )
+    const { result } = renderHook(() => useUncontrolled<string>({ defaultValue: 'a', onChange }))
     act(() => result.current[1]('b'))
     expect(result.current[0]).toBe('b')
     expect(onChange).toHaveBeenCalledWith('b')
@@ -27,7 +25,7 @@ describe('useUncontrolled', () => {
   test('controlled 모드는 prop value 를 그대로 반환한다', () => {
     const { result, rerender } = renderHook(
       ({ v }: { v: string }) => useUncontrolled<string>({ value: v }),
-      { initialProps: { v: 'a' } },
+      { initialProps: { v: 'a' } }
     )
     expect(result.current[0]).toBe('a')
     expect(result.current[2]).toBe(true)
@@ -40,7 +38,7 @@ describe('useUncontrolled', () => {
     const onChange = vi.fn()
     const { result, rerender } = renderHook(
       ({ v }: { v: string }) => useUncontrolled<string>({ value: v, onChange }),
-      { initialProps: { v: 'a' } },
+      { initialProps: { v: 'a' } }
     )
     act(() => result.current[1]('b'))
     expect(onChange).toHaveBeenCalledWith('b')
@@ -59,9 +57,8 @@ describe('useUncontrolled', () => {
   test('controlled → uncontrolled 전환 시에도 onChange는 계속 호출된다', () => {
     const onChange = vi.fn()
     const { result, rerender } = renderHook(
-      ({ v }: { v?: string }) =>
-        useUncontrolled<string>({ value: v, defaultValue: 'd', onChange }),
-      { initialProps: { v: 'a' as string | undefined } },
+      ({ v }: { v?: string }) => useUncontrolled<string>({ value: v, defaultValue: 'd', onChange }),
+      { initialProps: { v: 'a' as string | undefined } }
     )
     expect(result.current[0]).toBe('a')
 

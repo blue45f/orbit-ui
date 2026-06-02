@@ -114,7 +114,9 @@ export const 디자인QA = {
 
   render: ({ leading: _leading, trailing, text, ...args }: any) => {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}
+      >
         <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Interactive Playground</h4>
         <GhostButton {...args}>
           <GhostButton.Center>{text}</GhostButton.Center>
@@ -169,7 +171,9 @@ export const Accessible_Destructive_액션_그룹: Story = {
 
       {/* 인라인 위험 액션 목록 */}
       <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+        <div
+          style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}
+        >
           <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>파일 목록</span>
         </div>
         {['design-tokens.json', 'eclipse-theme.ts', 'component-docs.mdx'].map((file, _i) => (
@@ -183,7 +187,9 @@ export const Accessible_Destructive_액션_그룹: Story = {
               borderBottom: '1px solid #f8fafc',
             }}
           >
-            <span style={{ fontSize: '13px', color: '#334155', fontFamily: 'monospace' }}>{file}</span>
+            <span style={{ fontSize: '13px', color: '#334155', fontFamily: 'monospace' }}>
+              {file}
+            </span>
             <GhostButton color="gray" size="small">
               <GhostButton.Center>
                 <span style={{ color: '#ef4444' }}>삭제</span>
@@ -216,11 +222,15 @@ export const Accessible_링크형_버튼: Story = {
           background: '#fff',
         }}
       >
-        <div style={{ fontSize: '14px', color: '#334155', lineHeight: '1.8', marginBottom: '12px' }}>
+        <div
+          style={{ fontSize: '14px', color: '#334155', lineHeight: '1.8', marginBottom: '12px' }}
+        >
           Orbit UI는 3-Tier 토큰 시스템을 채택하고 있습니다. 자세한 내용은{' '}
           <GhostButton color="black" size="small" as="a" href="#">
             <GhostButton.Center>
-              <span style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}>디자인 토큰 가이드</span>
+              <span style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}>
+                디자인 토큰 가이드
+              </span>
             </GhostButton.Center>
             <GhostButton.Trailing>
               <LinkIcon size={12} />
@@ -232,7 +242,9 @@ export const Accessible_링크형_버튼: Story = {
           {['문서 보기', '예시 확인', '마이그레이션 가이드'].map((label) => (
             <GhostButton key={label} color="gray" size="small" as="a" href="#">
               <GhostButton.Center>
-                <span style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}>{label}</span>
+                <span style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}>
+                  {label}
+                </span>
               </GhostButton.Center>
               <GhostButton.Trailing>
                 <ChevronRightLineIcon size={12} />
@@ -304,8 +316,8 @@ const LikeToggleRender = () => {
       prev.map((item) =>
         item.id === id
           ? { ...item, liked: !item.liked, likes: item.liked ? item.likes - 1 : item.likes + 1 }
-          : item,
-      ),
+          : item
+      )
     )
   }
 
@@ -394,7 +406,18 @@ const PrimitiveIconToolbarRender = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       {/* Text formatting toolbar */}
       <div>
-        <div style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>서식 툴바</div>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 600,
+            color: '#94a3b8',
+            marginBottom: 8,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          서식 툴바
+        </div>
         <div
           role="toolbar"
           aria-label="텍스트 서식"
@@ -410,9 +433,27 @@ const PrimitiveIconToolbarRender = () => {
         >
           {/* Format group */}
           {[
-            { label: 'Bold', icon: 'B', active: bold, toggle: () => setBold((v) => !v), style: { fontWeight: 800 } },
-            { label: 'Italic', icon: 'I', active: italic, toggle: () => setItalic((v) => !v), style: { fontStyle: 'italic' } },
-            { label: 'Underline', icon: 'U', active: underline, toggle: () => setUnderline((v) => !v), style: { textDecoration: 'underline' } },
+            {
+              label: 'Bold',
+              icon: 'B',
+              active: bold,
+              toggle: () => setBold((v) => !v),
+              style: { fontWeight: 800 },
+            },
+            {
+              label: 'Italic',
+              icon: 'I',
+              active: italic,
+              toggle: () => setItalic((v) => !v),
+              style: { fontStyle: 'italic' },
+            },
+            {
+              label: 'Underline',
+              icon: 'U',
+              active: underline,
+              toggle: () => setUnderline((v) => !v),
+              style: { textDecoration: 'underline' },
+            },
           ].map((btn) => (
             <GhostButton
               key={btn.label}
@@ -424,7 +465,9 @@ const PrimitiveIconToolbarRender = () => {
               style={{ background: btn.active ? '#ede9fe' : 'transparent' }}
             >
               <GhostButton.Center>
-                <span style={{ ...btn.style, color: btn.active ? '#6366f1' : '#475569', fontSize: 13 }}>
+                <span
+                  style={{ ...btn.style, color: btn.active ? '#6366f1' : '#475569', fontSize: 13 }}
+                >
                   {btn.icon}
                 </span>
               </GhostButton.Center>
@@ -458,17 +501,19 @@ const PrimitiveIconToolbarRender = () => {
       </div>
 
       {/* Preview */}
-      <div style={{
-        padding: '12px 16px',
-        borderRadius: 8,
-        border: '1px solid #e2e8f0',
-        fontSize: 14,
-        color: '#1e293b',
-        fontWeight: bold ? 700 : 400,
-        fontStyle: italic ? 'italic' : 'normal',
-        textDecoration: underline ? 'underline' : 'none',
-        background: '#fff',
-      }}>
+      <div
+        style={{
+          padding: '12px 16px',
+          borderRadius: 8,
+          border: '1px solid #e2e8f0',
+          fontSize: 14,
+          color: '#1e293b',
+          fontWeight: bold ? 700 : 400,
+          fontStyle: italic ? 'italic' : 'normal',
+          textDecoration: underline ? 'underline' : 'none',
+          background: '#fff',
+        }}
+      >
         Orbit UI 디자인 시스템 — Primitive Toolbar 패턴 미리보기
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
@@ -509,7 +554,16 @@ const M3OutlinedButtonsRender = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       <div>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#94a3b8',
+            marginBottom: 12,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
           M3 Outlined Button (역할별 색상)
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -539,17 +593,30 @@ const M3OutlinedButtonsRender = () => {
       </div>
 
       <div>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#94a3b8',
+            marginBottom: 12,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
           GhostButton — Orbit UI 동일 패턴
         </div>
         <Flex columnGap="8px" rowGap="8px" flexWrap="wrap">
           <GhostButton color="black" size="large">
             <GhostButton.Center>저장</GhostButton.Center>
-            <GhostButton.Trailing><ChevronRightLineIcon size={16} /></GhostButton.Trailing>
+            <GhostButton.Trailing>
+              <ChevronRightLineIcon size={16} />
+            </GhostButton.Trailing>
           </GhostButton>
           <GhostButton color="black" size="large">
             <GhostButton.Center>공유</GhostButton.Center>
-            <GhostButton.Trailing><ShareIcon size={16} /></GhostButton.Trailing>
+            <GhostButton.Trailing>
+              <ShareIcon size={16} />
+            </GhostButton.Trailing>
           </GhostButton>
           <GhostButton color="black" size="large" disabled>
             <GhostButton.Center>비활성</GhostButton.Center>
@@ -612,10 +679,7 @@ const PrimitiveContextMenuRender = () => {
 
       {open && (
         <>
-          <div
-            style={{ position: 'fixed', inset: 0, zIndex: 9 }}
-            onClick={() => setOpen(false)}
-          />
+          <div style={{ position: 'fixed', inset: 0, zIndex: 9 }} onClick={() => setOpen(false)} />
           <div
             role="menu"
             aria-label="컨텍스트 메뉴"
@@ -641,7 +705,10 @@ const PrimitiveContextMenuRender = () => {
                 <button
                   key={item.label}
                   role="menuitem"
-                  onClick={() => { setSelected(item.label); setOpen(false) }}
+                  onClick={() => {
+                    setSelected(item.label)
+                    setOpen(false)
+                  }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -658,13 +725,24 @@ const PrimitiveContextMenuRender = () => {
                     textAlign: 'left',
                     transition: 'background 0.1s',
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = item.danger ? '#fef2f2' : '#f8fafc' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = 'none' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = item.danger ? '#fef2f2' : '#f8fafc'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'none'
+                  }}
                 >
                   <span style={{ width: 18, textAlign: 'center', fontSize: 14 }}>{item.icon}</span>
                   <span style={{ flex: 1 }}>{item.label}</span>
                   {item.shortcut && (
-                    <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', fontWeight: 500 }}>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        color: '#94a3b8',
+                        fontFamily: 'monospace',
+                        fontWeight: 500,
+                      }}
+                    >
                       {item.shortcut}
                     </span>
                   )}
@@ -713,7 +791,9 @@ const WORKSPACE_FORMAT_TOOLS: { key: string; label: string; shortcut: string }[]
 
 function WorkspaceEditorEditorToolbarRender() {
   const [active, setActive] = useState<Set<string>>(new Set())
-  const [text] = useState('Orbit UI는 React 기반 디자인 시스템입니다. UtilityCSS로 CSS-in-JS를 구현하며, 3단계 토큰 시스템을 사용합니다.')
+  const [text] = useState(
+    'Orbit UI는 React 기반 디자인 시스템입니다. UtilityCSS로 CSS-in-JS를 구현하며, 3단계 토큰 시스템을 사용합니다.'
+  )
 
   const toggle = (key: string) =>
     setActive((prev) => {
@@ -726,22 +806,27 @@ function WorkspaceEditorEditorToolbarRender() {
   const getTextStyle = (): React.CSSProperties => ({
     fontWeight: active.has('bold') ? 700 : 400,
     fontStyle: active.has('italic') ? 'italic' : 'normal',
-    textDecoration: [
-      active.has('underline') ? 'underline' : '',
-      active.has('strike') ? 'line-through' : '',
-    ].filter(Boolean).join(' ') || 'none',
+    textDecoration:
+      [active.has('underline') ? 'underline' : '', active.has('strike') ? 'line-through' : '']
+        .filter(Boolean)
+        .join(' ') || 'none',
     fontFamily: active.has('code') ? 'monospace' : 'inherit',
   })
 
   return (
     <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16 }}>
       {/* Toolbar */}
-      <div style={{
-        display: 'inline-flex', gap: 2, padding: '4px 6px',
-        background: '#1e293b', borderRadius: 10,
-        boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
-        alignSelf: 'flex-start',
-      }}>
+      <div
+        style={{
+          display: 'inline-flex',
+          gap: 2,
+          padding: '4px 6px',
+          background: '#1e293b',
+          borderRadius: 10,
+          boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
+          alignSelf: 'flex-start',
+        }}
+      >
         {WORKSPACE_FORMAT_TOOLS.map((tool, i) => (
           <div key={tool.key} style={{ display: 'flex', alignItems: 'center' }}>
             {i === 5 && (
@@ -768,19 +853,28 @@ function WorkspaceEditorEditorToolbarRender() {
       </div>
 
       {/* Editable text preview */}
-      <div style={{
-        padding: '16px 20px', borderRadius: 10,
-        border: '1.5px solid #e2e8f0', background: '#fff',
-        fontSize: 15, lineHeight: 1.7, color: '#1e293b',
-        ...getTextStyle(),
-      }}>
+      <div
+        style={{
+          padding: '16px 20px',
+          borderRadius: 10,
+          border: '1.5px solid #e2e8f0',
+          background: '#fff',
+          fontSize: 15,
+          lineHeight: 1.7,
+          color: '#1e293b',
+          ...getTextStyle(),
+        }}
+      >
         {text}
       </div>
 
       {/* Active format indicator */}
       {active.size > 0 && (
         <div style={{ fontSize: 11, color: '#94a3b8' }}>
-          적용된 포맷: {Array.from(active).map((k) => WORKSPACE_FORMAT_TOOLS.find((t) => t.key === k)?.label).join(', ')}
+          적용된 포맷:{' '}
+          {Array.from(active)
+            .map((k) => WORKSPACE_FORMAT_TOOLS.find((t) => t.key === k)?.label)
+            .join(', ')}
         </div>
       )}
     </div>
@@ -814,11 +908,41 @@ type CommandPaletteCommand = {
 }
 
 const LAUNCHER_COMMANDS: CommandPaletteCommand[] = [
-  { id: 'r1', title: '새 이슈 생성', subtitle: 'IssueTracker · 새 이슈를 빠르게 생성합니다', shortcut: 'N', category: 'action' },
-  { id: 'r2', title: '클립보드 히스토리', subtitle: '최근 복사된 항목 보기', shortcut: 'V', category: 'recent' },
-  { id: 'r3', title: 'PR 리뷰 요청', subtitle: 'CodeHost · 열린 PR 목록에서 선택', shortcut: 'P', category: 'action' },
-  { id: 'r4', title: 'Storybook 열기', subtitle: 'localhost:6007 브라우저에서 열기', shortcut: 'S', category: 'nav' },
-  { id: 'r5', title: '색상 피커', subtitle: 'HEX/RGB/HSL 색상 변환 도구', shortcut: 'C', category: 'action' },
+  {
+    id: 'r1',
+    title: '새 이슈 생성',
+    subtitle: 'IssueTracker · 새 이슈를 빠르게 생성합니다',
+    shortcut: 'N',
+    category: 'action',
+  },
+  {
+    id: 'r2',
+    title: '클립보드 히스토리',
+    subtitle: '최근 복사된 항목 보기',
+    shortcut: 'V',
+    category: 'recent',
+  },
+  {
+    id: 'r3',
+    title: 'PR 리뷰 요청',
+    subtitle: 'CodeHost · 열린 PR 목록에서 선택',
+    shortcut: 'P',
+    category: 'action',
+  },
+  {
+    id: 'r4',
+    title: 'Storybook 열기',
+    subtitle: 'localhost:6007 브라우저에서 열기',
+    shortcut: 'S',
+    category: 'nav',
+  },
+  {
+    id: 'r5',
+    title: '색상 피커',
+    subtitle: 'HEX/RGB/HSL 색상 변환 도구',
+    shortcut: 'C',
+    category: 'action',
+  },
 ]
 
 const CMD_CATEGORY_COLOR: Record<CommandPaletteCommand['category'], string> = {
@@ -836,27 +960,62 @@ function CommandPaletteCommandListRender() {
   )
 
   return (
-    <div style={{
-      width: 460, borderRadius: 16, overflow: 'hidden',
-      border: '1px solid #27272a', background: '#09090b',
-      boxShadow: '0 24px 48px rgba(0,0,0,0.5)',
-    }}>
+    <div
+      style={{
+        width: 460,
+        borderRadius: 16,
+        overflow: 'hidden',
+        border: '1px solid #27272a',
+        background: '#09090b',
+        boxShadow: '0 24px 48px rgba(0,0,0,0.5)',
+      }}
+    >
       {/* Search input */}
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #27272a', display: 'flex', alignItems: 'center', gap: 10 }}>
-        <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="#52525b" strokeWidth={2.5}>
-          <circle cx={11} cy={11} r={8} /><path d="m21 21-4.35-4.35" />
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #27272a',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
+        <svg
+          width={14}
+          height={14}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#52525b"
+          strokeWidth={2.5}
+        >
+          <circle cx={11} cy={11} r={8} />
+          <path d="m21 21-4.35-4.35" />
         </svg>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="명령어 검색..."
           style={{
-            flex: 1, background: 'transparent', border: 'none', outline: 'none',
-            fontSize: 14, color: '#e4e4e7', caretColor: '#6366f1',
+            flex: 1,
+            background: 'transparent',
+            border: 'none',
+            outline: 'none',
+            fontSize: 14,
+            color: '#e4e4e7',
+            caretColor: '#6366f1',
           }}
           autoFocus
         />
-        <kbd style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: '#18181b', color: '#52525b', border: '1px solid #27272a' }}>
+        <kbd
+          style={{
+            fontSize: 10,
+            padding: '2px 6px',
+            borderRadius: 4,
+            background: '#18181b',
+            color: '#52525b',
+            border: '1px solid #27272a',
+          }}
+        >
           ESC
         </kbd>
       </div>
@@ -869,7 +1028,9 @@ function CommandPaletteCommandListRender() {
               key={cmd.id}
               onMouseEnter={() => setActiveId(cmd.id)}
               style={{
-                display: 'flex', alignItems: 'center', gap: 12,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
                 padding: '10px 16px',
                 background: activeId === cmd.id ? '#18181b' : 'transparent',
                 transition: 'background 0.1s',
@@ -877,11 +1038,17 @@ function CommandPaletteCommandListRender() {
             >
               <div
                 style={{
-                  width: 28, height: 28, borderRadius: 6,
+                  width: 28,
+                  height: 28,
+                  borderRadius: 6,
                   background: CMD_CATEGORY_COLOR[cmd.category] + '20',
                   border: `1px solid ${CMD_CATEGORY_COLOR[cmd.category]}40`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 11, fontWeight: 800, color: CMD_CATEGORY_COLOR[cmd.category],
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: CMD_CATEGORY_COLOR[cmd.category],
                   flexShrink: 0,
                 }}
               >
@@ -889,7 +1056,17 @@ function CommandPaletteCommandListRender() {
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#e4e4e7' }}>{cmd.title}</div>
-                <div style={{ fontSize: 11, color: '#52525b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cmd.subtitle}</div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: '#52525b',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {cmd.subtitle}
+                </div>
               </div>
               <GhostButton
                 color="gray"
@@ -906,17 +1083,44 @@ function CommandPaletteCommandListRender() {
             </div>
           ))
         ) : (
-          <div style={{ padding: '32px 16px', textAlign: 'center', fontSize: 13, color: '#52525b' }}>
+          <div
+            style={{ padding: '32px 16px', textAlign: 'center', fontSize: 13, color: '#52525b' }}
+          >
             일치하는 명령어 없음
           </div>
         )}
       </div>
 
       {/* Footer */}
-      <div style={{ padding: '8px 16px', borderTop: '1px solid #27272a', display: 'flex', gap: 12 }}>
-        {[{ key: 'Enter', action: '실행' }, { key: '↑↓', action: '이동' }, { key: 'Tab', action: '미리보기' }].map(({ key, action }) => (
-          <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 10, color: '#52525b' }}>
-            <kbd style={{ padding: '1px 6px', borderRadius: 4, background: '#18181b', border: '1px solid #27272a', color: '#71717a' }}>{key}</kbd>
+      <div
+        style={{ padding: '8px 16px', borderTop: '1px solid #27272a', display: 'flex', gap: 12 }}
+      >
+        {[
+          { key: 'Enter', action: '실행' },
+          { key: '↑↓', action: '이동' },
+          { key: 'Tab', action: '미리보기' },
+        ].map(({ key, action }) => (
+          <div
+            key={key}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              fontSize: 10,
+              color: '#52525b',
+            }}
+          >
+            <kbd
+              style={{
+                padding: '1px 6px',
+                borderRadius: 4,
+                background: '#18181b',
+                border: '1px solid #27272a',
+                color: '#71717a',
+              }}
+            >
+              {key}
+            </kbd>
             <span style={{ marginLeft: 4 }}>{action}</span>
           </div>
         ))}
@@ -957,8 +1161,18 @@ function IssueTrackerViewToolbarRender() {
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
 
   const MOCK_ISSUES = [
-    { id: 'ORB-312', title: '캘린더 스토리 Primitive 패턴 추가', priority: 'high', status: 'progress' },
-    { id: 'ORB-311', title: 'GhostButton WorkspaceEditor 인라인 툴바', priority: 'medium', status: 'done' },
+    {
+      id: 'ORB-312',
+      title: '캘린더 스토리 Primitive 패턴 추가',
+      priority: 'high',
+      status: 'progress',
+    },
+    {
+      id: 'ORB-311',
+      title: 'GhostButton WorkspaceEditor 인라인 툴바',
+      priority: 'medium',
+      status: 'done',
+    },
     { id: 'ORB-310', title: 'Template 50 TravelBooking', priority: 'high', status: 'todo' },
     { id: 'ORB-309', title: 'AccessibilityGuide MDX 보강', priority: 'low', status: 'progress' },
   ]
@@ -967,14 +1181,39 @@ function IssueTrackerViewToolbarRender() {
     sortDir === 'asc' ? a.id.localeCompare(b.id) : b.id.localeCompare(a.id)
   )
 
-  const statusColor: Record<string, string> = { progress: '#6366f1', done: '#10b981', todo: '#94a3b8' }
+  const statusColor: Record<string, string> = {
+    progress: '#6366f1',
+    done: '#10b981',
+    todo: '#94a3b8',
+  }
 
   return (
-    <div style={{ width: 520, display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+    <div
+      style={{
+        width: 520,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+      }}
+    >
       {/* Toolbar */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '8px 12px', background: '#fafafa', borderBottom: '1px solid #f1f5f9' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
+          padding: '8px 12px',
+          background: '#fafafa',
+          borderBottom: '1px solid #f1f5f9',
+        }}
+      >
         {/* View switcher */}
-        <div style={{ display: 'flex', gap: 1, background: '#f1f5f9', borderRadius: 6, padding: 2 }}>
+        <div
+          style={{ display: 'flex', gap: 1, background: '#f1f5f9', borderRadius: 6, padding: 2 }}
+        >
           {TRACKER_VIEWS.map((v) => (
             <GhostButton
               key={v.id}
@@ -1000,7 +1239,10 @@ function IssueTrackerViewToolbarRender() {
           color="gray"
           size="small"
           onClick={() => setShowFilters(!showFilters)}
-          style={{ color: showFilters ? '#6366f1' : '#64748b', fontWeight: showFilters ? 700 : 500 }}
+          style={{
+            color: showFilters ? '#6366f1' : '#64748b',
+            fontWeight: showFilters ? 700 : 500,
+          }}
         >
           Filter
         </GhostButton>
@@ -1023,9 +1265,23 @@ function IssueTrackerViewToolbarRender() {
 
       {/* Filter bar */}
       {showFilters && (
-        <div style={{ padding: '8px 12px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        <div
+          style={{
+            padding: '8px 12px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #f1f5f9',
+            display: 'flex',
+            gap: 6,
+            flexWrap: 'wrap',
+          }}
+        >
           {['Priority: All', 'Status: All', 'Assignee: Any'].map((f) => (
-            <GhostButton key={f} color="gray" size="small" style={{ color: '#6366f1', background: '#eff6ff', borderRadius: 6, fontSize: 11 }}>
+            <GhostButton
+              key={f}
+              color="gray"
+              size="small"
+              style={{ color: '#6366f1', background: '#eff6ff', borderRadius: 6, fontSize: 11 }}
+            >
               {f}
             </GhostButton>
           ))}
@@ -1038,15 +1294,31 @@ function IssueTrackerViewToolbarRender() {
           <div
             key={issue.id}
             style={{
-              display: 'flex', alignItems: 'center', gap: 10,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
               padding: '9px 12px',
               borderBottom: i < sorted.length - 1 ? '1px solid #f8fafc' : 'none',
             }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: statusColor[issue.status], flexShrink: 0 }} />
+            <span
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: statusColor[issue.status],
+                flexShrink: 0,
+              }}
+            />
             <span style={{ fontSize: 13, color: '#1e293b', flex: 1 }}>{issue.title}</span>
-            <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>{issue.id}</span>
-            <GhostButton color="gray" size="small" style={{ color: '#cbd5e1', fontSize: 18, lineHeight: 1 }}>
+            <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>
+              {issue.id}
+            </span>
+            <GhostButton
+              color="gray"
+              size="small"
+              style={{ color: '#cbd5e1', fontSize: 18, lineHeight: 1 }}
+            >
               ···
             </GhostButton>
           </div>
@@ -1087,24 +1359,65 @@ const AntTableOperationsRender = () => {
 
   return (
     <div style={{ width: 520, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 12 }}>사용자 목록</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 12 }}>
+        사용자 목록
+      </div>
       <div style={{ border: '1px solid #f0f0f0', borderRadius: 8, overflow: 'hidden' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr 1fr 0.8fr 1fr', padding: '8px 12px', background: '#fafafa', borderBottom: '1px solid #f0f0f0' }}>
-          {['이름', '이메일', '역할', '상태', '작업'].map(h => (
-            <span key={h} style={{ fontSize: 11, fontWeight: 700, color: '#8c8c8c', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</span>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1.5fr 1fr 0.8fr 1fr',
+            padding: '8px 12px',
+            background: '#fafafa',
+            borderBottom: '1px solid #f0f0f0',
+          }}
+        >
+          {['이름', '이메일', '역할', '상태', '작업'].map((h) => (
+            <span
+              key={h}
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#8c8c8c',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+              }}
+            >
+              {h}
+            </span>
           ))}
         </div>
         {records.map((rec, idx) => (
           <div
             key={rec.id}
-            style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr 1fr 0.8fr 1fr', padding: '10px 12px', borderBottom: idx < records.length - 1 ? '1px solid #f5f5f5' : 'none', background: deletedId === rec.id ? '#fff2f0' : editedId === rec.id ? '#f0f5ff' : '#fff', transition: 'background 0.2s', alignItems: 'center' }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1.5fr 1fr 0.8fr 1fr',
+              padding: '10px 12px',
+              borderBottom: idx < records.length - 1 ? '1px solid #f5f5f5' : 'none',
+              background:
+                deletedId === rec.id ? '#fff2f0' : editedId === rec.id ? '#f0f5ff' : '#fff',
+              transition: 'background 0.2s',
+              alignItems: 'center',
+            }}
           >
             <span style={{ fontSize: 13, color: '#262626', fontWeight: 600 }}>{rec.name}</span>
             <span style={{ fontSize: 12, color: '#595959' }}>{rec.email}</span>
             <span style={{ fontSize: 12, color: '#595959' }}>{rec.role}</span>
-            <span style={{ fontSize: 11, padding: '2px 6px', borderRadius: 4, background: rec.status === '활성' ? '#f6ffed' : '#fff1f0', color: rec.status === '활성' ? '#52c41a' : '#ff4d4f', fontWeight: 600 }}>{rec.status}</span>
+            <span
+              style={{
+                fontSize: 11,
+                padding: '2px 6px',
+                borderRadius: 4,
+                background: rec.status === '활성' ? '#f6ffed' : '#fff1f0',
+                color: rec.status === '활성' ? '#52c41a' : '#ff4d4f',
+                fontWeight: 600,
+              }}
+            >
+              {rec.status}
+            </span>
             <div style={{ display: 'flex', gap: 0 }}>
-              {ANT_OPERATION_ACTIONS.map(action => (
+              {ANT_OPERATION_ACTIONS.map((action) => (
                 <GhostButton
                   key={action.id}
                   size="small"
@@ -1112,7 +1425,10 @@ const AntTableOperationsRender = () => {
                   onClick={() => {
                     if (action.id === 'delete') setDeletedId(rec.id)
                     else setEditedId(rec.id)
-                    setTimeout(() => { setDeletedId(null); setEditedId(null) }, 1200)
+                    setTimeout(() => {
+                      setDeletedId(null)
+                      setEditedId(null)
+                    }, 1200)
                   }}
                   style={{ color: action.color, fontSize: 12, padding: '2px 6px' }}
                 >
@@ -1123,7 +1439,9 @@ const AntTableOperationsRender = () => {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#8c8c8c' }}>Ant Design Table Operation 패턴 — 행별 GhostButton 액션</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#8c8c8c' }}>
+        Ant Design Table Operation 패턴 — 행별 GhostButton 액션
+      </div>
     </div>
   )
 }
@@ -1133,7 +1451,8 @@ export const Ant_테이블_행_작업_버튼: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design Table의 Operation 컬럼 패턴. 각 행에 편집/삭제/공유 GhostButton을 나란히 배치합니다. 클릭 시 행 배경색으로 시각적 피드백을 제공하며, 색상 구분으로 위험 액션(삭제)을 강조합니다.',
+        story:
+          'Ant Design Table의 Operation 컬럼 패턴. 각 행에 편집/삭제/공유 GhostButton을 나란히 배치합니다. 클릭 시 행 배경색으로 시각적 피드백을 제공하며, 색상 구분으로 위험 액션(삭제)을 강조합니다.',
       },
     },
   },
@@ -1163,16 +1482,31 @@ const AppUIContextMenuRender = () => {
   }
 
   return (
-    <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #dee2e6', borderRadius: 10, overflow: 'hidden' }}>
+    <div
+      style={{
+        width: 360,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        border: '1px solid #dee2e6',
+        borderRadius: 10,
+        overflow: 'hidden',
+      }}
+    >
       {/* Tab row */}
       <div style={{ display: 'flex', borderBottom: '1px solid #dee2e6', background: '#f8f9fa' }}>
-        {ACCESSIBLEKIT_TABS.map(tab => (
+        {ACCESSIBLEKIT_TABS.map((tab) => (
           <GhostButton
             key={tab.id}
             size="small"
             color={activeTab === tab.id ? 'black' : 'gray'}
             onClick={() => setActiveTab(tab.id as typeof activeTab)}
-            style={{ flex: 1, padding: '10px 0', borderRadius: 0, borderBottom: activeTab === tab.id ? '2px solid #339af0' : '2px solid transparent', fontSize: 12, fontWeight: activeTab === tab.id ? 700 : 400 }}
+            style={{
+              flex: 1,
+              padding: '10px 0',
+              borderRadius: 0,
+              borderBottom: activeTab === tab.id ? '2px solid #339af0' : '2px solid transparent',
+              fontSize: 12,
+              fontWeight: activeTab === tab.id ? 700 : 400,
+            }}
           >
             {tab.label}
           </GhostButton>
@@ -1180,23 +1514,44 @@ const AppUIContextMenuRender = () => {
       </div>
       {/* List */}
       <div style={{ padding: '8px 0' }}>
-        {ACCESSIBLEKIT_ITEMS[activeTab].map(item => (
+        {ACCESSIBLEKIT_ITEMS[activeTab].map((item) => (
           <div
             key={item}
-            style={{ display: 'flex', alignItems: 'center', padding: '8px 14px', background: hoveredItem === item ? '#f8f9fa' : '#fff', transition: 'background 0.1s', cursor: 'default' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '8px 14px',
+              background: hoveredItem === item ? '#f8f9fa' : '#fff',
+              transition: 'background 0.1s',
+              cursor: 'default',
+            }}
             onMouseEnter={() => setHoveredItem(item)}
             onMouseLeave={() => setHoveredItem(null)}
           >
             <span style={{ flex: 1, fontSize: 13, color: '#212529' }}>{item}</span>
             {hoveredItem === item && (
-              <GhostButton size="small" color="gray" onClick={() => copyLink(item)} style={{ fontSize: 11, color: copiedItem === item ? '#40c057' : '#868e96' }}>
+              <GhostButton
+                size="small"
+                color="gray"
+                onClick={() => copyLink(item)}
+                style={{ fontSize: 11, color: copiedItem === item ? '#40c057' : '#868e96' }}
+              >
                 {copiedItem === item ? '복사됨!' : '링크 복사'}
               </GhostButton>
             )}
           </div>
         ))}
       </div>
-      <div style={{ padding: '8px 14px', borderTop: '1px solid #f0f0f0', fontSize: 11, color: '#adb5bd' }}>AppUI Tabs + hover 액션 패턴</div>
+      <div
+        style={{
+          padding: '8px 14px',
+          borderTop: '1px solid #f0f0f0',
+          fontSize: 11,
+          color: '#adb5bd',
+        }}
+      >
+        AppUI Tabs + hover 액션 패턴
+      </div>
     </div>
   )
 }
@@ -1206,7 +1561,8 @@ export const AppUI_탭_컨텍스트_액션: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI Tabs 패턴과 hover 시 드러나는 컨텍스트 액션을 GhostButton으로 구현. 최근/즐겨찾기/공유 탭 전환에 GhostButton을 탭 헤더로 활용하고, 리스트 항목 hover 시 링크 복사 버튼을 표시합니다.',
+        story:
+          'AppUI Tabs 패턴과 hover 시 드러나는 컨텍스트 액션을 GhostButton으로 구현. 최근/즐겨찾기/공유 탭 전환에 GhostButton을 탭 헤더로 활용하고, 리스트 항목 hover 시 링크 복사 버튼을 표시합니다.',
       },
     },
   },
@@ -1220,14 +1576,14 @@ const ACCESSIBLEKIT_TOOLBAR_ACTIONS = [
   { id: 'strike', label: 'S', title: '취소선', active: false },
 ] as const
 
-type ToolbarActionId = typeof ACCESSIBLEKIT_TOOLBAR_ACTIONS[number]['id']
+type ToolbarActionId = (typeof ACCESSIBLEKIT_TOOLBAR_ACTIONS)[number]['id']
 
 const AppUIRichTextToolbarRender = () => {
   const [activeFormats, setActiveFormats] = useState<Set<ToolbarActionId>>(new Set())
   const [align, setAlign] = useState<'left' | 'center' | 'right'>('left')
 
   const toggleFormat = (id: ToolbarActionId) => {
-    setActiveFormats(prev => {
+    setActiveFormats((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -1243,14 +1599,39 @@ const AppUIRichTextToolbarRender = () => {
 
   return (
     <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '6px 8px', border: '1px solid #dee2e6', borderBottom: 'none', borderRadius: '8px 8px 0 0', background: '#f8f9fa' }}>
-        {ACCESSIBLEKIT_TOOLBAR_ACTIONS.map(action => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2,
+          padding: '6px 8px',
+          border: '1px solid #dee2e6',
+          borderBottom: 'none',
+          borderRadius: '8px 8px 0 0',
+          background: '#f8f9fa',
+        }}
+      >
+        {ACCESSIBLEKIT_TOOLBAR_ACTIONS.map((action) => (
           <GhostButton
             key={action.id}
             size="small"
             color={activeFormats.has(action.id) ? 'black' : 'gray'}
             onClick={() => toggleFormat(action.id)}
-            style={{ minWidth: 28, fontSize: 13, fontWeight: 700, fontStyle: action.id === 'italic' ? 'italic' : 'normal', textDecoration: action.id === 'underline' ? 'underline' : action.id === 'strike' ? 'line-through' : 'none', padding: '4px 8px', background: activeFormats.has(action.id) ? '#e8f4fd' : 'transparent', borderRadius: 4 }}
+            style={{
+              minWidth: 28,
+              fontSize: 13,
+              fontWeight: 700,
+              fontStyle: action.id === 'italic' ? 'italic' : 'normal',
+              textDecoration:
+                action.id === 'underline'
+                  ? 'underline'
+                  : action.id === 'strike'
+                    ? 'line-through'
+                    : 'none',
+              padding: '4px 8px',
+              background: activeFormats.has(action.id) ? '#e8f4fd' : 'transparent',
+              borderRadius: 4,
+            }}
           >
             {action.label}
           </GhostButton>
@@ -1262,15 +1643,45 @@ const AppUIRichTextToolbarRender = () => {
             size="small"
             color={align === opt.id ? 'black' : 'gray'}
             onClick={() => setAlign(opt.id)}
-            style={{ minWidth: 28, fontSize: 14, padding: '4px 8px', background: align === opt.id ? '#e8f4fd' : 'transparent', borderRadius: 4, letterSpacing: idx === 0 ? '0' : idx === 1 ? '2px' : '-2px' }}
+            style={{
+              minWidth: 28,
+              fontSize: 14,
+              padding: '4px 8px',
+              background: align === opt.id ? '#e8f4fd' : 'transparent',
+              borderRadius: 4,
+              letterSpacing: idx === 0 ? '0' : idx === 1 ? '2px' : '-2px',
+            }}
           >
             {opt.label}
           </GhostButton>
         ))}
       </div>
-      <div style={{ padding: '12px 14px', border: '1px solid #dee2e6', borderRadius: '0 0 8px 8px', minHeight: 80, fontSize: 13, color: '#495057', lineHeight: 1.6 }}>
-        <span style={{ fontWeight: activeFormats.has('bold') ? 700 : 400, fontStyle: activeFormats.has('italic') ? 'italic' : 'normal', textDecoration: activeFormats.has('underline') ? 'underline' : activeFormats.has('strike') ? 'line-through' : 'none', textAlign: align, display: 'block' }}>
-          AppUI RichTextEditor 툴바 패턴 — GhostButton으로 서식 버튼 구현. 활성 포맷은 배경색 강조로 표시됩니다.
+      <div
+        style={{
+          padding: '12px 14px',
+          border: '1px solid #dee2e6',
+          borderRadius: '0 0 8px 8px',
+          minHeight: 80,
+          fontSize: 13,
+          color: '#495057',
+          lineHeight: 1.6,
+        }}
+      >
+        <span
+          style={{
+            fontWeight: activeFormats.has('bold') ? 700 : 400,
+            fontStyle: activeFormats.has('italic') ? 'italic' : 'normal',
+            textDecoration: activeFormats.has('underline')
+              ? 'underline'
+              : activeFormats.has('strike')
+                ? 'line-through'
+                : 'none',
+            textAlign: align,
+            display: 'block',
+          }}
+        >
+          AppUI RichTextEditor 툴바 패턴 — GhostButton으로 서식 버튼 구현. 활성 포맷은 배경색 강조로
+          표시됩니다.
         </span>
       </div>
     </div>
@@ -1282,7 +1693,8 @@ export const AppUI_리치텍스트_서식_툴바: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI RichTextEditor의 서식 툴바 패턴. Bold/Italic/Underline/Strikethrough 토글과 텍스트 정렬 컨트롤을 GhostButton으로 구현합니다. 활성 상태는 배경색으로 강조되며 실제 텍스트 스타일이 실시간 반영됩니다.',
+        story:
+          'AppUI RichTextEditor의 서식 툴바 패턴. Bold/Italic/Underline/Strikethrough 토글과 텍스트 정렬 컨트롤을 GhostButton으로 구현합니다. 활성 상태는 배경색으로 강조되며 실제 텍스트 스타일이 실시간 반영됩니다.',
       },
     },
   },
@@ -1305,8 +1717,26 @@ function AppUINavMenuRender() {
   const [active, setActive] = useState<string>('대시보드')
 
   return (
-    <div style={{ width: 220, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '0 8px', marginBottom: 4 }}>
+    <div
+      style={{
+        width: 220,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+          padding: '0 8px',
+          marginBottom: 4,
+        }}
+      >
         워크스페이스
       </div>
       {NAV_ITEMS.map((item) => (
@@ -1326,9 +1756,27 @@ function AppUINavMenuRender() {
           <GhostButton.Center>
             <span style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
               <span style={{ fontSize: 14 }}>{item.icon}</span>
-              <span style={{ flex: 1, textAlign: 'left', fontSize: 13, fontWeight: active === item.label ? 600 : 400 }}>{item.label}</span>
+              <span
+                style={{
+                  flex: 1,
+                  textAlign: 'left',
+                  fontSize: 13,
+                  fontWeight: active === item.label ? 600 : 400,
+                }}
+              >
+                {item.label}
+              </span>
               {item.count !== null && (
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', background: '#eef2ff', padding: '1px 6px', borderRadius: 999 }}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: '#6366f1',
+                    background: '#eef2ff',
+                    padding: '1px 6px',
+                    borderRadius: 999,
+                  }}
+                >
                   {item.count}
                 </span>
               )}
@@ -1358,7 +1806,10 @@ export const AppUI_사이드바_내비게이션_메뉴: Story = {
    Ant Design 벤치마크: 드롭다운 메뉴 액션 그룹 패턴
    Ant Dropdown Menu — 섹션별 그룹화된 컨텍스트 액션 목록
 -------------------------------------------------------------------------- */
-const ACTION_GROUPS: Array<{ group: string; actions: Array<{ label: string; icon: string; shortcut: string; danger?: boolean }> }> = [
+const ACTION_GROUPS: Array<{
+  group: string
+  actions: Array<{ label: string; icon: string; shortcut: string; danger?: boolean }>
+}> = [
   {
     group: '보기',
     actions: [
@@ -1375,9 +1826,7 @@ const ACTION_GROUPS: Array<{ group: string; actions: Array<{ label: string; icon
   },
   {
     group: '위험',
-    actions: [
-      { label: '삭제', icon: '⊗', shortcut: '⌦', danger: true },
-    ],
+    actions: [{ label: '삭제', icon: '⊗', shortcut: '⌦', danger: true }],
   },
 ]
 
@@ -1393,12 +1842,30 @@ export const Ant_드롭다운_액션_그룹_메뉴: Story = {
     },
   },
   render: () => (
-    <div style={{ width: 200, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
+    <div
+      style={{
+        width: 200,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        overflow: 'hidden',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+      }}
+    >
       {ACTION_GROUPS.map((group, gi) => (
         <div key={group.group}>
           {gi > 0 && <div style={{ height: 1, background: '#f1f5f9' }} />}
           <div style={{ padding: '4px 4px 0' }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', padding: '4px 10px 2px' }}>
+            <div
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                padding: '4px 10px 2px',
+              }}
+            >
               {group.group}
             </div>
             {group.actions.map((action) => (
@@ -1446,18 +1913,45 @@ function AppUIAntViewActionBarRender() {
 
   const handleExport = async (format: string) => {
     setExporting(true)
-    await new Promise(r => setTimeout(r, 1000))
+    await new Promise((r) => setTimeout(r, 1000))
     setExporting(false)
     window.alert(`${format} 내보내기 완료`)
   }
 
   return (
-    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div
+      style={{
+        width: 380,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+      }}
+    >
       {/* 액션 바 */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '8px 12px',
+          background: '#f8fafc',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+        }}
+      >
         {/* 뷰 전환 토글 */}
-        <div style={{ display: 'flex', gap: 2, background: '#fff', borderRadius: 8, border: '1px solid #e2e8f0', padding: 2 }}>
-          {views.map(v => (
+        <div
+          style={{
+            display: 'flex',
+            gap: 2,
+            background: '#fff',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            padding: 2,
+          }}
+        >
+          {views.map((v) => (
             <GhostButton
               key={v.key}
               color={view === v.key ? 'black' : 'gray'}
@@ -1481,7 +1975,7 @@ function AppUIAntViewActionBarRender() {
         </div>
         {/* 내보내기 */}
         <div style={{ display: 'flex', gap: 4 }}>
-          {['CSV', 'JSON', 'XLSX'].map(fmt => (
+          {['CSV', 'JSON', 'XLSX'].map((fmt) => (
             <GhostButton
               key={fmt}
               color="gray"
@@ -1495,10 +1989,25 @@ function AppUIAntViewActionBarRender() {
         </div>
       </div>
       {/* 콘텐츠 프리뷰 */}
-      <div style={{ padding: '12px', background: '#fff', borderRadius: 8, border: '1px solid #f1f5f9', minHeight: 80, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontSize: 13, color: '#94a3b8' }}>현재 뷰: <strong style={{ color: '#1e293b' }}>{view}</strong></span>
+      <div
+        style={{
+          padding: '12px',
+          background: '#fff',
+          borderRadius: 8,
+          border: '1px solid #f1f5f9',
+          minHeight: 80,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <span style={{ fontSize: 13, color: '#94a3b8' }}>
+          현재 뷰: <strong style={{ color: '#1e293b' }}>{view}</strong>
+        </span>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>AppUI 뷰 토글 + Ant Design 내보내기 액션 바 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        AppUI 뷰 토글 + Ant Design 내보내기 액션 바 패턴
+      </div>
     </div>
   )
 }
@@ -1522,38 +2031,79 @@ export const AppUI_Ant_뷰전환_내보내기_액션바: Story = {
 function EnterpriseUIToolbarActionRender() {
   const [active, setActive] = useState<string | null>(null)
   const actions = [
-    { id: 'undo', label: '실행 취소', icon: <ChevronRightLineIcon size={12} style={{ transform: 'rotate(180deg)' }} /> },
+    {
+      id: 'undo',
+      label: '실행 취소',
+      icon: <ChevronRightLineIcon size={12} style={{ transform: 'rotate(180deg)' }} />,
+    },
     { id: 'redo', label: '다시 실행', icon: <ChevronRightLineIcon size={12} /> },
     { id: 'copy', label: '복사', icon: <CopyLineIcon size={12} /> },
     { id: 'link', label: '링크 삽입', icon: <LinkIcon size={12} /> },
     { id: 'share', label: '공유', icon: <ShareIcon size={12} /> },
   ]
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>EnterpriseUI 툴바 액션 버튼 패턴</div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '4px 8px', background: '#f8fafc', borderRadius: 6, border: '1px solid #e2e8f0' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}
+    >
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>
+        EnterpriseUI 툴바 액션 버튼 패턴
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2,
+          padding: '4px 8px',
+          background: '#f8fafc',
+          borderRadius: 6,
+          border: '1px solid #e2e8f0',
+        }}
+      >
         {actions.map((action, i) => (
           <div key={action.id} style={{ display: 'flex', alignItems: 'center' }}>
-            {i === 2 && <div style={{ width: 1, height: 16, background: '#e2e8f0', margin: '0 4px' }} />}
+            {i === 2 && (
+              <div style={{ width: 1, height: 16, background: '#e2e8f0', margin: '0 4px' }} />
+            )}
             <GhostButton
               color="gray"
               size="small"
               onClick={() => setActive(action.id)}
-              style={{ borderRadius: 4, background: active === action.id ? '#e0f2fe' : 'transparent' }}
+              style={{
+                borderRadius: 4,
+                background: active === action.id ? '#e0f2fe' : 'transparent',
+              }}
             >
               <GhostButton.Center>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>{action.icon}{action.label}</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  {action.icon}
+                  {action.label}
+                </span>
               </GhostButton.Center>
             </GhostButton>
           </div>
         ))}
       </div>
       {active && (
-        <div style={{ fontSize: 11, color: '#0284c7', padding: '4px 8px', background: '#e0f2fe', borderRadius: 4 }}>
-          실행: {actions.find(a => a.id === active)?.label}
+        <div
+          style={{
+            fontSize: 11,
+            color: '#0284c7',
+            padding: '4px 8px',
+            background: '#e0f2fe',
+            borderRadius: 4,
+          }}
+        >
+          실행: {actions.find((a) => a.id === active)?.label}
         </div>
       )}
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>EnterpriseUI IconButton + ButtonGroup 조합 패턴 재현</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        EnterpriseUI IconButton + ButtonGroup 조합 패턴 재현
+      </div>
     </div>
   )
 }
@@ -1578,15 +2128,41 @@ function AccessibleMenuItemRender() {
     { id: 'edit', label: '편집', icon: <CopyLineIcon size={12} />, shortcut: '⌘E' },
     { id: 'duplicate', label: '복제', icon: <CopyLineIcon size={12} />, shortcut: '⌘D' },
     { id: 'share', label: '공유', icon: <ShareIcon size={12} />, shortcut: '⌘S' },
-    { id: 'delete', label: '삭제', icon: <DeleteLineIcon size={12} />, shortcut: '⌫', danger: true },
+    {
+      id: 'delete',
+      label: '삭제',
+      icon: <DeleteLineIcon size={12} />,
+      shortcut: '⌫',
+      danger: true,
+    },
   ]
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>AccessibleUI 메뉴 아이템 패턴</div>
-      <div style={{ width: 200, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, padding: 4, boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}
+    >
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>
+        AccessibleUI 메뉴 아이템 패턴
+      </div>
+      <div
+        style={{
+          width: 200,
+          background: '#fff',
+          border: '1px solid #e2e8f0',
+          borderRadius: 8,
+          padding: 4,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+        }}
+      >
         {items.map((item, i) => (
           <div key={item.id}>
-            {i === items.length - 1 && <div style={{ height: 1, background: '#f1f5f9', margin: '4px 0' }} />}
+            {i === items.length - 1 && (
+              <div style={{ height: 1, background: '#f1f5f9', margin: '4px 0' }} />
+            )}
             <GhostButton
               color={item.danger ? 'black' : 'gray'}
               size="small"
@@ -1594,18 +2170,34 @@ function AccessibleMenuItemRender() {
               style={{ width: '100%', borderRadius: 4, justifyContent: 'space-between' }}
             >
               <GhostButton.Center>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, flex: 1, color: item.danger ? '#ef4444' : '#1e293b' }}>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    flex: 1,
+                    color: item.danger ? '#ef4444' : '#1e293b',
+                  }}
+                >
                   {item.icon}
                   <span style={{ flex: 1, textAlign: 'left' }}>{item.label}</span>
-                  <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 8 }}>{item.shortcut}</span>
+                  <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 8 }}>
+                    {item.shortcut}
+                  </span>
                 </span>
               </GhostButton.Center>
             </GhostButton>
           </div>
         ))}
       </div>
-      {selected && <div style={{ fontSize: 11, color: '#0284c7' }}>선택됨: {items.find(i => i.id === selected)?.label}</div>}
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>AccessibleUI Menu.Item 패턴 — 아이콘 + 레이블 + 단축키</div>
+      {selected && (
+        <div style={{ fontSize: 11, color: '#0284c7' }}>
+          선택됨: {items.find((i) => i.id === selected)?.label}
+        </div>
+      )}
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        AccessibleUI Menu.Item 패턴 — 아이콘 + 레이블 + 단축키
+      </div>
     </div>
   )
 }
@@ -1626,33 +2218,50 @@ export const Accessible_메뉴_아이템_버튼: StoryObj<typeof meta> = {
 
 function EnterpriseUIAccessibleQuickActionRender() {
   const [favorites, setFavorites] = useState<Set<string>>(new Set())
-  const toggleFav = (id: string) => setFavorites(prev => {
-    const next = new Set(prev)
-    if (next.has(id)) { next.delete(id) } else { next.add(id) }
-    return next
-  })
+  const toggleFav = (id: string) =>
+    setFavorites((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
   const pages = ['디자인 시스템 문서', '스프린트 보드', '팀 위키', '회고 노트', 'API 명세서']
   return (
     <div style={{ width: 280, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 8 }}>EnterpriseUI + Accessible 퀵 액션 패널</div>
-      {pages.map(page => (
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 8 }}>
+        EnterpriseUI + Accessible 퀵 액션 패널
+      </div>
+      {pages.map((page) => (
         <div key={page} style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '2px 0' }}>
           <Flex style={{ flex: 1 }}>
-            <GhostButton color="gray" size="small" style={{ flex: 1, justifyContent: 'flex-start' }}>
+            <GhostButton
+              color="gray"
+              size="small"
+              style={{ flex: 1, justifyContent: 'flex-start' }}
+            >
               <GhostButton.Center>
                 <span style={{ textAlign: 'left', color: '#475569', fontSize: 13 }}>{page}</span>
               </GhostButton.Center>
             </GhostButton>
           </Flex>
           <GhostButton color="gray" size="small" onClick={() => toggleFav(page)}>
-            {favorites.has(page) ? <HeartFillIcon size={12} style={{ color: '#f43f5e' }} /> : <HeartLineIcon size={12} />}
+            {favorites.has(page) ? (
+              <HeartFillIcon size={12} style={{ color: '#f43f5e' }} />
+            ) : (
+              <HeartLineIcon size={12} />
+            )}
           </GhostButton>
           <GhostButton color="gray" size="small">
             <ChevronRightLineIcon size={12} />
           </GhostButton>
         </div>
       ))}
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>즐겨찾기: {favorites.size}개 — EnterpriseUI List + Accessible 토글 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+        즐겨찾기: {favorites.size}개 — EnterpriseUI List + Accessible 토글 패턴
+      </div>
     </div>
   )
 }
@@ -1697,32 +2306,87 @@ function EnterpriseUIDataTableActionRender() {
 
   return (
     <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#374151', marginBottom: 10 }}>컴포넌트 목록</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#374151', marginBottom: 10 }}>
+        컴포넌트 목록
+      </div>
       <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 100px 60px 80px 80px', padding: '8px 12px', background: '#f8fafc', fontSize: 10, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5 }}>
-          <span>이름</span><span>카테고리</span><span>상태</span><span>스토리</span><span style={{ textAlign: 'right' }}>액션</span>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 100px 60px 80px 80px',
+            padding: '8px 12px',
+            background: '#f8fafc',
+            fontSize: 10,
+            fontWeight: 600,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: 0.5,
+          }}
+        >
+          <span>이름</span>
+          <span>카테고리</span>
+          <span>상태</span>
+          <span>스토리</span>
+          <span style={{ textAlign: 'right' }}>액션</span>
         </div>
         {data.map((row, i) => (
-          <div key={row.id} style={{ display: 'grid', gridTemplateColumns: '1fr 100px 60px 80px 80px', padding: '8px 12px', alignItems: 'center', borderTop: i > 0 ? '1px solid #f3f4f6' : 'none' }}>
+          <div
+            key={row.id}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 100px 60px 80px 80px',
+              padding: '8px 12px',
+              alignItems: 'center',
+              borderTop: i > 0 ? '1px solid #f3f4f6' : 'none',
+            }}
+          >
             <span style={{ fontSize: 12, fontWeight: 600, color: '#111827' }}>{row.name}</span>
             <span style={{ fontSize: 11, color: '#6b7280' }}>{row.category}</span>
-            <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 99, background: row.status === 'stable' ? '#dcfce7' : '#fef3c7', color: row.status === 'stable' ? '#16a34a' : '#d97706', fontWeight: 600, width: 'fit-content' }}>{row.status}</span>
+            <span
+              style={{
+                fontSize: 10,
+                padding: '1px 6px',
+                borderRadius: 99,
+                background: row.status === 'stable' ? '#dcfce7' : '#fef3c7',
+                color: row.status === 'stable' ? '#16a34a' : '#d97706',
+                fontWeight: 600,
+                width: 'fit-content',
+              }}
+            >
+              {row.status}
+            </span>
             <span style={{ fontSize: 12, color: '#374151' }}>{row.stories}</span>
             <div style={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
-              <GhostButton color="gray" size="small" onClick={() => handleCopy(row.id)} aria-label="복사">
-                {copied === row.id ? <CopyLineIcon size={12} style={{ color: '#6366f1' }} /> : <CopyLineIcon size={12} />}
+              <GhostButton
+                color="gray"
+                size="small"
+                onClick={() => handleCopy(row.id)}
+                aria-label="복사"
+              >
+                {copied === row.id ? (
+                  <CopyLineIcon size={12} style={{ color: '#6366f1' }} />
+                ) : (
+                  <CopyLineIcon size={12} />
+                )}
               </GhostButton>
               <GhostButton color="gray" size="small" aria-label="편집">
                 <LinkIcon size={12} />
               </GhostButton>
-              <GhostButton color="gray" size="small" onClick={() => handleDelete(row.id)} aria-label="삭제">
+              <GhostButton
+                color="gray"
+                size="small"
+                onClick={() => handleDelete(row.id)}
+                aria-label="삭제"
+              >
                 <DeleteLineIcon size={12} />
               </GhostButton>
             </div>
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>EnterpriseUI IconButton 테이블 인라인 액션 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+        EnterpriseUI IconButton 테이블 인라인 액션 패턴
+      </div>
     </div>
   )
 }
@@ -1733,7 +2397,8 @@ export const EnterpriseUI_데이터_테이블_인라인_액션: StoryObj<typeof 
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI DataGrid 인라인 액션 패턴. 각 행 우측에 복사/편집/삭제 GhostButton 아이콘 버튼 배치. 복사 성공 시 아이콘 색상 변경으로 피드백, 삭제 시 행 즉시 제거. EnterpriseUI IconButton 테이블 액션 UX.',
+        story:
+          'EnterpriseUI DataGrid 인라인 액션 패턴. 각 행 우측에 복사/편집/삭제 GhostButton 아이콘 버튼 배치. 복사 성공 시 아이콘 색상 변경으로 피드백, 삭제 시 행 즉시 제거. EnterpriseUI IconButton 테이블 액션 UX.',
       },
     },
   },
@@ -1753,19 +2418,38 @@ function M3ContextMenuRender() {
     {
       items: [
         { id: 'fav', icon: <HeartLineIcon size={14} />, label: '즐겨찾기', shortcut: '⌘D' },
-        { id: 'delete', icon: <DeleteLineIcon size={14} />, label: '삭제', shortcut: '⌫', danger: true },
+        {
+          id: 'delete',
+          icon: <DeleteLineIcon size={14} />,
+          label: '삭제',
+          shortcut: '⌫',
+          danger: true,
+        },
       ],
     },
   ]
 
   return (
     <div style={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
-      <div style={{ width: 220, border: '1px solid #e5e7eb', borderRadius: 10, padding: '4px', background: '#fff', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          width: 220,
+          border: '1px solid #e5e7eb',
+          borderRadius: 10,
+          padding: '4px',
+          background: '#fff',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {menuGroups.map((group, gi) => (
           <div key={gi}>
             {gi > 0 && <div style={{ height: 1, background: '#f3f4f6', margin: '4px 0' }} />}
             {group.items.map((item) => (
-              <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div
+                key={item.id}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              >
                 <GhostButton
                   color="gray"
                   size="large"
@@ -1773,13 +2457,24 @@ function M3ContextMenuRender() {
                   style={{ flex: 1, justifyContent: 'flex-start' }}
                 >
                   <GhostButton.Center>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: item.danger ? '#ef4444' : 'inherit' }}>
-                      <span style={{ color: item.danger ? '#ef4444' : '#6b7280' }}>{item.icon}</span>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        color: item.danger ? '#ef4444' : 'inherit',
+                      }}
+                    >
+                      <span style={{ color: item.danger ? '#ef4444' : '#6b7280' }}>
+                        {item.icon}
+                      </span>
                       <span style={{ fontSize: 13 }}>{item.label}</span>
                     </div>
                   </GhostButton.Center>
                   <GhostButton.Trailing>
-                    <span style={{ fontSize: 10, color: '#9ca3af', fontFamily: 'monospace' }}>{item.shortcut}</span>
+                    <span style={{ fontSize: 10, color: '#9ca3af', fontFamily: 'monospace' }}>
+                      {item.shortcut}
+                    </span>
                   </GhostButton.Trailing>
                 </GhostButton>
               </div>
@@ -1787,7 +2482,15 @@ function M3ContextMenuRender() {
           </div>
         ))}
         {selected && (
-          <div style={{ padding: '4px 8px', fontSize: 11, color: '#6366f1', borderTop: '1px solid #f3f4f6', marginTop: 4 }}>
+          <div
+            style={{
+              padding: '4px 8px',
+              fontSize: 11,
+              color: '#6366f1',
+              borderTop: '1px solid #f3f4f6',
+              marginTop: 4,
+            }}
+          >
             선택: {selected}
           </div>
         )}
@@ -1802,7 +2505,8 @@ export const M3_컨텍스트_메뉴_액션: StoryObj<typeof meta> = {
   parameters: {
     docs: {
       description: {
-        story: 'RoleToken Design 컨텍스트 메뉴 UX 패턴. GhostButton을 아이콘+텍스트+단축키 조합으로 배치, 구분선으로 그룹 분리. 위험 액션(삭제)은 빨간색으로 강조. full-width 컨텍스트 메뉴 항목 패턴.',
+        story:
+          'RoleToken Design 컨텍스트 메뉴 UX 패턴. GhostButton을 아이콘+텍스트+단축키 조합으로 배치, 구분선으로 그룹 분리. 위험 액션(삭제)은 빨간색으로 강조. full-width 컨텍스트 메뉴 항목 패턴.',
       },
     },
   },
@@ -1815,7 +2519,17 @@ function EnterpriseUI_M3_ToolbarRender() {
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 2, padding: '4px 8px', border: '1px solid #e5e7eb', borderRadius: 10, background: '#fff' }}>
+      <div
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 2,
+          padding: '4px 8px',
+          border: '1px solid #e5e7eb',
+          borderRadius: 10,
+          background: '#fff',
+        }}
+      >
         {/* Text format group */}
         <GhostButton
           color={bold ? 'black' : 'gray'}
@@ -1839,7 +2553,13 @@ function EnterpriseUI_M3_ToolbarRender() {
         <div style={{ width: 1, height: 20, background: '#e5e7eb', margin: '0 4px' }} />
         {/* Alignment group */}
         {(['left', 'center', 'right'] as const).map((a) => (
-          <GhostButton key={a} color={align === a ? 'black' : 'gray'} size="small" onClick={() => setAlign(a)} aria-label={`${a} 정렬`}>
+          <GhostButton
+            key={a}
+            color={align === a ? 'black' : 'gray'}
+            size="small"
+            onClick={() => setAlign(a)}
+            aria-label={`${a} 정렬`}
+          >
             <span style={{ fontSize: 12, fontFamily: 'monospace' }}>
               {a === 'left' ? '≡' : a === 'center' ? '≡' : '≡'}
             </span>
@@ -1848,16 +2568,39 @@ function EnterpriseUI_M3_ToolbarRender() {
         {/* Divider */}
         <div style={{ width: 1, height: 20, background: '#e5e7eb', margin: '0 4px' }} />
         {/* Action group */}
-        <GhostButton color="gray" size="small" aria-label="링크 삽입"><LinkIcon size={14} /></GhostButton>
-        <GhostButton color="gray" size="small" aria-label="공유"><ShareIcon size={14} /></GhostButton>
-        <GhostButton color="gray" size="small" aria-label="삭제"><DeleteLineIcon size={14} /></GhostButton>
+        <GhostButton color="gray" size="small" aria-label="링크 삽입">
+          <LinkIcon size={14} />
+        </GhostButton>
+        <GhostButton color="gray" size="small" aria-label="공유">
+          <ShareIcon size={14} />
+        </GhostButton>
+        <GhostButton color="gray" size="small" aria-label="삭제">
+          <DeleteLineIcon size={14} />
+        </GhostButton>
       </div>
-      <div style={{ marginTop: 16, padding: '12px', borderRadius: 8, background: '#f8fafc', fontSize: 13, color: '#374151' }}>
-        <span style={{ fontWeight: bold ? 700 : 400, fontStyle: italic ? 'italic' : 'normal', textAlign: align }}>
+      <div
+        style={{
+          marginTop: 16,
+          padding: '12px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          fontSize: 13,
+          color: '#374151',
+        }}
+      >
+        <span
+          style={{
+            fontWeight: bold ? 700 : 400,
+            fontStyle: italic ? 'italic' : 'normal',
+            textAlign: align,
+          }}
+        >
           텍스트 포맷: {bold ? '굵게' : '보통'} {italic ? '기울임' : ''} / 정렬: {align}
         </span>
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>EnterpriseUI Toolbar + M3 IconButton 그룹 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+        EnterpriseUI Toolbar + M3 IconButton 그룹 패턴
+      </div>
     </div>
   )
 }
@@ -1868,7 +2611,8 @@ export const EnterpriseUI_M3_툴바_아이콘_그룹: StoryObj<typeof meta> = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI Toolbar + RoleToken Design IconButton 그룹 패턴. 서식(B/I) + 정렬(좌/중/우) + 액션(링크/공유/삭제) 3그룹을 구분선으로 분리. aria-pressed로 토글 상태 접근성 지원. 리치 텍스트 에디터 툴바 패턴.',
+        story:
+          'EnterpriseUI Toolbar + RoleToken Design IconButton 그룹 패턴. 서식(B/I) + 정렬(좌/중/우) + 액션(링크/공유/삭제) 3그룹을 구분선으로 분리. aria-pressed로 토글 상태 접근성 지원. 리치 텍스트 에디터 툴바 패턴.',
       },
     },
   },

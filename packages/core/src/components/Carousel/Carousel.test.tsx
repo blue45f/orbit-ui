@@ -172,10 +172,11 @@ describe('Carousel', () => {
     // autoPlay 는 embla api 를 통해 슬라이드를 전환한다. jsdom 에서는 레이아웃이 없어
     // 실제 이동 대신 api.scrollNext / api.scrollTo 호출 여부로 자동 전환 동작을 검증한다.
     const renderAutoPlay = (interval = 1000) => {
-      let api: { scrollNext: ReturnType<typeof vi.spyOn>; scrollTo: ReturnType<typeof vi.spyOn> } = {
-        scrollNext: undefined as never,
-        scrollTo: undefined as never,
-      }
+      let api: { scrollNext: ReturnType<typeof vi.spyOn>; scrollTo: ReturnType<typeof vi.spyOn> } =
+        {
+          scrollNext: undefined as never,
+          scrollTo: undefined as never,
+        }
       render(
         <Carousel
           autoPlay
@@ -326,9 +327,10 @@ describe('Carousel', () => {
         api!.scrollTo.mockClear()
         vi.advanceTimersByTime(3000)
         expect(api!.scrollNext.mock.calls.length + api!.scrollTo.mock.calls.length).toBe(0)
-        expect(
-          screen.getByRole('button', { name: '자동 재생 시작' })
-        ).toHaveAttribute('aria-pressed', 'true')
+        expect(screen.getByRole('button', { name: '자동 재생 시작' })).toHaveAttribute(
+          'aria-pressed',
+          'true'
+        )
       } finally {
         vi.useRealTimers()
       }

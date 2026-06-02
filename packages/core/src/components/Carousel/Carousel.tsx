@@ -73,164 +73,164 @@ const CarouselRoot = React.forwardRef<
     },
     ref
   ) => {
-  const [carouselRef, api] = useEmblaCarousel(
-    {
-      ...opts,
-      axis: orientation === 'horizontal' ? 'x' : 'y',
-    },
-    plugins
-  )
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false)
-  const [canScrollNext, setCanScrollNext] = React.useState(false)
+    const [carouselRef, api] = useEmblaCarousel(
+      {
+        ...opts,
+        axis: orientation === 'horizontal' ? 'x' : 'y',
+      },
+      plugins
+    )
+    const [canScrollPrev, setCanScrollPrev] = React.useState(false)
+    const [canScrollNext, setCanScrollNext] = React.useState(false)
 
-  // reduced-motion 환경이면 autoPlay 를 강제로 끈다.
-  const autoPlayEnabled = autoPlay && !prefersReducedMotion()
+    // reduced-motion 환경이면 autoPlay 를 강제로 끈다.
+    const autoPlayEnabled = autoPlay && !prefersReducedMotion()
 
-  // 사용자가 수동으로 일시정지했는지 (pause/play 토글)
-  const [paused, setPaused] = React.useState(false)
-  // 포인터 호버 / 포커스 인 시 일시정지
-  const [interacting, setInteracting] = React.useState(false)
+    // 사용자가 수동으로 일시정지했는지 (pause/play 토글)
+    const [paused, setPaused] = React.useState(false)
+    // 포인터 호버 / 포커스 인 시 일시정지
+    const [interacting, setInteracting] = React.useState(false)
 
-  // 실제 자동 전환이 동작 중인지: autoPlay 켜짐 && 수동 일시정지 아님 && 상호작용 중 아님
-  const isPlaying = autoPlayEnabled && !paused && !interacting
+    // 실제 자동 전환이 동작 중인지: autoPlay 켜짐 && 수동 일시정지 아님 && 상호작용 중 아님
+    const isPlaying = autoPlayEnabled && !paused && !interacting
 
-  const toggleAutoPlay = React.useCallback(() => {
-    setPaused((prev) => !prev)
-  }, [])
+    const toggleAutoPlay = React.useCallback(() => {
+      setPaused((prev) => !prev)
+    }, [])
 
-  const onSelect = React.useCallback((api: CarouselApi) => {
-    if (!api) {
-      return
-    }
-
-    setCanScrollPrev(api.canScrollPrev())
-    setCanScrollNext(api.canScrollNext())
-  }, [])
-
-  const scrollPrev = React.useCallback(() => {
-    api?.scrollPrev()
-  }, [api])
-
-  const scrollNext = React.useCallback(() => {
-    api?.scrollNext()
-  }, [api])
-
-  const handleKeyDown = React.useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault()
-        scrollPrev()
-      } else if (event.key === 'ArrowRight') {
-        event.preventDefault()
-        scrollNext()
+    const onSelect = React.useCallback((api: CarouselApi) => {
+      if (!api) {
+        return
       }
-    },
-    [scrollPrev, scrollNext]
-  )
 
-  React.useEffect(() => {
-    if (!api || !setApi) {
-      return
-    }
+      setCanScrollPrev(api.canScrollPrev())
+      setCanScrollNext(api.canScrollNext())
+    }, [])
 
-    setApi(api)
-  }, [api, setApi])
+    const scrollPrev = React.useCallback(() => {
+      api?.scrollPrev()
+    }, [api])
 
-  React.useEffect(() => {
-    if (!api) {
-      return
-    }
+    const scrollNext = React.useCallback(() => {
+      api?.scrollNext()
+    }, [api])
 
-    api.on('reInit', onSelect)
-    api.on('select', onSelect)
-    // schedule initial sync as a microtask to avoid synchronous setState in effect
-    const frame = requestAnimationFrame(() => onSelect(api))
+    const handleKeyDown = React.useCallback(
+      (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault()
+          scrollPrev()
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault()
+          scrollNext()
+        }
+      },
+      [scrollPrev, scrollNext]
+    )
 
-    return () => {
-      cancelAnimationFrame(frame)
-      api?.off('select', onSelect)
-    }
-  }, [api, onSelect])
-
-  // 자동 재생: isPlaying 동안 interval 로 다음 슬라이드로 전환한다.
-  // 루프(opts.loop)가 꺼져 있고 마지막 슬라이드면 처음으로 되돌려 순환을 유지한다.
-  // 일시정지/언마운트 시 interval 을 정리한다.
-  React.useEffect(() => {
-    if (!api || !isPlaying) {
-      return
-    }
-
-    const id = setInterval(() => {
-      if (api.canScrollNext()) {
-        api.scrollNext()
-      } else {
-        api.scrollTo(0)
+    React.useEffect(() => {
+      if (!api || !setApi) {
+        return
       }
-    }, autoPlayInterval)
 
-    return () => clearInterval(id)
-  }, [api, isPlaying, autoPlayInterval])
+      setApi(api)
+    }, [api, setApi])
 
-  const contextValue = React.useMemo(
-    () => ({
-      carouselRef,
-      api,
-      opts,
-      orientation: orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
-      scrollPrev,
-      scrollNext,
-      canScrollPrev,
-      canScrollNext,
-      autoPlayEnabled,
-      isPlaying,
-      toggleAutoPlay,
-    }),
-    [
-      carouselRef,
-      api,
-      opts,
-      orientation,
-      scrollPrev,
-      scrollNext,
-      canScrollPrev,
-      canScrollNext,
-      autoPlayEnabled,
-      isPlaying,
-      toggleAutoPlay,
-    ]
-  )
-
-  // 자동 재생 중 포인터 호버 / 포커스 인 시 일시정지, 벗어나면 재개한다.
-  const pauseHandlers = autoPlayEnabled
-    ? {
-        onPointerEnter: () => setInteracting(true),
-        onPointerLeave: () => setInteracting(false),
-        onFocusCapture: () => setInteracting(true),
-        onBlurCapture: (event: React.FocusEvent<HTMLDivElement>) => {
-          // 포커스가 캐러셀 외부로 나갈 때만 재개 (내부 이동은 유지)
-          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-            setInteracting(false)
-          }
-        },
+    React.useEffect(() => {
+      if (!api) {
+        return
       }
-    : null
 
-  return (
-    <CarouselContext.Provider value={contextValue}>
-      <div
-        ref={ref}
-        onKeyDownCapture={handleKeyDown}
-        className={cn('relative', className)}
-        role="region"
-        aria-roledescription="carousel"
-        aria-label={props['aria-label'] ?? 'carousel'}
-        {...pauseHandlers}
-        {...props}
-      >
-        {children}
-      </div>
-    </CarouselContext.Provider>
-  )
+      api.on('reInit', onSelect)
+      api.on('select', onSelect)
+      // schedule initial sync as a microtask to avoid synchronous setState in effect
+      const frame = requestAnimationFrame(() => onSelect(api))
+
+      return () => {
+        cancelAnimationFrame(frame)
+        api?.off('select', onSelect)
+      }
+    }, [api, onSelect])
+
+    // 자동 재생: isPlaying 동안 interval 로 다음 슬라이드로 전환한다.
+    // 루프(opts.loop)가 꺼져 있고 마지막 슬라이드면 처음으로 되돌려 순환을 유지한다.
+    // 일시정지/언마운트 시 interval 을 정리한다.
+    React.useEffect(() => {
+      if (!api || !isPlaying) {
+        return
+      }
+
+      const id = setInterval(() => {
+        if (api.canScrollNext()) {
+          api.scrollNext()
+        } else {
+          api.scrollTo(0)
+        }
+      }, autoPlayInterval)
+
+      return () => clearInterval(id)
+    }, [api, isPlaying, autoPlayInterval])
+
+    const contextValue = React.useMemo(
+      () => ({
+        carouselRef,
+        api,
+        opts,
+        orientation: orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
+        scrollPrev,
+        scrollNext,
+        canScrollPrev,
+        canScrollNext,
+        autoPlayEnabled,
+        isPlaying,
+        toggleAutoPlay,
+      }),
+      [
+        carouselRef,
+        api,
+        opts,
+        orientation,
+        scrollPrev,
+        scrollNext,
+        canScrollPrev,
+        canScrollNext,
+        autoPlayEnabled,
+        isPlaying,
+        toggleAutoPlay,
+      ]
+    )
+
+    // 자동 재생 중 포인터 호버 / 포커스 인 시 일시정지, 벗어나면 재개한다.
+    const pauseHandlers = autoPlayEnabled
+      ? {
+          onPointerEnter: () => setInteracting(true),
+          onPointerLeave: () => setInteracting(false),
+          onFocusCapture: () => setInteracting(true),
+          onBlurCapture: (event: React.FocusEvent<HTMLDivElement>) => {
+            // 포커스가 캐러셀 외부로 나갈 때만 재개 (내부 이동은 유지)
+            if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+              setInteracting(false)
+            }
+          },
+        }
+      : null
+
+    return (
+      <CarouselContext.Provider value={contextValue}>
+        <div
+          ref={ref}
+          onKeyDownCapture={handleKeyDown}
+          className={cn('relative', className)}
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={props['aria-label'] ?? 'carousel'}
+          {...pauseHandlers}
+          {...props}
+        >
+          {children}
+        </div>
+      </CarouselContext.Provider>
+    )
   }
 )
 CarouselRoot.displayName = 'Carousel'

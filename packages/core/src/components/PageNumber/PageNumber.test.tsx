@@ -28,9 +28,7 @@ describe('PageNumber', () => {
   })
 
   test('trailing prop을 렌더링한다.', () => {
-    render(
-      <PageNumber current={2} total={5} trailing={<span data-testid="trailing">→</span>} />
-    )
+    render(<PageNumber current={2} total={5} trailing={<span data-testid="trailing">→</span>} />)
 
     expect(screen.getByTestId('trailing')).toBeInTheDocument()
   })
@@ -56,9 +54,7 @@ describe('PageNumber', () => {
   })
 
   test('전달된 className이 적용된다.', () => {
-    render(
-      <PageNumber data-testid="page-number" current={1} total={5} className="custom-page" />
-    )
+    render(<PageNumber data-testid="page-number" current={1} total={5} className="custom-page" />)
 
     expect(screen.getByTestId('page-number')).toHaveClass('custom-page')
   })

@@ -120,23 +120,23 @@ const StepProgressRender = (args: any) => {
           <span style={{ fontSize: '13px', fontWeight: 600, color: '#64748b' }}>
             단계 {current + 1} / {steps.length}
           </span>
-          <span style={{ fontSize: '13px', fontWeight: 700, color: isComplete ? '#10b981' : '#6366f1' }}>
+          <span
+            style={{ fontSize: '13px', fontWeight: 700, color: isComplete ? '#10b981' : '#6366f1' }}
+          >
             {progress}%
           </span>
         </div>
-        <Progress
-          {...args}
-          value={progress}
-          color={isComplete ? 'success' : 'primary'}
-        />
+        <Progress {...args} value={progress} color={isComplete ? 'success' : 'primary'} />
       </div>
 
-      <div style={{
-        padding: '20px',
-        borderRadius: '12px',
-        border: '1.5px solid #e2e8f0',
-        background: '#f8fafc',
-      }}>
+      <div
+        style={{
+          padding: '20px',
+          borderRadius: '12px',
+          border: '1.5px solid #e2e8f0',
+          background: '#f8fafc',
+        }}
+      >
         <div style={{ fontSize: '16px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
           {steps[current].label}
         </div>
@@ -234,27 +234,35 @@ const StatusProgressRender = () => {
       <Flex flexDirection="column" gap="16px">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <SectionLabel>
-            {status === 'loading' ? '업로드 중...' : status === 'success' ? '업로드 완료' : '업로드 경고'}
+            {status === 'loading'
+              ? '업로드 중...'
+              : status === 'success'
+                ? '업로드 완료'
+                : '업로드 경고'}
           </SectionLabel>
           {status === 'loading' ? (
             <Progress indeterminate />
           ) : (
-            <Progress
-              value={100}
-              color={status === 'success' ? 'success' : 'warning'}
-            />
+            <Progress value={100} color={status === 'success' ? 'success' : 'warning'} />
           )}
         </div>
 
-        <div style={{
-          padding: '12px 16px',
-          borderRadius: '10px',
-          background: status === 'loading' ? '#f8fafc' : status === 'success' ? 'rgba(16,185,129,0.08)' : 'rgba(245,158,11,0.08)',
-          border: `1px solid ${status === 'loading' ? '#e2e8f0' : status === 'success' ? '#10b981' : '#f59e0b'}`,
-          fontSize: '13px',
-          color: status === 'loading' ? '#64748b' : status === 'success' ? '#10b981' : '#f59e0b',
-          fontWeight: 500,
-        }}>
+        <div
+          style={{
+            padding: '12px 16px',
+            borderRadius: '10px',
+            background:
+              status === 'loading'
+                ? '#f8fafc'
+                : status === 'success'
+                  ? 'rgba(16,185,129,0.08)'
+                  : 'rgba(245,158,11,0.08)',
+            border: `1px solid ${status === 'loading' ? '#e2e8f0' : status === 'success' ? '#10b981' : '#f59e0b'}`,
+            fontSize: '13px',
+            color: status === 'loading' ? '#64748b' : status === 'success' ? '#10b981' : '#f59e0b',
+            fontWeight: 500,
+          }}
+        >
           {status === 'loading' && '파일을 서버에 업로드하고 있습니다...'}
           {status === 'success' && '3개 파일이 성공적으로 업로드되었습니다.'}
           {status === 'warning' && '2개 파일 업로드 중 권한 오류가 발생했습니다.'}
@@ -274,15 +282,40 @@ export const 상태표현: Story = {
 -------------------------------------------------------------------------- */
 const IssueTrackerProjectListRender = () => {
   const projects = [
-    { name: 'Orbit UI Design System', progress: 72, color: 'primary' as const, issues: 18, total: 25 },
+    {
+      name: 'Orbit UI Design System',
+      progress: 72,
+      color: 'primary' as const,
+      issues: 18,
+      total: 25,
+    },
     { name: 'Dashboard Redesign', progress: 45, color: 'warning' as const, issues: 9, total: 20 },
-    { name: 'Authentication Flow', progress: 100, color: 'success' as const, issues: 12, total: 12 },
+    {
+      name: 'Authentication Flow',
+      progress: 100,
+      color: 'success' as const,
+      issues: 12,
+      total: 12,
+    },
     { name: 'Mobile App v2.0', progress: 28, color: 'primary' as const, issues: 7, total: 25 },
-    { name: 'API Integration Layer', progress: 60, color: 'primary' as const, issues: 15, total: 25 },
+    {
+      name: 'API Integration Layer',
+      progress: 60,
+      color: 'primary' as const,
+      issues: 15,
+      total: 25,
+    },
   ]
 
   return (
-    <div style={{ maxWidth: '520px', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+    <div
+      style={{
+        maxWidth: '520px',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+      }}
+    >
       <div
         style={{
           padding: '12px 16px',
@@ -293,7 +326,9 @@ const IssueTrackerProjectListRender = () => {
           alignItems: 'center',
         }}
       >
-        <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '-0.01em' }}>
+        <span
+          style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '-0.01em' }}
+        >
           Projects
         </span>
         <span style={{ fontSize: '11px', color: '#94a3b8' }}>{projects.length}개</span>
@@ -306,7 +341,14 @@ const IssueTrackerProjectListRender = () => {
             borderBottom: i < projects.length - 1 ? '1px solid #f8fafc' : 'none',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '8px',
+            }}
+          >
             <span
               style={{
                 fontSize: '13px',
@@ -325,7 +367,12 @@ const IssueTrackerProjectListRender = () => {
                 style={{
                   fontSize: '11px',
                   fontWeight: 700,
-                  color: project.progress === 100 ? '#10b981' : project.progress >= 60 ? '#6366f1' : '#f59e0b',
+                  color:
+                    project.progress === 100
+                      ? '#10b981'
+                      : project.progress >= 60
+                        ? '#6366f1'
+                        : '#f59e0b',
                   minWidth: '32px',
                   textAlign: 'right',
                 }}
@@ -391,7 +438,9 @@ const CycleBurndownRender = () => {
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}>
+            <div
+              style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}
+            >
               Sprint 12
             </div>
             <div
@@ -424,7 +473,9 @@ const CycleBurndownRender = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>시간 경과</span>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: '#6366f1' }}>{cycleProgress}%</span>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#6366f1' }}>
+                {cycleProgress}%
+              </span>
             </div>
             <Progress value={cycleProgress} color="primary" size="small" />
           </div>
@@ -480,7 +531,11 @@ function BuildPipelineRender() {
     let stageIdx = 0
 
     const runStage = (idx: number) => {
-      if (idx >= BUILD_STAGES.length) { setDone(true); setCurrentStage(null); return }
+      if (idx >= BUILD_STAGES.length) {
+        setDone(true)
+        setCurrentStage(null)
+        return
+      }
       const stage = BUILD_STAGES[idx]
       setCurrentStage(stage.id)
       const steps = 20
@@ -501,12 +556,28 @@ function BuildPipelineRender() {
 
   return (
     <div style={{ maxWidth: 420 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>빌드 파이프라인</div>
         <button
           onClick={runBuild}
           disabled={currentStage !== null}
-          style={{ padding: '6px 14px', borderRadius: 6, border: 'none', background: currentStage ? '#e2e8f0' : '#6366f1', color: currentStage ? '#94a3b8' : '#fff', fontSize: 12, fontWeight: 600, cursor: currentStage ? 'not-allowed' : 'pointer' }}
+          style={{
+            padding: '6px 14px',
+            borderRadius: 6,
+            border: 'none',
+            background: currentStage ? '#e2e8f0' : '#6366f1',
+            color: currentStage ? '#94a3b8' : '#fff',
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: currentStage ? 'not-allowed' : 'pointer',
+          }}
         >
           {currentStage ? '빌드 중...' : done ? '재실행' : '빌드 시작'}
         </button>
@@ -519,8 +590,15 @@ function BuildPipelineRender() {
           return (
             <div key={stage.id}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ fontSize: 12, fontWeight: 600, color: isActive ? '#6366f1' : isComplete ? '#10b981' : '#94a3b8' }}>
-                  {isComplete ? '✓ ' : isActive ? '⟳ ' : '○ '}{stage.label}
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: isActive ? '#6366f1' : isComplete ? '#10b981' : '#94a3b8',
+                  }}
+                >
+                  {isComplete ? '✓ ' : isActive ? '⟳ ' : '○ '}
+                  {stage.label}
                 </span>
                 <span style={{ fontSize: 11, color: '#94a3b8' }}>{progress}%</span>
               </div>
@@ -534,11 +612,24 @@ function BuildPipelineRender() {
         })}
       </div>
       {done && (
-        <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
+        <div
+          style={{
+            marginTop: 16,
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#f0fdf4',
+            border: '1px solid #bbf7d0',
+            fontSize: 13,
+            color: '#16a34a',
+            fontWeight: 600,
+          }}
+        >
           ✓ 배포 완료 — Production에 반영되었습니다.
         </div>
       )}
-      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>DeployPlatform 빌드 파이프라인 패턴 — 스테이지별 순차 진행</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        DeployPlatform 빌드 파이프라인 패턴 — 스테이지별 순차 진행
+      </div>
     </div>
   )
 }
@@ -553,9 +644,24 @@ export const DeployPlatform_빌드_파이프라인: Story = {
    WorkspaceEditor 체크리스트 진행률 — 섹션별 완성도 시각화 UI
 -------------------------------------------------------------------------- */
 const PAGE_SECTIONS = [
-  { id: 'intro', label: '소개', items: ['프로젝트 개요', '목표 설정', '팀 소개'], completed: [true, true, false] },
-  { id: 'design', label: '디자인', items: ['와이어프레임', '프로토타입', '디자인 토큰', '컴포넌트 정의'], completed: [true, true, true, false] },
-  { id: 'dev', label: '개발', items: ['환경 설정', '코어 컴포넌트', '테마 적용'], completed: [true, false, false] },
+  {
+    id: 'intro',
+    label: '소개',
+    items: ['프로젝트 개요', '목표 설정', '팀 소개'],
+    completed: [true, true, false],
+  },
+  {
+    id: 'design',
+    label: '디자인',
+    items: ['와이어프레임', '프로토타입', '디자인 토큰', '컴포넌트 정의'],
+    completed: [true, true, true, false],
+  },
+  {
+    id: 'dev',
+    label: '개발',
+    items: ['환경 설정', '코어 컴포넌트', '테마 적용'],
+    completed: [true, false, false],
+  },
   { id: 'docs', label: '문서화', items: ['Storybook', 'MDX 가이드'], completed: [true, false] },
 ]
 
@@ -605,7 +711,9 @@ const BatchUploadRender = () => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>전체 업로드</span>
-          <span style={{ fontSize: 12, fontWeight: 600, color: '#6366f1' }}>{done}/{total} 완료</span>
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#6366f1' }}>
+            {done}/{total} 완료
+          </span>
         </div>
         <Progress value={overallPct} color="primary" size="medium" />
       </div>
@@ -636,14 +744,24 @@ const BatchUploadRender = () => {
                   padding: '2px 8px',
                   borderRadius: 6,
                   background:
-                    file.status === 'done' ? '#f0fdf4' :
-                    file.status === 'error' ? '#fee2e2' : '#eff6ff',
+                    file.status === 'done'
+                      ? '#f0fdf4'
+                      : file.status === 'error'
+                        ? '#fee2e2'
+                        : '#eff6ff',
                   color:
-                    file.status === 'done' ? '#16a34a' :
-                    file.status === 'error' ? '#dc2626' : '#3b82f6',
+                    file.status === 'done'
+                      ? '#16a34a'
+                      : file.status === 'error'
+                        ? '#dc2626'
+                        : '#3b82f6',
                 }}
               >
-                {file.status === 'done' ? '완료' : file.status === 'error' ? '실패' : `${file.progress}%`}
+                {file.status === 'done'
+                  ? '완료'
+                  : file.status === 'error'
+                    ? '실패'
+                    : `${file.progress}%`}
               </span>
             </div>
             {file.status !== 'error' && (
@@ -661,7 +779,9 @@ const BatchUploadRender = () => {
           </div>
         ))}
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI 배치 업로드 패턴 — 파일별 독립 Progress + 상태 표시</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        UtilityUI 배치 업로드 패턴 — 파일별 독립 Progress + 상태 표시
+      </div>
     </div>
   )
 }
@@ -695,14 +815,27 @@ export const Ant_역량_평가_차트: Story = {
   name: 'Ant Design - 역량 평가 차트',
   render: () => (
     <div style={{ maxWidth: 460 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>팀원 기술 역량</div>
-      <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 20 }}>김지수 — Senior Frontend Engineer</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+        팀원 기술 역량
+      </div>
+      <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 20 }}>
+        김지수 — Senior Frontend Engineer
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
         {SKILLS.map((skill) => (
           <div key={skill.label}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: 6,
+              }}
+            >
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{skill.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                  {skill.label}
+                </span>
                 <span
                   style={{
                     fontSize: 10,
@@ -722,13 +855,20 @@ export const Ant_역량_평가_차트: Story = {
                     fontSize: 11,
                     fontWeight: 700,
                     color:
-                      skill.value >= 80 ? '#10b981' :
-                      skill.value >= 60 ? '#6366f1' : '#f59e0b',
+                      skill.value >= 80 ? '#10b981' : skill.value >= 60 ? '#6366f1' : '#f59e0b',
                   }}
                 >
                   {skill.value >= 80 ? '전문가' : skill.value >= 60 ? '숙련' : '개발중'}
                 </span>
-                <span style={{ fontSize: 12, fontWeight: 800, color: '#0f172a', minWidth: 30, textAlign: 'right' }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 800,
+                    color: '#0f172a',
+                    minWidth: 30,
+                    textAlign: 'right',
+                  }}
+                >
                   {skill.value}
                 </span>
               </div>
@@ -739,17 +879,33 @@ export const Ant_역량_평가_차트: Story = {
       </div>
       <div style={{ marginTop: 20, display: 'flex', gap: 16 }}>
         {[
-          { label: '전문가 (80+)', color: '#10b981', count: SKILLS.filter((s) => s.value >= 80).length },
-          { label: '숙련 (60-79)', color: '#6366f1', count: SKILLS.filter((s) => s.value >= 60 && s.value < 80).length },
-          { label: '개발중 (~59)', color: '#f59e0b', count: SKILLS.filter((s) => s.value < 60).length },
+          {
+            label: '전문가 (80+)',
+            color: '#10b981',
+            count: SKILLS.filter((s) => s.value >= 80).length,
+          },
+          {
+            label: '숙련 (60-79)',
+            color: '#6366f1',
+            count: SKILLS.filter((s) => s.value >= 60 && s.value < 80).length,
+          },
+          {
+            label: '개발중 (~59)',
+            color: '#f59e0b',
+            count: SKILLS.filter((s) => s.value < 60).length,
+          },
         ].map((item) => (
           <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 8, height: 8, borderRadius: '50%', background: item.color }} />
-            <span style={{ fontSize: 11, color: '#64748b' }}>{item.label} ({item.count})</span>
+            <span style={{ fontSize: 11, color: '#64748b' }}>
+              {item.label} ({item.count})
+            </span>
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>Ant Design Progress + Label 패턴 — 스킬 역량 시각화</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        Ant Design Progress + Label 패턴 — 스킬 역량 시각화
+      </div>
     </div>
   ),
 }
@@ -777,10 +933,19 @@ export const UtilityCSS_Ant_리소스_쿼터: Story = {
   name: 'UtilityUI + Ant Design - 리소스 쿼터 대시보드',
   render: () => (
     <div style={{ maxWidth: 500 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 20,
+        }}
+      >
         <div>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>플랜 사용량</div>
-          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>Pro Plan — 갱신일: 2026-05-01</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+            Pro Plan — 갱신일: 2026-05-01
+          </div>
         </div>
         <div
           style={{
@@ -810,25 +975,62 @@ export const UtilityCSS_Ant_리소스_쿼터: Story = {
                 background: isHigh ? '#fffbeb' : '#fafafa',
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
-                <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>{quota.label}</span>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  marginBottom: 10,
+                }}
+              >
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>
+                  {quota.label}
+                </span>
                 {isHigh && (
-                  <span style={{ fontSize: 10, fontWeight: 700, color: '#d97706', background: '#fef3c7', padding: '1px 6px', borderRadius: 4 }}>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      color: '#d97706',
+                      background: '#fef3c7',
+                      padding: '1px 6px',
+                      borderRadius: 4,
+                    }}
+                  >
                     경고
                   </span>
                 )}
               </div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a', marginBottom: 2, lineHeight: 1 }}>
+              <div
+                style={{
+                  fontSize: 20,
+                  fontWeight: 800,
+                  color: '#0f172a',
+                  marginBottom: 2,
+                  lineHeight: 1,
+                }}
+              >
                 {typeof quota.used === 'number' && quota.used >= 1000
                   ? (quota.used / 1000).toFixed(0) + 'K'
                   : quota.used}
-                <span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8', marginLeft: 3 }}>{quota.unit}</span>
+                <span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8', marginLeft: 3 }}>
+                  {quota.unit}
+                </span>
               </div>
               <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8 }}>
-                / {quota.total}{quota.unit}
+                / {quota.total}
+                {quota.unit}
               </div>
               <Progress value={pct} color={quota.color} size="small" />
-              <div style={{ marginTop: 6, fontSize: 11, fontWeight: 600, color: pct >= 80 ? '#d97706' : '#94a3b8', textAlign: 'right' }}>
+              <div
+                style={{
+                  marginTop: 6,
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: pct >= 80 ? '#d97706' : '#94a3b8',
+                  textAlign: 'right',
+                }}
+              >
                 {pct}% 사용
               </div>
             </div>
@@ -836,12 +1038,26 @@ export const UtilityCSS_Ant_리소스_쿼터: Story = {
         })}
       </div>
 
-      <div style={{ marginTop: 16, padding: '12px 14px', borderRadius: 10, background: '#eff6ff', border: '1px solid #bfdbfe', fontSize: 12, color: '#1d4ed8' }}>
+      <div
+        style={{
+          marginTop: 16,
+          padding: '12px 14px',
+          borderRadius: 10,
+          background: '#eff6ff',
+          border: '1px solid #bfdbfe',
+          fontSize: 12,
+          color: '#1d4ed8',
+        }}
+      >
         API 호출 및 팀 시트가 한도에 근접했습니다.{' '}
-        <span style={{ fontWeight: 700, cursor: 'pointer', textDecoration: 'underline' }}>플랜 업그레이드</span>
+        <span style={{ fontWeight: 700, cursor: 'pointer', textDecoration: 'underline' }}>
+          플랜 업그레이드
+        </span>
         를 고려해보세요.
       </div>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>UtilityUI + Ant Design 엔터프라이즈 쿼터 대시보드 패턴</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        UtilityUI + Ant Design 엔터프라이즈 쿼터 대시보드 패턴
+      </div>
     </div>
   ),
 }
@@ -850,20 +1066,49 @@ export const WorkspaceEditor_페이지_완성도: Story = {
   name: 'WorkspaceEditor - 페이지 완성도 트래커 패턴',
   render: () => (
     <div style={{ maxWidth: 420 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>프로젝트 완성도</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>
+        프로젝트 완성도
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {PAGE_SECTIONS.map((section) => {
           const completedCount = section.completed.filter(Boolean).length
           const pct = Math.round((completedCount / section.items.length) * 100)
           return (
-            <div key={section.id} style={{ padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{section.label}</span>
-                <span style={{ fontSize: 11, fontWeight: 600, color: pct === 100 ? '#10b981' : '#94a3b8' }}>
+            <div
+              key={section.id}
+              style={{
+                padding: '12px 14px',
+                borderRadius: 10,
+                border: '1px solid #f1f5f9',
+                background: '#fafafa',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: 8,
+                }}
+              >
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+                  {section.label}
+                </span>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 600,
+                    color: pct === 100 ? '#10b981' : '#94a3b8',
+                  }}
+                >
                   {completedCount}/{section.items.length}
                 </span>
               </div>
-              <Progress value={pct} color={pct === 100 ? 'success' : pct > 50 ? 'primary' : 'warning'} size="small" />
+              <Progress
+                value={pct}
+                color={pct === 100 ? 'success' : pct > 50 ? 'primary' : 'warning'}
+                size="small"
+              />
               <div style={{ marginTop: 8, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 {section.items.map((item, i) => (
                   <span
@@ -877,7 +1122,8 @@ export const WorkspaceEditor_페이지_완성도: Story = {
                       fontWeight: section.completed[i] ? 600 : 400,
                     }}
                   >
-                    {section.completed[i] ? '✓ ' : ''}{item}
+                    {section.completed[i] ? '✓ ' : ''}
+                    {item}
                   </span>
                 ))}
               </div>
@@ -885,7 +1131,9 @@ export const WorkspaceEditor_페이지_완성도: Story = {
           )
         })}
       </div>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor 체크리스트 진행률 — 섹션별 완성도 시각화</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        WorkspaceEditor 체크리스트 진행률 — 섹션별 완성도 시각화
+      </div>
     </div>
   ),
 }
@@ -909,10 +1157,19 @@ function IssueTrackerCycleTeamRender() {
 
   return (
     <div style={{ maxWidth: 480 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
         <div>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Cycle {cycle}</div>
-          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>2주 스프린트 — 팀별 진행률</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+            2주 스프린트 — 팀별 진행률
+          </div>
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
           {[10, 11, 12, 13].map((c) => (
@@ -920,11 +1177,14 @@ function IssueTrackerCycleTeamRender() {
               key={c}
               onClick={() => setCycle(c)}
               style={{
-                padding: '4px 10px', borderRadius: 6,
+                padding: '4px 10px',
+                borderRadius: 6,
                 border: `1px solid ${cycle === c ? '#6366f1' : '#e2e8f0'}`,
                 background: cycle === c ? '#6366f112' : '#fff',
                 color: cycle === c ? '#6366f1' : '#64748b',
-                fontSize: 11, fontWeight: cycle === c ? 700 : 400, cursor: 'pointer',
+                fontSize: 11,
+                fontWeight: cycle === c ? 700 : 400,
+                cursor: 'pointer',
               }}
             >
               #{c}
@@ -934,15 +1194,42 @@ function IssueTrackerCycleTeamRender() {
       </div>
 
       {/* 전체 진행률 */}
-      <div style={{ padding: '14px 16px', borderRadius: 10, border: '1.5px solid #e2e8f0', marginBottom: 16, background: '#fafafa' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+      <div
+        style={{
+          padding: '14px 16px',
+          borderRadius: 10,
+          border: '1.5px solid #e2e8f0',
+          marginBottom: 16,
+          background: '#fafafa',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: 8,
+          }}
+        >
           <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b' }}>전체 완료율</span>
-          <span style={{ fontSize: 18, fontWeight: 800, color: overallPct >= 80 ? '#10b981' : '#6366f1' }}>
+          <span
+            style={{
+              fontSize: 18,
+              fontWeight: 800,
+              color: overallPct >= 80 ? '#10b981' : '#6366f1',
+            }}
+          >
             {totalCompleted} / {totalIssues}
           </span>
         </div>
-        <Progress value={overallPct} color={overallPct >= 80 ? 'success' : 'primary'} size="medium" />
-        <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8', textAlign: 'right' }}>{overallPct}% 완료</div>
+        <Progress
+          value={overallPct}
+          color={overallPct >= 80 ? 'success' : 'primary'}
+          size="medium"
+        />
+        <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8', textAlign: 'right' }}>
+          {overallPct}% 완료
+        </div>
       </div>
 
       {/* 팀별 */}
@@ -951,17 +1238,28 @@ function IssueTrackerCycleTeamRender() {
           const pct = Math.round((team.completed / team.total) * 100)
           return (
             <div key={team.name} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span style={{ fontSize: 16 }}>{team.avatar}</span>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{team.name}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                    {team.name}
+                  </span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 11, color: '#94a3b8' }}>{team.completed}/{team.total}</span>
-                  <span style={{
-                    fontSize: 11, fontWeight: 700, minWidth: 32, textAlign: 'right',
-                    color: pct >= 80 ? '#10b981' : pct >= 50 ? '#6366f1' : '#f59e0b',
-                  }}>
+                  <span style={{ fontSize: 11, color: '#94a3b8' }}>
+                    {team.completed}/{team.total}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 700,
+                      minWidth: 32,
+                      textAlign: 'right',
+                      color: pct >= 80 ? '#10b981' : pct >= 50 ? '#6366f1' : '#f59e0b',
+                    }}
+                  >
                     {pct}%
                   </span>
                 </div>
@@ -1032,16 +1330,29 @@ function DesignToolCoverageRender() {
       }}
     >
       {/* 헤더 */}
-      <div style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          padding: '10px 14px',
+          borderBottom: '1px solid #f1f5f9',
+          background: '#f8fafc',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>Coverage Analyzer</span>
         <button
           onClick={runAnalysis}
           disabled={analyzing}
           style={{
-            padding: '3px 10px', borderRadius: 5, border: 'none',
+            padding: '3px 10px',
+            borderRadius: 5,
+            border: 'none',
             background: analyzing ? '#e2e8f0' : '#6366f1',
             color: analyzing ? '#94a3b8' : '#fff',
-            fontSize: 10, fontWeight: 700, cursor: analyzing ? 'not-allowed' : 'pointer',
+            fontSize: 10,
+            fontWeight: 700,
+            cursor: analyzing ? 'not-allowed' : 'pointer',
           }}
         >
           {analyzing ? '분석 중...' : '재분석'}
@@ -1051,7 +1362,9 @@ function DesignToolCoverageRender() {
       {/* 분석 진행 */}
       {analyzing && (
         <div style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9' }}>
-          <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>Analyzing components...</div>
+          <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>
+            Analyzing components...
+          </div>
           <Progress value={progress} color="primary" size="small" />
         </div>
       )}
@@ -1060,14 +1373,21 @@ function DesignToolCoverageRender() {
       <div style={{ padding: '12px 14px', borderBottom: '1px solid #f1f5f9' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
           <span style={{ fontSize: 10, color: '#64748b' }}>Overall Coverage</span>
-          <span style={{
-            fontSize: 14, fontWeight: 800,
-            color: overallCoverage >= 80 ? '#10b981' : '#f59e0b',
-          }}>
+          <span
+            style={{
+              fontSize: 14,
+              fontWeight: 800,
+              color: overallCoverage >= 80 ? '#10b981' : '#f59e0b',
+            }}
+          >
             {overallCoverage}%
           </span>
         </div>
-        <Progress value={overallCoverage} color={overallCoverage >= 80 ? 'success' : 'warning'} size="small" />
+        <Progress
+          value={overallCoverage}
+          color={overallCoverage >= 80 ? 'success' : 'warning'}
+          size="small"
+        />
         <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4 }}>
           {totalUsed} / {totalAll} components used
         </div>
@@ -1091,7 +1411,14 @@ function DesignToolCoverageRender() {
         })}
       </div>
 
-      <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', fontSize: 9, color: '#cbd5e1' }}>
+      <div
+        style={{
+          padding: '8px 14px',
+          borderTop: '1px solid #f1f5f9',
+          fontSize: 9,
+          color: '#cbd5e1',
+        }}
+      >
         DesignTool Plugin UI — DS Coverage Analyzer
       </div>
     </div>
@@ -1121,9 +1448,23 @@ const Q1_OKRS: Array<{ objective: string; owner: string; keyResults: KeyResult[]
     objective: 'Design System 품질 향상',
     owner: '김민지',
     keyResults: [
-      { id: 'kr1', label: '컴포넌트 스토리 수', current: 108, target: 120, unit: '개', color: 'primary' },
+      {
+        id: 'kr1',
+        label: '컴포넌트 스토리 수',
+        current: 108,
+        target: 120,
+        unit: '개',
+        color: 'primary',
+      },
       { id: 'kr2', label: '접근성 커버리지', current: 82, target: 90, unit: '%', color: 'warning' },
-      { id: 'kr3', label: 'TypeScript 에러 수', current: 2, target: 0, unit: '건', color: 'warning' },
+      {
+        id: 'kr3',
+        label: 'TypeScript 에러 수',
+        current: 2,
+        target: 0,
+        unit: '건',
+        color: 'warning',
+      },
     ],
   },
   {
@@ -1139,15 +1480,30 @@ const Q1_OKRS: Array<{ objective: string; owner: string; keyResults: KeyResult[]
 function IssueTrackerOKRRender() {
   return (
     <div style={{ maxWidth: 520 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 20,
+        }}
+      >
         <div>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>OKR — Q1 2026</div>
-          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>orbit-ui Design System Team</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+            orbit-ui Design System Team
+          </div>
         </div>
-        <div style={{
-          padding: '4px 12px', borderRadius: 20,
-          background: '#eff6ff', fontSize: 12, fontWeight: 700, color: '#3b82f6',
-        }}>
+        <div
+          style={{
+            padding: '4px 12px',
+            borderRadius: 20,
+            background: '#eff6ff',
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#3b82f6',
+          }}
+        >
           진행 중
         </div>
       </div>
@@ -1156,26 +1512,48 @@ function IssueTrackerOKRRender() {
         {Q1_OKRS.map((okr, oi) => {
           const avgPct = Math.round(
             okr.keyResults.reduce((s, kr) => {
-              const raw = kr.id === 'kr3'
-                ? (kr.current === 0 ? 100 : Math.max(0, 100 - kr.current * 50))
-                : Math.min(100, Math.round((kr.current / kr.target) * 100))
+              const raw =
+                kr.id === 'kr3'
+                  ? kr.current === 0
+                    ? 100
+                    : Math.max(0, 100 - kr.current * 50)
+                  : Math.min(100, Math.round((kr.current / kr.target) * 100))
               return s + raw
             }, 0) / okr.keyResults.length
           )
           return (
-            <div key={oi} style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            <div
+              key={oi}
+              style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}
+            >
               {/* Objective 헤더 */}
-              <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <div
+                style={{
+                  padding: '12px 16px',
+                  background: '#f8fafc',
+                  borderBottom: '1px solid #f1f5f9',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: 8,
+                  }}
+                >
                   <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
                     O{oi + 1}. {okr.objective}
                   </span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <span style={{ fontSize: 10, color: '#94a3b8' }}>{okr.owner}</span>
-                    <span style={{
-                      fontSize: 12, fontWeight: 800,
-                      color: avgPct >= 80 ? '#10b981' : avgPct >= 60 ? '#6366f1' : '#f59e0b',
-                    }}>
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 800,
+                        color: avgPct >= 80 ? '#10b981' : avgPct >= 60 ? '#6366f1' : '#f59e0b',
+                      }}
+                    >
                       {avgPct}%
                     </span>
                   </div>
@@ -1190,9 +1568,12 @@ function IssueTrackerOKRRender() {
               {/* Key Results */}
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {okr.keyResults.map((kr, ki) => {
-                  const pct = kr.id === 'kr3'
-                    ? (kr.current === 0 ? 100 : Math.max(0, 100 - kr.current * 50))
-                    : Math.min(100, Math.round((kr.current / kr.target) * 100))
+                  const pct =
+                    kr.id === 'kr3'
+                      ? kr.current === 0
+                        ? 100
+                        : Math.max(0, 100 - kr.current * 50)
+                      : Math.min(100, Math.round((kr.current / kr.target) * 100))
                   return (
                     <div
                       key={kr.id}
@@ -1201,7 +1582,14 @@ function IssueTrackerOKRRender() {
                         borderBottom: ki < okr.keyResults.length - 1 ? '1px solid #f8fafc' : 'none',
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          marginBottom: 6,
+                        }}
+                      >
                         <span style={{ fontSize: 12, color: '#475569' }}>
                           KR{ki + 1}. {kr.label}
                         </span>
@@ -1261,12 +1649,32 @@ function AccessibleKitFileUpload140Render() {
     return () => clearInterval(id)
   }, [])
 
-  const colorMap = { done: 'success' as const, uploading: 'primary' as const, pending: 'warning' as const }
+  const colorMap = {
+    done: 'success' as const,
+    uploading: 'primary' as const,
+    pending: 'warning' as const,
+  }
   const labelMap = { done: '완료', uploading: '업로드 중', pending: '대기' }
 
   return (
-    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+    <div
+      style={{
+        width: 420,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        padding: 20,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>파일 업로드</span>
         <span style={{ fontSize: 11, color: '#94a3b8' }}>
           {files.filter((f) => f.status === 'done').length}/{files.length} 완료
@@ -1275,16 +1683,36 @@ function AccessibleKitFileUpload140Render() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
         {files.map((file) => (
           <div key={file.name}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: 6,
+              }}
+            >
               <div>
                 <div style={{ fontSize: 12, fontWeight: 500, color: '#1e293b' }}>{file.name}</div>
                 <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>{file.size}</div>
               </div>
               <span
                 style={{
-                  fontSize: 10, fontWeight: 600, padding: '2px 8px', borderRadius: 20,
-                  background: file.status === 'done' ? '#dcfce7' : file.status === 'uploading' ? '#dbeafe' : '#f1f5f9',
-                  color: file.status === 'done' ? '#16a34a' : file.status === 'uploading' ? '#2563eb' : '#64748b',
+                  fontSize: 10,
+                  fontWeight: 600,
+                  padding: '2px 8px',
+                  borderRadius: 20,
+                  background:
+                    file.status === 'done'
+                      ? '#dcfce7'
+                      : file.status === 'uploading'
+                        ? '#dbeafe'
+                        : '#f1f5f9',
+                  color:
+                    file.status === 'done'
+                      ? '#16a34a'
+                      : file.status === 'uploading'
+                        ? '#2563eb'
+                        : '#64748b',
                 }}
               >
                 {labelMap[file.status]}
@@ -1299,7 +1727,16 @@ function AccessibleKitFileUpload140Render() {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 14, padding: '8px 12px', background: '#f8fafc', borderRadius: 6, fontSize: 11, color: '#94a3b8' }}>
+      <div
+        style={{
+          marginTop: 14,
+          padding: '8px 12px',
+          background: '#f8fafc',
+          borderRadius: 6,
+          fontSize: 11,
+          color: '#94a3b8',
+        }}
+      >
         AppUI DropzoneArea 패턴 — 실시간 업로드 진행률
       </div>
     </div>
@@ -1320,25 +1757,52 @@ function DataProductSkillLevel140Render() {
     { name: 'DesignTool / Design', level: 41, category: '디자인', trend: '+1%' },
   ]
 
-  const colorAt = (pct: number) => (pct >= 80 ? 'success' : pct >= 60 ? 'primary' : pct >= 40 ? 'warning' : 'warning')
+  const colorAt = (pct: number) =>
+    pct >= 80 ? 'success' : pct >= 60 ? 'primary' : pct >= 40 ? 'warning' : 'warning'
 
   return (
-    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20 }}>
+    <div
+      style={{
+        width: 380,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        padding: 20,
+      }}
+    >
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>스킬 레벨</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>DataProductUI Progress 패턴</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+          DataProductUI Progress 패턴
+        </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {skills.map((skill) => (
           <div key={skill.name}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'baseline',
+                marginBottom: 6,
+              }}
+            >
               <div>
-                <span style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{skill.name}</span>
-                <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 6 }}>{skill.category}</span>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>
+                  {skill.name}
+                </span>
+                <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 6 }}>
+                  {skill.category}
+                </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontSize: 10, color: '#10b981', fontWeight: 600 }}>{skill.trend}</span>
-                <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>{skill.level}</span>
+                <span style={{ fontSize: 10, color: '#10b981', fontWeight: 600 }}>
+                  {skill.trend}
+                </span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>
+                  {skill.level}
+                </span>
               </div>
             </div>
             <Progress value={skill.level} size="medium" color={colorAt(skill.level)} />
@@ -1391,8 +1855,19 @@ function AccessibleKitDataProduct140StepProgress140Render() {
   }
 
   return (
-    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20 }}>
-      <div style={{ marginBottom: 12, fontSize: 14, fontWeight: 700, color: '#0f172a' }}>개발 파이프라인 진행</div>
+    <div
+      style={{
+        width: 440,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        padding: 20,
+      }}
+    >
+      <div style={{ marginBottom: 12, fontSize: 14, fontWeight: 700, color: '#0f172a' }}>
+        개발 파이프라인 진행
+      </div>
       <div style={{ marginBottom: 16 }}>
         <Progress value={pct} size="large" color={step === totalSteps ? 'success' : 'primary'} />
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
@@ -1406,12 +1881,18 @@ function AccessibleKitDataProduct140StepProgress140Render() {
             key={s.label}
             onClick={() => setStep(i + 1)}
             style={{
-              flex: 1, padding: '8px 4px', textAlign: 'center', cursor: 'pointer', borderRadius: 6,
+              flex: 1,
+              padding: '8px 4px',
+              textAlign: 'center',
+              cursor: 'pointer',
+              borderRadius: 6,
               background: i < step ? '#eff6ff' : i === step - 1 ? '#dbeafe' : '#f8fafc',
               border: `1px solid ${i === step - 1 ? '#3b82f6' : '#e2e8f0'}`,
             }}
           >
-            <div style={{ fontSize: 10, fontWeight: 600, color: i < step ? '#2563eb' : '#94a3b8' }}>{s.label}</div>
+            <div style={{ fontSize: 10, fontWeight: 600, color: i < step ? '#2563eb' : '#94a3b8' }}>
+              {s.label}
+            </div>
             <div style={{ fontSize: 9, color: '#94a3b8', marginTop: 2 }}>{s.desc}</div>
           </div>
         ))}
@@ -1420,13 +1901,33 @@ function AccessibleKitDataProduct140StepProgress140Render() {
         <button
           onClick={startAuto}
           disabled={!!intervalId || step === totalSteps}
-          style={{ flex: 1, padding: '7px 0', borderRadius: 6, border: 'none', cursor: step === totalSteps ? 'not-allowed' : 'pointer', background: '#3b82f6', color: '#fff', fontSize: 12, fontWeight: 600, opacity: !!intervalId || step === totalSteps ? 0.5 : 1 }}
+          style={{
+            flex: 1,
+            padding: '7px 0',
+            borderRadius: 6,
+            border: 'none',
+            cursor: step === totalSteps ? 'not-allowed' : 'pointer',
+            background: '#3b82f6',
+            color: '#fff',
+            fontSize: 12,
+            fontWeight: 600,
+            opacity: !!intervalId || step === totalSteps ? 0.5 : 1,
+          }}
         >
           자동 진행
         </button>
         <button
           onClick={reset}
-          style={{ flex: 1, padding: '7px 0', borderRadius: 6, border: '1px solid #e2e8f0', cursor: 'pointer', background: '#fff', color: '#475569', fontSize: 12 }}
+          style={{
+            flex: 1,
+            padding: '7px 0',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            cursor: 'pointer',
+            background: '#fff',
+            color: '#475569',
+            fontSize: 12,
+          }}
         >
           초기화
         </button>
@@ -1488,26 +1989,65 @@ export const AntDesign_파일_업로드_진행률: Story = {
     }
 
     return (
-      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: 20 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div
+        style={{
+          width: 420,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: 12,
+          padding: 20,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: 16,
+          }}
+        >
           <span style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>파일 업로드</span>
-          <span style={{ fontSize: 12, color: '#6b7280' }}>{files.filter((f) => f.status === 'done').length}/{files.length} 완료</span>
+          <span style={{ fontSize: 12, color: '#6b7280' }}>
+            {files.filter((f) => f.status === 'done').length}/{files.length} 완료
+          </span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {files.map((file, idx) => (
             <div key={file.name} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: statusDot[file.status], display: 'inline-block' }} />
-                  <span style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>{file.name}</span>
+                  <span
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      background: statusDot[file.status],
+                      display: 'inline-block',
+                    }}
+                  />
+                  <span style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>
+                    {file.name}
+                  </span>
                   <span style={{ fontSize: 11, color: '#9ca3af' }}>{file.size}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 11, color: statusDot[file.status] }}>{statusLabel[file.status]}</span>
+                  <span style={{ fontSize: 11, color: statusDot[file.status] }}>
+                    {statusLabel[file.status]}
+                  </span>
                   {file.status === 'error' && (
                     <button
                       onClick={() => retry(idx)}
-                      style={{ fontSize: 11, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                      style={{
+                        fontSize: 11,
+                        color: '#3b82f6',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: 0,
+                      }}
                     >
                       재시도
                     </button>
@@ -1540,34 +2080,63 @@ export const PrimitiveUI_기술_스킬_역량_게이지: Story = {
   },
   render: function PrimitiveSkillGaugeRender() {
     const skills = [
-      { category: 'Frontend', items: [
-        { name: 'React', level: 95, color: 'primary' as const },
-        { name: 'TypeScript', level: 88, color: 'primary' as const },
-        { name: 'CSS/UtilityCSS', level: 82, color: 'primary' as const },
-      ]},
-      { category: 'Backend', items: [
-        { name: 'Node.js', level: 75, color: 'success' as const },
-        { name: 'PostgreSQL', level: 68, color: 'success' as const },
-      ]},
-      { category: 'DevOps', items: [
-        { name: 'Docker', level: 60, color: 'warning' as const },
-        { name: 'CI/CD', level: 55, color: 'warning' as const },
-      ]},
+      {
+        category: 'Frontend',
+        items: [
+          { name: 'React', level: 95, color: 'primary' as const },
+          { name: 'TypeScript', level: 88, color: 'primary' as const },
+          { name: 'CSS/UtilityCSS', level: 82, color: 'primary' as const },
+        ],
+      },
+      {
+        category: 'Backend',
+        items: [
+          { name: 'Node.js', level: 75, color: 'success' as const },
+          { name: 'PostgreSQL', level: 68, color: 'success' as const },
+        ],
+      },
+      {
+        category: 'DevOps',
+        items: [
+          { name: 'Docker', level: 60, color: 'warning' as const },
+          { name: 'CI/CD', level: 55, color: 'warning' as const },
+        ],
+      },
     ]
 
     return (
-      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 14, padding: 24 }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc', marginBottom: 20 }}>기술 역량</div>
+      <div
+        style={{
+          width: 380,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#0f172a',
+          borderRadius: 14,
+          padding: 24,
+        }}
+      >
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc', marginBottom: 20 }}>
+          기술 역량
+        </div>
         {skills.map((group) => (
           <div key={group.category} style={{ marginBottom: 20 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: 1, marginBottom: 10 }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#64748b',
+                letterSpacing: 1,
+                marginBottom: 10,
+              }}
+            >
               {group.category.toUpperCase()}
             </div>
             {group.items.map((skill) => (
               <div key={skill.name} style={{ marginBottom: 10 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                   <span style={{ fontSize: 13, color: '#cbd5e1' }}>{skill.name}</span>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8' }}>{skill.level}%</span>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8' }}>
+                    {skill.level}%
+                  </span>
                 </div>
                 <Progress value={skill.level} size="small" color={skill.color} />
               </div>
@@ -1593,27 +2162,88 @@ export const Ant_Primitive_목표_달성_대시보드: Story = {
   render: function AntPrimitiveOKRDashboardRender() {
     const [quarter] = React.useState('Q2 2025')
     const goals = [
-      { id: 'rev', label: '매출 목표', target: '₩2.4B', current: '₩1.68B', pct: 70, color: 'primary' as const },
-      { id: 'user', label: '신규 사용자', target: '50,000', current: '38,500', pct: 77, color: 'success' as const },
-      { id: 'nps', label: 'NPS 점수', target: '75', current: '52', pct: 69, color: 'warning' as const },
-      { id: 'churn', label: '이탈률 감소', target: '< 3%', current: '4.1%', pct: 45, color: 'warning' as const },
+      {
+        id: 'rev',
+        label: '매출 목표',
+        target: '₩2.4B',
+        current: '₩1.68B',
+        pct: 70,
+        color: 'primary' as const,
+      },
+      {
+        id: 'user',
+        label: '신규 사용자',
+        target: '50,000',
+        current: '38,500',
+        pct: 77,
+        color: 'success' as const,
+      },
+      {
+        id: 'nps',
+        label: 'NPS 점수',
+        target: '75',
+        current: '52',
+        pct: 69,
+        color: 'warning' as const,
+      },
+      {
+        id: 'churn',
+        label: '이탈률 감소',
+        target: '< 3%',
+        current: '4.1%',
+        pct: 45,
+        color: 'warning' as const,
+      },
     ]
 
     const overall = Math.round(goals.reduce((acc, g) => acc + g.pct, 0) / goals.length)
 
     return (
-      <div style={{ width: 460, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 14, overflow: 'hidden' }}>
-        <div style={{ background: 'linear-gradient(135deg, #1d4ed8, #7c3aed)', padding: '20px 24px', color: '#fff' }}>
+      <div
+        style={{
+          width: 460,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: 14,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            background: 'linear-gradient(135deg, #1d4ed8, #7c3aed)',
+            padding: '20px 24px',
+            color: '#fff',
+          }}
+        >
           <div style={{ fontSize: 12, opacity: 0.8, marginBottom: 4 }}>{quarter} OKR 현황</div>
-          <div style={{ fontSize: 24, fontWeight: 800, marginBottom: 12 }}>전체 달성률 {overall}%</div>
+          <div style={{ fontSize: 24, fontWeight: 800, marginBottom: 12 }}>
+            전체 달성률 {overall}%
+          </div>
           <Progress value={overall} size="large" color="success" />
         </div>
         <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
           {goals.map((goal) => (
-            <div key={goal.id} style={{ padding: 14, background: '#f9fafb', borderRadius: 10, border: '1px solid #f3f4f6' }}>
+            <div
+              key={goal.id}
+              style={{
+                padding: 14,
+                background: '#f9fafb',
+                borderRadius: 10,
+                border: '1px solid #f3f4f6',
+              }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{goal.label}</span>
-                <span style={{ fontSize: 12, fontWeight: 700, color: goal.pct >= 70 ? '#16a34a' : goal.pct >= 50 ? '#d97706' : '#dc2626' }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>
+                  {goal.label}
+                </span>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: goal.pct >= 70 ? '#16a34a' : goal.pct >= 50 ? '#d97706' : '#dc2626',
+                  }}
+                >
                   {goal.pct}%
                 </span>
               </div>

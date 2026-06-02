@@ -1,6 +1,5 @@
 import { Page, expect } from '@playwright/test'
 
-
 class Busy {
   constructor(
     public pendingNetworkMap: Map<string, number>,

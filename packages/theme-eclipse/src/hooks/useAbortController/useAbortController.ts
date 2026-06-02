@@ -38,7 +38,7 @@ export function useAbortController(): UseAbortControllerReturn {
     (reason?: unknown) => {
       controller.abort(reason)
     },
-    [controller],
+    [controller]
   )
 
   const reset = useCallback(() => {

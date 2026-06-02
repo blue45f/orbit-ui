@@ -1,4 +1,13 @@
-import { AwesomeIcon, HomeLineIcon, PeopleLineIcon, SettingLineIcon, NotificationLineIcon, StarLineIcon, FilterIcon, GridViewLineIcon } from '@heejun-com/icons'
+import {
+  AwesomeIcon,
+  HomeLineIcon,
+  PeopleLineIcon,
+  SettingLineIcon,
+  NotificationLineIcon,
+  StarLineIcon,
+  FilterIcon,
+  GridViewLineIcon,
+} from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 
@@ -34,27 +43,103 @@ const navTabs = [
 
 const tabContent: Record<string, React.ReactNode> = {
   home: (
-    <div style={{ padding: '16px', borderRadius: '10px', background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', minHeight: '80px' }}>
-      <div style={{ fontWeight: '700', marginBottom: '6px', color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>🏠 Home</div>
-      <div style={{ fontSize: '13px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}>{'Welcome to your dashboard. Check out what\'s new today.'}</div>
+    <div
+      style={{
+        padding: '16px',
+        borderRadius: '10px',
+        background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+        minHeight: '80px',
+      }}
+    >
+      <div
+        style={{
+          fontWeight: '700',
+          marginBottom: '6px',
+          color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+        }}
+      >
+        🏠 Home
+      </div>
+      <div
+        style={{ fontSize: '13px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}
+      >
+        {"Welcome to your dashboard. Check out what's new today."}
+      </div>
     </div>
   ),
   people: (
-    <div style={{ padding: '16px', borderRadius: '10px', background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', minHeight: '80px' }}>
-      <div style={{ fontWeight: '700', marginBottom: '6px', color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>👥 People</div>
-      <div style={{ fontSize: '13px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}>Manage your team members and collaborators here.</div>
+    <div
+      style={{
+        padding: '16px',
+        borderRadius: '10px',
+        background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+        minHeight: '80px',
+      }}
+    >
+      <div
+        style={{
+          fontWeight: '700',
+          marginBottom: '6px',
+          color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+        }}
+      >
+        👥 People
+      </div>
+      <div
+        style={{ fontSize: '13px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}
+      >
+        Manage your team members and collaborators here.
+      </div>
     </div>
   ),
   notif: (
-    <div style={{ padding: '16px', borderRadius: '10px', background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', minHeight: '80px' }}>
-      <div style={{ fontWeight: '700', marginBottom: '6px', color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>🔔 Alerts</div>
-      <div style={{ fontSize: '13px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}>You have 3 unread notifications. Tap to view them.</div>
+    <div
+      style={{
+        padding: '16px',
+        borderRadius: '10px',
+        background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+        minHeight: '80px',
+      }}
+    >
+      <div
+        style={{
+          fontWeight: '700',
+          marginBottom: '6px',
+          color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+        }}
+      >
+        🔔 Alerts
+      </div>
+      <div
+        style={{ fontSize: '13px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}
+      >
+        You have 3 unread notifications. Tap to view them.
+      </div>
     </div>
   ),
   settings: (
-    <div style={{ padding: '16px', borderRadius: '10px', background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', minHeight: '80px' }}>
-      <div style={{ fontWeight: '700', marginBottom: '6px', color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>⚙️ Settings</div>
-      <div style={{ fontSize: '13px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}>Customize your preferences, theme, and account details.</div>
+    <div
+      style={{
+        padding: '16px',
+        borderRadius: '10px',
+        background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+        minHeight: '80px',
+      }}
+    >
+      <div
+        style={{
+          fontWeight: '700',
+          marginBottom: '6px',
+          color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+        }}
+      >
+        ⚙️ Settings
+      </div>
+      <div
+        style={{ fontSize: '13px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)' }}
+      >
+        Customize your preferences, theme, and account details.
+      </div>
     </div>
   ),
 }
@@ -64,7 +149,12 @@ const TabInteractiveDemo = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '400px' }}>
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--sem-eclipse-color-borderSecondary, #f1f5f9)' }}>
+      <div
+        style={{
+          display: 'flex',
+          borderBottom: '1px solid var(--sem-eclipse-color-borderSecondary, #f1f5f9)',
+        }}
+      >
         {navTabs.map(({ value, label, Icon }) => (
           <Tab
             key={value}
@@ -79,9 +169,7 @@ const TabInteractiveDemo = () => {
           </Tab>
         ))}
       </div>
-      <div style={{ minHeight: '80px' }}>
-        {tabContent[active]}
-      </div>
+      <div style={{ minHeight: '80px' }}>{tabContent[active]}</div>
     </div>
   )
 }
@@ -131,7 +219,13 @@ type NavItem = {
 }
 
 const trackerNavItems: NavItem[] = [
-  { value: 'home', label: 'My Issues', icon: <HomeLineIcon size={16} />, count: 5, badge: 'urgent' },
+  {
+    value: 'home',
+    label: 'My Issues',
+    icon: <HomeLineIcon size={16} />,
+    count: 5,
+    badge: 'urgent',
+  },
   { value: 'team', label: 'Team', icon: <PeopleLineIcon size={16} />, count: 12 },
   { value: 'starred', label: 'Starred', icon: <StarLineIcon size={16} /> },
   { value: 'notifications', label: 'Inbox', icon: <NotificationLineIcon size={16} />, count: 3 },
@@ -139,11 +233,33 @@ const trackerNavItems: NavItem[] = [
 ]
 
 const trackerPanelContent: Record<string, { title: string; items: string[] }> = {
-  home: { title: 'My Issues', items: ['Fix Popover z-index', 'Update design tokens', 'Write migration guide', 'Implement compact density', 'Run typecheck CI'] },
-  team: { title: 'Team Issues', items: Array.from({ length: 12 }, (_, i) => `Team task #${i + 1}`) },
+  home: {
+    title: 'My Issues',
+    items: [
+      'Fix Popover z-index',
+      'Update design tokens',
+      'Write migration guide',
+      'Implement compact density',
+      'Run typecheck CI',
+    ],
+  },
+  team: {
+    title: 'Team Issues',
+    items: Array.from({ length: 12 }, (_, i) => `Team task #${i + 1}`),
+  },
   starred: { title: 'Starred', items: ['Design System Audit', 'Token Hierarchy v3'] },
-  notifications: { title: 'Inbox', items: ['@heejun mentioned you in ORB-201', 'PR merged: feat/compact-tabs', 'Issue closed: ORB-198'] },
-  settings: { title: 'Settings', items: ['Account', 'Notifications', 'Appearance', 'Integrations'] },
+  notifications: {
+    title: 'Inbox',
+    items: [
+      '@heejun mentioned you in ORB-201',
+      'PR merged: feat/compact-tabs',
+      'Issue closed: ORB-198',
+    ],
+  },
+  settings: {
+    title: 'Settings',
+    items: ['Account', 'Notifications', 'Appearance', 'Integrations'],
+  },
 }
 
 const IssueTrackerIconNavTabs = () => {
@@ -151,7 +267,15 @@ const IssueTrackerIconNavTabs = () => {
   const panel = trackerPanelContent[active] ?? { title: '', items: [] }
 
   return (
-    <div style={{ width: 500, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+    <div
+      style={{
+        width: 500,
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
       {/* Tab strip */}
       <div
         role="tablist"
@@ -178,11 +302,34 @@ const IssueTrackerIconNavTabs = () => {
 
       {/* Content panel */}
       <div style={{ padding: 20 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>{panel.title}</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>
+          {panel.title}
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {panel.items.map((item) => (
-            <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 10px', borderRadius: 8, background: '#f8fafc', fontSize: 13, color: '#1e293b', cursor: 'pointer' }}>
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', flexShrink: 0 }} />
+            <div
+              key={item}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '7px 10px',
+                borderRadius: 8,
+                background: '#f8fafc',
+                fontSize: 13,
+                color: '#1e293b',
+                cursor: 'pointer',
+              }}
+            >
+              <div
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: '#6366f1',
+                  flexShrink: 0,
+                }}
+              />
               {item}
             </div>
           ))}
@@ -235,7 +382,18 @@ const filterContent: Record<string, React.ReactNode> = {
   filter: (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       {['Priority', 'Status', 'Assignee', 'Label'].map((f) => (
-        <div key={f} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fafafa' }}>
+        <div
+          key={f}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '9px 12px',
+            borderRadius: 8,
+            border: '1px solid #f1f5f9',
+            background: '#fafafa',
+          }}
+        >
           <span style={{ fontSize: 12, color: '#475569', fontWeight: 500 }}>{f}</span>
           <LabelBadge color="gray">
             <LabelBadge.Label>Any</LabelBadge.Label>
@@ -247,20 +405,25 @@ const filterContent: Record<string, React.ReactNode> = {
   people: (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       {['heejun.kim', 'minji.park', 'dongwook.lee', 'soyeon.choi'].map((person, _i) => (
-        <div key={person} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0' }}>
-          <div style={{
-            width: 28,
-            height: 28,
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-            color: '#fff',
-            fontSize: 10,
-            fontWeight: 700,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}>
+        <div
+          key={person}
+          style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0' }}
+        >
+          <div
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              color: '#fff',
+              fontSize: 10,
+              fontWeight: 700,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
             {person.charAt(0).toUpperCase()}
           </div>
           <span style={{ fontSize: 13, color: '#1e293b', flex: 1 }}>{person}</span>
@@ -277,10 +440,28 @@ const PrimitiveControlledTabs = () => {
   const [value, setValue] = useState('grid')
 
   return (
-    <div style={{ width: 420, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+    <div
+      style={{
+        width: 420,
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
       {/* Header */}
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', flex: 1 }}>Project View</span>
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #f1f5f9',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', flex: 1 }}>
+          Project View
+        </span>
         <LabelBadge color="gray">
           <LabelBadge.Label>Controlled</LabelBadge.Label>
         </LabelBadge>
@@ -341,27 +522,34 @@ const shortcutTabs = [
 ]
 
 const shortcutTabContent: Record<string, string[]> = {
-  issues: ['ORB-201 Implement Primitive Tabs API', 'ORB-202 Add IssueTracker compact density', 'ORB-203 Accessibility audit', 'ORB-204 Token migration'],
+  issues: [
+    'ORB-201 Implement Primitive Tabs API',
+    'ORB-202 Add IssueTracker compact density',
+    'ORB-203 Accessibility audit',
+    'ORB-204 Token migration',
+  ],
   projects: ['Design System', 'Mobile App', 'Web Platform', 'Infrastructure'],
   views: ['All Issues', 'My Issues', 'Active Sprint'],
   members: ['heejun.kim', 'minji.park', 'dongwook.lee', 'soyeon.choi'],
 }
 
 const ShortcutKeyBadge = ({ char }: { char: string }) => (
-  <div style={{
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 16,
-    height: 16,
-    borderRadius: 3,
-    border: '1px solid #e2e8f0',
-    background: '#f8fafc',
-    fontSize: 10,
-    fontWeight: 700,
-    color: '#94a3b8',
-    fontFamily: 'monospace',
-  }}>
+  <div
+    style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 16,
+      height: 16,
+      borderRadius: 3,
+      border: '1px solid #e2e8f0',
+      background: '#f8fafc',
+      fontSize: 10,
+      fontWeight: 700,
+      color: '#94a3b8',
+      fontFamily: 'monospace',
+    }}
+  >
     {char}
   </div>
 )
@@ -371,9 +559,26 @@ const IssueTrackerShortcutTabs = () => {
   const content = shortcutTabContent[active] ?? []
 
   return (
-    <div style={{ width: 480, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden', background: '#fff', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
+    <div
+      style={{
+        width: 480,
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        overflow: 'hidden',
+        background: '#fff',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+      }}
+    >
       {/* Search header */}
-      <div style={{ padding: '12px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div
+        style={{
+          padding: '12px 14px',
+          borderBottom: '1px solid #f1f5f9',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
           <circle cx="11" cy="11" r="8" stroke="#94a3b8" strokeWidth="2" />
           <path d="M21 21l-4.35-4.35" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" />
@@ -382,7 +587,10 @@ const IssueTrackerShortcutTabs = () => {
       </div>
 
       {/* Shortcut hint tabs */}
-      <div role="tablist" style={{ display: 'flex', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+      <div
+        role="tablist"
+        style={{ display: 'flex', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}
+      >
         {shortcutTabs.map((tab) => (
           <Tab
             key={tab.value}
@@ -418,17 +626,41 @@ const IssueTrackerShortcutTabs = () => {
               transition: 'background 0.1s',
             }}
           >
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', flexShrink: 0 }} />
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: '#6366f1',
+                flexShrink: 0,
+              }}
+            />
             {item}
           </div>
         ))}
       </div>
 
       {/* Footer */}
-      <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 12 }}>
-        {[{ key: 'Tab', label: '탭 전환' }, { key: 'Enter', label: '선택' }, { key: 'Esc', label: '닫기' }].map((hint) => (
+      <div
+        style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 12 }}
+      >
+        {[
+          { key: 'Tab', label: '탭 전환' },
+          { key: 'Enter', label: '선택' },
+          { key: 'Esc', label: '닫기' },
+        ].map((hint) => (
           <div key={hint.key} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <kbd style={{ padding: '2px 6px', borderRadius: 4, border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 10, color: '#64748b', fontFamily: 'monospace' }}>
+            <kbd
+              style={{
+                padding: '2px 6px',
+                borderRadius: 4,
+                border: '1px solid #e2e8f0',
+                background: '#f8fafc',
+                fontSize: 10,
+                color: '#64748b',
+                fontFamily: 'monospace',
+              }}
+            >
               {hint.key}
             </kbd>
             <span style={{ fontSize: 10, color: '#94a3b8' }}>{hint.label}</span>
@@ -458,7 +690,9 @@ const tailwindTabs = [
 const contentMap: Record<string, React.ReactNode> = {
   overview: (
     <div style={{ padding: '20px 0' }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>활동 요약</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>
+        활동 요약
+      </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
         {[
           { label: '커밋', value: '1,247', color: '#6366f1' },
@@ -466,7 +700,16 @@ const contentMap: Record<string, React.ReactNode> = {
           { label: '이슈', value: '34', color: '#f59e0b' },
           { label: '리뷰', value: '312', color: '#8b5cf6' },
         ].map((stat) => (
-          <div key={stat.label} style={{ padding: '12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', textAlign: 'center' }}>
+          <div
+            key={stat.label}
+            style={{
+              padding: '12px',
+              borderRadius: 8,
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              textAlign: 'center',
+            }}
+          >
             <div style={{ fontSize: 18, fontWeight: 800, color: stat.color }}>{stat.value}</div>
             <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{stat.label}</div>
           </div>
@@ -477,20 +720,28 @@ const contentMap: Record<string, React.ReactNode> = {
   repositories: (
     <div style={{ padding: '16px 0', display: 'flex', flexDirection: 'column', gap: 8 }}>
       {['orbit-ui', 'react-hooks', 'design-tokens', 'storybook-addon'].map((repo) => (
-        <div key={repo} style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, color: '#1e293b', fontWeight: 500 }}>
+        <div
+          key={repo}
+          style={{
+            padding: '10px 12px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            fontSize: 13,
+            color: '#1e293b',
+            fontWeight: 500,
+          }}
+        >
           {repo}
         </div>
       ))}
     </div>
   ),
-  projects: (
-    <div style={{ padding: '16px 0', fontSize: 13, color: '#94a3b8' }}>8개의 프로젝트</div>
-  ),
-  packages: (
-    <div style={{ padding: '16px 0', fontSize: 13, color: '#94a3b8' }}>패키지 없음</div>
-  ),
+  projects: <div style={{ padding: '16px 0', fontSize: 13, color: '#94a3b8' }}>8개의 프로젝트</div>,
+  packages: <div style={{ padding: '16px 0', fontSize: 13, color: '#94a3b8' }}>패키지 없음</div>,
   stars: (
-    <div style={{ padding: '16px 0', fontSize: 13, color: '#94a3b8' }}>1,200개의 즐겨찾기 리포지토리</div>
+    <div style={{ padding: '16px 0', fontSize: 13, color: '#94a3b8' }}>
+      1,200개의 즐겨찾기 리포지토리
+    </div>
   ),
 }
 
@@ -512,11 +763,16 @@ const UtilityCSSUnderlineTabs = () => {
               <Tab.Center>{tab.label}</Tab.Center>
               {tab.badge && (
                 <Tab.Trailing>
-                  <span style={{
-                    padding: '1px 6px', borderRadius: 20, fontSize: 10, fontWeight: 700,
-                    background: active === tab.value ? '#6366f1' : '#f1f5f9',
-                    color: active === tab.value ? '#fff' : '#64748b',
-                  }}>
+                  <span
+                    style={{
+                      padding: '1px 6px',
+                      borderRadius: 20,
+                      fontSize: 10,
+                      fontWeight: 700,
+                      background: active === tab.value ? '#6366f1' : '#f1f5f9',
+                      color: active === tab.value ? '#fff' : '#64748b',
+                    }}
+                  >
                     {tab.badge}
                   </span>
                 </Tab.Trailing>
@@ -525,9 +781,7 @@ const UtilityCSSUnderlineTabs = () => {
           ))}
         </div>
       </div>
-      <div style={{ minHeight: 120 }}>
-        {contentMap[active]}
-      </div>
+      <div style={{ minHeight: 120 }}>{contentMap[active]}</div>
     </div>
   )
 }
@@ -557,7 +811,12 @@ const appleSegments = [
 ]
 
 const appleSegmentContent: Record<string, string[]> = {
-  all: ['Orbit UI PR 머지됨', 'Token 시스템 업데이트', '새 스토리 15개 추가', 'DeployPlatform 배포 완료'],
+  all: [
+    'Orbit UI PR 머지됨',
+    'Token 시스템 업데이트',
+    '새 스토리 15개 추가',
+    'DeployPlatform 배포 완료',
+  ],
   unread: ['Token 시스템 업데이트', 'DeployPlatform 배포 완료'],
   mentions: ['@heejun Token migration 리뷰 요청'],
 }
@@ -602,16 +861,20 @@ const PlatformSegmentTabs = () => {
           >
             {seg.label}
             {seg.value === 'unread' && (
-              <span style={{
-                marginLeft: 5,
-                padding: '0 5px',
-                borderRadius: 20,
-                background: '#ef4444',
-                color: '#fff',
-                fontSize: 10,
-                fontWeight: 700,
-                verticalAlign: 'middle',
-              }}>2</span>
+              <span
+                style={{
+                  marginLeft: 5,
+                  padding: '0 5px',
+                  borderRadius: 20,
+                  background: '#ef4444',
+                  color: '#fff',
+                  fontSize: 10,
+                  fontWeight: 700,
+                  verticalAlign: 'middle',
+                }}
+              >
+                2
+              </span>
             )}
           </button>
         ))}
@@ -619,25 +882,35 @@ const PlatformSegmentTabs = () => {
 
       {/* Notification list */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {items.length > 0 ? items.map((item, i) => (
-          <div
-            key={i}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              padding: '10px 12px',
-              borderRadius: 10,
-              border: '1px solid #f1f5f9',
-              background: '#fafafa',
-              fontSize: 13,
-              color: '#1e293b',
-            }}
-          >
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: i < 2 ? '#6366f1' : '#e2e8f0', flexShrink: 0 }} />
-            {item}
-          </div>
-        )) : (
+        {items.length > 0 ? (
+          items.map((item, i) => (
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 12px',
+                borderRadius: 10,
+                border: '1px solid #f1f5f9',
+                background: '#fafafa',
+                fontSize: 13,
+                color: '#1e293b',
+              }}
+            >
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: i < 2 ? '#6366f1' : '#e2e8f0',
+                  flexShrink: 0,
+                }}
+              />
+              {item}
+            </div>
+          ))
+        ) : (
           <div style={{ padding: '20px 0', textAlign: 'center', fontSize: 13, color: '#94a3b8' }}>
             알림이 없습니다
           </div>
@@ -681,7 +954,13 @@ const deployContent: Record<string, React.ReactNode> = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       {[
         { branch: 'main', status: 'READY', time: '2분 전', color: '#10b981', bg: '#f0fdf4' },
-        { branch: 'feat/tokens', status: 'BUILDING', time: '8분 전', color: '#f59e0b', bg: '#fffbeb' },
+        {
+          branch: 'feat/tokens',
+          status: 'BUILDING',
+          time: '8분 전',
+          color: '#f59e0b',
+          bg: '#fffbeb',
+        },
         { branch: 'fix/lint', status: 'READY', time: '1시간 전', color: '#10b981', bg: '#f0fdf4' },
         { branch: 'feat/docs', status: 'ERROR', time: '2시간 전', color: '#ef4444', bg: '#fef2f2' },
       ].map((dep) => (
@@ -699,7 +978,9 @@ const deployContent: Record<string, React.ReactNode> = {
           }}
         >
           <span style={{ fontWeight: 600, color: '#1e293b', flex: 1 }}>{dep.branch}</span>
-          <span style={{ fontWeight: 700, color: dep.color, fontSize: 10, letterSpacing: '0.04em' }}>
+          <span
+            style={{ fontWeight: 700, color: dep.color, fontSize: 10, letterSpacing: '0.04em' }}
+          >
             {dep.status}
           </span>
           <span style={{ color: '#94a3b8' }}>{dep.time}</span>
@@ -716,15 +997,34 @@ const DeployPlatformCompactTabs = () => {
   const [active, setActive] = useState('deployments')
 
   return (
-    <div style={{ width: 460, border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div
+      style={{
+        width: 460,
+        border: '1px solid #e5e7eb',
+        borderRadius: 10,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #f3f4f6',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981' }} />
         <span style={{ fontSize: 13, fontWeight: 700, color: '#111827', flex: 1 }}>orbit-ui</span>
         <LabelBadge color="benefit">
           <LabelBadge.Label>Production</LabelBadge.Label>
         </LabelBadge>
       </div>
-      <div role="tablist" style={{ display: 'flex', borderBottom: '1px solid #f3f4f6', background: '#fafafa' }}>
+      <div
+        role="tablist"
+        style={{ display: 'flex', borderBottom: '1px solid #f3f4f6', background: '#fafafa' }}
+      >
         {deployTabs.map((tab) => (
           <Tab
             key={tab.value}
@@ -741,9 +1041,7 @@ const DeployPlatformCompactTabs = () => {
           </Tab>
         ))}
       </div>
-      <div style={{ padding: 16 }}>
-        {deployContent[active]}
-      </div>
+      <div style={{ padding: 16 }}>{deployContent[active]}</div>
     </div>
   )
 }
@@ -768,17 +1066,26 @@ export const DeployPlatform_콤팩트_대시보드_탭: Story = {
 -------------------------------------------------------------------------- */
 type ComposableUITabId = 'open' | 'in-review' | 'merged' | 'closed'
 
-const UTILITYUI_TAB_DATA: { id: ComposableUITabId; label: string; count: number; color: string }[] = [
-  { id: 'open', label: 'Open', count: 12, color: '#10b981' },
-  { id: 'in-review', label: 'In Review', count: 5, color: '#f59e0b' },
-  { id: 'merged', label: 'Merged', count: 48, color: '#6366f1' },
-  { id: 'closed', label: 'Closed', count: 7, color: '#94a3b8' },
-]
+const UTILITYUI_TAB_DATA: { id: ComposableUITabId; label: string; count: number; color: string }[] =
+  [
+    { id: 'open', label: 'Open', count: 12, color: '#10b981' },
+    { id: 'in-review', label: 'In Review', count: 5, color: '#f59e0b' },
+    { id: 'merged', label: 'Merged', count: 48, color: '#6366f1' },
+    { id: 'closed', label: 'Closed', count: 7, color: '#94a3b8' },
+  ]
 
 const UTILITYUI_MOCK_PRS: Record<ComposableUITabId, string[]> = {
-  open: ['feat: Calendar Primitive 접근성 패턴', 'feat: GhostButton CommandPalette 팔레트', 'fix: Chip size prop 제거'],
+  open: [
+    'feat: Calendar Primitive 접근성 패턴',
+    'feat: GhostButton CommandPalette 팔레트',
+    'fix: Chip size prop 제거',
+  ],
   'in-review': ['feat: Template TravelBooking', 'docs: BenchmarkComparison AppUI'],
-  merged: ['feat: cycle-59 완료 (AppUI+Ant)', 'feat: cycle-58 EnterpriseUI+Accessible', 'feat: cycle-57 M3+DesignTool'],
+  merged: [
+    'feat: cycle-59 완료 (AppUI+Ant)',
+    'feat: cycle-58 EnterpriseUI+Accessible',
+    'feat: cycle-57 M3+DesignTool',
+  ],
   closed: ['fix: PasswordField onChange 타입', 'fix: OutlineIconButton Story annotation'],
 }
 
@@ -787,24 +1094,39 @@ function ComposableUIBadgeTabsRender() {
   const items = UTILITYUI_MOCK_PRS[active]
 
   return (
-    <div style={{ width: 480, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
+    <div
+      style={{
+        width: 480,
+        border: '1px solid #e2e8f0',
+        borderRadius: 14,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
       {/* Tab row */}
-      <div style={{ display: 'flex', padding: '0 12px', borderBottom: '1px solid #f1f5f9', background: '#fafafa' }}>
+      <div
+        style={{
+          display: 'flex',
+          padding: '0 12px',
+          borderBottom: '1px solid #f1f5f9',
+          background: '#fafafa',
+        }}
+      >
         {UTILITYUI_TAB_DATA.map((tab) => (
-          <Tab
-            key={tab.id}
-            selected={active === tab.id}
-            onClick={() => setActive(tab.id)}
-          >
+          <Tab key={tab.id} selected={active === tab.id} onClick={() => setActive(tab.id)}>
             <Tab.Center>{tab.label}</Tab.Center>
             <Tab.Trailing>
-              <span style={{
-                padding: '1px 7px', borderRadius: 10,
-                background: active === tab.id ? tab.color : '#f1f5f9',
-                color: active === tab.id ? '#fff' : '#64748b',
-                fontSize: 10, fontWeight: 700,
-                transition: 'all 0.15s',
-              }}>
+              <span
+                style={{
+                  padding: '1px 7px',
+                  borderRadius: 10,
+                  background: active === tab.id ? tab.color : '#f1f5f9',
+                  color: active === tab.id ? '#fff' : '#64748b',
+                  fontSize: 10,
+                  fontWeight: 700,
+                  transition: 'all 0.15s',
+                }}
+              >
                 {tab.count}
               </span>
             </Tab.Trailing>
@@ -815,8 +1137,27 @@ function ComposableUIBadgeTabsRender() {
       {/* Content */}
       <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
         {items.map((pr) => (
-          <div key={pr} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: UTILITYUI_TAB_DATA.find((t) => t.id === active)?.color, flexShrink: 0 }} />
+          <div
+            key={pr}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '8px 10px',
+              borderRadius: 8,
+              background: '#f8fafc',
+              border: '1px solid #f1f5f9',
+            }}
+          >
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: UTILITYUI_TAB_DATA.find((t) => t.id === active)?.color,
+                flexShrink: 0,
+              }}
+            />
             <span style={{ fontSize: 12, color: '#1e293b' }}>{pr}</span>
           </div>
         ))}
@@ -867,8 +1208,26 @@ function WorkspaceEditorSidebarTabsRender() {
   const [hovered, setHovered] = useState<string | null>(null)
 
   return (
-    <div style={{ width: 240, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
-      <div style={{ padding: '10px 8px', borderBottom: '1px solid #f1f5f9', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+    <div
+      style={{
+        width: 240,
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
+      <div
+        style={{
+          padding: '10px 8px',
+          borderBottom: '1px solid #f1f5f9',
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}
+      >
         워크스페이스
       </div>
       <div style={{ padding: '6px 4px', display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -879,19 +1238,23 @@ function WorkspaceEditorSidebarTabsRender() {
             onMouseEnter={() => setHovered(page.id)}
             onMouseLeave={() => setHovered(null)}
           >
-            <Tab
-              selected={activePage === page.id}
-              onClick={() => setActivePage(page.id)}
-
-            >
+            <Tab selected={activePage === page.id} onClick={() => setActivePage(page.id)}>
               <Tab.Leading>
-                <span style={{
-                  width: 20, height: 20, borderRadius: 4,
-                  background: activePage === page.id ? '#ede9fe' : '#f1f5f9',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 10, fontWeight: 800, color: activePage === page.id ? '#6366f1' : '#64748b',
-                  flexShrink: 0,
-                }}>
+                <span
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: 4,
+                    background: activePage === page.id ? '#ede9fe' : '#f1f5f9',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 10,
+                    fontWeight: 800,
+                    color: activePage === page.id ? '#6366f1' : '#64748b',
+                    flexShrink: 0,
+                  }}
+                >
                   {page.icon}
                 </span>
               </Tab.Leading>
@@ -902,10 +1265,20 @@ function WorkspaceEditorSidebarTabsRender() {
               </Tab.Center>
               <Tab.Trailing>
                 {page.unread && hovered !== page.id && (
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: '50%',
+                      background: '#6366f1',
+                      display: 'inline-block',
+                    }}
+                  />
                 )}
                 {hovered === page.id && (
-                  <span style={{ fontSize: 14, color: '#94a3b8', fontWeight: 700, lineHeight: 1 }}>+</span>
+                  <span style={{ fontSize: 14, color: '#94a3b8', fontWeight: 700, lineHeight: 1 }}>
+                    +
+                  </span>
                 )}
               </Tab.Trailing>
             </Tab>
@@ -936,7 +1309,12 @@ export const WorkspaceEditor_사이드바_페이지_탭: Story = {
 -------------------------------------------------------------------------- */
 type CommandPaletteCategory = 'all' | 'apps' | 'files' | 'commands' | 'web'
 
-const LAUNCHER_CATEGORIES: { id: CommandPaletteCategory; label: string; count: number; icon: string }[] = [
+const LAUNCHER_CATEGORIES: {
+  id: CommandPaletteCategory
+  label: string
+  count: number
+  icon: string
+}[] = [
   { id: 'all', label: 'All', count: 18, icon: '*' },
   { id: 'apps', label: 'Apps', count: 4, icon: 'A' },
   { id: 'files', label: 'Files', count: 6, icon: 'F' },
@@ -945,9 +1323,22 @@ const LAUNCHER_CATEGORIES: { id: CommandPaletteCategory; label: string; count: n
 ]
 
 const LAUNCHER_RESULTS: Record<CommandPaletteCategory, string[]> = {
-  all: ['Storybook Dev', 'orbit-ui/packages', 'pnpm typecheck', 'AppUI Docs', 'IssueTracker Issue ORB-312'],
+  all: [
+    'Storybook Dev',
+    'orbit-ui/packages',
+    'pnpm typecheck',
+    'AppUI Docs',
+    'IssueTracker Issue ORB-312',
+  ],
   apps: ['Storybook Dev', 'WebStorm', 'Terminal', 'DesignTool'],
-  files: ['Templates.stories.tsx', 'GhostButton.stories.tsx', 'BenchmarkComparison.mdx', 'CLAUDE.md', 'pnpm-lock.yaml', 'tsconfig.json'],
+  files: [
+    'Templates.stories.tsx',
+    'GhostButton.stories.tsx',
+    'BenchmarkComparison.mdx',
+    'CLAUDE.md',
+    'pnpm-lock.yaml',
+    'tsconfig.json',
+  ],
   commands: ['pnpm typecheck', 'pnpm lint', 'git commit', 'deploy deploy', 'pnpm build:storybook'],
   web: ['AppUI Docs', 'IssueTracker Issue ORB-312', 'DeployPlatform Dashboard'],
 }
@@ -957,37 +1348,65 @@ function CommandPaletteSearchTabsRender() {
   const results = LAUNCHER_RESULTS[activeTab]
 
   return (
-    <div style={{
-      width: 440, borderRadius: 16, overflow: 'hidden',
-      border: '1px solid #27272a', background: '#09090b',
-      boxShadow: '0 24px 48px rgba(0,0,0,0.5)',
-    }}>
+    <div
+      style={{
+        width: 440,
+        borderRadius: 16,
+        overflow: 'hidden',
+        border: '1px solid #27272a',
+        background: '#09090b',
+        boxShadow: '0 24px 48px rgba(0,0,0,0.5)',
+      }}
+    >
       {/* Search */}
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #27272a', display: 'flex', alignItems: 'center', gap: 10 }}>
-        <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="#52525b" strokeWidth={2.5}>
-          <circle cx={11} cy={11} r={8} /><path d="m21 21-4.35-4.35" />
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #27272a',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
+        <svg
+          width={14}
+          height={14}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#52525b"
+          strokeWidth={2.5}
+        >
+          <circle cx={11} cy={11} r={8} />
+          <path d="m21 21-4.35-4.35" />
         </svg>
         <span style={{ flex: 1, fontSize: 14, color: '#e4e4e7' }}>orbit</span>
       </div>
 
       {/* Category tabs */}
-      <div style={{ display: 'flex', padding: '0 8px', borderBottom: '1px solid #27272a', background: '#0c0c0e' }}>
+      <div
+        style={{
+          display: 'flex',
+          padding: '0 8px',
+          borderBottom: '1px solid #27272a',
+          background: '#0c0c0e',
+        }}
+      >
         {LAUNCHER_CATEGORIES.map((cat) => (
-          <Tab
-            key={cat.id}
-            selected={activeTab === cat.id}
-            onClick={() => setActiveTab(cat.id)}
-          >
+          <Tab key={cat.id} selected={activeTab === cat.id} onClick={() => setActiveTab(cat.id)}>
             <Tab.Center>
               <span style={{ fontSize: 12 }}>{cat.label}</span>
             </Tab.Center>
             <Tab.Trailing>
-              <span style={{
-                fontSize: 10, fontWeight: 700,
-                padding: '1px 5px', borderRadius: 8,
-                background: activeTab === cat.id ? '#27272a' : 'transparent',
-                color: activeTab === cat.id ? '#a1a1aa' : '#3f3f46',
-              }}>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  padding: '1px 5px',
+                  borderRadius: 8,
+                  background: activeTab === cat.id ? '#27272a' : 'transparent',
+                  color: activeTab === cat.id ? '#a1a1aa' : '#3f3f46',
+                }}
+              >
                 {cat.count}
               </span>
             </Tab.Trailing>
@@ -1001,18 +1420,30 @@ function CommandPaletteSearchTabsRender() {
           <div
             key={result}
             style={{
-              display: 'flex', alignItems: 'center', gap: 10,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
               padding: '9px 16px',
               background: i === 0 ? '#18181b' : 'transparent',
               borderBottom: i < results.length - 1 ? '1px solid #18181b' : 'none',
               cursor: 'pointer',
             }}
           >
-            <span style={{
-              width: 24, height: 24, borderRadius: 5, background: '#27272a',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 10, color: '#71717a', fontWeight: 700, flexShrink: 0,
-            }}>
+            <span
+              style={{
+                width: 24,
+                height: 24,
+                borderRadius: 5,
+                background: '#27272a',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 10,
+                color: '#71717a',
+                fontWeight: 700,
+                flexShrink: 0,
+              }}
+            >
               {LAUNCHER_CATEGORIES.find((c) => c.id === activeTab)?.icon ?? '*'}
             </span>
             <span style={{ fontSize: 13, color: i === 0 ? '#e4e4e7' : '#a1a1aa' }}>{result}</span>
@@ -1020,9 +1451,44 @@ function CommandPaletteSearchTabsRender() {
         ))}
       </div>
 
-      <div style={{ padding: '8px 16px', borderTop: '1px solid #27272a', fontSize: 10, color: '#3f3f46', display: 'flex', gap: 12 }}>
-        <span><kbd style={{ padding: '1px 4px', background: '#18181b', borderRadius: 3, border: '1px solid #27272a', color: '#71717a' }}>Enter</kbd> 열기</span>
-        <span><kbd style={{ padding: '1px 4px', background: '#18181b', borderRadius: 3, border: '1px solid #27272a', color: '#71717a' }}>Tab</kbd> 미리보기</span>
+      <div
+        style={{
+          padding: '8px 16px',
+          borderTop: '1px solid #27272a',
+          fontSize: 10,
+          color: '#3f3f46',
+          display: 'flex',
+          gap: 12,
+        }}
+      >
+        <span>
+          <kbd
+            style={{
+              padding: '1px 4px',
+              background: '#18181b',
+              borderRadius: 3,
+              border: '1px solid #27272a',
+              color: '#71717a',
+            }}
+          >
+            Enter
+          </kbd>{' '}
+          열기
+        </span>
+        <span>
+          <kbd
+            style={{
+              padding: '1px 4px',
+              background: '#18181b',
+              borderRadius: 3,
+              border: '1px solid #27272a',
+              color: '#71717a',
+            }}
+          >
+            Tab
+          </kbd>{' '}
+          미리보기
+        </span>
       </div>
     </div>
   )
@@ -1051,16 +1517,28 @@ const RADIX_DOCS_TABS = [
     id: 'overview',
     label: '개요',
     content: [
-      { title: 'Primitive Tabs vs Orbit Tab', body: 'PrimitiveUI는 TabsPrimitive 기반으로 WAI-ARIA 1.1 Tabs 패턴을 완전히 구현합니다. Orbit UI는 동일한 접근성을 Tab 컴포넌트로 제공합니다.' },
-      { title: '키보드 내비게이션', body: '← / → 화살표로 탭 이동, Home/End로 처음/마지막 탭으로 이동, Enter/Space로 활성화합니다.' },
+      {
+        title: 'Primitive Tabs vs Orbit Tab',
+        body: 'PrimitiveUI는 TabsPrimitive 기반으로 WAI-ARIA 1.1 Tabs 패턴을 완전히 구현합니다. Orbit UI는 동일한 접근성을 Tab 컴포넌트로 제공합니다.',
+      },
+      {
+        title: '키보드 내비게이션',
+        body: '← / → 화살표로 탭 이동, Home/End로 처음/마지막 탭으로 이동, Enter/Space로 활성화합니다.',
+      },
     ],
   },
   {
     id: 'api',
     label: 'API 레퍼런스',
     content: [
-      { title: 'Tab Props', body: 'selected: boolean — 탭 활성화 상태\nleading: ReactNode — 아이콘 슬롯\ntrailing: ReactNode — 카운터 배지 슬롯' },
-      { title: '비교: Primitive vs Orbit', body: 'Primitive: <Tabs.Trigger value="x" />\nOrbit: <Tab selected={active === "x"} />' },
+      {
+        title: 'Tab Props',
+        body: 'selected: boolean — 탭 활성화 상태\nleading: ReactNode — 아이콘 슬롯\ntrailing: ReactNode — 카운터 배지 슬롯',
+      },
+      {
+        title: '비교: Primitive vs Orbit',
+        body: 'Primitive: <Tabs.Trigger value="x" />\nOrbit: <Tab selected={active === "x"} />',
+      },
     ],
   },
   {
@@ -1068,7 +1546,10 @@ const RADIX_DOCS_TABS = [
     label: '예제',
     content: [
       { title: '기본 사용법', body: '각 탭에 value prop을 부여하고 onChange로 상태를 관리합니다.' },
-      { title: '아이콘 탭', body: 'Tab.Leading에 아이콘을 배치하고 Tab.Center에 레이블을 넣습니다.' },
+      {
+        title: '아이콘 탭',
+        body: 'Tab.Leading에 아이콘을 배치하고 Tab.Center에 레이블을 넣습니다.',
+      },
       { title: '카운터 탭', body: 'Tab.Trailing에 CounterBadge를 배치해 알림 수를 표시합니다.' },
     ],
   },
@@ -1080,7 +1561,11 @@ function PrimitiveA11yTabPanelRender() {
   return (
     <div style={{ maxWidth: 520 }} role="region" aria-label="Primitive 접근성 탭 패널 예제">
       {/* Tab list */}
-      <div role="tablist" aria-label="문서 섹션" style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', gap: 0 }}>
+      <div
+        role="tablist"
+        aria-label="문서 섹션"
+        style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', gap: 0 }}
+      >
         {RADIX_DOCS_TABS.map((tab) => (
           <Tab
             key={tab.id}
@@ -1093,8 +1578,12 @@ function PrimitiveA11yTabPanelRender() {
             onClick={() => setActive(tab.id)}
             onKeyDown={(e) => {
               const idx = RADIX_DOCS_TABS.findIndex((t) => t.id === tab.id)
-              if (e.key === 'ArrowRight') setActive(RADIX_DOCS_TABS[(idx + 1) % RADIX_DOCS_TABS.length].id)
-              if (e.key === 'ArrowLeft') setActive(RADIX_DOCS_TABS[(idx - 1 + RADIX_DOCS_TABS.length) % RADIX_DOCS_TABS.length].id)
+              if (e.key === 'ArrowRight')
+                setActive(RADIX_DOCS_TABS[(idx + 1) % RADIX_DOCS_TABS.length].id)
+              if (e.key === 'ArrowLeft')
+                setActive(
+                  RADIX_DOCS_TABS[(idx - 1 + RADIX_DOCS_TABS.length) % RADIX_DOCS_TABS.length].id
+                )
               if (e.key === 'Home') setActive(RADIX_DOCS_TABS[0].id)
               if (e.key === 'End') setActive(RADIX_DOCS_TABS[RADIX_DOCS_TABS.length - 1].id)
             }}
@@ -1112,17 +1601,45 @@ function PrimitiveA11yTabPanelRender() {
           role="tabpanel"
           aria-labelledby={`tab-${tab.id}`}
           hidden={active !== tab.id}
-          style={{ padding: '16px 0', display: active === tab.id ? 'flex' : 'none', flexDirection: 'column', gap: 12 }}
+          style={{
+            padding: '16px 0',
+            display: active === tab.id ? 'flex' : 'none',
+            flexDirection: 'column',
+            gap: 12,
+          }}
         >
           {tab.content.map((item) => (
-            <div key={item.title} style={{ padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa' }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>{item.title}</div>
-              <pre style={{ margin: 0, fontSize: 12, color: '#64748b', lineHeight: 1.6, fontFamily: 'inherit', whiteSpace: 'pre-wrap' }}>{item.body}</pre>
+            <div
+              key={item.title}
+              style={{
+                padding: '12px 14px',
+                borderRadius: 10,
+                border: '1px solid #f1f5f9',
+                background: '#fafafa',
+              }}
+            >
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+                {item.title}
+              </div>
+              <pre
+                style={{
+                  margin: 0,
+                  fontSize: 12,
+                  color: '#64748b',
+                  lineHeight: 1.6,
+                  fontFamily: 'inherit',
+                  whiteSpace: 'pre-wrap',
+                }}
+              >
+                {item.body}
+              </pre>
             </div>
           ))}
         </div>
       ))}
-      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>← / → 화살표키로 탭 이동 · Home/End로 처음/마지막 이동</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        ← / → 화살표키로 탭 이동 · Home/End로 처음/마지막 이동
+      </div>
     </div>
   )
 }
@@ -1163,7 +1680,17 @@ function PrimitiveControlledTabDemo() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 460 }}>
-      <div style={{ padding: '8px 12px', borderRadius: 8, background: '#eef2ff', border: '1.5px solid rgba(99,102,241,0.2)', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+      <div
+        style={{
+          padding: '8px 12px',
+          borderRadius: 8,
+          background: '#eef2ff',
+          border: '1.5px solid rgba(99,102,241,0.2)',
+          fontSize: 12,
+          color: '#6366f1',
+          fontWeight: 600,
+        }}
+      >
         제어 컴포넌트: 상태가 외부에서 관리됩니다 (value: &quot;{controlled}&quot;)
       </div>
 
@@ -1178,7 +1705,15 @@ function PrimitiveControlledTabDemo() {
       </div>
 
       {/* 콘텐츠 */}
-      <div style={{ padding: '14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa', minHeight: 60 }}>
+      <div
+        style={{
+          padding: '14px',
+          borderRadius: 10,
+          border: '1px solid #f1f5f9',
+          background: '#fafafa',
+          minHeight: 60,
+        }}
+      >
         <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 6 }}>
           현재: {CTRL_TABS.find((t) => t.id === controlled)?.label ?? '없음'}
         </div>
@@ -1189,10 +1724,31 @@ function PrimitiveControlledTabDemo() {
 
       {/* 히스토리 */}
       <div>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>탭 이동 히스토리</div>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            marginBottom: 6,
+          }}
+        >
+          탭 이동 히스토리
+        </div>
         <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
           {history.map((id, i) => (
-            <span key={i} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 8, background: i === history.length - 1 ? '#eef2ff' : '#f1f5f9', color: i === history.length - 1 ? '#6366f1' : '#94a3b8', fontWeight: i === history.length - 1 ? 700 : 400 }}>
+            <span
+              key={i}
+              style={{
+                fontSize: 11,
+                padding: '2px 8px',
+                borderRadius: 8,
+                background: i === history.length - 1 ? '#eef2ff' : '#f1f5f9',
+                color: i === history.length - 1 ? '#6366f1' : '#94a3b8',
+                fontWeight: i === history.length - 1 ? 700 : 400,
+              }}
+            >
               {CTRL_TABS.find((t) => t.id === id)?.label}
             </span>
           ))}
@@ -1207,10 +1763,14 @@ function PrimitiveControlledTabDemo() {
             key={tab.id}
             onClick={() => navigate(tab.id)}
             style={{
-              padding: '4px 10px', borderRadius: 6, border: `1.5px solid ${controlled === tab.id ? '#6366f1' : '#e2e8f0'}`,
+              padding: '4px 10px',
+              borderRadius: 6,
+              border: `1.5px solid ${controlled === tab.id ? '#6366f1' : '#e2e8f0'}`,
               background: controlled === tab.id ? '#eef2ff' : '#fff',
               color: controlled === tab.id ? '#6366f1' : '#64748b',
-              fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: 'pointer',
             }}
           >
             {tab.label}
@@ -1252,7 +1812,9 @@ function PrimitiveLazyTabRender() {
   ]
 
   const [loading, setLoading] = useState<Set<string>>(new Set())
-  const [content, setContent] = useState<Record<string, string>>({ summary: '요약 데이터가 로드되었습니다.' })
+  const [content, setContent] = useState<Record<string, string>>({
+    summary: '요약 데이터가 로드되었습니다.',
+  })
 
   const switchTab = (id: string) => {
     setActive(id)
@@ -1261,9 +1823,16 @@ function PrimitiveLazyTabRender() {
       if (!tab) return
       setLoading((prev) => new Set([...prev, id]))
       setTimeout(() => {
-        setContent((prev) => ({ ...prev, [id]: `${tab.label} 콘텐츠가 지연 로드되었습니다. (${tab.delay}ms)` }))
+        setContent((prev) => ({
+          ...prev,
+          [id]: `${tab.label} 콘텐츠가 지연 로드되었습니다. (${tab.delay}ms)`,
+        }))
         setLoaded((prev) => new Set([...prev, id]))
-        setLoading((prev) => { const next = new Set(prev); next.delete(id); return next })
+        setLoading((prev) => {
+          const next = new Set(prev)
+          next.delete(id)
+          return next
+        })
       }, tab.delay)
     }
   }
@@ -1276,7 +1845,9 @@ function PrimitiveLazyTabRender() {
             <Tab.Center>{tab.label}</Tab.Center>
             {!loaded.has(tab.id) && (
               <Tab.Trailing>
-                <LabelBadge color="sale"><LabelBadge.Label>NEW</LabelBadge.Label></LabelBadge>
+                <LabelBadge color="sale">
+                  <LabelBadge.Label>NEW</LabelBadge.Label>
+                </LabelBadge>
               </Tab.Trailing>
             )}
           </Tab>
@@ -1284,13 +1855,47 @@ function PrimitiveLazyTabRender() {
       </div>
       <div style={{ padding: '16px 0', minHeight: 80 }}>
         {loading.has(active) ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#94a3b8', fontSize: 13 }}>
-            <div style={{ width: 16, height: 16, borderRadius: '50%', border: '2px solid #e2e8f0', borderTopColor: '#6366f1', animation: 'spin 0.8s linear infinite' }} />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              color: '#94a3b8',
+              fontSize: 13,
+            }}
+          >
+            <div
+              style={{
+                width: 16,
+                height: 16,
+                borderRadius: '50%',
+                border: '2px solid #e2e8f0',
+                borderTopColor: '#6366f1',
+                animation: 'spin 0.8s linear infinite',
+              }}
+            />
             콘텐츠 로드 중...
           </div>
         ) : (
-          <div style={{ padding: '14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fafafa' }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#10b981', textTransform: 'uppercase', marginBottom: 4 }}>로드 완료</div>
+          <div
+            style={{
+              padding: '14px',
+              borderRadius: 10,
+              border: '1px solid #f1f5f9',
+              background: '#fafafa',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#10b981',
+                textTransform: 'uppercase',
+                marginBottom: 4,
+              }}
+            >
+              로드 완료
+            </div>
             <div style={{ fontSize: 13, color: '#334155' }}>{content[active] ?? '...'}</div>
             <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
               로드된 탭: {Array.from(loaded).join(', ')}
@@ -1298,7 +1903,9 @@ function PrimitiveLazyTabRender() {
           </div>
         )}
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>각 탭은 첫 방문 시 한 번만 로드됩니다 (Lazy Mount)</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        각 탭은 첫 방문 시 한 번만 로드됩니다 (Lazy Mount)
+      </div>
     </div>
   )
 }
@@ -1342,17 +1949,33 @@ function ComposableUIFilterTabRender() {
     { id: 2, title: 'API 응답 캐싱 구현', status: 'in_review', author: '이서연', date: '4시간 전' },
     { id: 3, title: '다크모드 토큰 정리', status: 'closed', author: '박준혁', date: '3일 전' },
     { id: 4, title: '접근성 audit 반영', status: 'open', author: '최유진', date: '1일 전' },
-    { id: 5, title: 'Storybook 7→8 마이그레이션', status: 'in_review', author: '김민준', date: '1시간 전' },
+    {
+      id: 5,
+      title: 'Storybook 7→8 마이그레이션',
+      status: 'in_review',
+      author: '김민준',
+      date: '1시간 전',
+    },
     { id: 6, title: '번들 사이즈 최적화', status: 'closed', author: '이서연', date: '5일 전' },
-    { id: 7, title: '컴포넌트 테스트 커버리지', status: 'open', author: '박준혁', date: '6시간 전' },
+    {
+      id: 7,
+      title: '컴포넌트 테스트 커버리지',
+      status: 'open',
+      author: '박준혁',
+      date: '6시간 전',
+    },
     { id: 8, title: 'CI 파이프라인 속도 개선', status: 'closed', author: '최유진', date: '1주 전' },
   ]
 
   const STATUS_COLOR: Record<string, string> = {
-    open: '#10b981', in_review: '#f59e0b', closed: '#94a3b8',
+    open: '#10b981',
+    in_review: '#f59e0b',
+    closed: '#94a3b8',
   }
   const STATUS_LABEL: Record<string, string> = {
-    open: 'Open', in_review: 'In Review', closed: 'Closed',
+    open: 'Open',
+    in_review: 'In Review',
+    closed: 'Closed',
   }
 
   const filtered = ITEMS.filter((it) => {
@@ -1369,28 +1992,40 @@ function ComposableUIFilterTabRender() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="이슈 또는 담당자 검색..."
-          style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+          style={{
+            width: '100%',
+            padding: '8px 12px',
+            borderRadius: 8,
+            border: '1.5px solid #e2e8f0',
+            fontSize: 13,
+            outline: 'none',
+            boxSizing: 'border-box',
+          }}
         />
       </div>
 
       {/* Tab bar */}
       <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', marginBottom: 16 }}>
         {FILTER_TABS.map((tab) => (
-          <Tab
-            key={tab.id}
-            selected={active === tab.id}
-            onClick={() => setActive(tab.id)}
-          >
+          <Tab key={tab.id} selected={active === tab.id} onClick={() => setActive(tab.id)}>
             <Tab.Center>
               <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 {tab.label}
-                <span style={{
-                  minWidth: 18, height: 18, borderRadius: 9, padding: '0 5px',
-                  background: active === tab.id ? '#6366f1' : '#e2e8f0',
-                  color: active === tab.id ? '#fff' : '#64748b',
-                  fontSize: 11, fontWeight: 700,
-                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                }}>
+                <span
+                  style={{
+                    minWidth: 18,
+                    height: 18,
+                    borderRadius: 9,
+                    padding: '0 5px',
+                    background: active === tab.id ? '#6366f1' : '#e2e8f0',
+                    color: active === tab.id ? '#fff' : '#64748b',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
                   {tab.count}
                 </span>
               </span>
@@ -1402,19 +2037,51 @@ function ComposableUIFilterTabRender() {
       {/* List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {filtered.map((item) => (
-          <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: STATUS_COLOR[item.status], flexShrink: 0 }} />
+          <div
+            key={item.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 14px',
+              borderRadius: 10,
+              border: '1px solid #f1f5f9',
+              background: '#fff',
+            }}
+          >
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: STATUS_COLOR[item.status],
+                flexShrink: 0,
+              }}
+            />
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{item.title}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{item.author} · {item.date}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+                {item.author} · {item.date}
+              </div>
             </div>
-            <span style={{ fontSize: 11, fontWeight: 600, color: STATUS_COLOR[item.status], padding: '2px 8px', borderRadius: 20, background: `${STATUS_COLOR[item.status]}18` }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                color: STATUS_COLOR[item.status],
+                padding: '2px 8px',
+                borderRadius: 20,
+                background: `${STATUS_COLOR[item.status]}18`,
+              }}
+            >
               {STATUS_LABEL[item.status]}
             </span>
           </div>
         ))}
         {filtered.length === 0 && (
-          <div style={{ textAlign: 'center', color: '#94a3b8', fontSize: 14, padding: '24px 0' }}>결과 없음</div>
+          <div style={{ textAlign: 'center', color: '#94a3b8', fontSize: 14, padding: '24px 0' }}>
+            결과 없음
+          </div>
         )}
       </div>
     </div>
@@ -1443,15 +2110,38 @@ function IssueTrackerViewSwitchTabRender() {
   const [view, setView] = useState<'list' | 'board' | 'timeline'>('list')
 
   const ISSUES = [
-    { id: 'ENG-001', title: '폼 유효성 검사 개선', priority: 'high', status: 'in_progress', team: 'FE' },
-    { id: 'ENG-002', title: 'WebSocket 연결 안정화', priority: 'urgent', status: 'todo', team: 'BE' },
-    { id: 'ENG-003', title: '대시보드 성능 최적화', priority: 'medium', status: 'in_review', team: 'FE' },
+    {
+      id: 'ENG-001',
+      title: '폼 유효성 검사 개선',
+      priority: 'high',
+      status: 'in_progress',
+      team: 'FE',
+    },
+    {
+      id: 'ENG-002',
+      title: 'WebSocket 연결 안정화',
+      priority: 'urgent',
+      status: 'todo',
+      team: 'BE',
+    },
+    {
+      id: 'ENG-003',
+      title: '대시보드 성능 최적화',
+      priority: 'medium',
+      status: 'in_review',
+      team: 'FE',
+    },
     { id: 'ENG-004', title: 'e2e 테스트 커버리지', priority: 'low', status: 'todo', team: 'QA' },
     { id: 'ENG-005', title: '로그인 세션 갱신', priority: 'high', status: 'done', team: 'BE' },
     { id: 'ENG-006', title: '다국어 지원 추가', priority: 'medium', status: 'todo', team: 'FE' },
   ]
 
-  const PRIORITY_COLOR: Record<string, string> = { urgent: '#ef4444', high: '#f59e0b', medium: '#6366f1', low: '#94a3b8' }
+  const PRIORITY_COLOR: Record<string, string> = {
+    urgent: '#ef4444',
+    high: '#f59e0b',
+    medium: '#6366f1',
+    low: '#94a3b8',
+  }
   const STATUS_GROUPS: Record<string, typeof ISSUES> = {
     Todo: ISSUES.filter((i) => i.status === 'todo'),
     'In Progress': ISSUES.filter((i) => i.status === 'in_progress'),
@@ -1462,14 +2152,19 @@ function IssueTrackerViewSwitchTabRender() {
   return (
     <div style={{ width: 560 }}>
       {/* View tabs */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 16,
+        }}
+      >
         <span style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>Engineering 이슈</span>
         <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0' }}>
           {(['list', 'board', 'timeline'] as const).map((v) => (
             <Tab key={v} selected={view === v} onClick={() => setView(v)}>
-              <Tab.Center>
-                {v === 'list' ? '목록' : v === 'board' ? '보드' : '타임라인'}
-              </Tab.Center>
+              <Tab.Center>{v === 'list' ? '목록' : v === 'board' ? '보드' : '타임라인'}</Tab.Center>
             </Tab>
           ))}
         </div>
@@ -1479,11 +2174,44 @@ function IssueTrackerViewSwitchTabRender() {
       {view === 'list' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           {ISSUES.map((issue) => (
-            <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: PRIORITY_COLOR[issue.priority], flexShrink: 0 }} />
-              <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, minWidth: 56 }}>{issue.id}</span>
-              <span style={{ flex: 1, fontSize: 13, color: '#1e293b', fontWeight: 500 }}>{issue.title}</span>
-              <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 20, background: '#f1f5f9', color: '#64748b' }}>{issue.team}</span>
+            <div
+              key={issue.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '8px 12px',
+                borderRadius: 8,
+                border: '1px solid #f1f5f9',
+                background: '#fff',
+              }}
+            >
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: PRIORITY_COLOR[issue.priority],
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, minWidth: 56 }}>
+                {issue.id}
+              </span>
+              <span style={{ flex: 1, fontSize: 13, color: '#1e293b', fontWeight: 500 }}>
+                {issue.title}
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  padding: '2px 8px',
+                  borderRadius: 20,
+                  background: '#f1f5f9',
+                  color: '#64748b',
+                }}
+              >
+                {issue.team}
+              </span>
             </div>
           ))}
         </div>
@@ -1494,17 +2222,50 @@ function IssueTrackerViewSwitchTabRender() {
         <div style={{ display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8 }}>
           {Object.entries(STATUS_GROUPS).map(([col, items]) => (
             <div key={col} style={{ minWidth: 160, flex: 1 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#64748b',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  marginBottom: 8,
+                }}
+              >
                 {col} <span style={{ fontWeight: 400, color: '#94a3b8' }}>({items.length})</span>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {items.map((issue) => (
-                  <div key={issue.id} style={{ padding: '8px 10px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12 }}>
-                    <div style={{ color: '#1e293b', fontWeight: 600, marginBottom: 4 }}>{issue.title}</div>
+                  <div
+                    key={issue.id}
+                    style={{
+                      padding: '8px 10px',
+                      borderRadius: 8,
+                      border: '1px solid #e2e8f0',
+                      background: '#fff',
+                      fontSize: 12,
+                    }}
+                  >
+                    <div style={{ color: '#1e293b', fontWeight: 600, marginBottom: 4 }}>
+                      {issue.title}
+                    </div>
                     <span style={{ color: '#94a3b8' }}>{issue.id}</span>
                   </div>
                 ))}
-                {items.length === 0 && <div style={{ padding: '10px', borderRadius: 8, border: '1px dashed #e2e8f0', fontSize: 11, color: '#cbd5e1', textAlign: 'center' }}>없음</div>}
+                {items.length === 0 && (
+                  <div
+                    style={{
+                      padding: '10px',
+                      borderRadius: 8,
+                      border: '1px dashed #e2e8f0',
+                      fontSize: 11,
+                      color: '#cbd5e1',
+                      textAlign: 'center',
+                    }}
+                  >
+                    없음
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -1517,12 +2278,25 @@ function IssueTrackerViewSwitchTabRender() {
           {ISSUES.map((issue, i) => (
             <div key={issue.id} style={{ display: 'flex', gap: 14, paddingBottom: 12 }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: PRIORITY_COLOR[issue.priority], flexShrink: 0, marginTop: 3 }} />
-                {i < ISSUES.length - 1 && <span style={{ width: 2, flex: 1, background: '#f1f5f9', marginTop: 4 }} />}
+                <span
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    background: PRIORITY_COLOR[issue.priority],
+                    flexShrink: 0,
+                    marginTop: 3,
+                  }}
+                />
+                {i < ISSUES.length - 1 && (
+                  <span style={{ width: 2, flex: 1, background: '#f1f5f9', marginTop: 4 }} />
+                )}
               </div>
               <div style={{ flex: 1, paddingBottom: 4 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{issue.title}</div>
-                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{issue.id} · {issue.team}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+                  {issue.id} · {issue.team}
+                </div>
               </div>
             </div>
           ))}
@@ -1564,13 +2338,40 @@ function ComposableUIIssueTrackerSettingsTabRender() {
     general: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <SettingRow label="워크스페이스 이름" description="팀에 표시되는 이름입니다.">
-          <input defaultValue="Orbit UI Team" style={{ padding: '7px 10px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, width: 200 }} />
+          <input
+            defaultValue="Orbit UI Team"
+            style={{
+              padding: '7px 10px',
+              borderRadius: 8,
+              border: '1.5px solid #e2e8f0',
+              fontSize: 13,
+              width: 200,
+            }}
+          />
         </SettingRow>
         <SettingRow label="슬러그" description="URL에 사용되는 고유 식별자입니다.">
-          <input defaultValue="orbit-ui" style={{ padding: '7px 10px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, width: 200 }} />
+          <input
+            defaultValue="orbit-ui"
+            style={{
+              padding: '7px 10px',
+              borderRadius: 8,
+              border: '1.5px solid #e2e8f0',
+              fontSize: 13,
+              width: 200,
+            }}
+          />
         </SettingRow>
         <SettingRow label="타임존" description="회의 및 일정에 사용됩니다.">
-          <select style={{ padding: '7px 10px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, width: 200, background: '#fff' }}>
+          <select
+            style={{
+              padding: '7px 10px',
+              borderRadius: 8,
+              border: '1.5px solid #e2e8f0',
+              fontSize: 13,
+              width: 200,
+              background: '#fff',
+            }}
+          >
             <option>Asia/Seoul (UTC+9)</option>
             <option>UTC</option>
           </select>
@@ -1580,7 +2381,17 @@ function ComposableUIIssueTrackerSettingsTabRender() {
     notifications: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {['이슈 할당됨', '멘션', '댓글', '상태 변경', '마감일 임박'].map((item) => (
-          <div key={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderRadius: 8, border: '1px solid #f1f5f9' }}>
+          <div
+            key={item}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: '1px solid #f1f5f9',
+            }}
+          >
             <span style={{ fontSize: 13, color: '#1e293b' }}>{item}</span>
             <ToggleSwitch />
           </div>
@@ -1595,24 +2406,78 @@ function ComposableUIIssueTrackerSettingsTabRender() {
           { name: '박준혁', role: 'Member', avatar: '#f59e0b' },
           { name: '최유진', role: 'Guest', avatar: '#ef4444' },
         ].map((m) => (
-          <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, border: '1px solid #f1f5f9' }}>
-            <div style={{ width: 32, height: 32, borderRadius: '50%', background: m.avatar, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700 }}>
+          <div
+            key={m.name}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '8px 12px',
+              borderRadius: 8,
+              border: '1px solid #f1f5f9',
+            }}
+          >
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                background: m.avatar,
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 13,
+                fontWeight: 700,
+              }}
+            >
               {m.name[0]}
             </div>
             <div style={{ flex: 1, fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{m.name}</div>
-            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 20, background: '#f1f5f9', color: '#64748b' }}>{m.role}</span>
+            <span
+              style={{
+                fontSize: 11,
+                padding: '2px 8px',
+                borderRadius: 20,
+                background: '#f1f5f9',
+                color: '#64748b',
+              }}
+            >
+              {m.role}
+            </span>
           </div>
         ))}
       </div>
     ),
     billing: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ padding: '16px', borderRadius: 10, border: '2px solid #6366f1', background: '#f0f0ff' }}>
+        <div
+          style={{
+            padding: '16px',
+            borderRadius: 10,
+            border: '2px solid #6366f1',
+            background: '#f0f0ff',
+          }}
+        >
           <div style={{ fontSize: 13, fontWeight: 700, color: '#4338ca' }}>Pro 플랜 (현재)</div>
-          <div style={{ fontSize: 22, fontWeight: 800, color: '#1e293b', margin: '8px 0 4px' }}>₩19,000<span style={{ fontSize: 13, fontWeight: 400, color: '#64748b' }}> / 월</span></div>
-          <div style={{ fontSize: 12, color: '#64748b' }}>최대 20명 · 무제한 프로젝트 · 우선 지원</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: '#1e293b', margin: '8px 0 4px' }}>
+            ₩19,000<span style={{ fontSize: 13, fontWeight: 400, color: '#64748b' }}> / 월</span>
+          </div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>
+            최대 20명 · 무제한 프로젝트 · 우선 지원
+          </div>
         </div>
-        <button style={{ padding: '10px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, color: '#64748b', cursor: 'pointer' }}>
+        <button
+          style={{
+            padding: '10px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 13,
+            color: '#64748b',
+            cursor: 'pointer',
+          }}
+        >
           플랜 변경 →
         </button>
       </div>
@@ -1634,9 +2499,26 @@ function ComposableUIIssueTrackerSettingsTabRender() {
   )
 }
 
-function SettingRow({ label, description, children }: { label: string; description: string; children: React.ReactNode }) {
+function SettingRow({
+  label,
+  description,
+  children,
+}: {
+  label: string
+  description: string
+  children: React.ReactNode
+}) {
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, padding: '10px 0', borderBottom: '1px solid #f1f5f9' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        gap: 16,
+        padding: '10px 0',
+        borderBottom: '1px solid #f1f5f9',
+      }}
+    >
       <div>
         <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{label}</div>
         <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{description}</div>
@@ -1652,15 +2534,28 @@ function ToggleSwitch() {
     <button
       onClick={() => setOn((v) => !v)}
       style={{
-        width: 36, height: 20, borderRadius: 10, border: 'none', cursor: 'pointer',
-        background: on ? '#6366f1' : '#e2e8f0', position: 'relative', transition: 'background 0.2s',
+        width: 36,
+        height: 20,
+        borderRadius: 10,
+        border: 'none',
+        cursor: 'pointer',
+        background: on ? '#6366f1' : '#e2e8f0',
+        position: 'relative',
+        transition: 'background 0.2s',
       }}
     >
-      <span style={{
-        position: 'absolute', top: 3, left: on ? 19 : 3,
-        width: 14, height: 14, borderRadius: '50%', background: '#fff',
-        transition: 'left 0.2s',
-      }} />
+      <span
+        style={{
+          position: 'absolute',
+          top: 3,
+          left: on ? 19 : 3,
+          width: 14,
+          height: 14,
+          borderRadius: '50%',
+          background: '#fff',
+          transition: 'left 0.2s',
+        }}
+      />
     </button>
   )
 }
@@ -1695,30 +2590,63 @@ function EnterpriseUIIconVerticalTabRender() {
 
   return (
     <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10 }}>EnterpriseUI Icon Tabs 패턴 — 아이콘 + 레이블 조합</p>
+      <p
+        style={{
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 10,
+        }}
+      >
+        EnterpriseUI Icon Tabs 패턴 — 아이콘 + 레이블 조합
+      </p>
       <div style={{ display: 'flex', gap: 4 }}>
         {tabs.map((t, idx) => {
           const Icon = t.icon
           const isActive = selected === idx
           return (
             <div key={idx} style={{ position: 'relative' }}>
-              <Tab
-                value={String(idx)}
-                selected={isActive}
-                onClick={() => setSelected(idx)}
-
-              >
-                <Tab.Leading><Icon style={{ width: 16, height: 16 }} /></Tab.Leading>
+              <Tab value={String(idx)} selected={isActive} onClick={() => setSelected(idx)}>
+                <Tab.Leading>
+                  <Icon style={{ width: 16, height: 16 }} />
+                </Tab.Leading>
                 <Tab.Center>{t.label}</Tab.Center>
               </Tab>
               {t.badge !== null && (
-                <span style={{ position: 'absolute', top: 2, right: 4, fontSize: 9, fontWeight: 700, background: '#ef4444', color: '#fff', borderRadius: 10, padding: '0 4px', minWidth: 14, textAlign: 'center', lineHeight: '14px', display: 'block' }}>{t.badge}</span>
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: 2,
+                    right: 4,
+                    fontSize: 9,
+                    fontWeight: 700,
+                    background: '#ef4444',
+                    color: '#fff',
+                    borderRadius: 10,
+                    padding: '0 4px',
+                    minWidth: 14,
+                    textAlign: 'center',
+                    lineHeight: '14px',
+                    display: 'block',
+                  }}
+                >
+                  {t.badge}
+                </span>
               )}
             </div>
           )
         })}
       </div>
-      <div style={{ marginTop: 12, padding: '12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '12px',
+          borderRadius: 8,
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          background: 'var(--sem-eclipse-color-surfaceDefault)',
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundSecondary)',
+        }}
+      >
         선택됨: {tabs[selected].label}
       </div>
     </div>
@@ -1730,7 +2658,8 @@ export const EnterpriseUI_아이콘_텍스트_탭: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI Icon Tabs 패턴. Tab.Leading 아이콘 + Tab.Center 텍스트 조합으로 의미 있는 탭 구성. 알림 카운트는 Tab 외부에 절대 포지션 뱃지로 오버레이.',
+        story:
+          'EnterpriseUI Icon Tabs 패턴. Tab.Leading 아이콘 + Tab.Center 텍스트 조합으로 의미 있는 탭 구성. 알림 카운트는 Tab 외부에 절대 포지션 뱃지로 오버레이.',
       },
     },
   },
@@ -1753,7 +2682,10 @@ function DataProductFilterChipTabRender() {
   ]
 
   const toggle = (val: number) => {
-    if (val === 0) { setSelected([0]); return }
+    if (val === 0) {
+      setSelected([0])
+      return
+    }
     setSelected((prev) => {
       const next = prev.filter((v) => v !== 0)
       if (next.includes(val)) {
@@ -1764,7 +2696,9 @@ function DataProductFilterChipTabRender() {
     })
   }
 
-  const activeFilters = selected.includes(0) ? filters.slice(1) : filters.filter((f) => selected.includes(f.value))
+  const activeFilters = selected.includes(0)
+    ? filters.slice(1)
+    : filters.filter((f) => selected.includes(f.value))
 
   return (
     <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
@@ -1779,7 +2713,15 @@ function DataProductFilterChipTabRender() {
               onClick={() => toggle(f.value)}
             >
               <Tab.Center>
-                <span style={{ color: isActive ? f.color : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: isActive ? 600 : 400, transition: 'color 0.15s' }}>{f.label}</span>
+                <span
+                  style={{
+                    color: isActive ? f.color : 'var(--sem-eclipse-color-foregroundTertiary)',
+                    fontWeight: isActive ? 600 : 400,
+                    transition: 'color 0.15s',
+                  }}
+                >
+                  {f.label}
+                </span>
               </Tab.Center>
             </Tab>
           )
@@ -1787,7 +2729,20 @@ function DataProductFilterChipTabRender() {
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
         {activeFilters.map((f) => (
-          <span key={f.value} style={{ fontSize: 10, padding: '3px 10px', borderRadius: 20, background: `${f.color}18`, color: f.color, fontWeight: 600, border: `1px solid ${f.color}30` }}>{f.label}</span>
+          <span
+            key={f.value}
+            style={{
+              fontSize: 10,
+              padding: '3px 10px',
+              borderRadius: 20,
+              background: `${f.color}18`,
+              color: f.color,
+              fontWeight: 600,
+              border: `1px solid ${f.color}30`,
+            }}
+          >
+            {f.label}
+          </span>
         ))}
       </div>
     </div>
@@ -1799,7 +2754,8 @@ export const DataProduct_필터_칩_탭: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI 필터 탭 패턴. Tab을 필터 칩처럼 활용해 다중 선택을 지원. "전체" 선택 시 나머지 해제, 개별 항목 선택 시 "전체" 해제. 선택된 필터를 하단에 뱃지로 표시.',
+        story:
+          'DataProductUI 필터 탭 패턴. Tab을 필터 칩처럼 활용해 다중 선택을 지원. "전체" 선택 시 나머지 해제, 개별 항목 선택 시 "전체" 해제. 선택된 필터를 하단에 뱃지로 표시.',
       },
     },
   },
@@ -1830,7 +2786,16 @@ function EnterpriseUIDataProductFileTabRender() {
   const langColors: Record<string, string> = { tsx: '#3178c6', ts: '#0ea5e9' }
 
   return (
-    <div style={{ maxWidth: 560, fontFamily: 'monospace, system-ui', background: '#0f172a', borderRadius: 10, overflow: 'hidden', border: '1px solid #1e293b' }}>
+    <div
+      style={{
+        maxWidth: 560,
+        fontFamily: 'monospace, system-ui',
+        background: '#0f172a',
+        borderRadius: 10,
+        overflow: 'hidden',
+        border: '1px solid #1e293b',
+      }}
+    >
       <div style={{ display: 'flex', borderBottom: '1px solid #1e293b', overflowX: 'auto' }}>
         {files.map((file) => {
           const isActive = file.id === activeId
@@ -1838,14 +2803,62 @@ function EnterpriseUIDataProductFileTabRender() {
             <div
               key={file.id}
               onClick={() => setActiveId(file.id)}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', cursor: 'pointer', background: isActive ? '#1e293b' : 'transparent', borderRight: '1px solid #0f172a', borderBottom: isActive ? '2px solid #6366f1' : '2px solid transparent', whiteSpace: 'nowrap', minWidth: 0 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '8px 14px',
+                cursor: 'pointer',
+                background: isActive ? '#1e293b' : 'transparent',
+                borderRight: '1px solid #0f172a',
+                borderBottom: isActive ? '2px solid #6366f1' : '2px solid transparent',
+                whiteSpace: 'nowrap',
+                minWidth: 0,
+              }}
             >
-              <span style={{ width: 8, height: 8, borderRadius: 2, background: langColors[file.lang], flexShrink: 0 }} />
-              <span style={{ fontSize: 12, color: isActive ? '#f1f5f9' : '#64748b' }}>{file.name}</span>
-              {file.modified && <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#f59e0b', flexShrink: 0 }} />}
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: 2,
+                  background: langColors[file.lang],
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{ fontSize: 12, color: isActive ? '#f1f5f9' : '#64748b' }}>
+                {file.name}
+              </span>
+              {file.modified && (
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: '#f59e0b',
+                    flexShrink: 0,
+                  }}
+                />
+              )}
               <button
-                onClick={(e) => { e.stopPropagation(); closeFile(file.id) }}
-                style={{ marginLeft: 2, width: 14, height: 14, borderRadius: 3, border: 'none', background: 'transparent', color: '#475569', cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  closeFile(file.id)
+                }}
+                style={{
+                  marginLeft: 2,
+                  width: 14,
+                  height: 14,
+                  borderRadius: 3,
+                  border: 'none',
+                  background: 'transparent',
+                  color: '#475569',
+                  cursor: 'pointer',
+                  fontSize: 12,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
               >
                 ×
               </button>
@@ -1854,19 +2867,42 @@ function EnterpriseUIDataProductFileTabRender() {
         })}
       </div>
       <div style={{ padding: '12px 16px', fontSize: 11, color: '#94a3b8', lineHeight: 1.8 }}>
-        <div style={{ color: '#64748b', marginBottom: 6 }}>{'//'} {activeFile?.name}</div>
+        <div style={{ color: '#64748b', marginBottom: 6 }}>
+          {'//'} {activeFile?.name}
+        </div>
         {activeFile?.lang === 'tsx' ? (
           <>
-            <div><span style={{ color: '#818cf8' }}>import</span> <span style={{ color: '#34d399' }}>{'{ forwardRef }'}</span> <span style={{ color: '#818cf8' }}>from</span> <span style={{ color: '#fbbf24' }}>&#39;react&#39;</span></div>
-            <div><span style={{ color: '#818cf8' }}>export const</span> <span style={{ color: '#60a5fa' }}>SolidButton</span> = <span style={{ color: '#34d399' }}>forwardRef</span>((props, ref) {'=> { ... }'})</div>
+            <div>
+              <span style={{ color: '#818cf8' }}>import</span>{' '}
+              <span style={{ color: '#34d399' }}>{'{ forwardRef }'}</span>{' '}
+              <span style={{ color: '#818cf8' }}>from</span>{' '}
+              <span style={{ color: '#fbbf24' }}>&#39;react&#39;</span>
+            </div>
+            <div>
+              <span style={{ color: '#818cf8' }}>export const</span>{' '}
+              <span style={{ color: '#60a5fa' }}>SolidButton</span> ={' '}
+              <span style={{ color: '#34d399' }}>forwardRef</span>((props, ref) {'=> { ... }'})
+            </div>
           </>
         ) : (
           <>
-            <div><span style={{ color: '#818cf8' }}>export</span> <span style={{ color: '#818cf8' }}>type</span> <span style={{ color: '#60a5fa' }}>SolidButtonTheme</span> = {'{ ... }'}</div>
-            <div><span style={{ color: '#818cf8' }}>export</span> {'{'} SolidButton {'}'} <span style={{ color: '#818cf8' }}>from</span> <span style={{ color: '#fbbf24' }}>&#39;./SolidButton&#39;</span></div>
+            <div>
+              <span style={{ color: '#818cf8' }}>export</span>{' '}
+              <span style={{ color: '#818cf8' }}>type</span>{' '}
+              <span style={{ color: '#60a5fa' }}>SolidButtonTheme</span> = {'{ ... }'}
+            </div>
+            <div>
+              <span style={{ color: '#818cf8' }}>export</span> {'{'} SolidButton {'}'}{' '}
+              <span style={{ color: '#818cf8' }}>from</span>{' '}
+              <span style={{ color: '#fbbf24' }}>&#39;./SolidButton&#39;</span>
+            </div>
           </>
         )}
-        {activeFile?.modified && <div style={{ marginTop: 8, fontSize: 10, color: '#f59e0b' }}>• 저장되지 않은 변경 사항</div>}
+        {activeFile?.modified && (
+          <div style={{ marginTop: 8, fontSize: 10, color: '#f59e0b' }}>
+            • 저장되지 않은 변경 사항
+          </div>
+        )}
       </div>
     </div>
   )
@@ -1877,7 +2913,8 @@ export const EnterpriseUI_DataProduct_파일_탭_에디터: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI 탭 닫기 패턴 + DataProduct 파일 상태 표시 조합. 파일 탭에 수정 여부 노란 점, 언어별 색상 아이콘, 닫기 버튼을 배치. VS Code 스타일 파일 탭 패턴을 Orbit UI Tab으로 구현.',
+        story:
+          'EnterpriseUI 탭 닫기 패턴 + DataProduct 파일 상태 표시 조합. 파일 탭에 수정 여부 노란 점, 언어별 색상 아이콘, 닫기 버튼을 배치. VS Code 스타일 파일 탭 패턴을 Orbit UI Tab으로 구현.',
       },
     },
   },
@@ -1896,10 +2933,30 @@ function PrimitiveKeyboardNavTabRender() {
   const [active, setActive] = useState('overview')
 
   const tabs = [
-    { id: 'overview', label: '개요', shortcut: '⌘1', desc: '컴포넌트 개요와 기본 사용법을 확인합니다.' },
-    { id: 'props', label: 'Props', shortcut: '⌘2', desc: 'TypeScript 타입 정의와 모든 props를 확인합니다.' },
-    { id: 'examples', label: '예시', shortcut: '⌘3', desc: '실무 사용 예시와 조합 패턴을 제공합니다.' },
-    { id: 'a11y', label: '접근성', shortcut: '⌘4', desc: 'WAI-ARIA 가이드라인과 키보드 내비게이션 지원.' },
+    {
+      id: 'overview',
+      label: '개요',
+      shortcut: '⌘1',
+      desc: '컴포넌트 개요와 기본 사용법을 확인합니다.',
+    },
+    {
+      id: 'props',
+      label: 'Props',
+      shortcut: '⌘2',
+      desc: 'TypeScript 타입 정의와 모든 props를 확인합니다.',
+    },
+    {
+      id: 'examples',
+      label: '예시',
+      shortcut: '⌘3',
+      desc: '실무 사용 예시와 조합 패턴을 제공합니다.',
+    },
+    {
+      id: 'a11y',
+      label: '접근성',
+      shortcut: '⌘4',
+      desc: 'WAI-ARIA 가이드라인과 키보드 내비게이션 지원.',
+    },
   ]
 
   const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
@@ -1917,10 +2974,26 @@ function PrimitiveKeyboardNavTabRender() {
 
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, padding: '4px 8px', background: '#f8fafc', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+      <div
+        style={{
+          fontSize: 11,
+          color: '#94a3b8',
+          marginBottom: 8,
+          padding: '4px 8px',
+          background: '#f8fafc',
+          borderRadius: 6,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 4,
+        }}
+      >
         <span style={{ fontSize: 10 }}>⌨</span> 화살표키로 탭 이동 (PrimitiveUI 패턴)
       </div>
-      <div role="tablist" aria-label="문서 섹션" style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+      <div
+        role="tablist"
+        aria-label="문서 섹션"
+        style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}
+      >
         {tabs.map((tab, i) => (
           <Tab
             key={tab.id}
@@ -1933,16 +3006,40 @@ function PrimitiveKeyboardNavTabRender() {
           >
             <Tab.Center>{tab.label}</Tab.Center>
             <Tab.Trailing>
-              <span style={{ fontSize: 9, padding: '0px 4px', borderRadius: 3, background: active === tab.id ? '#6366f1' : '#f1f5f9', color: active === tab.id ? '#fff' : '#94a3b8', fontFamily: 'monospace', letterSpacing: 0 }}>
+              <span
+                style={{
+                  fontSize: 9,
+                  padding: '0px 4px',
+                  borderRadius: 3,
+                  background: active === tab.id ? '#6366f1' : '#f1f5f9',
+                  color: active === tab.id ? '#fff' : '#94a3b8',
+                  fontFamily: 'monospace',
+                  letterSpacing: 0,
+                }}
+              >
                 {tab.shortcut}
               </span>
             </Tab.Trailing>
           </Tab>
         ))}
       </div>
-      <div role="tabpanel" style={{ marginTop: 12, padding: '14px 16px', borderRadius: 10, background: '#f8fafc', border: '1px solid #f1f5f9', fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
+      <div
+        role="tabpanel"
+        style={{
+          marginTop: 12,
+          padding: '14px 16px',
+          borderRadius: 10,
+          background: '#f8fafc',
+          border: '1px solid #f1f5f9',
+          fontSize: 13,
+          color: '#374151',
+          lineHeight: 1.6,
+        }}
+      >
         {activeTab?.desc}
-        <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>→ Primitive Tabs와 동일한 aria 패턴 (role=tab, aria-selected, tabIndex 관리)</div>
+        <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+          → Primitive Tabs와 동일한 aria 패턴 (role=tab, aria-selected, tabIndex 관리)
+        </div>
       </div>
     </div>
   )
@@ -1953,7 +3050,8 @@ export const Primitive_키보드_네비게이션_탭: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI Tabs의 키보드 네비게이션 패턴 적용. ←→ 화살표키로 탭 포커스 이동, aria-selected + role=tab + tabIndex 관리. 각 탭에 ⌘1~4 단축키 힌트 칩 표시. 접근성 최우선 탭 구현 패턴.',
+        story:
+          'PrimitiveUI Tabs의 키보드 네비게이션 패턴 적용. ←→ 화살표키로 탭 포커스 이동, aria-selected + role=tab + tabIndex 관리. 각 탭에 ⌘1~4 단축키 힌트 칩 표시. 접근성 최우선 탭 구현 패턴.',
       },
     },
   },
@@ -1972,28 +3070,67 @@ function IssueTrackerStatusNavTabRender() {
   ]
 
   const issueRows = [
-    { id: 'ORB-241', title: '다크모드 Slider 색상 깜빡임', priority: '●', status: '진행 중', due: '오늘' },
-    { id: 'ORB-238', title: 'Calendar 접근성 키보드 지원', priority: '▲', status: '검토 대기', due: '내일' },
+    {
+      id: 'ORB-241',
+      title: '다크모드 Slider 색상 깜빡임',
+      priority: '●',
+      status: '진행 중',
+      due: '오늘',
+    },
+    {
+      id: 'ORB-238',
+      title: 'Calendar 접근성 키보드 지원',
+      priority: '▲',
+      status: '검토 대기',
+      due: '내일',
+    },
     { id: 'ORB-232', title: 'RTL 레이아웃 지원', priority: '○', status: '할 일', due: '이번 주' },
-    { id: 'ORB-229', title: 'Popover 애니메이션 최적화', priority: '○', status: '할 일', due: '다음 주' },
+    {
+      id: 'ORB-229',
+      title: 'Popover 애니메이션 최적화',
+      priority: '○',
+      status: '할 일',
+      due: '다음 주',
+    },
   ]
 
   return (
-    <div style={{ width: 440, border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden', fontFamily: 'system-ui, sans-serif', background: '#fff' }}>
+    <div
+      style={{
+        width: 440,
+        border: '1px solid #e5e7eb',
+        borderRadius: 12,
+        overflow: 'hidden',
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+      }}
+    >
       <div style={{ padding: '12px 16px 0', borderBottom: '1px solid #f1f5f9' }}>
         <div style={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
           {statusTabs.map((tab) => (
-            <Tab
-              key={tab.id}
-              selected={active === tab.id}
-              onClick={() => setActive(tab.id)}
-            >
+            <Tab key={tab.id} selected={active === tab.id} onClick={() => setActive(tab.id)}>
               <Tab.Leading>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', display: 'inline-block', background: active === tab.id ? tab.dot : '#d1d5db' }} />
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    display: 'inline-block',
+                    background: active === tab.id ? tab.dot : '#d1d5db',
+                  }}
+                />
               </Tab.Leading>
               <Tab.Center>{tab.label}</Tab.Center>
               <Tab.Trailing>
-                <span style={{ fontSize: 10, color: active === tab.id ? tab.dot : '#94a3b8', fontWeight: 600 }}>{tab.count}</span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    color: active === tab.id ? tab.dot : '#94a3b8',
+                    fontWeight: 600,
+                  }}
+                >
+                  {tab.count}
+                </span>
               </Tab.Trailing>
             </Tab>
           ))}
@@ -2001,11 +3138,44 @@ function IssueTrackerStatusNavTabRender() {
       </div>
       <div>
         {issueRows.map((row, i) => (
-          <div key={row.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px', borderBottom: i < issueRows.length - 1 ? '1px solid #f8fafc' : 'none', cursor: 'pointer' }}>
+          <div
+            key={row.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '8px 16px',
+              borderBottom: i < issueRows.length - 1 ? '1px solid #f8fafc' : 'none',
+              cursor: 'pointer',
+            }}
+          >
             <span style={{ fontSize: 10, color: '#94a3b8' }}>{row.priority}</span>
-            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace' }}>{row.id}</span>
-            <span style={{ flex: 1, fontSize: 12, color: '#374151', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.title}</span>
-            <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 99, background: '#f1f5f9', color: '#64748b' }}>{row.status}</span>
+            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace' }}>
+              {row.id}
+            </span>
+            <span
+              style={{
+                flex: 1,
+                fontSize: 12,
+                color: '#374151',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {row.title}
+            </span>
+            <span
+              style={{
+                fontSize: 10,
+                padding: '1px 6px',
+                borderRadius: 99,
+                background: '#f1f5f9',
+                color: '#64748b',
+              }}
+            >
+              {row.status}
+            </span>
             <span style={{ fontSize: 10, color: '#94a3b8' }}>{row.due}</span>
           </div>
         ))}
@@ -2019,7 +3189,8 @@ export const IssueTracker_상태_도트_이슈_탭: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 이슈 목록 탭 패턴. 각 탭 앞에 활성 상태 도트, 뒤에 이슈 count 표시. 내 이슈/생성한 이슈/언급된 이슈/구독 중 탭으로 이슈를 필터링하는 IssueTracker 특유의 컴팩트 탭 패턴.',
+        story:
+          'IssueTracker 이슈 목록 탭 패턴. 각 탭 앞에 활성 상태 도트, 뒤에 이슈 count 표시. 내 이슈/생성한 이슈/언급된 이슈/구독 중 탭으로 이슈를 필터링하는 IssueTracker 특유의 컴팩트 탭 패턴.',
       },
     },
   },
@@ -2058,25 +3229,61 @@ function PrimitiveIssueTrackerSettingsTabRender() {
   const activeInfo = settingsSections.flatMap((s) => s.tabs).find((t) => t.id === active)
 
   return (
-    <div style={{ display: 'flex', gap: 0, width: 480, border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden', fontFamily: 'system-ui, sans-serif', background: '#fff' }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: 0,
+        width: 480,
+        border: '1px solid #e5e7eb',
+        borderRadius: 12,
+        overflow: 'hidden',
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+      }}
+    >
       {/* Sidebar */}
-      <div style={{ width: 160, background: '#f8fafc', borderRight: '1px solid #f1f5f9', padding: '16px 8px' }}>
+      <div
+        style={{
+          width: 160,
+          background: '#f8fafc',
+          borderRight: '1px solid #f1f5f9',
+          padding: '16px 8px',
+        }}
+      >
         {settingsSections.map((section) => (
           <div key={section.group} style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 9, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.8, padding: '0 6px', marginBottom: 4 }}>{section.group}</div>
+            <div
+              style={{
+                fontSize: 9,
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: 0.8,
+                padding: '0 6px',
+                marginBottom: 4,
+              }}
+            >
+              {section.group}
+            </div>
             {section.tabs.map((tab) => (
               <div key={tab.id} style={{ marginBottom: 1 }}>
-                <Tab
-                  selected={active === tab.id}
-                  onClick={() => setActive(tab.id)}
-                >
+                <Tab selected={active === tab.id} onClick={() => setActive(tab.id)}>
                   <Tab.Leading>
                     <span style={{ fontSize: 10, opacity: 0.6 }}>{tab.icon}</span>
                   </Tab.Leading>
                   <Tab.Center>{tab.label}</Tab.Center>
                   {tab.badge && (
                     <Tab.Trailing>
-                      <span style={{ fontSize: 9, padding: '0px 4px', borderRadius: 4, background: active === tab.id ? '#6366f1' : '#e2e8f0', color: active === tab.id ? '#fff' : '#94a3b8', fontWeight: 600 }}>
+                      <span
+                        style={{
+                          fontSize: 9,
+                          padding: '0px 4px',
+                          borderRadius: 4,
+                          background: active === tab.id ? '#6366f1' : '#e2e8f0',
+                          color: active === tab.id ? '#fff' : '#94a3b8',
+                          fontWeight: 600,
+                        }}
+                      >
                         {tab.badge}
                       </span>
                     </Tab.Trailing>
@@ -2089,9 +3296,23 @@ function PrimitiveIssueTrackerSettingsTabRender() {
       </div>
       {/* Content */}
       <div style={{ flex: 1, padding: '20px' }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>{activeInfo?.label}</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          {activeInfo?.label}
+        </div>
         <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 16 }}>{activeInfo?.desc}</div>
-        <div style={{ height: 80, borderRadius: 8, background: '#f8fafc', border: '1px dashed #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: '#94a3b8' }}>
+        <div
+          style={{
+            height: 80,
+            borderRadius: 8,
+            background: '#f8fafc',
+            border: '1px dashed #e2e8f0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 12,
+            color: '#94a3b8',
+          }}
+        >
           {activeInfo?.label} 설정 폼 영역
         </div>
       </div>
@@ -2104,7 +3325,8 @@ export const Primitive_IssueTracker_설정_사이드바_탭: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker Settings 화면의 세로 사이드바 탭 패턴 + Primitive 접근성 구조. Tab 컴포넌트를 세로 배치로 활용, 섹션 그룹(계정/워크스페이스/개발)으로 분류, 배지(권장/멤버수)로 중요도 표시.',
+        story:
+          'IssueTracker Settings 화면의 세로 사이드바 탭 패턴 + Primitive 접근성 구조. Tab 컴포넌트를 세로 배치로 활용, 섹션 그룹(계정/워크스페이스/개발)으로 분류, 배지(권장/멤버수)로 중요도 표시.',
       },
     },
   },

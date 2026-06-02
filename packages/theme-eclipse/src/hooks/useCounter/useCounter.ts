@@ -30,8 +30,12 @@ export type UseCounterReturn = {
  * ```
  */
 export function useCounter(options: UseCounterOptions = {}): UseCounterReturn {
-  const { initial = 0, min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY, step = 1 } =
-    options
+  const {
+    initial = 0,
+    min = Number.NEGATIVE_INFINITY,
+    max = Number.POSITIVE_INFINITY,
+    step = 1,
+  } = options
   const [count, setCount] = useState<number>(() => clamp(initial, min, max))
 
   const set = useCallback(
@@ -41,7 +45,7 @@ export function useCounter(options: UseCounterOptions = {}): UseCounterReturn {
         return clamp(raw, min, max)
       })
     },
-    [min, max],
+    [min, max]
   )
 
   const increment = useCallback(() => {
@@ -66,7 +70,7 @@ export function useCounter(options: UseCounterOptions = {}): UseCounterReturn {
       isAtMin: count <= min,
       isAtMax: count >= max,
     }),
-    [count, increment, decrement, set, reset, min, max],
+    [count, increment, decrement, set, reset, min, max]
   )
 }
 

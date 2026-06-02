@@ -12,7 +12,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "Checkbox는 PrimitiveUI 기반 접근성 체크박스 컴포넌트입니다. 제어/비제어 모드를 모두 지원하며 키보드 네비게이션을 완벽하게 지원합니다.",
+        component:
+          'Checkbox는 PrimitiveUI 기반 접근성 체크박스 컴포넌트입니다. 제어/비제어 모드를 모두 지원하며 키보드 네비게이션을 완벽하게 지원합니다.',
       },
     },
   },
@@ -60,11 +61,13 @@ export const 권한_관리_매트릭스 = {
     type PermissionKey = 'view' | 'edit' | 'delete' | 'admin'
     type RoleKey = 'viewer' | 'editor' | 'manager'
 
-    const [permissions, setPermissions] = useState<Record<RoleKey, Record<PermissionKey, boolean>>>({
-      viewer: { view: true, edit: false, delete: false, admin: false },
-      editor: { view: true, edit: true, delete: false, admin: false },
-      manager: { view: true, edit: true, delete: true, admin: false },
-    })
+    const [permissions, setPermissions] = useState<Record<RoleKey, Record<PermissionKey, boolean>>>(
+      {
+        viewer: { view: true, edit: false, delete: false, admin: false },
+        editor: { view: true, edit: true, delete: false, admin: false },
+        manager: { view: true, edit: true, delete: true, admin: false },
+      }
+    )
 
     const roles: { key: RoleKey; label: string; color: string }[] = [
       { key: 'viewer', label: '뷰어', color: '#64748b' },
@@ -86,25 +89,64 @@ export const 권한_관리_매트릭스 = {
     }
 
     return (
-      <div style={{ width: 480, padding: 28, background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>권한 관리</div>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 20 }}>역할별로 접근 가능한 기능을 설정하세요.</div>
+      <div
+        style={{
+          width: 480,
+          padding: 28,
+          background: '#fff',
+          borderRadius: 16,
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        }}
+      >
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          권한 관리
+        </div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 20 }}>
+          역할별로 접근 가능한 기능을 설정하세요.
+        </div>
         <div style={{ borderRadius: 12, overflow: 'hidden', border: '1.5px solid #e2e8f0' }}>
-          <div style={{
-            display: 'grid', gridTemplateColumns: '1fr repeat(4, 80px)',
-            padding: '10px 16px', background: '#f8fafc', borderBottom: '1.5px solid #e2e8f0',
-          }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase' }}>역할</div>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr repeat(4, 80px)',
+              padding: '10px 16px',
+              background: '#f8fafc',
+              borderBottom: '1.5px solid #e2e8f0',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+              }}
+            >
+              역할
+            </div>
             {permList.map((p) => (
-              <div key={p.key} style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textAlign: 'center', textTransform: 'uppercase' }}>{p.label}</div>
+              <div
+                key={p.key}
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#94a3b8',
+                  textAlign: 'center',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {p.label}
+              </div>
             ))}
           </div>
           {roles.map((r, idx) => (
             <div
               key={r.key}
               style={{
-                display: 'grid', gridTemplateColumns: '1fr repeat(4, 80px)',
-                padding: '14px 16px', borderBottom: idx < roles.length - 1 ? '1px solid #f1f5f9' : 'none',
+                display: 'grid',
+                gridTemplateColumns: '1fr repeat(4, 80px)',
+                padding: '14px 16px',
+                borderBottom: idx < roles.length - 1 ? '1px solid #f1f5f9' : 'none',
                 alignItems: 'center',
               }}
             >
@@ -137,33 +179,78 @@ export const 할일_목록 = {
   render: function Render() {
     type Task = { id: number; label: string; tag: string; tagColor: string; done: boolean }
     const [tasks, setTasks] = useState<Task[]>([
-      { id: 1, label: 'RadioButton 카드형 스토리 추가', tag: 'Storybook', tagColor: '#6366f1', done: true },
-      { id: 2, label: 'Checkbox 권한 매트릭스 구현', tag: 'Storybook', tagColor: '#6366f1', done: true },
-      { id: 3, label: 'Popover 필터 패널 스토리 작성', tag: 'Storybook', tagColor: '#6366f1', done: false },
-      { id: 4, label: 'ComponentOverview.mdx 접근성 섹션 추가', tag: 'Docs', tagColor: '#10b981', done: false },
+      {
+        id: 1,
+        label: 'RadioButton 카드형 스토리 추가',
+        tag: 'Storybook',
+        tagColor: '#6366f1',
+        done: true,
+      },
+      {
+        id: 2,
+        label: 'Checkbox 권한 매트릭스 구현',
+        tag: 'Storybook',
+        tagColor: '#6366f1',
+        done: true,
+      },
+      {
+        id: 3,
+        label: 'Popover 필터 패널 스토리 작성',
+        tag: 'Storybook',
+        tagColor: '#6366f1',
+        done: false,
+      },
+      {
+        id: 4,
+        label: 'ComponentOverview.mdx 접근성 섹션 추가',
+        tag: 'Docs',
+        tagColor: '#10b981',
+        done: false,
+      },
       { id: 5, label: 'TypeScript 에러 점검', tag: 'QA', tagColor: '#f59e0b', done: false },
     ])
 
     const toggle = (id: number) => {
-      setTasks((prev) => prev.map((t) => t.id === id ? { ...t, done: !t.done } : t))
+      setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)))
     }
 
     const doneCount = tasks.filter((t) => t.done).length
     const progress = Math.round((doneCount / tasks.length) * 100)
 
     return (
-      <div style={{ width: 420, padding: 28, background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+      <div
+        style={{
+          width: 420,
+          padding: 28,
+          background: '#fff',
+          borderRadius: 16,
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 6,
+          }}
+        >
           <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>오늘의 작업</div>
-          <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>{doneCount} / {tasks.length}</span>
+          <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>
+            {doneCount} / {tasks.length}
+          </span>
         </div>
         <div style={{ marginBottom: 20 }}>
           <div style={{ height: 4, borderRadius: 99, background: '#f1f5f9', overflow: 'hidden' }}>
-            <div style={{
-              height: '100%', borderRadius: 99, width: `${progress}%`,
-              background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
-              transition: 'width 0.3s ease',
-            }} />
+            <div
+              style={{
+                height: '100%',
+                borderRadius: 99,
+                width: `${progress}%`,
+                background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
+                transition: 'width 0.3s ease',
+              }}
+            />
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -171,41 +258,61 @@ export const 할일_목록 = {
             <div
               key={task.id}
               style={{
-                display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px',
-                borderRadius: 10, cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 14px',
+                borderRadius: 10,
+                cursor: 'pointer',
                 background: task.done ? '#f8fafc' : '#fff',
-                border: '1px solid', borderColor: task.done ? '#f1f5f9' : '#e2e8f0',
+                border: '1px solid',
+                borderColor: task.done ? '#f1f5f9' : '#e2e8f0',
                 transition: 'all 0.15s',
               }}
               onClick={() => toggle(task.id)}
             >
-              <Checkbox
-                checked={task.done}
-                onChange={() => toggle(task.id)}
-              />
-              <span style={{
-                flex: 1, fontSize: 13, fontWeight: task.done ? 400 : 500,
-                color: task.done ? '#94a3b8' : '#0f172a',
-                textDecoration: task.done ? 'line-through' : 'none',
-                transition: 'all 0.15s',
-              }}>
+              <Checkbox checked={task.done} onChange={() => toggle(task.id)} />
+              <span
+                style={{
+                  flex: 1,
+                  fontSize: 13,
+                  fontWeight: task.done ? 400 : 500,
+                  color: task.done ? '#94a3b8' : '#0f172a',
+                  textDecoration: task.done ? 'line-through' : 'none',
+                  transition: 'all 0.15s',
+                }}
+              >
                 {task.label}
               </span>
-              <span style={{
-                fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99,
-                background: `${task.tagColor}18`, color: task.tagColor,
-              }}>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: 99,
+                  background: `${task.tagColor}18`,
+                  color: task.tagColor,
+                }}
+              >
                 {task.tag}
               </span>
             </div>
           ))}
         </div>
         {doneCount === tasks.length && (
-          <div style={{
-            marginTop: 16, padding: '12px', borderRadius: 10, textAlign: 'center',
-            background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)',
-            fontSize: 13, fontWeight: 700, color: '#10b981',
-          }}>
+          <div
+            style={{
+              marginTop: 16,
+              padding: '12px',
+              borderRadius: 10,
+              textAlign: 'center',
+              background: 'rgba(16,185,129,0.08)',
+              border: '1px solid rgba(16,185,129,0.2)',
+              fontSize: 13,
+              fontWeight: 700,
+              color: '#10b981',
+            }}
+          >
             모든 작업 완료
           </div>
         )}
@@ -228,21 +335,39 @@ export const 카테고리_다중_선택 = {
     const [selected, setSelected] = useState<string[]>(['actions', 'inputs'])
 
     const toggle = (val: string) => {
-      setSelected((prev) => prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val])
+      setSelected((prev) => (prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]))
     }
     const isAll = selected.length === categories.length
     const toggleAll = () => setSelected(isAll ? [] : categories.map((c) => c.value))
 
     return (
-      <div style={{ width: 380, padding: 28, background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>컴포넌트 카테고리</div>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 16 }}>표시할 컴포넌트 카테고리를 선택하세요.</div>
+      <div
+        style={{
+          width: 380,
+          padding: 28,
+          background: '#fff',
+          borderRadius: 16,
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        }}
+      >
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          컴포넌트 카테고리
+        </div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 16 }}>
+          표시할 컴포넌트 카테고리를 선택하세요.
+        </div>
 
         <div
           style={{
-            display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
-            borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0',
-            marginBottom: 8, cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '10px 14px',
+            borderRadius: 10,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            marginBottom: 8,
+            cursor: 'pointer',
           }}
           onClick={toggleAll}
         >
@@ -251,8 +376,12 @@ export const 카테고리_다중_선택 = {
             iconName={selected.length > 0 && !isAll ? 'minus' : 'check'}
             onChange={toggleAll}
           />
-          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', flex: 1 }}>전체 선택</span>
-          <span style={{ fontSize: 11, color: '#94a3b8' }}>{selected.length} / {categories.length}</span>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', flex: 1 }}>
+            전체 선택
+          </span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>
+            {selected.length} / {categories.length}
+          </span>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -260,25 +389,40 @@ export const 카테고리_다중_선택 = {
             <div
               key={cat.value}
               style={{
-                display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
-                borderRadius: 10, border: '1px solid', borderColor: selected.includes(cat.value) ? 'rgba(99,102,241,0.25)' : '#f1f5f9',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 14px',
+                borderRadius: 10,
+                border: '1px solid',
+                borderColor: selected.includes(cat.value) ? 'rgba(99,102,241,0.25)' : '#f1f5f9',
                 background: selected.includes(cat.value) ? 'rgba(99,102,241,0.04)' : '#fff',
-                cursor: 'pointer', transition: 'all 0.1s',
+                cursor: 'pointer',
+                transition: 'all 0.1s',
               }}
               onClick={() => toggle(cat.value)}
             >
-              <Checkbox
-                checked={selected.includes(cat.value)}
-                onChange={() => toggle(cat.value)}
-              />
-              <span style={{ flex: 1, fontSize: 13, fontWeight: selected.includes(cat.value) ? 600 : 400, color: '#0f172a' }}>
+              <Checkbox checked={selected.includes(cat.value)} onChange={() => toggle(cat.value)} />
+              <span
+                style={{
+                  flex: 1,
+                  fontSize: 13,
+                  fontWeight: selected.includes(cat.value) ? 600 : 400,
+                  color: '#0f172a',
+                }}
+              >
                 {cat.label}
               </span>
-              <span style={{
-                fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 99,
-                background: selected.includes(cat.value) ? 'rgba(99,102,241,0.1)' : '#f1f5f9',
-                color: selected.includes(cat.value) ? '#6366f1' : '#94a3b8',
-              }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: 99,
+                  background: selected.includes(cat.value) ? 'rgba(99,102,241,0.1)' : '#f1f5f9',
+                  color: selected.includes(cat.value) ? '#6366f1' : '#94a3b8',
+                }}
+              >
                 {cat.count}
               </span>
             </div>
@@ -317,29 +461,52 @@ export const 약관동의그룹 = {
     ]
 
     return (
-      <div style={{
-        display: 'flex', flexDirection: 'column', gap: '0px',
-        width: '360px', padding: '28px', background: '#fff',
-        borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
-      }}>
-        <h3 style={{ margin: '0 0 20px', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>약관 동의</h3>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0px',
+          width: '360px',
+          padding: '28px',
+          background: '#fff',
+          borderRadius: '16px',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        }}
+      >
+        <h3 style={{ margin: '0 0 20px', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>
+          약관 동의
+        </h3>
 
         {/* 전체 동의 */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '10px',
-          padding: '14px 16px', borderRadius: '10px',
-          background: agreed.all ? 'rgba(99,102,241,0.05)' : '#f8fafc',
-          border: `1.5px solid ${agreed.all ? 'rgba(99,102,241,0.3)' : '#e2e8f0'}`,
-          marginBottom: '16px',
-          cursor: 'pointer',
-          transition: 'all 0.15s',
-        }} onClick={() => handleAll(!agreed.all)}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '14px 16px',
+            borderRadius: '10px',
+            background: agreed.all ? 'rgba(99,102,241,0.05)' : '#f8fafc',
+            border: `1.5px solid ${agreed.all ? 'rgba(99,102,241,0.3)' : '#e2e8f0'}`,
+            marginBottom: '16px',
+            cursor: 'pointer',
+            transition: 'all 0.15s',
+          }}
+          onClick={() => handleAll(!agreed.all)}
+        >
           <Checkbox
             checked={agreed.all}
-            iconName={agreed.terms || agreed.privacy || agreed.marketing ? (agreed.all ? 'check' : 'minus') : 'check'}
+            iconName={
+              agreed.terms || agreed.privacy || agreed.marketing
+                ? agreed.all
+                  ? 'check'
+                  : 'minus'
+                : 'check'
+            }
             onChange={handleAll}
           />
-          <span style={{ fontSize: '14px', fontWeight: '700', color: '#0f172a', userSelect: 'none' }}>
+          <span
+            style={{ fontSize: '14px', fontWeight: '700', color: '#0f172a', userSelect: 'none' }}
+          >
             전체 동의
           </span>
         </div>
@@ -350,22 +517,30 @@ export const 약관동의그룹 = {
             <div
               key={item.key}
               style={{
-                display: 'flex', alignItems: 'center', gap: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
                 padding: '12px 4px',
                 borderBottom: idx < items.length - 1 ? '1px solid #f1f5f9' : 'none',
                 cursor: 'pointer',
               }}
               onClick={() => handleSingle(item.key)(!agreed[item.key])}
             >
-              <Checkbox
-                checked={agreed[item.key]}
-                onChange={handleSingle(item.key)}
-              />
+              <Checkbox checked={agreed[item.key]} onChange={handleSingle(item.key)} />
               <span style={{ flex: 1, fontSize: '13px', color: '#374151', userSelect: 'none' }}>
                 {item.label}
               </span>
               {item.required && (
-                <span style={{ fontSize: '10px', color: '#6366f1', fontWeight: 700, background: 'rgba(99,102,241,0.08)', padding: '2px 6px', borderRadius: '4px' }}>
+                <span
+                  style={{
+                    fontSize: '10px',
+                    color: '#6366f1',
+                    fontWeight: 700,
+                    background: 'rgba(99,102,241,0.08)',
+                    padding: '2px 6px',
+                    borderRadius: '4px',
+                  }}
+                >
                   필수
                 </span>
               )}
@@ -375,10 +550,15 @@ export const 약관동의그룹 = {
 
         <button
           style={{
-            marginTop: '20px', padding: '14px', borderRadius: '12px', border: 'none',
+            marginTop: '20px',
+            padding: '14px',
+            borderRadius: '12px',
+            border: 'none',
             background: canSubmit ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : '#e2e8f0',
             color: canSubmit ? '#fff' : '#94a3b8',
-            fontSize: '14px', fontWeight: '700', cursor: canSubmit ? 'pointer' : 'not-allowed',
+            fontSize: '14px',
+            fontWeight: '700',
+            cursor: canSubmit ? 'pointer' : 'not-allowed',
             transition: 'all 0.2s',
           }}
           disabled={!canSubmit}
@@ -416,7 +596,9 @@ function UtilityCSSPlanFeaturesRender() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '20px', maxWidth: 480 }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '20px', maxWidth: 480 }}
+    >
       <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
         플랜 기능 선택
       </div>
@@ -427,24 +609,36 @@ function UtilityCSSPlanFeaturesRender() {
             <label
               key={feat.key}
               style={{
-                display: 'flex', alignItems: 'flex-start', gap: 10,
-                padding: '12px 14px', borderRadius: '10px', cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 10,
+                padding: '12px 14px',
+                borderRadius: '10px',
+                cursor: 'pointer',
                 border: `2px solid ${isOn ? '#6366f1' : '#e2e8f0'}`,
                 background: isOn ? '#f5f3ff' : '#fff',
                 transition: 'all 0.15s',
               }}
             >
               <div style={{ marginTop: 2, flexShrink: 0 }}>
-                <Checkbox
-                  checked={isOn}
-                  onChange={() => toggle(feat.key)}
-                />
+                <Checkbox checked={isOn} onChange={() => toggle(feat.key)} />
               </div>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{feat.label}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                    {feat.label}
+                  </span>
                   {feat.premium && (
-                    <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 4, background: '#fef9c3', color: '#b45309' }}>
+                    <span
+                      style={{
+                        fontSize: 9,
+                        fontWeight: 700,
+                        padding: '1px 5px',
+                        borderRadius: 4,
+                        background: '#fef9c3',
+                        color: '#b45309',
+                      }}
+                    >
                       PRO
                     </span>
                   )}
@@ -514,15 +708,23 @@ function ManitneColumnVisibilityRender() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '20px', maxWidth: 320 }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '20px', maxWidth: 320 }}
+    >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>컬럼 표시 설정</div>
-        <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
-          <Checkbox
-            checked={allOn}
-            iconName={allOn ? 'check' : 'minus'}
-            onChange={toggleAll}
-          />
+        <label
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            cursor: 'pointer',
+            fontSize: 12,
+            color: '#6366f1',
+            fontWeight: 600,
+          }}
+        >
+          <Checkbox checked={allOn} iconName={allOn ? 'check' : 'minus'} onChange={toggleAll} />
           전체 선택
         </label>
       </div>
@@ -531,8 +733,12 @@ function ManitneColumnVisibilityRender() {
           <label
             key={col.key}
             style={{
-              display: 'flex', alignItems: 'center', gap: 10,
-              padding: '8px 12px', borderRadius: '8px', cursor: col.required ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '8px 12px',
+              borderRadius: '8px',
+              cursor: col.required ? 'not-allowed' : 'pointer',
               background: '#f8fafc',
             }}
           >
@@ -541,7 +747,13 @@ function ManitneColumnVisibilityRender() {
               disabled={col.required}
               onChange={() => !col.required && toggleCol(col.key)}
             />
-            <span style={{ fontSize: 13, color: col.required ? '#94a3b8' : '#1e293b', fontWeight: col.required ? 400 : 500 }}>
+            <span
+              style={{
+                fontSize: 13,
+                color: col.required ? '#94a3b8' : '#1e293b',
+                fontWeight: col.required ? 400 : 500,
+              }}
+            >
               {col.label}
             </span>
             {col.required && (
@@ -596,12 +808,37 @@ export const UtilityCSS_비교_체크리스트: Story = {
       <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>
         디자인 시스템 기능 비교
       </div>
-      <div style={{ background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div
+        style={{
+          background: '#fff',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
         {/* Header */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 80px 80px 80px', padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 80px 80px 80px',
+            padding: '10px 16px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+          }}
+        >
           <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>기능</div>
           {['Orbit UI', 'ComposableUI', 'EnterpriseUI'].map((name) => (
-            <div key={name} style={{ fontSize: 11, fontWeight: 700, color: name === 'Orbit UI' ? '#6366f1' : '#64748b', textAlign: 'center' }}>{name}</div>
+            <div
+              key={name}
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: name === 'Orbit UI' ? '#6366f1' : '#64748b',
+                textAlign: 'center',
+              }}
+            >
+              {name}
+            </div>
           ))}
         </div>
         {/* Rows */}
@@ -609,8 +846,10 @@ export const UtilityCSS_비교_체크리스트: Story = {
           <div
             key={item.feature}
             style={{
-              display: 'grid', gridTemplateColumns: '1fr 80px 80px 80px',
-              padding: '10px 16px', alignItems: 'center',
+              display: 'grid',
+              gridTemplateColumns: '1fr 80px 80px 80px',
+              padding: '10px 16px',
+              alignItems: 'center',
               background: i % 2 === 0 ? '#fff' : '#fafafa',
               borderBottom: i < COMPARE_ITEMS.length - 1 ? '1px solid #f1f5f9' : 'none',
             }}
@@ -618,11 +857,7 @@ export const UtilityCSS_비교_체크리스트: Story = {
             <div style={{ fontSize: 12, color: '#374151' }}>{item.feature}</div>
             {[item.orbitUI, item.ComposableUI, item.enterpriseUi].map((val, ci) => (
               <div key={ci} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Checkbox
-                  checked={val}
-                  disabled
-                  onChange={() => {}}
-                />
+                <Checkbox checked={val} disabled onChange={() => {}} />
               </div>
             ))}
           </div>
@@ -669,7 +904,12 @@ export const Primitive_접근성_설정_그룹: Story = {
         <div
           role="group"
           aria-labelledby="notification-group-label"
-          style={{ background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}
+          style={{
+            background: '#fff',
+            borderRadius: 14,
+            border: '1px solid #e2e8f0',
+            overflow: 'hidden',
+          }}
         >
           <div
             id="notification-group-label"
@@ -684,7 +924,10 @@ export const Primitive_접근성_설정_그룹: Story = {
             <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>알림 설정</span>
             <span
               style={{
-                fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 99,
+                fontSize: 11,
+                fontWeight: 600,
+                padding: '2px 8px',
+                borderRadius: 99,
                 background: enabledCount > 0 ? '#eff6ff' : '#f8fafc',
                 color: enabledCount > 0 ? '#3b82f6' : '#94a3b8',
               }}
@@ -694,38 +937,65 @@ export const Primitive_접근성_설정_그룹: Story = {
           </div>
 
           {[
-            { key: 'email' as const, label: '이메일 알림', desc: '중요 업데이트를 이메일로 수신', tag: '권장' },
-            { key: 'push' as const, label: '푸시 알림', desc: '브라우저 푸시 알림 허용', tag: null },
+            {
+              key: 'email' as const,
+              label: '이메일 알림',
+              desc: '중요 업데이트를 이메일로 수신',
+              tag: '권장',
+            },
+            {
+              key: 'push' as const,
+              label: '푸시 알림',
+              desc: '브라우저 푸시 알림 허용',
+              tag: null,
+            },
             { key: 'sms' as const, label: 'SMS 알림', desc: '긴급 알림을 문자로 수신', tag: null },
-            { key: 'digest' as const, label: '주간 다이제스트', desc: '매주 월요일 요약 이메일 발송', tag: '권장' },
+            {
+              key: 'digest' as const,
+              label: '주간 다이제스트',
+              desc: '매주 월요일 요약 이메일 발송',
+              tag: '권장',
+            },
           ].map(({ key, label, desc, tag }) => (
             <div
               key={key}
               style={{
-                display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px',
-                borderBottom: '1px solid #f8fafc', cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 12,
+                padding: '14px 16px',
+                borderBottom: '1px solid #f8fafc',
+                cursor: 'pointer',
                 background: settings[key] ? '#fafbff' : '#fff',
                 transition: 'background 0.1s',
               }}
               onClick={() => toggle(key)}
             >
               <div style={{ paddingTop: 2 }}>
-                <Checkbox
-                  checked={settings[key]}
-                  onChange={() => toggle(key)}
-                  aria-label={label}
-                />
+                <Checkbox checked={settings[key]} onChange={() => toggle(key)} aria-label={label} />
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
-                  <span style={{ fontSize: 13, fontWeight: settings[key] ? 700 : 500, color: '#1e293b' }}>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: settings[key] ? 700 : 500,
+                      color: '#1e293b',
+                    }}
+                  >
                     {label}
                   </span>
                   {tag && (
-                    <span style={{
-                      fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4,
-                      background: '#eff6ff', color: '#3b82f6',
-                    }}>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: '#eff6ff',
+                        color: '#3b82f6',
+                      }}
+                    >
                       {tag}
                     </span>
                   )}
@@ -800,12 +1070,13 @@ export const EnterpriseUI_색상_역할_권한_선택: Story = {
 
     const [selected, setSelected] = useState<string[]>(['member'])
     const toggle = (id: string) =>
-      setSelected((prev) => prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id])
+      setSelected((prev) => (prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id]))
 
     return (
       <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 10 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
-          역할 할당 <span style={{ fontSize: 11, fontWeight: 400, color: '#94a3b8' }}>(복수 선택 가능)</span>
+          역할 할당{' '}
+          <span style={{ fontSize: 11, fontWeight: 400, color: '#94a3b8' }}>(복수 선택 가능)</span>
         </div>
         {roles.map((role) => {
           const isChecked = selected.includes(role.id)
@@ -814,33 +1085,53 @@ export const EnterpriseUI_색상_역할_권한_선택: Story = {
               key={role.id}
               onClick={() => toggle(role.id)}
               style={{
-                display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 16px',
                 borderRadius: 10,
                 border: `1.5px solid ${isChecked ? role.borderColor : '#e2e8f0'}`,
                 background: isChecked ? role.bg : '#fff',
-                cursor: 'pointer', transition: 'all 0.15s',
+                cursor: 'pointer',
+                transition: 'all 0.15s',
               }}
             >
               <Checkbox
                 checked={isChecked}
                 onChange={() => toggle(role.id)}
-                theme={isChecked ? {
-                  enabledCheckedFillColor: role.color,
-                } : undefined}
+                theme={
+                  isChecked
+                    ? {
+                        enabledCheckedFillColor: role.color,
+                      }
+                    : undefined
+                }
               />
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: isChecked ? role.color : '#1e293b' }}>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: isChecked ? role.color : '#1e293b',
+                    }}
+                  >
                     {role.label}
                   </span>
                 </div>
                 <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{role.desc}</div>
               </div>
               {isChecked && (
-                <span style={{
-                  fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99,
-                  background: role.color, color: '#fff',
-                }}>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: '2px 8px',
+                    borderRadius: 99,
+                    background: role.color,
+                    color: '#fff',
+                  }}
+                >
                   선택됨
                 </span>
               )}
@@ -901,25 +1192,41 @@ export const Primitive_EnterpriseUI_온보딩_체크리스트: Story = {
             transition: 'all 0.3s',
           }}
         >
-          <div style={{ padding: '16px 20px', borderBottom: `1px solid ${isDone ? '#bbf7d0' : '#f1f5f9'}` }}>
+          <div
+            style={{
+              padding: '16px 20px',
+              borderBottom: `1px solid ${isDone ? '#bbf7d0' : '#f1f5f9'}`,
+            }}
+          >
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
-              <span style={{ fontSize: 14, fontWeight: 700, color: isDone ? '#16a34a' : '#0f172a' }}>
+              <span
+                style={{ fontSize: 14, fontWeight: 700, color: isDone ? '#16a34a' : '#0f172a' }}
+              >
                 {isDone ? '모든 단계 완료!' : '시작하기'}
               </span>
-              <span style={{ fontSize: 12, fontWeight: 700, color: isDone ? '#16a34a' : '#6366f1' }}>
+              <span
+                style={{ fontSize: 12, fontWeight: 700, color: isDone ? '#16a34a' : '#6366f1' }}
+              >
                 {pct}%
               </span>
             </div>
-            <div style={{
-              height: 6, borderRadius: 3, background: '#f1f5f9', overflow: 'hidden',
-            }}>
-              <div style={{
-                height: '100%',
-                width: `${pct}%`,
+            <div
+              style={{
+                height: 6,
                 borderRadius: 3,
-                background: isDone ? '#10b981' : '#6366f1',
-                transition: 'width 0.3s ease',
-              }} />
+                background: '#f1f5f9',
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{
+                  height: '100%',
+                  width: `${pct}%`,
+                  borderRadius: 3,
+                  background: isDone ? '#10b981' : '#6366f1',
+                  transition: 'width 0.3s ease',
+                }}
+              />
             </div>
           </div>
 
@@ -931,7 +1238,9 @@ export const Primitive_EnterpriseUI_온보딩_체크리스트: Story = {
                   key={step.id}
                   onClick={() => toggle(step.id)}
                   style={{
-                    display: 'flex', alignItems: 'flex-start', gap: 12,
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 12,
                     padding: '12px 20px',
                     borderBottom: idx < steps.length - 1 ? '1px solid #f8fafc' : 'none',
                     cursor: 'pointer',
@@ -947,15 +1256,20 @@ export const Primitive_EnterpriseUI_온보딩_체크리스트: Story = {
                     />
                   </div>
                   <div>
-                    <div style={{
-                      fontSize: 13, fontWeight: 600,
-                      color: isChecked ? '#16a34a' : '#1e293b',
-                      textDecoration: isChecked ? 'line-through' : 'none',
-                      transition: 'all 0.2s',
-                    }}>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: isChecked ? '#16a34a' : '#1e293b',
+                        textDecoration: isChecked ? 'line-through' : 'none',
+                        transition: 'all 0.2s',
+                      }}
+                    >
                       {step.label}
                     </div>
-                    <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{step.detail}</div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+                      {step.detail}
+                    </div>
                   </div>
                 </div>
               )
@@ -974,11 +1288,16 @@ export const Primitive_EnterpriseUI_온보딩_체크리스트: Story = {
    Platform HIG 벤치마크: 계층형 그룹 체크박스
    Platform Settings-style 그룹 헤더 + 들여쓰기 + 부모/자식 체크박스
 -------------------------------------------------------------------------- */
-type HigAppGroup = { id: string; label: string; items: { id: string; label: string; desc: string }[] }
+type HigAppGroup = {
+  id: string
+  label: string
+  items: { id: string; label: string; desc: string }[]
+}
 
 const HIG_APP_GROUPS: HigAppGroup[] = [
   {
-    id: 'productivity', label: '생산성 앱',
+    id: 'productivity',
+    label: '생산성 앱',
     items: [
       { id: 'workspace', label: 'WorkspaceEditor', desc: '문서, 데이터베이스, 페이지' },
       { id: 'tracker', label: 'IssueTracker', desc: '이슈 트래킹, 프로젝트 관리' },
@@ -986,7 +1305,8 @@ const HIG_APP_GROUPS: HigAppGroup[] = [
     ],
   },
   {
-    id: 'developer', label: '개발자 도구',
+    id: 'developer',
+    label: '개발자 도구',
     items: [
       { id: 'vscode', label: 'VS Code', desc: '코드 편집기' },
       { id: 'webstorm', label: 'WebStorm', desc: 'JavaScript IDE' },
@@ -1007,7 +1327,11 @@ export const Platform_HIG_계층형_그룹_체크박스: Story = {
   },
   render: function PlatformHIGGroupCheckbox() {
     const [checked, setChecked] = useState<Record<string, boolean>>({
-      workspace: true, tracker: false, design: true, vscode: true, webstorm: false,
+      workspace: true,
+      tracker: false,
+      design: true,
+      vscode: true,
+      webstorm: false,
     })
 
     const getGroupState = (group: HigAppGroup): { allChecked: boolean; someChecked: boolean } => {
@@ -1020,7 +1344,9 @@ export const Platform_HIG_계층형_그룹_체크박스: Story = {
     const toggleGroup = (group: HigAppGroup) => {
       const { allChecked } = getGroupState(group)
       const next = { ...checked }
-      group.items.forEach((item) => { next[item.id] = !allChecked })
+      group.items.forEach((item) => {
+        next[item.id] = !allChecked
+      })
       setChecked(next)
     }
 
@@ -1032,7 +1358,17 @@ export const Platform_HIG_계층형_그룹_체크박스: Story = {
 
     return (
       <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ padding: '10px 16px', borderRadius: '10px 10px 0 0', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div
+          style={{
+            padding: '10px 16px',
+            borderRadius: '10px 10px 0 0',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>동기화할 앱 선택</span>
           <span style={{ fontSize: 11, color: '#6366f1' }}>{totalSelected}개 선택됨</span>
         </div>
@@ -1040,10 +1376,22 @@ export const Platform_HIG_계층형_그룹_체크박스: Story = {
         {HIG_APP_GROUPS.map((group, gi) => {
           const { allChecked, someChecked } = getGroupState(group)
           return (
-            <div key={group.id} style={{ borderBottom: gi < HIG_APP_GROUPS.length - 1 ? '1px solid #e2e8f0' : 'none' }}>
+            <div
+              key={group.id}
+              style={{
+                borderBottom: gi < HIG_APP_GROUPS.length - 1 ? '1px solid #e2e8f0' : 'none',
+              }}
+            >
               {/* 그룹 헤더 */}
               <div
-                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', background: '#f1f5f9', cursor: 'pointer' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '10px 16px',
+                  background: '#f1f5f9',
+                  cursor: 'pointer',
+                }}
                 onClick={() => toggleGroup(group)}
               >
                 <Checkbox
@@ -1052,14 +1400,25 @@ export const Platform_HIG_계층형_그룹_체크박스: Story = {
                   onChange={() => toggleGroup(group)}
                   aria-label={group.label}
                 />
-                <span style={{ fontSize: 12, fontWeight: 700, color: '#475569', letterSpacing: 0.3 }}>{group.label}</span>
+                <span
+                  style={{ fontSize: 12, fontWeight: 700, color: '#475569', letterSpacing: 0.3 }}
+                >
+                  {group.label}
+                </span>
               </div>
 
               {/* 하위 항목 */}
               {group.items.map((item) => (
                 <div
                   key={item.id}
-                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px 9px 36px', borderTop: '1px solid #f8fafc', cursor: 'pointer' }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '9px 16px 9px 36px',
+                    borderTop: '1px solid #f8fafc',
+                    cursor: 'pointer',
+                  }}
                   onClick={() => toggleItem(item.id)}
                 >
                   <Checkbox
@@ -1068,7 +1427,9 @@ export const Platform_HIG_계층형_그룹_체크박스: Story = {
                     aria-label={item.label}
                   />
                   <div>
-                    <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 500 }}>{item.label}</div>
+                    <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 500 }}>
+                      {item.label}
+                    </div>
                     <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
                   </div>
                 </div>
@@ -1119,9 +1480,10 @@ export const Material3_필터_칩_체크박스: Story = {
       }
     }
 
-    const totalIssues = M3_FILTER_TAGS
-      .filter((t) => selected.includes(t.id))
-      .reduce((sum, t) => sum + t.count, 0)
+    const totalIssues = M3_FILTER_TAGS.filter((t) => selected.includes(t.id)).reduce(
+      (sum, t) => sum + t.count,
+      0
+    )
 
     return (
       <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
@@ -1137,8 +1499,12 @@ export const Material3_필터_칩_체크박스: Story = {
                 key={tag.id}
                 onClick={() => toggle(tag.id)}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 6,
-                  padding: '6px 12px', borderRadius: 20, cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '6px 12px',
+                  borderRadius: 20,
+                  cursor: 'pointer',
                   border: `1.5px solid ${isSelected ? '#6366f1' : '#e2e8f0'}`,
                   background: isSelected ? '#eff6ff' : '#fff',
                   transition: 'all 0.15s',
@@ -1149,10 +1515,25 @@ export const Material3_필터_칩_체크박스: Story = {
                   onChange={() => toggle(tag.id)}
                   aria-label={tag.label}
                 />
-                <span style={{ fontSize: 13, fontWeight: isSelected ? 600 : 400, color: isSelected ? '#4f46e5' : '#374151' }}>
+                <span
+                  style={{
+                    fontSize: 13,
+                    fontWeight: isSelected ? 600 : 400,
+                    color: isSelected ? '#4f46e5' : '#374151',
+                  }}
+                >
                   {tag.label}
                 </span>
-                <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 10, background: isSelected ? '#c7d2fe' : '#f1f5f9', color: isSelected ? '#4338ca' : '#94a3b8', fontWeight: 600 }}>
+                <span
+                  style={{
+                    fontSize: 10,
+                    padding: '1px 5px',
+                    borderRadius: 10,
+                    background: isSelected ? '#c7d2fe' : '#f1f5f9',
+                    color: isSelected ? '#4338ca' : '#94a3b8',
+                    fontWeight: 600,
+                  }}
+                >
                   {tag.count}
                 </span>
               </div>
@@ -1160,7 +1541,18 @@ export const Material3_필터_칩_체크박스: Story = {
           })}
         </div>
 
-        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b', display: 'flex', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            fontSize: 12,
+            color: '#64748b',
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
           <span>{selected.length}개 카테고리 선택됨</span>
           <span style={{ fontWeight: 600, color: '#4f46e5' }}>{totalIssues}개 이슈</span>
         </div>
@@ -1168,7 +1560,15 @@ export const Material3_필터_칩_체크박스: Story = {
         {selected.length > 0 && (
           <button
             onClick={() => setSelected([])}
-            style={{ marginTop: 8, fontSize: 11, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            style={{
+              marginTop: 8,
+              fontSize: 11,
+              color: '#94a3b8',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+            }}
           >
             필터 초기화
           </button>
@@ -1182,17 +1582,56 @@ export const Material3_필터_칩_체크박스: Story = {
    RoleToken Design 벤치마크: 개인정보 설정 체크리스트
    M3 Settings list — 데이터 수집 항목 체크박스 + 중요도 뱃지
 -------------------------------------------------------------------------- */
-type M3PrivacySetting = { id: string; title: string; desc: string; required: boolean; importance: 'high' | 'medium' | 'low' }
+type M3PrivacySetting = {
+  id: string
+  title: string
+  desc: string
+  required: boolean
+  importance: 'high' | 'medium' | 'low'
+}
 
 const M3_PRIVACY_SETTINGS: M3PrivacySetting[] = [
-  { id: 'essential', title: '필수 쿠키', desc: '서비스 운영에 필수적인 데이터', required: true, importance: 'high' },
-  { id: 'analytics', title: '분석 데이터', desc: '서비스 개선을 위한 사용 패턴 분석', required: false, importance: 'medium' },
-  { id: 'marketing', title: '마케팅', desc: '개인화된 광고 및 추천', required: false, importance: 'low' },
-  { id: 'personalize', title: '개인화', desc: '사용자 경험 맞춤 설정', required: false, importance: 'medium' },
-  { id: 'thirdparty', title: '서드파티 공유', desc: '파트너사 데이터 공유', required: false, importance: 'low' },
+  {
+    id: 'essential',
+    title: '필수 쿠키',
+    desc: '서비스 운영에 필수적인 데이터',
+    required: true,
+    importance: 'high',
+  },
+  {
+    id: 'analytics',
+    title: '분석 데이터',
+    desc: '서비스 개선을 위한 사용 패턴 분석',
+    required: false,
+    importance: 'medium',
+  },
+  {
+    id: 'marketing',
+    title: '마케팅',
+    desc: '개인화된 광고 및 추천',
+    required: false,
+    importance: 'low',
+  },
+  {
+    id: 'personalize',
+    title: '개인화',
+    desc: '사용자 경험 맞춤 설정',
+    required: false,
+    importance: 'medium',
+  },
+  {
+    id: 'thirdparty',
+    title: '서드파티 공유',
+    desc: '파트너사 데이터 공유',
+    required: false,
+    importance: 'low',
+  },
 ]
 
-const M3_IMPORTANCE_STYLE: Record<M3PrivacySetting['importance'], { label: string; color: string; bg: string }> = {
+const M3_IMPORTANCE_STYLE: Record<
+  M3PrivacySetting['importance'],
+  { label: string; color: string; bg: string }
+> = {
   high: { label: '필수', color: '#dc2626', bg: '#fee2e2' },
   medium: { label: '권장', color: '#d97706', bg: '#fef3c7' },
   low: { label: '선택', color: '#64748b', bg: '#f1f5f9' },
@@ -1211,7 +1650,11 @@ export const Material3_개인정보_설정_체크리스트: Story = {
   },
   render: function M3PrivacyChecklist() {
     const [accepted, setAccepted] = useState<Record<string, boolean>>({
-      essential: true, analytics: true, marketing: false, personalize: true, thirdparty: false,
+      essential: true,
+      analytics: true,
+      marketing: false,
+      personalize: true,
+      thirdparty: false,
     })
 
     const toggleAccept = (id: string) => {
@@ -1223,8 +1666,12 @@ export const Material3_개인정보_설정_체크리스트: Story = {
     return (
       <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
         <div style={{ marginBottom: 12 }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>개인정보 및 쿠키 설정</div>
-          <div style={{ fontSize: 12, color: '#64748b' }}>수집 및 활용할 데이터 항목을 선택하세요</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>
+            개인정보 및 쿠키 설정
+          </div>
+          <div style={{ fontSize: 12, color: '#64748b' }}>
+            수집 및 활용할 데이터 항목을 선택하세요
+          </div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -1234,10 +1681,18 @@ export const Material3_개인정보_설정_체크리스트: Story = {
             return (
               <div
                 key={setting.id}
-                onClick={() => { if (!setting.required) { toggleAccept(setting.id) } }}
+                onClick={() => {
+                  if (!setting.required) {
+                    toggleAccept(setting.id)
+                  }
+                }}
                 style={{
-                  display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 14px',
-                  borderRadius: 10, border: `1px solid ${isAccepted ? '#c7d2fe' : '#e2e8f0'}`,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 12,
+                  padding: '12px 14px',
+                  borderRadius: 10,
+                  border: `1px solid ${isAccepted ? '#c7d2fe' : '#e2e8f0'}`,
                   background: isAccepted ? '#f5f3ff' : '#fff',
                   cursor: setting.required ? 'default' : 'pointer',
                   transition: 'all 0.15s',
@@ -1246,28 +1701,69 @@ export const Material3_개인정보_설정_체크리스트: Story = {
                 <Checkbox
                   checked={isAccepted ? true : false}
                   disabled={setting.required}
-                  onChange={() => { if (!setting.required) { toggleAccept(setting.id) } }}
+                  onChange={() => {
+                    if (!setting.required) {
+                      toggleAccept(setting.id)
+                    }
+                  }}
                   aria-label={setting.title}
                 />
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{setting.title}</span>
-                    <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4, color: style.color, background: style.bg }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
+                      {setting.title}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        color: style.color,
+                        background: style.bg,
+                      }}
+                    >
                       {style.label}
                     </span>
                   </div>
-                  <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5 }}>{setting.desc}</div>
+                  <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5 }}>
+                    {setting.desc}
+                  </div>
                 </div>
               </div>
             )
           })}
         </div>
 
-        <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#475569', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>{acceptedCount}/{M3_PRIVACY_SETTINGS.length}개 항목 동의</span>
+        <div
+          style={{
+            marginTop: 12,
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            fontSize: 12,
+            color: '#475569',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <span>
+            {acceptedCount}/{M3_PRIVACY_SETTINGS.length}개 항목 동의
+          </span>
           <button
-            onClick={() => setAccepted(Object.fromEntries(M3_PRIVACY_SETTINGS.map((s) => [s.id, true])))}
-            style={{ fontSize: 11, fontWeight: 600, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer' }}
+            onClick={() =>
+              setAccepted(Object.fromEntries(M3_PRIVACY_SETTINGS.map((s) => [s.id, true])))
+            }
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: '#6366f1',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+            }}
           >
             전체 동의
           </button>
@@ -1330,17 +1826,34 @@ export const IssueTracker_이슈_레이블_필터: Story = {
     const [selected, setSelected] = useState<string[]>(['bug', 'feature'])
 
     function toggle(id: string) {
-      setSelected((prev) =>
-        prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
-      )
+      setSelected((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]))
     }
 
     return (
-      <div style={{ width: 260, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{ padding: '10px 14px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          width: 260,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            padding: '10px 14px',
+            borderBottom: '1px solid #f1f5f9',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>레이블</span>
           {selected.length > 0 && (
-            <span style={{ fontSize: 11, color: '#6366f1', fontWeight: 600 }}>{selected.length}개 선택</span>
+            <span style={{ fontSize: 11, color: '#6366f1', fontWeight: 600 }}>
+              {selected.length}개 선택
+            </span>
           )}
         </div>
         {TRACKER_LABELS_137.map((l) => {
@@ -1350,24 +1863,45 @@ export const IssueTracker_이슈_레이블_필터: Story = {
               key={l.id}
               onClick={() => toggle(l.id)}
               style={{
-                display: 'flex', alignItems: 'center', gap: 10, padding: '8px 14px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '8px 14px',
                 background: checked ? l.color + '0a' : '#fff',
-                borderBottom: '1px solid #f8fafc', cursor: 'pointer', transition: 'background 150ms',
+                borderBottom: '1px solid #f8fafc',
+                cursor: 'pointer',
+                transition: 'background 150ms',
               }}
             >
-              <Checkbox
-                checked={checked}
-                onChange={() => toggle(l.id)}
+              <Checkbox checked={checked} onChange={() => toggle(l.id)} />
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: l.color,
+                  flexShrink: 0,
+                }}
               />
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: l.color, flexShrink: 0 }} />
-              <span style={{ fontSize: 12, fontWeight: checked ? 600 : 400, color: '#0f172a', flex: 1 }}>{l.label}</span>
+              <span
+                style={{ fontSize: 12, fontWeight: checked ? 600 : 400, color: '#0f172a', flex: 1 }}
+              >
+                {l.label}
+              </span>
             </div>
           )
         })}
         <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9' }}>
           <button
             onClick={() => setSelected([])}
-            style={{ fontSize: 11, color: '#94a3b8', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
+            style={{
+              fontSize: 11,
+              color: '#94a3b8',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+              padding: 0,
+            }}
           >
             선택 초기화
           </button>
@@ -1403,7 +1937,7 @@ export const Primitive_권한_설정_매트릭스: Story = {
     const [perms, setPerms] = useState<PermRow[]>(RADIX_PERMISSIONS_137)
 
     function toggleCell(idx: number, key: PermKey) {
-      setPerms((prev) => prev.map((r, i) => i === idx ? { ...r, [key]: !r[key] } : r))
+      setPerms((prev) => prev.map((r, i) => (i === idx ? { ...r, [key]: !r[key] } : r)))
     }
 
     function getColState(key: PermKey): boolean {
@@ -1424,21 +1958,62 @@ export const Primitive_권한_설정_매트릭스: Story = {
     const colLabels = { read: '읽기', write: '쓰기', delete: '삭제' }
 
     return (
-      <div style={{ fontFamily: 'system-ui, sans-serif', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', width: 380 }}>
-        <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+      <div
+        style={{
+          fontFamily: 'system-ui, sans-serif',
+          borderRadius: 12,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+          width: 380,
+        }}
+      >
+        <div
+          style={{
+            padding: '12px 16px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#0f172a',
+          }}
+        >
           리소스 권한 설정
         </div>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: '#fafbfc' }}>
-              <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#64748b', width: '45%' }}>리소스</th>
+              <th
+                style={{
+                  padding: '10px 16px',
+                  textAlign: 'left',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: '#64748b',
+                  width: '45%',
+                }}
+              >
+                리소스
+              </th>
               {cols.map((col) => (
-                <th key={col} style={{ padding: '10px', textAlign: 'center', fontSize: 12, fontWeight: 600, color: '#64748b' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-                    <Checkbox
-                      checked={getColState(col)}
-                      onChange={() => toggleCol(col)}
-                    />
+                <th
+                  key={col}
+                  style={{
+                    padding: '10px',
+                    textAlign: 'center',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: '#64748b',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 4,
+                    }}
+                  >
+                    <Checkbox checked={getColState(col)} onChange={() => toggleCol(col)} />
                     <span>{colLabels[col]}</span>
                   </div>
                 </th>
@@ -1448,7 +2023,11 @@ export const Primitive_권한_설정_매트릭스: Story = {
           <tbody>
             {perms.map((row, idx) => (
               <tr key={row.resource} style={{ borderTop: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '10px 16px', fontSize: 13, color: '#0f172a', fontWeight: 500 }}>{row.resource}</td>
+                <td
+                  style={{ padding: '10px 16px', fontSize: 13, color: '#0f172a', fontWeight: 500 }}
+                >
+                  {row.resource}
+                </td>
                 {cols.map((col) => (
                   <td key={col} style={{ padding: '10px', textAlign: 'center' }}>
                     <Checkbox
@@ -1477,7 +2056,11 @@ const SPRINT_TASKS_137 = [
   { id: 6, title: 'git push & 배포', priority: 'medium', done: false },
 ]
 
-const PRIORITY_COLOR_137: Record<string, string> = { high: '#ef4444', medium: '#f59e0b', low: '#64748b' }
+const PRIORITY_COLOR_137: Record<string, string> = {
+  high: '#ef4444',
+  medium: '#f59e0b',
+  low: '#64748b',
+}
 
 export const IssueTracker_Primitive_스프린트_체크리스트: Story = {
   name: 'IssueTracker + Primitive — 스프린트 완료 체크리스트 (Cycle 137)',
@@ -1494,7 +2077,7 @@ export const IssueTracker_Primitive_스프린트_체크리스트: Story = {
     const [tasks, setTasks] = useState(SPRINT_TASKS_137)
 
     function toggle(id: number) {
-      setTasks((prev) => prev.map((t) => t.id === id ? { ...t, done: !t.done } : t))
+      setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)))
     }
 
     const doneCount = tasks.filter((t) => t.done).length
@@ -1503,14 +2086,42 @@ export const IssueTracker_Primitive_스프린트_체크리스트: Story = {
     const progress = Math.round((doneCount / total) * 100)
 
     return (
-      <div style={{ width: 340, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div
+        style={{
+          width: 340,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          borderRadius: 14,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
         <div style={{ padding: '14px 16px', borderBottom: '1px solid #f1f5f9' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-            <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Cycle 137 스프린트</span>
-            <span style={{ fontSize: 11, color: allDone ? '#22c55e' : '#94a3b8', fontWeight: 600 }}>{doneCount}/{total}</span>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 8,
+            }}
+          >
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+              Cycle 137 스프린트
+            </span>
+            <span style={{ fontSize: 11, color: allDone ? '#22c55e' : '#94a3b8', fontWeight: 600 }}>
+              {doneCount}/{total}
+            </span>
           </div>
           <div style={{ height: 4, background: '#f1f5f9', borderRadius: 99 }}>
-            <div style={{ height: '100%', width: `${progress}%`, background: allDone ? '#22c55e' : '#6366f1', borderRadius: 99, transition: 'width 300ms ease, background 300ms' }} />
+            <div
+              style={{
+                height: '100%',
+                width: `${progress}%`,
+                background: allDone ? '#22c55e' : '#6366f1',
+                borderRadius: 99,
+                transition: 'width 300ms ease, background 300ms',
+              }}
+            />
           </div>
         </div>
         {tasks.map((task) => (
@@ -1518,27 +2129,51 @@ export const IssueTracker_Primitive_스프린트_체크리스트: Story = {
             key={task.id}
             onClick={() => toggle(task.id)}
             style={{
-              display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px',
-              borderBottom: '1px solid #f8fafc', cursor: 'pointer',
-              background: task.done ? '#f8fafc' : '#fff', transition: 'background 150ms',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 16px',
+              borderBottom: '1px solid #f8fafc',
+              cursor: 'pointer',
+              background: task.done ? '#f8fafc' : '#fff',
+              transition: 'background 150ms',
             }}
           >
-            <Checkbox
-              checked={task.done}
-              onChange={() => toggle(task.id)}
+            <Checkbox checked={task.done} onChange={() => toggle(task.id)} />
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: PRIORITY_COLOR_137[task.priority],
+                flexShrink: 0,
+              }}
             />
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: PRIORITY_COLOR_137[task.priority], flexShrink: 0 }} />
-            <span style={{
-              fontSize: 12, color: task.done ? '#94a3b8' : '#0f172a',
-              textDecoration: task.done ? 'line-through' : 'none',
-              transition: 'all 200ms', flex: 1,
-            }}>
+            <span
+              style={{
+                fontSize: 12,
+                color: task.done ? '#94a3b8' : '#0f172a',
+                textDecoration: task.done ? 'line-through' : 'none',
+                transition: 'all 200ms',
+                flex: 1,
+              }}
+            >
               {task.title}
             </span>
           </div>
         ))}
         {allDone && (
-          <div style={{ padding: '12px 16px', background: '#f0fdf4', borderTop: '1px solid #dcfce7', fontSize: 12, color: '#16a34a', fontWeight: 600, textAlign: 'center' }}>
+          <div
+            style={{
+              padding: '12px 16px',
+              background: '#f0fdf4',
+              borderTop: '1px solid #dcfce7',
+              fontSize: 12,
+              color: '#16a34a',
+              fontWeight: 600,
+              textAlign: 'center',
+            }}
+          >
             스프린트 완료! 모든 작업이 완료되었습니다.
           </div>
         )}
@@ -1555,24 +2190,30 @@ type TreeNode = { id: string; label: string; children?: TreeNode[] }
 
 const CHAKRA_TREE: TreeNode[] = [
   {
-    id: 'frontend', label: '프론트엔드', children: [
+    id: 'frontend',
+    label: '프론트엔드',
+    children: [
       { id: 'react', label: 'React' },
       { id: 'ts', label: 'TypeScript' },
       { id: 'css', label: 'CSS/UtilityCSS' },
-    ]
+    ],
   },
   {
-    id: 'backend', label: '백엔드', children: [
+    id: 'backend',
+    label: '백엔드',
+    children: [
       { id: 'node', label: 'Node.js' },
       { id: 'go', label: 'Go' },
       { id: 'db', label: 'Database' },
-    ]
+    ],
   },
   {
-    id: 'devops', label: 'DevOps', children: [
+    id: 'devops',
+    label: 'DevOps',
+    children: [
       { id: 'docker', label: 'Docker' },
       { id: 'k8s', label: 'Kubernetes' },
-    ]
+    ],
   },
 ]
 
@@ -1580,55 +2221,109 @@ function AccessibleNestedCheckboxRender() {
   const [checked, setChecked] = useState<Set<string>>(new Set(['react', 'ts']))
 
   const toggleLeaf = (id: string) => {
-    setChecked(prev => {
+    setChecked((prev) => {
       const next = new Set(prev)
-      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
       return next
     })
   }
 
   const toggleGroup = (node: TreeNode) => {
-    const leafIds = (node.children ?? []).map(c => c.id)
-    const allChecked = leafIds.every(id => checked.has(id))
-    setChecked(prev => {
+    const leafIds = (node.children ?? []).map((c) => c.id)
+    const allChecked = leafIds.every((id) => checked.has(id))
+    setChecked((prev) => {
       const next = new Set(prev)
-      if (allChecked) { leafIds.forEach(id => next.delete(id)) } else { leafIds.forEach(id => next.add(id)) }
+      if (allChecked) {
+        leafIds.forEach((id) => next.delete(id))
+      } else {
+        leafIds.forEach((id) => next.add(id))
+      }
       return next
     })
   }
 
   const getGroupState = (node: TreeNode): 'checked' | 'indeterminate' | 'unchecked' => {
-    const leafIds = (node.children ?? []).map(c => c.id)
-    const checkedCount = leafIds.filter(id => checked.has(id)).length
-    if (checkedCount === 0) { return 'unchecked' }
-    if (checkedCount === leafIds.length) { return 'checked' }
+    const leafIds = (node.children ?? []).map((c) => c.id)
+    const checkedCount = leafIds.filter((id) => checked.has(id)).length
+    if (checkedCount === 0) {
+      return 'unchecked'
+    }
+    if (checkedCount === leafIds.length) {
+      return 'checked'
+    }
     return 'indeterminate'
   }
 
   return (
     <div style={{ width: 280, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>기술 스택 선택</p>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 12,
+        }}
+      >
+        기술 스택 선택
+      </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {CHAKRA_TREE.map(group => {
+        {CHAKRA_TREE.map((group) => {
           const state = getGroupState(group)
           return (
-            <div key={group.id} style={{ border: '1px solid #f1f5f9', borderRadius: 10, overflow: 'hidden' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: '#f8fafc', cursor: 'pointer' }} onClick={() => toggleGroup(group)}>
+            <div
+              key={group.id}
+              style={{ border: '1px solid #f1f5f9', borderRadius: 10, overflow: 'hidden' }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '10px 12px',
+                  background: '#f8fafc',
+                  cursor: 'pointer',
+                }}
+                onClick={() => toggleGroup(group)}
+              >
                 <Checkbox
                   checked={state === 'checked'}
                   iconName={state === 'indeterminate' ? 'minus' : 'check'}
                   onChange={() => toggleGroup(group)}
-                  onClick={e => e.stopPropagation()}
+                  onClick={(e) => e.stopPropagation()}
                 />
-                <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{group.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+                  {group.label}
+                </span>
                 <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>
-                  {(group.children ?? []).filter(c => checked.has(c.id)).length}/{(group.children ?? []).length}
+                  {(group.children ?? []).filter((c) => checked.has(c.id)).length}/
+                  {(group.children ?? []).length}
                 </span>
               </div>
-              <div style={{ padding: '6px 12px 10px 36px', display: 'flex', flexDirection: 'column', gap: 6 }}>
-                {(group.children ?? []).map(child => (
-                  <div key={child.id} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} onClick={() => toggleLeaf(child.id)}>
-                    <Checkbox checked={checked.has(child.id)} onChange={() => toggleLeaf(child.id)} onClick={e => e.stopPropagation()} />
+              <div
+                style={{
+                  padding: '6px 12px 10px 36px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 6,
+                }}
+              >
+                {(group.children ?? []).map((child) => (
+                  <div
+                    key={child.id}
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+                    onClick={() => toggleLeaf(child.id)}
+                  >
+                    <Checkbox
+                      checked={checked.has(child.id)}
+                      onChange={() => toggleLeaf(child.id)}
+                      onClick={(e) => e.stopPropagation()}
+                    />
                     <span style={{ fontSize: 12, color: '#475569' }}>{child.label}</span>
                   </div>
                 ))}
@@ -1637,7 +2332,17 @@ function AccessibleNestedCheckboxRender() {
           )
         })}
       </div>
-      <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: '#f0eeff', fontSize: 11, color: '#6366f1', fontWeight: 600 }}>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '8px 12px',
+          borderRadius: 8,
+          background: '#f0eeff',
+          fontSize: 11,
+          color: '#6366f1',
+          fontWeight: 600,
+        }}
+      >
         {checked.size}개 선택됨
       </div>
     </div>
@@ -1649,7 +2354,8 @@ export const Accessible_중첩_체크박스_그룹: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI의 Nested Checkbox Group 패턴. 부모-자식 계층 구조에서 부분 선택(indeterminate)을 iconName="minus"로 표현합니다.',
+        story:
+          'AccessibleUI의 Nested Checkbox Group 패턴. 부모-자식 계층 구조에서 부분 선택(indeterminate)을 iconName="minus"로 표현합니다.',
       },
     },
   },
@@ -1661,13 +2367,25 @@ export const Accessible_중첩_체크박스_그룹: Story = {
 -------------------------------------------------------------------------- */
 const ARCO_ROWS = [
   { id: '1', name: '사용자_분석_보고서.csv', size: '2.4 MB', type: 'CSV', modified: '오늘' },
-  { id: '2', name: '컴포넌트_디자인_v2.fig', size: '18.7 MB', type: 'DesignTool', modified: '어제' },
+  {
+    id: '2',
+    name: '컴포넌트_디자인_v2.fig',
+    size: '18.7 MB',
+    type: 'DesignTool',
+    modified: '어제',
+  },
   { id: '3', name: '온보딩_플로우.pdf', size: '1.2 MB', type: 'PDF', modified: '2일 전' },
   { id: '4', name: 'orbit-ui-theme.ts', size: '45 KB', type: 'TypeScript', modified: '3일 전' },
   { id: '5', name: '스프린트_회고.md', size: '12 KB', type: 'Markdown', modified: '1주 전' },
 ]
 
-const FILE_TYPE_COLOR: Record<string, string> = { CSV: '#22c55e', DesignTool: '#8b5cf6', PDF: '#ef4444', TypeScript: '#3b82f6', Markdown: '#64748b' }
+const FILE_TYPE_COLOR: Record<string, string> = {
+  CSV: '#22c55e',
+  DesignTool: '#8b5cf6',
+  PDF: '#ef4444',
+  TypeScript: '#3b82f6',
+  Markdown: '#64748b',
+}
 
 function DataProductTableRowSelectRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set())
@@ -1676,13 +2394,21 @@ function DataProductTableRowSelectRender() {
   const someSelected = selected.size > 0 && !allSelected
 
   const toggleAll = () => {
-    if (allSelected) { setSelected(new Set()) } else { setSelected(new Set(ARCO_ROWS.map(r => r.id))) }
+    if (allSelected) {
+      setSelected(new Set())
+    } else {
+      setSelected(new Set(ARCO_ROWS.map((r) => r.id)))
+    }
   }
 
   const toggleRow = (id: string) => {
-    setSelected(prev => {
+    setSelected((prev) => {
       const next = new Set(prev)
-      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
       return next
     })
   }
@@ -1692,40 +2418,114 @@ function DataProductTableRowSelectRender() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
         <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>파일 목록</span>
         {selected.size > 0 && (
-          <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: '#f0eeff', color: '#6366f1', fontWeight: 700 }}>{selected.size}개 선택됨</span>
+          <span
+            style={{
+              fontSize: 11,
+              padding: '2px 8px',
+              borderRadius: 6,
+              background: '#f0eeff',
+              color: '#6366f1',
+              fontWeight: 700,
+            }}
+          >
+            {selected.size}개 선택됨
+          </span>
         )}
         {selected.size > 0 && (
-          <button onClick={() => setSelected(new Set())} style={{ marginLeft: 'auto', padding: '4px 10px', fontSize: 11, borderRadius: 6, border: '1px solid #fca5a5', background: '#fff', color: '#ef4444', cursor: 'pointer' }}>선택 항목 삭제</button>
+          <button
+            onClick={() => setSelected(new Set())}
+            style={{
+              marginLeft: 'auto',
+              padding: '4px 10px',
+              fontSize: 11,
+              borderRadius: 6,
+              border: '1px solid #fca5a5',
+              background: '#fff',
+              color: '#ef4444',
+              cursor: 'pointer',
+            }}
+          >
+            선택 항목 삭제
+          </button>
         )}
       </div>
       <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
-              <th style={{ width: 40, padding: '10px 12px', textAlign: 'center', borderBottom: '1px solid #e2e8f0' }}>
+              <th
+                style={{
+                  width: 40,
+                  padding: '10px 12px',
+                  textAlign: 'center',
+                  borderBottom: '1px solid #e2e8f0',
+                }}
+              >
                 <Checkbox
                   checked={allSelected}
                   iconName={someSelected ? 'minus' : 'check'}
                   onChange={toggleAll}
                 />
               </th>
-              {['이름', '크기', '형식', '수정일'].map(h => (
-                <th key={h} style={{ padding: '10px 12px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>{h}</th>
+              {['이름', '크기', '형식', '수정일'].map((h) => (
+                <th
+                  key={h}
+                  style={{
+                    padding: '10px 12px',
+                    textAlign: 'left',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: '#64748b',
+                    borderBottom: '1px solid #e2e8f0',
+                  }}
+                >
+                  {h}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {ARCO_ROWS.map(row => (
-              <tr key={row.id} onClick={() => toggleRow(row.id)} style={{ borderBottom: '1px solid #f1f5f9', background: selected.has(row.id) ? '#f5f3ff' : '#fff', cursor: 'pointer', transition: 'background 0.1s' }}>
+            {ARCO_ROWS.map((row) => (
+              <tr
+                key={row.id}
+                onClick={() => toggleRow(row.id)}
+                style={{
+                  borderBottom: '1px solid #f1f5f9',
+                  background: selected.has(row.id) ? '#f5f3ff' : '#fff',
+                  cursor: 'pointer',
+                  transition: 'background 0.1s',
+                }}
+              >
                 <td style={{ padding: '8px 12px', textAlign: 'center' }}>
-                  <Checkbox checked={selected.has(row.id)} onChange={() => toggleRow(row.id)} onClick={e => e.stopPropagation()} />
+                  <Checkbox
+                    checked={selected.has(row.id)}
+                    onChange={() => toggleRow(row.id)}
+                    onClick={(e) => e.stopPropagation()}
+                  />
                 </td>
-                <td style={{ padding: '8px 12px', fontSize: 12, color: '#1e293b', fontWeight: 500 }}>{row.name}</td>
+                <td
+                  style={{ padding: '8px 12px', fontSize: 12, color: '#1e293b', fontWeight: 500 }}
+                >
+                  {row.name}
+                </td>
                 <td style={{ padding: '8px 12px', fontSize: 11, color: '#94a3b8' }}>{row.size}</td>
                 <td style={{ padding: '8px 12px' }}>
-                  <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: `${FILE_TYPE_COLOR[row.type]}15`, color: FILE_TYPE_COLOR[row.type], fontWeight: 600 }}>{row.type}</span>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      padding: '2px 6px',
+                      borderRadius: 4,
+                      background: `${FILE_TYPE_COLOR[row.type]}15`,
+                      color: FILE_TYPE_COLOR[row.type],
+                      fontWeight: 600,
+                    }}
+                  >
+                    {row.type}
+                  </span>
                 </td>
-                <td style={{ padding: '8px 12px', fontSize: 11, color: '#94a3b8' }}>{row.modified}</td>
+                <td style={{ padding: '8px 12px', fontSize: 11, color: '#94a3b8' }}>
+                  {row.modified}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -1740,7 +2540,8 @@ export const DataProduct_테이블_행_선택_체크박스: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI의 Table Row Selection 패턴. 헤더 체크박스로 전체 선택/해제, 부분 선택 시 indeterminate(iconName="minus") 상태 표현.',
+        story:
+          'DataProductUI의 Table Row Selection 패턴. 헤더 체크박스로 전체 선택/해제, 부분 선택 시 indeterminate(iconName="minus") 상태 표현.',
       },
     },
   },
@@ -1762,10 +2563,10 @@ const PERMISSIONS_161 = [
 type Matrix = Record<string, Record<string, boolean>>
 
 const DEFAULT_MATRIX: Matrix = {
-  '관리자': { read: true, write: true, delete: true, admin: true, deploy: true },
-  '개발자': { read: true, write: true, delete: false, admin: false, deploy: true },
-  '디자이너': { read: true, write: true, delete: false, admin: false, deploy: false },
-  '뷰어': { read: true, write: false, delete: false, admin: false, deploy: false },
+  관리자: { read: true, write: true, delete: true, admin: true, deploy: true },
+  개발자: { read: true, write: true, delete: false, admin: false, deploy: true },
+  디자이너: { read: true, write: true, delete: false, admin: false, deploy: false },
+  뷰어: { read: true, write: false, delete: false, admin: false, deploy: false },
 }
 
 function AccessibleDataProductPermissionMatrixRender() {
@@ -1773,9 +2574,9 @@ function AccessibleDataProductPermissionMatrixRender() {
   const [saved, setSaved] = useState(false)
 
   const toggle = (role: string, perm: string) => {
-    setMatrix(prev => ({
+    setMatrix((prev) => ({
       ...prev,
-      [role]: { ...prev[role], [perm]: !prev[role][perm] }
+      [role]: { ...prev[role], [perm]: !prev[role][perm] },
     }))
   }
 
@@ -1789,28 +2590,75 @@ function AccessibleDataProductPermissionMatrixRender() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>역할별 권한 설정</span>
         <span style={{ marginLeft: 'auto' }}>
-          <button onClick={handleSave} style={{ padding: '6px 14px', fontSize: 12, borderRadius: 8, border: 'none', background: saved ? '#22c55e' : '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 600, transition: 'background 0.2s' }}>{saved ? '저장 완료' : '저장'}</button>
+          <button
+            onClick={handleSave}
+            style={{
+              padding: '6px 14px',
+              fontSize: 12,
+              borderRadius: 8,
+              border: 'none',
+              background: saved ? '#22c55e' : '#6366f1',
+              color: '#fff',
+              cursor: 'pointer',
+              fontWeight: 600,
+              transition: 'background 0.2s',
+            }}
+          >
+            {saved ? '저장 완료' : '저장'}
+          </button>
         </span>
       </div>
       <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: '#f8fafc' }}>
-              <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>권한</th>
-              {ROLES_161.map(role => (
-                <th key={role} style={{ padding: '10px 12px', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0', textAlign: 'center' }}>{role}</th>
+              <th
+                style={{
+                  padding: '10px 14px',
+                  textAlign: 'left',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#64748b',
+                  borderBottom: '1px solid #e2e8f0',
+                }}
+              >
+                권한
+              </th>
+              {ROLES_161.map((role) => (
+                <th
+                  key={role}
+                  style={{
+                    padding: '10px 12px',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: '#64748b',
+                    borderBottom: '1px solid #e2e8f0',
+                    textAlign: 'center',
+                  }}
+                >
+                  {role}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {PERMISSIONS_161.map(perm => (
+            {PERMISSIONS_161.map((perm) => (
               <tr key={perm.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '10px 14px' }}>
-                  <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{perm.label}</div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>
+                    {perm.label}
+                  </div>
                   <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{perm.desc}</div>
                 </td>
-                {ROLES_161.map(role => (
-                  <td key={role} style={{ padding: '10px 12px', textAlign: 'center', background: matrix[role][perm.id] ? '#f5f3ff' : 'transparent' }}>
+                {ROLES_161.map((role) => (
+                  <td
+                    key={role}
+                    style={{
+                      padding: '10px 12px',
+                      textAlign: 'center',
+                      background: matrix[role][perm.id] ? '#f5f3ff' : 'transparent',
+                    }}
+                  >
                     <Checkbox
                       checked={matrix[role][perm.id]}
                       onChange={() => toggle(role, perm.id)}
@@ -1823,7 +2671,9 @@ function AccessibleDataProductPermissionMatrixRender() {
           </tbody>
         </table>
       </div>
-      <p style={{ fontSize: 10, color: '#94a3b8', marginTop: 8 }}>관리자 역할의 권한은 변경할 수 없습니다</p>
+      <p style={{ fontSize: 10, color: '#94a3b8', marginTop: 8 }}>
+        관리자 역할의 권한은 변경할 수 없습니다
+      </p>
     </div>
   )
 }
@@ -1833,7 +2683,8 @@ export const Accessible_DataProduct_권한_매트릭스_체크박스: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI + DataProductUI 복합 패턴. 역할-권한 2차원 매트릭스를 Checkbox 그리드로 구현하며 관리자 역할은 disabled 처리합니다.',
+        story:
+          'AccessibleUI + DataProductUI 복합 패턴. 역할-권한 2차원 매트릭스를 Checkbox 그리드로 구현하며 관리자 역할은 disabled 처리합니다.',
       },
     },
   },

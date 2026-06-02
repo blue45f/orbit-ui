@@ -27,9 +27,9 @@ export type UseFullscreenReturn = {
  * }
  * ```
  */
-export function useFullscreen<T extends Element = Element>(
-  ref: { current: T | null }
-): UseFullscreenReturn {
+export function useFullscreen<T extends Element = Element>(ref: {
+  current: T | null
+}): UseFullscreenReturn {
   const supported = typeof document !== 'undefined' && 'fullscreenElement' in document
   const [isFullscreen, setIsFullscreen] = useState(false)
 

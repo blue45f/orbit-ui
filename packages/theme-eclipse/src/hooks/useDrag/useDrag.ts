@@ -97,7 +97,7 @@ export function useDrag(options: UseDragOptions = {}): UseDragReturn {
         optionsRef.current.onDragEnd?.(next)
       },
     }),
-    [],
+    []
   )
 
   return { isDragging, dragProps }

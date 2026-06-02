@@ -1,9 +1,6 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 
-export function useAnimationFrame(
-  callback: (deltaTime: number) => void,
-  active = true,
-): void {
+export function useAnimationFrame(callback: (deltaTime: number) => void, active = true): void {
   const callbackRef = useRef(callback)
   useLayoutEffect(() => {
     callbackRef.current = callback

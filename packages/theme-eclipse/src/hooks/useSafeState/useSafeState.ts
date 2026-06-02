@@ -16,7 +16,7 @@ import type React from 'react'
  * ```
  */
 export function useSafeState<T>(
-  initialState: T | (() => T),
+  initialState: T | (() => T)
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
   const isMounted = useRef(false)
   const [state, setState] = useState(initialState)

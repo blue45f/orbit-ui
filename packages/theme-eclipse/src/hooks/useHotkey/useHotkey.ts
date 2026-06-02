@@ -45,11 +45,13 @@ export type HotkeyOptions = {
 export function useHotkey(
   combo: string,
   handler: (event: KeyboardEvent) => void,
-  options: HotkeyOptions = {},
+  options: HotkeyOptions = {}
 ): void {
   const { disabled = false, ignoreInputs = true, preventDefault = true } = options
   const handlerRef = useRef(handler)
-  useLayoutEffect(() => { handlerRef.current = handler })
+  useLayoutEffect(() => {
+    handlerRef.current = handler
+  })
 
   useEventListener('keydown', (event: Event) => {
     if (!(event instanceof KeyboardEvent)) return
@@ -76,7 +78,10 @@ const MOD_KEY_IS_META = (() => {
 })()
 
 function matchesCombo(event: KeyboardEvent, combo: string): boolean {
-  const parts = combo.toLowerCase().split('+').map((p) => p.trim())
+  const parts = combo
+    .toLowerCase()
+    .split('+')
+    .map((p) => p.trim())
   const requiredKey = parts.pop()
   if (!requiredKey) return false
   const need = {

@@ -63,7 +63,7 @@ describe('Loading', () => {
       <>
         <span id="loader-label">처리 중</span>
         <Loading aria-labelledby="loader-label" />
-      </>,
+      </>
     )
     const status = screen.getByRole('status')
     expect(status).toHaveAttribute('aria-labelledby', 'loader-label')

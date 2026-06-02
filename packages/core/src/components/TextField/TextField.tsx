@@ -376,10 +376,7 @@ const InternalTextFieldRoot = forwardRef<HTMLElement, TextFieldPropsWithAs>((pro
         <label
           id={labelId}
           htmlFor={inputId}
-          className={cn(
-            'text-sm',
-            disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
-          )}
+          className={cn('text-sm', disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer')}
           style={{ color: foregroundColor }}
         >
           {label}

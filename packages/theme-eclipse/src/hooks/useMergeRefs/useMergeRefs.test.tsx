@@ -30,9 +30,7 @@ describe('useMergeRefs', () => {
 
   it('null/undefined ref가 있어도 크래시 없이 동작한다', () => {
     const ref = { current: null } as React.MutableRefObject<HTMLDivElement | null>
-    const { result } = renderHook(() =>
-      useMergeRefs<HTMLDivElement>(null, undefined, ref),
-    )
+    const { result } = renderHook(() => useMergeRefs<HTMLDivElement>(null, undefined, ref))
 
     const div = document.createElement('div')
     expect(() => result.current(div)).not.toThrow()
@@ -42,9 +40,7 @@ describe('useMergeRefs', () => {
   it('RefObject.current와 RefCallback이 동시에 할당된다', () => {
     const ref = { current: null } as React.MutableRefObject<HTMLDivElement | null>
     const callback = vi.fn()
-    const { result } = renderHook(() =>
-      useMergeRefs<HTMLDivElement>(ref, callback),
-    )
+    const { result } = renderHook(() => useMergeRefs<HTMLDivElement>(ref, callback))
 
     const div = document.createElement('div')
     result.current(div)
@@ -56,9 +52,7 @@ describe('useMergeRefs', () => {
   it('노드가 detach될 때 null이 전달된다', () => {
     const ref = { current: null } as React.MutableRefObject<HTMLDivElement | null>
     const callback = vi.fn()
-    const { result } = renderHook(() =>
-      useMergeRefs<HTMLDivElement>(ref, callback),
-    )
+    const { result } = renderHook(() => useMergeRefs<HTMLDivElement>(ref, callback))
 
     const div = document.createElement('div')
     result.current(div)
@@ -76,7 +70,7 @@ describe('useMergeRefs', () => {
     const { result, rerender } = renderHook(
       ({ refs }: { refs: React.MutableRefObject<HTMLDivElement | null>[] }) =>
         useMergeRefs<HTMLDivElement>(...refs),
-      { initialProps: { refs: [refA] } },
+      { initialProps: { refs: [refA] } }
     )
 
     const firstCallback = result.current

@@ -195,14 +195,30 @@ const AntDestructiveDemo = () => {
   const [deleted, setDeleted] = useState(false)
 
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       {deleted ? (
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 10,
-          padding: '14px 20px', borderRadius: 10,
-          background: '#fef2f2', border: '1px solid #fecaca',
-          fontSize: 14, color: '#dc2626', fontWeight: 500,
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '14px 20px',
+            borderRadius: 10,
+            background: '#fef2f2',
+            border: '1px solid #fecaca',
+            fontSize: 14,
+            color: '#dc2626',
+            fontWeight: 500,
+          }}
+        >
           <DeleteLineIcon style={{ width: 18, height: 18 }} />
           프로젝트가 영구 삭제되었습니다.
         </div>
@@ -219,17 +235,26 @@ const AntDestructiveDemo = () => {
           </Alert.Trigger>
           <Alert.Top>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-              <div style={{
-                width: 36, height: 36, borderRadius: '50%',
-                background: '#fef2f2', border: '2px solid #fecaca',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-              }}>
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: '50%',
+                  background: '#fef2f2',
+                  border: '2px solid #fecaca',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
                 <DeleteLineIcon style={{ width: 18, height: 18, color: '#ef4444' }} />
               </div>
               <Alert.Title>프로젝트를 삭제하시겠습니까?</Alert.Title>
             </div>
             <Alert.Description>
-              이 작업은 되돌릴 수 없습니다. 프로젝트와 연결된 모든 데이터, 이슈, 코멘트가 영구적으로 삭제됩니다.
+              이 작업은 되돌릴 수 없습니다. 프로젝트와 연결된 모든 데이터, 이슈, 코멘트가 영구적으로
+              삭제됩니다.
             </Alert.Description>
           </Alert.Top>
           <Alert.Bottom direction="horizontal">
@@ -285,14 +310,30 @@ const ManitneConfirmTypingDemo = () => {
   const isMatch = inputVal.trim().toUpperCase() === targetText
 
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       {confirmed ? (
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 10,
-          padding: '14px 20px', borderRadius: 10,
-          background: '#f0fdf4', border: '1px solid #bbf7d0',
-          fontSize: 14, color: '#15803d', fontWeight: 500,
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '14px 20px',
+            borderRadius: 10,
+            background: '#f0fdf4',
+            border: '1px solid #bbf7d0',
+            fontSize: 14,
+            color: '#15803d',
+            fontWeight: 500,
+          }}
+        >
           <NotificationCheckFillIcon style={{ width: 18, height: 18 }} />
           작업이 실행되었습니다.
         </div>
@@ -305,18 +346,27 @@ const ManitneConfirmTypingDemo = () => {
           </Alert.Trigger>
           <Alert.Top>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-              <div style={{
-                width: 36, height: 36, borderRadius: '50%',
-                background: '#fffbeb', border: '2px solid #fde68a',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-              }}>
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: '50%',
+                  background: '#fffbeb',
+                  border: '2px solid #fde68a',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
                 <AlertLineIcon style={{ width: 18, height: 18, color: '#d97706' }} />
               </div>
               <Alert.Title>정말 계속하시겠습니까?</Alert.Title>
             </div>
             <Alert.Description>
               이 작업은 계정의 모든 설정과 데이터를 초기화합니다. 계속하려면 아래에{' '}
-              <strong style={{ color: '#ef4444', fontFamily: 'monospace' }}>DELETE</strong>를 입력하세요.
+              <strong style={{ color: '#ef4444', fontFamily: 'monospace' }}>DELETE</strong>를
+              입력하세요.
             </Alert.Description>
             <div style={{ marginTop: 14 }}>
               <TextField
@@ -344,7 +394,9 @@ const ManitneConfirmTypingDemo = () => {
                 width="100%"
                 disabled={!isMatch}
                 style={isMatch ? { background: '#ef4444', borderColor: '#ef4444' } : {}}
-                onClick={() => { if (isMatch) setConfirmed(true) }}
+                onClick={() => {
+                  if (isMatch) setConfirmed(true)
+                }}
               >
                 <Button.Center>초기화 실행</Button.Center>
               </Button>
@@ -390,14 +442,30 @@ const AsyncConfirmDemo = () => {
   }
 
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       {done ? (
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 10,
-          padding: '14px 20px', borderRadius: 10,
-          background: '#f0fdf4', border: '1px solid #bbf7d0',
-          fontSize: 14, color: '#15803d', fontWeight: 500,
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '14px 20px',
+            borderRadius: 10,
+            background: '#f0fdf4',
+            border: '1px solid #bbf7d0',
+            fontSize: 14,
+            color: '#15803d',
+            fontWeight: 500,
+          }}
+        >
           <NotificationCheckFillIcon style={{ width: 18, height: 18 }} />
           요청이 성공적으로 처리되었습니다.
         </div>
@@ -411,13 +479,19 @@ const AsyncConfirmDemo = () => {
           <Alert.Top>
             <Alert.Title>운영 환경에 배포하시겠습니까?</Alert.Title>
             <Alert.Description>
-              현재 스테이징 빌드(v2.4.1-rc.3)를 운영 환경에 배포합니다.
-              배포 완료까지 최대 5분이 소요될 수 있습니다.
+              현재 스테이징 빌드(v2.4.1-rc.3)를 운영 환경에 배포합니다. 배포 완료까지 최대 5분이
+              소요될 수 있습니다.
             </Alert.Description>
-            <div style={{
-              marginTop: 14, padding: '10px 14px', borderRadius: 8,
-              background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12,
-            }}>
+            <div
+              style={{
+                marginTop: 14,
+                padding: '10px 14px',
+                borderRadius: 8,
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+                fontSize: 12,
+              }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                 <span style={{ color: '#64748b' }}>빌드</span>
                 <code style={{ color: '#6366f1', fontWeight: 600 }}>v2.4.1-rc.3</code>
@@ -483,14 +557,30 @@ const DeployPlatformRemoveMemberDemo = () => {
   const member = { name: '이서연', email: 'seoyeon@example.com', role: 'Developer' }
 
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       {removed ? (
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 10,
-          padding: '14px 20px', borderRadius: 10,
-          background: '#f0fdf4', border: '1px solid #bbf7d0',
-          fontSize: 14, color: '#15803d', fontWeight: 500,
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '14px 20px',
+            borderRadius: 10,
+            background: '#f0fdf4',
+            border: '1px solid #bbf7d0',
+            fontSize: 14,
+            color: '#15803d',
+            fontWeight: 500,
+          }}
+        >
           <NotificationCheckFillIcon style={{ width: 18, height: 18 }} />
           {member.name}님이 팀에서 제거되었습니다.
         </div>
@@ -506,28 +596,50 @@ const DeployPlatformRemoveMemberDemo = () => {
             <Alert.Description>
               아래 멤버가 팀에서 제거되며, 모든 프로젝트 접근 권한을 잃게 됩니다.
             </Alert.Description>
-            <div style={{
-              marginTop: 14, padding: '12px 16px', borderRadius: 8,
-              background: '#f8fafc', border: '1px solid #e2e8f0',
-              display: 'flex', alignItems: 'center', gap: 12,
-            }}>
-              <div style={{
-                width: 36, height: 36, borderRadius: '50%',
-                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: '#fff', fontWeight: 700, fontSize: 15, flexShrink: 0,
-              }}>
+            <div
+              style={{
+                marginTop: 14,
+                padding: '12px 16px',
+                borderRadius: 8,
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+              }}
+            >
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontWeight: 700,
+                  fontSize: 15,
+                  flexShrink: 0,
+                }}
+              >
                 {member.name[0]}
               </div>
               <div>
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{member.name}</div>
                 <div style={{ fontSize: 12, color: '#64748b' }}>{member.email}</div>
               </div>
-              <div style={{
-                marginLeft: 'auto', fontSize: 11, fontWeight: 600,
-                padding: '2px 8px', borderRadius: 6,
-                background: '#e0e7ff', color: '#4338ca',
-              }}>
+              <div
+                style={{
+                  marginLeft: 'auto',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  padding: '2px 8px',
+                  borderRadius: 6,
+                  background: '#e0e7ff',
+                  color: '#4338ca',
+                }}
+              >
                 {member.role}
               </div>
             </div>
@@ -586,13 +698,29 @@ const DeployPlatformDowngradeDemo = () => {
   ]
 
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       {downgraded ? (
-        <div style={{
-          padding: '16px 20px', borderRadius: 10,
-          background: '#fffbeb', border: '1px solid #fde68a',
-          fontSize: 14, color: '#92400e', fontWeight: 500, maxWidth: 320, textAlign: 'center',
-        }}>
+        <div
+          style={{
+            padding: '16px 20px',
+            borderRadius: 10,
+            background: '#fffbeb',
+            border: '1px solid #fde68a',
+            fontSize: 14,
+            color: '#92400e',
+            fontWeight: 500,
+            maxWidth: 320,
+            textAlign: 'center',
+          }}
+        >
           Hobby 플랜으로 변경되었습니다. 일부 기능이 비활성화됩니다.
         </div>
       ) : (
@@ -607,21 +735,43 @@ const DeployPlatformDowngradeDemo = () => {
             <Alert.Description>
               다운그레이드 시 다음 기능들을 더 이상 사용할 수 없습니다.
             </Alert.Description>
-            <ul style={{ margin: '14px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <ul
+              style={{
+                margin: '14px 0 0',
+                padding: 0,
+                listStyle: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 8,
+              }}
+            >
               {lostFeatures.map((feature) => (
                 <li
                   key={feature}
                   style={{
-                    display: 'flex', alignItems: 'center', gap: 8,
-                    fontSize: 13, color: '#475569',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    fontSize: 13,
+                    color: '#475569',
                   }}
                 >
-                  <span style={{
-                    width: 16, height: 16, borderRadius: '50%',
-                    background: '#fef2f2', border: '1px solid #fecaca',
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 9, color: '#ef4444', fontWeight: 700, flexShrink: 0,
-                  }}>
+                  <span
+                    style={{
+                      width: 16,
+                      height: 16,
+                      borderRadius: '50%',
+                      background: '#fef2f2',
+                      border: '1px solid #fecaca',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 9,
+                      color: '#ef4444',
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}
+                  >
                     ✕
                   </span>
                   {feature}
@@ -672,22 +822,46 @@ const AntMultiStepConfirmDemo = () => {
 
   const STEPS = ['내용 확인', '약관 동의', '최종 확인']
 
-  const reset = () => { setStep(0); setAgreed(false) }
+  const reset = () => {
+    setStep(0)
+    setAgreed(false)
+  }
 
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       {step === 2 && agreed ? (
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 10,
-          padding: '14px 20px', borderRadius: 10,
-          background: '#f0fdf4', border: '1px solid #bbf7d0',
-          fontSize: 14, color: '#15803d', fontWeight: 500,
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '14px 20px',
+            borderRadius: 10,
+            background: '#f0fdf4',
+            border: '1px solid #bbf7d0',
+            fontSize: 14,
+            color: '#15803d',
+            fontWeight: 500,
+          }}
+        >
           <NotificationCheckFillIcon style={{ width: 18, height: 18 }} />
           법인 계좌 해지가 완료되었습니다.
         </div>
       ) : (
-        <Alert defaultIsPresented={false} onOpenChange={(open) => { if (!open) reset() }}>
+        <Alert
+          defaultIsPresented={false}
+          onOpenChange={(open) => {
+            if (!open) reset()
+          }}
+        >
           <Alert.Trigger asChild>
             <Button color="primary" size="medium">
               <Button.Center>법인 계좌 해지</Button.Center>
@@ -698,23 +872,52 @@ const AntMultiStepConfirmDemo = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 16 }}>
               {STEPS.map((label, i) => (
                 <React.Fragment key={label}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-                    <div style={{
-                      width: 24, height: 24, borderRadius: '50%',
-                      background: i <= step ? '#6366f1' : '#e2e8f0',
-                      color: i <= step ? '#fff' : '#94a3b8',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 11, fontWeight: 700, transition: 'all 0.2s',
-                    }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 4,
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: '50%',
+                        background: i <= step ? '#6366f1' : '#e2e8f0',
+                        color: i <= step ? '#fff' : '#94a3b8',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 11,
+                        fontWeight: 700,
+                        transition: 'all 0.2s',
+                      }}
+                    >
                       {i + 1}
                     </div>
-                    <span style={{ fontSize: 10, color: i <= step ? '#6366f1' : '#94a3b8', whiteSpace: 'nowrap' }}>{label}</span>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        color: i <= step ? '#6366f1' : '#94a3b8',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {label}
+                    </span>
                   </div>
                   {i < STEPS.length - 1 && (
-                    <div style={{
-                      flex: 1, height: 2, margin: '0 4px', marginBottom: 18,
-                      background: i < step ? '#6366f1' : '#e2e8f0', transition: 'background 0.2s',
-                    }} />
+                    <div
+                      style={{
+                        flex: 1,
+                        height: 2,
+                        margin: '0 4px',
+                        marginBottom: 18,
+                        background: i < step ? '#6366f1' : '#e2e8f0',
+                        transition: 'background 0.2s',
+                      }}
+                    />
                   )}
                 </React.Fragment>
               ))}
@@ -724,7 +927,8 @@ const AntMultiStepConfirmDemo = () => {
               <>
                 <Alert.Title>법인 계좌 해지 안내</Alert.Title>
                 <Alert.Description>
-                  해지 시 모든 자동이체가 중단되며, 잔여 포인트는 환급되지 않습니다. 계속하시려면 다음을 클릭하세요.
+                  해지 시 모든 자동이체가 중단되며, 잔여 포인트는 환급되지 않습니다. 계속하시려면
+                  다음을 클릭하세요.
                 </Alert.Description>
               </>
             )}
@@ -734,7 +938,17 @@ const AntMultiStepConfirmDemo = () => {
                 <Alert.Description>
                   해지 약관에 동의하셔야 다음 단계로 진행할 수 있습니다.
                 </Alert.Description>
-                <label style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 14, cursor: 'pointer', fontSize: 13, color: '#374151' }}>
+                <label
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    marginTop: 14,
+                    cursor: 'pointer',
+                    fontSize: 13,
+                    color: '#374151',
+                  }}
+                >
                   <input
                     type="checkbox"
                     checked={agreed}
@@ -762,7 +976,12 @@ const AntMultiStepConfirmDemo = () => {
                 </Button>
               </Alert.Close>
             ) : (
-              <Button color="gray" size="large" width="100%" onClick={() => setStep((s) => (s - 1) as 0 | 1 | 2)}>
+              <Button
+                color="gray"
+                size="large"
+                width="100%"
+                onClick={() => setStep((s) => (s - 1) as 0 | 1 | 2)}
+              >
                 <Button.Center>이전</Button.Center>
               </Button>
             )}
@@ -834,13 +1053,25 @@ export const UtilityCSS_구독_해지_확인: Story = {
         </Alert.Trigger>
         <Alert.Top>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-            <span style={{ width: 36, height: 36, borderRadius: '50%', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <span
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                background: '#fee2e2',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
               <AlertLineIcon style={{ width: 18, height: 18, color: '#dc2626' }} />
             </span>
             <Alert.Title>뉴스레터 구독을 해지하시겠습니까?</Alert.Title>
           </div>
           <Alert.Description>
-            구독 해지 시 주간 업데이트, 제품 소식 등 모든 이메일 수신이 중단됩니다. 언제든지 다시 구독할 수 있습니다.
+            구독 해지 시 주간 업데이트, 제품 소식 등 모든 이메일 수신이 중단됩니다. 언제든지 다시
+            구독할 수 있습니다.
           </Alert.Description>
         </Alert.Top>
         <Alert.Bottom direction="horizontal">
@@ -878,14 +1109,17 @@ const FileDeleteDemo = () => {
       <Alert defaultIsPresented={false}>
         <Alert.Trigger asChild>
           <Button color="gray" size="medium">
-            <Button.Leading><DeleteLineIcon /></Button.Leading>
+            <Button.Leading>
+              <DeleteLineIcon />
+            </Button.Leading>
             <Button.Center>파일 삭제</Button.Center>
           </Button>
         </Alert.Trigger>
         <Alert.Top>
           <Alert.Title>파일을 영구 삭제하시겠습니까?</Alert.Title>
           <Alert.Description>
-            이 작업은 취소할 수 없습니다. <b style={{ color: '#dc2626' }}>project-final</b> 폴더와 모든 하위 파일이 영구 삭제됩니다.
+            이 작업은 취소할 수 없습니다. <b style={{ color: '#dc2626' }}>project-final</b> 폴더와
+            모든 하위 파일이 영구 삭제됩니다.
           </Alert.Description>
           <div style={{ marginTop: 16 }}>
             <p style={{ fontSize: 13, color: '#64748b', marginBottom: 6 }}>
@@ -945,10 +1179,28 @@ export const UtilityCSS_파일_영구_삭제: Story = {
 const LeaveWarningDemo = () => {
   const [saved, setSaved] = React.useState<string | null>(null)
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       {saved && (
-        <div style={{ padding: '10px 20px', borderRadius: 8, background: saved === 'saved' ? '#dcfce7' : '#fef9c3', fontSize: 13, color: saved === 'saved' ? '#15803d' : '#854d0e' }}>
-          {saved === 'saved' ? '변경 사항이 저장되었습니다.' : '변경 사항이 저장되지 않고 이동합니다.'}
+        <div
+          style={{
+            padding: '10px 20px',
+            borderRadius: 8,
+            background: saved === 'saved' ? '#dcfce7' : '#fef9c3',
+            fontSize: 13,
+            color: saved === 'saved' ? '#15803d' : '#854d0e',
+          }}
+        >
+          {saved === 'saved'
+            ? '변경 사항이 저장되었습니다.'
+            : '변경 사항이 저장되지 않고 이동합니다.'}
         </div>
       )}
       <Alert defaultIsPresented={false}>
@@ -960,7 +1212,8 @@ const LeaveWarningDemo = () => {
         <Alert.Top>
           <Alert.Title>변경 사항을 저장하시겠습니까?</Alert.Title>
           <Alert.Description>
-            저장하지 않으면 이 페이지에서 변경한 내용이 모두 사라집니다. 계속 진행하기 전에 저장 여부를 선택해 주세요.
+            저장하지 않으면 이 페이지에서 변경한 내용이 모두 사라집니다. 계속 진행하기 전에 저장
+            여부를 선택해 주세요.
           </Alert.Description>
         </Alert.Top>
         <Alert.Bottom direction="vertical">
@@ -975,7 +1228,12 @@ const LeaveWarningDemo = () => {
             </Button>
           </Alert.Action>
           <Alert.Close asChild>
-            <Button color="gray" size="large" width="100%" style={{ background: 'transparent', borderColor: 'transparent', color: '#64748b' }}>
+            <Button
+              color="gray"
+              size="large"
+              width="100%"
+              style={{ background: 'transparent', borderColor: 'transparent', color: '#64748b' }}
+            >
               <Button.Center>계속 편집</Button.Center>
             </Button>
           </Alert.Close>
@@ -1009,7 +1267,15 @@ const UtilityCSSUpgradeRender = () => {
   const [confirmed, setConfirmed] = useState(false)
 
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       <Alert>
         <Alert.Trigger asChild>
           <Button color="primary" size="medium">
@@ -1021,22 +1287,49 @@ const UtilityCSSUpgradeRender = () => {
           <Alert.Description>
             <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
               {[
-                { label: 'Free (현재)', items: ['컴포넌트 50개', '1 워크스페이스', '커뮤니티 지원'], highlight: false },
-                { label: 'Pro', items: ['무제한 컴포넌트', '팀 워크스페이스', '우선 지원'], highlight: true },
+                {
+                  label: 'Free (현재)',
+                  items: ['컴포넌트 50개', '1 워크스페이스', '커뮤니티 지원'],
+                  highlight: false,
+                },
+                {
+                  label: 'Pro',
+                  items: ['무제한 컴포넌트', '팀 워크스페이스', '우선 지원'],
+                  highlight: true,
+                },
               ].map((plan) => (
                 <div
                   key={plan.label}
                   style={{
-                    flex: 1, padding: '12px', borderRadius: 10,
+                    flex: 1,
+                    padding: '12px',
+                    borderRadius: 10,
                     border: plan.highlight ? '2px solid #6366f1' : '1px solid #e2e8f0',
                     background: plan.highlight ? '#eff6ff' : '#f8fafc',
                   }}
                 >
-                  <div style={{ fontSize: 12, fontWeight: 700, color: plan.highlight ? '#6366f1' : '#64748b', marginBottom: 8 }}>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: plan.highlight ? '#6366f1' : '#64748b',
+                      marginBottom: 8,
+                    }}
+                  >
                     {plan.label}
                   </div>
                   {plan.items.map((item) => (
-                    <div key={item} style={{ fontSize: 11, color: '#475569', display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}>
+                    <div
+                      key={item}
+                      style={{
+                        fontSize: 11,
+                        color: '#475569',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 5,
+                        marginBottom: 4,
+                      }}
+                    >
                       <span style={{ color: plan.highlight ? '#6366f1' : '#94a3b8' }}>
                         {plan.highlight ? '✓' : '·'}
                       </span>
@@ -1046,7 +1339,17 @@ const UtilityCSSUpgradeRender = () => {
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 8, background: '#fffbeb', border: '1px solid #fde68a', fontSize: 11, color: '#92400e' }}>
+            <div
+              style={{
+                marginTop: 12,
+                padding: '8px 12px',
+                borderRadius: 8,
+                background: '#fffbeb',
+                border: '1px solid #fde68a',
+                fontSize: 11,
+                color: '#92400e',
+              }}
+            >
               월 ₩29,000 추가 청구. 현재 결제 방법으로 즉시 청구됩니다.
             </div>
           </Alert.Description>
@@ -1107,7 +1410,15 @@ const AppUIExportRender = () => {
   ]
 
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       <Alert>
         <Alert.Trigger asChild>
           <Button color="primary" size="medium">
@@ -1119,7 +1430,16 @@ const AppUIExportRender = () => {
           <Alert.Description>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 12 }}>
               <div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: '#64748b',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    marginBottom: 8,
+                  }}
+                >
                   포맷 선택
                 </div>
                 <div style={{ display: 'flex', gap: 6 }}>
@@ -1128,12 +1448,21 @@ const AppUIExportRender = () => {
                       key={opt.value}
                       onClick={() => setFormat(opt.value)}
                       style={{
-                        flex: 1, padding: '8px 4px', borderRadius: 8, cursor: 'pointer',
+                        flex: 1,
+                        padding: '8px 4px',
+                        borderRadius: 8,
+                        cursor: 'pointer',
                         border: format === opt.value ? '2px solid #6366f1' : '1px solid #e2e8f0',
                         background: format === opt.value ? '#eff6ff' : '#fafafa',
                       }}
                     >
-                      <div style={{ fontSize: 12, fontWeight: 700, color: format === opt.value ? '#6366f1' : '#1e293b' }}>
+                      <div
+                        style={{
+                          fontSize: 12,
+                          fontWeight: 700,
+                          color: format === opt.value ? '#6366f1' : '#1e293b',
+                        }}
+                      >
                         {opt.label}
                       </div>
                       <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>{opt.ext}</div>
@@ -1143,7 +1472,16 @@ const AppUIExportRender = () => {
                 </div>
               </div>
               <div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: '#64748b',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    marginBottom: 8,
+                  }}
+                >
                   내보낼 범위
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -1152,17 +1490,29 @@ const AppUIExportRender = () => {
                       key={opt.value}
                       onClick={() => setScope(opt.value)}
                       style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                        padding: '8px 12px', borderRadius: 8, cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '8px 12px',
+                        borderRadius: 8,
+                        cursor: 'pointer',
                         border: scope === opt.value ? '1.5px solid #6366f1' : '1px solid #e2e8f0',
                         background: scope === opt.value ? '#eff6ff' : '#fafafa',
                         textAlign: 'left',
                       }}
                     >
-                      <span style={{ fontSize: 12, fontWeight: scope === opt.value ? 700 : 400, color: scope === opt.value ? '#6366f1' : '#1e293b' }}>
+                      <span
+                        style={{
+                          fontSize: 12,
+                          fontWeight: scope === opt.value ? 700 : 400,
+                          color: scope === opt.value ? '#6366f1' : '#1e293b',
+                        }}
+                      >
                         {opt.label}
                       </span>
-                      <span style={{ fontSize: 11, color: '#94a3b8' }}>{opt.count.toLocaleString()}개</span>
+                      <span style={{ fontSize: 11, color: '#94a3b8' }}>
+                        {opt.count.toLocaleString()}개
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -1185,7 +1535,8 @@ const AppUIExportRender = () => {
       </Alert>
       {exported && (
         <p style={{ fontSize: 13, color: '#10b981', fontWeight: 600 }}>
-          {SCOPE_OPTS.find((o) => o.value === scope)?.count.toLocaleString()}개 항목을 {format.toUpperCase()}로 내보내는 중...
+          {SCOPE_OPTS.find((o) => o.value === scope)?.count.toLocaleString()}개 항목을{' '}
+          {format.toUpperCase()}로 내보내는 중...
         </p>
       )}
     </div>
@@ -1221,7 +1572,6 @@ const UtilityCSSSessionTimeoutRender = () => {
       return
     }
     if (seconds <= 0) {
-       
       setLoggedOut(true)
       setIsOpen(false)
       return
@@ -1232,9 +1582,26 @@ const UtilityCSSSessionTimeoutRender = () => {
 
   if (loggedOut) {
     return (
-      <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-        <div style={{ fontSize: 13, color: '#ef4444', fontWeight: 600 }}>세션이 만료되어 로그아웃되었습니다.</div>
-        <Button color="primary" size="medium" onClick={() => { setLoggedOut(false); setSeconds(30) }}>
+      <div
+        style={{
+          padding: '40px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 12,
+        }}
+      >
+        <div style={{ fontSize: 13, color: '#ef4444', fontWeight: 600 }}>
+          세션이 만료되어 로그아웃되었습니다.
+        </div>
+        <Button
+          color="primary"
+          size="medium"
+          onClick={() => {
+            setLoggedOut(false)
+            setSeconds(30)
+          }}
+        >
           <Button.Center>다시 시뮬레이션</Button.Center>
         </Button>
       </div>
@@ -1242,7 +1609,15 @@ const UtilityCSSSessionTimeoutRender = () => {
   }
 
   return (
-    <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       <Alert open={isOpen} onOpenChange={setIsOpen}>
         <Alert.Trigger asChild>
           <Button color="primary" size="medium" onClick={() => setIsOpen(true)}>
@@ -1252,13 +1627,26 @@ const UtilityCSSSessionTimeoutRender = () => {
         <Alert.Top>
           <Alert.Title>세션이 곧 만료됩니다</Alert.Title>
           <Alert.Description>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: '8px 0' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 16,
+                padding: '8px 0',
+              }}
+            >
               <div
                 style={{
-                  width: 80, height: 80, borderRadius: '50%',
+                  width: 80,
+                  height: 80,
+                  borderRadius: '50%',
                   border: `4px solid ${seconds <= 10 ? '#ef4444' : '#f59e0b'}`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 28, fontWeight: 800,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 28,
+                  fontWeight: 800,
                   color: seconds <= 10 ? '#ef4444' : '#f59e0b',
                   transition: 'color 0.3s, border-color 0.3s',
                 }}
@@ -1266,20 +1654,41 @@ const UtilityCSSSessionTimeoutRender = () => {
                 {seconds}
               </div>
               <div style={{ fontSize: 13, color: '#64748b', textAlign: 'center' }}>
-                보안을 위해 <strong style={{ color: seconds <= 10 ? '#ef4444' : '#1e293b' }}>{seconds}초</strong> 후 자동으로 로그아웃됩니다.
-                <br />지금 세션을 연장하시겠어요?
+                보안을 위해{' '}
+                <strong style={{ color: seconds <= 10 ? '#ef4444' : '#1e293b' }}>
+                  {seconds}초
+                </strong>{' '}
+                후 자동으로 로그아웃됩니다.
+                <br />
+                지금 세션을 연장하시겠어요?
               </div>
             </div>
           </Alert.Description>
         </Alert.Top>
         <Alert.Bottom direction="horizontal">
           <Alert.Action asChild>
-            <Button color="gray" size="large" width="100%" onClick={() => { setIsOpen(false); setLoggedOut(true) }}>
+            <Button
+              color="gray"
+              size="large"
+              width="100%"
+              onClick={() => {
+                setIsOpen(false)
+                setLoggedOut(true)
+              }}
+            >
               <Button.Center>로그아웃</Button.Center>
             </Button>
           </Alert.Action>
           <Alert.Action asChild>
-            <Button color="primary" size="large" width="100%" onClick={() => { setIsOpen(false); setSeconds(30) }}>
+            <Button
+              color="primary"
+              size="large"
+              width="100%"
+              onClick={() => {
+                setIsOpen(false)
+                setSeconds(30)
+              }}
+            >
               <Button.Center>세션 연장</Button.Center>
             </Button>
           </Alert.Action>
@@ -1310,17 +1719,46 @@ function AppUIMultiStepConfirmRender() {
   const [step, setStep] = useState<'confirm' | 'review' | null>(null)
   const [done, setDone] = useState(false)
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', fontFamily: 'system-ui, sans-serif' }}>
-      <Button color="primary" size="large" onClick={() => { setStep('confirm'); setDone(false) }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        alignItems: 'center',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <Button
+        color="primary"
+        size="large"
+        onClick={() => {
+          setStep('confirm')
+          setDone(false)
+        }}
+      >
         <Button.Center>계정 삭제 시작</Button.Center>
       </Button>
       {done && (
-        <div style={{ padding: '8px 16px', background: '#dcfce7', borderRadius: 8, fontSize: 12, color: '#16a34a', fontWeight: 600 }}>
+        <div
+          style={{
+            padding: '8px 16px',
+            background: '#dcfce7',
+            borderRadius: 8,
+            fontSize: 12,
+            color: '#16a34a',
+            fontWeight: 600,
+          }}
+        >
           삭제 처리가 접수되었습니다
         </div>
       )}
       {/* 1단계 */}
-      <Alert isPresented={step === 'confirm'} onIsPresentedChange={(open) => { if (!open) setStep(null) }}>
+      <Alert
+        isPresented={step === 'confirm'}
+        onIsPresentedChange={(open) => {
+          if (!open) setStep(null)
+        }}
+      >
         <Alert.Top>
           <Alert.Title>정말 계정을 삭제하시겠습니까?</Alert.Title>
           <Alert.Description>
@@ -1341,7 +1779,12 @@ function AppUIMultiStepConfirmRender() {
         </Alert.Bottom>
       </Alert>
       {/* 2단계 */}
-      <Alert isPresented={step === 'review'} onIsPresentedChange={(open) => { if (!open) setStep(null) }}>
+      <Alert
+        isPresented={step === 'review'}
+        onIsPresentedChange={(open) => {
+          if (!open) setStep(null)
+        }}
+      >
         <Alert.Top>
           <Alert.Title>최종 확인</Alert.Title>
           <Alert.Description>
@@ -1356,7 +1799,15 @@ function AppUIMultiStepConfirmRender() {
             </Button>
           </Alert.Action>
           <Alert.Action asChild>
-            <Button color="primary" size="large" width="100%" onClick={() => { setStep(null); setDone(true) }}>
+            <Button
+              color="primary"
+              size="large"
+              width="100%"
+              onClick={() => {
+                setStep(null)
+                setDone(true)
+              }}
+            >
               <Button.Center>영구 삭제</Button.Center>
             </Button>
           </Alert.Action>
@@ -1387,7 +1838,10 @@ function DataProductFormValidationRender() {
   const [error, setError] = useState('')
   const REASONS = ['기능 불만', '성능 문제', '비용 문제', '서비스 종료', '기타']
   const handleSubmit = () => {
-    if (!reason) { setError('사유를 선택해 주세요.'); return }
+    if (!reason) {
+      setError('사유를 선택해 주세요.')
+      return
+    }
     setIsOpen(false)
     setReason('')
     setError('')
@@ -1397,14 +1851,50 @@ function DataProductFormValidationRender() {
       <Button color="primary" size="large" onClick={() => setIsOpen(true)}>
         <Button.Center>구독 취소</Button.Center>
       </Button>
-      <Alert isPresented={isOpen} onIsPresentedChange={(open) => { setIsOpen(open); if (!open) { setReason(''); setError('') } }}>
+      <Alert
+        isPresented={isOpen}
+        onIsPresentedChange={(open) => {
+          setIsOpen(open)
+          if (!open) {
+            setReason('')
+            setError('')
+          }
+        }}
+      >
         <Alert.Top>
           <Alert.Title>구독을 취소하시겠습니까?</Alert.Title>
           <Alert.Description>취소 사유를 알려주시면 서비스 개선에 도움이 됩니다.</Alert.Description>
           <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
             {REASONS.map((r) => (
-              <label key={r} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 7, border: `1.5px solid ${reason === r ? '#0f172a' : '#e2e8f0'}`, cursor: 'pointer', background: reason === r ? '#f8fafc' : '#fff', fontSize: 13, color: '#0f172a' }} onClick={() => { setReason(r); setError('') }}>
-                <span style={{ width: 14, height: 14, borderRadius: '50%', border: `2px solid ${reason === r ? '#0f172a' : '#cbd5e1'}`, background: reason === r ? '#0f172a' : '#fff', flexShrink: 0 }} />
+              <label
+                key={r}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '8px 10px',
+                  borderRadius: 7,
+                  border: `1.5px solid ${reason === r ? '#0f172a' : '#e2e8f0'}`,
+                  cursor: 'pointer',
+                  background: reason === r ? '#f8fafc' : '#fff',
+                  fontSize: 13,
+                  color: '#0f172a',
+                }}
+                onClick={() => {
+                  setReason(r)
+                  setError('')
+                }}
+              >
+                <span
+                  style={{
+                    width: 14,
+                    height: 14,
+                    borderRadius: '50%',
+                    border: `2px solid ${reason === r ? '#0f172a' : '#cbd5e1'}`,
+                    background: reason === r ? '#0f172a' : '#fff',
+                    flexShrink: 0,
+                  }}
+                />
                 {r}
               </label>
             ))}
@@ -1461,13 +1951,29 @@ function AppUIDataProductAsyncConfirmRender() {
       })
     }, 300)
   }
-  const handleClose = () => { setIsOpen(false); setStatus('idle'); setProgress(0) }
+  const handleClose = () => {
+    setIsOpen(false)
+    setStatus('idle')
+    setProgress(0)
+  }
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif' }}>
-      <Button color="primary" size="large" onClick={() => { setIsOpen(true); setStatus('idle') }}>
+      <Button
+        color="primary"
+        size="large"
+        onClick={() => {
+          setIsOpen(true)
+          setStatus('idle')
+        }}
+      >
         <Button.Center>데이터 마이그레이션</Button.Center>
       </Button>
-      <Alert isPresented={isOpen} onIsPresentedChange={(open) => { if (!open && status !== 'running') handleClose() }}>
+      <Alert
+        isPresented={isOpen}
+        onIsPresentedChange={(open) => {
+          if (!open && status !== 'running') handleClose()
+        }}
+      >
         <Alert.Top>
           <Alert.Title>
             {status === 'idle' && '데이터 마이그레이션'}
@@ -1476,14 +1982,32 @@ function AppUIDataProductAsyncConfirmRender() {
             {status === 'error' && '오류 발생'}
           </Alert.Title>
           <Alert.Description>
-            {status === 'idle' && '3,200개 레코드를 새 스키마로 이전합니다. 완료까지 약 30초 소요됩니다.'}
-            {status === 'running' && `진행 중: ${Math.min(progress, 100)}% (진행 중에는 창을 닫지 마세요)`}
+            {status === 'idle' &&
+              '3,200개 레코드를 새 스키마로 이전합니다. 완료까지 약 30초 소요됩니다.'}
+            {status === 'running' &&
+              `진행 중: ${Math.min(progress, 100)}% (진행 중에는 창을 닫지 마세요)`}
             {status === 'done' && '모든 데이터가 성공적으로 이전되었습니다.'}
             {status === 'error' && '마이그레이션 중 오류가 발생했습니다. 다시 시도해 주세요.'}
           </Alert.Description>
           {(status === 'running' || status === 'done') && (
-            <div style={{ marginTop: 12, height: 6, background: '#f1f5f9', borderRadius: 99, overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: `${Math.min(progress, 100)}%`, background: status === 'done' ? '#22c55e' : '#6366f1', borderRadius: 99, transition: 'width 200ms ease' }} />
+            <div
+              style={{
+                marginTop: 12,
+                height: 6,
+                background: '#f1f5f9',
+                borderRadius: 99,
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{
+                  height: '100%',
+                  width: `${Math.min(progress, 100)}%`,
+                  background: status === 'done' ? '#22c55e' : '#6366f1',
+                  borderRadius: 99,
+                  transition: 'width 200ms ease',
+                }}
+              />
             </div>
           )}
         </Alert.Top>
@@ -1546,41 +2070,82 @@ function EnterpriseUIAccountDeleteRender() {
 
   const handleDelete = () => {
     setDeleting(true)
-    setTimeout(() => { setDeleting(false); setOpen(false); setInput('') }, 1800)
+    setTimeout(() => {
+      setDeleting(false)
+      setOpen(false)
+      setInput('')
+    }, 1800)
   }
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif' }}>
       <button
         onClick={() => setOpen(true)}
-        style={{ padding: '8px 18px', fontSize: 13, borderRadius: 8, border: 'none', background: '#ef4444', color: '#fff', cursor: 'pointer', fontWeight: 600 }}
+        style={{
+          padding: '8px 18px',
+          fontSize: 13,
+          borderRadius: 8,
+          border: 'none',
+          background: '#ef4444',
+          color: '#fff',
+          cursor: 'pointer',
+          fontWeight: 600,
+        }}
       >
         계정 삭제
       </button>
-      <Alert
-        isPresented={open}
-        onIsPresentedChange={setOpen}
-      >
+      <Alert isPresented={open} onIsPresentedChange={setOpen}>
         <Alert.Top>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '4px 0' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <DeleteLineIcon size={20} style={{ color: '#ef4444' }} />
-              <span style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>계정을 삭제하시겠습니까?</span>
+              <span style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>
+                계정을 삭제하시겠습니까?
+              </span>
             </div>
             <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6, margin: 0 }}>
-              이 작업은 되돌릴 수 없습니다. 모든 데이터, 프로젝트, 결제 정보가 영구적으로 삭제됩니다.
+              이 작업은 되돌릴 수 없습니다. 모든 데이터, 프로젝트, 결제 정보가 영구적으로
+              삭제됩니다.
             </p>
-            <div style={{ padding: '10px 12px', borderRadius: 8, background: '#fef2f2', border: '1px solid #fecaca' }}>
-              <p style={{ fontSize: 11, color: '#991b1b', margin: '0 0 8px', fontWeight: 600 }}>확인을 위해 {CONFIRM_TEXT}를 입력하세요</p>
+            <div
+              style={{
+                padding: '10px 12px',
+                borderRadius: 8,
+                background: '#fef2f2',
+                border: '1px solid #fecaca',
+              }}
+            >
+              <p style={{ fontSize: 11, color: '#991b1b', margin: '0 0 8px', fontWeight: 600 }}>
+                확인을 위해 {CONFIRM_TEXT}를 입력하세요
+              </p>
               <input
                 value={input}
-                onChange={e => setInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value)}
                 placeholder={CONFIRM_TEXT}
-                style={{ width: '100%', padding: '6px 10px', fontSize: 12, borderRadius: 6, border: `1.5px solid ${input === CONFIRM_TEXT ? '#22c55e' : '#fca5a5'}`, outline: 'none', boxSizing: 'border-box', fontFamily: 'monospace', fontWeight: 700 }}
+                style={{
+                  width: '100%',
+                  padding: '6px 10px',
+                  fontSize: 12,
+                  borderRadius: 6,
+                  border: `1.5px solid ${input === CONFIRM_TEXT ? '#22c55e' : '#fca5a5'}`,
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                }}
               />
             </div>
             {deleting && (
-              <div style={{ padding: '8px', borderRadius: 8, background: '#f8fafc', textAlign: 'center', fontSize: 11, color: '#64748b' }}>
+              <div
+                style={{
+                  padding: '8px',
+                  borderRadius: 8,
+                  background: '#f8fafc',
+                  textAlign: 'center',
+                  fontSize: 11,
+                  color: '#64748b',
+                }}
+              >
                 삭제 중...
               </div>
             )}
@@ -1615,7 +2180,8 @@ export const EnterpriseUI_계정_삭제_최종_확인: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'EnterpriseUI의 Dangerous Action Confirmation 패턴. "DELETE" 텍스트 입력 확인 + 진행 상태 표시로 계정 삭제 의도를 명확히 검증합니다.',
+        story:
+          'EnterpriseUI의 Dangerous Action Confirmation 패턴. "DELETE" 텍스트 입력 확인 + 진행 상태 표시로 계정 삭제 의도를 명확히 검증합니다.',
       },
     },
   },
@@ -1637,47 +2203,114 @@ function AppUIPaymentChangeRender() {
   const [targetPlan, setTargetPlan] = useState('pro')
   const [agreed, setAgreed] = useState(false)
 
-  const current = ACCESSIBLEKIT_PLANS.find(p => p.id === currentPlan)
-  const target = ACCESSIBLEKIT_PLANS.find(p => p.id === targetPlan)
+  const current = ACCESSIBLEKIT_PLANS.find((p) => p.id === currentPlan)
+  const target = ACCESSIBLEKIT_PLANS.find((p) => p.id === targetPlan)
 
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 10 }}>
+    <div
+      style={{
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+      }}
+    >
       <div style={{ display: 'flex', gap: 6 }}>
-        {ACCESSIBLEKIT_PLANS.filter(p => p.id !== currentPlan).map(p => (
+        {ACCESSIBLEKIT_PLANS.filter((p) => p.id !== currentPlan).map((p) => (
           <button
             key={p.id}
-            onClick={() => { setTargetPlan(p.id); setAgreed(false) }}
-            style={{ padding: '6px 12px', fontSize: 11, borderRadius: 7, border: `1.5px solid ${targetPlan === p.id ? p.color : '#e2e8f0'}`, background: targetPlan === p.id ? `${p.color}15` : '#fff', color: targetPlan === p.id ? p.color : '#64748b', cursor: 'pointer', fontWeight: targetPlan === p.id ? 700 : 400 }}
+            onClick={() => {
+              setTargetPlan(p.id)
+              setAgreed(false)
+            }}
+            style={{
+              padding: '6px 12px',
+              fontSize: 11,
+              borderRadius: 7,
+              border: `1.5px solid ${targetPlan === p.id ? p.color : '#e2e8f0'}`,
+              background: targetPlan === p.id ? `${p.color}15` : '#fff',
+              color: targetPlan === p.id ? p.color : '#64748b',
+              cursor: 'pointer',
+              fontWeight: targetPlan === p.id ? 700 : 400,
+            }}
           >
             {p.label}으로 변경
           </button>
         ))}
       </div>
-      <button onClick={() => { setOpen(true); setAgreed(false) }} style={{ padding: '8px 18px', fontSize: 13, borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 600, alignSelf: 'flex-start' }}>
+      <button
+        onClick={() => {
+          setOpen(true)
+          setAgreed(false)
+        }}
+        style={{
+          padding: '8px 18px',
+          fontSize: 13,
+          borderRadius: 8,
+          border: 'none',
+          background: '#6366f1',
+          color: '#fff',
+          cursor: 'pointer',
+          fontWeight: 600,
+          alignSelf: 'flex-start',
+        }}
+      >
         플랜 변경 확인
       </button>
       <Alert isPresented={open} onIsPresentedChange={setOpen}>
         <Alert.Top>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>플랜 변경 확인</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '10px 14px',
+                borderRadius: 8,
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+              }}
+            >
               <div style={{ textAlign: 'center', flex: 1 }}>
                 <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 2 }}>현재</div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: current?.color }}>{current?.label}</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: current?.color }}>
+                  {current?.label}
+                </div>
                 <div style={{ fontSize: 10, color: '#94a3b8' }}>{current?.price}</div>
               </div>
               <div style={{ fontSize: 16, color: '#94a3b8' }}>→</div>
               <div style={{ textAlign: 'center', flex: 1 }}>
                 <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 2 }}>변경 후</div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: target?.color }}>{target?.label}</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: target?.color }}>
+                  {target?.label}
+                </div>
                 <div style={{ fontSize: 10, color: '#94a3b8' }}>{target?.price}</div>
               </div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer' }} onClick={() => setAgreed(!agreed)}>
-              <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${agreed ? '#6366f1' : '#cbd5e1'}`, background: agreed ? '#6366f1' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
+            <div
+              style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer' }}
+              onClick={() => setAgreed(!agreed)}
+            >
+              <div
+                style={{
+                  width: 16,
+                  height: 16,
+                  borderRadius: 4,
+                  border: `2px solid ${agreed ? '#6366f1' : '#cbd5e1'}`,
+                  background: agreed ? '#6366f1' : '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  marginTop: 1,
+                }}
+              >
                 {agreed && <span style={{ fontSize: 10, color: '#fff' }}>✓</span>}
               </div>
-              <span style={{ fontSize: 11, color: '#475569', lineHeight: 1.5 }}>변경 약관에 동의하며, 즉시 청구가 발생할 수 있음을 이해합니다</span>
+              <span style={{ fontSize: 11, color: '#475569', lineHeight: 1.5 }}>
+                변경 약관에 동의하며, 즉시 청구가 발생할 수 있음을 이해합니다
+              </span>
             </div>
           </div>
         </Alert.Top>
@@ -1704,7 +2337,8 @@ export const AppUI_결제_플랜_변경_확인: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'AppUI의 Confirmation with Agreement 패턴. 플랜 선택 → 변경 내용 요약 → 약관 동의 체크박스로 결제 플랜 변경을 확인합니다.',
+        story:
+          'AppUI의 Confirmation with Agreement 패턴. 플랜 선택 → 변경 내용 요약 → 약관 동의 체크박스로 결제 플랜 변경을 확인합니다.',
       },
     },
   },
@@ -1727,42 +2361,104 @@ function EnterpriseUIAppUIWorkspaceTransferRender() {
   const [agreed, setAgreed] = useState(false)
   const [done, setDone] = useState(false)
 
-  const reset = () => { setStep('select'); setSelected(''); setAgreed(false) }
+  const reset = () => {
+    setStep('select')
+    setSelected('')
+    setAgreed(false)
+  }
 
   const handleConfirm = () => {
     setDone(true)
-    setTimeout(() => { setOpen(false); setDone(false); reset() }, 1500)
+    setTimeout(() => {
+      setOpen(false)
+      setDone(false)
+      reset()
+    }, 1500)
   }
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif' }}>
-      <button onClick={() => { setOpen(true); reset() }} style={{ padding: '8px 18px', fontSize: 13, borderRadius: 8, border: 'none', background: '#1e293b', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>
+      <button
+        onClick={() => {
+          setOpen(true)
+          reset()
+        }}
+        style={{
+          padding: '8px 18px',
+          fontSize: 13,
+          borderRadius: 8,
+          border: 'none',
+          background: '#1e293b',
+          color: '#fff',
+          cursor: 'pointer',
+          fontWeight: 600,
+        }}
+      >
         워크스페이스 소유권 이관
       </button>
-      <Alert isPresented={open} onIsPresentedChange={v => { if (!done) setOpen(v) }}>
+      <Alert
+        isPresented={open}
+        onIsPresentedChange={(v) => {
+          if (!done) setOpen(v)
+        }}
+      >
         <Alert.Top>
           {done ? (
             <div style={{ textAlign: 'center', padding: '8px 0' }}>
               <NotificationCheckFillIcon size={32} style={{ color: '#22c55e' }} />
-              <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginTop: 8 }}>이관 완료</p>
+              <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginTop: 8 }}>
+                이관 완료
+              </p>
             </div>
           ) : step === 'select' ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>소유권 이관 대상 선택</div>
-              <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>새 소유자를 선택하세요. 이관 후 관리자 권한이 이전됩니다.</p>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>
+                소유권 이관 대상 선택
+              </div>
+              <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>
+                새 소유자를 선택하세요. 이관 후 관리자 권한이 이전됩니다.
+              </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                {WORKSPACE_MEMBERS.map(m => (
+                {WORKSPACE_MEMBERS.map((m) => (
                   <div
                     key={m.name}
                     onClick={() => setSelected(m.name)}
-                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, border: `1.5px solid ${selected === m.name ? '#6366f1' : '#e2e8f0'}`, background: selected === m.name ? '#f0eeff' : '#fff', cursor: 'pointer' }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: '8px 12px',
+                      borderRadius: 8,
+                      border: `1.5px solid ${selected === m.name ? '#6366f1' : '#e2e8f0'}`,
+                      background: selected === m.name ? '#f0eeff' : '#fff',
+                      cursor: 'pointer',
+                    }}
                   >
-                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#6366f1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#fff', fontWeight: 700 }}>{m.name[0]}</div>
+                    <div
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: '50%',
+                        background: '#6366f1',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 11,
+                        color: '#fff',
+                        fontWeight: 700,
+                      }}
+                    >
+                      {m.name[0]}
+                    </div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{m.name}</div>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>
+                        {m.name}
+                      </div>
                       <div style={{ fontSize: 10, color: '#94a3b8' }}>{m.role}</div>
                     </div>
-                    {selected === m.name && <span style={{ fontSize: 14, color: '#6366f1' }}>●</span>}
+                    {selected === m.name && (
+                      <span style={{ fontSize: 14, color: '#6366f1' }}>●</span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -1770,14 +2466,43 @@ function EnterpriseUIAppUIWorkspaceTransferRender() {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>이관 최종 확인</div>
-              <div style={{ padding: '10px 12px', borderRadius: 8, background: '#fef3c7', border: '1px solid #fde68a', fontSize: 11, color: '#92400e', lineHeight: 1.6 }}>
-                <strong>{selected}</strong>에게 워크스페이스 소유권을 이관합니다. 이 작업은 되돌릴 수 없습니다.
+              <div
+                style={{
+                  padding: '10px 12px',
+                  borderRadius: 8,
+                  background: '#fef3c7',
+                  border: '1px solid #fde68a',
+                  fontSize: 11,
+                  color: '#92400e',
+                  lineHeight: 1.6,
+                }}
+              >
+                <strong>{selected}</strong>에게 워크스페이스 소유권을 이관합니다. 이 작업은 되돌릴
+                수 없습니다.
               </div>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer' }} onClick={() => setAgreed(!agreed)}>
-                <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${agreed ? '#6366f1' : '#cbd5e1'}`, background: agreed ? '#6366f1' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
+              <div
+                style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer' }}
+                onClick={() => setAgreed(!agreed)}
+              >
+                <div
+                  style={{
+                    width: 16,
+                    height: 16,
+                    borderRadius: 4,
+                    border: `2px solid ${agreed ? '#6366f1' : '#cbd5e1'}`,
+                    background: agreed ? '#6366f1' : '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    marginTop: 1,
+                  }}
+                >
                   {agreed && <span style={{ fontSize: 10, color: '#fff' }}>✓</span>}
                 </div>
-                <span style={{ fontSize: 11, color: '#475569', lineHeight: 1.5 }}>이 결정을 이해하며 동의합니다</span>
+                <span style={{ fontSize: 11, color: '#475569', lineHeight: 1.5 }}>
+                  이 결정을 이해하며 동의합니다
+                </span>
               </div>
             </div>
           )}
@@ -1792,18 +2517,38 @@ function EnterpriseUIAppUIWorkspaceTransferRender() {
                   </Button>
                 </Alert.Close>
                 <Alert.Action asChild>
-                  <Button color="primary" size="large" width="100%" disabled={!selected} onClick={() => setStep('confirm')}>
+                  <Button
+                    color="primary"
+                    size="large"
+                    width="100%"
+                    disabled={!selected}
+                    onClick={() => setStep('confirm')}
+                  >
                     <Button.Center>다음</Button.Center>
                   </Button>
                 </Alert.Action>
               </>
             ) : (
               <>
-                <Button color="gray" size="large" width="100%" onClick={() => { setStep('select'); setAgreed(false) }}>
+                <Button
+                  color="gray"
+                  size="large"
+                  width="100%"
+                  onClick={() => {
+                    setStep('select')
+                    setAgreed(false)
+                  }}
+                >
                   <Button.Center>이전</Button.Center>
                 </Button>
                 <Alert.Action asChild>
-                  <Button color="primary" size="large" width="100%" disabled={!agreed} onClick={handleConfirm}>
+                  <Button
+                    color="primary"
+                    size="large"
+                    width="100%"
+                    disabled={!agreed}
+                    onClick={handleConfirm}
+                  >
                     <Button.Center>이관 확인</Button.Center>
                   </Button>
                 </Alert.Action>
@@ -1822,7 +2567,8 @@ export const EnterpriseUI_AppUI_워크스페이스_이관_확인: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'EnterpriseUI + AppUI 복합 패턴. 멤버 선택 → 최종 확인(약관 동의) 2단계 이관 플로우. 완료 상태 피드백과 되돌리기 불가 경고를 포함합니다.',
+        story:
+          'EnterpriseUI + AppUI 복합 패턴. 멤버 선택 → 최종 확인(약관 동의) 2단계 이관 플로우. 완료 상태 피드백과 되돌리기 불가 경고를 포함합니다.',
       },
     },
   },

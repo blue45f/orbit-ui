@@ -94,7 +94,7 @@ describe('useSessionStorage', () => {
       useSessionStorage(KEY, new Date(0), {
         serialize: (d) => String(d.getTime()),
         deserialize: (raw) => new Date(Number(raw)),
-      }),
+      })
     )
 
     act(() => {

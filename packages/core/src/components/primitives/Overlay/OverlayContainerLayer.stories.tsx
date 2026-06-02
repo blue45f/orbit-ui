@@ -30,22 +30,38 @@ type Story = StoryObj<typeof meta>
 export default meta
 
 const labelStyle: React.CSSProperties = {
-  display: 'flex', alignItems: 'center', gap: '8px',
-  fontSize: '14px', cursor: 'pointer', padding: '4px 0',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+  fontSize: '14px',
+  cursor: 'pointer',
+  padding: '4px 0',
 }
 
 const btnStyle: React.CSSProperties = {
-  padding: '8px 16px', borderRadius: '8px', border: '1px solid #d1d5db',
-  background: '#ffffff', fontSize: '14px', fontWeight: '500', cursor: 'pointer',
+  padding: '8px 16px',
+  borderRadius: '8px',
+  border: '1px solid #d1d5db',
+  background: '#ffffff',
+  fontSize: '14px',
+  fontWeight: '500',
+  cursor: 'pointer',
 }
 
 const btnPrimaryStyle: React.CSSProperties = {
-  ...btnStyle, background: '#6366f1', color: '#ffffff', border: '1px solid #6366f1',
+  ...btnStyle,
+  background: '#6366f1',
+  color: '#ffffff',
+  border: '1px solid #6366f1',
 }
 
 const inputStyle: React.CSSProperties = {
-  padding: '8px 12px', borderRadius: '6px', border: '1px solid #d1d5db',
-  fontSize: '14px', outline: 'none', width: '200px',
+  padding: '8px 12px',
+  borderRadius: '6px',
+  border: '1px solid #d1d5db',
+  fontSize: '14px',
+  outline: 'none',
+  width: '200px',
 }
 
 export const 기본 = {
@@ -69,17 +85,34 @@ const Basic = () => {
         오버레이 닫기 동작을 제어합니다. 아래 옵션을 켜고 오버레이를 열어 테스트해보세요.
       </p>
 
-      <div style={{
-        padding: '16px 20px', borderRadius: '12px', border: '1px solid #e5e7eb',
-        marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '8px',
-      }}>
+      <div
+        style={{
+          padding: '16px 20px',
+          borderRadius: '12px',
+          border: '1px solid #e5e7eb',
+          marginBottom: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+        }}
+      >
         <label style={labelStyle}>
           <input
             type="checkbox"
             checked={dismissOnEscape}
             onChange={(event) => setDismissOnEscape(event.target.checked)}
           />
-          <code style={{ fontSize: '13px', background: '#f3f4f6', padding: '2px 6px', borderRadius: '4px' }}>escape</code> 키로 닫기
+          <code
+            style={{
+              fontSize: '13px',
+              background: '#f3f4f6',
+              padding: '2px 6px',
+              borderRadius: '4px',
+            }}
+          >
+            escape
+          </code>{' '}
+          키로 닫기
         </label>
         <label style={labelStyle}>
           <input
@@ -100,7 +133,12 @@ const Basic = () => {
       </div>
 
       <div style={{ marginBottom: '20px' }}>
-        <button ref={openButtonRef} type="button" onClick={() => setOpen((v) => !v)} style={open ? btnPrimaryStyle : btnStyle}>
+        <button
+          ref={openButtonRef}
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          style={open ? btnPrimaryStyle : btnStyle}
+        >
           {open ? 'Close' : 'Open'} Layer
         </button>
       </div>
@@ -125,11 +163,26 @@ const Basic = () => {
             boxShadow: '0 20px 60px -12px rgba(0, 0, 0, 0.25)',
           }}
         >
-          <ContentLayer direction="vertical" style={{ gap: '16px', alignItems: 'center', padding: '24px' }}>
-            <Text as="h2" style={{ color: 'white', fontSize: '18px', fontWeight: '700', margin: 0 }}>
+          <ContentLayer
+            direction="vertical"
+            style={{ gap: '16px', alignItems: 'center', padding: '24px' }}
+          >
+            <Text
+              as="h2"
+              style={{ color: 'white', fontSize: '18px', fontWeight: '700', margin: 0 }}
+            >
               Overlay Header
             </Text>
-            <input type="text" placeholder="Type something..." style={{ ...inputStyle, border: '1px solid #475569', background: '#0f172a', color: '#e2e8f0' }} />
+            <input
+              type="text"
+              placeholder="Type something..."
+              style={{
+                ...inputStyle,
+                border: '1px solid #475569',
+                background: '#0f172a',
+                color: '#e2e8f0',
+              }}
+            />
             <Text as="span" style={{ color: '#94a3b8', fontSize: '13px' }}>
               Overlay Footer
             </Text>
@@ -189,7 +242,15 @@ export const OverlayProtected_예제: React.FC = () => {
           }}
         >
           Protected 영역 (클릭해도 닫히지 않음)
-          <input type="text" style={{ ...inputStyle, border: '1px solid rgba(255,255,255,0.3)', background: 'rgba(0,0,0,0.2)', color: '#ffffff' }} />
+          <input
+            type="text"
+            style={{
+              ...inputStyle,
+              border: '1px solid rgba(255,255,255,0.3)',
+              background: 'rgba(0,0,0,0.2)',
+              color: '#ffffff',
+            }}
+          />
         </OverlayContainerLayer.Protected>
         {open && (
           <OverlayContainerLayer
@@ -238,7 +299,12 @@ function OverlayBox(props: OverlayContainerLayerProps) {
     >
       <ContentLayer direction="vertical" style={{ gap: '12px' }}>
         <div>
-          <button ref={openButtonRef} type="button" onClick={() => setOpen((v) => !v)} style={btnStyle}>
+          <button
+            ref={openButtonRef}
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            style={btnStyle}
+          >
             {open ? 'Close' : 'Open'} Nested Layer
           </button>
         </div>

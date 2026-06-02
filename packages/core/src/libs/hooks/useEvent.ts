@@ -14,14 +14,12 @@ export const useEvent = <
   R = ReturnType<F>,
 >(
   cb: (...args: P) => R
-
 ) => {
   const cache = useRef(cb)
 
   useLayoutEffect(() => {
     cache.current = cb
   })
-
 
   return useCallback((...args: P) => cache.current(...args), [])
 }

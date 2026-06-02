@@ -126,7 +126,9 @@ export const 디자인QA = {
 
   render: ({ leading, trailing, color, size, loading, ...rest }: any) => {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}
+      >
         <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Interactive Playground</h4>
         <OutlineButton {...rest} color={color} size={size} loading={loading}>
           {leading && (
@@ -154,55 +156,127 @@ export const Material3_버튼_역할_분리: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: '12px',
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           M3 Button Type Roles
         </p>
         <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
-          M3는 Elevated / Filled / Tonal / Outlined / Text 5단계 버튼을 정의합니다.
-          OutlineButton은 Outlined 역할로 중간 강조의 보조 액션에 사용합니다.
+          M3는 Elevated / Filled / Tonal / Outlined / Text 5단계 버튼을 정의합니다. OutlineButton은
+          Outlined 역할로 중간 강조의 보조 액션에 사용합니다.
         </p>
       </div>
 
       {/* 역할별 비교 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {[
-          { label: 'Filled (Highest emphasis)', desc: '주요 액션 1개만', component: null, isSolid: true },
-          { label: 'Outlined (Medium emphasis)', desc: '보조 액션, Secondary', component: null, isSolid: false },
+          {
+            label: 'Filled (Highest emphasis)',
+            desc: '주요 액션 1개만',
+            component: null,
+            isSolid: true,
+          },
+          {
+            label: 'Outlined (Medium emphasis)',
+            desc: '보조 액션, Secondary',
+            component: null,
+            isSolid: false,
+          },
         ].map((row) => (
-          <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+          <div
+            key={row.label}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              padding: '16px',
+              background: '#fff',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+            }}
+          >
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a', marginBottom: '2px' }}>{row.label}</div>
+              <div
+                style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a', marginBottom: '2px' }}
+              >
+                {row.label}
+              </div>
               <div style={{ fontSize: '11px', color: '#94a3b8' }}>{row.desc}</div>
             </div>
-            {row.isSolid
-              ? null
-              : (
-                <OutlineButton color="primary" size="medium">
-                  <OutlineButton.Center>보조 액션</OutlineButton.Center>
-                </OutlineButton>
-              )
-            }
+            {row.isSolid ? null : (
+              <OutlineButton color="primary" size="medium">
+                <OutlineButton.Center>보조 액션</OutlineButton.Center>
+              </OutlineButton>
+            )}
           </div>
         ))}
       </div>
 
       {/* 실전: 폼 하단 버튼 쌍 */}
-      <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>M3 실전: 폼 하단 버튼 쌍</p>
+      <div
+        style={{
+          background: '#f8fafc',
+          borderRadius: '16px',
+          padding: '24px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
+          M3 실전: 폼 하단 버튼 쌍
+        </p>
         <p style={{ margin: '0 0 20px', fontSize: '12px', color: '#64748b' }}>
           Outlined(취소) + Filled(저장) 조합이 M3 권장 패턴입니다.
         </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff', borderRadius: '12px', padding: '24px', border: '1px solid #e2e8f0' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            background: '#fff',
+            borderRadius: '12px',
+            padding: '24px',
+            border: '1px solid #e2e8f0',
+          }}
+        >
           <div style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a' }}>프로필 편집</div>
           <div style={{ height: '1px', background: '#f1f5f9' }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>표시 이름</label>
-              <input style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '14px', outline: 'none' }} defaultValue="Heejun Kim" />
+              <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>
+                표시 이름
+              </label>
+              <input
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  fontSize: '14px',
+                  outline: 'none',
+                }}
+                defaultValue="Heejun Kim"
+              />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>소개</label>
-              <textarea style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '14px', outline: 'none', resize: 'vertical', minHeight: '60px' }} defaultValue="Frontend Engineer & Design System Architect" />
+              <textarea
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  fontSize: '14px',
+                  outline: 'none',
+                  resize: 'vertical',
+                  minHeight: '60px',
+                }}
+                defaultValue="Frontend Engineer & Design System Architect"
+              />
             </div>
           </div>
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
@@ -217,22 +291,69 @@ export const Material3_버튼_역할_분리: Story = {
       </div>
 
       {/* 실전: 3단계 버튼 계층 */}
-      <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>M3 실전: 알림 카드 + 3단계 액션</p>
+      <div
+        style={{
+          background: '#f8fafc',
+          borderRadius: '16px',
+          padding: '24px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
+          M3 실전: 알림 카드 + 3단계 액션
+        </p>
         <p style={{ margin: '0 0 20px', fontSize: '12px', color: '#64748b' }}>
           중요도에 따라 Filled, Outlined, Text 버튼을 계층적으로 배치합니다.
         </p>
-        <div style={{ background: '#fff', borderRadius: '12px', padding: '20px', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(99,102,241,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <div
+          style={{
+            background: '#fff',
+            borderRadius: '12px',
+            padding: '20px',
+            border: '1px solid #e2e8f0',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '16px',
+          }}
+        >
+          <div
+            style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '10px',
+              background: 'rgba(99,102,241,0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" />
-              <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" />
+              <path
+                d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
+                stroke="#6366f1"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M13.73 21a2 2 0 0 1-3.46 0"
+                stroke="#6366f1"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             </svg>
           </div>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, color: '#0f172a', marginBottom: '4px' }}>새 버전 업데이트 가능</div>
-            <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '16px', lineHeight: 1.5 }}>
-              Orbit UI v3.2.0이 출시되었습니다. 새로운 RoleToken Design 컴포넌트와 성능 개선이 포함되어 있습니다.
+            <div
+              style={{ fontSize: '14px', fontWeight: 600, color: '#0f172a', marginBottom: '4px' }}
+            >
+              새 버전 업데이트 가능
+            </div>
+            <div
+              style={{ fontSize: '12px', color: '#64748b', marginBottom: '16px', lineHeight: 1.5 }}
+            >
+              Orbit UI v3.2.0이 출시되었습니다. 새로운 RoleToken Design 컴포넌트와 성능 개선이
+              포함되어 있습니다.
             </div>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <OutlineButton color="black" size="small">
@@ -257,12 +378,31 @@ const DisclosurePatternRender = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '360px' }}>
-      <p style={{ margin: 0, fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+      <p
+        style={{
+          margin: 0,
+          fontSize: '12px',
+          fontWeight: 700,
+          color: '#6366f1',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+        }}
+      >
         AppUI useDisclosure 패턴
       </p>
 
       {step === 'idle' && (
-        <div style={{ padding: '24px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div
+          style={{
+            padding: '24px',
+            background: '#fff',
+            borderRadius: '12px',
+            border: '1px solid #e2e8f0',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+          }}
+        >
           <div style={{ fontSize: '14px', fontWeight: 600, color: '#0f172a' }}>계정 삭제</div>
           <div style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.5 }}>
             이 작업을 수행하기 전에 확인이 필요합니다. Outlined 버튼으로 첫 단계를 시작합니다.
@@ -274,8 +414,20 @@ const DisclosurePatternRender = () => {
       )}
 
       {step === 'confirming' && (
-        <div style={{ padding: '24px', background: '#fff', borderRadius: '12px', border: '2px solid #ef4444', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div style={{ fontSize: '14px', fontWeight: 700, color: '#dc2626' }}>정말 삭제하시겠습니까?</div>
+        <div
+          style={{
+            padding: '24px',
+            background: '#fff',
+            borderRadius: '12px',
+            border: '2px solid #ef4444',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+          }}
+        >
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#dc2626' }}>
+            정말 삭제하시겠습니까?
+          </div>
           <div style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.5 }}>
             이 작업은 되돌릴 수 없습니다. 모든 데이터가 영구 삭제됩니다.
           </div>
@@ -291,10 +443,38 @@ const DisclosurePatternRender = () => {
       )}
 
       {step === 'done' && (
-        <div style={{ padding: '24px', background: '#f0fdf4', borderRadius: '12px', border: '1px solid #86efac', display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center', textAlign: 'center' }}>
-          <div style={{ width: '48px', height: '48px', background: '#dcfce7', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div
+          style={{
+            padding: '24px',
+            background: '#f0fdf4',
+            borderRadius: '12px',
+            border: '1px solid #86efac',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        >
+          <div
+            style={{
+              width: '48px',
+              height: '48px',
+              background: '#dcfce7',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M20 6 9 17l-5-5" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M20 6 9 17l-5-5"
+                stroke="#16a34a"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </div>
           <div style={{ fontSize: '14px', fontWeight: 700, color: '#15803d' }}>삭제 요청 완료</div>
@@ -362,11 +542,7 @@ export const UtilityCSS_버튼_그룹: Story = {
           >
             <OutlineButton.Center>3</OutlineButton.Center>
           </OutlineButton>
-          <OutlineButton
-            color="black"
-            size="medium"
-            style={{ borderRadius: '0 8px 8px 0' }}
-          >
+          <OutlineButton color="black" size="medium" style={{ borderRadius: '0 8px 8px 0' }}>
             <OutlineButton.Center>다음</OutlineButton.Center>
           </OutlineButton>
         </div>
@@ -561,15 +737,42 @@ function LoadingPatternRender() {
     setTimeout(() => setLoadingKey(null), delay)
   }
 
-  const actions: { key: string; label: string; desc: string; color: OutlineButtonProps['color']; delay: number }[] = [
+  const actions: {
+    key: string
+    label: string
+    desc: string
+    color: OutlineButtonProps['color']
+    delay: number
+  }[] = [
     { key: 'export', label: '내보내기', desc: 'CSV/JSON 파일 생성', color: 'black', delay: 2000 },
-    { key: 'sync', label: '동기화', desc: '원격 서버와 데이터 동기화', color: 'primary', delay: 1500 },
-    { key: 'validate', label: '유효성 검사', desc: '폼 데이터 서버 검증', color: 'gray', delay: 1000 },
+    {
+      key: 'sync',
+      label: '동기화',
+      desc: '원격 서버와 데이터 동기화',
+      color: 'primary',
+      delay: 1500,
+    },
+    {
+      key: 'validate',
+      label: '유효성 검사',
+      desc: '폼 데이터 서버 검증',
+      color: 'gray',
+      delay: 1000,
+    },
   ]
 
   return (
     <div style={{ maxWidth: 400 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#6366f1',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: 16,
+        }}
+      >
         AppUI Button loading prop 패턴
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -589,7 +792,9 @@ function LoadingPatternRender() {
               }}
             >
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{action.label}</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                  {action.label}
+                </div>
                 <div style={{ fontSize: 11, color: '#94a3b8' }}>{action.desc}</div>
               </div>
               <OutlineButton
@@ -635,27 +840,47 @@ function ViewSwitcherRender() {
   ]
 
   const sortOptions = ['newest', 'oldest', 'name', 'size']
-  const sortLabels: Record<string, string> = { newest: '최신순', oldest: '오래된순', name: '이름순', size: '크기순' }
+  const sortLabels: Record<string, string> = {
+    newest: '최신순',
+    oldest: '오래된순',
+    name: '이름순',
+    size: '크기순',
+  }
 
-  const mockItems = Array.from({ length: 6 }, (_, i) => ({ id: i + 1, name: `컴포넌트 ${i + 1}`, type: i % 3 === 0 ? 'Layout' : i % 3 === 1 ? 'Input' : 'Display' }))
+  const mockItems = Array.from({ length: 6 }, (_, i) => ({
+    id: i + 1,
+    name: `컴포넌트 ${i + 1}`,
+    type: i % 3 === 0 ? 'Layout' : i % 3 === 1 ? 'Input' : 'Display',
+  }))
 
   return (
     <div style={{ maxWidth: 520 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#6366f1',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: 14,
+        }}
+      >
         Ant Design Radio.Group — 뷰 전환 패턴
       </div>
 
       {/* Toolbar */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 16,
-        padding: '10px 14px',
-        borderRadius: 10,
-        border: '1px solid #e2e8f0',
-        background: '#f8fafc',
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 16,
+          padding: '10px 14px',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          background: '#f8fafc',
+        }}
+      >
         {/* View toggle */}
         <div style={{ display: 'flex', gap: 0 }}>
           {views.map((v, i) => (
@@ -665,7 +890,8 @@ function ViewSwitcherRender() {
               size="small"
               onClick={() => setView(v.key)}
               style={{
-                borderRadius: i === 0 ? '8px 0 0 8px' : i === views.length - 1 ? '0 8px 8px 0' : '0',
+                borderRadius:
+                  i === 0 ? '8px 0 0 8px' : i === views.length - 1 ? '0 8px 8px 0' : '0',
                 borderRight: i < views.length - 1 ? 'none' : undefined,
               }}
             >
@@ -704,8 +930,18 @@ function ViewSwitcherRender() {
       {view === 'grid' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
           {mockItems.map((item) => (
-            <div key={item.id} style={{ padding: '14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4 }}>{item.type}</div>
+            <div
+              key={item.id}
+              style={{
+                padding: '14px',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+              }}
+            >
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 4 }}>
+                {item.type}
+              </div>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{item.name}</div>
             </div>
           ))}
@@ -714,9 +950,37 @@ function ViewSwitcherRender() {
       {view === 'list' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           {mockItems.map((item) => (
-            <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
-              <div style={{ width: 32, height: 32, borderRadius: 6, background: '#f0f1ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#6366f1' }}>{item.id}</div>
-              <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', flex: 1 }}>{item.name}</span>
+            <div
+              key={item.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '10px 14px',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+              }}
+            >
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 6,
+                  background: '#f0f1ff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#6366f1',
+                }}
+              >
+                {item.id}
+              </div>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', flex: 1 }}>
+                {item.name}
+              </span>
               <span style={{ fontSize: 11, color: '#94a3b8' }}>{item.type}</span>
             </div>
           ))}
@@ -724,11 +988,35 @@ function ViewSwitcherRender() {
       )}
       {view === 'table' && (
         <div style={{ borderRadius: 8, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '40px 1fr 100px', background: '#f8fafc', padding: '8px 14px', fontSize: 11, fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>
-            <span>#</span><span>이름</span><span>유형</span>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '40px 1fr 100px',
+              background: '#f8fafc',
+              padding: '8px 14px',
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#64748b',
+              borderBottom: '1px solid #e2e8f0',
+            }}
+          >
+            <span>#</span>
+            <span>이름</span>
+            <span>유형</span>
           </div>
           {mockItems.map((item, i) => (
-            <div key={item.id} style={{ display: 'grid', gridTemplateColumns: '40px 1fr 100px', padding: '9px 14px', fontSize: 13, color: '#1e293b', borderBottom: i < mockItems.length - 1 ? '1px solid #f8fafc' : 'none', background: '#fff' }}>
+            <div
+              key={item.id}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '40px 1fr 100px',
+                padding: '9px 14px',
+                fontSize: 13,
+                color: '#1e293b',
+                borderBottom: i < mockItems.length - 1 ? '1px solid #f8fafc' : 'none',
+                background: '#fff',
+              }}
+            >
               <span style={{ color: '#94a3b8' }}>{item.id}</span>
               <span style={{ fontWeight: 500 }}>{item.name}</span>
               <span style={{ color: '#64748b' }}>{item.type}</span>
@@ -794,7 +1082,16 @@ function NotificationActionsRender() {
 
   return (
     <div style={{ maxWidth: 400 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#6366f1',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: 14,
+        }}
+      >
         AppUI Notification — 인라인 액션 OutlineButton 패턴
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -812,11 +1109,28 @@ function NotificationActionsRender() {
                   background: cfg.bg,
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 10 }}>
-                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: cfg.dot, marginTop: 4, flexShrink: 0 }} />
+                <div
+                  style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginBottom: 10 }}
+                >
+                  <div
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      background: cfg.dot,
+                      marginTop: 4,
+                      flexShrink: 0,
+                    }}
+                  />
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 2 }}>{notif.title}</div>
-                    <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.5 }}>{notif.message}</div>
+                    <div
+                      style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 2 }}
+                    >
+                      {notif.title}
+                    </div>
+                    <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.5 }}>
+                      {notif.message}
+                    </div>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 6, paddingLeft: 18 }}>
@@ -839,7 +1153,15 @@ function NotificationActionsRender() {
             모든 알림을 처리했습니다.
             <button
               onClick={() => setDismissed([])}
-              style={{ display: 'block', margin: '8px auto 0', fontSize: 12, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer' }}
+              style={{
+                display: 'block',
+                margin: '8px auto 0',
+                fontSize: 12,
+                color: '#6366f1',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+              }}
             >
               초기화
             </button>
@@ -880,19 +1202,78 @@ const AppUICounterHandlerRender = () => {
 
   return (
     <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>카운터 핸들러 패턴</div>
-      <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)', color: 'var(--sem-eclipse-color-foregroundTertiary)', lineHeight: 1.7 }}>
-        {`const [count, { increment, decrement, set, reset }]`}<br />
-        {`  = useCounter(0, { min: ${MIN}, max: ${MAX} })`}<br />
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        카운터 핸들러 패턴
+      </div>
+      <div
+        style={{
+          fontSize: 11,
+          fontFamily: 'monospace',
+          padding: '8px 12px',
+          borderRadius: 6,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          lineHeight: 1.7,
+        }}
+      >
+        {`const [count, { increment, decrement, set, reset }]`}
+        <br />
+        {`  = useCounter(0, { min: ${MIN}, max: ${MAX} })`}
+        <br />
         {`// count: ${count}`}
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '20px', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
-        <div style={{ fontSize: 48, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>{count}</div>
-        <div style={{ width: '100%', height: 6, borderRadius: 3, background: 'var(--sem-eclipse-color-backgroundSecondary)', overflow: 'hidden' }}>
-          <div style={{ height: '100%', width: `${pct}%`, background: 'var(--sem-eclipse-color-fillPrimary)', borderRadius: 3, transition: 'width 0.2s ease' }} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 12,
+          padding: '20px',
+          borderRadius: 12,
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+        }}
+      >
+        <div
+          style={{
+            fontSize: 48,
+            fontWeight: 800,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            fontVariantNumeric: 'tabular-nums',
+            lineHeight: 1,
+          }}
+        >
+          {count}
         </div>
-        <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)' }}>{MIN} — {MAX}</div>
+        <div
+          style={{
+            width: '100%',
+            height: 6,
+            borderRadius: 3,
+            background: 'var(--sem-eclipse-color-backgroundSecondary)',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${pct}%`,
+              background: 'var(--sem-eclipse-color-fillPrimary)',
+              borderRadius: 3,
+              transition: 'width 0.2s ease',
+            }}
+          />
+        </div>
+        <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundQuaternary)' }}>
+          {MIN} — {MAX}
+        </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
@@ -916,7 +1297,8 @@ export const AppUI_useCounter_핸들러_패턴: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI의 useCounter(initial, { min, max }) 패턴. 각 핸들러(increment/decrement/set/reset)가 OutlineButton 액션으로 표현됩니다. 튜플 반환으로 데이터와 핸들러를 분리합니다.',
+        story:
+          'AppUI의 useCounter(initial, { min, max }) 패턴. 각 핸들러(increment/decrement/set/reset)가 OutlineButton 액션으로 표현됩니다. 튜플 반환으로 데이터와 핸들러를 분리합니다.',
       },
     },
   },
@@ -948,9 +1330,29 @@ const AppUIDisclosureRender = () => {
 
   return (
     <div style={{ maxWidth: 440, display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>모달/드로어 제어</div>
-      <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)', color: 'var(--sem-eclipse-color-foregroundTertiary)', lineHeight: 1.7 }}>
-        {`const [opened, { open, close, toggle }] = useDisclosure(false)`}<br />
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        모달/드로어 제어
+      </div>
+      <div
+        style={{
+          fontSize: 11,
+          fontFamily: 'monospace',
+          padding: '8px 12px',
+          borderRadius: 6,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          lineHeight: 1.7,
+        }}
+      >
+        {`const [opened, { open, close, toggle }] = useDisclosure(false)`}
+        <br />
         {`// opened: ${panelOpen}`}
       </div>
 
@@ -966,11 +1368,35 @@ const AppUIDisclosureRender = () => {
         </OutlineButton>
       </div>
 
-      <div style={{ overflow: 'hidden', borderRadius: 8, border: `1px solid ${panelOpen ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, maxHeight: panelOpen ? 200 : 0, transition: 'max-height 0.3s ease, border-color 0.2s' }}>
+      <div
+        style={{
+          overflow: 'hidden',
+          borderRadius: 8,
+          border: `1px solid ${panelOpen ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+          maxHeight: panelOpen ? 200 : 0,
+          transition: 'max-height 0.3s ease, border-color 0.2s',
+        }}
+      >
         <div style={{ padding: '16px' }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 8 }}>패널이 열렸습니다</div>
-          <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>
-            useDisclosure로 제어되는 패널입니다. open/close/toggle 각각이 이산적인 상태 전환을 담당합니다.
+          <div
+            style={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              marginBottom: 8,
+            }}
+          >
+            패널이 열렸습니다
+          </div>
+          <div
+            style={{
+              fontSize: 12,
+              color: 'var(--sem-eclipse-color-foregroundTertiary)',
+              marginBottom: 16,
+            }}
+          >
+            useDisclosure로 제어되는 패널입니다. open/close/toggle 각각이 이산적인 상태 전환을
+            담당합니다.
           </div>
           <div style={{ display: 'flex', gap: 8 }}>
             <OutlineButton color="gray" size="small" onClick={disclosure.close} disabled={loading}>
@@ -991,7 +1417,8 @@ export const AppUI_useDisclosure_확장_패턴: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI의 useDisclosure(false) 패턴. [opened, { open, close, toggle }] 튜플로 이산적인 가시성 제어를 담당합니다. open/close/toggle 각각이 명확히 분리된 의도를 가집니다.',
+        story:
+          'AppUI의 useDisclosure(false) 패턴. [opened, { open, close, toggle }] 튜플로 이산적인 가시성 제어를 담당합니다. open/close/toggle 각각이 명확히 분리된 의도를 가집니다.',
       },
     },
   },
@@ -1041,9 +1468,29 @@ const AppUIFormStepsRender = () => {
 
   return (
     <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 14 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>폼 단계별 제출</div>
-      <div style={{ fontSize: 11, fontFamily: 'monospace', padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)', color: 'var(--sem-eclipse-color-foregroundTertiary)', lineHeight: 1.7 }}>
-        {`const form = useForm({ ... })`}<br />
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        폼 단계별 제출
+      </div>
+      <div
+        style={{
+          fontSize: 11,
+          fontFamily: 'monospace',
+          padding: '8px 12px',
+          borderRadius: 6,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          lineHeight: 1.7,
+        }}
+      >
+        {`const form = useForm({ ... })`}
+        <br />
         {`// step: '${step}'`}
       </div>
 
@@ -1051,11 +1498,34 @@ const AppUIFormStepsRender = () => {
       <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
         {STEPS.map((s, i) => (
           <div key={s.state} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: step === s.state ? s.color : step === 'done' && STEPS.indexOf(STEPS.find((x) => x.state === 'done')!) >= i ? '#10b981' : 'var(--sem-eclipse-color-borderDefault)', transition: 'background 0.2s' }} />
-            {i < STEPS.length - 1 && <div style={{ width: 20, height: 1, background: 'var(--sem-eclipse-color-borderSubtle)' }} />}
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background:
+                  step === s.state
+                    ? s.color
+                    : step === 'done' && STEPS.indexOf(STEPS.find((x) => x.state === 'done')!) >= i
+                      ? '#10b981'
+                      : 'var(--sem-eclipse-color-borderDefault)',
+                transition: 'background 0.2s',
+              }}
+            />
+            {i < STEPS.length - 1 && (
+              <div
+                style={{
+                  width: 20,
+                  height: 1,
+                  background: 'var(--sem-eclipse-color-borderSubtle)',
+                }}
+              />
+            )}
           </div>
         ))}
-        <span style={{ fontSize: 11, fontWeight: 600, color: currentStep.color, marginLeft: 8 }}>{currentStep.label}</span>
+        <span style={{ fontSize: 11, fontWeight: 600, color: currentStep.color, marginLeft: 8 }}>
+          {currentStep.label}
+        </span>
       </div>
 
       <input
@@ -1063,14 +1533,33 @@ const AppUIFormStepsRender = () => {
         onChange={(e) => setValue(e.target.value)}
         placeholder="프로젝트명 입력..."
         disabled={step !== 'idle' && step !== 'error'}
-        style={{ padding: '8px 12px', borderRadius: 6, border: `1px solid ${step === 'error' ? '#ef4444' : 'var(--sem-eclipse-color-borderDefault)'}`, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', background: 'var(--sem-eclipse-color-backgroundPrimary)', outline: 'none' }}
+        style={{
+          padding: '8px 12px',
+          borderRadius: 6,
+          border: `1px solid ${step === 'error' ? '#ef4444' : 'var(--sem-eclipse-color-borderDefault)'}`,
+          fontSize: 13,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          background: 'var(--sem-eclipse-color-backgroundPrimary)',
+          outline: 'none',
+        }}
       />
-      {step === 'error' && <span style={{ fontSize: 12, color: '#ef4444', marginTop: -8 }}>{errorMsg}</span>}
+      {step === 'error' && (
+        <span style={{ fontSize: 12, color: '#ef4444', marginTop: -8 }}>{errorMsg}</span>
+      )}
 
       <div style={{ display: 'flex', gap: 8 }}>
-        <OutlineButton color="gray" size="small" onClick={validate} disabled={step !== 'idle' && step !== 'error'}>
+        <OutlineButton
+          color="gray"
+          size="small"
+          onClick={validate}
+          disabled={step !== 'idle' && step !== 'error'}
+        >
           <OutlineButton.Center>
-            {step === 'validating' ? '검증 중...' : step === 'submitting' ? '제출 중...' : 'form.onSubmit()'}
+            {step === 'validating'
+              ? '검증 중...'
+              : step === 'submitting'
+                ? '제출 중...'
+                : 'form.onSubmit()'}
           </OutlineButton.Center>
         </OutlineButton>
         <OutlineButton color="gray" size="small" onClick={reset} disabled={step === 'idle'}>
@@ -1079,7 +1568,17 @@ const AppUIFormStepsRender = () => {
       </div>
 
       {step === 'done' && (
-        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#10b98115', border: '1px solid #10b981', fontSize: 12, fontWeight: 600, color: '#10b981' }}>
+        <div
+          style={{
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#10b98115',
+            border: '1px solid #10b981',
+            fontSize: 12,
+            fontWeight: 600,
+            color: '#10b981',
+          }}
+        >
           ✓ 프로젝트 &quot;{value}&quot; 생성 완료
         </div>
       )}
@@ -1092,7 +1591,8 @@ export const AppUI_useForm_단계별_제출: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI의 useForm 패턴. form.onSubmit, form.reset, form.setErrors가 각각 이산적인 OutlineButton 액션으로 표현됩니다. 폼 상태 머신(idle→validating→submitting→done|error)을 시각화합니다.',
+        story:
+          'AppUI의 useForm 패턴. form.onSubmit, form.reset, form.setErrors가 각각 이산적인 OutlineButton 액션으로 표현됩니다. 폼 상태 머신(idle→validating→submitting→done|error)을 시각화합니다.',
       },
     },
   },
@@ -1110,7 +1610,15 @@ const EnterpriseUISegmentToggleRender = () => {
   const [view, setView] = useState<ViewOption>('그리드')
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>보기 방식 선택</div>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        보기 방식 선택
+      </div>
       <div style={{ display: 'flex', gap: 0 }}>
         {VIEW_OPTIONS.map((opt, i) => (
           <OutlineButton
@@ -1119,7 +1627,8 @@ const EnterpriseUISegmentToggleRender = () => {
             size="medium"
             onClick={() => setView(opt)}
             style={{
-              borderRadius: i === 0 ? '8px 0 0 8px' : i === VIEW_OPTIONS.length - 1 ? '0 8px 8px 0' : '0',
+              borderRadius:
+                i === 0 ? '8px 0 0 8px' : i === VIEW_OPTIONS.length - 1 ? '0 8px 8px 0' : '0',
               marginLeft: i > 0 ? -1 : 0,
               zIndex: view === opt ? 1 : 0,
               position: 'relative',
@@ -1129,10 +1638,21 @@ const EnterpriseUISegmentToggleRender = () => {
           </OutlineButton>
         ))}
       </div>
-      <div style={{ padding: '14px 18px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
-        현재 선택: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{view}</strong> 보기
+      <div
+        style={{
+          padding: '14px 18px',
+          borderRadius: 8,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          fontSize: 13,
+          color: 'var(--sem-eclipse-color-foregroundSecondary)',
+        }}
+      >
+        현재 선택:{' '}
+        <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{view}</strong> 보기
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>EnterpriseUI ToggleButtonGroup 패턴 — 세그먼트 단일 선택</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+        EnterpriseUI ToggleButtonGroup 패턴 — 세그먼트 단일 선택
+      </p>
     </div>
   )
 }
@@ -1142,7 +1662,8 @@ export const EnterpriseUI_세그먼트_토글_버튼_그룹: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI ToggleButtonGroup에서 영감을 받은 세그먼트 컨트롤. 좌/중/우 borderRadius를 조합하여 연결된 버튼 그룹을 구성하고, 선택된 항목은 primary 색상으로 강조합니다.',
+        story:
+          'EnterpriseUI ToggleButtonGroup에서 영감을 받은 세그먼트 컨트롤. 좌/중/우 borderRadius를 조합하여 연결된 버튼 그룹을 구성하고, 선택된 항목은 primary 색상으로 강조합니다.',
       },
     },
   },
@@ -1179,11 +1700,38 @@ const AccessibleToolbarRender = () => {
   }
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>텍스트 에디터 도구 모음</div>
-      <div style={{ display: 'flex', gap: 4, padding: '8px 12px', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)', alignItems: 'center' }}>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        텍스트 에디터 도구 모음
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          gap: 4,
+          padding: '8px 12px',
+          borderRadius: 10,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          alignItems: 'center',
+        }}
+      >
         {TOOLBAR_ACTIONS.map((action, i) => (
           <React.Fragment key={action.key}>
-            {i === 3 && <div style={{ width: 1, height: 20, background: 'var(--sem-eclipse-color-borderDefault)', margin: '0 4px' }} />}
+            {i === 3 && (
+              <div
+                style={{
+                  width: 1,
+                  height: 20,
+                  background: 'var(--sem-eclipse-color-borderDefault)',
+                  margin: '0 4px',
+                }}
+              />
+            )}
             <OutlineButton
               color={active.has(action.key) ? 'primary' : 'gray'}
               size="small"
@@ -1196,13 +1744,24 @@ const AccessibleToolbarRender = () => {
         ))}
       </div>
       <div
-        style={{ padding: '12px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', fontSize: 14, color: 'var(--sem-eclipse-color-foregroundPrimary)', lineHeight: 1.7,
-          fontWeight: active.has('bold') ? 700 : 400, fontStyle: active.has('italic') ? 'italic' : 'normal', textDecoration: active.has('underline') ? 'underline' : 'none',
-          textAlign: active.has('center') ? 'center' : active.has('right') ? 'right' : 'left' }}
+        style={{
+          padding: '12px 14px',
+          borderRadius: 8,
+          border: '1px solid var(--sem-eclipse-color-borderDefault)',
+          fontSize: 14,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          lineHeight: 1.7,
+          fontWeight: active.has('bold') ? 700 : 400,
+          fontStyle: active.has('italic') ? 'italic' : 'normal',
+          textDecoration: active.has('underline') ? 'underline' : 'none',
+          textAlign: active.has('center') ? 'center' : active.has('right') ? 'right' : 'left',
+        }}
       >
         Orbit UI 디자인 시스템 — 컴포넌트 라이브러리
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>AccessibleUI Toolbar 패턴 — 서식/정렬 토글 액션</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+        AccessibleUI Toolbar 패턴 — 서식/정렬 토글 액션
+      </p>
     </div>
   )
 }
@@ -1212,7 +1771,8 @@ export const Accessible_텍스트_에디터_도구_모음: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI Toolbar에서 영감을 받은 텍스트 에디터 액션 버튼 도구 모음. 서식(Bold/Italic/Underline)은 다중 선택, 정렬은 단일 선택으로 동작하며 실시간으로 미리보기 텍스트에 반영됩니다.',
+        story:
+          'AccessibleUI Toolbar에서 영감을 받은 텍스트 에디터 액션 버튼 도구 모음. 서식(Bold/Italic/Underline)은 다중 선택, 정렬은 단일 선택으로 동작하며 실시간으로 미리보기 텍스트에 반영됩니다.',
       },
     },
   },
@@ -1238,46 +1798,114 @@ const EnterpriseUIAccessibleReviewActionsRender = () => {
     setComment('')
   }
 
-  const ACTION_META: Record<NonNullable<ReviewAction>, { label: string; color: string; bg: string; desc: string }> = {
+  const ACTION_META: Record<
+    NonNullable<ReviewAction>,
+    { label: string; color: string; bg: string; desc: string }
+  > = {
     approve: { label: '승인', color: '#10b981', bg: '#f0fdf4', desc: '변경 사항을 승인합니다.' },
-    request: { label: '수정 요청', color: '#ef4444', bg: '#fef2f2', desc: '수정이 필요한 사항을 명시하세요.' },
-    comment: { label: '코멘트', color: '#6366f1', bg: '#f5f3ff', desc: '승인/거절 없이 의견을 남깁니다.' },
+    request: {
+      label: '수정 요청',
+      color: '#ef4444',
+      bg: '#fef2f2',
+      desc: '수정이 필요한 사항을 명시하세요.',
+    },
+    comment: {
+      label: '코멘트',
+      color: '#6366f1',
+      bg: '#f5f3ff',
+      desc: '승인/거절 없이 의견을 남깁니다.',
+    },
   }
 
   return (
     <div style={{ maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 14 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>리뷰 제출</div>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        리뷰 제출
+      </div>
       <div style={{ display: 'flex', gap: 8 }}>
         {(['approve', 'request', 'comment'] as const).map((a) => {
           const meta = ACTION_META[a]
           return (
-            <OutlineButton key={a} color={action === a ? 'primary' : 'gray'} size="small" onClick={() => setAction(action === a ? null : a)}>
+            <OutlineButton
+              key={a}
+              color={action === a ? 'primary' : 'gray'}
+              size="small"
+              onClick={() => setAction(action === a ? null : a)}
+            >
               <OutlineButton.Center>{meta.label}</OutlineButton.Center>
             </OutlineButton>
           )
         })}
       </div>
       {action && (
-        <div style={{ padding: '12px 14px', borderRadius: 8, background: ACTION_META[action].bg, border: `1px solid ${ACTION_META[action].color}30` }}>
-          <div style={{ fontSize: 12, color: ACTION_META[action].color, fontWeight: 600, marginBottom: 8 }}>{ACTION_META[action].desc}</div>
+        <div
+          style={{
+            padding: '12px 14px',
+            borderRadius: 8,
+            background: ACTION_META[action].bg,
+            border: `1px solid ${ACTION_META[action].color}30`,
+          }}
+        >
+          <div
+            style={{
+              fontSize: 12,
+              color: ACTION_META[action].color,
+              fontWeight: 600,
+              marginBottom: 8,
+            }}
+          >
+            {ACTION_META[action].desc}
+          </div>
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="코멘트 입력 (선택)..."
             rows={3}
-            style={{ width: '100%', padding: '8px 10px', borderRadius: 6, border: `1px solid ${ACTION_META[action].color}40`, fontSize: 12, resize: 'none', outline: 'none', background: 'transparent', color: 'var(--sem-eclipse-color-foregroundPrimary)', boxSizing: 'border-box' }}
+            style={{
+              width: '100%',
+              padding: '8px 10px',
+              borderRadius: 6,
+              border: `1px solid ${ACTION_META[action].color}40`,
+              fontSize: 12,
+              resize: 'none',
+              outline: 'none',
+              background: 'transparent',
+              color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              boxSizing: 'border-box',
+            }}
           />
         </div>
       )}
       <div style={{ display: 'flex', gap: 8 }}>
-        <OutlineButton color="primary" size="medium" disabled={!action || submitted} onClick={submit}>
+        <OutlineButton
+          color="primary"
+          size="medium"
+          disabled={!action || submitted}
+          onClick={submit}
+        >
           <OutlineButton.Center>{submitted ? '제출 중...' : '리뷰 제출'}</OutlineButton.Center>
         </OutlineButton>
-        <OutlineButton color="gray" size="medium" onClick={() => { setAction(null); setComment('') }} disabled={!action}>
+        <OutlineButton
+          color="gray"
+          size="medium"
+          onClick={() => {
+            setAction(null)
+            setComment('')
+          }}
+          disabled={!action}
+        >
           <OutlineButton.Center>취소</OutlineButton.Center>
         </OutlineButton>
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>EnterpriseUI + AccessibleUI CodeHost PR 리뷰 액션 패턴</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+        EnterpriseUI + AccessibleUI CodeHost PR 리뷰 액션 패턴
+      </p>
     </div>
   )
 }
@@ -1287,7 +1915,8 @@ export const EnterpriseUI_Accessible_PR_리뷰_액션_버튼_바: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI ButtonGroup + AccessibleUI 스타일의 CodeHost PR 리뷰 액션 바. Approve / Request Changes / Comment 중 하나를 선택하면 코멘트 영역이 나타나고, 리뷰 제출 버튼이 활성화됩니다.',
+        story:
+          'EnterpriseUI ButtonGroup + AccessibleUI 스타일의 CodeHost PR 리뷰 액션 바. Approve / Request Changes / Comment 중 하나를 선택하면 코멘트 영역이 나타나고, 리뷰 제출 버튼이 활성화됩니다.',
       },
     },
   },
@@ -1308,7 +1937,12 @@ function CommandPaletteActionPanel141Render() {
     { key: 'delete', label: '삭제', shortcut: '⌘⌫', group: 'danger' },
   ]
 
-  const colorFor = (group: string) => (group === 'danger' ? 'black' : group === 'primary' ? 'primary' : 'gray') as OutlineButtonProps['color']
+  const colorFor = (group: string) =>
+    (group === 'danger'
+      ? 'black'
+      : group === 'primary'
+        ? 'primary'
+        : 'gray') as OutlineButtonProps['color']
 
   const handle = (key: string) => {
     setActive(key)
@@ -1321,8 +1955,27 @@ function CommandPaletteActionPanel141Render() {
   const groups = ['primary', 'secondary', 'danger']
 
   return (
-    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 4, boxShadow: '0 8px 32px rgba(0,0,0,0.12)' }}>
-      <div style={{ padding: '8px 12px 4px', fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.8, fontWeight: 600 }}>
+    <div
+      style={{
+        width: 320,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        padding: 4,
+        boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+      }}
+    >
+      <div
+        style={{
+          padding: '8px 12px 4px',
+          fontSize: 10,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: 0.8,
+          fontWeight: 600,
+        }}
+      >
         액션 패널
       </div>
       {groups.map((g) => {
@@ -1330,12 +1983,14 @@ function CommandPaletteActionPanel141Render() {
         if (!groupActions.length) return null
         return (
           <div key={g}>
-            {g !== 'primary' && <div style={{ height: 1, background: '#f1f5f9', margin: '4px 0' }} />}
+            {g !== 'primary' && (
+              <div style={{ height: 1, background: '#f1f5f9', margin: '4px 0' }} />
+            )}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '4px' }}>
               {groupActions.map((a) => (
                 <div key={a.key} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <OutlineButton
-                    color={colorFor(a.group) as OutlineButtonProps["color"]}
+                    color={colorFor(a.group) as OutlineButtonProps['color']}
                     size="small"
                     style={{ flex: 1, justifyContent: 'flex-start' }}
                     onClick={() => handle(a.key)}
@@ -1344,7 +1999,18 @@ function CommandPaletteActionPanel141Render() {
                       {a.key === 'copy' && copied ? '복사됨!' : a.label}
                     </OutlineButton.Center>
                   </OutlineButton>
-                  <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0, background: '#f8fafc', padding: '2px 5px', borderRadius: 4, border: '1px solid #e2e8f0' }}>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      color: '#94a3b8',
+                      fontFamily: 'monospace',
+                      flexShrink: 0,
+                      background: '#f8fafc',
+                      padding: '2px 5px',
+                      borderRadius: 4,
+                      border: '1px solid #e2e8f0',
+                    }}
+                  >
                     {a.shortcut}
                   </span>
                 </div>
@@ -1354,7 +2020,14 @@ function CommandPaletteActionPanel141Render() {
         )
       })}
       {active && (
-        <div style={{ padding: '6px 12px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8' }}>
+        <div
+          style={{
+            padding: '6px 12px',
+            borderTop: '1px solid #f1f5f9',
+            fontSize: 10,
+            color: '#94a3b8',
+          }}
+        >
           마지막 액션: <strong>{actions.find((a) => a.key === active)?.label}</strong>
         </div>
       )}
@@ -1367,7 +2040,8 @@ export const CommandPalette_액션_패널: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette Action Panel 패턴. 그룹별 구분선, 키보드 단축키 표시, 위험 액션 red 강조. Copy 액션 클릭 시 "복사됨!" 피드백.',
+        story:
+          'CommandPalette Action Panel 패턴. 그룹별 구분선, 키보드 단축키 표시, 위험 액션 red 강조. Copy 액션 클릭 시 "복사됨!" 피드백.',
       },
     },
   },
@@ -1389,7 +2063,9 @@ function DesignToolToolPalette141Render() {
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 12, fontSize: 11, color: '#64748b' }}>DesignTool Plugin UI — 도구 팔레트</div>
+      <div style={{ marginBottom: 12, fontSize: 11, color: '#64748b' }}>
+        DesignTool Plugin UI — 도구 팔레트
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4, width: 160 }}>
         {tools.map((tool) => (
           <div key={tool.key} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1404,13 +2080,33 @@ function DesignToolToolPalette141Render() {
               </OutlineButton.Leading>
               <OutlineButton.Center>{tool.label}</OutlineButton.Center>
             </OutlineButton>
-            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', background: '#f1f5f9', padding: '2px 5px', borderRadius: 3, border: '1px solid #e2e8f0' }}>
+            <span
+              style={{
+                fontSize: 10,
+                color: '#94a3b8',
+                fontFamily: 'monospace',
+                background: '#f1f5f9',
+                padding: '2px 5px',
+                borderRadius: 3,
+                border: '1px solid #e2e8f0',
+              }}
+            >
               {tool.shortcut}
             </span>
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 12, padding: '8px 10px', background: '#f8fafc', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 11, color: '#475569' }}>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '8px 10px',
+          background: '#f8fafc',
+          borderRadius: 6,
+          border: '1px solid #e2e8f0',
+          fontSize: 11,
+          color: '#475569',
+        }}
+      >
         현재 도구: <strong>{tools.find((t) => t.key === selected)?.label}</strong>
       </div>
     </div>
@@ -1422,7 +2118,8 @@ export const DesignTool_도구_팔레트: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool Plugin UI 도구 팔레트 패턴. 선택된 도구는 primary 강조, 단축키 키캡 표시. 아이콘 Leading 슬롯 활용.',
+        story:
+          'DesignTool Plugin UI 도구 팔레트 패턴. 선택된 도구는 primary 강조, 단축키 키캡 표시. 아이콘 Leading 슬롯 활용.',
       },
     },
   },
@@ -1438,9 +2135,24 @@ function CommandPaletteDesignTool141FilterBar141Render() {
   const [count, setCount] = React.useState(47)
 
   const OPTIONS = {
-    status: [{ v: 'all', l: '전체' }, { v: 'open', l: '열림' }, { v: 'closed', l: '닫힘' }, { v: 'draft', l: '초안' }],
-    priority: [{ v: 'all', l: '전체' }, { v: 'urgent', l: '긴급' }, { v: 'high', l: '높음' }, { v: 'low', l: '낮음' }],
-    assignee: [{ v: 'all', l: '전체' }, { v: 'me', l: '나' }, { v: 'team', l: '팀' }, { v: 'none', l: '미배정' }],
+    status: [
+      { v: 'all', l: '전체' },
+      { v: 'open', l: '열림' },
+      { v: 'closed', l: '닫힘' },
+      { v: 'draft', l: '초안' },
+    ],
+    priority: [
+      { v: 'all', l: '전체' },
+      { v: 'urgent', l: '긴급' },
+      { v: 'high', l: '높음' },
+      { v: 'low', l: '낮음' },
+    ],
+    assignee: [
+      { v: 'all', l: '전체' },
+      { v: 'me', l: '나' },
+      { v: 'team', l: '팀' },
+      { v: 'none', l: '미배정' },
+    ],
   }
 
   const apply = (key: string, val: string) => {
@@ -1450,12 +2162,17 @@ function CommandPaletteDesignTool141FilterBar141Render() {
     setCount(Math.max(3, 47 - activeFilters * 12))
   }
 
-  const reset = () => { setFilters({ status: 'all', priority: 'all', assignee: 'all' }); setCount(47) }
+  const reset = () => {
+    setFilters({ status: 'all', priority: 'all', assignee: 'all' })
+    setCount(47)
+  }
   const hasActive = Object.values(filters).some((v) => v !== 'all')
 
   return (
     <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>CommandPalette + DesignTool — 필터 바 패턴</div>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>
+        CommandPalette + DesignTool — 필터 바 패턴
+      </div>
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
         {(Object.entries(OPTIONS) as [string, { v: string; l: string }[]][]).map(([key, opts]) => (
           <div key={key} style={{ display: 'flex', gap: 2 }}>
@@ -1477,8 +2194,20 @@ function CommandPaletteDesignTool141FilterBar141Render() {
           </OutlineButton>
         )}
       </div>
-      <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#475569' }}>
-        <strong style={{ color: '#0f172a' }}>{count}개</strong>의 이슈 · {hasActive ? `${Object.values(filters).filter(v => v !== 'all').length}개 필터 적용` : '필터 없음'}
+      <div
+        style={{
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          fontSize: 12,
+          color: '#475569',
+        }}
+      >
+        <strong style={{ color: '#0f172a' }}>{count}개</strong>의 이슈 ·{' '}
+        {hasActive
+          ? `${Object.values(filters).filter((v) => v !== 'all').length}개 필터 적용`
+          : '필터 없음'}
       </div>
     </div>
   )
@@ -1489,7 +2218,8 @@ export const CommandPalette_DesignTool_필터_바: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette 필터 UI + DesignTool 컴팩트 패턴. 상태/우선순위/담당자 필터 토글. 활성 필터 적용 시 결과 카운트 변경, 초기화 버튼 동적 노출.',
+        story:
+          'CommandPalette 필터 UI + DesignTool 컴팩트 패턴. 상태/우선순위/담당자 필터 토글. 활성 필터 적용 시 결과 카운트 변경, 초기화 버튼 동적 노출.',
       },
     },
   },
@@ -1524,8 +2254,24 @@ export const DeployPlatform_배포_액션_버튼_그룹: Story = {
     const sc = statusConfig[status]
 
     return (
-      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#09090b', borderRadius: 14, padding: 20, border: '1px solid #27272a' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+      <div
+        style={{
+          width: 420,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#09090b',
+          borderRadius: 14,
+          padding: 20,
+          border: '1px solid #27272a',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 16,
+          }}
+        >
           <div>
             <div style={{ fontSize: 13, fontWeight: 700, color: '#e4e4e7' }}>orbit-ui → main</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
@@ -1538,7 +2284,15 @@ export const DeployPlatform_배포_액션_버튼_그룹: Story = {
               <button
                 key={s}
                 onClick={() => setStatus(s)}
-                style={{ padding: '3px 8px', borderRadius: 6, border: `1px solid ${status === s ? statusConfig[s].color : '#27272a'}`, background: 'transparent', color: status === s ? statusConfig[s].color : '#52525b', fontSize: 10, cursor: 'pointer' }}
+                style={{
+                  padding: '3px 8px',
+                  borderRadius: 6,
+                  border: `1px solid ${status === s ? statusConfig[s].color : '#27272a'}`,
+                  background: 'transparent',
+                  color: status === s ? statusConfig[s].color : '#52525b',
+                  fontSize: 10,
+                  cursor: 'pointer',
+                }}
               >
                 {s}
               </button>
@@ -1576,16 +2330,29 @@ export const ComposableUI_태그_선택_칩_버튼: Story = {
     },
   },
   render: function ComposableUITagChipRender() {
-    const tags = ['React', 'TypeScript', 'UtilityCSS', 'ComposableUI', 'Primitive', 'Zod', 'tRPC', 'Prisma', 'Next.js', 'Remix']
+    const tags = [
+      'React',
+      'TypeScript',
+      'UtilityCSS',
+      'ComposableUI',
+      'Primitive',
+      'Zod',
+      'tRPC',
+      'Prisma',
+      'Next.js',
+      'Remix',
+    ]
     const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
 
     const toggle = (tag: string) => {
-      setSelected((prev) => prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag])
+      setSelected((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
     }
 
     return (
       <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 10 }}>기술 스택 선택</div>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 10 }}>
+          기술 스택 선택
+        </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
           {tags.map((tag) => {
             const isSelected = selected.includes(tag)
@@ -1602,12 +2369,28 @@ export const ComposableUI_태그_선택_칩_버튼: Story = {
           })}
         </div>
         {selected.length > 0 && (
-          <div style={{ padding: '10px 12px', background: '#eff6ff', borderRadius: 8, fontSize: 12, color: '#1d4ed8' }}>
+          <div
+            style={{
+              padding: '10px 12px',
+              background: '#eff6ff',
+              borderRadius: 8,
+              fontSize: 12,
+              color: '#1d4ed8',
+            }}
+          >
             선택됨: {selected.join(', ')}
           </div>
         )}
         {selected.length === 0 && (
-          <div style={{ padding: '10px 12px', background: '#f9fafb', borderRadius: 8, fontSize: 12, color: '#9ca3af' }}>
+          <div
+            style={{
+              padding: '10px 12px',
+              background: '#f9fafb',
+              borderRadius: 8,
+              fontSize: 12,
+              color: '#9ca3af',
+            }}
+          >
             태그를 선택하세요
           </div>
         )}
@@ -1637,13 +2420,21 @@ export const DeployPlatform_ComposableUI_페이지_액션_바: Story = {
     ]
 
     const toggleItem = (id: number) => {
-      setSelected((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id])
+      setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
     }
 
     return (
       <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
         {/* Action bar */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 0', marginBottom: 12 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '10px 0',
+            marginBottom: 12,
+          }}
+        >
           {selected.length === 0 ? (
             <>
               <OutlineButton color="gray" size="small">
@@ -1659,7 +2450,9 @@ export const DeployPlatform_ComposableUI_페이지_액션_바: Story = {
             </>
           ) : (
             <>
-              <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{selected.length}개 선택됨</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>
+                {selected.length}개 선택됨
+              </span>
               <div style={{ flex: 1 }} />
               <OutlineButton color="gray" size="small" onClick={() => setSelected([])}>
                 <OutlineButton.Center>선택 해제</OutlineButton.Center>
@@ -1679,16 +2472,50 @@ export const DeployPlatform_ComposableUI_페이지_액션_바: Story = {
               <div
                 key={item.id}
                 onClick={() => toggleItem(item.id)}
-                style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderBottom: '1px solid #f3f4f6', cursor: 'pointer', background: isSelected ? '#eff6ff' : '#fff' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '12px 16px',
+                  borderBottom: '1px solid #f3f4f6',
+                  cursor: 'pointer',
+                  background: isSelected ? '#eff6ff' : '#fff',
+                }}
               >
-                <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${isSelected ? '#3b82f6' : '#d1d5db'}`, background: isSelected ? '#3b82f6' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  {isSelected && <span style={{ fontSize: 9, color: '#fff', fontWeight: 900 }}>✓</span>}
+                <div
+                  style={{
+                    width: 16,
+                    height: 16,
+                    borderRadius: 4,
+                    border: `2px solid ${isSelected ? '#3b82f6' : '#d1d5db'}`,
+                    background: isSelected ? '#3b82f6' : '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {isSelected && (
+                    <span style={{ fontSize: 9, color: '#fff', fontWeight: 900 }}>✓</span>
+                  )}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: '#111827', fontFamily: 'monospace' }}>{item.name}</div>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: '#111827',
+                      fontFamily: 'monospace',
+                    }}
+                  >
+                    {item.name}
+                  </div>
                   <div style={{ fontSize: 11, color: '#9ca3af' }}>{item.date}</div>
                 </div>
-                <OutlineButton color="gray" size="small" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+                <OutlineButton
+                  color="gray"
+                  size="small"
+                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                >
                   <OutlineButton.Center>방문</OutlineButton.Center>
                 </OutlineButton>
               </div>

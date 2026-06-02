@@ -14,7 +14,7 @@ import { useCallback, useEffect, useRef } from 'react'
  * ```
  */
 export function useRafCallback<T extends (...args: unknown[]) => unknown>(
-  callback: T,
+  callback: T
 ): [T, () => void] {
   const callbackRef = useRef(callback)
   useEffect(() => {
@@ -38,7 +38,7 @@ export function useRafCallback<T extends (...args: unknown[]) => unknown>(
         callbackRef.current(...args)
       })
     },
-    [cancel],
+    [cancel]
   ) as T
 
   useEffect(() => cancel, [cancel])

@@ -33,7 +33,9 @@ export function useDebouncedState<T>(initial: T, delay = 300): UseDebouncedState
   const [debouncedValue, setDebouncedValue] = useState<T>(initial)
   const timerRef = useRef<number | null>(null)
   const valueRef = useRef(value)
-  useLayoutEffect(() => { valueRef.current = value })
+  useLayoutEffect(() => {
+    valueRef.current = value
+  })
 
   const clearTimer = useCallback(() => {
     if (timerRef.current !== null) {
@@ -55,7 +57,7 @@ export function useDebouncedState<T>(initial: T, delay = 300): UseDebouncedState
         return resolved
       })
     },
-    [delay, clearTimer],
+    [delay, clearTimer]
   )
 
   const flush = useCallback(() => {

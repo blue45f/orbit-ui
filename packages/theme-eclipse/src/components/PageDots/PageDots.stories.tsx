@@ -10,7 +10,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "PageDots는 슬라이더/캐러셀의 현재 페이지를 나타내는 단일 dot 컴포넌트입니다. PageIndicator 내부에서 사용됩니다.",
+        component:
+          'PageDots는 슬라이더/캐러셀의 현재 페이지를 나타내는 단일 dot 컴포넌트입니다. PageIndicator 내부에서 사용됩니다.',
       },
     },
   },
@@ -127,45 +128,97 @@ export const AppUI_스텝_위저드: Story = {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 32 }}>
           {WIZARD_STEPS.map((step, index) => (
-            <div key={step.label} style={{ display: 'flex', alignItems: 'center', flex: index < WIZARD_STEPS.length - 1 ? 1 : 'none' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+            <div
+              key={step.label}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flex: index < WIZARD_STEPS.length - 1 ? 1 : 'none',
+              }}
+            >
+              <div
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+              >
                 <PageDots
                   selected={index === currentStep}
                   disabled={index > currentStep}
                   onClick={() => index <= currentStep && setCurrentStep(index)}
                 />
-                <div style={{ fontSize: 10, fontWeight: index === currentStep ? 700 : 400, color: index === currentStep ? '#6366f1' : index < currentStep ? '#22c55e' : '#94a3b8', whiteSpace: 'nowrap' }}>
+                <div
+                  style={{
+                    fontSize: 10,
+                    fontWeight: index === currentStep ? 700 : 400,
+                    color:
+                      index === currentStep
+                        ? '#6366f1'
+                        : index < currentStep
+                          ? '#22c55e'
+                          : '#94a3b8',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
                   {index < currentStep ? '완료' : step.label}
                 </div>
               </div>
               {index < WIZARD_STEPS.length - 1 && (
-                <div style={{ flex: 1, height: 2, margin: '0 8px', marginBottom: 20, background: index < currentStep ? '#22c55e' : '#e2e8f0' }} />
+                <div
+                  style={{
+                    flex: 1,
+                    height: 2,
+                    margin: '0 8px',
+                    marginBottom: 20,
+                    background: index < currentStep ? '#22c55e' : '#e2e8f0',
+                  }}
+                />
               )}
             </div>
           ))}
         </div>
 
-        <div style={{ padding: '20px 24px', borderRadius: 12, background: '#f8fafc', border: '1px solid #e2e8f0', marginBottom: 20, minHeight: 80 }}>
+        <div
+          style={{
+            padding: '20px 24px',
+            borderRadius: 12,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            marginBottom: 20,
+            minHeight: 80,
+          }}
+        >
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>
             {WIZARD_STEPS[currentStep].label}
           </div>
-          <div style={{ fontSize: 13, color: '#64748b' }}>
-            {WIZARD_STEPS[currentStep].desc}
-          </div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>{WIZARD_STEPS[currentStep].desc}</div>
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>
           <button
             onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}
             disabled={currentStep === 0}
-            style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: currentStep === 0 ? 'not-allowed' : 'pointer', color: currentStep === 0 ? '#94a3b8' : '#374151' }}
+            style={{
+              padding: '8px 16px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              fontSize: 13,
+              cursor: currentStep === 0 ? 'not-allowed' : 'pointer',
+              color: currentStep === 0 ? '#94a3b8' : '#374151',
+            }}
           >
             이전
           </button>
           <button
             onClick={() => setCurrentStep((s) => Math.min(WIZARD_STEPS.length - 1, s + 1))}
             disabled={currentStep === WIZARD_STEPS.length - 1}
-            style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, cursor: currentStep === WIZARD_STEPS.length - 1 ? 'not-allowed' : 'pointer' }}
+            style={{
+              padding: '8px 16px',
+              borderRadius: 8,
+              border: 'none',
+              background: '#6366f1',
+              color: '#fff',
+              fontSize: 13,
+              cursor: currentStep === WIZARD_STEPS.length - 1 ? 'not-allowed' : 'pointer',
+            }}
           >
             다음
           </button>
@@ -180,10 +233,30 @@ export const AppUI_스텝_위저드: Story = {
    타이머 기반 자동 슬라이드 전환과 수동 제어가 결합된 캐러셀 패턴
 -------------------------------------------------------------------------- */
 const CAROUSEL_SLIDES = [
-  { title: 'Design System 소개', subtitle: '3-tier 아키텍처로 확장 가능한 UI', color: '#6366f1', bg: '#eef2ff' },
-  { title: 'Eclipse 테마', subtitle: 'UtilityCSS + 토큰 기반 타입 안전 스타일링', color: '#0ea5e9', bg: '#f0f9ff' },
-  { title: '토큰 시스템', subtitle: 'Reference → Semantic → Component 3단계', color: '#10b981', bg: '#f0fdf4' },
-  { title: 'Storybook 문서화', subtitle: '모든 컴포넌트의 인터랙티브 플레이그라운드', color: '#f59e0b', bg: '#fffbeb' },
+  {
+    title: 'Design System 소개',
+    subtitle: '3-tier 아키텍처로 확장 가능한 UI',
+    color: '#6366f1',
+    bg: '#eef2ff',
+  },
+  {
+    title: 'Eclipse 테마',
+    subtitle: 'UtilityCSS + 토큰 기반 타입 안전 스타일링',
+    color: '#0ea5e9',
+    bg: '#f0f9ff',
+  },
+  {
+    title: '토큰 시스템',
+    subtitle: 'Reference → Semantic → Component 3단계',
+    color: '#10b981',
+    bg: '#f0fdf4',
+  },
+  {
+    title: 'Storybook 문서화',
+    subtitle: '모든 컴포넌트의 인터랙티브 플레이그라운드',
+    color: '#f59e0b',
+    bg: '#fffbeb',
+  },
 ]
 
 export const DataProduct_캐러셀_자동재생: Story = {
@@ -204,15 +277,22 @@ export const DataProduct_캐러셀_자동재생: Story = {
     return (
       <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
         <div
-          style={{ padding: '48px 32px', borderRadius: 16, background: slide.bg, border: `2px solid ${slide.color}20`, textAlign: 'center', transition: 'all 0.3s ease', cursor: 'pointer', marginBottom: 16 }}
+          style={{
+            padding: '48px 32px',
+            borderRadius: 16,
+            background: slide.bg,
+            border: `2px solid ${slide.color}20`,
+            textAlign: 'center',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+            marginBottom: 16,
+          }}
           onClick={() => setPaused((p) => !p)}
         >
           <div style={{ fontSize: 20, fontWeight: 800, color: slide.color, marginBottom: 8 }}>
             {slide.title}
           </div>
-          <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
-            {slide.subtitle}
-          </div>
+          <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>{slide.subtitle}</div>
           <div style={{ fontSize: 11, color: slide.color, fontWeight: 600 }}>
             {paused ? '클릭하여 재개' : '클릭하여 일시정지'}
           </div>
@@ -223,7 +303,10 @@ export const DataProduct_캐러셀_자동재생: Story = {
             <PageDots
               key={index}
               selected={index === current}
-              onClick={() => { setCurrent(index); setPaused(true) }}
+              onClick={() => {
+                setCurrent(index)
+                setPaused(true)
+              }}
             />
           ))}
         </div>
@@ -232,7 +315,12 @@ export const DataProduct_캐러셀_자동재생: Story = {
           {CAROUSEL_SLIDES.map((_, index) => (
             <div
               key={index}
-              style={{ fontSize: 10, fontVariantNumeric: 'tabular-nums', color: index === current ? '#6366f1' : '#94a3b8', fontWeight: index === current ? 700 : 400 }}
+              style={{
+                fontSize: 10,
+                fontVariantNumeric: 'tabular-nums',
+                color: index === current ? '#6366f1' : '#94a3b8',
+                fontWeight: index === current ? 700 : 400,
+              }}
             >
               {index + 1}
             </div>
@@ -264,7 +352,16 @@ export const AppUI_온보딩_진행률: Story = {
     const progressPct = Math.round((completedCount / totalCount) * 100)
 
     return (
-      <div style={{ maxWidth: 360, padding: 28, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0' }}>
+      <div
+        style={{
+          maxWidth: 360,
+          padding: 28,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          borderRadius: 16,
+          border: '1px solid #e2e8f0',
+        }}
+      >
         <div style={{ marginBottom: 20 }}>
           <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>
             시작 가이드
@@ -273,7 +370,15 @@ export const AppUI_온보딩_진행률: Story = {
             {completedCount}/{totalCount} 완료 ({progressPct}%)
           </div>
           <div style={{ height: 4, background: '#e2e8f0', borderRadius: 2, overflow: 'hidden' }}>
-            <div style={{ height: '100%', width: `${progressPct}%`, background: '#6366f1', borderRadius: 2, transition: 'width 0.3s ease' }} />
+            <div
+              style={{
+                height: '100%',
+                width: `${progressPct}%`,
+                background: '#6366f1',
+                borderRadius: 2,
+                transition: 'width 0.3s ease',
+              }}
+            />
           </div>
         </div>
 
@@ -298,7 +403,16 @@ export const AppUI_온보딩_진행률: Story = {
           {ONBOARDING_ITEMS.map((item, index) => (
             <div
               key={item.id}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, background: doneSet.has(item.id) ? '#f0fdf4' : '#f8fafc', cursor: 'pointer', transition: 'background 0.2s' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '8px 12px',
+                borderRadius: 8,
+                background: doneSet.has(item.id) ? '#f0fdf4' : '#f8fafc',
+                cursor: 'pointer',
+                transition: 'background 0.2s',
+              }}
               onClick={() => {
                 setDoneSet((prev) => {
                   const next = new Set(prev)
@@ -308,13 +422,40 @@ export const AppUI_온보딩_진행률: Story = {
                 })
               }}
             >
-              <div style={{ width: 18, height: 18, borderRadius: '50%', background: doneSet.has(item.id) ? '#22c55e' : '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                {doneSet.has(item.id) && <span style={{ fontSize: 10, color: '#fff', fontWeight: 700 }}>✓</span>}
+              <div
+                style={{
+                  width: 18,
+                  height: 18,
+                  borderRadius: '50%',
+                  background: doneSet.has(item.id) ? '#22c55e' : '#e2e8f0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                {doneSet.has(item.id) && (
+                  <span style={{ fontSize: 10, color: '#fff', fontWeight: 700 }}>✓</span>
+                )}
               </div>
-              <div style={{ fontSize: 13, color: doneSet.has(item.id) ? '#166534' : '#374151', fontWeight: doneSet.has(item.id) ? 600 : 400, textDecoration: doneSet.has(item.id) ? 'line-through' : 'none' }}>
+              <div
+                style={{
+                  fontSize: 13,
+                  color: doneSet.has(item.id) ? '#166534' : '#374151',
+                  fontWeight: doneSet.has(item.id) ? 600 : 400,
+                  textDecoration: doneSet.has(item.id) ? 'line-through' : 'none',
+                }}
+              >
                 {item.label}
               </div>
-              <div style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8', fontVariantNumeric: 'tabular-nums' }}>
+              <div
+                style={{
+                  marginLeft: 'auto',
+                  fontSize: 10,
+                  color: '#94a3b8',
+                  fontVariantNumeric: 'tabular-nums',
+                }}
+              >
                 {index + 1}
               </div>
             </div>
@@ -346,7 +487,8 @@ export const ComposableUI_이미지_갤러리_캐러셀: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI Carousel 패턴. PageDots를 슬라이드 인디케이터로 활용. 클릭 이동 + 좌우 화살표 + 자동재생 토글. 5개 슬라이드 갤러리.',
+        story:
+          'ComposableUI Carousel 패턴. PageDots를 슬라이드 인디케이터로 활용. 클릭 이동 + 좌우 화살표 + 자동재생 토글. 5개 슬라이드 갤러리.',
       },
     },
   },
@@ -366,23 +508,45 @@ export const ComposableUI_이미지_갤러리_캐러셀: Story = {
     return (
       <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
         {/* 슬라이드 영역 */}
-        <div style={{
-          height: 200, borderRadius: 16, background: slide.bg, display: 'flex',
-          flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-          border: `2px solid ${slide.accent}22`, marginBottom: 16, transition: 'background 0.3s',
-        }}>
+        <div
+          style={{
+            height: 200,
+            borderRadius: 16,
+            background: slide.bg,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: `2px solid ${slide.accent}22`,
+            marginBottom: 16,
+            transition: 'background 0.3s',
+          }}
+        >
           <div style={{ fontSize: 32, marginBottom: 8 }}>
-            {['bar_chart', 'grid_view', 'palette', 'tune', 'accessibility'][current].split('').map((c, i) => <span key={i}>{c}</span>)}
+            {['bar_chart', 'grid_view', 'palette', 'tune', 'accessibility'][current]
+              .split('')
+              .map((c, i) => (
+                <span key={i}>{c}</span>
+              ))}
           </div>
           <div style={{ fontSize: 16, fontWeight: 700, color: slide.accent }}>{slide.title}</div>
-          <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>{current + 1} / {total}</div>
+          <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>
+            {current + 1} / {total}
+          </div>
         </div>
 
         {/* 컨트롤 영역 */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <button
             onClick={() => setCurrent((c) => (c - 1 + total) % total)}
-            style={{ padding: '6px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', fontSize: 12 }}
+            style={{
+              padding: '6px 14px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              cursor: 'pointer',
+              fontSize: 12,
+            }}
           >
             이전
           </button>
@@ -395,7 +559,14 @@ export const ComposableUI_이미지_갤러리_캐러셀: Story = {
 
           <button
             onClick={() => setCurrent((c) => (c + 1) % total)}
-            style={{ padding: '6px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', fontSize: 12 }}
+            style={{
+              padding: '6px 14px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              cursor: 'pointer',
+              fontSize: 12,
+            }}
           >
             다음
           </button>
@@ -405,8 +576,14 @@ export const ComposableUI_이미지_갤러리_캐러셀: Story = {
           <button
             onClick={() => setAutoPlay((a) => !a)}
             style={{
-              padding: '5px 14px', borderRadius: 99, border: 'none', fontSize: 11, fontWeight: 600, cursor: 'pointer',
-              background: autoPlay ? '#6366f1' : '#f1f5f9', color: autoPlay ? '#fff' : '#64748b',
+              padding: '5px 14px',
+              borderRadius: 99,
+              border: 'none',
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: 'pointer',
+              background: autoPlay ? '#6366f1' : '#f1f5f9',
+              color: autoPlay ? '#fff' : '#64748b',
               transition: 'all 0.2s',
             }}
           >
@@ -449,7 +626,8 @@ export const DeployPlatform_온보딩_스텝_플로우: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 신규 사용자 온보딩 패턴. 4단계 설정 마법사에 PageDots를 스텝 인디케이터로 활용. 각 단계마다 실질적 입력 UI와 이전/다음 내비게이션.',
+        story:
+          'DeployPlatform 신규 사용자 온보딩 패턴. 4단계 설정 마법사에 PageDots를 스텝 인디케이터로 활용. 각 단계마다 실질적 입력 UI와 이전/다음 내비게이션.',
       },
     },
   },
@@ -460,11 +638,17 @@ export const DeployPlatform_온보딩_스텝_플로우: Story = {
     const current = ONBOARDING_STEPS[step]
 
     return (
-      <div style={{
-        width: 400, padding: 32, fontFamily: 'system-ui, sans-serif',
-        background: '#fff', borderRadius: 20, border: '1px solid #e2e8f0',
-        boxShadow: '0 4px 24px #0000000a',
-      }}>
+      <div
+        style={{
+          width: 400,
+          padding: 32,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          borderRadius: 20,
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 4px 24px #0000000a',
+        }}
+      >
         {/* 상단 스텝 인디케이터 */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 28 }}>
           {ONBOARDING_STEPS.map((_, i) => (
@@ -486,7 +670,15 @@ export const DeployPlatform_온보딩_스텝_플로우: Story = {
               value={values.team}
               onChange={(e) => setValues((v) => ({ ...v, team: e.target.value }))}
               placeholder={current.placeholder}
-              style={{ width: '100%', padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+              style={{
+                width: '100%',
+                padding: '10px 14px',
+                borderRadius: 8,
+                border: '1.5px solid #e2e8f0',
+                fontSize: 13,
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
             />
           )}
           {step === 1 && (
@@ -496,12 +688,15 @@ export const DeployPlatform_온보딩_스텝_플로우: Story = {
                   key={opt}
                   onClick={() => setValues((v) => ({ ...v, framework: opt }))}
                   style={{
-                    padding: '10px 0', borderRadius: 8,
+                    padding: '10px 0',
+                    borderRadius: 8,
                     border: `2px solid ${values.framework === opt ? '#6366f1' : '#e2e8f0'}`,
                     background: values.framework === opt ? '#eff6ff' : '#fff',
-                    fontSize: 13, fontWeight: values.framework === opt ? 700 : 400,
+                    fontSize: 13,
+                    fontWeight: values.framework === opt ? 700 : 400,
                     color: values.framework === opt ? '#3730a3' : '#374151',
-                    cursor: 'pointer', transition: 'all 0.15s',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
                   }}
                 >
                   {opt}
@@ -514,12 +709,32 @@ export const DeployPlatform_온보딩_스텝_플로우: Story = {
               value={values.repo}
               onChange={(e) => setValues((v) => ({ ...v, repo: e.target.value }))}
               placeholder={current.placeholder}
-              style={{ width: '100%', padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+              style={{
+                width: '100%',
+                padding: '10px 14px',
+                borderRadius: 8,
+                border: '1.5px solid #e2e8f0',
+                fontSize: 13,
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
             />
           )}
           {step === 3 && (
             <div style={{ textAlign: 'center', padding: '16px 0' }}>
-              <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', fontSize: 24 }}>
+              <div
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: '50%',
+                  background: '#dcfce7',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 12px',
+                  fontSize: 24,
+                }}
+              >
                 <span style={{ color: '#16a34a', fontWeight: 800, fontSize: 28 }}>✓</span>
               </div>
               <div style={{ fontSize: 14, color: '#166534', fontWeight: 600 }}>배포 준비 완료!</div>
@@ -532,17 +747,31 @@ export const DeployPlatform_온보딩_스텝_플로우: Story = {
           {step > 0 && (
             <button
               onClick={() => setStep((s) => s - 1)}
-              style={{ flex: 1, padding: '10px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer' }}
+              style={{
+                flex: 1,
+                padding: '10px 0',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                fontSize: 13,
+                cursor: 'pointer',
+              }}
             >
               이전
             </button>
           )}
           <button
-            onClick={() => step < total - 1 ? setStep((s) => s + 1) : setStep(0)}
+            onClick={() => (step < total - 1 ? setStep((s) => s + 1) : setStep(0))}
             style={{
-              flex: 2, padding: '10px 0', borderRadius: 8, border: 'none',
+              flex: 2,
+              padding: '10px 0',
+              borderRadius: 8,
+              border: 'none',
               background: step === total - 1 ? '#6366f1' : '#0f172a',
-              color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+              color: '#fff',
+              fontSize: 13,
+              fontWeight: 600,
+              cursor: 'pointer',
             }}
           >
             {step === total - 1 ? '대시보드로 이동' : '다음'}
@@ -593,7 +822,8 @@ export const DeployPlatform_기능_투어_슬라이더: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 신기능 소개 슬라이더 패턴. 4가지 주요 기능을 카드 형태로 순차 소개. PageDots로 현재 위치 표시.',
+        story:
+          'DeployPlatform 신기능 소개 슬라이더 패턴. 4가지 주요 기능을 카드 형태로 순차 소개. PageDots로 현재 위치 표시.',
       },
     },
   },
@@ -604,33 +834,63 @@ export const DeployPlatform_기능_투어_슬라이더: Story = {
 
     return (
       <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', userSelect: 'none' }}>
-        <div style={{
-          padding: 28, borderRadius: 16, background: slide.bg,
-          border: `1px solid ${slide.color}22`, minHeight: 180,
-          transition: 'background 0.25s, border-color 0.25s',
-        }}>
-          <div style={{
-            display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.08em',
-            color: slide.color, background: `${slide.color}18`, padding: '3px 8px',
-            borderRadius: 4, marginBottom: 14,
-          }}>
+        <div
+          style={{
+            padding: 28,
+            borderRadius: 16,
+            background: slide.bg,
+            border: `1px solid ${slide.color}22`,
+            minHeight: 180,
+            transition: 'background 0.25s, border-color 0.25s',
+          }}
+        >
+          <div
+            style={{
+              display: 'inline-block',
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              color: slide.color,
+              background: `${slide.color}18`,
+              padding: '3px 8px',
+              borderRadius: 4,
+              marginBottom: 14,
+            }}
+          >
             {slide.tag}
           </div>
-          <div style={{ fontSize: 22, fontWeight: 800, color: slide.color, marginBottom: 12, lineHeight: 1.2 }}>
+          <div
+            style={{
+              fontSize: 22,
+              fontWeight: 800,
+              color: slide.color,
+              marginBottom: 12,
+              lineHeight: 1.2,
+            }}
+          >
             {slide.title}
           </div>
-          <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.7 }}>
-            {slide.desc}
-          </div>
+          <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.7 }}>{slide.desc}</div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 16 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 16,
+          }}
+        >
           <button
             onClick={() => setCurrent((c) => Math.max(0, c - 1))}
             disabled={current === 0}
             style={{
-              padding: '7px 16px', borderRadius: 8, border: '1px solid #e2e8f0',
-              background: '#fff', fontSize: 12, cursor: current === 0 ? 'not-allowed' : 'pointer',
+              padding: '7px 16px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              fontSize: 12,
+              cursor: current === 0 ? 'not-allowed' : 'pointer',
               opacity: current === 0 ? 0.4 : 1,
             }}
           >
@@ -644,10 +904,16 @@ export const DeployPlatform_기능_투어_슬라이더: Story = {
           </div>
 
           <button
-            onClick={() => current < total - 1 ? setCurrent((c) => c + 1) : setCurrent(0)}
+            onClick={() => (current < total - 1 ? setCurrent((c) => c + 1) : setCurrent(0))}
             style={{
-              padding: '7px 16px', borderRadius: 8, border: 'none',
-              background: '#0f172a', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              padding: '7px 16px',
+              borderRadius: 8,
+              border: 'none',
+              background: '#0f172a',
+              color: '#fff',
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: 'pointer',
             }}
           >
             {current === total - 1 ? '다시 보기' : '다음'}
@@ -697,10 +963,17 @@ export const Primitive_다이얼로그_스텝_인디케이터: Story = {
     const current = RADIX_DIALOG_STEPS[step]
 
     return (
-      <div style={{
-        width: 420, padding: '28px 32px', borderRadius: 20, border: '1px solid #e2e8f0',
-        background: '#fff', boxShadow: '0 8px 32px rgba(0,0,0,0.06)', fontFamily: 'system-ui, sans-serif',
-      }}>
+      <div
+        style={{
+          width: 420,
+          padding: '28px 32px',
+          borderRadius: 20,
+          border: '1px solid #e2e8f0',
+          background: '#fff',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {/* 스텝 도트 */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 24 }}>
           {RADIX_DIALOG_STEPS.map((_, i) => (
@@ -710,7 +983,9 @@ export const Primitive_다이얼로그_스텝_인디케이터: Story = {
 
         {/* 헤더 */}
         <div style={{ marginBottom: 20, textAlign: 'center' }}>
-          <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>{current.title}</div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>
+            {current.title}
+          </div>
           <div style={{ fontSize: 13, color: '#64748b' }}>{current.desc}</div>
         </div>
 
@@ -723,7 +998,11 @@ export const Primitive_다이얼로그_스텝_인디케이터: Story = {
                   key={opt}
                   onClick={() => setSelections((s) => ({ ...s, purpose: opt }))}
                   style={{
-                    padding: '10px 8px', borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                    padding: '10px 8px',
+                    borderRadius: 8,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: 'pointer',
                     border: `2px solid ${selections.purpose === opt ? '#6366f1' : '#e2e8f0'}`,
                     background: selections.purpose === opt ? '#eff6ff' : '#fff',
                     color: selections.purpose === opt ? '#3730a3' : '#475569',
@@ -742,7 +1021,12 @@ export const Primitive_다이얼로그_스텝_인디케이터: Story = {
                   key={size}
                   onClick={() => setSelections((s) => ({ ...s, size }))}
                   style={{
-                    padding: '10px 16px', borderRadius: 8, fontSize: 13, fontWeight: 500, cursor: 'pointer', textAlign: 'left',
+                    padding: '10px 16px',
+                    borderRadius: 8,
+                    fontSize: 13,
+                    fontWeight: 500,
+                    cursor: 'pointer',
+                    textAlign: 'left',
                     border: `2px solid ${selections.size === size ? '#6366f1' : '#e2e8f0'}`,
                     background: selections.size === size ? '#eff6ff' : '#fff',
                     color: selections.size === size ? '#3730a3' : '#374151',
@@ -761,13 +1045,25 @@ export const Primitive_다이얼로그_스텝_인디케이터: Story = {
                   key={plan.name}
                   onClick={() => setSelections((s) => ({ ...s, plan: plan.name }))}
                   style={{
-                    padding: '12px 16px', borderRadius: 8, cursor: 'pointer', textAlign: 'left',
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    padding: '12px 16px',
+                    borderRadius: 8,
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
                     border: `2px solid ${selections.plan === plan.name ? '#6366f1' : plan.highlight ? '#e0e7ff' : '#e2e8f0'}`,
-                    background: selections.plan === plan.name ? '#eff6ff' : plan.highlight ? '#f5f3ff' : '#fff',
+                    background:
+                      selections.plan === plan.name
+                        ? '#eff6ff'
+                        : plan.highlight
+                          ? '#f5f3ff'
+                          : '#fff',
                   }}
                 >
-                  <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{plan.name}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+                    {plan.name}
+                  </span>
                   <span style={{ fontSize: 12, color: '#64748b' }}>{plan.price}</span>
                 </button>
               ))}
@@ -775,16 +1071,54 @@ export const Primitive_다이얼로그_스텝_인디케이터: Story = {
           )}
           {step === 3 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <input placeholder="카드 번호" style={{ padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
+              <input
+                placeholder="카드 번호"
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: 8,
+                  border: '1.5px solid #e2e8f0',
+                  fontSize: 13,
+                  outline: 'none',
+                }}
+              />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                <input placeholder="만료일 MM/YY" style={{ padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
-                <input placeholder="CVC" style={{ padding: '10px 14px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
+                <input
+                  placeholder="만료일 MM/YY"
+                  style={{
+                    padding: '10px 14px',
+                    borderRadius: 8,
+                    border: '1.5px solid #e2e8f0',
+                    fontSize: 13,
+                    outline: 'none',
+                  }}
+                />
+                <input
+                  placeholder="CVC"
+                  style={{
+                    padding: '10px 14px',
+                    borderRadius: 8,
+                    border: '1.5px solid #e2e8f0',
+                    fontSize: 13,
+                    outline: 'none',
+                  }}
+                />
               </div>
             </div>
           )}
           {step === 4 && (
             <div style={{ textAlign: 'center', paddingTop: 8 }}>
-              <div style={{ width: 60, height: 60, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
+              <div
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: '50%',
+                  background: '#dcfce7',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 12px',
+                }}
+              >
                 <span style={{ fontSize: 24, color: '#22c55e', fontWeight: 800 }}>✓</span>
               </div>
               <div style={{ fontSize: 13, color: '#64748b' }}>
@@ -799,14 +1133,32 @@ export const Primitive_다이얼로그_스텝_인디케이터: Story = {
           {step > 0 && step < total - 1 && (
             <button
               onClick={() => setStep((s) => s - 1)}
-              style={{ flex: 1, padding: '10px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer' }}
+              style={{
+                flex: 1,
+                padding: '10px 0',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                fontSize: 13,
+                cursor: 'pointer',
+              }}
             >
               이전
             </button>
           )}
           <button
-            onClick={() => step < total - 1 ? setStep((s) => s + 1) : setStep(0)}
-            style={{ flex: 2, padding: '10px 0', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
+            onClick={() => (step < total - 1 ? setStep((s) => s + 1) : setStep(0))}
+            style={{
+              flex: 2,
+              padding: '10px 0',
+              borderRadius: 8,
+              border: 'none',
+              background: '#6366f1',
+              color: '#fff',
+              fontSize: 13,
+              fontWeight: 700,
+              cursor: 'pointer',
+            }}
           >
             {step === total - 1 ? '처음으로' : step === total - 2 ? '완료' : '다음'}
           </button>
@@ -846,46 +1198,119 @@ export const IssueTracker_이슈_상태_플로우: Story = {
     return (
       <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', padding: '20px 0' }}>
         {/* 이슈 헤더 */}
-        <div style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid #f1f5f9', background: '#fff', marginBottom: 20 }}>
-          <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', marginBottom: 4 }}>ORB-412</div>
+        <div
+          style={{
+            padding: '14px 16px',
+            borderRadius: 12,
+            border: '1px solid #f1f5f9',
+            background: '#fff',
+            marginBottom: 20,
+          }}
+        >
+          <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', marginBottom: 4 }}>
+            ORB-412
+          </div>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
             Tooltip 다크모드 배경색 토큰 누락 수정
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
-            <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 20, background: '#fef9c3', color: '#92400e', fontWeight: 600 }}>Bug</span>
-            <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 20, background: '#eff6ff', color: '#1d4ed8', fontWeight: 600 }}>P1</span>
+            <span
+              style={{
+                fontSize: 10,
+                padding: '2px 8px',
+                borderRadius: 20,
+                background: '#fef9c3',
+                color: '#92400e',
+                fontWeight: 600,
+              }}
+            >
+              Bug
+            </span>
+            <span
+              style={{
+                fontSize: 10,
+                padding: '2px 8px',
+                borderRadius: 20,
+                background: '#eff6ff',
+                color: '#1d4ed8',
+                fontWeight: 600,
+              }}
+            >
+              P1
+            </span>
           </div>
         </div>
 
         {/* 상태 흐름 */}
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            marginBottom: 12,
+          }}
+        >
           상태 전환 이력
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 20 }}>
           {TRACKER_STATES.map((state, i) => (
-            <div key={state.label} style={{ display: 'flex', alignItems: 'center', flex: i < TRACKER_STATES.length - 1 ? 1 : 'none' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-                <PageDots
-                  selected={i <= activeStep}
-                  onClick={() => setActiveStep(i)}
-                />
-                <div style={{ fontSize: 10, fontWeight: i === activeStep ? 700 : 400, color: i <= activeStep ? state.color : '#cbd5e1', whiteSpace: 'nowrap' }}>
+            <div
+              key={state.label}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flex: i < TRACKER_STATES.length - 1 ? 1 : 'none',
+              }}
+            >
+              <div
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+              >
+                <PageDots selected={i <= activeStep} onClick={() => setActiveStep(i)} />
+                <div
+                  style={{
+                    fontSize: 10,
+                    fontWeight: i === activeStep ? 700 : 400,
+                    color: i <= activeStep ? state.color : '#cbd5e1',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
                   {state.label}
                 </div>
               </div>
               {i < TRACKER_STATES.length - 1 && (
-                <div style={{ flex: 1, height: 2, margin: '0 4px', marginBottom: 18, background: i < activeStep ? '#e2e8f0' : '#f1f5f9' }} />
+                <div
+                  style={{
+                    flex: 1,
+                    height: 2,
+                    margin: '0 4px',
+                    marginBottom: 18,
+                    background: i < activeStep ? '#e2e8f0' : '#f1f5f9',
+                  }}
+                />
               )}
             </div>
           ))}
         </div>
 
         {/* 현재 상태 카드 */}
-        <div style={{
-          padding: '14px 16px', borderRadius: 10, border: `1.5px solid ${TRACKER_STATES[activeStep].color}33`,
-          background: `${TRACKER_STATES[activeStep].color}0a`,
-        }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: TRACKER_STATES[activeStep].color, marginBottom: 4 }}>
+        <div
+          style={{
+            padding: '14px 16px',
+            borderRadius: 10,
+            border: `1.5px solid ${TRACKER_STATES[activeStep].color}33`,
+            background: `${TRACKER_STATES[activeStep].color}0a`,
+          }}
+        >
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: TRACKER_STATES[activeStep].color,
+              marginBottom: 4,
+            }}
+          >
             현재: {TRACKER_STATES[activeStep].label}
           </div>
           <div style={{ fontSize: 11, color: '#64748b' }}>
@@ -899,14 +1324,33 @@ export const IssueTracker_이슈_상태_플로우: Story = {
           <button
             onClick={() => setActiveStep((s) => Math.max(0, s - 1))}
             disabled={activeStep === 0}
-            style={{ flex: 1, padding: '8px 0', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: activeStep === 0 ? 'not-allowed' : 'pointer', opacity: activeStep === 0 ? 0.4 : 1 }}
+            style={{
+              flex: 1,
+              padding: '8px 0',
+              borderRadius: 6,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              fontSize: 12,
+              cursor: activeStep === 0 ? 'not-allowed' : 'pointer',
+              opacity: activeStep === 0 ? 0.4 : 1,
+            }}
           >
             이전 상태
           </button>
           <button
             onClick={() => setActiveStep((s) => Math.min(TRACKER_STATES.length - 1, s + 1))}
             disabled={activeStep === TRACKER_STATES.length - 1}
-            style={{ flex: 1, padding: '8px 0', borderRadius: 6, border: 'none', background: activeStep < TRACKER_STATES.length - 1 ? '#0f172a' : '#e2e8f0', color: activeStep < TRACKER_STATES.length - 1 ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 600, cursor: activeStep === TRACKER_STATES.length - 1 ? 'not-allowed' : 'pointer' }}
+            style={{
+              flex: 1,
+              padding: '8px 0',
+              borderRadius: 6,
+              border: 'none',
+              background: activeStep < TRACKER_STATES.length - 1 ? '#0f172a' : '#e2e8f0',
+              color: activeStep < TRACKER_STATES.length - 1 ? '#fff' : '#94a3b8',
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: activeStep === TRACKER_STATES.length - 1 ? 'not-allowed' : 'pointer',
+            }}
           >
             다음 상태
           </button>
@@ -944,21 +1388,36 @@ export const IssueTracker_문서_예제_슬라이드: Story = {
     return (
       <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
         {/* 예제 카드 */}
-        <div style={{
-          padding: '28px 24px', borderRadius: 14, background: example.bg,
-          border: '1px solid #e2e8f0', marginBottom: 16, minHeight: 120,
-          display: 'flex', flexDirection: 'column', justifyContent: 'center',
-          transition: 'background 0.2s',
-        }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+        <div
+          style={{
+            padding: '28px 24px',
+            borderRadius: 14,
+            background: example.bg,
+            border: '1px solid #e2e8f0',
+            marginBottom: 16,
+            minHeight: 120,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            transition: 'background 0.2s',
+          }}
+        >
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 8,
+            }}
+          >
             예제 {current + 1} / {TRACKER_EXAMPLES.length}
           </div>
           <div style={{ fontSize: 17, fontWeight: 800, color: '#0f172a', marginBottom: 6 }}>
             {example.title}
           </div>
-          <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
-            {example.desc}
-          </div>
+          <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>{example.desc}</div>
           {/* 실제 PageDots 데모 */}
           <div style={{ marginTop: 16, display: 'flex', gap: 6 }}>
             {TRACKER_EXAMPLES.map((_, i) => (
@@ -996,38 +1455,89 @@ const GALLERY_ITEMS = [
 function UtilityCSSGalleryCarouselRender() {
   const [current, setCurrent] = useState(0)
 
-  const prev = () => setCurrent(i => (i - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length)
-  const next = () => setCurrent(i => (i + 1) % GALLERY_ITEMS.length)
+  const prev = () => setCurrent((i) => (i - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length)
+  const next = () => setCurrent((i) => (i + 1) % GALLERY_ITEMS.length)
 
   const item = GALLERY_ITEMS[current]
 
   return (
-    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div
+      style={{
+        width: 340,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+      }}
+    >
       {/* 이미지 영역 */}
       <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden' }}>
-        <div style={{
-          height: 180,
-          background: `linear-gradient(135deg, ${item.color}44, ${item.color}88)`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          transition: 'background 0.3s',
-        }}>
+        <div
+          style={{
+            height: 180,
+            background: `linear-gradient(135deg, ${item.color}44, ${item.color}88)`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'background 0.3s',
+          }}
+        >
           <div style={{ fontSize: 13, fontWeight: 700, color: item.color }}>{item.title}</div>
         </div>
         {/* 이전/다음 버튼 */}
         <button
           onClick={prev}
-          style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.8)', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          style={{
+            position: 'absolute',
+            left: 8,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: 28,
+            height: 28,
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.8)',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: 14,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
           ‹
         </button>
         <button
           onClick={next}
-          style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.8)', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          style={{
+            position: 'absolute',
+            right: 8,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: 28,
+            height: 28,
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.8)',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: 14,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
           ›
         </button>
         {/* 오버레이 도트 */}
-        <div style={{ position: 'absolute', bottom: 8, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 4 }}>
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 8,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            gap: 4,
+          }}
+        >
           {GALLERY_ITEMS.map((_, i) => (
             <PageDots key={i} selected={i === current} onClick={() => setCurrent(i)} />
           ))}
@@ -1040,7 +1550,10 @@ function UtilityCSSGalleryCarouselRender() {
             key={i}
             onClick={() => setCurrent(i)}
             style={{
-              flex: 1, height: 36, borderRadius: 6, cursor: 'pointer',
+              flex: 1,
+              height: 36,
+              borderRadius: 6,
+              cursor: 'pointer',
               background: `${g.color}${i === current ? 'aa' : '33'}`,
               border: i === current ? `2px solid ${g.color}` : '2px solid transparent',
               transition: 'all 0.2s',
@@ -1048,7 +1561,9 @@ function UtilityCSSGalleryCarouselRender() {
           />
         ))}
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI 갤러리 캐러셀 — 오버레이 도트 + 썸네일 탐색</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        UtilityUI 갤러리 캐러셀 — 오버레이 도트 + 썸네일 탐색
+      </div>
     </div>
   )
 }
@@ -1082,30 +1597,65 @@ function M3PageIndicatorRender() {
   const [page, setPage] = useState(0)
 
   useEffect(() => {
-    const timer = setInterval(() => setPage(p => (p + 1) % M3_PAGES.length), 2000)
+    const timer = setInterval(() => setPage((p) => (p + 1) % M3_PAGES.length), 2000)
     return () => clearInterval(timer)
   }, [])
 
   return (
-    <div style={{ width: 280, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <div
+      style={{
+        width: 280,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+      }}
+    >
       <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>모바일 앱 페이지</div>
       {/* 모바일 프레임 */}
-      <div style={{ border: '2px solid #e2e8f0', borderRadius: 24, overflow: 'hidden', background: '#fff' }}>
-        <div style={{ height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 8, background: `linear-gradient(135deg, #f8fafc, #f1f5f9)` }}>
-          <div style={{ fontSize: 28 }}>
-            {['🏠', '🔍', '🔔', '👤'][page]}
+      <div
+        style={{
+          border: '2px solid #e2e8f0',
+          borderRadius: 24,
+          overflow: 'hidden',
+          background: '#fff',
+        }}
+      >
+        <div
+          style={{
+            height: 160,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            gap: 8,
+            background: `linear-gradient(135deg, #f8fafc, #f1f5f9)`,
+          }}
+        >
+          <div style={{ fontSize: 28 }}>{['🏠', '🔍', '🔔', '👤'][page]}</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>
+            {M3_PAGES[page].title}
           </div>
-          <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>{M3_PAGES[page].title}</div>
           <div style={{ fontSize: 12, color: '#64748b' }}>{M3_PAGES[page].desc}</div>
         </div>
         {/* 하단 도트 인디케이터 */}
-        <div style={{ padding: '10px 0', display: 'flex', justifyContent: 'center', gap: 6, borderTop: '1px solid #f1f5f9' }}>
+        <div
+          style={{
+            padding: '10px 0',
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 6,
+            borderTop: '1px solid #f1f5f9',
+          }}
+        >
           {M3_PAGES.map((_, i) => (
             <PageDots key={i} selected={i === page} onClick={() => setPage(i)} />
           ))}
         </div>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>M3 PageIndicator — 2초 자동 전환 + 클릭 탐색</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        M3 PageIndicator — 2초 자동 전환 + 클릭 탐색
+      </div>
     </div>
   )
 }
@@ -1134,11 +1684,31 @@ function UtilityCSSM3WizardRender() {
   const [step, setStep] = useState(1)
 
   return (
-    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20 }}>
+    <div
+      style={{
+        width: 340,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+      }}
+    >
       {/* 단계 헤더 */}
       <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>단계 {step + 1} / {TM3_WIZARD_STEPS.length}</div>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginTop: 4 }}>{TM3_WIZARD_STEPS[step]}</div>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+          }}
+        >
+          단계 {step + 1} / {TM3_WIZARD_STEPS.length}
+        </div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginTop: 4 }}>
+          {TM3_WIZARD_STEPS[step]}
+        </div>
       </div>
       {/* 도트 진행 인디케이터 */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0 }}>
@@ -1146,38 +1716,87 @@ function UtilityCSSM3WizardRender() {
           <div key={stepName} style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
               <PageDots selected={i === step} onClick={() => setStep(i)} />
-              <span style={{ fontSize: 9, color: i === step ? '#1e293b' : '#94a3b8', fontWeight: i === step ? 700 : 400, whiteSpace: 'nowrap' }}>
+              <span
+                style={{
+                  fontSize: 9,
+                  color: i === step ? '#1e293b' : '#94a3b8',
+                  fontWeight: i === step ? 700 : 400,
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 {i < step ? '완료' : i === step ? '진행중' : '대기'}
               </span>
             </div>
             {i < TM3_WIZARD_STEPS.length - 1 && (
-              <div style={{ width: 40, height: 1, background: i < step ? '#22c55e' : '#e2e8f0', margin: '0 4px', marginBottom: 16, transition: 'background 0.3s' }} />
+              <div
+                style={{
+                  width: 40,
+                  height: 1,
+                  background: i < step ? '#22c55e' : '#e2e8f0',
+                  margin: '0 4px',
+                  marginBottom: 16,
+                  transition: 'background 0.3s',
+                }}
+              />
             )}
           </div>
         ))}
       </div>
       {/* 콘텐츠 */}
-      <div style={{ padding: 16, background: '#f8fafc', borderRadius: 10, border: '1px solid #f1f5f9', minHeight: 80, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div
+        style={{
+          padding: 16,
+          background: '#f8fafc',
+          borderRadius: 10,
+          border: '1px solid #f1f5f9',
+          minHeight: 80,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         <span style={{ fontSize: 13, color: '#94a3b8' }}>{TM3_WIZARD_STEPS[step]} 폼 콘텐츠</span>
       </div>
       {/* 내비게이션 버튼 */}
       <div style={{ display: 'flex', gap: 8 }}>
         <button
-          onClick={() => setStep(s => Math.max(0, s - 1))}
+          onClick={() => setStep((s) => Math.max(0, s - 1))}
           disabled={step === 0}
-          style={{ flex: 1, padding: '9px', fontSize: 13, fontWeight: 600, background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, cursor: step === 0 ? 'not-allowed' : 'pointer', color: step === 0 ? '#94a3b8' : '#1e293b' }}
+          style={{
+            flex: 1,
+            padding: '9px',
+            fontSize: 13,
+            fontWeight: 600,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            borderRadius: 8,
+            cursor: step === 0 ? 'not-allowed' : 'pointer',
+            color: step === 0 ? '#94a3b8' : '#1e293b',
+          }}
         >
           이전
         </button>
         <button
-          onClick={() => setStep(s => Math.min(TM3_WIZARD_STEPS.length - 1, s + 1))}
+          onClick={() => setStep((s) => Math.min(TM3_WIZARD_STEPS.length - 1, s + 1))}
           disabled={step === TM3_WIZARD_STEPS.length - 1}
-          style={{ flex: 1, padding: '9px', fontSize: 13, fontWeight: 600, background: step === TM3_WIZARD_STEPS.length - 1 ? '#f8fafc' : '#1e293b', border: 'none', borderRadius: 8, cursor: step === TM3_WIZARD_STEPS.length - 1 ? 'not-allowed' : 'pointer', color: step === TM3_WIZARD_STEPS.length - 1 ? '#94a3b8' : '#fff' }}
+          style={{
+            flex: 1,
+            padding: '9px',
+            fontSize: 13,
+            fontWeight: 600,
+            background: step === TM3_WIZARD_STEPS.length - 1 ? '#f8fafc' : '#1e293b',
+            border: 'none',
+            borderRadius: 8,
+            cursor: step === TM3_WIZARD_STEPS.length - 1 ? 'not-allowed' : 'pointer',
+            color: step === TM3_WIZARD_STEPS.length - 1 ? '#94a3b8' : '#fff',
+          }}
         >
           {step === TM3_WIZARD_STEPS.length - 1 ? '완료' : '다음'}
         </button>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>UtilityUI + M3 — 도트로 위저드 진행 상태 표시</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        UtilityUI + M3 — 도트로 위저드 진행 상태 표시
+      </div>
     </div>
   )
 }
@@ -1201,29 +1820,99 @@ export const UtilityCSS_M3_위저드_도트_진행_표시: Story = {
 function PlatformHigOnboardingRender() {
   const [current, setCurrent] = useState(0)
   const slides = [
-    { title: '환영합니다', desc: 'Orbit UI 디자인 시스템에 오신 것을 환영합니다.', color: '#f0f9ff' },
-    { title: '컴포넌트', desc: '48개 이상의 프로덕션 준비 컴포넌트를 사용하세요.', color: '#f0fdf4' },
-    { title: '테마', desc: '3단계 토큰 시스템으로 브랜드를 자유롭게 커스텀하세요.', color: '#fefce8' },
-    { title: '시작하기', desc: 'pnpm add @heejun-com/theme-eclipse 로 즉시 시작하세요.', color: '#fdf4ff' },
+    {
+      title: '환영합니다',
+      desc: 'Orbit UI 디자인 시스템에 오신 것을 환영합니다.',
+      color: '#f0f9ff',
+    },
+    {
+      title: '컴포넌트',
+      desc: '48개 이상의 프로덕션 준비 컴포넌트를 사용하세요.',
+      color: '#f0fdf4',
+    },
+    {
+      title: '테마',
+      desc: '3단계 토큰 시스템으로 브랜드를 자유롭게 커스텀하세요.',
+      color: '#fefce8',
+    },
+    {
+      title: '시작하기',
+      desc: 'pnpm add @heejun-com/theme-eclipse 로 즉시 시작하세요.',
+      color: '#fdf4ff',
+    },
   ]
   return (
     <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ height: 180, background: slides[current].color, borderRadius: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px', textAlign: 'center', transition: 'background 0.3s', marginBottom: 16 }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>{slides[current].title}</div>
-        <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.6 }}>{slides[current].desc}</div>
+      <div
+        style={{
+          height: 180,
+          background: slides[current].color,
+          borderRadius: 16,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '24px',
+          textAlign: 'center',
+          transition: 'background 0.3s',
+          marginBottom: 16,
+        }}
+      >
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
+          {slides[current].title}
+        </div>
+        <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.6 }}>
+          {slides[current].desc}
+        </div>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginBottom: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 6,
+          marginBottom: 16,
+        }}
+      >
         {slides.map((_, i) => (
           <PageDots key={i} selected={i === current} onClick={() => setCurrent(i)} />
         ))}
       </div>
       <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
-        <button onClick={() => setCurrent(p => Math.max(0, p - 1))} disabled={current === 0} style={{ padding: '8px 20px', fontSize: 13, border: '1px solid #e2e8f0', borderRadius: 8, cursor: current === 0 ? 'not-allowed' : 'pointer', background: '#fff', color: current === 0 ? '#94a3b8' : '#1e293b' }}>이전</button>
-        <button onClick={() => setCurrent(p => Math.min(slides.length - 1, p + 1))} disabled={current === slides.length - 1} style={{ padding: '8px 20px', fontSize: 13, border: 'none', borderRadius: 8, cursor: current === slides.length - 1 ? 'not-allowed' : 'pointer', background: '#0f172a', color: '#fff' }}>
+        <button
+          onClick={() => setCurrent((p) => Math.max(0, p - 1))}
+          disabled={current === 0}
+          style={{
+            padding: '8px 20px',
+            fontSize: 13,
+            border: '1px solid #e2e8f0',
+            borderRadius: 8,
+            cursor: current === 0 ? 'not-allowed' : 'pointer',
+            background: '#fff',
+            color: current === 0 ? '#94a3b8' : '#1e293b',
+          }}
+        >
+          이전
+        </button>
+        <button
+          onClick={() => setCurrent((p) => Math.min(slides.length - 1, p + 1))}
+          disabled={current === slides.length - 1}
+          style={{
+            padding: '8px 20px',
+            fontSize: 13,
+            border: 'none',
+            borderRadius: 8,
+            cursor: current === slides.length - 1 ? 'not-allowed' : 'pointer',
+            background: '#0f172a',
+            color: '#fff',
+          }}
+        >
           {current === slides.length - 1 ? '완료' : '다음'}
         </button>
       </div>
-      <div style={{ marginTop: 12, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>Platform HIG 온보딩 페이지 도트 패턴</div>
+      <div style={{ marginTop: 12, textAlign: 'center', fontSize: 11, color: '#94a3b8' }}>
+        Platform HIG 온보딩 페이지 도트 패턴
+      </div>
     </div>
   )
 }
@@ -1247,9 +1936,21 @@ function M3StepIndicatorRender() {
   const TOTAL = 5
   return (
     <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>RoleToken Design 스텝 인디케이터</div>
-      <div style={{ padding: '20px', background: '#fffbfe', borderRadius: 12, border: '1px solid #e8def8', marginBottom: 12 }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#1c1b1f', marginBottom: 4 }}>단계 {step} / {TOTAL}</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>
+        RoleToken Design 스텝 인디케이터
+      </div>
+      <div
+        style={{
+          padding: '20px',
+          background: '#fffbfe',
+          borderRadius: 12,
+          border: '1px solid #e8def8',
+          marginBottom: 12,
+        }}
+      >
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#1c1b1f', marginBottom: 4 }}>
+          단계 {step} / {TOTAL}
+        </div>
         <div style={{ fontSize: 12, color: '#49454f', marginBottom: 16 }}>
           {['프로젝트 설정', '팀 구성', '플랜 선택', '환경 설정', '완료'][step - 1]}
         </div>
@@ -1261,12 +1962,28 @@ function M3StepIndicatorRender() {
       </div>
       <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
         {Array.from({ length: TOTAL }, (_, i) => (
-          <button key={i} onClick={() => setStep(i + 1)} style={{ width: 28, height: 28, borderRadius: '50%', border: step === i + 1 ? '2px solid #6750a4' : '1px solid #e8def8', background: step === i + 1 ? '#6750a4' : '#fff', color: step === i + 1 ? '#fff' : '#49454f', fontSize: 11, cursor: 'pointer', fontWeight: 600 }}>
+          <button
+            key={i}
+            onClick={() => setStep(i + 1)}
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: '50%',
+              border: step === i + 1 ? '2px solid #6750a4' : '1px solid #e8def8',
+              background: step === i + 1 ? '#6750a4' : '#fff',
+              color: step === i + 1 ? '#fff' : '#49454f',
+              fontSize: 11,
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
             {i + 1}
           </button>
         ))}
       </div>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>M3 IssueTrackerProgressIndicator + Stepper 패턴</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        M3 IssueTrackerProgressIndicator + Stepper 패턴
+      </div>
     </div>
   )
 }
@@ -1291,13 +2008,33 @@ function PlatformM3MediaRender() {
   const tracks = ['Orbit Theme', 'Eclipse Suite', 'Design System', 'Component Kit', 'Token Wave']
   useEffect(() => {
     if (!playing) return
-    const timer = setTimeout(() => setTrack(p => (p + 1) % tracks.length), 3000)
+    const timer = setTimeout(() => setTrack((p) => (p + 1) % tracks.length), 3000)
     return () => clearTimeout(timer)
   }, [playing, track, tracks.length])
   return (
-    <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif', background: '#1c1b1f', borderRadius: 16, padding: '20px', color: '#e6e1e5' }}>
+    <div
+      style={{
+        width: 300,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        background: '#1c1b1f',
+        borderRadius: 16,
+        padding: '20px',
+        color: '#e6e1e5',
+      }}
+    >
       <div style={{ textAlign: 'center', marginBottom: 16 }}>
-        <div style={{ width: 80, height: 80, borderRadius: 16, background: 'linear-gradient(135deg, #6750a4, #b69df8)', margin: '0 auto 12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            borderRadius: 16,
+            background: 'linear-gradient(135deg, #6750a4, #b69df8)',
+            margin: '0 auto 12px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <span style={{ fontSize: 32 }}>♪</span>
         </div>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#e6e1e5' }}>{tracks[track]}</div>
@@ -1305,17 +2042,67 @@ function PlatformM3MediaRender() {
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 5, marginBottom: 16 }}>
         {tracks.map((_, i) => (
-          <PageDots key={i} selected={i === track} onClick={() => { setTrack(i); setPlaying(false) }} />
+          <PageDots
+            key={i}
+            selected={i === track}
+            onClick={() => {
+              setTrack(i)
+              setPlaying(false)
+            }}
+          />
         ))}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16 }}>
-        <button onClick={() => setTrack(p => Math.max(0, p - 1))} style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: '#2d2c32', color: '#e6e1e5', cursor: 'pointer', fontSize: 14 }}>&#8249;</button>
-        <button onClick={() => setPlaying(p => !p)} style={{ width: 48, height: 48, borderRadius: '50%', border: 'none', background: '#d0bcff', color: '#1c1b1f', cursor: 'pointer', fontSize: 18, fontWeight: 700 }}>
+        <button
+          onClick={() => setTrack((p) => Math.max(0, p - 1))}
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: '50%',
+            border: 'none',
+            background: '#2d2c32',
+            color: '#e6e1e5',
+            cursor: 'pointer',
+            fontSize: 14,
+          }}
+        >
+          &#8249;
+        </button>
+        <button
+          onClick={() => setPlaying((p) => !p)}
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            border: 'none',
+            background: '#d0bcff',
+            color: '#1c1b1f',
+            cursor: 'pointer',
+            fontSize: 18,
+            fontWeight: 700,
+          }}
+        >
           {playing ? '⏸' : '▶'}
         </button>
-        <button onClick={() => setTrack(p => (p + 1) % tracks.length)} style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: '#2d2c32', color: '#e6e1e5', cursor: 'pointer', fontSize: 14 }}>&#8250;</button>
+        <button
+          onClick={() => setTrack((p) => (p + 1) % tracks.length)}
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: '50%',
+            border: 'none',
+            background: '#2d2c32',
+            color: '#e6e1e5',
+            cursor: 'pointer',
+            fontSize: 14,
+          }}
+        >
+          &#8250;
+        </button>
       </div>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#938f99', textAlign: 'center' }}>Platform Music + M3 미디어 플레이어 도트 패턴</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#938f99', textAlign: 'center' }}>
+        Platform Music + M3 미디어 플레이어 도트 패턴
+      </div>
     </div>
   )
 }
@@ -1353,7 +2140,15 @@ function CommandPaletteCommandStepRender() {
         border: '1px solid rgba(255,255,255,0.1)',
       }}
     >
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)' }}>&#8984;</span>
         <span style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.85)' }}>
           {LAUNCHER_STEPS[step]}
@@ -1387,7 +2182,16 @@ function CommandPaletteCommandStepRender() {
           </button>
         ))}
       </div>
-      <div style={{ padding: '10px 16px', borderTop: '1px solid rgba(255,255,255,0.08)', fontSize: 11, color: 'rgba(255,255,255,0.3)', display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          padding: '10px 16px',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
+          fontSize: 11,
+          color: 'rgba(255,255,255,0.3)',
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
         <span>CommandPalette Command Palette</span>
         <span>&#9166; 실행</span>
       </div>
@@ -1422,8 +2226,24 @@ const WORKSPACE_SECTIONS = [
 function WorkspaceEditorSectionNavRender() {
   const [section, setSection] = useState(0)
   return (
-    <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif", background: '#fff', borderRadius: 8, border: '1px solid #e5e5e5' }}>
-      <div style={{ padding: '16px 20px', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 6 }}>
+    <div
+      style={{
+        width: 360,
+        fontFamily: "'Inter', system-ui, sans-serif",
+        background: '#fff',
+        borderRadius: 8,
+        border: '1px solid #e5e5e5',
+      }}
+    >
+      <div
+        style={{
+          padding: '16px 20px',
+          borderBottom: '1px solid #f0f0f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+        }}
+      >
         <span style={{ fontSize: 16 }}>📝</span>
         <span style={{ fontSize: 14, fontWeight: 600, color: '#1a1a1a' }}>Orbit UI 문서</span>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 4, alignItems: 'center' }}>
@@ -1443,18 +2263,44 @@ function WorkspaceEditorSectionNavRender() {
           {WORKSPACE_SECTIONS[section].preview}
         </p>
       </div>
-      <div style={{ padding: '10px 20px', borderTop: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', gap: 8 }}>
+      <div
+        style={{
+          padding: '10px 20px',
+          borderTop: '1px solid #f0f0f0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: 8,
+        }}
+      >
         <button
-          onClick={() => setSection(p => Math.max(0, p - 1))}
+          onClick={() => setSection((p) => Math.max(0, p - 1))}
           disabled={section === 0}
-          style={{ flex: 1, padding: '6px 0', border: '1px solid #e5e5e5', borderRadius: 6, background: '#fff', color: section === 0 ? '#ccc' : '#374151', fontSize: 12, cursor: section === 0 ? 'not-allowed' : 'pointer' }}
+          style={{
+            flex: 1,
+            padding: '6px 0',
+            border: '1px solid #e5e5e5',
+            borderRadius: 6,
+            background: '#fff',
+            color: section === 0 ? '#ccc' : '#374151',
+            fontSize: 12,
+            cursor: section === 0 ? 'not-allowed' : 'pointer',
+          }}
         >
           이전
         </button>
         <button
-          onClick={() => setSection(p => Math.min(WORKSPACE_SECTIONS.length - 1, p + 1))}
+          onClick={() => setSection((p) => Math.min(WORKSPACE_SECTIONS.length - 1, p + 1))}
           disabled={section === WORKSPACE_SECTIONS.length - 1}
-          style={{ flex: 1, padding: '6px 0', border: '1px solid #e5e5e5', borderRadius: 6, background: section === WORKSPACE_SECTIONS.length - 1 ? '#f9f9f9' : '#1a1a1a', color: section === WORKSPACE_SECTIONS.length - 1 ? '#ccc' : '#fff', fontSize: 12, cursor: section === WORKSPACE_SECTIONS.length - 1 ? 'not-allowed' : 'pointer' }}
+          style={{
+            flex: 1,
+            padding: '6px 0',
+            border: '1px solid #e5e5e5',
+            borderRadius: 6,
+            background: section === WORKSPACE_SECTIONS.length - 1 ? '#f9f9f9' : '#1a1a1a',
+            color: section === WORKSPACE_SECTIONS.length - 1 ? '#ccc' : '#fff',
+            fontSize: 12,
+            cursor: section === WORKSPACE_SECTIONS.length - 1 ? 'not-allowed' : 'pointer',
+          }}
         >
           다음
         </button>
@@ -1481,9 +2327,30 @@ export const WorkspaceEditor_문서_섹션_내비게이션_도트: Story = {
    CommandPalette + WorkspaceEditor — 온보딩 투어 플로우
 -------------------------------------------------------------------------- */
 const TOUR_STEPS = [
-  { icon: '⚡', title: 'CommandPalette 확장 설치', desc: 'Orbit UI 컴포넌트를 CommandPalette 확장으로 바로 사용할 수 있습니다.', bg: '#1c1c1e', text: '#e5e7eb', accent: '#818cf8' },
-  { icon: '📝', title: 'WorkspaceEditor 페이지 연동', desc: '디자인 시스템 문서를 WorkspaceEditor에 자동 동기화합니다.', bg: '#fff', text: '#1a1a1a', accent: '#000' },
-  { icon: '🔗', title: '워크플로우 완성', desc: 'CommandPalette에서 검색 → WorkspaceEditor에서 문서 확인 → 개발 적용.', bg: '#f8fafc', text: '#1e293b', accent: '#6366f1' },
+  {
+    icon: '⚡',
+    title: 'CommandPalette 확장 설치',
+    desc: 'Orbit UI 컴포넌트를 CommandPalette 확장으로 바로 사용할 수 있습니다.',
+    bg: '#1c1c1e',
+    text: '#e5e7eb',
+    accent: '#818cf8',
+  },
+  {
+    icon: '📝',
+    title: 'WorkspaceEditor 페이지 연동',
+    desc: '디자인 시스템 문서를 WorkspaceEditor에 자동 동기화합니다.',
+    bg: '#fff',
+    text: '#1a1a1a',
+    accent: '#000',
+  },
+  {
+    icon: '🔗',
+    title: '워크플로우 완성',
+    desc: 'CommandPalette에서 검색 → WorkspaceEditor에서 문서 확인 → 개발 적용.',
+    bg: '#f8fafc',
+    text: '#1e293b',
+    accent: '#6366f1',
+  },
 ]
 
 function CommandPaletteWorkspaceEditorTourRender() {
@@ -1504,18 +2371,39 @@ function CommandPaletteWorkspaceEditorTourRender() {
     >
       <div style={{ padding: '24px 24px 16px', textAlign: 'center' }}>
         <div style={{ fontSize: 40, marginBottom: 12 }}>{current.icon}</div>
-        <div style={{ fontSize: 15, fontWeight: 700, color: current.text, marginBottom: 8 }}>{current.title}</div>
-        <p style={{ margin: 0, fontSize: 12, color: current.text, opacity: 0.65, lineHeight: 1.6 }}>{current.desc}</p>
+        <div style={{ fontSize: 15, fontWeight: 700, color: current.text, marginBottom: 8 }}>
+          {current.title}
+        </div>
+        <p style={{ margin: 0, fontSize: 12, color: current.text, opacity: 0.65, lineHeight: 1.6 }}>
+          {current.desc}
+        </p>
       </div>
-      <div style={{ padding: '12px 24px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <div
+        style={{
+          padding: '12px 24px 20px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 16,
+        }}
+      >
         <div style={{ display: 'flex', gap: 6 }}>
           {TOUR_STEPS.map((_, i) => (
             <PageDots key={i} selected={i === step} onClick={() => setStep(i)} />
           ))}
         </div>
         <button
-          onClick={() => setStep(p => (p + 1) % TOUR_STEPS.length)}
-          style={{ padding: '8px 28px', borderRadius: 8, border: 'none', background: current.accent, color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+          onClick={() => setStep((p) => (p + 1) % TOUR_STEPS.length)}
+          style={{
+            padding: '8px 28px',
+            borderRadius: 8,
+            border: 'none',
+            background: current.accent,
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
         >
           {step === TOUR_STEPS.length - 1 ? '시작하기' : '다음'}
         </button>

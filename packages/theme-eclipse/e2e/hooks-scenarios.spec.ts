@@ -9,8 +9,7 @@ import { test, expect } from '@playwright/test'
  * the observable DOM after a user interaction.
  */
 
-const STORY = (id: string) =>
-  `/iframe.html?args=&id=${encodeURIComponent(id)}&viewMode=story`
+const STORY = (id: string) => `/iframe.html?args=&id=${encodeURIComponent(id)}&viewMode=story`
 
 test.describe('Hooks · State', () => {
   test('useDisclosure: Open/Close/Toggle buttons drive isOpen readout', async ({ page }) => {

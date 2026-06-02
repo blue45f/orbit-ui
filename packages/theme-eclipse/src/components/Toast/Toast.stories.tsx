@@ -92,7 +92,16 @@ const TypeSwitcherRender = (args: React.ComponentProps<typeof Toaster>) => {
   ]
 
   return (
-    <div style={{ padding: '2rem', height: '320px', display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
+    <div
+      style={{
+        padding: '2rem',
+        height: '320px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        alignItems: 'flex-start',
+      }}
+    >
       <Toaster {...args} />
       <div style={{ fontSize: '13px', fontWeight: 600, color: '#64748b', marginBottom: '4px' }}>
         타입별 알림 스위처
@@ -147,7 +156,16 @@ const NotificationQueueRender = (args: React.ComponentProps<typeof Toaster>) => 
   }
 
   return (
-    <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
+    <div
+      style={{
+        padding: '2rem',
+        height: '360px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        alignItems: 'flex-start',
+      }}
+    >
       <Toaster {...args} expand richColors />
       <div style={{ fontSize: '13px', fontWeight: 600, color: '#64748b', marginBottom: '4px' }}>
         알림 큐 데모 — 여러 알림을 차례로 추가하거나 한 번에 제거합니다
@@ -160,9 +178,7 @@ const NotificationQueueRender = (args: React.ComponentProps<typeof Toaster>) => 
           <Button.Center>전체 닫기</Button.Center>
         </Button>
       </div>
-      <div style={{ fontSize: '12px', color: '#94a3b8' }}>
-        현재 누적 횟수: {count}
-      </div>
+      <div style={{ fontSize: '12px', color: '#94a3b8' }}>현재 누적 횟수: {count}</div>
     </div>
   )
 }
@@ -212,7 +228,10 @@ const FormSubmitFlowRender = (args: React.ComponentProps<typeof Toaster>) => {
       <div style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b', marginBottom: '16px' }}>
         폼 제출 플로우 데모
       </div>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
+      >
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -295,13 +314,22 @@ const PlatformHIGBannerRender = (args: React.ComponentProps<typeof Toaster>) => 
   ]
 
   return (
-    <div style={{ padding: '2rem', height: '380px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div
+      style={{
+        padding: '2rem',
+        height: '380px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    >
       <Toaster {...args} position="top-center" richColors />
       <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
         Platform HIG — 시스템 알림 배너
       </div>
       <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '8px' }}>
-        iOS/macOS 스타일 알림 배너를 시뮬레이션합니다. 각 버튼을 눌러 상단 슬라이드인 알림을 확인하세요.
+        iOS/macOS 스타일 알림 배너를 시뮬레이션합니다. 각 버튼을 눌러 상단 슬라이드인 알림을
+        확인하세요.
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {bannerTypes.map(({ label, fn }) => (
@@ -365,7 +393,15 @@ const CommandPaletteCommandToastRender = (args: React.ComponentProps<typeof Toas
   ]
 
   return (
-    <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div
+      style={{
+        padding: '2rem',
+        height: '360px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    >
       <Toaster {...args} position="bottom-right" />
       <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>
         CommandPalette — 커맨드 실행 결과 알림
@@ -373,15 +409,39 @@ const CommandPaletteCommandToastRender = (args: React.ComponentProps<typeof Toas
       <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>
         명령어를 실행하면 진행 중 상태에서 완료로 전환되는 Toast를 확인합니다.
       </div>
-      <div style={{
-        borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden',
-        background: '#0f172a',
-      }}>
-        <div style={{ padding: '10px 16px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+      <div
+        style={{
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+          background: '#0f172a',
+        }}
+      >
+        <div
+          style={{
+            padding: '10px 16px',
+            borderBottom: '1px solid #1e293b',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+          }}
+        >
           {['#ef4444', '#f59e0b', '#10b981'].map((c) => (
-            <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', background: c }} />
+            <div
+              key={c}
+              style={{ width: '10px', height: '10px', borderRadius: '50%', background: c }}
+            />
           ))}
-          <span style={{ fontSize: '11px', color: '#475569', marginLeft: '6px', fontFamily: 'monospace' }}>orbit-ui — zsh</span>
+          <span
+            style={{
+              fontSize: '11px',
+              color: '#475569',
+              marginLeft: '6px',
+              fontFamily: 'monospace',
+            }}
+          >
+            orbit-ui — zsh
+          </span>
         </div>
         <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {commands.map(({ name, cmd }) => (
@@ -402,7 +462,11 @@ const CommandPaletteCommandToastRender = (args: React.ComponentProps<typeof Toas
               }}
             >
               <span style={{ fontSize: '12px', color: '#6366f1', fontFamily: 'monospace' }}>$</span>
-              <span style={{ fontSize: '12px', color: '#e2e8f0', fontFamily: 'monospace', flex: 1 }}>{cmd}</span>
+              <span
+                style={{ fontSize: '12px', color: '#e2e8f0', fontFamily: 'monospace', flex: 1 }}
+              >
+                {cmd}
+              </span>
               <span style={{ fontSize: '10px', color: '#475569' }}>{name}</span>
             </div>
           ))}
@@ -420,11 +484,21 @@ export const CommandPalette_커맨드_실행_알림: Story = {
    EnterpriseUI 벤치마크: Snackbar 위치 데모
    EnterpriseUI Snackbar anchorOrigin 패턴 — 6가지 위치를 UI로 선택해 확인
 -------------------------------------------------------------------------- */
-type ToasterPosition = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
+type ToasterPosition =
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right'
 
 const POSITIONS: ToasterPosition[] = [
-  'top-left', 'top-center', 'top-right',
-  'bottom-left', 'bottom-center', 'bottom-right',
+  'top-left',
+  'top-center',
+  'top-right',
+  'bottom-left',
+  'bottom-center',
+  'bottom-right',
 ]
 
 const SnackbarPositionRender = () => {
@@ -440,21 +514,27 @@ const SnackbarPositionRender = () => {
         위치를 선택한 후 알림 띄우기 버튼을 눌러 해당 위치에 Toast가 나타나는 것을 확인합니다.
       </div>
 
-      <div style={{
-        position: 'relative',
-        width: '300px',
-        height: '160px',
-        borderRadius: '12px',
-        border: '1.5px solid #e2e8f0',
-        background: '#f8fafc',
-        marginBottom: '16px',
-      }}>
+      <div
+        style={{
+          position: 'relative',
+          width: '300px',
+          height: '160px',
+          borderRadius: '12px',
+          border: '1.5px solid #e2e8f0',
+          background: '#f8fafc',
+          marginBottom: '16px',
+        }}
+      >
         {POSITIONS.map((p) => {
           const [v, h] = p.split('-') as ['top' | 'bottom', 'left' | 'center' | 'right']
           const style: React.CSSProperties = {
             position: 'absolute',
             [v]: 10,
-            ...(h === 'left' ? { left: 10 } : h === 'right' ? { right: 10 } : { left: '50%', transform: 'translateX(-50%)' }),
+            ...(h === 'left'
+              ? { left: 10 }
+              : h === 'right'
+                ? { right: 10 }
+                : { left: '50%', transform: 'translateX(-50%)' }),
           }
           return (
             <button
@@ -482,7 +562,9 @@ const SnackbarPositionRender = () => {
       <Button
         color="primary"
         size="medium"
-        onClick={() => toast.info(`위치: ${pos}`, { description: 'EnterpriseUI anchorOrigin 패턴' })}
+        onClick={() =>
+          toast.info(`위치: ${pos}`, { description: 'EnterpriseUI anchorOrigin 패턴' })
+        }
       >
         <Button.Center>알림 띄우기</Button.Center>
       </Button>
@@ -530,7 +612,17 @@ const UndoPatternRender = (args: React.ComponentProps<typeof Toaster>) => {
       </div>
 
       {items.length === 0 ? (
-        <div style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: '13px', background: '#f8fafc', borderRadius: '12px', border: '1px dashed #e2e8f0' }}>
+        <div
+          style={{
+            padding: '32px',
+            textAlign: 'center',
+            color: '#94a3b8',
+            fontSize: '13px',
+            background: '#f8fafc',
+            borderRadius: '12px',
+            border: '1px dashed #e2e8f0',
+          }}
+        >
           모든 항목이 삭제되었습니다.
         </div>
       ) : (
@@ -552,9 +644,14 @@ const UndoPatternRender = (args: React.ComponentProps<typeof Toaster>) => {
               <button
                 onClick={() => deleteItem(item)}
                 style={{
-                  padding: '4px 10px', borderRadius: '6px',
-                  border: '1px solid #fecaca', background: '#fff5f5',
-                  color: '#ef4444', fontSize: '11px', fontWeight: 600, cursor: 'pointer',
+                  padding: '4px 10px',
+                  borderRadius: '6px',
+                  border: '1px solid #fecaca',
+                  background: '#fff5f5',
+                  color: '#ef4444',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
                 }}
               >
                 삭제
@@ -578,22 +675,57 @@ export const EnterpriseUI_실행취소_패턴: Story = {
 -------------------------------------------------------------------------- */
 type AlertSeverity = 'error' | 'warning' | 'info' | 'success'
 
-const ALERT_CONFIGS: Record<AlertSeverity, { label: string; desc: string; icon: string; fn: (msg: string, desc: string) => void }> = {
-  error: { label: 'Error', desc: '네트워크 연결이 끊어졌습니다. 재시도해 주세요.', icon: '✕', fn: (m, d) => toast.error(m, { description: d }) },
-  warning: { label: 'Warning', desc: '세션이 5분 후 만료됩니다. 저장하세요.', icon: '!', fn: (m, d) => toast.warning(m, { description: d }) },
-  info: { label: 'Info', desc: '새 버전 v2.5.0이 출시되었습니다.', icon: 'i', fn: (m, d) => toast.info(m, { description: d }) },
-  success: { label: 'Success', desc: '변경사항이 저장되었습니다.', icon: '✓', fn: (m, d) => toast.success(m, { description: d }) },
+const ALERT_CONFIGS: Record<
+  AlertSeverity,
+  { label: string; desc: string; icon: string; fn: (msg: string, desc: string) => void }
+> = {
+  error: {
+    label: 'Error',
+    desc: '네트워크 연결이 끊어졌습니다. 재시도해 주세요.',
+    icon: '✕',
+    fn: (m, d) => toast.error(m, { description: d }),
+  },
+  warning: {
+    label: 'Warning',
+    desc: '세션이 5분 후 만료됩니다. 저장하세요.',
+    icon: '!',
+    fn: (m, d) => toast.warning(m, { description: d }),
+  },
+  info: {
+    label: 'Info',
+    desc: '새 버전 v2.5.0이 출시되었습니다.',
+    icon: 'i',
+    fn: (m, d) => toast.info(m, { description: d }),
+  },
+  success: {
+    label: 'Success',
+    desc: '변경사항이 저장되었습니다.',
+    icon: '✓',
+    fn: (m, d) => toast.success(m, { description: d }),
+  },
 }
 
 const AlertStyleRender = (args: React.ComponentProps<typeof Toaster>) => (
-  <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+  <div
+    style={{
+      padding: '2rem',
+      height: '360px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '16px',
+    }}
+  >
     <Toaster {...args} position="top-right" richColors />
-    <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>EnterpriseUI Alert severity 패턴</div>
+    <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>
+      EnterpriseUI Alert severity 패턴
+    </div>
     <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>
       EnterpriseUI Alert의 4가지 severity(error/warning/info/success)를 Toast로 구현합니다.
     </div>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-      {(Object.entries(ALERT_CONFIGS) as [AlertSeverity, typeof ALERT_CONFIGS[AlertSeverity]][]).map(([severity, cfg]) => {
+      {(
+        Object.entries(ALERT_CONFIGS) as [AlertSeverity, (typeof ALERT_CONFIGS)[AlertSeverity]][]
+      ).map(([severity, cfg]) => {
         const colors: Record<AlertSeverity, { border: string; bg: string; text: string }> = {
           error: { border: '#fecaca', bg: '#fff5f5', text: '#ef4444' },
           warning: { border: '#fed7aa', bg: '#fffbeb', text: '#f59e0b' },
@@ -606,17 +738,32 @@ const AlertStyleRender = (args: React.ComponentProps<typeof Toaster>) => (
             key={severity}
             onClick={() => cfg.fn(cfg.label, cfg.desc)}
             style={{
-              display: 'flex', alignItems: 'center', gap: '10px',
-              padding: '12px 14px', borderRadius: '10px',
-              border: `1.5px solid ${c.border}`, background: c.bg,
-              cursor: 'pointer', textAlign: 'left',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '12px 14px',
+              borderRadius: '10px',
+              border: `1.5px solid ${c.border}`,
+              background: c.bg,
+              cursor: 'pointer',
+              textAlign: 'left',
             }}
           >
-            <div style={{
-              width: '24px', height: '24px', borderRadius: '50%',
-              background: c.text, display: 'flex', alignItems: 'center',
-              justifyContent: 'center', fontSize: '11px', fontWeight: 900, color: '#fff', flexShrink: 0,
-            }}>
+            <div
+              style={{
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                background: c.text,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '11px',
+                fontWeight: 900,
+                color: '#fff',
+                flexShrink: 0,
+              }}
+            >
               {cfg.icon}
             </div>
             <div>
@@ -652,17 +799,33 @@ const AppUILoadingSuccessRender = (args: React.ComponentProps<typeof Toaster>) =
     setTimeout(() => {
       setLoading(false)
       if (outcome === 'success') {
-        toast.success('업로드 완료', { id: 'upload', description: '파일이 성공적으로 저장되었습니다.' })
+        toast.success('업로드 완료', {
+          id: 'upload',
+          description: '파일이 성공적으로 저장되었습니다.',
+        })
       } else {
-        toast.error('업로드 실패', { id: 'upload', description: '네트워크 오류가 발생했습니다. 다시 시도해 주세요.' })
+        toast.error('업로드 실패', {
+          id: 'upload',
+          description: '네트워크 오류가 발생했습니다. 다시 시도해 주세요.',
+        })
       }
     }, 2000)
   }
 
   return (
-    <div style={{ padding: '2rem', height: '320px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div
+      style={{
+        padding: '2rem',
+        height: '320px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    >
       <Toaster {...args} position="top-right" />
-      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>AppUI — 로딩 후 성공/실패 전환</div>
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>
+        AppUI — 로딩 후 성공/실패 전환
+      </div>
       <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px', lineHeight: 1.6 }}>
         비동기 작업 시작 시 loading Toast를 표시하고, 완료 후 동일 id로 성공/실패로 교체합니다.
         AppUI의 notifications.update() 패턴을 Toast의 id 재사용으로 구현합니다.
@@ -672,9 +835,15 @@ const AppUILoadingSuccessRender = (args: React.ComponentProps<typeof Toaster>) =
           onClick={() => runAsync('success')}
           disabled={loading}
           style={{
-            padding: '10px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: 600,
-            background: loading ? '#f1f5f9' : '#0f172a', color: loading ? '#94a3b8' : '#fff',
-            border: 'none', cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.2s',
+            padding: '10px 18px',
+            borderRadius: '8px',
+            fontSize: '13px',
+            fontWeight: 600,
+            background: loading ? '#f1f5f9' : '#0f172a',
+            color: loading ? '#94a3b8' : '#fff',
+            border: 'none',
+            cursor: loading ? 'not-allowed' : 'pointer',
+            transition: 'all 0.2s',
           }}
         >
           {loading ? '업로드 중...' : '성공 시뮬레이션'}
@@ -683,9 +852,15 @@ const AppUILoadingSuccessRender = (args: React.ComponentProps<typeof Toaster>) =
           onClick={() => runAsync('error')}
           disabled={loading}
           style={{
-            padding: '10px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: 600,
-            background: loading ? '#f1f5f9' : '#fef2f2', color: loading ? '#94a3b8' : '#dc2626',
-            border: `1.5px solid ${loading ? '#e2e8f0' : '#fecaca'}`, cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.2s',
+            padding: '10px 18px',
+            borderRadius: '8px',
+            fontSize: '13px',
+            fontWeight: 600,
+            background: loading ? '#f1f5f9' : '#fef2f2',
+            color: loading ? '#94a3b8' : '#dc2626',
+            border: `1.5px solid ${loading ? '#e2e8f0' : '#fecaca'}`,
+            cursor: loading ? 'not-allowed' : 'pointer',
+            transition: 'all 0.2s',
           }}
         >
           실패 시뮬레이션
@@ -700,7 +875,8 @@ export const AppUI_로딩_성공_전환_알림: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI notifications.update() 패턴. 비동기 작업 시작 시 loading Toast를 표시하고 완료 후 동일 id로 성공/실패로 교체. 업로드, API 호출 등 비동기 작업 피드백에 최적.',
+        story:
+          'AppUI notifications.update() 패턴. 비동기 작업 시작 시 loading Toast를 표시하고 완료 후 동일 id로 성공/실패로 교체. 업로드, API 호출 등 비동기 작업 피드백에 최적.',
       },
     },
   },
@@ -714,9 +890,21 @@ export const AppUI_로딩_성공_전환_알림: Story = {
 const QUEUE_MESSAGES = [
   { title: '새 댓글', desc: 'Alex가 PR #142에 댓글을 남겼습니다.', type: 'info' as const },
   { title: '빌드 완료', desc: 'main 브랜치 빌드가 성공했습니다.', type: 'success' as const },
-  { title: '보안 경고', desc: '알 수 없는 IP에서 로그인 시도가 감지됐습니다.', type: 'warning' as const },
-  { title: '배포 실패', desc: 'production 환경 배포 중 오류가 발생했습니다.', type: 'error' as const },
-  { title: '구독 만료 예정', desc: '7일 후 구독이 만료됩니다. 갱신해 주세요.', type: 'info' as const },
+  {
+    title: '보안 경고',
+    desc: '알 수 없는 IP에서 로그인 시도가 감지됐습니다.',
+    type: 'warning' as const,
+  },
+  {
+    title: '배포 실패',
+    desc: 'production 환경 배포 중 오류가 발생했습니다.',
+    type: 'error' as const,
+  },
+  {
+    title: '구독 만료 예정',
+    desc: '7일 후 구독이 만료됩니다. 갱신해 주세요.',
+    type: 'info' as const,
+  },
 ]
 
 const AppUIQueueRender = (args: React.ComponentProps<typeof Toaster>) => {
@@ -750,28 +938,66 @@ const AppUIQueueRender = (args: React.ComponentProps<typeof Toaster>) => {
   }
 
   return (
-    <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div
+      style={{
+        padding: '2rem',
+        height: '360px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    >
       <Toaster {...args} position="bottom-right" richColors />
-      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>AppUI — 알림 큐 관리</div>
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>
+        AppUI — 알림 큐 관리
+      </div>
       <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', lineHeight: 1.6 }}>
-        AppUI의 notifications 큐처럼 여러 알림이 순차적으로 쌓입니다. 우측 하단에서 스택으로 표시됩니다.
+        AppUI의 notifications 큐처럼 여러 알림이 순차적으로 쌓입니다. 우측 하단에서 스택으로
+        표시됩니다.
       </div>
       <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
         <button
           onClick={pushNotification}
-          style={{ padding: '9px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, background: '#0f172a', color: '#fff', border: 'none', cursor: 'pointer' }}
+          style={{
+            padding: '9px 16px',
+            borderRadius: '8px',
+            fontSize: '13px',
+            fontWeight: 600,
+            background: '#0f172a',
+            color: '#fff',
+            border: 'none',
+            cursor: 'pointer',
+          }}
         >
-          알림 추가 ({count % QUEUE_MESSAGES.length + 1}번째)
+          알림 추가 ({(count % QUEUE_MESSAGES.length) + 1}번째)
         </button>
         <button
           onClick={pushAll}
-          style={{ padding: '9px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, background: '#6366f1', color: '#fff', border: 'none', cursor: 'pointer' }}
+          style={{
+            padding: '9px 16px',
+            borderRadius: '8px',
+            fontSize: '13px',
+            fontWeight: 600,
+            background: '#6366f1',
+            color: '#fff',
+            border: 'none',
+            cursor: 'pointer',
+          }}
         >
           5개 동시 발송
         </button>
         <button
           onClick={() => toast.dismiss()}
-          style={{ padding: '9px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, background: '#fff', color: '#64748b', border: '1px solid #e2e8f0', cursor: 'pointer' }}
+          style={{
+            padding: '9px 16px',
+            borderRadius: '8px',
+            fontSize: '13px',
+            fontWeight: 600,
+            background: '#fff',
+            color: '#64748b',
+            border: '1px solid #e2e8f0',
+            cursor: 'pointer',
+          }}
         >
           모두 닫기
         </button>
@@ -788,7 +1014,8 @@ export const AppUI_알림_큐_관리: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI notifications 큐 패턴. 5가지 알림 타입(info/success/warning/error)을 순차 발송하거나 동시에 5개 쌓기. 실시간 이벤트 알림 시스템 데모.',
+        story:
+          'AppUI notifications 큐 패턴. 5가지 알림 타입(info/success/warning/error)을 순차 발송하거나 동시에 5개 쌓기. 실시간 이벤트 알림 시스템 데모.',
       },
     },
   },
@@ -817,42 +1044,79 @@ const DataProductBatchRender = (args: React.ComponentProps<typeof Toaster>) => {
         clearInterval(interval)
         setProgress(100)
         setRunning(false)
-        toast.success('내보내기 완료', { id: 'export', description: '1,247개 레코드가 CSV로 저장됐습니다.' })
+        toast.success('내보내기 완료', {
+          id: 'export',
+          description: '1,247개 레코드가 CSV로 저장됐습니다.',
+        })
       } else {
         setProgress(current)
         toast(`내보내는 중... ${current}%`, {
           id: 'export',
-          description: `${Math.round(1247 * current / 100)}개 처리됨`,
+          description: `${Math.round((1247 * current) / 100)}개 처리됨`,
         })
       }
     }, 400)
   }
 
   return (
-    <div style={{ padding: '2rem', height: '360px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div
+      style={{
+        padding: '2rem',
+        height: '360px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    >
       <Toaster {...args} position="top-center" />
-      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>DataProductUI — 배치 작업 진행 알림</div>
+      <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>
+        DataProductUI — 배치 작업 진행 알림
+      </div>
       <div style={{ fontSize: '12px', color: '#64748b', lineHeight: 1.6, marginBottom: '8px' }}>
-        DataProductUI의 Message.loading() 패턴을 응용. 내보내기/변환 등 장시간 작업의 진행률을 동일 id Toast로 실시간 갱신합니다.
+        DataProductUI의 Message.loading() 패턴을 응용. 내보내기/변환 등 장시간 작업의 진행률을 동일
+        id Toast로 실시간 갱신합니다.
       </div>
 
       {/* 진행률 시각화 */}
-      <div style={{ padding: '16px 20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+      <div
+        style={{
+          padding: '16px 20px',
+          borderRadius: '12px',
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+        }}
+      >
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
           <span style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>CSV 내보내기</span>
-          <span style={{ fontSize: '13px', fontWeight: 700, color: progress === 100 ? '#16a34a' : '#6366f1' }}>
+          <span
+            style={{
+              fontSize: '13px',
+              fontWeight: 700,
+              color: progress === 100 ? '#16a34a' : '#6366f1',
+            }}
+          >
             {progress}%
           </span>
         </div>
-        <div style={{ height: '6px', background: '#e2e8f0', borderRadius: '3px', overflow: 'hidden' }}>
-          <div style={{
-            height: '100%', width: `${progress}%`,
-            background: progress === 100 ? '#22c55e' : '#6366f1',
-            borderRadius: '3px', transition: 'width 0.3s ease, background 0.5s',
-          }} />
+        <div
+          style={{ height: '6px', background: '#e2e8f0', borderRadius: '3px', overflow: 'hidden' }}
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${progress}%`,
+              background: progress === 100 ? '#22c55e' : '#6366f1',
+              borderRadius: '3px',
+              transition: 'width 0.3s ease, background 0.5s',
+            }}
+          />
         </div>
         <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '6px' }}>
-          {progress === 0 ? '대기 중' : progress === 100 ? '완료됨' : `${Math.round(1247 * progress / 100)}개 / 1,247개 처리됨`}
+          {progress === 0
+            ? '대기 중'
+            : progress === 100
+              ? '완료됨'
+              : `${Math.round((1247 * progress) / 100)}개 / 1,247개 처리됨`}
         </div>
       </div>
 
@@ -860,10 +1124,15 @@ const DataProductBatchRender = (args: React.ComponentProps<typeof Toaster>) => {
         onClick={startExport}
         disabled={running}
         style={{
-          padding: '10px 20px', borderRadius: '8px', fontSize: '13px', fontWeight: 600,
+          padding: '10px 20px',
+          borderRadius: '8px',
+          fontSize: '13px',
+          fontWeight: 600,
           background: running ? '#f1f5f9' : '#0f172a',
           color: running ? '#94a3b8' : '#fff',
-          border: 'none', cursor: running ? 'not-allowed' : 'pointer', alignSelf: 'flex-start',
+          border: 'none',
+          cursor: running ? 'not-allowed' : 'pointer',
+          alignSelf: 'flex-start',
           transition: 'all 0.2s',
         }}
       >
@@ -878,7 +1147,8 @@ export const DataProduct_배치_작업_진행_알림: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI Message.loading 패턴. 데이터 내보내기 등 장시간 작업의 진행률을 동일 id Toast로 실시간 갱신. 진행률 바와 처리 건수를 함께 표시.',
+        story:
+          'DataProductUI Message.loading 패턴. 데이터 내보내기 등 장시간 작업의 진행률을 동일 id Toast로 실시간 갱신. 진행률 바와 처리 건수를 함께 표시.',
       },
     },
   },
@@ -917,9 +1187,18 @@ export const IssueTracker_이슈_상태_변경_알림: Story = {
     }
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+          fontFamily: 'Inter, system-ui, sans-serif',
+        }}
+      >
         <Toaster {...args} />
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>IssueTracker 이슈 Toast 패턴</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>
+          IssueTracker 이슈 Toast 패턴
+        </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <Button color="black" size="small" onClick={showStatusChange}>
             <Button.Center>상태 변경</Button.Center>
@@ -931,14 +1210,17 @@ export const IssueTracker_이슈_상태_변경_알림: Story = {
             <Button.Center>이슈 완료</Button.Center>
           </Button>
         </div>
-        <div style={{ fontSize: 11, color: '#9ca3af' }}>IssueTracker의 이슈 액션 Toast — 실행 취소 액션 버튼 포함</div>
+        <div style={{ fontSize: 11, color: '#9ca3af' }}>
+          IssueTracker의 이슈 액션 Toast — 실행 취소 액션 버튼 포함
+        </div>
       </div>
     )
   },
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 이슈 상태 변경 Toast 패턴. 상태 변경/이슈 생성/완료 처리 시 action 버튼(실행 취소/이슈 열기)을 포함한 Toast를 표시합니다. IssueTracker 특유의 간결한 피드백 + 즉시 실행 취소 UX를 구현합니다.',
+        story:
+          'IssueTracker 이슈 상태 변경 Toast 패턴. 상태 변경/이슈 생성/완료 처리 시 action 버튼(실행 취소/이슈 열기)을 포함한 Toast를 표시합니다. IssueTracker 특유의 간결한 피드백 + 즉시 실행 취소 UX를 구현합니다.',
       },
     },
   },
@@ -950,7 +1232,7 @@ const DataProductAsyncToastRender = (args: React.ComponentProps<typeof Toaster>)
   const simulateImport = async () => {
     setRunning(true)
     const id = toast.loading('파일 임포트 중...')
-    await new Promise<void>(res => setTimeout(res, 1500))
+    await new Promise<void>((res) => setTimeout(res, 1500))
     toast.success('임포트 완료', {
       id,
       description: '총 1,248건의 레코드가 추가되었습니다',
@@ -965,31 +1247,58 @@ const DataProductAsyncToastRender = (args: React.ComponentProps<typeof Toaster>)
   const simulateError = async () => {
     setRunning(true)
     const id = toast.loading('데이터 동기화 중...')
-    await new Promise<void>(res => setTimeout(res, 1500))
+    await new Promise<void>((res) => setTimeout(res, 1500))
     toast.error('동기화 실패', {
       id,
       description: 'API 연결 시간이 초과되었습니다 (timeout: 30s)',
       action: {
         label: '재시도',
-        onClick: () => { void simulateError() },
+        onClick: () => {
+          void simulateError()
+        },
       },
     })
     setRunning(false)
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}
+    >
       <Toaster {...args} />
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>DataProductUI 비동기 작업 알림</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>
+        DataProductUI 비동기 작업 알림
+      </div>
       <div style={{ display: 'flex', gap: 8 }}>
-        <Button color="black" size="small" onClick={() => { void simulateImport() }} disabled={running}>
+        <Button
+          color="black"
+          size="small"
+          onClick={() => {
+            void simulateImport()
+          }}
+          disabled={running}
+        >
           <Button.Center>임포트 시뮬레이션</Button.Center>
         </Button>
-        <Button color="black" size="small" onClick={() => { void simulateError() }} disabled={running}>
+        <Button
+          color="black"
+          size="small"
+          onClick={() => {
+            void simulateError()
+          }}
+          disabled={running}
+        >
           <Button.Center>에러 시뮬레이션</Button.Center>
         </Button>
       </div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>loading → success/error 전환 + 동일 id Toast 업데이트</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        loading → success/error 전환 + 동일 id Toast 업데이트
+      </div>
     </div>
   )
 }
@@ -1000,7 +1309,8 @@ export const DataProduct_작업_결과_알림_패턴: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI Message 패턴. 비동기 작업(임포트/동기화)의 loading 상태를 먼저 표시하고 완료 시 동일 Toast id를 success/error로 전환합니다. 재시도 액션 버튼으로 오류 복구 흐름을 지원합니다.',
+        story:
+          'DataProductUI Message 패턴. 비동기 작업(임포트/동기화)의 loading 상태를 먼저 표시하고 완료 시 동일 Toast id를 success/error로 전환합니다. 재시도 액션 버튼으로 오류 복구 흐름을 지원합니다.',
       },
     },
   },
@@ -1018,14 +1328,18 @@ export const IssueTracker_커밋_배포_알림: Story = {
 
     const runDeployPipeline = async () => {
       for (const stage of deployStages) {
-        await new Promise(res => setTimeout(res, 800))
+        await new Promise((res) => setTimeout(res, 800))
         if (stage.type === 'success') {
           toast.success(stage.label, {
-            description: stage.label.includes('배포') ? 'orbit-ui.deploy.example.com' : '0 errors · 2 warnings',
+            description: stage.label.includes('배포')
+              ? 'orbit-ui.deploy.example.com'
+              : '0 errors · 2 warnings',
           })
         } else {
           toast(stage.label, {
-            description: stage.label.includes('빌드') ? 'pnpm build:storybook' : 'deployctl publish --workspace example',
+            description: stage.label.includes('빌드')
+              ? 'pnpm build:storybook'
+              : 'deployctl publish --workspace example',
           })
         }
       }
@@ -1043,9 +1357,18 @@ export const IssueTracker_커밋_배포_알림: Story = {
     }
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+          fontFamily: 'Inter, system-ui, sans-serif',
+        }}
+      >
         <Toaster {...args} />
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>커밋 + 배포 파이프라인 알림</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 4 }}>
+          커밋 + 배포 파이프라인 알림
+        </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <Button color="black" size="small" onClick={runDeployPipeline}>
             <Button.Center>배포 파이프라인 시뮬레이션</Button.Center>
@@ -1054,14 +1377,17 @@ export const IssueTracker_커밋_배포_알림: Story = {
             <Button.Center>PR 머지 알림</Button.Center>
           </Button>
         </div>
-        <div style={{ fontSize: 11, color: '#9ca3af' }}>순차적 Toast 시퀀스 — 배포 단계별 피드백</div>
+        <div style={{ fontSize: 11, color: '#9ca3af' }}>
+          순차적 Toast 시퀀스 — 배포 단계별 피드백
+        </div>
       </div>
     )
   },
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker + DeployPlatform 배포 파이프라인 Toast 패턴. 빌드 시작 → 빌드 완료 → 배포 시작 → 배포 완료의 4단계 순차적 Toast 시퀀스로 CI/CD 진행 상황을 실시간 알립니다. PR 머지 알림에는 action 버튼을 포함합니다.',
+        story:
+          'IssueTracker + DeployPlatform 배포 파이프라인 Toast 패턴. 빌드 시작 → 빌드 완료 → 배포 시작 → 배포 완료의 4단계 순차적 Toast 시퀀스로 CI/CD 진행 상황을 실시간 알립니다. PR 머지 알림에는 action 버튼을 포함합니다.',
       },
     },
   },
@@ -1076,8 +1402,11 @@ function AccessibleStatusToastRender(args: React.ComponentProps<typeof Toaster>)
 
   const runFlow = async () => {
     setStatus('loading')
-    toast.loading('파일 업로드 중...', { id: 'upload', description: '최대 5MB까지 업로드 가능합니다.' })
-    await new Promise(r => setTimeout(r, 1800))
+    toast.loading('파일 업로드 중...', {
+      id: 'upload',
+      description: '최대 5MB까지 업로드 가능합니다.',
+    })
+    await new Promise((r) => setTimeout(r, 1800))
     toast.success('업로드 완료', {
       id: 'upload',
       description: 'profile-photo.png 저장됨',
@@ -1096,7 +1425,14 @@ function AccessibleStatusToastRender(args: React.ComponentProps<typeof Toaster>)
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}
+    >
       <Toaster {...args} />
       <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>파일 업로드 상태 Toast</div>
       <div style={{ display: 'flex', gap: 8 }}>
@@ -1107,7 +1443,9 @@ function AccessibleStatusToastRender(args: React.ComponentProps<typeof Toaster>)
           <Button.Center>오류 시뮬레이션</Button.Center>
         </Button>
       </div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>loading → success id 재사용 + error action 재시도 버튼</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        loading → success id 재사용 + error action 재시도 버튼
+      </div>
     </div>
   )
 }
@@ -1141,7 +1479,14 @@ function DataProductPositionToastRender(args: React.ComponentProps<typeof Toaste
   ] as const
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}
+    >
       <Toaster {...args} />
       <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>알림 위치 선택</div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
@@ -1156,7 +1501,9 @@ function DataProductPositionToastRender(args: React.ComponentProps<typeof Toaste
           </Button>
         ))}
       </div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>DataProductUI Message position 옵션 대응 — 6방향 위치 선택</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        DataProductUI Message position 옵션 대응 — 6방향 위치 선택
+      </div>
     </div>
   )
 }
@@ -1185,11 +1532,11 @@ function AccessibleDataProductFormToastRender(args: React.ComponentProps<typeof 
   const submitForm = async () => {
     setStep('validating')
     toast.loading('입력값 검증 중...', { id: 'form', duration: Infinity })
-    await new Promise(r => setTimeout(r, 1000))
+    await new Promise((r) => setTimeout(r, 1000))
 
     toast.loading('서버에 저장 중...', { id: 'form', duration: Infinity })
     setStep('saving')
-    await new Promise(r => setTimeout(r, 1500))
+    await new Promise((r) => setTimeout(r, 1500))
 
     toast.success('프로필이 저장되었습니다', {
       id: 'form',
@@ -1213,19 +1560,37 @@ function AccessibleDataProductFormToastRender(args: React.ComponentProps<typeof 
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}
+    >
       <Toaster {...args} />
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>다단계 폼 저장 워크플로우</div>
-      <div style={{ fontSize: 11, color: '#6b7280' }}>현재 단계: <strong>{stepLabels[step]}</strong></div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>
+        다단계 폼 저장 워크플로우
+      </div>
+      <div style={{ fontSize: 11, color: '#6b7280' }}>
+        현재 단계: <strong>{stepLabels[step]}</strong>
+      </div>
       <div style={{ display: 'flex', gap: 8 }}>
-        <Button color="black" size="small" onClick={submitForm} disabled={step !== 'idle' && step !== 'done'}>
+        <Button
+          color="black"
+          size="small"
+          onClick={submitForm}
+          disabled={step !== 'idle' && step !== 'done'}
+        >
           <Button.Center>폼 제출</Button.Center>
         </Button>
         <Button color="gray" size="small" onClick={reset}>
           <Button.Center>초기화</Button.Center>
         </Button>
       </div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>검증 → 저장 → 완료 3단계 Toast 체인 (동일 id 재사용)</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        검증 → 저장 → 완료 3단계 Toast 체인 (동일 id 재사용)
+      </div>
     </div>
   )
 }
@@ -1256,7 +1621,7 @@ function AppUINotificationStackRender(args: React.ComponentProps<typeof Toaster>
   ]
   const addNotification = () => {
     const n = notifications[count % notifications.length]
-    setCount(c => c + 1)
+    setCount((c) => c + 1)
     if (n.type === 'success') toast.success(n.title, { description: n.desc })
     else if (n.type === 'error') toast.error(n.title, { description: n.desc })
     else if (n.type === 'loading') toast.loading(n.title, { description: n.desc })
@@ -1264,7 +1629,14 @@ function AppUINotificationStackRender(args: React.ComponentProps<typeof Toaster>
   }
   const clearAll = () => toast.dismiss()
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}
+    >
       <Toaster {...args} />
       <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>AppUI 알림 스택 관리</div>
       <div style={{ display: 'flex', gap: 8 }}>
@@ -1275,7 +1647,9 @@ function AppUINotificationStackRender(args: React.ComponentProps<typeof Toaster>
           <Button.Center>전체 닫기</Button.Center>
         </Button>
       </div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>성공 → 오류 → 정보 → 로딩 순환 (AppUI useNotifications 패턴)</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        성공 → 오류 → 정보 → 로딩 순환 (AppUI useNotifications 패턴)
+      </div>
     </div>
   )
 }
@@ -1295,33 +1669,60 @@ export const AppUI_알림_스택_관리: Story = {
 }
 
 function WorkspaceEditorTaskConfirmRender(args: React.ComponentProps<typeof Toaster>) {
-  const TASKS = ['디자인 시스템 토큰 정리', '컴포넌트 문서 업데이트', '스프린트 회고 작성', 'API 엔드포인트 명세']
+  const TASKS = [
+    '디자인 시스템 토큰 정리',
+    '컴포넌트 문서 업데이트',
+    '스프린트 회고 작성',
+    'API 엔드포인트 명세',
+  ]
   const [completed, setCompleted] = useState<string[]>([])
   const completeTask = (task: string) => {
-    setCompleted(prev => [...prev, task])
+    setCompleted((prev) => [...prev, task])
     toast.success(`완료: ${task}`, {
       description: '작업이 완료 목록으로 이동되었습니다',
-      action: { label: '실행 취소', onClick: () => setCompleted(prev => prev.filter(t => t !== task)) },
+      action: {
+        label: '실행 취소',
+        onClick: () => setCompleted((prev) => prev.filter((t) => t !== task)),
+      },
     })
   }
   return (
     <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
       <Toaster {...args} />
       <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 10 }}>오늘의 작업</div>
-      {TASKS.map(task => (
-        <div key={task} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0', borderBottom: '1px solid #f1f5f9' }}>
+      {TASKS.map((task) => (
+        <div
+          key={task}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '6px 0',
+            borderBottom: '1px solid #f1f5f9',
+          }}
+        >
           <input
             type="checkbox"
             checked={completed.includes(task)}
-            onChange={() => { if (!completed.includes(task)) completeTask(task) }}
+            onChange={() => {
+              if (!completed.includes(task)) completeTask(task)
+            }}
             style={{ accentColor: '#000', width: 14, height: 14, cursor: 'pointer' }}
           />
-          <span style={{ fontSize: 13, color: completed.includes(task) ? '#94a3b8' : '#1e293b', textDecoration: completed.includes(task) ? 'line-through' : 'none' }}>
+          <span
+            style={{
+              fontSize: 13,
+              color: completed.includes(task) ? '#94a3b8' : '#1e293b',
+              textDecoration: completed.includes(task) ? 'line-through' : 'none',
+            }}
+          >
             {task}
           </span>
         </div>
       ))}
-      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 8 }}>{completed.length}/{TASKS.length} 완료 — WorkspaceEditor 체크박스 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 8 }}>
+        {completed.length}/{TASKS.length} 완료 — WorkspaceEditor 체크박스 패턴
+      </div>
     </div>
   )
 }
@@ -1359,14 +1760,25 @@ function AppUIWorkspaceEditorCollabRender(args: React.ComponentProps<typeof Toas
     })
   }
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}
+    >
       <Toaster {...args} />
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>AppUI + WorkspaceEditor 실시간 협업 알림</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280' }}>
+        AppUI + WorkspaceEditor 실시간 협업 알림
+      </div>
       <div style={{ fontSize: 11, color: '#9ca3af' }}>4명의 팀원이 순차적으로 활동합니다</div>
       <Button color="black" size="small" onClick={simulateCollab} disabled={active}>
         <Button.Center>{active ? '시뮬레이션 중...' : '협업 시뮬레이션'}</Button.Center>
       </Button>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>AppUI Notifications + WorkspaceEditor 실시간 협업 UI 패턴</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        AppUI Notifications + WorkspaceEditor 실시간 협업 UI 패턴
+      </div>
     </div>
   )
 }
@@ -1412,15 +1824,33 @@ function UtilityCSSFormSaveToastRender(args: React.ComponentProps<typeof Toaster
   }
 
   return (
-    <div style={{ width: 360, padding: '20px', border: '1px solid #e5e7eb', borderRadius: 12, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        width: 360,
+        padding: '20px',
+        border: '1px solid #e5e7eb',
+        borderRadius: 12,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       <Toaster {...args} />
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 16 }}>계정 설정</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 16 }}>
+        계정 설정
+      </div>
       {[
         { label: '표시 이름', value: 'Orbit UI Team' },
         { label: '이메일 알림', value: '활성화됨' },
         { label: '언어', value: '한국어' },
       ].map((field) => (
-        <div key={field.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f3f4f6' }}>
+        <div
+          key={field.label}
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: '8px 0',
+            borderBottom: '1px solid #f3f4f6',
+          }}
+        >
           <span style={{ fontSize: 12, color: '#6b7280' }}>{field.label}</span>
           <span style={{ fontSize: 12, color: '#111827', fontWeight: 500 }}>{field.value}</span>
         </div>
@@ -1440,7 +1870,8 @@ export const UtilityCSS_폼_저장_알림: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI Form 저장 패턴 구현. 저장 성공 시 toast.success() + 실행 취소 액션 버튼. 취소 클릭 시 상태를 되돌리고 취소 확인 토스트를 추가 표시. 5초 자동 닫기.',
+        story:
+          'UtilityUI Form 저장 패턴 구현. 저장 성공 시 toast.success() + 실행 취소 액션 버튼. 취소 클릭 시 상태를 되돌리고 취소 확인 토스트를 추가 표시. 5초 자동 닫기.',
       },
     },
   },
@@ -1487,7 +1918,8 @@ export const DeployPlatform_배포_완료_알림: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 배포 UI 패턴 구현. toast.loading()으로 배포 시작 알림 후 2초 뒤 동일 id로 성공/실패 토스트로 업데이트. 성공 시 사이트 URL + 빌드 시간, 실패 시 오류 수 + 로그 보기 액션.',
+        story:
+          'DeployPlatform 배포 UI 패턴 구현. toast.loading()으로 배포 시작 알림 후 2초 뒤 동일 id로 성공/실패 토스트로 업데이트. 성공 시 사이트 URL + 빌드 시간, 실패 시 오류 수 + 로그 보기 액션.',
       },
     },
   },
@@ -1529,15 +1961,36 @@ function UtilityCSSDeployPlatformBatchToastRender(args: React.ComponentProps<typ
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        padding: '20px',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       <Toaster {...args} />
       <div style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>일괄 배포 파이프라인</div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>typecheck → lint → build → deploy 순차 실행</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        typecheck → lint → build → deploy 순차 실행
+      </div>
       <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
         {BATCH_STEPS.map((s, i) => (
-          <div key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i < step ? '#10b981' : '#e5e7eb', transition: 'background 0.3s' }} />
+          <div
+            key={i}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: i < step ? '#10b981' : '#e5e7eb',
+              transition: 'background 0.3s',
+            }}
+          />
         ))}
-        <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 4 }}>{step}/{BATCH_STEPS.length}</span>
+        <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 4 }}>
+          {step}/{BATCH_STEPS.length}
+        </span>
       </div>
       <Button color="primary" size="medium" onClick={runBatch} disabled={running}>
         <Button.Center>{running ? '실행 중...' : '파이프라인 실행'}</Button.Center>
@@ -1552,7 +2005,8 @@ export const UtilityCSS_DeployPlatform_일괄_작업_알림: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI 진행 피드백 + DeployPlatform CI/CD 파이프라인 패턴. typecheck→lint→build→deploy 6단계 작업을 1.3초 간격으로 토스트 스트림으로 표시. loading→success 전환, 단계 진행 도트 인디케이터 동반.',
+        story:
+          'UtilityUI 진행 피드백 + DeployPlatform CI/CD 파이프라인 패턴. typecheck→lint→build→deploy 6단계 작업을 1.3초 간격으로 토스트 스트림으로 표시. loading→success 전환, 단계 진행 도트 인디케이터 동반.',
       },
     },
   },

@@ -72,14 +72,54 @@ export const 기본: Story = {
 -------------------------------------------------------------------------- */
 
 const allCommands = [
-  { group: '페이지', icon: <HomeLineIcon className="h-4 w-4" />, label: '대시보드로 이동', shortcut: 'G D' },
-  { group: '페이지', icon: <CircleInfoLineIcon className="h-4 w-4" />, label: '문서 목록', shortcut: 'G L' },
-  { group: '페이지', icon: <OnePersonLineIcon className="h-4 w-4" />, label: '팀 관리', shortcut: 'G T' },
-  { group: '액션', icon: <CircleInfoLineIcon className="h-4 w-4" />, label: '새 이슈 만들기', shortcut: 'C' },
-  { group: '액션', icon: <SettingLineIcon className="h-4 w-4" />, label: '설정 열기', shortcut: 'G S' },
-  { group: '액션', icon: <StarLineIcon className="h-4 w-4" />, label: '즐겨찾기 추가', shortcut: 'F' },
-  { group: '최근', icon: <ArrowRightIcon className="h-4 w-4" />, label: '토큰 아키텍처 문서', shortcut: '' },
-  { group: '최근', icon: <ArrowRightIcon className="h-4 w-4" />, label: 'DataTable 고도화 PR', shortcut: '' },
+  {
+    group: '페이지',
+    icon: <HomeLineIcon className="h-4 w-4" />,
+    label: '대시보드로 이동',
+    shortcut: 'G D',
+  },
+  {
+    group: '페이지',
+    icon: <CircleInfoLineIcon className="h-4 w-4" />,
+    label: '문서 목록',
+    shortcut: 'G L',
+  },
+  {
+    group: '페이지',
+    icon: <OnePersonLineIcon className="h-4 w-4" />,
+    label: '팀 관리',
+    shortcut: 'G T',
+  },
+  {
+    group: '액션',
+    icon: <CircleInfoLineIcon className="h-4 w-4" />,
+    label: '새 이슈 만들기',
+    shortcut: 'C',
+  },
+  {
+    group: '액션',
+    icon: <SettingLineIcon className="h-4 w-4" />,
+    label: '설정 열기',
+    shortcut: 'G S',
+  },
+  {
+    group: '액션',
+    icon: <StarLineIcon className="h-4 w-4" />,
+    label: '즐겨찾기 추가',
+    shortcut: 'F',
+  },
+  {
+    group: '최근',
+    icon: <ArrowRightIcon className="h-4 w-4" />,
+    label: '토큰 아키텍처 문서',
+    shortcut: '',
+  },
+  {
+    group: '최근',
+    icon: <ArrowRightIcon className="h-4 w-4" />,
+    label: 'DataTable 고도화 PR',
+    shortcut: '',
+  },
 ]
 
 const CmdKPaletteDemo = () => {
@@ -87,7 +127,15 @@ const CmdKPaletteDemo = () => {
   const [selected, setSelected] = useState<string | null>(null)
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, padding: '40px 24px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 24,
+        padding: '40px 24px',
+      }}
+    >
       {/* Trigger hint */}
       <button
         onClick={() => setOpen(true)}
@@ -166,7 +214,15 @@ const CmdKPaletteDemo = () => {
             <Command.Input placeholder="명령 또는 페이지 검색..." />
             <Command.List>
               <Command.Empty>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#94a3b8' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 8,
+                    color: '#94a3b8',
+                  }}
+                >
                   <SearchIcon className="h-8 w-8" />
                   <span>검색 결과가 없습니다.</span>
                 </div>
@@ -276,15 +332,14 @@ const SettingsSearchDemo = () => {
     <div style={{ padding: '32px', display: 'flex', justifyContent: 'center' }}>
       <div style={{ width: 480 }}>
         <div style={{ marginBottom: 12 }}>
-          <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 700, color: '#1e293b' }}>설정 검색</p>
+          <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 700, color: '#1e293b' }}>
+            설정 검색
+          </p>
           <p style={{ margin: 0, fontSize: 12, color: '#94a3b8' }}>
             설정 항목을 검색하세요. 선택하면 최근 항목에 추가됩니다.
           </p>
         </div>
-        <Command
-          className="rounded-xl border shadow-sm"
-          style={{ maxHeight: 420 }}
-        >
+        <Command className="rounded-xl border shadow-sm" style={{ maxHeight: 420 }}>
           <Command.Input placeholder="설정 항목 검색..." />
           <Command.List>
             <Command.Empty>해당하는 설정 항목이 없습니다.</Command.Empty>
@@ -429,9 +484,7 @@ const MultiSelectFilterDemo = () => {
             )
           })}
           {selected.length === 0 && (
-            <span style={{ fontSize: 12, color: '#94a3b8', lineHeight: '28px' }}>
-              필터 없음
-            </span>
+            <span style={{ fontSize: 12, color: '#94a3b8', lineHeight: '28px' }}>필터 없음</span>
           )}
         </div>
 
@@ -460,9 +513,7 @@ const MultiSelectFilterDemo = () => {
                       }}
                     />
                     <span style={{ flex: 1, fontSize: 13 }}>{opt.label}</span>
-                    {isSelected && (
-                      <CheckIcon className="h-4 w-4" style={{ color: '#6366f1' }} />
-                    )}
+                    {isSelected && <CheckIcon className="h-4 w-4" style={{ color: '#6366f1' }} />}
                   </Command.Item>
                 )
               })}
@@ -489,9 +540,7 @@ const MultiSelectFilterDemo = () => {
                       }}
                     />
                     <span style={{ flex: 1, fontSize: 13 }}>{opt.label}</span>
-                    {isSelected && (
-                      <CheckIcon className="h-4 w-4" style={{ color: '#6366f1' }} />
-                    )}
+                    {isSelected && <CheckIcon className="h-4 w-4" style={{ color: '#6366f1' }} />}
                   </Command.Item>
                 )
               })}
@@ -538,7 +587,15 @@ const spotlightItems = [
 const CommandPaletteSpotlightDemo = () => {
   const [result, setResult] = useState<string | null>(null)
   return (
-    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+    <div
+      style={{
+        padding: '32px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}
+    >
       <div
         style={{
           width: 560,
@@ -552,7 +609,11 @@ const CommandPaletteSpotlightDemo = () => {
         <Command style={{ background: 'transparent', color: '#f5f5f5' }}>
           <Command.Input
             placeholder="앱, 파일, 액션 검색..."
-            style={{ background: 'transparent', color: '#f5f5f5', borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+            style={{
+              background: 'transparent',
+              color: '#f5f5f5',
+              borderBottom: '1px solid rgba(255,255,255,0.08)',
+            }}
           />
           <Command.List style={{ maxHeight: 360 }}>
             <Command.Empty style={{ color: '#888', textAlign: 'center', padding: '24px 0' }}>
@@ -561,23 +622,32 @@ const CommandPaletteSpotlightDemo = () => {
             {['최근', '앱', '액션'].map((cat) => {
               const items = spotlightItems.filter((i) => i.category === cat)
               return (
-                <Command.Group
-                  key={cat}
-                  heading={cat}
-                  style={{ color: '#666' }}
-                >
+                <Command.Group key={cat} heading={cat} style={{ color: '#666' }}>
                   {items.map((item) => (
                     <Command.Item
                       key={item.label}
                       onSelect={() => setResult(`${item.action}: ${item.label}`)}
                       style={{ borderRadius: 8, margin: '1px 4px' }}
                     >
-                      <span style={{ fontSize: 18, marginRight: 12, width: 28, textAlign: 'center' }}>{item.icon}</span>
+                      <span
+                        style={{ fontSize: 18, marginRight: 12, width: 28, textAlign: 'center' }}
+                      >
+                        {item.icon}
+                      </span>
                       <span style={{ flex: 1 }}>
-                        <span style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#f5f5f5' }}>
+                        <span
+                          style={{
+                            display: 'block',
+                            fontSize: 13,
+                            fontWeight: 600,
+                            color: '#f5f5f5',
+                          }}
+                        >
                           {item.label}
                         </span>
-                        <span style={{ display: 'block', fontSize: 11, color: '#888', marginTop: 1 }}>
+                        <span
+                          style={{ display: 'block', fontSize: 11, color: '#888', marginTop: 1 }}
+                        >
                           {item.sub}
                         </span>
                       </span>
@@ -615,11 +685,7 @@ const CommandPaletteSpotlightDemo = () => {
           </div>
         </Command>
       </div>
-      {result && (
-        <div style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
-          ✓ {result}
-        </div>
-      )}
+      {result && <div style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>✓ {result}</div>}
     </div>
   )
 }
@@ -656,11 +722,27 @@ const workspaces = [
 const IssueTrackerQuickSwitcherDemo = () => {
   const [active, setActive] = useState('Design System')
   return (
-    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+    <div
+      style={{
+        padding: '32px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12,
+      }}
+    >
       <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 4 }}>
         현재 워크스페이스: <strong style={{ color: '#6366f1' }}>{active}</strong>
       </div>
-      <div style={{ width: 440, borderRadius: 12, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid #e2e8f0' }}>
+      <div
+        style={{
+          width: 440,
+          borderRadius: 12,
+          overflow: 'hidden',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+          border: '1px solid #e2e8f0',
+        }}
+      >
         <Command>
           <Command.Input placeholder="팀, 프로젝트, 뷰 전환..." />
           <Command.List style={{ maxHeight: 320 }}>
@@ -672,10 +754,7 @@ const IssueTrackerQuickSwitcherDemo = () => {
               return (
                 <Command.Group key={type} heading={type}>
                   {items.map((ws) => (
-                    <Command.Item
-                      key={ws.label}
-                      onSelect={() => setActive(ws.label)}
-                    >
+                    <Command.Item key={ws.label} onSelect={() => setActive(ws.label)}>
                       <span
                         style={{
                           display: 'inline-flex',
@@ -693,10 +772,19 @@ const IssueTrackerQuickSwitcherDemo = () => {
                         {ws.icon}
                       </span>
                       <span style={{ flex: 1 }}>
-                        <span style={{ display: 'block', fontSize: 13, fontWeight: ws.label === active ? 700 : 500, color: ws.label === active ? ws.color : '#1e293b' }}>
+                        <span
+                          style={{
+                            display: 'block',
+                            fontSize: 13,
+                            fontWeight: ws.label === active ? 700 : 500,
+                            color: ws.label === active ? ws.color : '#1e293b',
+                          }}
+                        >
                           {ws.label}
                         </span>
-                        <span style={{ display: 'block', fontSize: 11, color: '#94a3b8' }}>{ws.sub}</span>
+                        <span style={{ display: 'block', fontSize: 11, color: '#94a3b8' }}>
+                          {ws.sub}
+                        </span>
                       </span>
                       {ws.label === active && (
                         <CheckIcon className="h-4 w-4" style={{ color: ws.color }} />
@@ -733,18 +821,69 @@ export const IssueTracker_퀵_스위처: Story = {
 -------------------------------------------------------------------------- */
 
 const deployResults = [
-  { type: '배포', icon: '🚀', label: 'orbit-ui – main', sub: 'prod • 2분 전', status: 'READY', statusColor: '#10b981' },
-  { type: '배포', icon: '🚀', label: 'orbit-ui – feat/tokens', sub: 'preview • 10분 전', status: 'BUILDING', statusColor: '#f59e0b' },
-  { type: '프로젝트', icon: '📦', label: 'orbit-ui', sub: 'blue45fs-projects', status: '', statusColor: '' },
-  { type: '프로젝트', icon: '📦', label: 'orbit-landing', sub: 'blue45fs-projects', status: '', statusColor: '' },
-  { type: '도메인', icon: '🌐', label: 'orbit-ui.deploy.example.com', sub: '프로덕션 도메인', status: 'ACTIVE', statusColor: '#10b981' },
+  {
+    type: '배포',
+    icon: '🚀',
+    label: 'orbit-ui – main',
+    sub: 'prod • 2분 전',
+    status: 'READY',
+    statusColor: '#10b981',
+  },
+  {
+    type: '배포',
+    icon: '🚀',
+    label: 'orbit-ui – feat/tokens',
+    sub: 'preview • 10분 전',
+    status: 'BUILDING',
+    statusColor: '#f59e0b',
+  },
+  {
+    type: '프로젝트',
+    icon: '📦',
+    label: 'orbit-ui',
+    sub: 'blue45fs-projects',
+    status: '',
+    statusColor: '',
+  },
+  {
+    type: '프로젝트',
+    icon: '📦',
+    label: 'orbit-landing',
+    sub: 'blue45fs-projects',
+    status: '',
+    statusColor: '',
+  },
+  {
+    type: '도메인',
+    icon: '🌐',
+    label: 'orbit-ui.deploy.example.com',
+    sub: '프로덕션 도메인',
+    status: 'ACTIVE',
+    statusColor: '#10b981',
+  },
 ]
 
 const DeployPlatformGlobalSearchDemo = () => {
   const [picked, setPicked] = useState<string | null>(null)
   return (
-    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-      <div style={{ width: 520, borderRadius: 12, overflow: 'hidden', boxShadow: '0 8px 24px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}>
+    <div
+      style={{
+        padding: '32px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12,
+      }}
+    >
+      <div
+        style={{
+          width: 520,
+          borderRadius: 12,
+          overflow: 'hidden',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+          border: '1px solid #e5e7eb',
+        }}
+      >
         <Command>
           <Command.Input placeholder="배포, 프로젝트, 도메인 검색..." />
           <Command.List style={{ maxHeight: 360 }}>
@@ -756,14 +895,26 @@ const DeployPlatformGlobalSearchDemo = () => {
               return (
                 <Command.Group key={type} heading={type}>
                   {items.map((item) => (
-                    <Command.Item
-                      key={item.label}
-                      onSelect={() => setPicked(item.label)}
-                    >
-                      <span style={{ fontSize: 16, marginRight: 10, width: 24, textAlign: 'center' }}>{item.icon}</span>
+                    <Command.Item key={item.label} onSelect={() => setPicked(item.label)}>
+                      <span
+                        style={{ fontSize: 16, marginRight: 10, width: 24, textAlign: 'center' }}
+                      >
+                        {item.icon}
+                      </span>
                       <span style={{ flex: 1 }}>
-                        <span style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#111827' }}>{item.label}</span>
-                        <span style={{ display: 'block', fontSize: 11, color: '#9ca3af' }}>{item.sub}</span>
+                        <span
+                          style={{
+                            display: 'block',
+                            fontSize: 13,
+                            fontWeight: 500,
+                            color: '#111827',
+                          }}
+                        >
+                          {item.label}
+                        </span>
+                        <span style={{ display: 'block', fontSize: 11, color: '#9ca3af' }}>
+                          {item.sub}
+                        </span>
                       </span>
                       {item.status && (
                         <span
@@ -787,16 +938,23 @@ const DeployPlatformGlobalSearchDemo = () => {
               )
             })}
           </Command.List>
-          <div style={{ padding: '8px 16px', borderTop: '1px solid #f3f4f6', display: 'flex', gap: 16, fontSize: 11, color: '#9ca3af' }}>
+          <div
+            style={{
+              padding: '8px 16px',
+              borderTop: '1px solid #f3f4f6',
+              display: 'flex',
+              gap: 16,
+              fontSize: 11,
+              color: '#9ca3af',
+            }}
+          >
             <span>↑↓ 탐색</span>
             <span>↵ 선택</span>
           </div>
         </Command>
       </div>
       {picked && (
-        <div style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
-          ✓ 선택됨: {picked}
-        </div>
+        <div style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>✓ 선택됨: {picked}</div>
       )}
     </div>
   )
@@ -821,33 +979,89 @@ export const DeployPlatform_글로벌_검색: Story = {
    ComposableUI CMDK 공식 예제 — 최근 사용 항목을 상단에 표시하는 패턴
 -------------------------------------------------------------------------- */
 const RECENT_COMMANDS = [
-  { id: 'r1', label: '대시보드로 이동', group: '최근', icon: <HomeLineIcon className="h-4 w-4" />, shortcut: 'G D' },
-  { id: 'r2', label: '새 이슈 만들기', group: '최근', icon: <CircleInfoLineIcon className="h-4 w-4" />, shortcut: 'C' },
-  { id: 'r3', label: '내 프로필', group: '최근', icon: <OnePersonLineIcon className="h-4 w-4" />, shortcut: 'G P' },
+  {
+    id: 'r1',
+    label: '대시보드로 이동',
+    group: '최근',
+    icon: <HomeLineIcon className="h-4 w-4" />,
+    shortcut: 'G D',
+  },
+  {
+    id: 'r2',
+    label: '새 이슈 만들기',
+    group: '최근',
+    icon: <CircleInfoLineIcon className="h-4 w-4" />,
+    shortcut: 'C',
+  },
+  {
+    id: 'r3',
+    label: '내 프로필',
+    group: '최근',
+    icon: <OnePersonLineIcon className="h-4 w-4" />,
+    shortcut: 'G P',
+  },
 ]
 
 const ALL_COMMANDS = [
-  { id: 'n1', label: '대시보드로 이동', group: '페이지', icon: <HomeLineIcon className="h-4 w-4" />, shortcut: 'G D' },
-  { id: 'n2', label: '팀 관리', group: '페이지', icon: <OnePersonLineIcon className="h-4 w-4" />, shortcut: 'G T' },
-  { id: 'n3', label: '설정 열기', group: '페이지', icon: <SettingLineIcon className="h-4 w-4" />, shortcut: 'G S' },
-  { id: 'n4', label: '새 이슈 만들기', group: '액션', icon: <CircleInfoLineIcon className="h-4 w-4" />, shortcut: 'C' },
-  { id: 'n5', label: '즐겨찾기 추가', group: '액션', icon: <StarLineIcon className="h-4 w-4" />, shortcut: 'F' },
-  { id: 'n6', label: '알림 설정', group: '액션', icon: <NotificationLineIcon className="h-4 w-4" />, shortcut: 'N' },
+  {
+    id: 'n1',
+    label: '대시보드로 이동',
+    group: '페이지',
+    icon: <HomeLineIcon className="h-4 w-4" />,
+    shortcut: 'G D',
+  },
+  {
+    id: 'n2',
+    label: '팀 관리',
+    group: '페이지',
+    icon: <OnePersonLineIcon className="h-4 w-4" />,
+    shortcut: 'G T',
+  },
+  {
+    id: 'n3',
+    label: '설정 열기',
+    group: '페이지',
+    icon: <SettingLineIcon className="h-4 w-4" />,
+    shortcut: 'G S',
+  },
+  {
+    id: 'n4',
+    label: '새 이슈 만들기',
+    group: '액션',
+    icon: <CircleInfoLineIcon className="h-4 w-4" />,
+    shortcut: 'C',
+  },
+  {
+    id: 'n5',
+    label: '즐겨찾기 추가',
+    group: '액션',
+    icon: <StarLineIcon className="h-4 w-4" />,
+    shortcut: 'F',
+  },
+  {
+    id: 'n6',
+    label: '알림 설정',
+    group: '액션',
+    icon: <NotificationLineIcon className="h-4 w-4" />,
+    shortcut: 'N',
+  },
 ]
 
 function CommandHistoryDemo() {
   const [query, setQuery] = useState('')
   const [favorites, setFavorites] = useState<Set<string>>(new Set(['n1']))
 
-  const filtered = query.length === 0
-    ? { recent: RECENT_COMMANDS, all: [] }
-    : {
-      recent: [],
-      all: ALL_COMMANDS.filter((c) =>
-        c.label.toLowerCase().includes(query.toLowerCase()) ||
-        c.group.toLowerCase().includes(query.toLowerCase())
-      ),
-    }
+  const filtered =
+    query.length === 0
+      ? { recent: RECENT_COMMANDS, all: [] }
+      : {
+          recent: [],
+          all: ALL_COMMANDS.filter(
+            (c) =>
+              c.label.toLowerCase().includes(query.toLowerCase()) ||
+              c.group.toLowerCase().includes(query.toLowerCase())
+          ),
+        }
 
   const toggleFav = (id: string) => {
     setFavorites((prev) => {
@@ -860,15 +1074,20 @@ function CommandHistoryDemo() {
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto' }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#6366f1',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: 12,
+        }}
+      >
         ComposableUI CMDK — 최근 명령 히스토리 패턴
       </div>
       <Command className="rounded-lg border shadow-md">
-        <Command.Input
-          placeholder="명령어 검색..."
-          value={query}
-          onValueChange={setQuery}
-        />
+        <Command.Input placeholder="명령어 검색..." value={query} onValueChange={setQuery} />
         <Command.List>
           <Command.Empty>검색 결과가 없습니다.</Command.Empty>
 
@@ -881,14 +1100,33 @@ function CommandHistoryDemo() {
                     <span>{cmd.label}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '1px 5px', borderRadius: 4 }}>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        color: '#94a3b8',
+                        background: '#f1f5f9',
+                        padding: '1px 5px',
+                        borderRadius: 4,
+                      }}
+                    >
                       {cmd.shortcut}
                     </span>
                     <button
-                      onClick={(e) => { e.stopPropagation(); toggleFav(cmd.id) }}
-                      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px' }}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleFav(cmd.id)
+                      }}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '2px',
+                      }}
                     >
-                      <StarLineIcon className="h-3 w-3" style={{ color: favorites.has(cmd.id) ? '#f59e0b' : '#cbd5e1' }} />
+                      <StarLineIcon
+                        className="h-3 w-3"
+                        style={{ color: favorites.has(cmd.id) ? '#f59e0b' : '#cbd5e1' }}
+                      />
                     </button>
                   </div>
                 </Command.Item>
@@ -909,7 +1147,9 @@ function CommandHistoryDemo() {
               ))}
               {ALL_COMMANDS.filter((c) => favorites.has(c.id)).length === 0 && (
                 <Command.Item disabled>
-                  <span style={{ color: '#94a3b8', fontSize: 12 }}>즐겨찾기 항목이 없습니다. 별표를 눌러 추가하세요.</span>
+                  <span style={{ color: '#94a3b8', fontSize: 12 }}>
+                    즐겨찾기 항목이 없습니다. 별표를 눌러 추가하세요.
+                  </span>
                 </Command.Item>
               )}
             </Command.Group>
@@ -928,7 +1168,15 @@ function CommandHistoryDemo() {
                           {cmd.icon}
                           <span>{cmd.label}</span>
                         </div>
-                        <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '1px 5px', borderRadius: 4 }}>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            color: '#94a3b8',
+                            background: '#f1f5f9',
+                            padding: '1px 5px',
+                            borderRadius: 4,
+                          }}
+                        >
                           {cmd.shortcut}
                         </span>
                       </Command.Item>
@@ -956,7 +1204,12 @@ export const ComposableUI_최근_명령_히스토리: Story = {
    DeployPlatform 벤치마크: 팀 전환 명령 팔레트
    DeployPlatform 팀 선택 + 최근 프로젝트 이동 패턴
 -------------------------------------------------------------------------- */
-type DeployPlatformTeam = { id: string; name: string; plan: 'free' | 'pro' | 'enterprise'; members: number }
+type DeployPlatformTeam = {
+  id: string
+  name: string
+  plan: 'free' | 'pro' | 'enterprise'
+  members: number
+}
 
 const DEPLOY_TEAMS: DeployPlatformTeam[] = [
   { id: 't1', name: 'Personal', plan: 'pro', members: 1 },
@@ -997,7 +1250,16 @@ function DeployPlatformTeamSwitcherDemo() {
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto' }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#000', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#000',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: 12,
+        }}
+      >
         DeployPlatform — 팀 전환 + 프로젝트 이동 팔레트
       </div>
       <Command className="rounded-lg border shadow-md" style={{ background: '#fff' }}>
@@ -1019,16 +1281,33 @@ function DeployPlatformTeamSwitcherDemo() {
                   className="flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2">
-                    <div style={{
-                      width: 20, height: 20, borderRadius: 4,
-                      background: `${plan.color}20`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 10, fontWeight: 800, color: plan.color,
-                    }}>
+                    <div
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: 4,
+                        background: `${plan.color}20`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 10,
+                        fontWeight: 800,
+                        color: plan.color,
+                      }}
+                    >
                       {team.name[0].toUpperCase()}
                     </div>
                     <span>{team.name}</span>
-                    <span style={{ fontSize: 10, fontWeight: 700, color: plan.color, background: `${plan.color}15`, padding: '1px 5px', borderRadius: 3 }}>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        color: plan.color,
+                        background: `${plan.color}15`,
+                        padding: '1px 5px',
+                        borderRadius: 3,
+                      }}
+                    >
                       {plan.label}
                     </span>
                   </div>
@@ -1057,10 +1336,14 @@ function DeployPlatformTeamSwitcherDemo() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span style={{ fontSize: 11, color: '#94a3b8' }}>{teamName}</span>
-                    <div style={{
-                      width: 7, height: 7, borderRadius: '50%',
-                      background: statusCfg.dot,
-                    }} />
+                    <div
+                      style={{
+                        width: 7,
+                        height: 7,
+                        borderRadius: '50%',
+                        background: statusCfg.dot,
+                      }}
+                    />
                     <span style={{ fontSize: 10, fontWeight: 700, color: statusCfg.color }}>
                       {project.status}
                     </span>
@@ -1089,14 +1372,39 @@ export const DeployPlatform_팀_전환_팔레트: Story = {
 -------------------------------------------------------------------------- */
 type DrillPage = 'root' | 'theme' | 'team' | 'account'
 
-const DRILLDOWN_TREE: Record<DrillPage, { heading: string; items: { label: string; icon: React.ReactElement; target?: DrillPage; desc?: string }[] }> = {
+const DRILLDOWN_TREE: Record<
+  DrillPage,
+  {
+    heading: string
+    items: { label: string; icon: React.ReactElement; target?: DrillPage; desc?: string }[]
+  }
+> = {
   root: {
     heading: '명령',
     items: [
-      { label: '테마 설정', icon: <SettingLineIcon className="h-4 w-4" />, target: 'theme', desc: '색상, 폰트 설정' },
-      { label: '팀 관리', icon: <OnePersonLineIcon className="h-4 w-4" />, target: 'team', desc: '멤버, 권한 관리' },
-      { label: '계정 설정', icon: <CircleInfoLineIcon className="h-4 w-4" />, target: 'account', desc: '프로필, 보안' },
-      { label: '알림 센터', icon: <NotificationLineIcon className="h-4 w-4" />, desc: '알림 목록 보기' },
+      {
+        label: '테마 설정',
+        icon: <SettingLineIcon className="h-4 w-4" />,
+        target: 'theme',
+        desc: '색상, 폰트 설정',
+      },
+      {
+        label: '팀 관리',
+        icon: <OnePersonLineIcon className="h-4 w-4" />,
+        target: 'team',
+        desc: '멤버, 권한 관리',
+      },
+      {
+        label: '계정 설정',
+        icon: <CircleInfoLineIcon className="h-4 w-4" />,
+        target: 'account',
+        desc: '프로필, 보안',
+      },
+      {
+        label: '알림 센터',
+        icon: <NotificationLineIcon className="h-4 w-4" />,
+        desc: '알림 목록 보기',
+      },
     ],
   },
   theme: {
@@ -1137,17 +1445,42 @@ function CommandDrilldownDemo() {
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto' }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#6366f1',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: 12,
+        }}
+      >
         ComposableUI — pages 패턴 (드릴다운 팔레트)
       </div>
       <Command className="rounded-lg border shadow-md">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderBottom: '1px solid #f1f5f9' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '6px 12px',
+            borderBottom: '1px solid #f1f5f9',
+          }}
+        >
           {page !== 'root' && (
             <button
-              onClick={() => { setPage('root'); setQuery('') }}
+              onClick={() => {
+                setPage('root')
+                setQuery('')
+              }}
               style={{
-                padding: '2px 8px', borderRadius: 4, border: '1px solid #e2e8f0',
-                background: '#fff', fontSize: 11, cursor: 'pointer', color: '#64748b',
+                padding: '2px 8px',
+                borderRadius: 4,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                fontSize: 11,
+                cursor: 'pointer',
+                color: '#64748b',
               }}
             >
               ← 뒤로
@@ -1167,7 +1500,10 @@ function CommandDrilldownDemo() {
               <Command.Item
                 key={item.label}
                 onSelect={() => {
-                  if (item.target) { setPage(item.target); setQuery('') }
+                  if (item.target) {
+                    setPage(item.target)
+                    setQuery('')
+                  }
                 }}
                 className="flex items-center justify-between"
               >
@@ -1175,14 +1511,10 @@ function CommandDrilldownDemo() {
                   {item.icon}
                   <div>
                     <div>{item.label}</div>
-                    {item.desc && (
-                      <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
-                    )}
+                    {item.desc && <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>}
                   </div>
                 </div>
-                {item.target && (
-                  <ArrowRightIcon className="h-3 w-3" style={{ color: '#94a3b8' }} />
-                )}
+                {item.target && <ArrowRightIcon className="h-3 w-3" style={{ color: '#94a3b8' }} />}
               </Command.Item>
             ))}
           </Command.Group>
@@ -1208,18 +1540,55 @@ const AppUISpotlightRender = () => {
 
   const RECENT = ['대시보드', '사용자 관리', '알림 설정']
   const ALL_ACTIONS = [
-    { group: '페이지', icon: <HomeLineIcon className="h-4 w-4" />, label: '대시보드', desc: '메인 대시보드로 이동', shortcut: 'G D' },
-    { group: '페이지', icon: <OnePersonLineIcon className="h-4 w-4" />, label: '사용자 관리', desc: '팀 멤버 관리', shortcut: 'G U' },
-    { group: '페이지', icon: <SettingLineIcon className="h-4 w-4" />, label: '설정', desc: '계정 및 환경설정', shortcut: 'G S' },
-    { group: '작업', icon: <StarLineIcon className="h-4 w-4" />, label: '즐겨찾기 추가', desc: '현재 페이지를 즐겨찾기', shortcut: 'Ctrl F' },
-    { group: '작업', icon: <NotificationLineIcon className="h-4 w-4" />, label: '알림 설정', desc: '알림 환경설정 열기', shortcut: 'Ctrl N' },
-    { group: '도움말', icon: <CircleInfoLineIcon className="h-4 w-4" />, label: '문서 보기', desc: 'Orbit UI 공식 문서', shortcut: '?' },
+    {
+      group: '페이지',
+      icon: <HomeLineIcon className="h-4 w-4" />,
+      label: '대시보드',
+      desc: '메인 대시보드로 이동',
+      shortcut: 'G D',
+    },
+    {
+      group: '페이지',
+      icon: <OnePersonLineIcon className="h-4 w-4" />,
+      label: '사용자 관리',
+      desc: '팀 멤버 관리',
+      shortcut: 'G U',
+    },
+    {
+      group: '페이지',
+      icon: <SettingLineIcon className="h-4 w-4" />,
+      label: '설정',
+      desc: '계정 및 환경설정',
+      shortcut: 'G S',
+    },
+    {
+      group: '작업',
+      icon: <StarLineIcon className="h-4 w-4" />,
+      label: '즐겨찾기 추가',
+      desc: '현재 페이지를 즐겨찾기',
+      shortcut: 'Ctrl F',
+    },
+    {
+      group: '작업',
+      icon: <NotificationLineIcon className="h-4 w-4" />,
+      label: '알림 설정',
+      desc: '알림 환경설정 열기',
+      shortcut: 'Ctrl N',
+    },
+    {
+      group: '도움말',
+      icon: <CircleInfoLineIcon className="h-4 w-4" />,
+      label: '문서 보기',
+      desc: 'Orbit UI 공식 문서',
+      shortcut: '?',
+    },
   ]
 
   const filtered = query
-    ? ALL_ACTIONS.filter((a) =>
-        a.label.toLowerCase().includes(query.toLowerCase()) ||
-        a.desc.toLowerCase().includes(query.toLowerCase())
+    ? ALL_ACTIONS.filter(
+        (a) =>
+          a.label.toLowerCase().includes(query.toLowerCase()) ||
+          a.desc.toLowerCase().includes(query.toLowerCase())
       )
     : ALL_ACTIONS
 
@@ -1249,7 +1618,11 @@ const AppUISpotlightRender = () => {
           {!query && (
             <Command.Group heading="최근 방문">
               {RECENT.map((r) => (
-                <Command.Item key={r} onSelect={() => setSelected(r)} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Command.Item
+                  key={r}
+                  onSelect={() => setSelected(r)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                >
                   <span style={{ fontSize: 12, color: '#94a3b8' }}>↺</span>
                   <span>{r}</span>
                 </Command.Item>
@@ -1265,11 +1638,19 @@ const AppUISpotlightRender = () => {
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{
-                      width: 30, height: 30, borderRadius: 7, background: '#f8fafc',
-                      border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#475569',
-                    }}>
+                    <div
+                      style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: 7,
+                        background: '#f8fafc',
+                        border: '1px solid #e2e8f0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#475569',
+                      }}
+                    >
                       {a.icon}
                     </div>
                     <div>
@@ -1277,10 +1658,17 @@ const AppUISpotlightRender = () => {
                       <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{a.desc}</div>
                     </div>
                   </div>
-                  <kbd style={{
-                    fontSize: 10, fontFamily: 'monospace', background: '#f1f5f9',
-                    border: '1px solid #e2e8f0', borderRadius: 4, padding: '2px 5px', color: '#64748b',
-                  }}>
+                  <kbd
+                    style={{
+                      fontSize: 10,
+                      fontFamily: 'monospace',
+                      background: '#f1f5f9',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: 4,
+                      padding: '2px 5px',
+                      color: '#64748b',
+                    }}
+                  >
                     {a.shortcut}
                   </kbd>
                 </Command.Item>
@@ -1289,12 +1677,21 @@ const AppUISpotlightRender = () => {
           ))}
         </Command.List>
         {selected && (
-          <div style={{
-            padding: '8px 16px', borderTop: '1px solid #f1f5f9',
-            fontSize: 12, color: '#64748b', display: 'flex', alignItems: 'center', gap: 6,
-          }}>
+          <div
+            style={{
+              padding: '8px 16px',
+              borderTop: '1px solid #f1f5f9',
+              fontSize: 12,
+              color: '#64748b',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+            }}
+          >
             <CheckIcon className="h-3 w-3" style={{ color: '#22c55e' }} />
-            <span>선택됨: <strong>{selected}</strong></span>
+            <span>
+              선택됨: <strong>{selected}</strong>
+            </span>
           </div>
         )}
       </Command>
@@ -1332,40 +1729,99 @@ const CommandPaletteActionPanelRender = () => {
     { id: 'system', label: '시스템' },
   ]
 
-  const ACTIONS: { id: string; category: CommandPaletteActionCategory; label: string; desc: string; shortcut: string }[] = [
-    { id: 'clip-hist', category: 'clipboard', label: '클립보드 히스토리', desc: '최근 복사 항목 보기', shortcut: '⌘⇧V' },
-    { id: 'clip-clear', category: 'clipboard', label: '클립보드 지우기', desc: '클립보드 내용 삭제', shortcut: '⌘⌥C' },
-    { id: 'win-resize', category: 'window', label: '창 크기 조절', desc: '좌/우/전체 분할', shortcut: '⌃⌥→' },
-    { id: 'win-focus', category: 'window', label: '다음 창으로 이동', desc: 'App 간 포커스 이동', shortcut: '⌘`' },
-    { id: 'sys-sleep', category: 'system', label: '화면 잠금', desc: '화면을 즉시 잠금', shortcut: '⌃⌘Q' },
-    { id: 'sys-vol', category: 'system', label: '볼륨 조절', desc: '시스템 볼륨 제어', shortcut: 'F10-12' },
+  const ACTIONS: {
+    id: string
+    category: CommandPaletteActionCategory
+    label: string
+    desc: string
+    shortcut: string
+  }[] = [
+    {
+      id: 'clip-hist',
+      category: 'clipboard',
+      label: '클립보드 히스토리',
+      desc: '최근 복사 항목 보기',
+      shortcut: '⌘⇧V',
+    },
+    {
+      id: 'clip-clear',
+      category: 'clipboard',
+      label: '클립보드 지우기',
+      desc: '클립보드 내용 삭제',
+      shortcut: '⌘⌥C',
+    },
+    {
+      id: 'win-resize',
+      category: 'window',
+      label: '창 크기 조절',
+      desc: '좌/우/전체 분할',
+      shortcut: '⌃⌥→',
+    },
+    {
+      id: 'win-focus',
+      category: 'window',
+      label: '다음 창으로 이동',
+      desc: 'App 간 포커스 이동',
+      shortcut: '⌘`',
+    },
+    {
+      id: 'sys-sleep',
+      category: 'system',
+      label: '화면 잠금',
+      desc: '화면을 즉시 잠금',
+      shortcut: '⌃⌘Q',
+    },
+    {
+      id: 'sys-vol',
+      category: 'system',
+      label: '볼륨 조절',
+      desc: '시스템 볼륨 제어',
+      shortcut: 'F10-12',
+    },
   ]
 
-  const filtered = ACTIONS
-    .filter((a) => activeCategory === 'all' || a.category === activeCategory)
-    .filter((a) =>
+  const filtered = ACTIONS.filter(
+    (a) => activeCategory === 'all' || a.category === activeCategory
+  ).filter(
+    (a) =>
       !searchVal ||
       a.label.toLowerCase().includes(searchVal.toLowerCase()) ||
       a.desc.toLowerCase().includes(searchVal.toLowerCase())
-    )
+  )
 
   const togglePin = (label: string) => {
-    setPinned((prev) => prev.includes(label) ? prev.filter((p) => p !== label) : [...prev, label])
+    setPinned((prev) => (prev.includes(label) ? prev.filter((p) => p !== label) : [...prev, label]))
   }
 
   return (
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{
-        background: '#0f172a', borderRadius: 12, overflow: 'hidden',
-        border: '1px solid #1e293b', boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
-      }}>
-        <div style={{ padding: '10px 14px', borderBottom: '1px solid #1e293b', display: 'flex', gap: 8 }}>
+      <div
+        style={{
+          background: '#0f172a',
+          borderRadius: 12,
+          overflow: 'hidden',
+          border: '1px solid #1e293b',
+          boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
+        }}
+      >
+        <div
+          style={{
+            padding: '10px 14px',
+            borderBottom: '1px solid #1e293b',
+            display: 'flex',
+            gap: 8,
+          }}
+        >
           {CATEGORIES.map((c) => (
             <button
               key={c.id}
               onClick={() => setActiveCategory(c.id)}
               style={{
-                padding: '3px 10px', borderRadius: 6, border: 'none', cursor: 'pointer', fontSize: 11,
+                padding: '3px 10px',
+                borderRadius: 6,
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: 11,
                 background: activeCategory === c.id ? '#3b82f6' : 'transparent',
                 color: activeCategory === c.id ? '#fff' : '#94a3b8',
                 fontWeight: activeCategory === c.id ? 600 : 400,
@@ -1384,26 +1840,55 @@ const CommandPaletteActionPanelRender = () => {
           />
           <Command.List style={{ maxHeight: 320 }}>
             <Command.Empty>
-              <div style={{ padding: '20px 0', textAlign: 'center', color: '#475569', fontSize: 12 }}>
+              <div
+                style={{ padding: '20px 0', textAlign: 'center', color: '#475569', fontSize: 12 }}
+              >
                 액션 없음
               </div>
             </Command.Empty>
             {pinned.length > 0 && (
               <Command.Group heading="고정됨" style={{ color: '#475569' }}>
                 {pinned.map((p) => (
-                  <Command.Item key={p} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#f1f5f9' }}>
+                  <Command.Item
+                    key={p}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      color: '#f1f5f9',
+                    }}
+                  >
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <StarLineIcon className="h-3 w-3" style={{ color: '#f59e0b' }} />
                       <span style={{ fontSize: 13 }}>{p}</span>
                     </div>
-                    <button onClick={() => togglePin(p)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#475569', fontSize: 11 }}>해제</button>
+                    <button
+                      onClick={() => togglePin(p)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: '#475569',
+                        fontSize: 11,
+                      }}
+                    >
+                      해제
+                    </button>
                   </Command.Item>
                 ))}
               </Command.Group>
             )}
             <Command.Group heading="액션" style={{ color: '#475569' }}>
               {filtered.map((a) => (
-                <Command.Item key={a.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#f1f5f9' }}>
+                <Command.Item
+                  key={a.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    color: '#f1f5f9',
+                  }}
+                >
                   <div>
                     <div style={{ fontSize: 13, fontWeight: 500 }}>{a.label}</div>
                     <div style={{ fontSize: 11, color: '#475569', marginTop: 1 }}>{a.desc}</div>
@@ -1412,13 +1897,18 @@ const CommandPaletteActionPanelRender = () => {
                     <button
                       onClick={() => togglePin(a.label)}
                       style={{
-                        background: 'none', border: 'none', cursor: 'pointer', fontSize: 10,
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: 10,
                         color: pinned.includes(a.label) ? '#f59e0b' : '#475569',
                       }}
                     >
                       {pinned.includes(a.label) ? '★' : '☆'}
                     </button>
-                    <kbd style={{ fontSize: 10, fontFamily: 'monospace', color: '#64748b' }}>{a.shortcut}</kbd>
+                    <kbd style={{ fontSize: 10, fontFamily: 'monospace', color: '#64748b' }}>
+                      {a.shortcut}
+                    </kbd>
                   </div>
                 </Command.Item>
               ))}
@@ -1452,16 +1942,46 @@ const AppUICommandHistoryRender = () => {
   const [lastRun, setLastRun] = useState<string | null>(null)
 
   const COMMANDS = [
-    { label: '새 프로젝트 생성', icon: <StarLineIcon className="h-3.5 w-3.5" />, tag: '빠른 작업', color: '#6366f1' },
-    { label: '사용자 초대', icon: <OnePersonLineIcon className="h-3.5 w-3.5" />, tag: '팀', color: '#0ea5e9' },
-    { label: '알림 일괄 읽음', icon: <NotificationLineIcon className="h-3.5 w-3.5" />, tag: '알림', color: '#f59e0b' },
-    { label: '결제 내역 조회', icon: <SearchIcon className="h-3.5 w-3.5" />, tag: '관리', color: '#22c55e' },
-    { label: '접근성 보고서', icon: <CircleInfoLineIcon className="h-3.5 w-3.5" />, tag: '분석', color: '#8b5cf6' },
-    { label: '캐시 지우기', icon: <DeleteLineIcon className="h-3.5 w-3.5" />, tag: '시스템', color: '#ef4444' },
+    {
+      label: '새 프로젝트 생성',
+      icon: <StarLineIcon className="h-3.5 w-3.5" />,
+      tag: '빠른 작업',
+      color: '#6366f1',
+    },
+    {
+      label: '사용자 초대',
+      icon: <OnePersonLineIcon className="h-3.5 w-3.5" />,
+      tag: '팀',
+      color: '#0ea5e9',
+    },
+    {
+      label: '알림 일괄 읽음',
+      icon: <NotificationLineIcon className="h-3.5 w-3.5" />,
+      tag: '알림',
+      color: '#f59e0b',
+    },
+    {
+      label: '결제 내역 조회',
+      icon: <SearchIcon className="h-3.5 w-3.5" />,
+      tag: '관리',
+      color: '#22c55e',
+    },
+    {
+      label: '접근성 보고서',
+      icon: <CircleInfoLineIcon className="h-3.5 w-3.5" />,
+      tag: '분석',
+      color: '#8b5cf6',
+    },
+    {
+      label: '캐시 지우기',
+      icon: <DeleteLineIcon className="h-3.5 w-3.5" />,
+      tag: '시스템',
+      color: '#ef4444',
+    },
   ]
 
-  const filtered = COMMANDS.filter((c) =>
-    !query || c.label.toLowerCase().includes(query.toLowerCase())
+  const filtered = COMMANDS.filter(
+    (c) => !query || c.label.toLowerCase().includes(query.toLowerCase())
   )
 
   const runCommand = (label: string) => {
@@ -1474,11 +1994,7 @@ const AppUICommandHistoryRender = () => {
   return (
     <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
       <Command className="rounded-xl border shadow-lg">
-        <Command.Input
-          placeholder="명령 실행..."
-          value={query}
-          onValueChange={setQuery}
-        />
+        <Command.Input placeholder="명령 실행..." value={query} onValueChange={setQuery} />
         <Command.List style={{ maxHeight: 360 }}>
           <Command.Empty>
             <div style={{ padding: '20px 0', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
@@ -1491,13 +2007,23 @@ const AppUICommandHistoryRender = () => {
                 const cmd = COMMANDS.find((c) => c.label === h)
                 if (!cmd) return null
                 return (
-                  <Command.Item key={h} onSelect={() => runCommand(h)} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Command.Item
+                    key={h}
+                    onSelect={() => runCommand(h)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
                     <span style={{ fontSize: 11, color: '#94a3b8' }}>↺</span>
                     <span style={{ fontSize: 13 }}>{h}</span>
-                    <span style={{
-                      marginLeft: 'auto', fontSize: 10, padding: '1px 6px', borderRadius: 4,
-                      background: '#f1f5f9', color: '#64748b',
-                    }}>
+                    <span
+                      style={{
+                        marginLeft: 'auto',
+                        fontSize: 10,
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: '#f1f5f9',
+                        color: '#64748b',
+                      }}
+                    >
                       {cmd.tag}
                     </span>
                   </Command.Item>
@@ -1512,29 +2038,49 @@ const AppUICommandHistoryRender = () => {
                 onSelect={() => runCommand(c.label)}
                 style={{ display: 'flex', alignItems: 'center', gap: 10 }}
               >
-                <div style={{
-                  width: 26, height: 26, borderRadius: 6,
-                  background: c.color + '15', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: c.color, flexShrink: 0,
-                }}>
+                <div
+                  style={{
+                    width: 26,
+                    height: 26,
+                    borderRadius: 6,
+                    background: c.color + '15',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: c.color,
+                    flexShrink: 0,
+                  }}
+                >
                   {c.icon}
                 </div>
                 <span style={{ fontSize: 13 }}>{c.label}</span>
-                <span style={{
-                  marginLeft: 'auto', fontSize: 10, padding: '1px 6px', borderRadius: 4,
-                  background: '#f1f5f9', color: '#64748b',
-                }}>
+                <span
+                  style={{
+                    marginLeft: 'auto',
+                    fontSize: 10,
+                    padding: '1px 6px',
+                    borderRadius: 4,
+                    background: '#f1f5f9',
+                    color: '#64748b',
+                  }}
+                >
                   {c.tag}
                 </span>
               </Command.Item>
             ))}
           </Command.Group>
         </Command.List>
-        <div style={{
-          padding: '8px 14px', borderTop: '1px solid #f1f5f9',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          fontSize: 11, color: '#94a3b8',
-        }}>
+        <div
+          style={{
+            padding: '8px 14px',
+            borderTop: '1px solid #f1f5f9',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontSize: 11,
+            color: '#94a3b8',
+          }}
+        >
           <span>↑↓ 이동 · Enter 실행 · Esc 닫기</span>
           {lastRun && (
             <span style={{ color: '#22c55e', display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -1578,17 +2124,80 @@ type WorkspaceEditorBlockType = {
 }
 
 const WORKSPACE_BLOCK_TYPES: WorkspaceEditorBlockType[] = [
-  { key: 'h1', label: '제목 1', desc: '큰 섹션 제목', icon: 'H1', group: '기본 블록', shortcut: '#' },
-  { key: 'h2', label: '제목 2', desc: '중간 섹션 제목', icon: 'H2', group: '기본 블록', shortcut: '##' },
-  { key: 'h3', label: '제목 3', desc: '작은 섹션 제목', icon: 'H3', group: '기본 블록', shortcut: '###' },
-  { key: 'todo', label: '할 일 목록', desc: '체크박스 목록', icon: '☑', group: '기본 블록', shortcut: '[]' },
-  { key: 'bullet', label: '글머리 목록', desc: '순서 없는 목록', icon: '•', group: '기본 블록', shortcut: '-' },
-  { key: 'numbered', label: '번호 목록', desc: '순서 있는 목록', icon: '1.', group: '기본 블록', shortcut: '1.' },
+  {
+    key: 'h1',
+    label: '제목 1',
+    desc: '큰 섹션 제목',
+    icon: 'H1',
+    group: '기본 블록',
+    shortcut: '#',
+  },
+  {
+    key: 'h2',
+    label: '제목 2',
+    desc: '중간 섹션 제목',
+    icon: 'H2',
+    group: '기본 블록',
+    shortcut: '##',
+  },
+  {
+    key: 'h3',
+    label: '제목 3',
+    desc: '작은 섹션 제목',
+    icon: 'H3',
+    group: '기본 블록',
+    shortcut: '###',
+  },
+  {
+    key: 'todo',
+    label: '할 일 목록',
+    desc: '체크박스 목록',
+    icon: '☑',
+    group: '기본 블록',
+    shortcut: '[]',
+  },
+  {
+    key: 'bullet',
+    label: '글머리 목록',
+    desc: '순서 없는 목록',
+    icon: '•',
+    group: '기본 블록',
+    shortcut: '-',
+  },
+  {
+    key: 'numbered',
+    label: '번호 목록',
+    desc: '순서 있는 목록',
+    icon: '1.',
+    group: '기본 블록',
+    shortcut: '1.',
+  },
   { key: 'quote', label: '인용', desc: '인용 블록', icon: '"', group: '기본 블록', shortcut: '>' },
-  { key: 'code', label: '코드', desc: '코드 블록', icon: '<>', group: '기본 블록', shortcut: '```' },
-  { key: 'divider', label: '구분선', desc: '시각적 구분선', icon: '—', group: '기본 블록', shortcut: '---' },
+  {
+    key: 'code',
+    label: '코드',
+    desc: '코드 블록',
+    icon: '<>',
+    group: '기본 블록',
+    shortcut: '```',
+  },
+  {
+    key: 'divider',
+    label: '구분선',
+    desc: '시각적 구분선',
+    icon: '—',
+    group: '기본 블록',
+    shortcut: '---',
+  },
   { key: 'callout', label: '콜아웃', desc: '강조 박스', icon: '!', group: '미디어', shortcut: '' },
-  { key: 'image', label: '이미지', desc: '이미지 업로드 또는 URL', icon: 'IMG', group: '미디어', shortcut: '' },
+  {
+    key: 'image',
+    label: '이미지',
+    desc: '이미지 업로드 또는 URL',
+    icon: 'IMG',
+    group: '미디어',
+    shortcut: '',
+  },
   { key: 'table', label: '표', desc: '데이터 테이블', icon: '⊞', group: '미디어', shortcut: '' },
 ]
 
@@ -1599,22 +2208,60 @@ function WorkspaceEditorBlockSelectorRender() {
   const groups = Array.from(new Set(WORKSPACE_BLOCK_TYPES.map((b) => b.group)))
 
   const filtered = WORKSPACE_BLOCK_TYPES.filter(
-    (b) => b.label.toLowerCase().includes(blockQuery.toLowerCase()) || b.shortcut.includes(blockQuery)
+    (b) =>
+      b.label.toLowerCase().includes(blockQuery.toLowerCase()) || b.shortcut.includes(blockQuery)
   )
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       {selected ? (
-        <div style={{ padding: '10px 16px', borderRadius: 8, background: '#eff6ff', border: '1px solid #c7d2fe', fontSize: 13, color: '#4f46e5', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div
+          style={{
+            padding: '10px 16px',
+            borderRadius: 8,
+            background: '#eff6ff',
+            border: '1px solid #c7d2fe',
+            fontSize: 13,
+            color: '#4f46e5',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+          }}
+        >
           <span>✓ 선택된 블록 유형:</span>
           <strong>{WORKSPACE_BLOCK_TYPES.find((b) => b.key === selected)?.label}</strong>
-          <button onClick={() => setSelected('')} style={{ marginLeft: 8, fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer' }}>
+          <button
+            onClick={() => setSelected('')}
+            style={{
+              marginLeft: 8,
+              fontSize: 11,
+              color: '#6366f1',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
             초기화
           </button>
         </div>
       ) : null}
 
-      <Command style={{ width: 340, borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid #e2e8f0' }}>
+      <Command
+        style={{
+          width: 340,
+          borderRadius: 12,
+          boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+          border: '1px solid #e2e8f0',
+        }}
+      >
         <Command.Input
           value={blockQuery}
           onValueChange={setBlockQuery}
@@ -1633,19 +2280,43 @@ function WorkspaceEditorBlockSelectorRender() {
                     onSelect={() => setSelected(block.key)}
                     style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px' }}
                   >
-                    <div style={{
-                      width: 32, height: 32, borderRadius: 6, background: '#f1f5f9',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 12, fontWeight: 700, color: '#475569', flexShrink: 0, fontFamily: 'monospace',
-                    }}>
+                    <div
+                      style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 6,
+                        background: '#f1f5f9',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 12,
+                        fontWeight: 700,
+                        color: '#475569',
+                        flexShrink: 0,
+                        fontFamily: 'monospace',
+                      }}
+                    >
                       {block.icon}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{block.label}</div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>
+                        {block.label}
+                      </div>
                       <div style={{ fontSize: 11, color: '#94a3b8' }}>{block.desc}</div>
                     </div>
                     {block.shortcut && (
-                      <kbd style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: '#f8fafc', border: '1px solid #e2e8f0', color: '#64748b', fontFamily: 'monospace', flexShrink: 0 }}>
+                      <kbd
+                        style={{
+                          fontSize: 10,
+                          padding: '2px 6px',
+                          borderRadius: 4,
+                          background: '#f8fafc',
+                          border: '1px solid #e2e8f0',
+                          color: '#64748b',
+                          fontFamily: 'monospace',
+                          flexShrink: 0,
+                        }}
+                      >
                         {block.shortcut}
                       </kbd>
                     )}
@@ -1655,8 +2326,19 @@ function WorkspaceEditorBlockSelectorRender() {
             )
           })}
         </Command.List>
-        <div style={{ padding: '6px 12px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8', display: 'flex', gap: 10 }}>
-          <span>↑↓ 이동</span><span>Enter 선택</span><span>Esc 닫기</span>
+        <div
+          style={{
+            padding: '6px 12px',
+            borderTop: '1px solid #f1f5f9',
+            fontSize: 10,
+            color: '#94a3b8',
+            display: 'flex',
+            gap: 10,
+          }}
+        >
+          <span>↑↓ 이동</span>
+          <span>Enter 선택</span>
+          <span>Esc 닫기</span>
         </div>
       </Command>
       <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
@@ -1695,13 +2377,62 @@ type CommandPaletteFile = {
 }
 
 const LAUNCHER_FILES: CommandPaletteFile[] = [
-  { name: 'design-system-v2.fig', path: '~/Design/Orbit UI', ext: 'fig', modified: '방금', size: '12.4 MB', pinned: true },
-  { name: 'CLAUDE.md', path: '~/WebstormProjects/orbit-ui', ext: 'md', modified: '1시간 전', size: '8.2 KB', pinned: true },
-  { name: 'index.ts', path: '~/orbit-ui/packages/theme-eclipse/src', ext: 'ts', modified: '2시간 전', size: '3.1 KB', pinned: false },
-  { name: 'package.json', path: '~/orbit-ui', ext: 'json', modified: '어제', size: '1.8 KB', pinned: false },
-  { name: 'Templates.stories.tsx', path: '~/orbit-ui/packages/theme-eclipse/src/templates', ext: 'tsx', modified: '어제', size: '284 KB', pinned: false },
-  { name: 'sprint-notes.md', path: '~/Documents/Team', ext: 'md', modified: '3일 전', size: '24 KB', pinned: false },
-  { name: 'orbit-ui-cover.png', path: '~/Design/Assets', ext: 'png', modified: '1주 전', size: '2.1 MB', pinned: false },
+  {
+    name: 'design-system-v2.fig',
+    path: '~/Design/Orbit UI',
+    ext: 'fig',
+    modified: '방금',
+    size: '12.4 MB',
+    pinned: true,
+  },
+  {
+    name: 'CLAUDE.md',
+    path: '~/WebstormProjects/orbit-ui',
+    ext: 'md',
+    modified: '1시간 전',
+    size: '8.2 KB',
+    pinned: true,
+  },
+  {
+    name: 'index.ts',
+    path: '~/orbit-ui/packages/theme-eclipse/src',
+    ext: 'ts',
+    modified: '2시간 전',
+    size: '3.1 KB',
+    pinned: false,
+  },
+  {
+    name: 'package.json',
+    path: '~/orbit-ui',
+    ext: 'json',
+    modified: '어제',
+    size: '1.8 KB',
+    pinned: false,
+  },
+  {
+    name: 'Templates.stories.tsx',
+    path: '~/orbit-ui/packages/theme-eclipse/src/templates',
+    ext: 'tsx',
+    modified: '어제',
+    size: '284 KB',
+    pinned: false,
+  },
+  {
+    name: 'sprint-notes.md',
+    path: '~/Documents/Team',
+    ext: 'md',
+    modified: '3일 전',
+    size: '24 KB',
+    pinned: false,
+  },
+  {
+    name: 'orbit-ui-cover.png',
+    path: '~/Design/Assets',
+    ext: 'png',
+    modified: '1주 전',
+    size: '2.1 MB',
+    pinned: false,
+  },
 ]
 
 const LAUNCHER_EXT_COLOR: Record<string, string> = {
@@ -1719,25 +2450,74 @@ function CommandPaletteFileSearchRender() {
   const [opened, setOpened] = useState<string | null>(null)
 
   const filtered = LAUNCHER_FILES.filter(
-    (f) => f.name.toLowerCase().includes(fileQuery.toLowerCase()) || f.path.toLowerCase().includes(fileQuery.toLowerCase())
+    (f) =>
+      f.name.toLowerCase().includes(fileQuery.toLowerCase()) ||
+      f.path.toLowerCase().includes(fileQuery.toLowerCase())
   )
 
   const pinned = filtered.filter((f) => f.pinned)
   const recent = filtered.filter((f) => !f.pinned)
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       {opened && (
-        <div style={{ padding: '8px 14px', borderRadius: 8, background: '#0f172a', color: '#94a3b8', fontSize: 12, display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div
+          style={{
+            padding: '8px 14px',
+            borderRadius: 8,
+            background: '#0f172a',
+            color: '#94a3b8',
+            fontSize: 12,
+            display: 'flex',
+            gap: 8,
+            alignItems: 'center',
+          }}
+        >
           <span style={{ color: '#22c55e' }}>✓</span>
           <span style={{ color: '#f8fafc', fontWeight: 600 }}>{opened}</span>
           <span>파일 열기됨</span>
-          <button onClick={() => setOpened(null)} style={{ marginLeft: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', fontSize: 11 }}>닫기</button>
+          <button
+            onClick={() => setOpened(null)}
+            style={{
+              marginLeft: 6,
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#64748b',
+              fontSize: 11,
+            }}
+          >
+            닫기
+          </button>
         </div>
       )}
 
-      <Command style={{ width: 480, borderRadius: 12, boxShadow: '0 16px 48px rgba(0,0,0,0.18)', border: '1px solid #e2e8f0', background: '#fff' }}>
-        <div style={{ display: 'flex', alignItems: 'center', padding: '10px 14px', gap: 8, borderBottom: '1px solid #f1f5f9' }}>
+      <Command
+        style={{
+          width: 480,
+          borderRadius: 12,
+          boxShadow: '0 16px 48px rgba(0,0,0,0.18)',
+          border: '1px solid #e2e8f0',
+          background: '#fff',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '10px 14px',
+            gap: 8,
+            borderBottom: '1px solid #f1f5f9',
+          }}
+        >
           <SearchIcon />
           <Command.Input
             value={fileQuery}
@@ -1746,7 +2526,18 @@ function CommandPaletteFileSearchRender() {
             style={{ border: 'none', outline: 'none', flex: 1, fontSize: 14 }}
           />
           {fileQuery && (
-            <button onClick={() => setFileQuery('')} style={{ fontSize: 12, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer' }}>×</button>
+            <button
+              onClick={() => setFileQuery('')}
+              style={{
+                fontSize: 12,
+                color: '#94a3b8',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              ×
+            </button>
           )}
         </div>
         <Command.List style={{ maxHeight: 320 }}>
@@ -1759,18 +2550,40 @@ function CommandPaletteFileSearchRender() {
                   onSelect={() => setOpened(file.name)}
                   style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px' }}
                 >
-                  <div style={{
-                    width: 28, height: 28, borderRadius: 6,
-                    background: (LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default']) + '18',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 9, fontWeight: 800, color: LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default'],
-                    flexShrink: 0, letterSpacing: -0.5,
-                  }}>
+                  <div
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      background:
+                        (LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default']) + '18',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 9,
+                      fontWeight: 800,
+                      color: LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default'],
+                      flexShrink: 0,
+                      letterSpacing: -0.5,
+                    }}
+                  >
                     .{file.ext.toUpperCase()}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{file.name}</div>
-                    <div style={{ fontSize: 11, color: '#94a3b8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.path}</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
+                      {file.name}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 11,
+                        color: '#94a3b8',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {file.path}
+                    </div>
                   </div>
                   <div style={{ textAlign: 'right', flexShrink: 0 }}>
                     <div style={{ fontSize: 10, color: '#94a3b8' }}>{file.modified}</div>
@@ -1788,18 +2601,38 @@ function CommandPaletteFileSearchRender() {
                   onSelect={() => setOpened(file.name)}
                   style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px' }}
                 >
-                  <div style={{
-                    width: 28, height: 28, borderRadius: 6,
-                    background: (LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default']) + '18',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 9, fontWeight: 800, color: LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default'],
-                    flexShrink: 0, letterSpacing: -0.5,
-                  }}>
+                  <div
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      background:
+                        (LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default']) + '18',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 9,
+                      fontWeight: 800,
+                      color: LAUNCHER_EXT_COLOR[file.ext] ?? LAUNCHER_EXT_COLOR['default'],
+                      flexShrink: 0,
+                      letterSpacing: -0.5,
+                    }}
+                  >
                     .{file.ext.toUpperCase()}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 13, color: '#0f172a' }}>{file.name}</div>
-                    <div style={{ fontSize: 11, color: '#94a3b8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.path}</div>
+                    <div
+                      style={{
+                        fontSize: 11,
+                        color: '#94a3b8',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {file.path}
+                    </div>
                   </div>
                   <div style={{ textAlign: 'right', flexShrink: 0 }}>
                     <div style={{ fontSize: 10, color: '#94a3b8' }}>{file.modified}</div>
@@ -1810,14 +2643,26 @@ function CommandPaletteFileSearchRender() {
             </Command.Group>
           )}
         </Command.List>
-        <div style={{ padding: '7px 14px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#94a3b8' }}>
+        <div
+          style={{
+            padding: '7px 14px',
+            borderTop: '1px solid #f1f5f9',
+            display: 'flex',
+            justifyContent: 'space-between',
+            fontSize: 10,
+            color: '#94a3b8',
+          }}
+        >
           <div style={{ display: 'flex', gap: 10 }}>
-            <span>↑↓ 탐색</span><span>Enter 열기</span>
+            <span>↑↓ 탐색</span>
+            <span>Enter 열기</span>
           </div>
           <span>{filtered.length}개 파일</span>
         </div>
       </Command>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>CommandPalette — 파일 빠른 열기 (즐겨찾기 우선 표시)</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>
+        CommandPalette — 파일 빠른 열기 (즐겨찾기 우선 표시)
+      </p>
     </div>
   )
 }
@@ -1840,7 +2685,11 @@ export const CommandPalette_파일_빠른_열기: Story = {
    WorkspaceEditor 벤치마크: 데이터베이스 속성 필터 팔레트
    WorkspaceEditor Filter — 속성별 필터 조건 설정 Command
 -------------------------------------------------------------------------- */
-type WorkspaceEditorFilterProp = { key: string; label: string; type: 'text' | 'select' | 'date' | 'checkbox' }
+type WorkspaceEditorFilterProp = {
+  key: string
+  label: string
+  type: 'text' | 'select' | 'date' | 'checkbox'
+}
 type WorkspaceEditorFilterOp = { key: string; label: string }
 
 const WORKSPACE_FILTER_PROPS: WorkspaceEditorFilterProp[] = [
@@ -1913,31 +2762,118 @@ function WorkspaceEditorFilterPaletteRender() {
   }
 
   const TYPE_LABEL: Record<WorkspaceEditorFilterProp['type'], string> = {
-    text: 'Aa', select: '☰', date: 'cal', checkbox: '☑',
+    text: 'Aa',
+    select: '☰',
+    date: 'cal',
+    checkbox: '☑',
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       {filters.length > 0 && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, padding: '8px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', maxWidth: 400 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 6,
+            padding: '8px 12px',
+            borderRadius: 8,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            maxWidth: 400,
+          }}
+        >
           {filters.map((f, i) => (
-            <span key={i} style={{ padding: '3px 10px', borderRadius: 20, background: '#eff6ff', color: '#4f46e5', fontSize: 11, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
+            <span
+              key={i}
+              style={{
+                padding: '3px 10px',
+                borderRadius: 20,
+                background: '#eff6ff',
+                color: '#4f46e5',
+                fontSize: 11,
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
               {f.prop}: <em style={{ fontStyle: 'normal', color: '#6366f1' }}>{f.op}</em>
               <button
                 onClick={() => setFilters((prev) => prev.filter((_, idx) => idx !== i))}
-                style={{ marginLeft: 4, background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#a5b4fc', lineHeight: 1 }}
-              >×</button>
+                style={{
+                  marginLeft: 4,
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: 12,
+                  color: '#a5b4fc',
+                  lineHeight: 1,
+                }}
+              >
+                ×
+              </button>
             </span>
           ))}
-          <button onClick={() => setFilters([])} style={{ fontSize: 10, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer' }}>전체 제거</button>
+          <button
+            onClick={() => setFilters([])}
+            style={{
+              fontSize: 10,
+              color: '#94a3b8',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            전체 제거
+          </button>
         </div>
       )}
 
-      <Command style={{ width: 340, borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0' }}>
-        <div style={{ padding: '8px 12px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#94a3b8' }}>
+      <Command
+        style={{
+          width: 340,
+          borderRadius: 12,
+          boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <div
+          style={{
+            padding: '8px 12px',
+            borderBottom: '1px solid #f1f5f9',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            fontSize: 11,
+            color: '#94a3b8',
+          }}
+        >
           {filterStep === 'operator' && selectedProp ? (
             <>
-              <button onClick={() => { setFilterStep('property'); setSelectedProp(null) }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#6366f1' }}>←</button>
+              <button
+                onClick={() => {
+                  setFilterStep('property')
+                  setSelectedProp(null)
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: 12,
+                  color: '#6366f1',
+                }}
+              >
+                ←
+              </button>
               <span style={{ color: '#0f172a', fontWeight: 600 }}>{selectedProp.label}</span>
               <span>›</span>
               <span>조건 선택</span>
@@ -1963,11 +2899,27 @@ function WorkspaceEditorFilterPaletteRender() {
                   onSelect={() => handlePropSelect(prop)}
                   style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px' }}
                 >
-                  <span style={{ width: 24, height: 24, borderRadius: 4, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: '#64748b', fontFamily: 'monospace', flexShrink: 0 }}>
+                  <span
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: 4,
+                      background: '#f1f5f9',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 10,
+                      color: '#64748b',
+                      fontFamily: 'monospace',
+                      flexShrink: 0,
+                    }}
+                  >
                     {TYPE_LABEL[prop.type]}
                   </span>
                   <span style={{ fontSize: 13, color: '#0f172a' }}>{prop.label}</span>
-                  <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>{prop.type}</span>
+                  <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>
+                    {prop.type}
+                  </span>
                 </Command.Item>
               ))}
             </Command.Group>
@@ -1987,7 +2939,9 @@ function WorkspaceEditorFilterPaletteRender() {
           )}
         </Command.List>
       </Command>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor — 속성 선택 → 조건 선택 드릴다운 필터</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>
+        WorkspaceEditor — 속성 선택 → 조건 선택 드릴다운 필터
+      </p>
     </div>
   )
 }
@@ -2012,18 +2966,67 @@ export const WorkspaceEditor_데이터베이스_필터_팔레트: Story = {
 // ============================================================
 
 // AppUI Spotlight 패턴 — 최근 항목 + 실시간 검색 + 단축키 힌트
-type SpotlightItem = { id: string; label: string; desc: string; Icon: React.FC<{ size?: number }>; shortcut?: string; category: string }
+type SpotlightItem = {
+  id: string
+  label: string
+  desc: string
+  Icon: React.FC<{ size?: number }>
+  shortcut?: string
+  category: string
+}
 
 const SPOTLIGHT_RECENT: SpotlightItem[] = [
-  { id: 'home', label: '홈', desc: '대시보드 홈으로 이동', Icon: HomeLineIcon, shortcut: 'G H', category: '내비게이션' },
-  { id: 'settings', label: '설정', desc: '계정 및 환경 설정', Icon: SettingLineIcon, shortcut: 'G S', category: '내비게이션' },
-  { id: 'profile', label: '프로필', desc: '내 프로필 페이지', Icon: OnePersonLineIcon, shortcut: 'G P', category: '내비게이션' },
+  {
+    id: 'home',
+    label: '홈',
+    desc: '대시보드 홈으로 이동',
+    Icon: HomeLineIcon,
+    shortcut: 'G H',
+    category: '내비게이션',
+  },
+  {
+    id: 'settings',
+    label: '설정',
+    desc: '계정 및 환경 설정',
+    Icon: SettingLineIcon,
+    shortcut: 'G S',
+    category: '내비게이션',
+  },
+  {
+    id: 'profile',
+    label: '프로필',
+    desc: '내 프로필 페이지',
+    Icon: OnePersonLineIcon,
+    shortcut: 'G P',
+    category: '내비게이션',
+  },
 ]
 
 const SPOTLIGHT_ACTIONS: SpotlightItem[] = [
-  { id: 'fav', label: '즐겨찾기 추가', desc: '현재 페이지 즐겨찾기', Icon: StarLineIcon, shortcut: '⌘D', category: '액션' },
-  { id: 'notify', label: '알림 설정', desc: '알림 환경 설정 열기', Icon: NotificationLineIcon, shortcut: '⌘⇧N', category: '액션' },
-  { id: 'info', label: '도움말', desc: '도움말 센터 열기', Icon: CircleInfoLineIcon, shortcut: '?', category: '액션' },
+  {
+    id: 'fav',
+    label: '즐겨찾기 추가',
+    desc: '현재 페이지 즐겨찾기',
+    Icon: StarLineIcon,
+    shortcut: '⌘D',
+    category: '액션',
+  },
+  {
+    id: 'notify',
+    label: '알림 설정',
+    desc: '알림 환경 설정 열기',
+    Icon: NotificationLineIcon,
+    shortcut: '⌘⇧N',
+    category: '액션',
+  },
+  {
+    id: 'info',
+    label: '도움말',
+    desc: '도움말 센터 열기',
+    Icon: CircleInfoLineIcon,
+    shortcut: '?',
+    category: '액션',
+  },
 ]
 
 function AppUISpotlight134Render() {
@@ -2046,15 +3049,30 @@ function AppUISpotlight134Render() {
           {!query && (
             <Command.Group heading="최근 방문">
               {SPOTLIGHT_RECENT.map((item) => (
-                <Command.Item key={item.id} value={item.label} onSelect={() => setSelected(item.id)}>
+                <Command.Item
+                  key={item.id}
+                  value={item.label}
+                  onSelect={() => setSelected(item.id)}
+                >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
                     <item.Icon size={16} />
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{item.label}</div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>
+                        {item.label}
+                      </div>
                       <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
                     </div>
                     {item.shortcut && (
-                      <kbd style={{ fontSize: 10, padding: '2px 6px', background: '#f1f5f9', borderRadius: 4, color: '#64748b', fontFamily: 'monospace' }}>
+                      <kbd
+                        style={{
+                          fontSize: 10,
+                          padding: '2px 6px',
+                          background: '#f1f5f9',
+                          borderRadius: 4,
+                          color: '#64748b',
+                          fontFamily: 'monospace',
+                        }}
+                      >
                         {item.shortcut}
                       </kbd>
                     )}
@@ -2067,14 +3085,29 @@ function AppUISpotlight134Render() {
           {!query && (
             <Command.Group heading="빠른 액션">
               {SPOTLIGHT_ACTIONS.map((item) => (
-                <Command.Item key={item.id} value={item.label} onSelect={() => setSelected(item.id)}>
+                <Command.Item
+                  key={item.id}
+                  value={item.label}
+                  onSelect={() => setSelected(item.id)}
+                >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
                     <item.Icon size={16} />
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{item.label}</div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>
+                        {item.label}
+                      </div>
                     </div>
                     {item.shortcut && (
-                      <kbd style={{ fontSize: 10, padding: '2px 6px', background: '#f1f5f9', borderRadius: 4, color: '#64748b', fontFamily: 'monospace' }}>
+                      <kbd
+                        style={{
+                          fontSize: 10,
+                          padding: '2px 6px',
+                          background: '#f1f5f9',
+                          borderRadius: 4,
+                          color: '#64748b',
+                          fontFamily: 'monospace',
+                        }}
+                      >
                         {item.shortcut}
                       </kbd>
                     )}
@@ -2083,18 +3116,31 @@ function AppUISpotlight134Render() {
               ))}
             </Command.Group>
           )}
-          {query && filtered.map((item) => (
-            <Command.Item key={item.id} value={item.label} onSelect={() => setSelected(item.id)}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
-                <item.Icon size={16} />
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{item.label}</div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
+          {query &&
+            filtered.map((item) => (
+              <Command.Item key={item.id} value={item.label} onSelect={() => setSelected(item.id)}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+                  <item.Icon size={16} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>
+                      {item.label}
+                    </div>
+                    <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.desc}</div>
+                  </div>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      color: '#94a3b8',
+                      background: '#f8fafc',
+                      padding: '1px 6px',
+                      borderRadius: 99,
+                    }}
+                  >
+                    {item.category}
+                  </span>
                 </div>
-                <span style={{ fontSize: 10, color: '#94a3b8', background: '#f8fafc', padding: '1px 6px', borderRadius: 99 }}>{item.category}</span>
-              </div>
-            </Command.Item>
-          ))}
+              </Command.Item>
+            ))}
         </Command.List>
       </Command>
       {selected && (
@@ -2121,15 +3167,59 @@ export const AppUI_Spotlight_검색_팔레트: Story = {
 }
 
 // DataProductUI 스타일 — 애플리케이션 메뉴 팔레트 (복합 액션 + 위험 액션 구분)
-type DataProductAction = { id: string; label: string; desc: string; Icon: React.FC<{ size?: number }>; danger?: boolean; group: string }
+type DataProductAction = {
+  id: string
+  label: string
+  desc: string
+  Icon: React.FC<{ size?: number }>
+  danger?: boolean
+  group: string
+}
 
 const ARCO_ACTIONS: DataProductAction[] = [
-  { id: 'profile', label: '프로필 편집', desc: '이름, 이메일, 아바타 변경', Icon: OnePersonLineIcon, group: '계정' },
-  { id: 'settings', label: '환경설정', desc: '테마, 언어, 알림 설정', Icon: SettingLineIcon, group: '계정' },
-  { id: 'search', label: '전체 검색', desc: '프로젝트 내 전체 검색', Icon: SearchIcon, group: '작업' },
-  { id: 'star', label: '즐겨찾기 보기', desc: '즐겨찾기된 항목 모두 보기', Icon: StarLineIcon, group: '작업' },
-  { id: 'notify', label: '알림 모두 읽음', desc: '미읽 알림 일괄 처리', Icon: NotificationLineIcon, group: '작업' },
-  { id: 'delete', label: '프로젝트 삭제', desc: '현재 프로젝트 영구 삭제', Icon: DeleteLineIcon, danger: true, group: '위험' },
+  {
+    id: 'profile',
+    label: '프로필 편집',
+    desc: '이름, 이메일, 아바타 변경',
+    Icon: OnePersonLineIcon,
+    group: '계정',
+  },
+  {
+    id: 'settings',
+    label: '환경설정',
+    desc: '테마, 언어, 알림 설정',
+    Icon: SettingLineIcon,
+    group: '계정',
+  },
+  {
+    id: 'search',
+    label: '전체 검색',
+    desc: '프로젝트 내 전체 검색',
+    Icon: SearchIcon,
+    group: '작업',
+  },
+  {
+    id: 'star',
+    label: '즐겨찾기 보기',
+    desc: '즐겨찾기된 항목 모두 보기',
+    Icon: StarLineIcon,
+    group: '작업',
+  },
+  {
+    id: 'notify',
+    label: '알림 모두 읽음',
+    desc: '미읽 알림 일괄 처리',
+    Icon: NotificationLineIcon,
+    group: '작업',
+  },
+  {
+    id: 'delete',
+    label: '프로젝트 삭제',
+    desc: '현재 프로젝트 영구 삭제',
+    Icon: DeleteLineIcon,
+    danger: true,
+    group: '위험',
+  },
 ]
 
 function DataProductAppMenuRender() {
@@ -2150,11 +3240,29 @@ function DataProductAppMenuRender() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
                     <action.Icon size={16} />
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 13, fontWeight: 500, color: action.danger ? '#ef4444' : '#0f172a' }}>{action.label}</div>
+                      <div
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 500,
+                          color: action.danger ? '#ef4444' : '#0f172a',
+                        }}
+                      >
+                        {action.label}
+                      </div>
                       <div style={{ fontSize: 11, color: '#94a3b8' }}>{action.desc}</div>
                     </div>
                     {action.danger && (
-                      <span style={{ fontSize: 10, color: '#ef4444', background: '#fef2f2', padding: '1px 6px', borderRadius: 99 }}>위험</span>
+                      <span
+                        style={{
+                          fontSize: 10,
+                          color: '#ef4444',
+                          background: '#fef2f2',
+                          padding: '1px 6px',
+                          borderRadius: 99,
+                        }}
+                      >
+                        위험
+                      </span>
                     )}
                   </div>
                 </Command.Item>
@@ -2168,7 +3276,15 @@ function DataProductAppMenuRender() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
                           <action.Icon size={16} />
                           <div style={{ flex: 1 }}>
-                            <div style={{ fontSize: 13, fontWeight: 500, color: action.danger ? '#ef4444' : '#0f172a' }}>{action.label}</div>
+                            <div
+                              style={{
+                                fontSize: 13,
+                                fontWeight: 500,
+                                color: action.danger ? '#ef4444' : '#0f172a',
+                              }}
+                            >
+                              {action.label}
+                            </div>
                             <div style={{ fontSize: 11, color: '#94a3b8' }}>{action.desc}</div>
                           </div>
                           <ArrowRightIcon size={14} />
@@ -2177,8 +3293,7 @@ function DataProductAppMenuRender() {
                     ))}
                   </Command.Group>
                 </div>
-              ))
-          }
+              ))}
         </Command.List>
       </Command>
     </div>
@@ -2200,14 +3315,56 @@ export const DataProduct_앱_메뉴_액션_팔레트: Story = {
 }
 
 // AppUI + DataProduct — 프로젝트 전환 팔레트 (최근 + 즐겨찾기 탭)
-type ProjectItem = { id: string; name: string; desc: string; starred: boolean; color: string; lastVisited: string }
+type ProjectItem = {
+  id: string
+  name: string
+  desc: string
+  starred: boolean
+  color: string
+  lastVisited: string
+}
 
 const PROJECT_LIST: ProjectItem[] = [
-  { id: 'p1', name: 'orbit-ui', desc: 'React 디자인 시스템', starred: true, color: '#6366f1', lastVisited: '방금 전' },
-  { id: 'p2', name: 'api-gateway', desc: 'REST API 게이트웨이', starred: true, color: '#10b981', lastVisited: '2시간 전' },
-  { id: 'p3', name: 'marketing-site', desc: '마케팅 랜딩 페이지', starred: false, color: '#f59e0b', lastVisited: '1일 전' },
-  { id: 'p4', name: 'analytics-dash', desc: '데이터 시각화 대시보드', starred: false, color: '#ec4899', lastVisited: '3일 전' },
-  { id: 'p5', name: 'mobile-app', desc: 'React Native 앱', starred: true, color: '#8b5cf6', lastVisited: '1주 전' },
+  {
+    id: 'p1',
+    name: 'orbit-ui',
+    desc: 'React 디자인 시스템',
+    starred: true,
+    color: '#6366f1',
+    lastVisited: '방금 전',
+  },
+  {
+    id: 'p2',
+    name: 'api-gateway',
+    desc: 'REST API 게이트웨이',
+    starred: true,
+    color: '#10b981',
+    lastVisited: '2시간 전',
+  },
+  {
+    id: 'p3',
+    name: 'marketing-site',
+    desc: '마케팅 랜딩 페이지',
+    starred: false,
+    color: '#f59e0b',
+    lastVisited: '1일 전',
+  },
+  {
+    id: 'p4',
+    name: 'analytics-dash',
+    desc: '데이터 시각화 대시보드',
+    starred: false,
+    color: '#ec4899',
+    lastVisited: '3일 전',
+  },
+  {
+    id: 'p5',
+    name: 'mobile-app',
+    desc: 'React Native 앱',
+    starred: true,
+    color: '#8b5cf6',
+    lastVisited: '1주 전',
+  },
 ]
 
 function AppUIDataProductProjectSwitcherRender() {
@@ -2215,7 +3372,9 @@ function AppUIDataProductProjectSwitcherRender() {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<string | null>(null)
   const displayed = tab === 'starred' ? PROJECT_LIST.filter((p) => p.starred) : PROJECT_LIST
-  const filtered = query ? displayed.filter((p) => p.name.includes(query) || p.desc.includes(query)) : displayed
+  const filtered = query
+    ? displayed.filter((p) => p.name.includes(query) || p.desc.includes(query))
+    : displayed
   return (
     <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
       {/* 탭 */}
@@ -2223,10 +3382,17 @@ function AppUIDataProductProjectSwitcherRender() {
         {(['recent', 'starred'] as const).map((t) => (
           <button
             key={t}
-            onClick={() => { setTab(t); setQuery('') }}
+            onClick={() => {
+              setTab(t)
+              setQuery('')
+            }}
             style={{
-              padding: '8px 16px', fontSize: 12, fontWeight: tab === t ? 600 : 400,
-              border: 'none', background: 'none', cursor: 'pointer',
+              padding: '8px 16px',
+              fontSize: 12,
+              fontWeight: tab === t ? 600 : 400,
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
               color: tab === t ? '#0f172a' : '#94a3b8',
               borderBottom: tab === t ? '2px solid #0f172a' : '2px solid transparent',
             }}
@@ -2243,11 +3409,34 @@ function AppUIDataProductProjectSwitcherRender() {
             {filtered.map((p) => (
               <Command.Item key={p.id} value={p.name} onSelect={() => setSelected(p.id)}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
-                  <div style={{ width: 28, height: 28, borderRadius: 6, background: p.color + '22', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: p.color, flexShrink: 0 }}>
+                  <div
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      background: p.color + '22',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 11,
+                      fontWeight: 700,
+                      color: p.color,
+                      flexShrink: 0,
+                    }}
+                  >
                     {p.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: selected === p.id ? 700 : 500, color: '#0f172a', display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: selected === p.id ? 700 : 500,
+                        color: '#0f172a',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 5,
+                      }}
+                    >
                       {p.name}
                       {p.starred && <StarLineIcon size={11} />}
                     </div>
@@ -2313,33 +3502,70 @@ function DesignToolLayerPickerRender() {
   const [selected, setSelected] = useState<string[]>([])
 
   const filtered = query
-    ? DESIGN_LAYERS.filter(l => l.name.toLowerCase().includes(query.toLowerCase()) || l.type.includes(query))
+    ? DESIGN_LAYERS.filter(
+        (l) => l.name.toLowerCase().includes(query.toLowerCase()) || l.type.includes(query)
+      )
     : DESIGN_LAYERS
 
   const toggleLayer = (id: string) => {
-    setSelected(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+    setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
   }
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>DesignTool Plugin UI — 레이어 선택 팔레트</p>
-      <Command style={{ borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
-        <Command.Input
-          placeholder="레이어 검색..."
-          value={query}
-          onValueChange={setQuery}
-        />
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 10,
+        }}
+      >
+        DesignTool Plugin UI — 레이어 선택 팔레트
+      </p>
+      <Command
+        style={{
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+        }}
+      >
+        <Command.Input placeholder="레이어 검색..." value={query} onValueChange={setQuery} />
         <Command.List style={{ maxHeight: 280 }}>
           <Command.Group heading={`레이어 (${filtered.length})`}>
-            {filtered.map(layer => (
+            {filtered.map((layer) => (
               <Command.Item
                 key={layer.id}
                 value={layer.id}
                 onSelect={() => toggleLayer(layer.id)}
                 style={{ paddingLeft: 8 + layer.depth * 14 }}
               >
-                <span style={{ fontSize: 11, fontWeight: 700, color: layer.color, marginRight: 6, fontFamily: 'monospace', minWidth: 14, display: 'inline-block' }}>{LAYER_TYPE_ICON[layer.type]}</span>
-                <span style={{ fontSize: 12, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{layer.name}</span>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: layer.color,
+                    marginRight: 6,
+                    fontFamily: 'monospace',
+                    minWidth: 14,
+                    display: 'inline-block',
+                  }}
+                >
+                  {LAYER_TYPE_ICON[layer.type]}
+                </span>
+                <span
+                  style={{
+                    fontSize: 12,
+                    flex: 1,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {layer.name}
+                </span>
                 {selected.includes(layer.id) && <CheckIcon className="h-3 w-3 text-blue-500" />}
               </Command.Item>
             ))}
@@ -2348,7 +3574,17 @@ function DesignToolLayerPickerRender() {
         </Command.List>
       </Command>
       {selected.length > 0 && (
-        <div style={{ marginTop: 8, padding: '6px 10px', borderRadius: 6, background: '#f0f4ff', fontSize: 11, color: '#2563eb', fontWeight: 600 }}>
+        <div
+          style={{
+            marginTop: 8,
+            padding: '6px 10px',
+            borderRadius: 6,
+            background: '#f0f4ff',
+            fontSize: 11,
+            color: '#2563eb',
+            fontWeight: 600,
+          }}
+        >
           {selected.length}개 레이어 선택됨
         </div>
       )}
@@ -2361,7 +3597,8 @@ export const DesignTool_레이어_선택_팔레트: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool Plugin API의 레이어 탐색 패턴. 계층 깊이별 들여쓰기, 레이어 타입 아이콘(frame/group/text/vector/component), 다중 선택, 실시간 검색. Command.Item depth-based indent.',
+        story:
+          'DesignTool Plugin API의 레이어 탐색 패턴. 계층 깊이별 들여쓰기, 레이어 타입 아이콘(frame/group/text/vector/component), 다중 선택, 실시간 검색. Command.Item depth-based indent.',
       },
     },
   },
@@ -2377,7 +3614,13 @@ const NATIVE_APPS = [
   { category: '앱', name: 'VS Code', desc: '코드 편집기', icon: '💻', shortcut: '⌘ 3' },
   { category: '파일', name: 'design-system.pdf', desc: '~/Downloads', icon: '📄', shortcut: '' },
   { category: '파일', name: 'orbit-ui-tokens.json', desc: '~/Projects', icon: '📦', shortcut: '' },
-  { category: '웹', name: 'Orbit UI Storybook', desc: 'orbit-ui.deploy.example.com', icon: '🌐', shortcut: '' },
+  {
+    category: '웹',
+    name: 'Orbit UI Storybook',
+    desc: 'orbit-ui.deploy.example.com',
+    icon: '🌐',
+    shortcut: '',
+  },
   { category: '연락처', name: '김희준', desc: 'hjunkim@orbit-ui.dev', icon: '👤', shortcut: '' },
 ]
 
@@ -2386,32 +3629,74 @@ function PlatformSpotlightCommandRender() {
   const [selected, setSelected] = useState<string | null>(null)
 
   const filtered = query
-    ? NATIVE_APPS.filter(a => a.name.toLowerCase().includes(query.toLowerCase()) || a.desc.toLowerCase().includes(query.toLowerCase()))
+    ? NATIVE_APPS.filter(
+        (a) =>
+          a.name.toLowerCase().includes(query.toLowerCase()) ||
+          a.desc.toLowerCase().includes(query.toLowerCase())
+      )
     : NATIVE_APPS
 
   const grouped = filtered.reduce<Record<string, typeof NATIVE_APPS>>((acc, item) => {
-    if (!acc[item.category]) { acc[item.category] = [] }
+    if (!acc[item.category]) {
+      acc[item.category] = []
+    }
     acc[item.category].push(item)
     return acc
   }, {})
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>Platform HIG — Spotlight 스타일 검색 팔레트</p>
-      <Command style={{ borderRadius: 14, border: 'none', background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(20px)', boxShadow: '0 8px 40px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.06)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', padding: '12px 16px', borderBottom: '1px solid rgba(0,0,0,0.06)', gap: 10 }}>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 10,
+        }}
+      >
+        Platform HIG — Spotlight 스타일 검색 팔레트
+      </p>
+      <Command
+        style={{
+          borderRadius: 14,
+          border: 'none',
+          background: 'rgba(255,255,255,0.88)',
+          backdropFilter: 'blur(20px)',
+          boxShadow: '0 8px 40px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.06)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '12px 16px',
+            borderBottom: '1px solid rgba(0,0,0,0.06)',
+            gap: 10,
+          }}
+        >
           <SearchIcon className="h-5 w-5" style={{ color: '#8e8e93', flexShrink: 0 }} />
           <Command.Input
             placeholder="Spotlight 검색"
             value={query}
             onValueChange={setQuery}
-            style={{ border: 'none', outline: 'none', fontSize: 17, fontWeight: 400, letterSpacing: '-0.01em', color: '#1c1c1e', background: 'transparent', flex: 1 }}
+            style={{
+              border: 'none',
+              outline: 'none',
+              fontSize: 17,
+              fontWeight: 400,
+              letterSpacing: '-0.01em',
+              color: '#1c1c1e',
+              background: 'transparent',
+              flex: 1,
+            }}
           />
         </div>
         <Command.List style={{ maxHeight: 300, padding: '6px 0' }}>
           {Object.entries(grouped).map(([cat, items]) => (
             <Command.Group key={cat} heading={cat}>
-              {items.map(app => (
+              {items.map((app) => (
                 <Command.Item
                   key={app.name}
                   value={app.name}
@@ -2420,23 +3705,66 @@ function PlatformSpotlightCommandRender() {
                 >
                   <span style={{ fontSize: 20, marginRight: 10, flexShrink: 0 }}>{app.icon}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: selected === app.name ? 600 : 400, color: '#1c1c1e', letterSpacing: '-0.01em' }}>{app.name}</div>
-                    <div style={{ fontSize: 11, color: '#8e8e93', marginTop: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{app.desc}</div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: selected === app.name ? 600 : 400,
+                        color: '#1c1c1e',
+                        letterSpacing: '-0.01em',
+                      }}
+                    >
+                      {app.name}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 11,
+                        color: '#8e8e93',
+                        marginTop: 1,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {app.desc}
+                    </div>
                   </div>
                   {app.shortcut && (
-                    <span style={{ fontSize: 10, color: '#8e8e93', fontFamily: 'system-ui', background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: 4 }}>{app.shortcut}</span>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        color: '#8e8e93',
+                        fontFamily: 'system-ui',
+                        background: 'rgba(0,0,0,0.06)',
+                        padding: '2px 6px',
+                        borderRadius: 4,
+                      }}
+                    >
+                      {app.shortcut}
+                    </span>
                   )}
                 </Command.Item>
               ))}
             </Command.Group>
           ))}
           <Command.Empty>
-            <span style={{ fontSize: 13, color: '#8e8e93' }}>&apos;{query}&apos;에 대한 결과 없음</span>
+            <span style={{ fontSize: 13, color: '#8e8e93' }}>
+              &apos;{query}&apos;에 대한 결과 없음
+            </span>
           </Command.Empty>
         </Command.List>
       </Command>
       {selected && (
-        <div style={{ marginTop: 8, fontSize: 11, color: '#6366f1', textAlign: 'center', fontWeight: 600 }}>열기: {selected}</div>
+        <div
+          style={{
+            marginTop: 8,
+            fontSize: 11,
+            color: '#6366f1',
+            textAlign: 'center',
+            fontWeight: 600,
+          }}
+        >
+          열기: {selected}
+        </div>
       )}
     </div>
   )
@@ -2447,7 +3775,8 @@ export const Platform_Spotlight_앱_검색_팔레트: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Platform HIG Spotlight 검색 패턴. 앱/파일/웹/연락처 카테고리별 그룹화, 앱 아이콘 + 이름 + 설명, 단축키 배지. 블러 배경 + 라운드 디자인. Command.Group 다중 카테고리 패턴.',
+        story:
+          'Platform HIG Spotlight 검색 패턴. 앱/파일/웹/연락처 카테고리별 그룹화, 앱 아이콘 + 이름 + 설명, 단축키 배지. 블러 배경 + 라운드 디자인. Command.Group 다중 카테고리 패턴.',
       },
     },
   },
@@ -2469,31 +3798,78 @@ function DesignToolPlatformComponentEditorRender() {
   const [searchProp, setSearchProp] = useState('')
 
   const updateVariant = (propName: string, value: string) => {
-    setVariants(prev => prev.map(v => v.prop === propName ? { ...v, selected: value } : v))
+    setVariants((prev) => prev.map((v) => (v.prop === propName ? { ...v, selected: value } : v)))
   }
 
-  const activeVariant = variants.find(v => v.prop === 'Type')?.selected ?? 'Primary'
-  const activeSize = variants.find(v => v.prop === 'Size')?.selected ?? 'Medium'
+  const activeVariant = variants.find((v) => v.prop === 'Type')?.selected ?? 'Primary'
+  const activeSize = variants.find((v) => v.prop === 'Size')?.selected ?? 'Medium'
 
   const filteredProps = searchProp
-    ? variants.filter(v => v.prop.toLowerCase().includes(searchProp.toLowerCase()) || v.options.some(o => o.toLowerCase().includes(searchProp.toLowerCase())))
+    ? variants.filter(
+        (v) =>
+          v.prop.toLowerCase().includes(searchProp.toLowerCase()) ||
+          v.options.some((o) => o.toLowerCase().includes(searchProp.toLowerCase()))
+      )
     : variants
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>DesignTool + Platform HIG — 컴포넌트 속성 에디터</p>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 10,
+        }}
+      >
+        DesignTool + Platform HIG — 컴포넌트 속성 에디터
+      </p>
 
       {/* Preview */}
-      <div style={{ marginBottom: 10, padding: '14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{
-          padding: activeSize === 'Small' ? '5px 12px' : activeSize === 'Large' ? '11px 24px' : '8px 18px',
-          borderRadius: 7,
-          background: activeVariant === 'Primary' ? '#6366f1' : activeVariant === 'Secondary' ? '#e0e7ff' : activeVariant === 'Danger' ? '#fef2f2' : 'transparent',
-          color: activeVariant === 'Primary' ? '#fff' : activeVariant === 'Secondary' ? '#4338ca' : activeVariant === 'Danger' ? '#dc2626' : '#475569',
-          border: activeVariant === 'Ghost' ? '1.5px solid #e2e8f0' : 'none',
-          fontSize: activeSize === 'Small' ? 11 : activeSize === 'Large' ? 15 : 13,
-          fontWeight: 600,
-        }}>
+      <div
+        style={{
+          marginBottom: 10,
+          padding: '14px',
+          borderRadius: 10,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          style={{
+            padding:
+              activeSize === 'Small'
+                ? '5px 12px'
+                : activeSize === 'Large'
+                  ? '11px 24px'
+                  : '8px 18px',
+            borderRadius: 7,
+            background:
+              activeVariant === 'Primary'
+                ? '#6366f1'
+                : activeVariant === 'Secondary'
+                  ? '#e0e7ff'
+                  : activeVariant === 'Danger'
+                    ? '#fef2f2'
+                    : 'transparent',
+            color:
+              activeVariant === 'Primary'
+                ? '#fff'
+                : activeVariant === 'Secondary'
+                  ? '#4338ca'
+                  : activeVariant === 'Danger'
+                    ? '#dc2626'
+                    : '#475569',
+            border: activeVariant === 'Ghost' ? '1.5px solid #e2e8f0' : 'none',
+            fontSize: activeSize === 'Small' ? 11 : activeSize === 'Large' ? 15 : 13,
+            fontWeight: 600,
+          }}
+        >
           {activeVariant} Button ({activeSize})
         </div>
       </div>
@@ -2505,16 +3881,35 @@ function DesignToolPlatformComponentEditorRender() {
           onValueChange={setSearchProp}
         />
         <Command.List style={{ maxHeight: 240 }}>
-          {filteredProps.map(v => (
+          {filteredProps.map((v) => (
             <Command.Group key={v.prop} heading={`${v.prop} — ${v.selected}`}>
-              {v.options.map(opt => (
+              {v.options.map((opt) => (
                 <Command.Item
                   key={opt}
                   value={`${v.prop}-${opt}`}
                   onSelect={() => updateVariant(v.prop, opt)}
                 >
-                  <span style={{ width: 14, height: 14, borderRadius: '50%', border: `2px solid ${v.selected === opt ? '#6366f1' : '#d1d5db'}`, background: v.selected === opt ? '#6366f1' : 'transparent', marginRight: 8, flexShrink: 0, display: 'inline-block' }} />
-                  <span style={{ fontSize: 12, fontWeight: v.selected === opt ? 700 : 400, color: v.selected === opt ? '#6366f1' : '#374151' }}>{opt}</span>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      borderRadius: '50%',
+                      border: `2px solid ${v.selected === opt ? '#6366f1' : '#d1d5db'}`,
+                      background: v.selected === opt ? '#6366f1' : 'transparent',
+                      marginRight: 8,
+                      flexShrink: 0,
+                      display: 'inline-block',
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: 12,
+                      fontWeight: v.selected === opt ? 700 : 400,
+                      color: v.selected === opt ? '#6366f1' : '#374151',
+                    }}
+                  >
+                    {opt}
+                  </span>
                   {v.selected === opt && <CheckIcon className="h-3 w-3 ml-auto text-indigo-500" />}
                 </Command.Item>
               ))}
@@ -2532,7 +3927,8 @@ export const DesignTool_Platform_컴포넌트_속성_에디터: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool Component Variant Inspector + Platform HIG Property Inspector 패턴. 속성(Type/Size/State/Icon)별 Command.Group, 라디오 스타일 선택, 실시간 미리보기. 검색으로 속성/옵션 필터링.',
+        story:
+          'DesignTool Component Variant Inspector + Platform HIG Property Inspector 패턴. 속성(Type/Size/State/Icon)별 Command.Group, 라디오 스타일 선택, 실시간 미리보기. 검색으로 속성/옵션 필터링.',
       },
     },
   },
@@ -2552,22 +3948,39 @@ const LAUNCHER_ACTIONS_191 = [
   { label: 'DesignTool 파일 열기', shortcut: '⌘F', group: 'DesignTool', icon: '🎨' },
 ]
 
-const LAUNCHER_GROUPS_191 = ['브라우저', '시스템', '클립보드', 'CodeHost', 'WorkspaceEditor', 'Slack', '생산성', 'DesignTool']
+const LAUNCHER_GROUPS_191 = [
+  '브라우저',
+  '시스템',
+  '클립보드',
+  'CodeHost',
+  'WorkspaceEditor',
+  'Slack',
+  '생산성',
+  'DesignTool',
+]
 
 function CommandPaletteCommandPaletteRender() {
   const [q, setQ] = React.useState('')
   const [selected, setSelected] = React.useState<string | null>(null)
-  const [recentCmds, setRecentCmds] = React.useState<string[]>(['클립보드 히스토리', 'CodeHost PR 열기'])
+  const [recentCmds, setRecentCmds] = React.useState<string[]>([
+    '클립보드 히스토리',
+    'CodeHost PR 열기',
+  ])
 
   const filtered = LAUNCHER_ACTIONS_191.filter(
-    (a) => a.label.toLowerCase().includes(q.toLowerCase()) || a.group.toLowerCase().includes(q.toLowerCase())
+    (a) =>
+      a.label.toLowerCase().includes(q.toLowerCase()) ||
+      a.group.toLowerCase().includes(q.toLowerCase())
   )
 
-  const grouped = LAUNCHER_GROUPS_191.reduce<Record<string, typeof LAUNCHER_ACTIONS_191>>((acc, g) => {
-    const items = filtered.filter((a) => a.group === g)
-    if (items.length > 0) acc[g] = items
-    return acc
-  }, {})
+  const grouped = LAUNCHER_GROUPS_191.reduce<Record<string, typeof LAUNCHER_ACTIONS_191>>(
+    (acc, g) => {
+      const items = filtered.filter((a) => a.group === g)
+      if (items.length > 0) acc[g] = items
+      return acc
+    },
+    {}
+  )
 
   function handleSelect(label: string) {
     setSelected(label)
@@ -2578,20 +3991,41 @@ function CommandPaletteCommandPaletteRender() {
   return (
     <div style={{ width: 540, fontFamily: 'system-ui, sans-serif' }}>
       {selected && (
-        <div style={{ marginBottom: 8, padding: '6px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 8, fontSize: 12, color: '#16a34a', fontWeight: 600 }}>
+        <div
+          style={{
+            marginBottom: 8,
+            padding: '6px 14px',
+            background: '#f0fdf4',
+            border: '1px solid #bbf7d0',
+            borderRadius: 8,
+            fontSize: 12,
+            color: '#16a34a',
+            fontWeight: 600,
+          }}
+        >
           실행: {selected}
         </div>
       )}
       <Command className="rounded-xl border shadow-xl" style={{ maxWidth: 540 }}>
         <div style={{ padding: '10px 14px 0', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 13, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>CommandPalette</span>
-          <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '2px 7px', borderRadius: 6 }}>⌘Space</span>
+          <span
+            style={{ fontSize: 13, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}
+          >
+            CommandPalette
+          </span>
+          <span
+            style={{
+              fontSize: 10,
+              color: '#94a3b8',
+              background: '#f1f5f9',
+              padding: '2px 7px',
+              borderRadius: 6,
+            }}
+          >
+            ⌘Space
+          </span>
         </div>
-        <Command.Input
-          placeholder="앱, 파일, 명령어 검색..."
-          value={q}
-          onValueChange={setQ}
-        />
+        <Command.Input placeholder="앱, 파일, 명령어 검색..." value={q} onValueChange={setQ} />
         <Command.List>
           <Command.Empty>일치하는 명령어 없음</Command.Empty>
           {/* Recent */}
@@ -2622,7 +4056,16 @@ function CommandPaletteCommandPaletteRender() {
             </Command.Group>
           ))}
         </Command.List>
-        <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 12, fontSize: 10, color: '#94a3b8' }}>
+        <div
+          style={{
+            padding: '8px 14px',
+            borderTop: '1px solid #f1f5f9',
+            display: 'flex',
+            gap: 12,
+            fontSize: 10,
+            color: '#94a3b8',
+          }}
+        >
           <span>↑↓ 탐색</span>
           <span>↵ 실행</span>
           <span>ESC 닫기</span>
@@ -2650,10 +4093,25 @@ export const CommandPalette_커맨드_팔레트_액션_런처: Story = {
 
 const ACCESSIBLEKIT_SPOTLIGHT_ITEMS_191 = [
   { label: '홈 대시보드', description: '메인 대시보드로 이동', icon: '🏠', href: '/dashboard' },
-  { label: '컴포넌트 라이브러리', description: 'Orbit UI 컴포넌트 전체 목록', icon: '🧩', href: '/components' },
-  { label: '디자인 토큰', description: '색상, 타이포그래피, 간격 토큰', icon: '🎨', href: '/tokens' },
+  {
+    label: '컴포넌트 라이브러리',
+    description: 'Orbit UI 컴포넌트 전체 목록',
+    icon: '🧩',
+    href: '/components',
+  },
+  {
+    label: '디자인 토큰',
+    description: '색상, 타이포그래피, 간격 토큰',
+    icon: '🎨',
+    href: '/tokens',
+  },
   { label: '접근성 가이드', description: 'WAI-ARIA 구현 가이드', icon: '♿', href: '/a11y' },
-  { label: '마이그레이션 가이드', description: 'ComposableUI → Orbit UI 이전 방법', icon: '🔄', href: '/migration' },
+  {
+    label: '마이그레이션 가이드',
+    description: 'ComposableUI → Orbit UI 이전 방법',
+    icon: '🔄',
+    href: '/migration',
+  },
   { label: 'Changelog', description: '최신 변경사항 확인', icon: '📋', href: '/changelog' },
   { label: '테마 에디터', description: 'Eclipse 테마 커스텀', icon: '✏', href: '/theme' },
 ]
@@ -2682,32 +4140,43 @@ function ManteineSpotlightSearchRender() {
         <div style={{ padding: '12px 16px 0', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 18, fontWeight: 900, color: '#6366f1' }}>✦</span>
           <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Orbit Spotlight</span>
-          <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>AppUI Spotlight 패턴</span>
+          <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>
+            AppUI Spotlight 패턴
+          </span>
         </div>
-        <Command.Input
-          placeholder="페이지, 문서, 설정 검색..."
-          value={q}
-          onValueChange={setQ}
-        />
+        <Command.Input placeholder="페이지, 문서, 설정 검색..." value={q} onValueChange={setQ} />
         <Command.List>
           <Command.Empty>페이지를 찾을 수 없습니다</Command.Empty>
           {pinned.length > 0 && q.length === 0 && (
             <Command.Group heading="즐겨찾기">
-              {ACCESSIBLEKIT_SPOTLIGHT_ITEMS_191.filter((item) => pinned.includes(item.label)).map((item) => (
-                <Command.Item key={item.label}>
-                  <span style={{ marginRight: 8 }}>{item.icon}</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: 500 }}>{item.label}</div>
-                    <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.description}</div>
-                  </div>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); togglePin(item.label) }}
-                    style={{ fontSize: 10, padding: '2px 6px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#fef9c3', color: '#92400e', cursor: 'pointer' }}
-                  >
-                    고정 해제
-                  </button>
-                </Command.Item>
-              ))}
+              {ACCESSIBLEKIT_SPOTLIGHT_ITEMS_191.filter((item) => pinned.includes(item.label)).map(
+                (item) => (
+                  <Command.Item key={item.label}>
+                    <span style={{ marginRight: 8 }}>{item.icon}</span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: 500 }}>{item.label}</div>
+                      <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.description}</div>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        togglePin(item.label)
+                      }}
+                      style={{
+                        fontSize: 10,
+                        padding: '2px 6px',
+                        borderRadius: 5,
+                        border: '1px solid #e2e8f0',
+                        background: '#fef9c3',
+                        color: '#92400e',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      고정 해제
+                    </button>
+                  </Command.Item>
+                )
+              )}
             </Command.Group>
           )}
           <Command.Group heading={q.length === 0 ? '전체 페이지' : '검색 결과'}>
@@ -2719,8 +4188,19 @@ function ManteineSpotlightSearchRender() {
                   <div style={{ fontSize: 11, color: '#94a3b8' }}>{item.description}</div>
                 </div>
                 <button
-                  onClick={(e) => { e.stopPropagation(); togglePin(item.label) }}
-                  style={{ fontSize: 10, padding: '2px 6px', borderRadius: 5, border: '1px solid #e2e8f0', background: pinned.includes(item.label) ? '#fef9c3' : '#f1f5f9', color: pinned.includes(item.label) ? '#92400e' : '#64748b', cursor: 'pointer' }}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    togglePin(item.label)
+                  }}
+                  style={{
+                    fontSize: 10,
+                    padding: '2px 6px',
+                    borderRadius: 5,
+                    border: '1px solid #e2e8f0',
+                    background: pinned.includes(item.label) ? '#fef9c3' : '#f1f5f9',
+                    color: pinned.includes(item.label) ? '#92400e' : '#64748b',
+                    cursor: 'pointer',
+                  }}
                 >
                   {pinned.includes(item.label) ? '★ 고정됨' : '☆ 고정'}
                 </button>
@@ -2750,11 +4230,31 @@ export const AppUI_Spotlight_탐색_검색_패널: Story = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const LAUNCHER_ACCESSIBLEKIT_THEMES_191 = [
-  { id: 'eclipse', name: 'Eclipse (기본)', preview: ['#0f172a', '#6366f1', '#fff'], tags: ['다크', '공식'] },
-  { id: 'aurora', name: 'Aurora', preview: ['#0d1117', '#22d3ee', '#f0fdf4'], tags: ['다크', '사이언'] },
+  {
+    id: 'eclipse',
+    name: 'Eclipse (기본)',
+    preview: ['#0f172a', '#6366f1', '#fff'],
+    tags: ['다크', '공식'],
+  },
+  {
+    id: 'aurora',
+    name: 'Aurora',
+    preview: ['#0d1117', '#22d3ee', '#f0fdf4'],
+    tags: ['다크', '사이언'],
+  },
   { id: 'sunset', name: 'Sunset', preview: ['#fff', '#f59e0b', '#ef4444'], tags: ['라이트', '웜'] },
-  { id: 'mint', name: 'Mint', preview: ['#f0fdf4', '#10b981', '#064e3b'], tags: ['라이트', '그린'] },
-  { id: 'slate', name: 'Slate', preview: ['#0f172a', '#94a3b8', '#e2e8f0'], tags: ['다크', '중립'] },
+  {
+    id: 'mint',
+    name: 'Mint',
+    preview: ['#f0fdf4', '#10b981', '#064e3b'],
+    tags: ['라이트', '그린'],
+  },
+  {
+    id: 'slate',
+    name: 'Slate',
+    preview: ['#0f172a', '#94a3b8', '#e2e8f0'],
+    tags: ['다크', '중립'],
+  },
 ]
 
 function CommandPaletteAppUIThemeSwitcherRender() {
@@ -2762,9 +4262,7 @@ function CommandPaletteAppUIThemeSwitcherRender() {
   const [active, setActive] = React.useState('eclipse')
 
   const filtered = LAUNCHER_ACCESSIBLEKIT_THEMES_191.filter(
-    (t) =>
-      t.name.toLowerCase().includes(q.toLowerCase()) ||
-      t.tags.some((tag) => tag.includes(q))
+    (t) => t.name.toLowerCase().includes(q.toLowerCase()) || t.tags.some((tag) => tag.includes(q))
   )
 
   return (
@@ -2776,11 +4274,7 @@ function CommandPaletteAppUIThemeSwitcherRender() {
         </span>
       </div>
       <Command className="rounded-xl border shadow-lg" style={{ maxWidth: 480 }}>
-        <Command.Input
-          placeholder="테마 이름 또는 태그 검색..."
-          value={q}
-          onValueChange={setQ}
-        />
+        <Command.Input placeholder="테마 이름 또는 태그 검색..." value={q} onValueChange={setQ} />
         <Command.List>
           <Command.Empty>일치하는 테마 없음</Command.Empty>
           <Command.Group heading="테마 선택 (CommandPalette + AppUI 패턴)">
@@ -2789,26 +4283,65 @@ function CommandPaletteAppUIThemeSwitcherRender() {
                 {/* Color preview dots */}
                 <div style={{ display: 'flex', gap: 3, marginRight: 10 }}>
                   {theme.preview.map((c, i) => (
-                    <div key={i} style={{ width: 12, height: 12, borderRadius: '50%', background: c, border: '1px solid #e2e8f0' }} />
+                    <div
+                      key={i}
+                      style={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: '50%',
+                        background: c,
+                        border: '1px solid #e2e8f0',
+                      }}
+                    />
                   ))}
                 </div>
-                <span style={{ flex: 1, fontSize: 13, fontWeight: theme.id === active ? 700 : 400, color: theme.id === active ? '#6366f1' : '#0f172a' }}>
+                <span
+                  style={{
+                    flex: 1,
+                    fontSize: 13,
+                    fontWeight: theme.id === active ? 700 : 400,
+                    color: theme.id === active ? '#6366f1' : '#0f172a',
+                  }}
+                >
                   {theme.name}
                 </span>
                 {/* Tags */}
                 <div style={{ display: 'flex', gap: 4 }}>
                   {theme.tags.map((tag) => (
-                    <span key={tag} style={{ fontSize: 9, padding: '2px 6px', borderRadius: 5, background: '#f1f5f9', color: '#475569', fontWeight: 500 }}>{tag}</span>
+                    <span
+                      key={tag}
+                      style={{
+                        fontSize: 9,
+                        padding: '2px 6px',
+                        borderRadius: 5,
+                        background: '#f1f5f9',
+                        color: '#475569',
+                        fontWeight: 500,
+                      }}
+                    >
+                      {tag}
+                    </span>
                   ))}
                 </div>
                 {theme.id === active && (
-                  <span style={{ marginLeft: 8, fontSize: 10, color: '#6366f1', fontWeight: 700 }}>✓</span>
+                  <span style={{ marginLeft: 8, fontSize: 10, color: '#6366f1', fontWeight: 700 }}>
+                    ✓
+                  </span>
                 )}
               </Command.Item>
             ))}
           </Command.Group>
         </Command.List>
-        <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8', display: 'flex', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            padding: '8px 14px',
+            borderTop: '1px solid #f1f5f9',
+            fontSize: 10,
+            color: '#94a3b8',
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
           <span>CommandPalette 테마 전환 + AppUI ColorScheme 패턴</span>
           <span>{filtered.length}개 테마</span>
         </div>

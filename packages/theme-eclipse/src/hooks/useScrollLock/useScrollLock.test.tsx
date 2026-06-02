@@ -51,7 +51,7 @@ describe('useScrollLock', () => {
 
     const { rerender } = renderHook(
       ({ enabled }: { enabled: boolean }) => useScrollLock({ enabled }),
-      { initialProps: { enabled: true } },
+      { initialProps: { enabled: true } }
     )
     expect(document.body.style.overflow).toBe('hidden')
 

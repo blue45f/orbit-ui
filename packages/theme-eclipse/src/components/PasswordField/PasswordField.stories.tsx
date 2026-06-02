@@ -215,20 +215,33 @@ const StrengthMeterRender = () => {
   const totalBars = 4
 
   return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', gap: '16px',
-      width: '360px', padding: '28px', background: '#fff',
-      borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
-      border: '1px solid #f1f5f9',
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        width: '360px',
+        padding: '28px',
+        background: '#fff',
+        borderRadius: '16px',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        border: '1px solid #f1f5f9',
+      }}
+    >
       <div>
-        <div style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}>Create password</div>
-        <div style={{ fontSize: '12px', color: '#94a3b8' }}>Use 8+ characters with mix of letters, numbers & symbols</div>
+        <div style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}>
+          Create password
+        </div>
+        <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+          Use 8+ characters with mix of letters, numbers & symbols
+        </div>
       </div>
 
       <PasswordField
         value={password}
-        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setPassword(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+          setPassword(e.target.value)
+        }
         placeholder="Password"
         style={{ width: '100%' }}
       />
@@ -240,7 +253,9 @@ const StrengthMeterRender = () => {
             <div
               key={i}
               style={{
-                flex: 1, height: '4px', borderRadius: '2px',
+                flex: 1,
+                height: '4px',
+                borderRadius: '2px',
                 background: password.length > 0 && i < strength.level ? strength.color : '#e2e8f0',
                 transition: 'background 0.3s ease',
               }}
@@ -250,7 +265,14 @@ const StrengthMeterRender = () => {
         {password.length > 0 && (
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '11px', color: '#94a3b8' }}>Password strength</span>
-            <span style={{ fontSize: '12px', fontWeight: 700, color: strength.color, transition: 'color 0.3s' }}>
+            <span
+              style={{
+                fontSize: '12px',
+                fontWeight: 700,
+                color: strength.color,
+                transition: 'color 0.3s',
+              }}
+            >
               {strength.label}
             </span>
           </div>
@@ -261,22 +283,44 @@ const StrengthMeterRender = () => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
         {[
           { label: 'At least 8 characters', met: password.length >= 8 },
-          { label: 'Upper and lowercase letters', met: /[A-Z]/.test(password) && /[a-z]/.test(password) },
+          {
+            label: 'Upper and lowercase letters',
+            met: /[A-Z]/.test(password) && /[a-z]/.test(password),
+          },
           { label: 'At least one number', met: /[0-9]/.test(password) },
           { label: 'At least one special character', met: /[^A-Za-z0-9]/.test(password) },
         ].map(({ label, met }) => (
           <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{
-              width: '16px', height: '16px', borderRadius: '50%',
-              background: met ? '#10b981' : '#e2e8f0',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              flexShrink: 0, transition: 'background 0.2s',
-            }}>
+            <div
+              style={{
+                width: '16px',
+                height: '16px',
+                borderRadius: '50%',
+                background: met ? '#10b981' : '#e2e8f0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                transition: 'background 0.2s',
+              }}
+            >
               <svg width="8" height="8" viewBox="0 0 12 12" fill="none">
-                <path d="M2 6l3 3 5-5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M2 6l3 3 5-5"
+                  stroke="#fff"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
-            <span style={{ fontSize: '12px', color: met ? '#10b981' : '#94a3b8', transition: 'color 0.2s' }}>
+            <span
+              style={{
+                fontSize: '12px',
+                color: met ? '#10b981' : '#94a3b8',
+                transition: 'color 0.2s',
+              }}
+            >
               {label}
             </span>
           </div>
@@ -305,21 +349,46 @@ const SignupFormRender = () => {
   const isValid = email.includes('@') && password.length >= 8 && password === confirm
 
   return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', gap: '20px',
-      width: '380px', padding: '36px', background: '#fff',
-      borderRadius: '16px', boxShadow: '0 8px 40px rgba(0,0,0,0.10)',
-      border: '1px solid #f1f5f9',
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        width: '380px',
+        padding: '36px',
+        background: '#fff',
+        borderRadius: '16px',
+        boxShadow: '0 8px 40px rgba(0,0,0,0.10)',
+        border: '1px solid #f1f5f9',
+      }}
+    >
       {/* Logo area */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '4px' }}>
-        <div style={{
-          width: '36px', height: '36px', borderRadius: '10px',
-          background: '#000', display: 'flex', alignItems: 'center',
-          justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: '16px', marginBottom: '16px',
-        }}>O</div>
-        <div style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.02em' }}>Create your account</div>
-        <div style={{ fontSize: '13px', color: '#64748b' }}>Start deploying with Orbit UI today.</div>
+        <div
+          style={{
+            width: '36px',
+            height: '36px',
+            borderRadius: '10px',
+            background: '#000',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            fontWeight: 800,
+            fontSize: '16px',
+            marginBottom: '16px',
+          }}
+        >
+          O
+        </div>
+        <div
+          style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.02em' }}
+        >
+          Create your account
+        </div>
+        <div style={{ fontSize: '13px', color: '#64748b' }}>
+          Start deploying with Orbit UI today.
+        </div>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -330,9 +399,13 @@ const SignupFormRender = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@company.com"
           style={{
-            padding: '10px 14px', borderRadius: '8px',
+            padding: '10px 14px',
+            borderRadius: '8px',
             border: `1.5px solid ${submitted && !email.includes('@') ? '#ef4444' : '#e2e8f0'}`,
-            fontSize: '14px', outline: 'none', width: '100%', boxSizing: 'border-box',
+            fontSize: '14px',
+            outline: 'none',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         />
       </div>
@@ -341,23 +414,37 @@ const SignupFormRender = () => {
         <label style={{ fontSize: '12px', fontWeight: 600, color: '#475569' }}>Password</label>
         <PasswordField
           value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+            setPassword(e.target.value)
+          }
           placeholder="Min. 8 characters"
           style={{ width: '100%' }}
         />
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <label style={{ fontSize: '12px', fontWeight: 600, color: '#475569' }}>Confirm password</label>
+        <label style={{ fontSize: '12px', fontWeight: 600, color: '#475569' }}>
+          Confirm password
+        </label>
         <PasswordField
           value={confirm}
-          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setConfirm(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+            setConfirm(e.target.value)
+          }
           placeholder="Re-enter password"
           error={mismatch}
           style={{ width: '100%' }}
         />
         {mismatch && (
-          <span style={{ fontSize: '12px', color: '#ef4444', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <span
+            style={{
+              fontSize: '12px',
+              color: '#ef4444',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+            }}
+          >
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
               <circle cx="8" cy="8" r="7" stroke="#ef4444" strokeWidth="1.5" />
               <path d="M8 5v4" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" />
@@ -369,13 +456,19 @@ const SignupFormRender = () => {
       </div>
 
       <button
-        onClick={() => { setSubmitted(true) }}
+        onClick={() => {
+          setSubmitted(true)
+        }}
         disabled={!isValid}
         style={{
-          padding: '12px', borderRadius: '8px', border: 'none', cursor: isValid ? 'pointer' : 'not-allowed',
+          padding: '12px',
+          borderRadius: '8px',
+          border: 'none',
+          cursor: isValid ? 'pointer' : 'not-allowed',
           background: isValid ? '#000' : '#e2e8f0',
           color: isValid ? '#fff' : '#94a3b8',
-          fontSize: '14px', fontWeight: 600,
+          fontSize: '14px',
+          fontWeight: 600,
           transition: 'all 0.2s',
         }}
       >
@@ -384,7 +477,13 @@ const SignupFormRender = () => {
 
       <div style={{ textAlign: 'center', fontSize: '12px', color: '#94a3b8' }}>
         Already have an account?{' '}
-        <a href="#" onClick={(e) => e.preventDefault()} style={{ color: '#0f172a', fontWeight: 600, textDecoration: 'none' }}>Sign in</a>
+        <a
+          href="#"
+          onClick={(e) => e.preventDefault()}
+          style={{ color: '#0f172a', fontWeight: 600, textDecoration: 'none' }}
+        >
+          Sign in
+        </a>
       </div>
     </div>
   )
@@ -432,46 +531,118 @@ const PasswordChangeRender = () => {
   const canSubmit = current.length >= 1 && nextStrength >= 3 && next === confirm && !success
 
   return (
-    <div style={{ width: 380, padding: '32px', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', marginBottom: '4px' }}>비밀번호 변경</div>
+    <div
+      style={{
+        width: 380,
+        padding: '32px',
+        background: '#fff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', marginBottom: '4px' }}>
+        비밀번호 변경
+      </div>
       <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '24px' }}>
         EnterpriseUI TextField outlined 스타일 비밀번호 변경 폼
       </div>
 
       {success ? (
-        <div style={{ padding: '24px', textAlign: 'center', borderRadius: '12px', background: '#f0fdf4', border: '1px solid #bbf7d0' }}>
+        <div
+          style={{
+            padding: '24px',
+            textAlign: 'center',
+            borderRadius: '12px',
+            background: '#f0fdf4',
+            border: '1px solid #bbf7d0',
+          }}
+        >
           <div style={{ fontSize: '24px', marginBottom: '8px' }}>✓</div>
-          <div style={{ fontSize: '14px', fontWeight: 700, color: '#15803d' }}>비밀번호가 변경되었습니다</div>
-          <button onClick={() => { setSuccess(false); setCurrent(''); setNext(''); setConfirm('') }} style={{ marginTop: '12px', fontSize: '12px', color: '#64748b', background: 'none', border: 'none', cursor: 'pointer' }}>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#15803d' }}>
+            비밀번호가 변경되었습니다
+          </div>
+          <button
+            onClick={() => {
+              setSuccess(false)
+              setCurrent('')
+              setNext('')
+              setConfirm('')
+            }}
+            style={{
+              marginTop: '12px',
+              fontSize: '12px',
+              color: '#64748b',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
             돌아가기
           </button>
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '6px' }}>현재 비밀번호</label>
+            <label
+              style={{
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#374151',
+                display: 'block',
+                marginBottom: '6px',
+              }}
+            >
+              현재 비밀번호
+            </label>
             <PasswordField
               value={current}
-              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setCurrent(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                setCurrent(e.target.value)
+              }
               placeholder="현재 비밀번호 입력"
             />
           </div>
 
           <div>
-            <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '6px' }}>새 비밀번호</label>
+            <label
+              style={{
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#374151',
+                display: 'block',
+                marginBottom: '6px',
+              }}
+            >
+              새 비밀번호
+            </label>
             <PasswordField
               value={next}
-              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNext(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                setNext(e.target.value)
+              }
               placeholder="새 비밀번호 (8자 이상)"
             />
             {next.length > 0 && (
               <div style={{ marginTop: '8px' }}>
                 <div style={{ display: 'flex', gap: '4px', marginBottom: '4px' }}>
                   {[1, 2, 3, 4].map((i) => (
-                    <div key={i} style={{ flex: 1, height: '3px', borderRadius: '2px', background: i <= nextStrength ? strengthColors[nextStrength] : '#e2e8f0', transition: 'background 0.2s' }} />
+                    <div
+                      key={i}
+                      style={{
+                        flex: 1,
+                        height: '3px',
+                        borderRadius: '2px',
+                        background: i <= nextStrength ? strengthColors[nextStrength] : '#e2e8f0',
+                        transition: 'background 0.2s',
+                      }}
+                    />
                   ))}
                 </div>
-                <div style={{ fontSize: '11px', color: strengthColors[nextStrength], fontWeight: 600 }}>
+                <div
+                  style={{ fontSize: '11px', color: strengthColors[nextStrength], fontWeight: 600 }}
+                >
                   {strengthLabels[nextStrength]}
                 </div>
               </div>
@@ -479,24 +650,44 @@ const PasswordChangeRender = () => {
           </div>
 
           <div>
-            <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '6px' }}>비밀번호 확인</label>
+            <label
+              style={{
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#374151',
+                display: 'block',
+                marginBottom: '6px',
+              }}
+            >
+              비밀번호 확인
+            </label>
             <PasswordField
               value={confirm}
-              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setConfirm(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                setConfirm(e.target.value)
+              }
               placeholder="새 비밀번호 재입력"
               error={mismatch}
             />
-            {mismatch && <div style={{ fontSize: '11px', color: '#ef4444', marginTop: '4px' }}>비밀번호가 일치하지 않습니다.</div>}
+            {mismatch && (
+              <div style={{ fontSize: '11px', color: '#ef4444', marginTop: '4px' }}>
+                비밀번호가 일치하지 않습니다.
+              </div>
+            )}
           </div>
 
           <button
             disabled={!canSubmit}
             onClick={() => setSuccess(true)}
             style={{
-              padding: '11px', borderRadius: '8px', border: 'none',
+              padding: '11px',
+              borderRadius: '8px',
+              border: 'none',
               background: canSubmit ? '#6366f1' : '#e2e8f0',
               color: canSubmit ? '#fff' : '#94a3b8',
-              fontSize: '14px', fontWeight: 600, cursor: canSubmit ? 'pointer' : 'not-allowed',
+              fontSize: '14px',
+              fontWeight: 600,
+              cursor: canSubmit ? 'pointer' : 'not-allowed',
               transition: 'all 0.2s',
             }}
           >
@@ -535,10 +726,34 @@ const ApiKeyPanelRender = () => {
 
   return (
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ background: '#0f172a', borderRadius: '16px', overflow: 'hidden', border: '1px solid #1e293b' }}>
-        <div style={{ padding: '14px 18px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div
+        style={{
+          background: '#0f172a',
+          borderRadius: '16px',
+          overflow: 'hidden',
+          border: '1px solid #1e293b',
+        }}
+      >
+        <div
+          style={{
+            padding: '14px 18px',
+            borderBottom: '1px solid #1e293b',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+        >
           <div style={{ fontSize: '13px', fontWeight: 700, color: '#e2e8f0' }}>API 키 관리</div>
-          <div style={{ marginLeft: 'auto', fontSize: '10px', color: '#475569', background: '#1e293b', padding: '2px 8px', borderRadius: '99px' }}>
+          <div
+            style={{
+              marginLeft: 'auto',
+              fontSize: '10px',
+              color: '#475569',
+              background: '#1e293b',
+              padding: '2px 8px',
+              borderRadius: '99px',
+            }}
+          >
             CommandPalette 스타일
           </div>
         </div>
@@ -552,7 +767,16 @@ const ApiKeyPanelRender = () => {
                 borderBottom: idx < API_KEY_SERVICES.length - 1 ? '1px solid #1e293b' : 'none',
               }}
             >
-              <div style={{ fontSize: '11px', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '8px' }}>
+              <div
+                style={{
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: '#475569',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.07em',
+                  marginBottom: '8px',
+                }}
+              >
                 {svc.name}
               </div>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
@@ -560,14 +784,25 @@ const ApiKeyPanelRender = () => {
                   <PasswordField
                     value={visible[svc.id] ? svc.key : `${svc.prefix}${'•'.repeat(16)}`}
                     placeholder="API 키를 입력하세요"
-                    style={{ width: '100%', background: '#1e293b', color: '#e2e8f0', borderColor: '#334155' }}
+                    style={{
+                      width: '100%',
+                      background: '#1e293b',
+                      color: '#e2e8f0',
+                      borderColor: '#334155',
+                    }}
                   />
                 </div>
                 <button
                   onClick={() => toggleVisible(svc.id)}
                   style={{
-                    padding: '8px 10px', borderRadius: '8px', border: '1px solid #334155',
-                    background: '#1e293b', color: '#94a3b8', fontSize: '11px', cursor: 'pointer', whiteSpace: 'nowrap',
+                    padding: '8px 10px',
+                    borderRadius: '8px',
+                    border: '1px solid #334155',
+                    background: '#1e293b',
+                    color: '#94a3b8',
+                    fontSize: '11px',
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   {visible[svc.id] ? '숨기기' : '보기'}
@@ -575,9 +810,14 @@ const ApiKeyPanelRender = () => {
                 <button
                   onClick={() => handleCopy(svc.id)}
                   style={{
-                    padding: '8px 10px', borderRadius: '8px', border: `1px solid ${copied === svc.id ? '#10b981' : '#334155'}`,
+                    padding: '8px 10px',
+                    borderRadius: '8px',
+                    border: `1px solid ${copied === svc.id ? '#10b981' : '#334155'}`,
                     background: copied === svc.id ? 'rgba(16,185,129,0.1)' : '#1e293b',
-                    color: copied === svc.id ? '#10b981' : '#94a3b8', fontSize: '11px', cursor: 'pointer', whiteSpace: 'nowrap',
+                    color: copied === svc.id ? '#10b981' : '#94a3b8',
+                    fontSize: '11px',
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
                     transition: 'all 0.2s',
                   }}
                 >
@@ -588,11 +828,42 @@ const ApiKeyPanelRender = () => {
           ))}
         </div>
 
-        <div style={{ padding: '12px 18px', background: '#0a0f1a', borderTop: '1px solid #1e293b', display: 'flex', gap: '8px' }}>
-          <button style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #334155', background: '#1e293b', color: '#6366f1', fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}>
+        <div
+          style={{
+            padding: '12px 18px',
+            background: '#0a0f1a',
+            borderTop: '1px solid #1e293b',
+            display: 'flex',
+            gap: '8px',
+          }}
+        >
+          <button
+            style={{
+              flex: 1,
+              padding: '8px',
+              borderRadius: '8px',
+              border: '1px solid #334155',
+              background: '#1e293b',
+              color: '#6366f1',
+              fontSize: '12px',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
             + 새 키 추가
           </button>
-          <button style={{ padding: '8px 16px', borderRadius: '8px', border: 'none', background: '#6366f1', color: '#fff', fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}>
+          <button
+            style={{
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: 'none',
+              background: '#6366f1',
+              color: '#fff',
+              fontSize: '12px',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
             저장
           </button>
         </div>
@@ -616,25 +887,61 @@ const SocialLoginRender = () => {
   const [password, setPassword] = useState('')
 
   const oauthProviders = [
-    { name: 'CodeHost', icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
-      </svg>
-    )},
-    { name: 'Reference', icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24">
-        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-      </svg>
-    )},
+    {
+      name: 'CodeHost',
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Reference',
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24">
+          <path
+            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+            fill="#4285F4"
+          />
+          <path
+            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+            fill="#34A853"
+          />
+          <path
+            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+            fill="#FBBC05"
+          />
+          <path
+            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+            fill="#EA4335"
+          />
+        </svg>
+      ),
+    },
   ]
 
   return (
-    <div style={{ width: 380, padding: '36px', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 8px 32px rgba(0,0,0,0.08)', fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        width: 380,
+        padding: '36px',
+        background: '#fff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       <div style={{ marginBottom: '24px' }}>
-        <div style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em', marginBottom: '4px' }}>
+        <div
+          style={{
+            fontSize: '22px',
+            fontWeight: 800,
+            color: '#0f172a',
+            letterSpacing: '-0.02em',
+            marginBottom: '4px',
+          }}
+        >
           {mode === 'login' ? '로그인' : '계정 만들기'}
         </div>
         <div style={{ fontSize: '13px', color: '#64748b' }}>
@@ -647,9 +954,19 @@ const SocialLoginRender = () => {
           <button
             key={p.name}
             style={{
-              flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-              padding: '10px', borderRadius: '10px', border: '1.5px solid #e2e8f0',
-              background: '#fff', cursor: 'pointer', fontSize: '13px', fontWeight: 600, color: '#374151',
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              padding: '10px',
+              borderRadius: '10px',
+              border: '1.5px solid #e2e8f0',
+              background: '#fff',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: 600,
+              color: '#374151',
             }}
           >
             {p.icon}
@@ -660,40 +977,82 @@ const SocialLoginRender = () => {
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
         <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
-        <span style={{ fontSize: '12px', color: '#94a3b8', whiteSpace: 'nowrap' }}>또는 이메일로</span>
+        <span style={{ fontSize: '12px', color: '#94a3b8', whiteSpace: 'nowrap' }}>
+          또는 이메일로
+        </span>
         <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '20px' }}>
         <div>
-          <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '6px' }}>이메일</label>
+          <label
+            style={{
+              fontSize: '12px',
+              fontWeight: 600,
+              color: '#374151',
+              display: 'block',
+              marginBottom: '6px',
+            }}
+          >
+            이메일
+          </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1.5px solid #e2e8f0', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }}
+            style={{
+              width: '100%',
+              padding: '10px 12px',
+              borderRadius: '8px',
+              border: '1.5px solid #e2e8f0',
+              fontSize: '14px',
+              outline: 'none',
+              boxSizing: 'border-box',
+            }}
           />
         </div>
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
             <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>비밀번호</label>
             {mode === 'login' && (
-              <a href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: '11px', color: '#6366f1', textDecoration: 'none', fontWeight: 600 }}>
+              <a
+                href="#"
+                onClick={(e) => e.preventDefault()}
+                style={{
+                  fontSize: '11px',
+                  color: '#6366f1',
+                  textDecoration: 'none',
+                  fontWeight: 600,
+                }}
+              >
                 비밀번호 찾기
               </a>
             )}
           </div>
           <PasswordField
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+              setPassword(e.target.value)
+            }
             placeholder={mode === 'login' ? '비밀번호 입력' : '8자 이상 비밀번호'}
           />
         </div>
       </div>
 
       <button
-        style={{ width: '100%', padding: '12px', borderRadius: '10px', border: 'none', background: '#6366f1', color: '#fff', fontSize: '14px', fontWeight: 700, cursor: 'pointer', marginBottom: '14px' }}
+        style={{
+          width: '100%',
+          padding: '12px',
+          borderRadius: '10px',
+          border: 'none',
+          background: '#6366f1',
+          color: '#fff',
+          fontSize: '14px',
+          fontWeight: 700,
+          cursor: 'pointer',
+          marginBottom: '14px',
+        }}
       >
         {mode === 'login' ? '로그인' : '계정 만들기'}
       </button>
@@ -702,7 +1061,14 @@ const SocialLoginRender = () => {
         {mode === 'login' ? '계정이 없으신가요? ' : '이미 계정이 있으신가요? '}
         <button
           onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-          style={{ color: '#6366f1', fontWeight: 700, background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px' }}
+          style={{
+            color: '#6366f1',
+            fontWeight: 700,
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '13px',
+          }}
         >
           {mode === 'login' ? '회원가입' : '로그인'}
         </button>
@@ -731,7 +1097,8 @@ function M3PasswordStrengthRender() {
   const [value, setValue] = useState('')
 
   const passedCount = M3_PASSWORD_RULES.filter((r) => r.test(value)).length
-  const strength = passedCount <= 1 ? 'weak' : passedCount <= 3 ? 'fair' : passedCount === 4 ? 'good' : 'strong'
+  const strength =
+    passedCount <= 1 ? 'weak' : passedCount <= 3 ? 'fair' : passedCount === 4 ? 'good' : 'strong'
   const strengthCfg: Record<string, { label: string; color: string; width: string }> = {
     weak: { label: '취약', color: '#ef4444', width: '20%' },
     fair: { label: '보통', color: '#f59e0b', width: '50%' },
@@ -757,18 +1124,52 @@ function M3PasswordStrengthRender() {
               <span style={{ fontSize: 12, fontWeight: 700, color: sc.color }}>{sc.label}</span>
             </div>
             <div style={{ height: 6, borderRadius: 3, background: '#f1f5f9', overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: sc.width, background: sc.color, borderRadius: 3, transition: 'width 0.3s, background 0.3s' }} />
+              <div
+                style={{
+                  height: '100%',
+                  width: sc.width,
+                  background: sc.color,
+                  borderRadius: 3,
+                  transition: 'width 0.3s, background 0.3s',
+                }}
+              />
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {M3_PASSWORD_RULES.map((rule) => {
               const passed = rule.test(value)
               return (
-                <div key={rule.key} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12 }}>
-                  <div style={{ width: 16, height: 16, borderRadius: '50%', background: passed ? '#10b981' : '#f1f5f9', border: `2px solid ${passed ? '#10b981' : '#e2e8f0'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s' }}>
-                    {passed && <span style={{ fontSize: 9, color: '#fff', fontWeight: 900 }}>✓</span>}
+                <div
+                  key={rule.key}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12 }}
+                >
+                  <div
+                    style={{
+                      width: 16,
+                      height: 16,
+                      borderRadius: '50%',
+                      background: passed ? '#10b981' : '#f1f5f9',
+                      border: `2px solid ${passed ? '#10b981' : '#e2e8f0'}`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    {passed && (
+                      <span style={{ fontSize: 9, color: '#fff', fontWeight: 900 }}>✓</span>
+                    )}
                   </div>
-                  <span style={{ color: passed ? '#10b981' : '#94a3b8', fontWeight: passed ? 600 : 400, transition: 'color 0.15s' }}>{rule.label}</span>
+                  <span
+                    style={{
+                      color: passed ? '#10b981' : '#94a3b8',
+                      fontWeight: passed ? 600 : 400,
+                      transition: 'color 0.15s',
+                    }}
+                  >
+                    {rule.label}
+                  </span>
                 </div>
               )
             })}
@@ -801,14 +1202,27 @@ type ApiKeyEntry = { id: string; name: string; value: string; created: string; m
 
 function DesignToolApiKeyPanelRender() {
   const [keys, setKeys] = useState<ApiKeyEntry[]>([
-    { id: 'k1', name: 'DesignTool API Token', value: 'figd_KbXqwA-3pnR9mLvJ', created: '2026-01-15', masked: true },
-    { id: 'k2', name: 'OpenAI API Key', value: 'sk-proj-ABCD1234efgh5678', created: '2026-03-02', masked: true },
+    {
+      id: 'k1',
+      name: 'DesignTool API Token',
+      value: 'figd_KbXqwA-3pnR9mLvJ',
+      created: '2026-01-15',
+      masked: true,
+    },
+    {
+      id: 'k2',
+      name: 'OpenAI API Key',
+      value: 'sk-proj-ABCD1234efgh5678',
+      created: '2026-03-02',
+      masked: true,
+    },
   ])
   const [newKeyName, setNewKeyName] = useState('')
   const [newKeyValue, setNewKeyValue] = useState('')
   const [copied, setCopied] = useState<string | null>(null)
 
-  const maskValue = (val: string) => `${val.slice(0, 6)}${'*'.repeat(val.length - 10)}${val.slice(-4)}`
+  const maskValue = (val: string) =>
+    `${val.slice(0, 6)}${'*'.repeat(val.length - 10)}${val.slice(-4)}`
 
   const toggleMask = (id: string) => {
     setKeys((prev) => prev.map((k) => (k.id === id ? { ...k, masked: !k.masked } : k)))
@@ -824,47 +1238,127 @@ function DesignToolApiKeyPanelRender() {
     if (!newKeyName.trim() || !newKeyValue.trim()) return
     setKeys((prev) => [
       ...prev,
-      { id: `k${Date.now()}`, name: newKeyName, value: newKeyValue, created: new Date().toISOString().slice(0, 10), masked: true },
+      {
+        id: `k${Date.now()}`,
+        name: newKeyName,
+        value: newKeyValue,
+        created: new Date().toISOString().slice(0, 10),
+        masked: true,
+      },
     ])
     setNewKeyName('')
     setNewKeyValue('')
   }
 
   return (
-    <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 14, padding: 20, background: '#18181b', borderRadius: 12, border: '1px solid #27272a' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#e4e4e7', marginBottom: 4 }}>API 키 관리</div>
+    <div
+      style={{
+        width: 380,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 14,
+        padding: 20,
+        background: '#18181b',
+        borderRadius: 12,
+        border: '1px solid #27272a',
+      }}
+    >
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#e4e4e7', marginBottom: 4 }}>
+        API 키 관리
+      </div>
       {keys.map((key) => (
-        <div key={key.id} style={{ padding: '12px 14px', background: '#27272a', borderRadius: 8, border: '1px solid #3f3f46' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+        <div
+          key={key.id}
+          style={{
+            padding: '12px 14px',
+            background: '#27272a',
+            borderRadius: 8,
+            border: '1px solid #3f3f46',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 8,
+            }}
+          >
             <span style={{ fontSize: 12, fontWeight: 700, color: '#a1a1aa' }}>{key.name}</span>
             <span style={{ fontSize: 10, color: '#52525b' }}>{key.created}</span>
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <code style={{ flex: 1, fontSize: 11, color: '#d4d4d8', fontFamily: 'monospace', background: '#18181b', padding: '4px 8px', borderRadius: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <code
+              style={{
+                flex: 1,
+                fontSize: 11,
+                color: '#d4d4d8',
+                fontFamily: 'monospace',
+                background: '#18181b',
+                padding: '4px 8px',
+                borderRadius: 6,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
               {key.masked ? maskValue(key.value) : key.value}
             </code>
             <button
               onClick={() => toggleMask(key.id)}
-              style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #3f3f46', background: 'transparent', color: '#71717a', fontSize: 11, cursor: 'pointer' }}
+              style={{
+                padding: '4px 8px',
+                borderRadius: 6,
+                border: '1px solid #3f3f46',
+                background: 'transparent',
+                color: '#71717a',
+                fontSize: 11,
+                cursor: 'pointer',
+              }}
             >
               {key.masked ? '표시' : '숨김'}
             </button>
             <button
               onClick={() => copyKey(key.id, key.value)}
-              style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #3f3f46', background: copied === key.id ? '#166534' : 'transparent', color: copied === key.id ? '#4ade80' : '#71717a', fontSize: 11, cursor: 'pointer', transition: 'all 0.15s' }}
+              style={{
+                padding: '4px 8px',
+                borderRadius: 6,
+                border: '1px solid #3f3f46',
+                background: copied === key.id ? '#166534' : 'transparent',
+                color: copied === key.id ? '#4ade80' : '#71717a',
+                fontSize: 11,
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
             >
               {copied === key.id ? '복사됨' : '복사'}
             </button>
           </div>
         </div>
       ))}
-      <div style={{ borderTop: '1px solid #27272a', paddingTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div
+        style={{
+          borderTop: '1px solid #27272a',
+          paddingTop: 12,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+        }}
+      >
         <div style={{ fontSize: 11, fontWeight: 700, color: '#71717a' }}>새 키 추가</div>
         <input
           value={newKeyName}
           onChange={(e) => setNewKeyName(e.target.value)}
           placeholder="키 이름 (예: DesignTool API Token)"
-          style={{ padding: '7px 10px', borderRadius: 6, border: '1px solid #3f3f46', background: '#27272a', color: '#e4e4e7', fontSize: 12, outline: 'none' }}
+          style={{
+            padding: '7px 10px',
+            borderRadius: 6,
+            border: '1px solid #3f3f46',
+            background: '#27272a',
+            color: '#e4e4e7',
+            fontSize: 12,
+            outline: 'none',
+          }}
         />
         <PasswordField
           value={newKeyValue}
@@ -874,7 +1368,17 @@ function DesignToolApiKeyPanelRender() {
         <button
           onClick={addKey}
           disabled={!newKeyName.trim() || !newKeyValue.trim()}
-          style={{ padding: '8px', borderRadius: 8, border: 'none', background: newKeyName && newKeyValue ? '#6366f1' : '#27272a', color: newKeyName && newKeyValue ? '#fff' : '#52525b', fontSize: 12, fontWeight: 700, cursor: newKeyName && newKeyValue ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}
+          style={{
+            padding: '8px',
+            borderRadius: 8,
+            border: 'none',
+            background: newKeyName && newKeyValue ? '#6366f1' : '#27272a',
+            color: newKeyName && newKeyValue ? '#fff' : '#52525b',
+            fontSize: 12,
+            fontWeight: 700,
+            cursor: newKeyName && newKeyValue ? 'pointer' : 'not-allowed',
+            transition: 'all 0.15s',
+          }}
         >
           키 저장
         </button>
@@ -927,14 +1431,36 @@ function M3PasswordResetRender() {
   }
 
   return (
-    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 20, padding: 24, background: '#fff', borderRadius: 14, border: '1.5px solid #e2e8f0' }}>
+    <div
+      style={{
+        width: 360,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+        padding: 24,
+        background: '#fff',
+        borderRadius: 14,
+        border: '1.5px solid #e2e8f0',
+      }}
+    >
       <div>
-        <div style={{ fontSize: 16, fontWeight: 800, color: '#1e293b', marginBottom: 4 }}>비밀번호 재설정</div>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#1e293b', marginBottom: 4 }}>
+          비밀번호 재설정
+        </div>
         <div style={{ display: 'flex', gap: 4 }}>
           {[1, 2, 3].map((n) => (
             <div
               key={n}
-              style={{ height: 4, flex: 1, borderRadius: 2, background: n <= currentStep - 1 || (n === currentStep && step !== 'done') ? '#6366f1' : '#f1f5f9', transition: 'background 0.3s' }}
+              style={{
+                height: 4,
+                flex: 1,
+                borderRadius: 2,
+                background:
+                  n <= currentStep - 1 || (n === currentStep && step !== 'done')
+                    ? '#6366f1'
+                    : '#f1f5f9',
+                transition: 'background 0.3s',
+              }}
             />
           ))}
         </div>
@@ -952,7 +1478,14 @@ function M3PasswordResetRender() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="이메일 주소"
-          style={{ padding: '10px 14px', borderRadius: 8, border: `1.5px solid ${email && !email.includes('@') ? '#ef4444' : '#e2e8f0'}`, fontSize: 13, outline: 'none', color: '#1e293b' }}
+          style={{
+            padding: '10px 14px',
+            borderRadius: 8,
+            border: `1.5px solid ${email && !email.includes('@') ? '#ef4444' : '#e2e8f0'}`,
+            fontSize: 13,
+            outline: 'none',
+            color: '#1e293b',
+          }}
         />
       )}
 
@@ -963,7 +1496,17 @@ function M3PasswordResetRender() {
             value={code}
             onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
             placeholder="123456"
-            style={{ padding: '10px 14px', borderRadius: 8, border: `1.5px solid ${code.length > 0 && code.length < 6 ? '#f59e0b' : '#e2e8f0'}`, fontSize: 20, fontFamily: 'monospace', letterSpacing: '0.3em', textAlign: 'center', outline: 'none', color: '#1e293b' }}
+            style={{
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: `1.5px solid ${code.length > 0 && code.length < 6 ? '#f59e0b' : '#e2e8f0'}`,
+              fontSize: 20,
+              fontFamily: 'monospace',
+              letterSpacing: '0.3em',
+              textAlign: 'center',
+              outline: 'none',
+              color: '#1e293b',
+            }}
           />
         </div>
       )}
@@ -991,7 +1534,9 @@ function M3PasswordResetRender() {
       {step === 'done' && (
         <div style={{ textAlign: 'center', padding: '12px 0' }}>
           <div style={{ fontSize: 40, marginBottom: 8 }}>&#10003;</div>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#10b981', marginBottom: 4 }}>비밀번호 재설정 완료</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#10b981', marginBottom: 4 }}>
+            비밀번호 재설정 완료
+          </div>
           <div style={{ fontSize: 12, color: '#64748b' }}>새 비밀번호로 로그인하세요</div>
         </div>
       )}
@@ -1000,7 +1545,17 @@ function M3PasswordResetRender() {
         <button
           onClick={next}
           disabled={!canNext()}
-          style={{ padding: '12px', borderRadius: 10, border: 'none', background: canNext() ? '#6366f1' : '#f1f5f9', color: canNext() ? '#fff' : '#94a3b8', fontSize: 14, fontWeight: 700, cursor: canNext() ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}
+          style={{
+            padding: '12px',
+            borderRadius: 10,
+            border: 'none',
+            background: canNext() ? '#6366f1' : '#f1f5f9',
+            color: canNext() ? '#fff' : '#94a3b8',
+            fontSize: 14,
+            fontWeight: 700,
+            cursor: canNext() ? 'pointer' : 'not-allowed',
+            transition: 'all 0.15s',
+          }}
         >
           {step === 'email' ? '인증 코드 전송' : step === 'code' ? '코드 확인' : '비밀번호 변경'}
         </button>
@@ -1009,7 +1564,14 @@ function M3PasswordResetRender() {
       {step !== 'email' && step !== 'done' && (
         <button
           onClick={() => setStep('email')}
-          style={{ background: 'none', border: 'none', fontSize: 12, color: '#94a3b8', cursor: 'pointer', textDecoration: 'underline' }}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontSize: 12,
+            color: '#94a3b8',
+            cursor: 'pointer',
+            textDecoration: 'underline',
+          }}
         >
           처음으로
         </button>
@@ -1050,13 +1612,35 @@ const PrimitivePwValidationRender = () => {
   const passed = RADIX_PW_RULES.filter((r) => r.test(pw)).length
   const strength = passed === 0 ? 0 : passed <= 1 ? 25 : passed <= 2 ? 50 : passed <= 3 ? 75 : 100
   const strengthColor = strength === 100 ? '#22c55e' : strength >= 50 ? '#f59e0b' : '#ef4444'
-  const strengthLabel = strength === 100 ? '매우 강함' : strength >= 75 ? '강함' : strength >= 50 ? '보통' : strength > 0 ? '약함' : ''
+  const strengthLabel =
+    strength === 100
+      ? '매우 강함'
+      : strength >= 75
+        ? '강함'
+        : strength >= 50
+          ? '보통'
+          : strength > 0
+            ? '약함'
+            : ''
   const matchOk = confirm.length > 0 && pw === confirm
 
   return (
-    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20, padding: 28, borderRadius: 16, border: '1px solid #e2e8f0' }}>
+    <div
+      style={{
+        width: 360,
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+        padding: 28,
+        borderRadius: 16,
+        border: '1px solid #e2e8f0',
+      }}
+    >
       <div>
-        <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>새 비밀번호 설정</div>
+        <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>
+          새 비밀번호 설정
+        </div>
         <div style={{ fontSize: 12, color: '#94a3b8' }}>PrimitiveUI Form validation 패턴</div>
       </div>
 
@@ -1071,10 +1655,28 @@ const PrimitivePwValidationRender = () => {
         {/* 강도 바 */}
         {pw.length > 0 && (
           <div>
-            <div style={{ height: 4, background: '#f1f5f9', borderRadius: 2, overflow: 'hidden', marginBottom: 4 }}>
-              <div style={{ height: '100%', width: `${strength}%`, background: strengthColor, borderRadius: 2, transition: 'width 0.2s, background 0.2s' }} />
+            <div
+              style={{
+                height: 4,
+                background: '#f1f5f9',
+                borderRadius: 2,
+                overflow: 'hidden',
+                marginBottom: 4,
+              }}
+            >
+              <div
+                style={{
+                  height: '100%',
+                  width: `${strength}%`,
+                  background: strengthColor,
+                  borderRadius: 2,
+                  transition: 'width 0.2s, background 0.2s',
+                }}
+              />
             </div>
-            <div style={{ fontSize: 11, color: strengthColor, fontWeight: 600 }}>{strengthLabel}</div>
+            <div style={{ fontSize: 11, color: strengthColor, fontWeight: 600 }}>
+              {strengthLabel}
+            </div>
           </div>
         )}
       </div>
@@ -1085,16 +1687,31 @@ const PrimitivePwValidationRender = () => {
           const ok = rule.test(pw)
           return (
             <div key={rule.id} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{
-                width: 16, height: 16, borderRadius: '50%', flexShrink: 0,
-                background: ok ? '#dcfce7' : '#f1f5f9',
-                border: `1.5px solid ${ok ? '#22c55e' : '#e2e8f0'}`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 9, color: ok ? '#22c55e' : '#94a3b8', fontWeight: 800,
-              }}>
+              <span
+                style={{
+                  width: 16,
+                  height: 16,
+                  borderRadius: '50%',
+                  flexShrink: 0,
+                  background: ok ? '#dcfce7' : '#f1f5f9',
+                  border: `1.5px solid ${ok ? '#22c55e' : '#e2e8f0'}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 9,
+                  color: ok ? '#22c55e' : '#94a3b8',
+                  fontWeight: 800,
+                }}
+              >
                 {ok ? '✓' : ''}
               </span>
-              <span style={{ fontSize: 12, color: ok ? '#166534' : '#94a3b8', fontWeight: ok ? 600 : 400 }}>
+              <span
+                style={{
+                  fontSize: 12,
+                  color: ok ? '#166534' : '#94a3b8',
+                  fontWeight: ok ? 600 : 400,
+                }}
+              >
                 {rule.label}
               </span>
             </div>
@@ -1120,10 +1737,14 @@ const PrimitivePwValidationRender = () => {
       <button
         disabled={passed < 4 || !matchOk}
         style={{
-          padding: '11px 0', borderRadius: 8, border: 'none',
+          padding: '11px 0',
+          borderRadius: 8,
+          border: 'none',
           background: passed === 4 && matchOk ? '#6366f1' : '#e2e8f0',
           color: passed === 4 && matchOk ? '#fff' : '#94a3b8',
-          fontSize: 14, fontWeight: 700, cursor: passed === 4 && matchOk ? 'pointer' : 'not-allowed',
+          fontSize: 14,
+          fontWeight: 700,
+          cursor: passed === 4 && matchOk ? 'pointer' : 'not-allowed',
           transition: 'background 0.2s',
         }}
       >
@@ -1177,15 +1798,26 @@ const IssueTrackerSecurityPanelRender = () => {
 
       {/* 비밀번호 변경 */}
       <div style={{ padding: '18px 0', borderBottom: '1px solid #f8fafc' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            marginBottom: 16,
+          }}
+        >
           <div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>비밀번호 변경</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>
+              비밀번호 변경
+            </div>
             <div style={{ fontSize: 11, color: '#94a3b8' }}>마지막 변경: 30일 전</div>
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 6 }}>현재 비밀번호</div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 6 }}>
+              현재 비밀번호
+            </div>
             <PasswordField
               placeholder="현재 비밀번호"
               value={current}
@@ -1193,7 +1825,9 @@ const IssueTrackerSecurityPanelRender = () => {
             />
           </div>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 6 }}>새 비밀번호</div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 6 }}>
+              새 비밀번호
+            </div>
             <PasswordField
               placeholder="새 비밀번호 (8자 이상)"
               value={next}
@@ -1201,7 +1835,9 @@ const IssueTrackerSecurityPanelRender = () => {
               error={next.length > 0 && next.length < 8}
             />
             {next.length > 0 && next.length < 8 && (
-              <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>최소 8자 이상 입력하세요.</div>
+              <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>
+                최소 8자 이상 입력하세요.
+              </div>
             )}
           </div>
           <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
@@ -1209,10 +1845,14 @@ const IssueTrackerSecurityPanelRender = () => {
               onClick={handleSave}
               disabled={!canSave}
               style={{
-                padding: '7px 16px', borderRadius: 6, border: 'none',
+                padding: '7px 16px',
+                borderRadius: 6,
+                border: 'none',
                 background: canSave ? '#0f172a' : '#f1f5f9',
                 color: canSave ? '#fff' : '#94a3b8',
-                fontSize: 12, fontWeight: 600, cursor: canSave ? 'pointer' : 'not-allowed',
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: canSave ? 'pointer' : 'not-allowed',
               }}
             >
               {saved ? '저장 완료' : '비밀번호 변경'}
@@ -1225,13 +1865,21 @@ const IssueTrackerSecurityPanelRender = () => {
       <div style={{ padding: '18px 0' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>2단계 인증 (2FA)</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>
+              2단계 인증 (2FA)
+            </div>
             <div style={{ fontSize: 11, color: '#94a3b8' }}>계정 보안을 강화합니다.</div>
           </div>
-          <div style={{
-            padding: '3px 10px', borderRadius: 20, fontSize: 11, fontWeight: 700,
-            background: '#fef9c3', color: '#92400e',
-          }}>
+          <div
+            style={{
+              padding: '3px 10px',
+              borderRadius: 20,
+              fontSize: 11,
+              fontWeight: 700,
+              background: '#fef9c3',
+              color: '#92400e',
+            }}
+          >
             미설정
           </div>
         </div>
@@ -1268,12 +1916,36 @@ const PrimitiveDangerConfirmRender = () => {
 
   if (confirmed) {
     return (
-      <div style={{ padding: 28, borderRadius: 12, background: '#fef2f2', border: '1px solid #fecaca', maxWidth: 360, textAlign: 'center', fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          padding: 28,
+          borderRadius: 12,
+          background: '#fef2f2',
+          border: '1px solid #fecaca',
+          maxWidth: 360,
+          textAlign: 'center',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         <div style={{ fontSize: 20, marginBottom: 8 }}>삭제 완료</div>
-        <div style={{ fontSize: 13, color: '#ef4444', marginBottom: 12 }}>계정이 삭제되었습니다.</div>
+        <div style={{ fontSize: 13, color: '#ef4444', marginBottom: 12 }}>
+          계정이 삭제되었습니다.
+        </div>
         <button
-          onClick={() => { setConfirmed(false); setPw(''); setOpen(false) }}
-          style={{ padding: '7px 16px', borderRadius: 6, border: '1px solid #fca5a5', background: '#fff', fontSize: 12, color: '#ef4444', cursor: 'pointer' }}
+          onClick={() => {
+            setConfirmed(false)
+            setPw('')
+            setOpen(false)
+          }}
+          style={{
+            padding: '7px 16px',
+            borderRadius: 6,
+            border: '1px solid #fca5a5',
+            background: '#fff',
+            fontSize: 12,
+            color: '#ef4444',
+            cursor: 'pointer',
+          }}
         >
           초기화
         </button>
@@ -1286,24 +1958,39 @@ const PrimitiveDangerConfirmRender = () => {
       <button
         onClick={() => setOpen(true)}
         style={{
-          padding: '9px 18px', borderRadius: 8, border: '1px solid #fca5a5',
-          background: '#fff', color: '#ef4444', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+          padding: '9px 18px',
+          borderRadius: 8,
+          border: '1px solid #fca5a5',
+          background: '#fff',
+          color: '#ef4444',
+          fontSize: 13,
+          fontWeight: 600,
+          cursor: 'pointer',
         }}
       >
         계정 삭제
       </button>
 
       {open && (
-        <div style={{
-          marginTop: 16, padding: '20px 24px', borderRadius: 12,
-          border: '1.5px solid #fca5a5', background: '#fff',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
-        }}>
-          <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 6 }}>계정을 삭제하시겠습니까?</div>
+        <div
+          style={{
+            marginTop: 16,
+            padding: '20px 24px',
+            borderRadius: 12,
+            border: '1.5px solid #fca5a5',
+            background: '#fff',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+          }}
+        >
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 6 }}>
+            계정을 삭제하시겠습니까?
+          </div>
           <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16, lineHeight: 1.6 }}>
             이 작업은 취소할 수 없습니다. 계속하려면 비밀번호를 입력하세요.
             <br />
-            <span style={{ fontSize: 11, color: '#94a3b8' }}>(데모용: <code>delete123</code>)</span>
+            <span style={{ fontSize: 11, color: '#94a3b8' }}>
+              (데모용: <code>delete123</code>)
+            </span>
           </div>
           <div style={{ marginBottom: 14 }}>
             <PasswordField
@@ -1313,13 +2000,27 @@ const PrimitiveDangerConfirmRender = () => {
               error={pw.length > 0 && pw !== CORRECT}
             />
             {pw.length > 0 && pw !== CORRECT && (
-              <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>비밀번호가 올바르지 않습니다.</div>
+              <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>
+                비밀번호가 올바르지 않습니다.
+              </div>
             )}
           </div>
           <div style={{ display: 'flex', gap: 8 }}>
             <button
-              onClick={() => { setOpen(false); setPw('') }}
-              style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer', color: '#64748b' }}
+              onClick={() => {
+                setOpen(false)
+                setPw('')
+              }}
+              style={{
+                flex: 1,
+                padding: '9px 0',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                fontSize: 13,
+                cursor: 'pointer',
+                color: '#64748b',
+              }}
             >
               취소
             </button>
@@ -1327,10 +2028,15 @@ const PrimitiveDangerConfirmRender = () => {
               onClick={() => pw === CORRECT && setConfirmed(true)}
               disabled={pw !== CORRECT}
               style={{
-                flex: 1, padding: '9px 0', borderRadius: 8, border: 'none',
+                flex: 1,
+                padding: '9px 0',
+                borderRadius: 8,
+                border: 'none',
                 background: pw === CORRECT ? '#ef4444' : '#f1f5f9',
                 color: pw === CORRECT ? '#fff' : '#94a3b8',
-                fontSize: 13, fontWeight: 700, cursor: pw === CORRECT ? 'pointer' : 'not-allowed',
+                fontSize: 13,
+                fontWeight: 700,
+                cursor: pw === CORRECT ? 'pointer' : 'not-allowed',
               }}
             >
               계정 삭제
@@ -1368,7 +2074,8 @@ function IssueTrackerTeamOnboardingRender() {
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
   const [confirm, setConfirm] = useState('')
-  const pwStrength = pw.length === 0 ? 0 : pw.length < 6 ? 1 : pw.length < 10 ? 2 : pw.length < 14 ? 3 : 4
+  const pwStrength =
+    pw.length === 0 ? 0 : pw.length < 6 ? 1 : pw.length < 10 ? 2 : pw.length < 14 ? 3 : 4
   const strengthLabel = ['', '약함', '보통', '강함', '매우 강함']
   const strengthColor = ['', '#ef4444', '#f97316', '#22c55e', '#16a34a']
   const isMatch = pw === confirm && confirm.length > 0
@@ -1378,23 +2085,54 @@ function IssueTrackerTeamOnboardingRender() {
       {/* 진행 단계 */}
       <div style={{ display: 'flex', gap: 6, marginBottom: 24 }}>
         {(['invite', 'password', 'done'] as const).map((s, i) => (
-          <div key={s} style={{ flex: 1, height: 3, borderRadius: 99, background: i <= (['invite', 'password', 'done'] as const).indexOf(step) ? '#0f172a' : '#e2e8f0', transition: 'background 250ms' }} />
+          <div
+            key={s}
+            style={{
+              flex: 1,
+              height: 3,
+              borderRadius: 99,
+              background:
+                i <= (['invite', 'password', 'done'] as const).indexOf(step)
+                  ? '#0f172a'
+                  : '#e2e8f0',
+              transition: 'background 250ms',
+            }}
+          />
         ))}
       </div>
       {step === 'invite' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>팀 워크스페이스 참가</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>
+            팀 워크스페이스 참가
+          </div>
           <div style={{ fontSize: 13, color: '#64748b' }}>초대 이메일 주소를 입력하세요.</div>
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@company.com"
-            style={{ padding: '9px 12px', fontSize: 13, borderRadius: 8, border: '1px solid #e2e8f0', outline: 'none', color: '#0f172a' }}
+            style={{
+              padding: '9px 12px',
+              fontSize: 13,
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              outline: 'none',
+              color: '#0f172a',
+            }}
           />
           <button
             onClick={() => setStep('password')}
             disabled={!canNext}
-            style={{ padding: '10px', fontSize: 13, fontWeight: 600, borderRadius: 8, border: 'none', background: canNext ? '#0f172a' : '#f1f5f9', color: canNext ? '#fff' : '#94a3b8', cursor: canNext ? 'pointer' : 'not-allowed', transition: 'all 150ms' }}
+            style={{
+              padding: '10px',
+              fontSize: 13,
+              fontWeight: 600,
+              borderRadius: 8,
+              border: 'none',
+              background: canNext ? '#0f172a' : '#f1f5f9',
+              color: canNext ? '#fff' : '#94a3b8',
+              cursor: canNext ? 'pointer' : 'not-allowed',
+              transition: 'all 150ms',
+            }}
           >
             계속
           </button>
@@ -1412,9 +2150,27 @@ function IssueTrackerTeamOnboardingRender() {
             {pw.length > 0 && (
               <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
                 {[1, 2, 3, 4].map((n) => (
-                  <div key={n} style={{ flex: 1, height: 3, borderRadius: 99, background: n <= pwStrength ? strengthColor[pwStrength] : '#e2e8f0', transition: 'background 200ms' }} />
+                  <div
+                    key={n}
+                    style={{
+                      flex: 1,
+                      height: 3,
+                      borderRadius: 99,
+                      background: n <= pwStrength ? strengthColor[pwStrength] : '#e2e8f0',
+                      transition: 'background 200ms',
+                    }}
+                  />
                 ))}
-                <span style={{ fontSize: 11, color: strengthColor[pwStrength], marginLeft: 4, minWidth: 52 }}>{strengthLabel[pwStrength]}</span>
+                <span
+                  style={{
+                    fontSize: 11,
+                    color: strengthColor[pwStrength],
+                    marginLeft: 4,
+                    minWidth: 52,
+                  }}
+                >
+                  {strengthLabel[pwStrength]}
+                </span>
               </div>
             )}
           </div>
@@ -1425,12 +2181,24 @@ function IssueTrackerTeamOnboardingRender() {
             error={confirm.length > 0 && !isMatch}
           />
           {confirm.length > 0 && !isMatch && (
-            <span style={{ fontSize: 11, color: '#ef4444', marginTop: -8 }}>비밀번호가 일치하지 않습니다</span>
+            <span style={{ fontSize: 11, color: '#ef4444', marginTop: -8 }}>
+              비밀번호가 일치하지 않습니다
+            </span>
           )}
           <button
             onClick={() => setStep('done')}
             disabled={!canNext}
-            style={{ padding: '10px', fontSize: 13, fontWeight: 600, borderRadius: 8, border: 'none', background: canNext ? '#0f172a' : '#f1f5f9', color: canNext ? '#fff' : '#94a3b8', cursor: canNext ? 'pointer' : 'not-allowed', transition: 'all 150ms' }}
+            style={{
+              padding: '10px',
+              fontSize: 13,
+              fontWeight: 600,
+              borderRadius: 8,
+              border: 'none',
+              background: canNext ? '#0f172a' : '#f1f5f9',
+              color: canNext ? '#fff' : '#94a3b8',
+              cursor: canNext ? 'pointer' : 'not-allowed',
+              transition: 'all 150ms',
+            }}
           >
             완료
           </button>
@@ -1439,9 +2207,26 @@ function IssueTrackerTeamOnboardingRender() {
       {step === 'done' && (
         <div style={{ textAlign: 'center', padding: '32px 0' }}>
           <div style={{ fontSize: 32, marginBottom: 12 }}>✓</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>설정 완료!</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
+            설정 완료!
+          </div>
           <div style={{ fontSize: 13, color: '#64748b' }}>{email} 으로 로그인하세요.</div>
-          <button onClick={() => { setStep('invite'); setEmail(''); setPw(''); setConfirm('') }} style={{ marginTop: 20, fontSize: 12, color: '#6366f1', border: 'none', background: 'none', cursor: 'pointer' }}>
+          <button
+            onClick={() => {
+              setStep('invite')
+              setEmail('')
+              setPw('')
+              setConfirm('')
+            }}
+            style={{
+              marginTop: 20,
+              fontSize: 12,
+              color: '#6366f1',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+            }}
+          >
             다시 시작
           </button>
         </div>
@@ -1480,7 +2265,10 @@ function DeployPlatformTokenCreateRender() {
     { key: 'admin', label: '전체 권한', desc: '삭제 포함 모든 작업' },
   ]
   const handleCreate = () => {
-    if (pw.length < 6) { setPwError(true); return }
+    if (pw.length < 6) {
+      setPwError(true)
+      return
+    }
     setPwError(false)
     const token = `tok_${Math.random().toString(36).slice(2, 18)}`
     setCreated(token)
@@ -1496,15 +2284,44 @@ function DeployPlatformTokenCreateRender() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="my-ci-token"
-              style={{ padding: '8px 12px', fontSize: 13, borderRadius: 7, border: '1px solid #e2e8f0', outline: 'none', color: '#0f172a' }}
+              style={{
+                padding: '8px 12px',
+                fontSize: 13,
+                borderRadius: 7,
+                border: '1px solid #e2e8f0',
+                outline: 'none',
+                color: '#0f172a',
+              }}
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>권한 범위</label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               {SCOPES.map((s) => (
-                <label key={s.key} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 7, border: `1.5px solid ${scope === s.key ? '#0f172a' : '#e2e8f0'}`, cursor: 'pointer', background: scope === s.key ? '#f8fafc' : '#fff' }} onClick={() => setScope(s.key)}>
-                  <div style={{ width: 14, height: 14, borderRadius: '50%', border: `2px solid ${scope === s.key ? '#0f172a' : '#cbd5e1'}`, background: scope === s.key ? '#0f172a' : '#fff', flexShrink: 0 }} />
+                <label
+                  key={s.key}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '8px 12px',
+                    borderRadius: 7,
+                    border: `1.5px solid ${scope === s.key ? '#0f172a' : '#e2e8f0'}`,
+                    cursor: 'pointer',
+                    background: scope === s.key ? '#f8fafc' : '#fff',
+                  }}
+                  onClick={() => setScope(s.key)}
+                >
+                  <div
+                    style={{
+                      width: 14,
+                      height: 14,
+                      borderRadius: '50%',
+                      border: `2px solid ${scope === s.key ? '#0f172a' : '#cbd5e1'}`,
+                      background: scope === s.key ? '#0f172a' : '#fff',
+                      flexShrink: 0,
+                    }}
+                  />
                   <div>
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{s.label}</div>
                     <div style={{ fontSize: 11, color: '#64748b' }}>{s.desc}</div>
@@ -1514,31 +2331,76 @@ function DeployPlatformTokenCreateRender() {
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>계정 비밀번호 확인</label>
+            <label style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>
+              계정 비밀번호 확인
+            </label>
             <PasswordField
               value={pw}
-              onChange={(e) => { setPw((e.target as HTMLInputElement).value); setPwError(false) }}
+              onChange={(e) => {
+                setPw((e.target as HTMLInputElement).value)
+                setPwError(false)
+              }}
               placeholder="비밀번호 입력"
               error={error}
             />
-            {error && <span style={{ fontSize: 11, color: '#ef4444' }}>비밀번호를 입력해 주세요</span>}
+            {error && (
+              <span style={{ fontSize: 11, color: '#ef4444' }}>비밀번호를 입력해 주세요</span>
+            )}
           </div>
           <button
             onClick={handleCreate}
             disabled={!name.trim()}
-            style={{ padding: '10px', fontSize: 13, fontWeight: 600, borderRadius: 8, border: 'none', background: name.trim() ? '#0f172a' : '#f1f5f9', color: name.trim() ? '#fff' : '#94a3b8', cursor: name.trim() ? 'pointer' : 'not-allowed' }}
+            style={{
+              padding: '10px',
+              fontSize: 13,
+              fontWeight: 600,
+              borderRadius: 8,
+              border: 'none',
+              background: name.trim() ? '#0f172a' : '#f1f5f9',
+              color: name.trim() ? '#fff' : '#94a3b8',
+              cursor: name.trim() ? 'pointer' : 'not-allowed',
+            }}
           >
             토큰 생성
           </button>
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>토큰이 생성되었습니다</div>
-          <div style={{ fontSize: 13, color: '#ef4444', fontWeight: 500 }}>이 화면을 벗어나면 다시 볼 수 없습니다.</div>
-          <div style={{ padding: '10px 14px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', fontFamily: 'monospace', fontSize: 12, wordBreak: 'break-all', color: '#0f172a' }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>
+            토큰이 생성되었습니다
+          </div>
+          <div style={{ fontSize: 13, color: '#ef4444', fontWeight: 500 }}>
+            이 화면을 벗어나면 다시 볼 수 없습니다.
+          </div>
+          <div
+            style={{
+              padding: '10px 14px',
+              background: '#f8fafc',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              fontFamily: 'monospace',
+              fontSize: 12,
+              wordBreak: 'break-all',
+              color: '#0f172a',
+            }}
+          >
             {created}
           </div>
-          <button onClick={() => { setCreated(null); setName(''); setPw(''); setScope('read') }} style={{ fontSize: 12, color: '#6366f1', border: 'none', background: 'none', cursor: 'pointer' }}>
+          <button
+            onClick={() => {
+              setCreated(null)
+              setName('')
+              setPw('')
+              setScope('read')
+            }}
+            style={{
+              fontSize: 12,
+              color: '#6366f1',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+            }}
+          >
             다시 생성
           </button>
         </div>
@@ -1577,19 +2439,62 @@ function IssueTrackerDeployPlatformSecurityPanelRender() {
   const [sessions, setSessions] = useState<Session132[]>(SESSIONS_132)
   const [saved, setSaved] = useState(false)
   const canSave = current.length >= 6 && next.length >= 8
-  const handleSave = () => { if (!canSave) return; setSaved(true); setTimeout(() => setSaved(false), 2000); setCurrent(''); setNext('') }
+  const handleSave = () => {
+    if (!canSave) return
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+    setCurrent('')
+    setNext('')
+  }
   return (
-    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <div
+      style={{
+        width: 420,
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+      }}
+    >
       {/* 비밀번호 변경 */}
       <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{ padding: '14px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>비밀번호 변경</div>
+        <div
+          style={{
+            padding: '14px 18px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#0f172a',
+          }}
+        >
+          비밀번호 변경
+        </div>
         <div style={{ padding: '18px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <PasswordField value={current} onChange={(e) => setCurrent((e.target as HTMLInputElement).value)} placeholder="현재 비밀번호" />
-          <PasswordField value={next} onChange={(e) => setNext((e.target as HTMLInputElement).value)} placeholder="새 비밀번호 (8자 이상)" />
+          <PasswordField
+            value={current}
+            onChange={(e) => setCurrent((e.target as HTMLInputElement).value)}
+            placeholder="현재 비밀번호"
+          />
+          <PasswordField
+            value={next}
+            onChange={(e) => setNext((e.target as HTMLInputElement).value)}
+            placeholder="새 비밀번호 (8자 이상)"
+          />
           <button
             onClick={handleSave}
             disabled={!canSave}
-            style={{ padding: '9px', fontSize: 13, fontWeight: 600, borderRadius: 7, border: 'none', background: saved ? '#22c55e' : canSave ? '#0f172a' : '#f1f5f9', color: canSave ? '#fff' : '#94a3b8', cursor: canSave ? 'pointer' : 'not-allowed', transition: 'background 200ms' }}
+            style={{
+              padding: '9px',
+              fontSize: 13,
+              fontWeight: 600,
+              borderRadius: 7,
+              border: 'none',
+              background: saved ? '#22c55e' : canSave ? '#0f172a' : '#f1f5f9',
+              color: canSave ? '#fff' : '#94a3b8',
+              cursor: canSave ? 'pointer' : 'not-allowed',
+              transition: 'background 200ms',
+            }}
           >
             {saved ? '저장됨' : '저장'}
           </button>
@@ -1597,18 +2502,64 @@ function IssueTrackerDeployPlatformSecurityPanelRender() {
       </div>
       {/* 세션 목록 */}
       <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{ padding: '14px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>활성 세션</div>
+        <div
+          style={{
+            padding: '14px 18px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#0f172a',
+          }}
+        >
+          활성 세션
+        </div>
         {sessions.map((s, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 18px', borderBottom: i < sessions.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
-            <span style={{ fontSize: 18 }}>{s.device.includes('iPhone') ? '📱' : s.device.includes('Windows') ? '🖥️' : '💻'}</span>
+          <div
+            key={i}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '12px 18px',
+              borderBottom: i < sessions.length - 1 ? '1px solid #f1f5f9' : 'none',
+            }}
+          >
+            <span style={{ fontSize: 18 }}>
+              {s.device.includes('iPhone') ? '📱' : s.device.includes('Windows') ? '🖥️' : '💻'}
+            </span>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{s.device}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8' }}>{s.location} · {s.time}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                {s.location} · {s.time}
+              </div>
             </div>
             {s.current ? (
-              <span style={{ fontSize: 11, padding: '2px 8px', background: '#dcfce7', color: '#16a34a', borderRadius: 99, fontWeight: 500 }}>현재</span>
+              <span
+                style={{
+                  fontSize: 11,
+                  padding: '2px 8px',
+                  background: '#dcfce7',
+                  color: '#16a34a',
+                  borderRadius: 99,
+                  fontWeight: 500,
+                }}
+              >
+                현재
+              </span>
             ) : (
-              <button onClick={() => setSessions((prev) => prev.filter((_, j) => j !== i))} style={{ fontSize: 11, color: '#ef4444', border: '1px solid #fca5a5', background: '#fff', borderRadius: 5, padding: '2px 8px', cursor: 'pointer' }}>
+              <button
+                onClick={() => setSessions((prev) => prev.filter((_, j) => j !== i))}
+                style={{
+                  fontSize: 11,
+                  color: '#ef4444',
+                  border: '1px solid #fca5a5',
+                  background: '#fff',
+                  borderRadius: 5,
+                  padding: '2px 8px',
+                  cursor: 'pointer',
+                }}
+              >
                 종료
               </button>
             )}
@@ -1650,7 +2601,7 @@ function EnterpriseUIPasswordPolicyRender() {
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
 
-  const passed = EnterpriseUI_POLICY_RULES.filter(r => r.test(password)).length
+  const passed = EnterpriseUI_POLICY_RULES.filter((r) => r.test(password)).length
   const strength = passed === 0 ? 0 : passed <= 2 ? 25 : passed <= 3 ? 50 : passed <= 4 ? 75 : 100
   const strengthLabel = ['', '매우 약함', '약함', '보통', '강함', '매우 강함'][passed]
   const strengthColor = ['', '#ef4444', '#f59e0b', '#eab308', '#22c55e', '#10b981'][passed]
@@ -1658,13 +2609,27 @@ function EnterpriseUIPasswordPolicyRender() {
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>보안 수준 설정</p>
-      <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 16 }}>EnterpriseUI Password 복잡도 정책 패턴</p>
+      <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+        보안 수준 설정
+      </p>
+      <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 16 }}>
+        EnterpriseUI Password 복잡도 정책 패턴
+      </p>
       <div style={{ marginBottom: 12 }}>
-        <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>새 비밀번호</label>
+        <label
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#475569',
+            display: 'block',
+            marginBottom: 6,
+          }}
+        >
+          새 비밀번호
+        </label>
         <PasswordField
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="새 비밀번호를 입력하세요"
           error={password.length > 0 && passed < 3}
         />
@@ -1672,30 +2637,71 @@ function EnterpriseUIPasswordPolicyRender() {
           <div style={{ marginTop: 8 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
               <span style={{ fontSize: 10, color: '#94a3b8' }}>강도</span>
-              <span style={{ fontSize: 10, color: strengthColor, fontWeight: 700 }}>{strengthLabel}</span>
+              <span style={{ fontSize: 10, color: strengthColor, fontWeight: 700 }}>
+                {strengthLabel}
+              </span>
             </div>
             <div style={{ height: 4, borderRadius: 2, background: '#f1f5f9', overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: `${strength}%`, background: strengthColor, borderRadius: 2, transition: 'all 0.3s' }} />
+              <div
+                style={{
+                  height: '100%',
+                  width: `${strength}%`,
+                  background: strengthColor,
+                  borderRadius: 2,
+                  transition: 'all 0.3s',
+                }}
+              />
             </div>
           </div>
         )}
       </div>
-      <div style={{ marginBottom: 14, padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-        {EnterpriseUI_POLICY_RULES.map(rule => {
+      <div
+        style={{
+          marginBottom: 14,
+          padding: '10px 12px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        {EnterpriseUI_POLICY_RULES.map((rule) => {
           const ok = rule.test(password)
           return (
-            <div key={rule.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '3px 0' }}>
-              <span style={{ fontSize: 12, color: ok ? '#22c55e' : '#cbd5e1' }}>{ok ? '✓' : '○'}</span>
-              <span style={{ fontSize: 11, color: ok ? '#1e293b' : '#94a3b8', textDecoration: ok ? 'none' : 'none' }}>{rule.label}</span>
+            <div
+              key={rule.id}
+              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '3px 0' }}
+            >
+              <span style={{ fontSize: 12, color: ok ? '#22c55e' : '#cbd5e1' }}>
+                {ok ? '✓' : '○'}
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: ok ? '#1e293b' : '#94a3b8',
+                  textDecoration: ok ? 'none' : 'none',
+                }}
+              >
+                {rule.label}
+              </span>
             </div>
           )
         })}
       </div>
       <div style={{ marginBottom: 14 }}>
-        <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 6 }}>비밀번호 확인</label>
+        <label
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#475569',
+            display: 'block',
+            marginBottom: 6,
+          }}
+        >
+          비밀번호 확인
+        </label>
         <PasswordField
           value={confirm}
-          onChange={e => setConfirm(e.target.value)}
+          onChange={(e) => setConfirm(e.target.value)}
           placeholder="비밀번호를 다시 입력하세요"
           error={confirm.length > 0 && !isMatch}
         />
@@ -1707,7 +2713,18 @@ function EnterpriseUIPasswordPolicyRender() {
       </div>
       <button
         disabled={passed < 3 || !isMatch}
-        style={{ width: '100%', padding: '10px', fontSize: 13, borderRadius: 8, border: 'none', background: passed >= 3 && isMatch ? '#6366f1' : '#e2e8f0', color: passed >= 3 && isMatch ? '#fff' : '#94a3b8', cursor: passed >= 3 && isMatch ? 'pointer' : 'not-allowed', fontWeight: 600, transition: 'background 0.2s' }}
+        style={{
+          width: '100%',
+          padding: '10px',
+          fontSize: 13,
+          borderRadius: 8,
+          border: 'none',
+          background: passed >= 3 && isMatch ? '#6366f1' : '#e2e8f0',
+          color: passed >= 3 && isMatch ? '#fff' : '#94a3b8',
+          cursor: passed >= 3 && isMatch ? 'pointer' : 'not-allowed',
+          fontWeight: 600,
+          transition: 'background 0.2s',
+        }}
       >
         비밀번호 변경
       </button>
@@ -1720,7 +2737,8 @@ export const EnterpriseUI_비밀번호_복잡도_정책: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI의 Password Complexity Policy 패턴. 실시간 규칙 검증(5단계)과 강도 게이지, 일치 확인을 조합한 보안 비밀번호 설정 UX입니다.',
+        story:
+          'EnterpriseUI의 Password Complexity Policy 패턴. 실시간 규칙 검증(5단계)과 강도 게이지, 일치 확인을 조합한 보안 비밀번호 설정 UX입니다.',
       },
     },
   },
@@ -1740,22 +2758,56 @@ function AppUI2FASetupRender() {
   const MOCK_BACKUP = 'BACKUP-2024'
 
   const handlePasswordVerify = () => {
-    if (password === MOCK_PASSWORD) { setStep('backup'); setError('') }
-    else { setError('비밀번호가 올바르지 않습니다') }
+    if (password === MOCK_PASSWORD) {
+      setStep('backup')
+      setError('')
+    } else {
+      setError('비밀번호가 올바르지 않습니다')
+    }
   }
 
   const handleBackupVerify = () => {
-    if (backup.toUpperCase() === MOCK_BACKUP) { setStep('done'); setError('') }
-    else { setError('백업 코드가 올바르지 않습니다') }
+    if (backup.toUpperCase() === MOCK_BACKUP) {
+      setStep('done')
+      setError('')
+    } else {
+      setError('백업 코드가 올바르지 않습니다')
+    }
   }
 
   if (step === 'done') {
     return (
-      <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', textAlign: 'center', padding: 24 }}>
+      <div
+        style={{
+          width: 320,
+          fontFamily: 'system-ui, sans-serif',
+          textAlign: 'center',
+          padding: 24,
+        }}
+      >
         <div style={{ fontSize: 40, marginBottom: 12 }}>🔐</div>
         <p style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>2단계 인증 완료</p>
         <p style={{ fontSize: 12, color: '#64748b', marginTop: 6 }}>계정 보안이 강화되었습니다</p>
-        <button onClick={() => { setStep('password'); setPassword(''); setBackup(''); setError('') }} style={{ marginTop: 16, padding: '8px 20px', fontSize: 12, borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: 'pointer' }}>처음부터</button>
+        <button
+          onClick={() => {
+            setStep('password')
+            setPassword('')
+            setBackup('')
+            setError('')
+          }}
+          style={{
+            marginTop: 16,
+            padding: '8px 20px',
+            fontSize: 12,
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#475569',
+            cursor: 'pointer',
+          }}
+        >
+          처음부터
+        </button>
       </div>
     )
   }
@@ -1764,34 +2816,85 @@ function AppUI2FASetupRender() {
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', gap: 4, marginBottom: 20 }}>
         {['password', 'backup', 'done'].map((s, i) => (
-          <div key={s} style={{ flex: 1, height: 3, borderRadius: 2, background: ['password', 'backup', 'done'].indexOf(step) >= i ? '#6366f1' : '#e2e8f0', transition: 'background 0.3s' }} />
+          <div
+            key={s}
+            style={{
+              flex: 1,
+              height: 3,
+              borderRadius: 2,
+              background: ['password', 'backup', 'done'].indexOf(step) >= i ? '#6366f1' : '#e2e8f0',
+              transition: 'background 0.3s',
+            }}
+          />
         ))}
       </div>
       {step === 'password' ? (
         <>
-          <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>현재 비밀번호 확인</p>
-          <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 14 }}>2FA 설정을 위해 현재 비밀번호를 입력하세요 (힌트: SecurePass123!)</p>
+          <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+            현재 비밀번호 확인
+          </p>
+          <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 14 }}>
+            2FA 설정을 위해 현재 비밀번호를 입력하세요 (힌트: SecurePass123!)
+          </p>
           <PasswordField
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="현재 비밀번호"
             error={!!error}
           />
           {error && <p style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>{error}</p>}
-          <button onClick={handlePasswordVerify} disabled={!password} style={{ marginTop: 14, width: '100%', padding: '9px', fontSize: 13, borderRadius: 8, border: 'none', background: password ? '#6366f1' : '#e2e8f0', color: password ? '#fff' : '#94a3b8', cursor: password ? 'pointer' : 'not-allowed', fontWeight: 600 }}>다음</button>
+          <button
+            onClick={handlePasswordVerify}
+            disabled={!password}
+            style={{
+              marginTop: 14,
+              width: '100%',
+              padding: '9px',
+              fontSize: 13,
+              borderRadius: 8,
+              border: 'none',
+              background: password ? '#6366f1' : '#e2e8f0',
+              color: password ? '#fff' : '#94a3b8',
+              cursor: password ? 'pointer' : 'not-allowed',
+              fontWeight: 600,
+            }}
+          >
+            다음
+          </button>
         </>
       ) : (
         <>
-          <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>백업 코드 입력</p>
-          <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 14 }}>인증 앱에서 생성된 백업 코드를 입력하세요 (힌트: BACKUP-2024)</p>
+          <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+            백업 코드 입력
+          </p>
+          <p style={{ fontSize: 11, color: '#94a3b8', marginBottom: 14 }}>
+            인증 앱에서 생성된 백업 코드를 입력하세요 (힌트: BACKUP-2024)
+          </p>
           <PasswordField
             value={backup}
-            onChange={e => setBackup(e.target.value)}
+            onChange={(e) => setBackup(e.target.value)}
             placeholder="백업 코드 (예: XXXXX-XXXX)"
             error={!!error}
           />
           {error && <p style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>{error}</p>}
-          <button onClick={handleBackupVerify} disabled={!backup} style={{ marginTop: 14, width: '100%', padding: '9px', fontSize: 13, borderRadius: 8, border: 'none', background: backup ? '#6366f1' : '#e2e8f0', color: backup ? '#fff' : '#94a3b8', cursor: backup ? 'pointer' : 'not-allowed', fontWeight: 600 }}>인증</button>
+          <button
+            onClick={handleBackupVerify}
+            disabled={!backup}
+            style={{
+              marginTop: 14,
+              width: '100%',
+              padding: '9px',
+              fontSize: 13,
+              borderRadius: 8,
+              border: 'none',
+              background: backup ? '#6366f1' : '#e2e8f0',
+              color: backup ? '#fff' : '#94a3b8',
+              cursor: backup ? 'pointer' : 'not-allowed',
+              fontWeight: 600,
+            }}
+          >
+            인증
+          </button>
         </>
       )}
     </div>
@@ -1803,7 +2906,8 @@ export const AppUI_2FA_설정_플로우: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI의 Multi-step Form 패턴. 현재 비밀번호 확인 → 백업 코드 인증 → 완료 3단계로 2FA 설정 플로우를 구현합니다.',
+        story:
+          'AppUI의 Multi-step Form 패턴. 현재 비밀번호 확인 → 백업 코드 인증 → 완료 3단계로 2FA 설정 플로우를 구현합니다.',
       },
     },
   },
@@ -1828,54 +2932,162 @@ function EnterpriseUIAccessibleKitSecurityPanelRender() {
   const [saved, setSaved] = useState<Record<string, boolean>>({})
 
   const save = (id: string) => {
-    setSaved(prev => ({ ...prev, [id]: true }))
-    setTimeout(() => setSaved(prev => ({ ...prev, [id]: false })), 2000)
+    setSaved((prev) => ({ ...prev, [id]: true }))
+    setTimeout(() => setSaved((prev) => ({ ...prev, [id]: false })), 2000)
     setActiveSection(null)
-    setNewPwd(''); setConfirmPwd(''); setTokenPwd(''); setSessionPwd('')
+    setNewPwd('')
+    setConfirmPwd('')
+    setTokenPwd('')
+    setSessionPwd('')
   }
 
   return (
-    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
-      <div style={{ padding: '14px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+    <div
+      style={{
+        width: 360,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{ padding: '14px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}
+      >
         <p style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', margin: 0 }}>보안 설정</p>
-        <p style={{ fontSize: 11, color: '#94a3b8', margin: '2px 0 0' }}>EnterpriseUI + AppUI 계정 보안 종합 패널</p>
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '2px 0 0' }}>
+          EnterpriseUI + AppUI 계정 보안 종합 패널
+        </p>
       </div>
       <div style={{ background: '#fff' }}>
-        {SECURITY_SECTIONS.map(section => (
+        {SECURITY_SECTIONS.map((section) => (
           <div key={section.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
             <div
               onClick={() => setActiveSection(activeSection === section.id ? null : section.id)}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', cursor: 'pointer' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '12px 16px',
+                cursor: 'pointer',
+              }}
             >
               <span style={{ fontSize: 18 }}>{section.icon}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{section.label}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>
+                  {section.label}
+                </div>
                 <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{section.desc}</div>
               </div>
-              {saved[section.id] && <span style={{ fontSize: 10, color: '#22c55e', fontWeight: 700 }}>완료</span>}
-              <span style={{ fontSize: 12, color: '#94a3b8', transform: activeSection === section.id ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }}>›</span>
+              {saved[section.id] && (
+                <span style={{ fontSize: 10, color: '#22c55e', fontWeight: 700 }}>완료</span>
+              )}
+              <span
+                style={{
+                  fontSize: 12,
+                  color: '#94a3b8',
+                  transform: activeSection === section.id ? 'rotate(90deg)' : 'none',
+                  transition: 'transform 0.2s',
+                }}
+              >
+                ›
+              </span>
             </div>
             {activeSection === section.id && (
-              <div style={{ padding: '0 16px 14px', borderTop: '1px solid #f8fafc', background: '#fafafa' }}>
+              <div
+                style={{
+                  padding: '0 16px 14px',
+                  borderTop: '1px solid #f8fafc',
+                  background: '#fafafa',
+                }}
+              >
                 {section.id === 'password' && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 10 }}>
-                    <PasswordField value={newPwd} onChange={e => setNewPwd(e.target.value)} placeholder="새 비밀번호" error={newPwd.length > 0 && newPwd.length < 8} />
-                    <PasswordField value={confirmPwd} onChange={e => setConfirmPwd(e.target.value)} placeholder="비밀번호 확인" error={confirmPwd.length > 0 && confirmPwd !== newPwd} />
-                    <button onClick={() => save('password')} disabled={newPwd.length < 8 || newPwd !== confirmPwd} style={{ padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: newPwd.length >= 8 && newPwd === confirmPwd ? '#6366f1' : '#e2e8f0', color: newPwd.length >= 8 && newPwd === confirmPwd ? '#fff' : '#94a3b8', cursor: 'pointer', fontWeight: 600 }}>저장</button>
+                    <PasswordField
+                      value={newPwd}
+                      onChange={(e) => setNewPwd(e.target.value)}
+                      placeholder="새 비밀번호"
+                      error={newPwd.length > 0 && newPwd.length < 8}
+                    />
+                    <PasswordField
+                      value={confirmPwd}
+                      onChange={(e) => setConfirmPwd(e.target.value)}
+                      placeholder="비밀번호 확인"
+                      error={confirmPwd.length > 0 && confirmPwd !== newPwd}
+                    />
+                    <button
+                      onClick={() => save('password')}
+                      disabled={newPwd.length < 8 || newPwd !== confirmPwd}
+                      style={{
+                        padding: '8px',
+                        fontSize: 12,
+                        borderRadius: 8,
+                        border: 'none',
+                        background:
+                          newPwd.length >= 8 && newPwd === confirmPwd ? '#6366f1' : '#e2e8f0',
+                        color: newPwd.length >= 8 && newPwd === confirmPwd ? '#fff' : '#94a3b8',
+                        cursor: 'pointer',
+                        fontWeight: 600,
+                      }}
+                    >
+                      저장
+                    </button>
                   </div>
                 )}
                 {section.id === 'api' && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 10 }}>
-                    <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>비밀번호 확인 후 새 토큰이 발급됩니다</p>
-                    <PasswordField value={tokenPwd} onChange={e => setTokenPwd(e.target.value)} placeholder="현재 비밀번호" />
-                    <button onClick={() => save('api')} disabled={!tokenPwd} style={{ padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: tokenPwd ? '#6366f1' : '#e2e8f0', color: tokenPwd ? '#fff' : '#94a3b8', cursor: tokenPwd ? 'pointer' : 'not-allowed', fontWeight: 600 }}>토큰 재발급</button>
+                    <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>
+                      비밀번호 확인 후 새 토큰이 발급됩니다
+                    </p>
+                    <PasswordField
+                      value={tokenPwd}
+                      onChange={(e) => setTokenPwd(e.target.value)}
+                      placeholder="현재 비밀번호"
+                    />
+                    <button
+                      onClick={() => save('api')}
+                      disabled={!tokenPwd}
+                      style={{
+                        padding: '8px',
+                        fontSize: 12,
+                        borderRadius: 8,
+                        border: 'none',
+                        background: tokenPwd ? '#6366f1' : '#e2e8f0',
+                        color: tokenPwd ? '#fff' : '#94a3b8',
+                        cursor: tokenPwd ? 'pointer' : 'not-allowed',
+                        fontWeight: 600,
+                      }}
+                    >
+                      토큰 재발급
+                    </button>
                   </div>
                 )}
                 {section.id === 'session' && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 10 }}>
-                    <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>다른 모든 기기의 세션이 종료됩니다</p>
-                    <PasswordField value={sessionPwd} onChange={e => setSessionPwd(e.target.value)} placeholder="현재 비밀번호" />
-                    <button onClick={() => save('session')} disabled={!sessionPwd} style={{ padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: sessionPwd ? '#ef4444' : '#e2e8f0', color: sessionPwd ? '#fff' : '#94a3b8', cursor: sessionPwd ? 'pointer' : 'not-allowed', fontWeight: 600 }}>세션 종료</button>
+                    <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>
+                      다른 모든 기기의 세션이 종료됩니다
+                    </p>
+                    <PasswordField
+                      value={sessionPwd}
+                      onChange={(e) => setSessionPwd(e.target.value)}
+                      placeholder="현재 비밀번호"
+                    />
+                    <button
+                      onClick={() => save('session')}
+                      disabled={!sessionPwd}
+                      style={{
+                        padding: '8px',
+                        fontSize: 12,
+                        borderRadius: 8,
+                        border: 'none',
+                        background: sessionPwd ? '#ef4444' : '#e2e8f0',
+                        color: sessionPwd ? '#fff' : '#94a3b8',
+                        cursor: sessionPwd ? 'pointer' : 'not-allowed',
+                        fontWeight: 600,
+                      }}
+                    >
+                      세션 종료
+                    </button>
                   </div>
                 )}
               </div>
@@ -1892,7 +3104,8 @@ export const EnterpriseUI_AppUI_계정_보안_종합_설정: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI + AppUI 복합 패턴. 아코디언 형식의 보안 설정 패널에서 비밀번호 변경/API 토큰 재발급/세션 종료를 PasswordField와 함께 구현합니다.',
+        story:
+          'EnterpriseUI + AppUI 복합 패턴. 아코디언 형식의 보안 설정 패널에서 비밀번호 변경/API 토큰 재발급/세션 종료를 PasswordField와 함께 구현합니다.',
       },
     },
   },
@@ -1913,32 +3126,79 @@ function DesignToolPluginTokenAuthRender() {
   const [token, setToken] = useState('')
   const [saved, setSaved] = useState(false)
 
-  const strength = TOKEN_RULES.filter(r => r.check(token)).length
+  const strength = TOKEN_RULES.filter((r) => r.check(token)).length
   const strengthColors = ['#ef4444', '#f97316', '#eab308', '#22c55e']
   const strengthLabels = ['매우 약함', '약함', '보통', '강함']
 
   return (
-    <div style={{ width: 260, fontFamily: 'system-ui, sans-serif', background: '#2c2c2c', borderRadius: 8, padding: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.85)', marginBottom: 12, letterSpacing: '0.02em' }}>API 토큰 설정</div>
+    <div
+      style={{
+        width: 260,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#2c2c2c',
+        borderRadius: 8,
+        padding: 16,
+        border: '1px solid rgba(255,255,255,0.1)',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: 'rgba(255,255,255,0.85)',
+          marginBottom: 12,
+          letterSpacing: '0.02em',
+        }}
+      >
+        API 토큰 설정
+      </div>
       <PasswordField
         value={token}
         placeholder="토큰을 입력하세요"
         error={token.length > 0 && strength < 3}
-        onChange={e => { setSaved(false); setToken(e.target.value) }}
+        onChange={(e) => {
+          setSaved(false)
+          setToken(e.target.value)
+        }}
       />
       {token.length > 0 && (
         <div style={{ marginTop: 10 }}>
           <div style={{ display: 'flex', gap: 4, marginBottom: 6 }}>
             {TOKEN_RULES.map((_, i) => (
-              <div key={i} style={{ flex: 1, height: 3, borderRadius: 2, background: i < strength ? strengthColors[strength - 1] : 'rgba(255,255,255,0.15)', transition: 'background 0.2s' }} />
+              <div
+                key={i}
+                style={{
+                  flex: 1,
+                  height: 3,
+                  borderRadius: 2,
+                  background:
+                    i < strength ? strengthColors[strength - 1] : 'rgba(255,255,255,0.15)',
+                  transition: 'background 0.2s',
+                }}
+              />
             ))}
           </div>
-          <div style={{ fontSize: 10, color: strengthColors[strength - 1] ?? '#94a3b8', marginBottom: 8 }}>
+          <div
+            style={{
+              fontSize: 10,
+              color: strengthColors[strength - 1] ?? '#94a3b8',
+              marginBottom: 8,
+            }}
+          >
             {strength > 0 ? strengthLabels[strength - 1] : '입력 중'}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {TOKEN_RULES.map((rule, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10, color: rule.check(token) ? '#4ade80' : 'rgba(255,255,255,0.35)' }}>
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  fontSize: 10,
+                  color: rule.check(token) ? '#4ade80' : 'rgba(255,255,255,0.35)',
+                }}
+              >
                 <span>{rule.check(token) ? '✓' : '○'}</span>
                 <span>{rule.label}</span>
               </div>
@@ -1947,9 +3207,23 @@ function DesignToolPluginTokenAuthRender() {
         </div>
       )}
       <button
-        onClick={() => { if (strength >= 3) setSaved(true) }}
+        onClick={() => {
+          if (strength >= 3) setSaved(true)
+        }}
         disabled={strength < 3}
-        style={{ marginTop: 12, width: '100%', padding: '7px 0', borderRadius: 6, border: 'none', background: strength >= 3 ? '#6366f1' : 'rgba(255,255,255,0.1)', color: strength >= 3 ? '#fff' : 'rgba(255,255,255,0.3)', fontSize: 11, fontWeight: 600, cursor: strength >= 3 ? 'pointer' : 'not-allowed', transition: 'background 0.2s' }}
+        style={{
+          marginTop: 12,
+          width: '100%',
+          padding: '7px 0',
+          borderRadius: 6,
+          border: 'none',
+          background: strength >= 3 ? '#6366f1' : 'rgba(255,255,255,0.1)',
+          color: strength >= 3 ? '#fff' : 'rgba(255,255,255,0.3)',
+          fontSize: 11,
+          fontWeight: 600,
+          cursor: strength >= 3 ? 'pointer' : 'not-allowed',
+          transition: 'background 0.2s',
+        }}
       >
         {saved ? '저장됨 ✓' : '토큰 저장'}
       </button>
@@ -1984,33 +3258,83 @@ function DataProductSecurityDoubleConfirmRender() {
   const allFilled = current.length > 0 && next.length >= 8 && !mismatch
 
   return (
-    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 8, border: '1px solid #e5e7eb', padding: '20px 20px 16px' }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#1f2937', marginBottom: 4 }}>비밀번호 변경</div>
-      <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 16 }}>DataProductUI 보안 정책에 따라 90일마다 변경을 권장합니다.</div>
+    <div
+      style={{
+        width: 320,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        borderRadius: 8,
+        border: '1px solid #e5e7eb',
+        padding: '20px 20px 16px',
+      }}
+    >
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1f2937', marginBottom: 4 }}>
+        비밀번호 변경
+      </div>
+      <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 16 }}>
+        DataProductUI 보안 정책에 따라 90일마다 변경을 권장합니다.
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div>
-          <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>현재 비밀번호</div>
-          <PasswordField value={current} placeholder="현재 비밀번호" onChange={e => setCurrent(e.target.value)} />
+          <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>
+            현재 비밀번호
+          </div>
+          <PasswordField
+            value={current}
+            placeholder="현재 비밀번호"
+            onChange={(e) => setCurrent(e.target.value)}
+          />
         </div>
         <div>
-          <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>새 비밀번호</div>
-          <PasswordField value={next} placeholder="8자 이상" error={next.length > 0 && next.length < 8} onChange={e => setNext(e.target.value)} />
+          <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>
+            새 비밀번호
+          </div>
+          <PasswordField
+            value={next}
+            placeholder="8자 이상"
+            error={next.length > 0 && next.length < 8}
+            onChange={(e) => setNext(e.target.value)}
+          />
           {next.length > 0 && next.length < 8 && (
-            <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>최소 8자 이상이어야 합니다.</div>
+            <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>
+              최소 8자 이상이어야 합니다.
+            </div>
           )}
         </div>
         <div>
-          <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>비밀번호 확인</div>
-          <PasswordField value={confirm} placeholder="새 비밀번호 재입력" error={mismatch} onChange={e => setConfirm(e.target.value)} />
+          <div style={{ fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 4 }}>
+            비밀번호 확인
+          </div>
+          <PasswordField
+            value={confirm}
+            placeholder="새 비밀번호 재입력"
+            error={mismatch}
+            onChange={(e) => setConfirm(e.target.value)}
+          />
           {mismatch && (
-            <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>비밀번호가 일치하지 않습니다.</div>
+            <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>
+              비밀번호가 일치하지 않습니다.
+            </div>
           )}
         </div>
       </div>
       <button
-        onClick={() => { if (allFilled) setSubmitted(true) }}
+        onClick={() => {
+          if (allFilled) setSubmitted(true)
+        }}
         disabled={!allFilled}
-        style={{ marginTop: 16, width: '100%', padding: '9px 0', borderRadius: 6, border: 'none', background: allFilled ? '#165dff' : '#e5e7eb', color: allFilled ? '#fff' : '#9ca3af', fontSize: 13, fontWeight: 600, cursor: allFilled ? 'pointer' : 'not-allowed' }}
+        style={{
+          marginTop: 16,
+          width: '100%',
+          padding: '9px 0',
+          borderRadius: 6,
+          border: 'none',
+          background: allFilled ? '#165dff' : '#e5e7eb',
+          color: allFilled ? '#fff' : '#9ca3af',
+          fontSize: 13,
+          fontWeight: 600,
+          cursor: allFilled ? 'pointer' : 'not-allowed',
+        }}
       >
         {submitted ? '변경 완료 ✓' : '비밀번호 변경'}
       </button>
@@ -2053,45 +3377,148 @@ function DesignToolDataProductWorkspaceGateRender() {
 
   if (unlocked) {
     return (
-      <div style={{ width: 280, background: '#f0fdf4', borderRadius: 10, border: '1px solid #bbf7d0', padding: 24, textAlign: 'center' }}>
+      <div
+        style={{
+          width: 280,
+          background: '#f0fdf4',
+          borderRadius: 10,
+          border: '1px solid #bbf7d0',
+          padding: 24,
+          textAlign: 'center',
+        }}
+      >
         <div style={{ fontSize: 28, marginBottom: 8 }}>🔓</div>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#14532d' }}>워크스페이스 접근 허용</div>
-        <div style={{ fontSize: 12, color: '#16a34a', marginTop: 4 }}>Orbit UI Design System에 오신 것을 환영합니다.</div>
-        <button onClick={() => { setUnlocked(false); setStep(0); setAccessCode(''); setPassword('') }} style={{ marginTop: 14, fontSize: 11, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer' }}>초기화</button>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#14532d' }}>
+          워크스페이스 접근 허용
+        </div>
+        <div style={{ fontSize: 12, color: '#16a34a', marginTop: 4 }}>
+          Orbit UI Design System에 오신 것을 환영합니다.
+        </div>
+        <button
+          onClick={() => {
+            setUnlocked(false)
+            setStep(0)
+            setAccessCode('')
+            setPassword('')
+          }}
+          style={{
+            marginTop: 14,
+            fontSize: 11,
+            color: '#6b7280',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          초기화
+        </button>
       </div>
     )
   }
 
   return (
-    <div style={{ width: 280, background: '#1e1e1e', borderRadius: 10, border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div
+      style={{
+        width: 280,
+        background: '#1e1e1e',
+        borderRadius: 10,
+        border: '1px solid rgba(255,255,255,0.1)',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         {WORKSPACE_STEPS.map((label, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 18, height: 18, borderRadius: '50%', background: i < step ? '#165dff' : i === step ? '#6366f1' : 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: i <= step ? '#fff' : 'rgba(255,255,255,0.3)', fontWeight: 700, flexShrink: 0 }}>
+            <div
+              style={{
+                width: 18,
+                height: 18,
+                borderRadius: '50%',
+                background: i < step ? '#165dff' : i === step ? '#6366f1' : 'rgba(255,255,255,0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 10,
+                color: i <= step ? '#fff' : 'rgba(255,255,255,0.3)',
+                fontWeight: 700,
+                flexShrink: 0,
+              }}
+            >
               {i < step ? '✓' : i + 1}
             </div>
-            <span style={{ fontSize: 10, color: i === step ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.3)', fontWeight: i === step ? 600 : 400 }}>{label}</span>
-            {i < WORKSPACE_STEPS.length - 1 && <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.2)' }}>›</span>}
+            <span
+              style={{
+                fontSize: 10,
+                color: i === step ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.3)',
+                fontWeight: i === step ? 600 : 400,
+              }}
+            >
+              {label}
+            </span>
+            {i < WORKSPACE_STEPS.length - 1 && (
+              <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.2)' }}>›</span>
+            )}
           </div>
         ))}
       </div>
       <div style={{ padding: '16px 16px 14px' }}>
         {step === 0 ? (
           <>
-            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>워크스페이스 접근 코드를 입력하세요.<br /><span style={{ color: '#818cf8' }}>힌트: 이 프로젝트 이름</span></div>
-            <PasswordField value={accessCode} placeholder="ACCESS CODE" error={accessCode.length > 0 && !isCodeValid} onChange={e => setAccessCode(e.target.value.toUpperCase())} />
-            {accessCode.length > 0 && !isCodeValid && <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>잘못된 접근 코드입니다.</div>}
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>
+              워크스페이스 접근 코드를 입력하세요.
+              <br />
+              <span style={{ color: '#818cf8' }}>힌트: 이 프로젝트 이름</span>
+            </div>
+            <PasswordField
+              value={accessCode}
+              placeholder="ACCESS CODE"
+              error={accessCode.length > 0 && !isCodeValid}
+              onChange={(e) => setAccessCode(e.target.value.toUpperCase())}
+            />
+            {accessCode.length > 0 && !isCodeValid && (
+              <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>
+                잘못된 접근 코드입니다.
+              </div>
+            )}
           </>
         ) : (
           <>
-            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>관리자 비밀번호를 입력하세요 (6자 이상).</div>
-            <PasswordField value={password} placeholder="비밀번호" error={password.length > 0 && !isPasswordValid} onChange={e => setPassword(e.target.value)} />
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>
+              관리자 비밀번호를 입력하세요 (6자 이상).
+            </div>
+            <PasswordField
+              value={password}
+              placeholder="비밀번호"
+              error={password.length > 0 && !isPasswordValid}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </>
         )}
         <button
           onClick={handleNext}
           disabled={step === 0 ? !isCodeValid : !isPasswordValid}
-          style={{ marginTop: 12, width: '100%', padding: '8px 0', borderRadius: 6, border: 'none', background: (step === 0 ? isCodeValid : isPasswordValid) ? '#6366f1' : 'rgba(255,255,255,0.08)', color: (step === 0 ? isCodeValid : isPasswordValid) ? '#fff' : 'rgba(255,255,255,0.25)', fontSize: 12, fontWeight: 600, cursor: (step === 0 ? isCodeValid : isPasswordValid) ? 'pointer' : 'not-allowed' }}
+          style={{
+            marginTop: 12,
+            width: '100%',
+            padding: '8px 0',
+            borderRadius: 6,
+            border: 'none',
+            background: (step === 0 ? isCodeValid : isPasswordValid)
+              ? '#6366f1'
+              : 'rgba(255,255,255,0.08)',
+            color: (step === 0 ? isCodeValid : isPasswordValid) ? '#fff' : 'rgba(255,255,255,0.25)',
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: (step === 0 ? isCodeValid : isPasswordValid) ? 'pointer' : 'not-allowed',
+          }}
         >
           {step === 0 ? '코드 확인' : '입장하기'}
         </button>

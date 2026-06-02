@@ -103,10 +103,7 @@ export const 폴백_이니셜: Story = {
         { initials: 'YH', color: '#8b5cf6' },
         { initials: 'OH', color: '#06b6d4' },
       ].map(({ initials, color }) => (
-        <Avatar
-          key={initials}
-          style={{ background: color }}
-        >
+        <Avatar key={initials} style={{ background: color }}>
           <Avatar.Fallback style={{ background: color, color: '#fff', fontWeight: '700' }}>
             {initials}
           </Avatar.Fallback>
@@ -120,7 +117,8 @@ export const 이미지_그룹_스택: Story = {
   parameters: {
     docs: {
       description: {
-        story: '여러 아바타를 겹쳐 표시하는 그룹 스택 패턴입니다. 팀원 목록이나 좋아요 표시 등에 활용합니다.',
+        story:
+          '여러 아바타를 겹쳐 표시하는 그룹 스택 패턴입니다. 팀원 목록이나 좋아요 표시 등에 활용합니다.',
       },
     },
   },
@@ -134,7 +132,9 @@ export const 이미지_그룹_스택: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div>
-          <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px', fontWeight: '600' }}>
+          <p
+            style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px', fontWeight: '600' }}
+          >
             팀원 스택 (4명 + 더보기)
           </p>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -194,17 +194,46 @@ export const 온라인_상태_표시: Story = {
   },
   render: () => {
     const users = [
-      { initials: 'KJ', color: '#6366f1', status: 'online', statusColor: '#22c55e', label: '온라인' },
-      { initials: 'PM', color: '#10b981', status: 'away', statusColor: '#f59e0b', label: '자리비움' },
-      { initials: 'LS', color: '#f59e0b', status: 'busy', statusColor: '#ef4444', label: '방해금지' },
-      { initials: 'CD', color: '#64748b', status: 'offline', statusColor: '#94a3b8', label: '오프라인' },
+      {
+        initials: 'KJ',
+        color: '#6366f1',
+        status: 'online',
+        statusColor: '#22c55e',
+        label: '온라인',
+      },
+      {
+        initials: 'PM',
+        color: '#10b981',
+        status: 'away',
+        statusColor: '#f59e0b',
+        label: '자리비움',
+      },
+      {
+        initials: 'LS',
+        color: '#f59e0b',
+        status: 'busy',
+        statusColor: '#ef4444',
+        label: '방해금지',
+      },
+      {
+        initials: 'CD',
+        color: '#64748b',
+        status: 'offline',
+        statusColor: '#94a3b8',
+        label: '오프라인',
+      },
     ]
     return (
       <div style={{ display: 'flex', gap: '24px' }}>
         {users.map(({ initials, color, statusColor, label }) => (
-          <div key={initials} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <div
+            key={initials}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}
+          >
             <div style={{ position: 'relative', display: 'inline-block' }}>
-              <Avatar style={{ width: '44px', height: '44px', fontSize: '14px', background: color }}>
+              <Avatar
+                style={{ width: '44px', height: '44px', fontSize: '14px', background: color }}
+              >
                 <Avatar.Fallback style={{ background: color, color: '#fff', fontWeight: '700' }}>
                   {initials}
                 </Avatar.Fallback>
@@ -247,9 +276,7 @@ const WorkspaceEditorMentionRender = () => {
   ]
 
   const filtered = members.filter(
-    (m) =>
-      query === '@' ||
-      m.name.toLowerCase().includes(query.replace('@', '').toLowerCase())
+    (m) => query === '@' || m.name.toLowerCase().includes(query.replace('@', '').toLowerCase())
   )
 
   return (
@@ -342,23 +369,43 @@ const WorkspaceEditorMentionRender = () => {
                 borderBottom: '1px solid #f8fafc',
                 transition: 'background 0.1s',
               }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#f8fafc' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'none' }}
+              onMouseEnter={(e) => {
+                ;(e.currentTarget as HTMLButtonElement).style.background = '#f8fafc'
+              }}
+              onMouseLeave={(e) => {
+                ;(e.currentTarget as HTMLButtonElement).style.background = 'none'
+              }}
             >
-              <Avatar style={{ width: '28px', height: '28px', fontSize: '10px', background: member.color, flexShrink: 0 }}>
-                <Avatar.Fallback style={{ background: member.color, color: '#fff', fontWeight: '700' }}>
+              <Avatar
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  fontSize: '10px',
+                  background: member.color,
+                  flexShrink: 0,
+                }}
+              >
+                <Avatar.Fallback
+                  style={{ background: member.color, color: '#fff', fontWeight: '700' }}
+                >
                   {member.id}
                 </Avatar.Fallback>
               </Avatar>
               <div>
-                <div style={{ fontSize: '13px', fontWeight: '500', color: '#1e293b' }}>{member.name}</div>
+                <div style={{ fontSize: '13px', fontWeight: '500', color: '#1e293b' }}>
+                  {member.name}
+                </div>
                 <div style={{ fontSize: '11px', color: '#94a3b8' }}>{member.role}</div>
               </div>
-              <div style={{ marginLeft: 'auto', fontSize: '11px', color: '#cbd5e1' }}>@{member.name.split(' ')[0].toLowerCase()}</div>
+              <div style={{ marginLeft: 'auto', fontSize: '11px', color: '#cbd5e1' }}>
+                @{member.name.split(' ')[0].toLowerCase()}
+              </div>
             </button>
           ))}
           {filtered.length === 0 && (
-            <div style={{ padding: '20px', textAlign: 'center', fontSize: '13px', color: '#94a3b8' }}>
+            <div
+              style={{ padding: '20px', textAlign: 'center', fontSize: '13px', color: '#94a3b8' }}
+            >
               검색 결과 없음
             </div>
           )}
@@ -367,7 +414,10 @@ const WorkspaceEditorMentionRender = () => {
 
       {selected && (
         <button
-          onClick={() => { setSelected(null); setQuery('@') }}
+          onClick={() => {
+            setSelected(null)
+            setQuery('@')
+          }}
           style={{
             alignSelf: 'flex-start',
             padding: '6px 12px',
@@ -390,7 +440,8 @@ export const WorkspaceEditor_멘션_UI: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'WorkspaceEditor 스타일 @멘션 드롭다운. 아바타 + 이름 + 역할 조합으로 팀원을 선택하는 패턴입니다.',
+        story:
+          'WorkspaceEditor 스타일 @멘션 드롭다운. 아바타 + 이름 + 역할 조합으로 팀원을 선택하는 패턴입니다.',
       },
     },
   },
@@ -414,14 +465,32 @@ const DesignToolLayerListRender = () => {
 
   const layers: Layer[] = [
     { id: 'layer-frame-1', name: 'Dashboard Frame', type: 'frame', indent: 0 },
-    { id: 'layer-comp-1', name: 'Header', type: 'component', indent: 1, editor: { id: 'KJ', color: '#6366f1' } },
+    {
+      id: 'layer-comp-1',
+      name: 'Header',
+      type: 'component',
+      indent: 1,
+      editor: { id: 'KJ', color: '#6366f1' },
+    },
     { id: 'layer-txt-1', name: 'Title / H1', type: 'text', indent: 2 },
     { id: 'layer-rect-1', name: 'Divider', type: 'rect', indent: 2 },
-    { id: 'layer-comp-2', name: 'ButtonGroup', type: 'component', indent: 1, editor: { id: 'PM', color: '#10b981' } },
+    {
+      id: 'layer-comp-2',
+      name: 'ButtonGroup',
+      type: 'component',
+      indent: 1,
+      editor: { id: 'PM', color: '#10b981' },
+    },
     { id: 'layer-btn-1', name: 'Primary Button', type: 'component', indent: 2 },
     { id: 'layer-btn-2', name: 'Ghost Button', type: 'component', indent: 2 },
     { id: 'layer-frame-2', name: 'Content Area', type: 'frame', indent: 1 },
-    { id: 'layer-txt-2', name: 'Body Text', type: 'text', indent: 2, editor: { id: 'LS', color: '#f59e0b' } },
+    {
+      id: 'layer-txt-2',
+      name: 'Body Text',
+      type: 'text',
+      indent: 2,
+      editor: { id: 'LS', color: '#f59e0b' },
+    },
   ]
 
   const typeIcon = (type: Layer['type']) => {
@@ -440,7 +509,9 @@ const DesignToolLayerListRender = () => {
       ),
       text: (
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <text x="1" y="10" fontSize="10" fontWeight="700" fill="#3b82f6">T</text>
+          <text x="1" y="10" fontSize="10" fontWeight="700" fill="#3b82f6">
+            T
+          </text>
         </svg>
       ),
       rect: (
@@ -475,7 +546,16 @@ const DesignToolLayerListRender = () => {
           alignItems: 'center',
         }}
       >
-        <span style={{ fontSize: '11px', fontWeight: '700', color: '#64748b', letterSpacing: '-0.01em' }}>Layers</span>
+        <span
+          style={{
+            fontSize: '11px',
+            fontWeight: '700',
+            color: '#64748b',
+            letterSpacing: '-0.01em',
+          }}
+        >
+          Layers
+        </span>
         <span style={{ fontSize: '10px', color: '#94a3b8' }}>{layers.length}</span>
       </div>
 
@@ -542,7 +622,8 @@ export const DesignTool_레이어_목록: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool Plugin UI 레이어 패널 패턴. 중첩 인덴트 + 타입 아이콘 + 편집자 아바타 조합.',
+        story:
+          'DesignTool Plugin UI 레이어 패널 패턴. 중첩 인덴트 + 타입 아이콘 + 편집자 아바타 조합.',
       },
     },
   },
@@ -553,7 +634,8 @@ export const 프로필_카드_패턴: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI 스타일의 프로필 카드 조합 패턴입니다. Avatar와 텍스트, 버튼을 결합한 실무 사용 예시입니다.',
+        story:
+          'ComposableUI 스타일의 프로필 카드 조합 패턴입니다. Avatar와 텍스트, 버튼을 결합한 실무 사용 예시입니다.',
       },
     },
   },
@@ -585,33 +667,57 @@ export const 프로필_카드_패턴: Story = {
           </Avatar>
         </div>
         <div style={{ marginBottom: '16px' }}>
-          <p style={{ margin: '0 0 2px', fontSize: '16px', fontWeight: '700', color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>
+          <p
+            style={{
+              margin: '0 0 2px',
+              fontSize: '16px',
+              fontWeight: '700',
+              color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+            }}
+          >
             Kim Jihye
           </p>
           <p style={{ margin: '0 0 8px', fontSize: '13px', color: '#6366f1', fontWeight: '600' }}>
             Senior Designer
           </p>
-          <p style={{ margin: 0, fontSize: '12px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)', lineHeight: '1.5' }}>
+          <p
+            style={{
+              margin: 0,
+              fontSize: '12px',
+              color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)',
+              lineHeight: '1.5',
+            }}
+          >
             Design systems, accessibility, and component-driven development.
           </p>
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button
             style={{
-              flex: 1, padding: '8px', borderRadius: '8px',
-              background: '#6366f1', color: '#fff', border: 'none',
-              fontSize: '13px', fontWeight: '600', cursor: 'pointer',
+              flex: 1,
+              padding: '8px',
+              borderRadius: '8px',
+              background: '#6366f1',
+              color: '#fff',
+              border: 'none',
+              fontSize: '13px',
+              fontWeight: '600',
+              cursor: 'pointer',
             }}
           >
             팔로우
           </button>
           <button
             style={{
-              flex: 1, padding: '8px', borderRadius: '8px',
+              flex: 1,
+              padding: '8px',
+              borderRadius: '8px',
               background: 'transparent',
               border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
               color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
-              fontSize: '13px', fontWeight: '600', cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: '600',
+              cursor: 'pointer',
             }}
           >
             메시지
@@ -653,8 +759,13 @@ export const ComposableUI_팀_멤버_그룹 = {
               }}
             >
               <Avatar style={{ width: 36, height: 36, fontSize: 12, border: '2px solid #fff' }}>
-                <Avatar.Fallback style={{ background: m.color, color: '#fff', fontSize: 12, fontWeight: 700 }}>
-                  {m.name.split(' ').map((n) => n[0]).join('')}
+                <Avatar.Fallback
+                  style={{ background: m.color, color: '#fff', fontSize: 12, fontWeight: 700 }}
+                >
+                  {m.name
+                    .split(' ')
+                    .map((n) => n[0])
+                    .join('')}
                 </Avatar.Fallback>
               </Avatar>
             </div>
@@ -686,8 +797,13 @@ export const ComposableUI_팀_멤버_그룹 = {
         {TEAM_MEMBERS.map((m) => (
           <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <Avatar style={{ width: 28, height: 28, fontSize: 11 }}>
-              <Avatar.Fallback style={{ background: m.color, color: '#fff', fontSize: 11, fontWeight: 700 }}>
-                {m.name.split(' ').map((n) => n[0]).join('')}
+              <Avatar.Fallback
+                style={{ background: m.color, color: '#fff', fontSize: 11, fontWeight: 700 }}
+              >
+                {m.name
+                  .split(' ')
+                  .map((n) => n[0])
+                  .join('')}
               </Avatar.Fallback>
             </Avatar>
             <div>
@@ -717,7 +833,9 @@ export const IssueTracker_담당자_할당_패널 = {
     const [selected, setSelected] = React.useState<string | null>(null)
     return (
       <div style={{ maxWidth: 320 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>담당자 선택</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>
+          담당자 선택
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           {ASSIGNEES.map((a) => {
             const isSelected = selected === a.name
@@ -738,20 +856,32 @@ export const IssueTracker_담당자_할당_패널 = {
                 }}
               >
                 <Avatar style={{ width: 28, height: 28, fontSize: 11 }}>
-                  <Avatar.Fallback style={{ background: a.color, color: '#fff', fontSize: 11, fontWeight: 700 }}>
-                    {a.name.split(' ').map((n) => n[0]).join('')}
+                  <Avatar.Fallback
+                    style={{ background: a.color, color: '#fff', fontSize: 11, fontWeight: 700 }}
+                  >
+                    {a.name
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')}
                   </Avatar.Fallback>
                 </Avatar>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{a.name}</div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{a.role} · 이슈 {a.issues}개</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                    {a.role} · 이슈 {a.issues}개
+                  </div>
                 </div>
-                <span style={{
-                  fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 12,
-                  background: a.status === '진행 중' ? '#6366f108' : '#f59e0b08',
-                  color: a.status === '진행 중' ? '#6366f1' : '#f59e0b',
-                  border: `1px solid ${a.status === '진행 중' ? '#6366f130' : '#f59e0b30'}`,
-                }}>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: '2px 7px',
+                    borderRadius: 12,
+                    background: a.status === '진행 중' ? '#6366f108' : '#f59e0b08',
+                    color: a.status === '진행 중' ? '#6366f1' : '#f59e0b',
+                    border: `1px solid ${a.status === '진행 중' ? '#6366f130' : '#f59e0b30'}`,
+                  }}
+                >
                   {a.status}
                 </span>
               </div>
@@ -759,7 +889,17 @@ export const IssueTracker_담당자_할당_패널 = {
           })}
         </div>
         {selected && (
-          <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 13, color: '#475569' }}>
+          <div
+            style={{
+              marginTop: 12,
+              padding: '10px 12px',
+              borderRadius: 8,
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              fontSize: 13,
+              color: '#475569',
+            }}
+          >
             <strong>{selected}</strong>이(가) 담당자로 지정되었습니다.
           </div>
         )}
@@ -807,30 +947,48 @@ export const Accessible_색상_스키마_아바타: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       {CHAKRA_SIZES.map((size) => (
         <div key={size.label}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', marginBottom: 10, letterSpacing: '0.05em' }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#64748b',
+              marginBottom: 10,
+              letterSpacing: '0.05em',
+            }}
+          >
             SIZE — {size.label.toUpperCase()}
           </div>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
             {CHAKRA_COLORS.map((color) => (
-              <div key={color.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+              <div
+                key={color.label}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+              >
                 <Avatar
                   style={{
-                    width: size.size, height: size.size,
+                    width: size.size,
+                    height: size.size,
                     borderRadius: '50%',
                     backgroundColor: color.bg,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
                   <Avatar.Fallback
                     style={{
-                      background: color.bg, color: color.text,
-                      fontSize: size.fontSize, fontWeight: 800,
+                      background: color.bg,
+                      color: color.text,
+                      fontSize: size.fontSize,
+                      fontWeight: 800,
                     }}
                   >
                     {color.initials}
                   </Avatar.Fallback>
                 </Avatar>
-                <span style={{ fontSize: 9, color: '#94a3b8', fontWeight: 500 }}>{color.label}</span>
+                <span style={{ fontSize: 9, color: '#94a3b8', fontWeight: 500 }}>
+                  {color.label}
+                </span>
               </div>
             ))}
           </div>
@@ -851,13 +1009,19 @@ export const Accessible_색상_스키마_아바타: Story = {
 type PresenceStatus = 'online' | 'away' | 'busy' | 'offline'
 
 const presenceConfig: Record<PresenceStatus, { color: string; label: string }> = {
-  online:  { color: '#10b981', label: '온라인' },
-  away:    { color: '#f59e0b', label: '자리비움' },
-  busy:    { color: '#ef4444', label: '방해금지' },
+  online: { color: '#10b981', label: '온라인' },
+  away: { color: '#f59e0b', label: '자리비움' },
+  busy: { color: '#ef4444', label: '방해금지' },
   offline: { color: '#94a3b8', label: '오프라인' },
 }
 
-const M3_TEAM: { initials: string; name: string; role: string; bg: string; status: PresenceStatus }[] = [
+const M3_TEAM: {
+  initials: string
+  name: string
+  role: string
+  bg: string
+  status: PresenceStatus
+}[] = [
   { initials: 'KM', name: '김민지', role: 'Frontend', bg: '#6366f1', status: 'online' },
   { initials: 'LD', name: '이동욱', role: 'Backend', bg: '#8b5cf6', status: 'busy' },
   { initials: 'PS', name: '박소연', role: 'Design', bg: '#ec4899', status: 'away' },
@@ -892,50 +1056,82 @@ export const M3_상태_레이어_프레즌스: Story = {
                 onMouseEnter={() => setHovered(member.initials)}
                 onMouseLeave={() => setHovered(null)}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '10px 14px',
                   borderRadius: 12,
                   background: isHover ? 'rgba(99,102,241,0.08)' : '#fff',
                   border: '1px solid #f1f5f9',
-                  cursor: 'pointer', transition: 'all 0.15s',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s',
                 }}
               >
                 <div style={{ position: 'relative' }}>
                   <Avatar
                     style={{
-                      width: 44, height: 44, borderRadius: '50%',
+                      width: 44,
+                      height: 44,
+                      borderRadius: '50%',
                       background: member.bg,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      position: 'relative', overflow: 'hidden',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      position: 'relative',
+                      overflow: 'hidden',
                     }}
                   >
                     <Avatar.Fallback
-                      style={{ background: member.bg, color: '#fff', fontSize: 15, fontWeight: 800 }}
+                      style={{
+                        background: member.bg,
+                        color: '#fff',
+                        fontSize: 15,
+                        fontWeight: 800,
+                      }}
                     >
                       {member.initials}
                     </Avatar.Fallback>
                     {/* M3 state layer */}
-                    <div style={{
-                      position: 'absolute', inset: 0,
-                      background: `rgba(255,255,255,${isHover ? 0.16 : 0})`,
-                      transition: 'background 0.15s',
-                      borderRadius: '50%',
-                    }} />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: `rgba(255,255,255,${isHover ? 0.16 : 0})`,
+                        transition: 'background 0.15s',
+                        borderRadius: '50%',
+                      }}
+                    />
                   </Avatar>
                   {/* Presence dot */}
-                  <div style={{
-                    position: 'absolute', bottom: 1, right: 1,
-                    width: 12, height: 12, borderRadius: '50%',
-                    background: pCfg.color, border: '2px solid #fff',
-                  }} />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: 1,
+                      right: 1,
+                      width: 12,
+                      height: 12,
+                      borderRadius: '50%',
+                      background: pCfg.color,
+                      border: '2px solid #fff',
+                    }}
+                  />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{member.name}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                    {member.name}
+                  </div>
                   <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{member.role}</div>
                 </div>
-                <span style={{
-                  fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99,
-                  background: pCfg.color + '15', color: pCfg.color,
-                }}>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: '2px 8px',
+                    borderRadius: 99,
+                    background: pCfg.color + '15',
+                    color: pCfg.color,
+                  }}
+                >
                   {pCfg.label}
                 </span>
               </div>
@@ -957,7 +1153,12 @@ export const M3_상태_레이어_프레즌스: Story = {
 -------------------------------------------------------------------------- */
 type DeptMember = { initials: string; name: string; role: string; bg: string }
 
-const DEPT_DATA: { dept: string; containerBg: string; borderColor: string; members: DeptMember[] }[] = [
+const DEPT_DATA: {
+  dept: string
+  containerBg: string
+  borderColor: string
+  members: DeptMember[]
+}[] = [
   {
     dept: 'Design System',
     containerBg: '#eef2ff',
@@ -981,9 +1182,7 @@ const DEPT_DATA: { dept: string; containerBg: string; borderColor: string; membe
     dept: 'Infrastructure',
     containerBg: '#fffbeb',
     borderColor: '#fde68a',
-    members: [
-      { initials: 'CJ', name: '최준호', role: 'Lead', bg: '#f59e0b' },
-    ],
+    members: [{ initials: 'CJ', name: '최준호', role: 'Lead', bg: '#f59e0b' }],
   },
 ]
 
@@ -1011,7 +1210,15 @@ export const Accessible_M3_팀_디렉토리: Story = {
             padding: '14px 16px',
           }}
         >
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', marginBottom: 12, letterSpacing: '0.05em' }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#475569',
+              marginBottom: 12,
+              letterSpacing: '0.05em',
+            }}
+          >
             {dept.dept.toUpperCase()} · {dept.members.length}명
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
@@ -1019,8 +1226,13 @@ export const Accessible_M3_팀_디렉토리: Story = {
               <div key={m.initials} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Avatar
                   style={{
-                    width: 36, height: 36, borderRadius: '50%', background: m.bg,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    background: m.bg,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
                   <Avatar.Fallback
@@ -1062,19 +1274,35 @@ export const AppUI_프로필_카드 = {
       {/* Profile */}
       <div style={{ padding: '0 20px 20px', marginTop: -24 }}>
         <div style={{ marginBottom: 12 }}>
-          <Avatar style={{ width: 56, height: 56, fontSize: 18, border: '3px solid #fff', boxSizing: 'border-box' }}>
-            <Avatar.Fallback style={{ background: '#6366f1', color: '#fff', fontSize: 18, fontWeight: 800 }}>
+          <Avatar
+            style={{
+              width: 56,
+              height: 56,
+              fontSize: 18,
+              border: '3px solid #fff',
+              boxSizing: 'border-box',
+            }}
+          >
+            <Avatar.Fallback
+              style={{ background: '#6366f1', color: '#fff', fontSize: 18, fontWeight: 800 }}
+            >
               HJ
             </Avatar.Fallback>
           </Avatar>
         </div>
         <div style={{ fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Heejun Kim</div>
-        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>@heejun · Frontend Engineer</div>
+        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>
+          @heejun · Frontend Engineer
+        </div>
         <div style={{ fontSize: 13, color: '#475569', marginTop: 10, lineHeight: 1.6 }}>
           Orbit UI 디자인 시스템을 만들고 있습니다. React, TypeScript, UtilityCSS 애호가.
         </div>
         <div style={{ display: 'flex', gap: 20, marginTop: 14 }}>
-          {[{ label: '팔로워', value: '1.2K' }, { label: '팔로잉', value: '384' }, { label: '프로젝트', value: '27' }].map((stat) => (
+          {[
+            { label: '팔로워', value: '1.2K' },
+            { label: '팔로잉', value: '384' },
+            { label: '프로젝트', value: '27' },
+          ].map((stat) => (
             <div key={stat.label} style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>{stat.value}</div>
               <div style={{ fontSize: 11, color: '#94a3b8' }}>{stat.label}</div>
@@ -1117,20 +1345,72 @@ export const EnterpriseUI_배지_아바타_그룹: Story = {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: 24 }}>
         {/* Overlapping group */}
         <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>팀 멤버 ({members.length}명)</div>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: 'var(--sem-eclipse-color-foregroundTertiary)',
+              marginBottom: 8,
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+            }}
+          >
+            팀 멤버 ({members.length}명)
+          </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {visible.map((m, i) => (
-              <div key={m.initials} style={{ position: 'relative', marginLeft: i === 0 ? 0 : -10, zIndex: visible.length - i }}>
-                <Avatar style={{ width: 40, height: 40, border: '2px solid var(--sem-eclipse-color-backgroundPrimary)' }}>
-                  <Avatar.Fallback style={{ background: m.color, color: '#fff', fontSize: 13, fontWeight: 700 }}>
+              <div
+                key={m.initials}
+                style={{
+                  position: 'relative',
+                  marginLeft: i === 0 ? 0 : -10,
+                  zIndex: visible.length - i,
+                }}
+              >
+                <Avatar
+                  style={{
+                    width: 40,
+                    height: 40,
+                    border: '2px solid var(--sem-eclipse-color-backgroundPrimary)',
+                  }}
+                >
+                  <Avatar.Fallback
+                    style={{ background: m.color, color: '#fff', fontSize: 13, fontWeight: 700 }}
+                  >
                     {m.initials}
                   </Avatar.Fallback>
                 </Avatar>
-                <span style={{ position: 'absolute', bottom: 0, right: 0, width: 11, height: 11, borderRadius: '50%', background: statusColor[m.status], border: '2px solid var(--sem-eclipse-color-backgroundPrimary)' }} />
+                <span
+                  style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    right: 0,
+                    width: 11,
+                    height: 11,
+                    borderRadius: '50%',
+                    background: statusColor[m.status],
+                    border: '2px solid var(--sem-eclipse-color-backgroundPrimary)',
+                  }}
+                />
               </div>
             ))}
             {extra > 0 && (
-              <div style={{ marginLeft: -10, width: 40, height: 40, borderRadius: '50%', background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '2px solid var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+              <div
+                style={{
+                  marginLeft: -10,
+                  width: 40,
+                  height: 40,
+                  borderRadius: '50%',
+                  background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                  border: '2px solid var(--sem-eclipse-color-backgroundPrimary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                }}
+              >
                 +{extra}
               </div>
             )}
@@ -1142,14 +1422,37 @@ export const EnterpriseUI_배지_아바타_그룹: Story = {
             <div key={m.initials} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{ position: 'relative' }}>
                 <Avatar style={{ width: 32, height: 32 }}>
-                  <Avatar.Fallback style={{ background: m.color, color: '#fff', fontSize: 11, fontWeight: 700 }}>
+                  <Avatar.Fallback
+                    style={{ background: m.color, color: '#fff', fontSize: 11, fontWeight: 700 }}
+                  >
                     {m.initials}
                   </Avatar.Fallback>
                 </Avatar>
-                <span style={{ position: 'absolute', bottom: 0, right: 0, width: 9, height: 9, borderRadius: '50%', background: statusColor[m.status], border: '2px solid var(--sem-eclipse-color-backgroundPrimary)' }} />
+                <span
+                  style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    right: 0,
+                    width: 9,
+                    height: 9,
+                    borderRadius: '50%',
+                    background: statusColor[m.status],
+                    border: '2px solid var(--sem-eclipse-color-backgroundPrimary)',
+                  }}
+                />
               </div>
-              <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{m.initials}</span>
-              <span style={{ fontSize: 11, fontWeight: 600, color: statusColor[m.status] }}>{statusLabel[m.status]}</span>
+              <span
+                style={{
+                  fontSize: 13,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  flex: 1,
+                }}
+              >
+                {m.initials}
+              </span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: statusColor[m.status] }}>
+                {statusLabel[m.status]}
+              </span>
             </div>
           ))}
         </div>
@@ -1184,28 +1487,66 @@ export const Accessible_사이즈_변형_아바타: Story = {
       <div style={{ padding: 24 }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
           {sizes.map((s) => (
-            <div key={s.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+            <div
+              key={s.label}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+            >
               <Avatar style={{ width: s.px, height: s.px }}>
-                <Avatar.Fallback style={{ background: '#6366f1', color: '#fff', fontSize: s.font, fontWeight: 700 }}>
+                <Avatar.Fallback
+                  style={{
+                    background: '#6366f1',
+                    color: '#fff',
+                    fontSize: s.font,
+                    fontWeight: 700,
+                  }}
+                >
                   OR
                 </Avatar.Fallback>
               </Avatar>
-              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{s.label}</span>
-              <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{s.px}px</span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  fontFamily: 'monospace',
+                }}
+              >
+                {s.label}
+              </span>
+              <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                {s.px}px
+              </span>
             </div>
           ))}
         </div>
         {/* With image fallback showcase */}
         <div style={{ marginTop: 24, display: 'flex', alignItems: 'flex-end', gap: 16 }}>
           {sizes.map((s) => (
-            <div key={s.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+            <div
+              key={s.label}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+            >
               <Avatar style={{ width: s.px, height: s.px }}>
                 <Avatar.Image src="broken-url.jpg" alt={`avatar-${s.label}`} />
-                <Avatar.Fallback style={{ background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)', color: '#fff', fontSize: s.font, fontWeight: 700 }}>
+                <Avatar.Fallback
+                  style={{
+                    background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)',
+                    color: '#fff',
+                    fontSize: s.font,
+                    fontWeight: 700,
+                  }}
+                >
                   UI
                 </Avatar.Fallback>
               </Avatar>
-              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace' }}>{s.label}</span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  fontFamily: 'monospace',
+                }}
+              >
+                {s.label}
+              </span>
             </div>
           ))}
         </div>
@@ -1231,15 +1572,28 @@ export const EnterpriseUI_Accessible_댓글_스레드: Story = {
   render: () => {
     const comments = [
       {
-        initials: 'KJ', color: '#6366f1', name: 'Kim Jihye', time: '2시간 전',
+        initials: 'KJ',
+        color: '#6366f1',
+        name: 'Kim Jihye',
+        time: '2시간 전',
         text: 'EclipseProvider의 다크모드 전환이 정말 자연스럽네요! Toggle 하나로 전체 테마가 바뀌는 게 인상적입니다.',
         likes: 12,
         replies: [
-          { initials: 'PM', color: '#8b5cf6', name: 'Park Minjun', time: '1시간 전', text: '동의해요. 시맨틱 토큰 설계가 탄탄해서 가능한 것 같아요.', likes: 5 },
+          {
+            initials: 'PM',
+            color: '#8b5cf6',
+            name: 'Park Minjun',
+            time: '1시간 전',
+            text: '동의해요. 시맨틱 토큰 설계가 탄탄해서 가능한 것 같아요.',
+            likes: 5,
+          },
         ],
       },
       {
-        initials: 'LS', color: '#10b981', name: 'Lee Soyeon', time: '45분 전',
+        initials: 'LS',
+        color: '#10b981',
+        name: 'Lee Soyeon',
+        time: '45분 전',
         text: 'HoverCard 컴포넌트 패턴이 PrimitiveUI와 유사한데 Orbit UI만의 토큰 시스템이 더해져서 훨씬 편리합니다.',
         likes: 8,
         replies: [],
@@ -1251,37 +1605,117 @@ export const EnterpriseUI_Accessible_댓글_스레드: Story = {
           <div key={c.name}>
             <div style={{ display: 'flex', gap: 10 }}>
               <Avatar style={{ width: 36, height: 36, flexShrink: 0 }}>
-                <Avatar.Fallback style={{ background: c.color, color: '#fff', fontSize: 12, fontWeight: 700 }}>
+                <Avatar.Fallback
+                  style={{ background: c.color, color: '#fff', fontSize: 12, fontWeight: 700 }}
+                >
                   {c.initials}
                 </Avatar.Fallback>
               </Avatar>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{c.name}</span>
-                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{c.time}</span>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {c.name}
+                  </span>
+                  <span
+                    style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                  >
+                    {c.time}
+                  </span>
                 </div>
-                <p style={{ margin: 0, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.6 }}>{c.text}</p>
-                <div style={{ marginTop: 8, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 13,
+                    color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {c.text}
+                </p>
+                <div
+                  style={{
+                    marginTop: 8,
+                    fontSize: 12,
+                    color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  }}
+                >
                   ♡ {c.likes} · 답글
                 </div>
               </div>
             </div>
             {c.replies.length > 0 && (
-              <div style={{ marginLeft: 46, marginTop: 10, paddingLeft: 14, borderLeft: '2px solid var(--sem-eclipse-color-borderSubtle)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div
+                style={{
+                  marginLeft: 46,
+                  marginTop: 10,
+                  paddingLeft: 14,
+                  borderLeft: '2px solid var(--sem-eclipse-color-borderSubtle)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 10,
+                }}
+              >
                 {c.replies.map((r) => (
                   <div key={r.name} style={{ display: 'flex', gap: 8 }}>
                     <Avatar style={{ width: 28, height: 28, flexShrink: 0 }}>
-                      <Avatar.Fallback style={{ background: r.color, color: '#fff', fontSize: 10, fontWeight: 700 }}>
+                      <Avatar.Fallback
+                        style={{
+                          background: r.color,
+                          color: '#fff',
+                          fontSize: 10,
+                          fontWeight: 700,
+                        }}
+                      >
                         {r.initials}
                       </Avatar.Fallback>
                     </Avatar>
                     <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
-                        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{r.name}</span>
-                        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{r.time}</span>
+                      <div
+                        style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 12,
+                            fontWeight: 700,
+                            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                          }}
+                        >
+                          {r.name}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 11,
+                            color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                          }}
+                        >
+                          {r.time}
+                        </span>
                       </div>
-                      <p style={{ margin: 0, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.6 }}>{r.text}</p>
-                      <div style={{ marginTop: 4, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>♡ {r.likes}</div>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontSize: 12,
+                          color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {r.text}
+                      </p>
+                      <div
+                        style={{
+                          marginTop: 4,
+                          fontSize: 11,
+                          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                        }}
+                      >
+                        ♡ {r.likes}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -1300,7 +1734,8 @@ export const ComposableUI_아바타_그룹_스택: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI AvatarGroup 패턴. 겹치는 스택 레이아웃, +N 오버플로우 표시. 팀 구성원, PR 리뷰어, 협업자 목록 표시에 활용.',
+        story:
+          'ComposableUI AvatarGroup 패턴. 겹치는 스택 레이아웃, +N 오버플로우 표시. 팀 구성원, PR 리뷰어, 협업자 목록 표시에 활용.',
       },
     },
   },
@@ -1317,22 +1752,78 @@ export const ComposableUI_아바타_그룹_스택: Story = {
     const overflow = members.length - visible
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 24,
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {(['large', 'medium', 'small'] as const).map((size) => (
           <div key={size}>
-            <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.6, fontWeight: 600, marginBottom: 8 }}>{size}</div>
+            <div
+              style={{
+                fontSize: 11,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: 0.6,
+                fontWeight: 600,
+                marginBottom: 8,
+              }}
+            >
+              {size}
+            </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               {members.slice(0, visible).map((m, i) => (
-                <div key={m.initials} style={{ marginLeft: i === 0 ? 0 : size === 'large' ? -12 : size === 'medium' ? -8 : -6, zIndex: visible - i, border: '2px solid #fff', borderRadius: '50%' }}>
-                  <Avatar style={{ width: size === "large" ? 48 : size === "medium" ? 36 : 24, height: size === "large" ? 48 : size === "medium" ? 36 : 24 }}>
-                    <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700 }}>{m.initials}</Avatar.Fallback>
+                <div
+                  key={m.initials}
+                  style={{
+                    marginLeft: i === 0 ? 0 : size === 'large' ? -12 : size === 'medium' ? -8 : -6,
+                    zIndex: visible - i,
+                    border: '2px solid #fff',
+                    borderRadius: '50%',
+                  }}
+                >
+                  <Avatar
+                    style={{
+                      width: size === 'large' ? 48 : size === 'medium' ? 36 : 24,
+                      height: size === 'large' ? 48 : size === 'medium' ? 36 : 24,
+                    }}
+                  >
+                    <Avatar.Fallback
+                      style={{ background: m.color, color: '#fff', fontWeight: 700 }}
+                    >
+                      {m.initials}
+                    </Avatar.Fallback>
                   </Avatar>
                 </div>
               ))}
               {overflow > 0 && (
-                <div style={{ marginLeft: size === 'large' ? -12 : size === 'medium' ? -8 : -6, zIndex: 0, border: '2px solid #fff', borderRadius: '50%' }}>
-                  <Avatar style={{ width: size === "large" ? 48 : size === "medium" ? 36 : 24, height: size === "large" ? 48 : size === "medium" ? 36 : 24 }}>
-                    <Avatar.Fallback style={{ background: '#f1f5f9', color: '#64748b', fontWeight: 700, fontSize: 11 }}>+{overflow}</Avatar.Fallback>
+                <div
+                  style={{
+                    marginLeft: size === 'large' ? -12 : size === 'medium' ? -8 : -6,
+                    zIndex: 0,
+                    border: '2px solid #fff',
+                    borderRadius: '50%',
+                  }}
+                >
+                  <Avatar
+                    style={{
+                      width: size === 'large' ? 48 : size === 'medium' ? 36 : 24,
+                      height: size === 'large' ? 48 : size === 'medium' ? 36 : 24,
+                    }}
+                  >
+                    <Avatar.Fallback
+                      style={{
+                        background: '#f1f5f9',
+                        color: '#64748b',
+                        fontWeight: 700,
+                        fontSize: 11,
+                      }}
+                    >
+                      +{overflow}
+                    </Avatar.Fallback>
                   </Avatar>
                 </div>
               )}
@@ -1349,35 +1840,115 @@ export const UtilityCSS_사용자_프로필_카드: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI User Card 패턴. Avatar + 이름/역할 + 소속 배지. 팔로우/메시지 액션. 팀 디렉토리, 저자 소개에 활용.',
+        story:
+          'UtilityUI User Card 패턴. Avatar + 이름/역할 + 소속 배지. 팔로우/메시지 액션. 팀 디렉토리, 저자 소개에 활용.',
       },
     },
   },
   render: () => {
     const users = [
-      { initials: 'HJ', color: '#3b82f6', name: '김희준', role: '시니어 엔지니어', team: 'Design Systems', status: 'online' },
-      { initials: 'DS', color: '#8b5cf6', name: '박다솔', role: '프로덕트 디자이너', team: 'UX Platform', status: 'away' },
-      { initials: 'JW', color: '#10b981', name: '이재원', role: '테크 리드', team: 'Core Infra', status: 'offline' },
+      {
+        initials: 'HJ',
+        color: '#3b82f6',
+        name: '김희준',
+        role: '시니어 엔지니어',
+        team: 'Design Systems',
+        status: 'online',
+      },
+      {
+        initials: 'DS',
+        color: '#8b5cf6',
+        name: '박다솔',
+        role: '프로덕트 디자이너',
+        team: 'UX Platform',
+        status: 'away',
+      },
+      {
+        initials: 'JW',
+        color: '#10b981',
+        name: '이재원',
+        role: '테크 리드',
+        team: 'Core Infra',
+        status: 'offline',
+      },
     ]
 
-    const statusColor: Record<string, string> = { online: '#10b981', away: '#f59e0b', offline: '#94a3b8' }
+    const statusColor: Record<string, string> = {
+      online: '#10b981',
+      away: '#f59e0b',
+      offline: '#94a3b8',
+    }
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: 320, fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+          width: 320,
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {users.map((user) => (
-          <div key={user.initials} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', border: '1px solid #e2e8f0', borderRadius: 10, background: '#fff' }}>
+          <div
+            key={user.initials}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '12px 16px',
+              border: '1px solid #e2e8f0',
+              borderRadius: 10,
+              background: '#fff',
+            }}
+          >
             <div style={{ position: 'relative', flexShrink: 0 }}>
               <Avatar style={{ width: 48, height: 48 }}>
-                <Avatar.Fallback style={{ background: user.color, color: '#fff', fontWeight: 700 }}>{user.initials}</Avatar.Fallback>
+                <Avatar.Fallback style={{ background: user.color, color: '#fff', fontWeight: 700 }}>
+                  {user.initials}
+                </Avatar.Fallback>
               </Avatar>
-              <span style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: statusColor[user.status], border: '2px solid #fff' }} />
+              <span
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  background: statusColor[user.status],
+                  border: '2px solid #fff',
+                }}
+              />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.name}</div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: '#0f172a',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {user.name}
+              </div>
               <div style={{ fontSize: 11, color: '#64748b', marginTop: 1 }}>{user.role}</div>
               <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{user.team}</div>
             </div>
-            <button style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 11, cursor: 'pointer', color: '#475569', flexShrink: 0 }}>
+            <button
+              style={{
+                padding: '5px 10px',
+                borderRadius: 6,
+                border: '1px solid #e2e8f0',
+                background: '#f8fafc',
+                fontSize: 11,
+                cursor: 'pointer',
+                color: '#475569',
+                flexShrink: 0,
+              }}
+            >
               팔로우
             </button>
           </div>
@@ -1392,7 +1963,8 @@ export const ComposableUI_UtilityCSS_리뷰어_선택기: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI + UtilityUI PR 리뷰어 선택 패턴. 팀원 목록에서 리뷰어 추가/제거, 선택된 아바타 그룹 표시.',
+        story:
+          'ComposableUI + UtilityUI PR 리뷰어 선택 패턴. 팀원 목록에서 리뷰어 추가/제거, 선택된 아바타 그룹 표시.',
       },
     },
   },
@@ -1411,14 +1983,25 @@ function ReviewerPickerRender143() {
   ]
 
   const toggle = (initials: string) => {
-    setSelected((s) => s.includes(initials) ? s.filter((x) => x !== initials) : [...s, initials])
+    setSelected((s) => (s.includes(initials) ? s.filter((x) => x !== initials) : [...s, initials]))
   }
 
   const selectedMembers = candidates.filter((c) => selected.includes(c.initials))
 
   return (
-    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 16, background: '#fff' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>리뷰어 선택</div>
+    <div
+      style={{
+        width: 320,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        padding: 16,
+        background: '#fff',
+      }}
+    >
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>
+        리뷰어 선택
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
         {candidates.map((c) => {
           const isSelected = selected.includes(c.initials)
@@ -1426,28 +2009,77 @@ function ReviewerPickerRender143() {
             <button
               key={c.initials}
               onClick={() => toggle(c.initials)}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px 5px 6px', borderRadius: 20, border: `1px solid ${isSelected ? c.color : '#e2e8f0'}`, background: isSelected ? `${c.color}10` : '#fff', cursor: 'pointer', transition: 'all 0.15s' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '5px 10px 5px 6px',
+                borderRadius: 20,
+                border: `1px solid ${isSelected ? c.color : '#e2e8f0'}`,
+                background: isSelected ? `${c.color}10` : '#fff',
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
             >
               <Avatar style={{ width: 28, height: 28 }}>
-                <Avatar.Fallback style={{ background: isSelected ? c.color : '#f1f5f9', color: isSelected ? '#fff' : '#94a3b8', fontWeight: 700, fontSize: 9 }}>{c.initials}</Avatar.Fallback>
+                <Avatar.Fallback
+                  style={{
+                    background: isSelected ? c.color : '#f1f5f9',
+                    color: isSelected ? '#fff' : '#94a3b8',
+                    fontWeight: 700,
+                    fontSize: 9,
+                  }}
+                >
+                  {c.initials}
+                </Avatar.Fallback>
               </Avatar>
-              <span style={{ fontSize: 11, color: isSelected ? c.color : '#64748b', fontWeight: isSelected ? 600 : 400 }}>{c.name}</span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: isSelected ? c.color : '#64748b',
+                  fontWeight: isSelected ? 600 : 400,
+                }}
+              >
+                {c.name}
+              </span>
             </button>
           )
         })}
       </div>
-      <div style={{ padding: '10px 12px', background: '#f8fafc', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 10 }}>
+      <div
+        style={{
+          padding: '10px 12px',
+          background: '#f8fafc',
+          borderRadius: 8,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
         <span style={{ fontSize: 11, color: '#64748b' }}>선택된 리뷰어:</span>
         <div style={{ display: 'flex' }}>
           {selectedMembers.map((m, i) => (
-            <div key={m.initials} style={{ marginLeft: i === 0 ? 0 : -6, border: '2px solid #f8fafc', borderRadius: '50%' }}>
+            <div
+              key={m.initials}
+              style={{
+                marginLeft: i === 0 ? 0 : -6,
+                border: '2px solid #f8fafc',
+                borderRadius: '50%',
+              }}
+            >
               <Avatar style={{ width: 28, height: 28 }}>
-                <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700, fontSize: 9 }}>{m.initials}</Avatar.Fallback>
+                <Avatar.Fallback
+                  style={{ background: m.color, color: '#fff', fontWeight: 700, fontSize: 9 }}
+                >
+                  {m.initials}
+                </Avatar.Fallback>
               </Avatar>
             </div>
           ))}
         </div>
-        {selectedMembers.length === 0 && <span style={{ fontSize: 11, color: '#94a3b8' }}>없음</span>}
+        {selectedMembers.length === 0 && (
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>없음</span>
+        )}
       </div>
     </div>
   )
@@ -1478,28 +2110,67 @@ export const AntDesign_멤버_목록_아바타: Story = {
     ]
 
     return (
-      <div style={{ width: 340, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
-        <div style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          width: 340,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: 12,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            padding: '12px 16px',
+            borderBottom: '1px solid #f3f4f6',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <span style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>팀 멤버</span>
-          <span style={{ fontSize: 11, color: '#6b7280' }}>{members.filter((m) => m.online).length}명 온라인</span>
+          <span style={{ fontSize: 11, color: '#6b7280' }}>
+            {members.filter((m) => m.online).length}명 온라인
+          </span>
         </div>
         {members.map((m) => (
-          <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px', borderBottom: '1px solid #f9fafb' }}>
+          <div
+            key={m.name}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 16px',
+              borderBottom: '1px solid #f9fafb',
+            }}
+          >
             <div style={{ position: 'relative', flexShrink: 0 }}>
               <Avatar>
-                <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700 }}>{m.initials}</Avatar.Fallback>
+                <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700 }}>
+                  {m.initials}
+                </Avatar.Fallback>
               </Avatar>
-              <div style={{
-                position: 'absolute', bottom: 0, right: 0, width: 9, height: 9, borderRadius: '50%',
-                background: m.online ? '#10b981' : '#d1d5db',
-                border: '1.5px solid #fff',
-              }} />
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                  width: 9,
+                  height: 9,
+                  borderRadius: '50%',
+                  background: m.online ? '#10b981' : '#d1d5db',
+                  border: '1.5px solid #fff',
+                }}
+              />
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{m.name}</div>
               <div style={{ fontSize: 11, color: '#9ca3af' }}>{m.role}</div>
             </div>
-            <span style={{ fontSize: 10, color: m.online ? '#10b981' : '#9ca3af', fontWeight: 600 }}>
+            <span
+              style={{ fontSize: 10, color: m.online ? '#10b981' : '#9ca3af', fontWeight: 600 }}
+            >
               {m.online ? '온라인' : '오프라인'}
             </span>
           </div>
@@ -1538,36 +2209,95 @@ export const AppUI_아바타_그룹_툴팁: Story = {
       <div style={{ fontFamily: 'system-ui, sans-serif', padding: '20px 0' }}>
         <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>이 PR 리뷰어</div>
         <div
-          style={{ display: 'flex', alignItems: 'center', gap: 4, position: 'relative', cursor: 'pointer' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            position: 'relative',
+            cursor: 'pointer',
+          }}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
           {visible.map((m, i) => (
-            <div key={m.initials} style={{ marginLeft: i > 0 ? -10 : 0, zIndex: visible.length - i, position: 'relative' }}>
+            <div
+              key={m.initials}
+              style={{
+                marginLeft: i > 0 ? -10 : 0,
+                zIndex: visible.length - i,
+                position: 'relative',
+              }}
+            >
               <Avatar>
-                <Avatar.Fallback style={{ background: m.color, color: '#fff', fontWeight: 700, border: '2px solid #fff' }}>{m.initials}</Avatar.Fallback>
+                <Avatar.Fallback
+                  style={{
+                    background: m.color,
+                    color: '#fff',
+                    fontWeight: 700,
+                    border: '2px solid #fff',
+                  }}
+                >
+                  {m.initials}
+                </Avatar.Fallback>
               </Avatar>
             </div>
           ))}
           {overflow > 0 && (
             <div style={{ marginLeft: -10, zIndex: 0 }}>
               <Avatar>
-                <Avatar.Fallback style={{ background: '#e5e7eb', color: '#6b7280', fontWeight: 700, border: '2px solid #fff', fontSize: 11 }}>
+                <Avatar.Fallback
+                  style={{
+                    background: '#e5e7eb',
+                    color: '#6b7280',
+                    fontWeight: 700,
+                    border: '2px solid #fff',
+                    fontSize: 11,
+                  }}
+                >
                   +{overflow}
                 </Avatar.Fallback>
               </Avatar>
             </div>
           )}
-          <span style={{ fontSize: 12, color: '#374151', marginLeft: 8 }}>{members.length}명 리뷰어</span>
+          <span style={{ fontSize: 12, color: '#374151', marginLeft: 8 }}>
+            {members.length}명 리뷰어
+          </span>
 
           {hovered && (
-            <div style={{
-              position: 'absolute', top: '110%', left: 0, background: '#fff', border: '1px solid #e5e7eb',
-              borderRadius: 10, padding: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 100, minWidth: 180,
-            }}>
+            <div
+              style={{
+                position: 'absolute',
+                top: '110%',
+                left: 0,
+                background: '#fff',
+                border: '1px solid #e5e7eb',
+                borderRadius: 10,
+                padding: 10,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                zIndex: 100,
+                minWidth: 180,
+              }}
+            >
               {members.map((m) => (
-                <div key={m.initials} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0' }}>
-                  <div style={{ width: 22, height: 22, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                <div
+                  key={m.initials}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0' }}
+                >
+                  <div
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: '50%',
+                      background: m.color,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 9,
+                      fontWeight: 700,
+                      color: '#fff',
+                      flexShrink: 0,
+                    }}
+                  >
                     {m.initials}
                   </div>
                   <span style={{ fontSize: 12, color: '#374151' }}>{m.name}</span>
@@ -1604,34 +2334,79 @@ export const Ant_AppUI_멘션_선택기: Story = {
     const [query, setQuery] = React.useState('')
     const [selected, setSelected] = React.useState<typeof allUsers>([])
 
-    const filtered = allUsers.filter((u) =>
-      !selected.includes(u) &&
-      (u.name.includes(query) || u.role.toLowerCase().includes(query.toLowerCase()))
+    const filtered = allUsers.filter(
+      (u) =>
+        !selected.includes(u) &&
+        (u.name.includes(query) || u.role.toLowerCase().includes(query.toLowerCase()))
     )
 
-    const addUser = (u: typeof allUsers[0]) => {
+    const addUser = (u: (typeof allUsers)[0]) => {
       setSelected((prev) => [...prev, u])
       setQuery('')
     }
 
-    const removeUser = (u: typeof allUsers[0]) => {
+    const removeUser = (u: (typeof allUsers)[0]) => {
       setSelected((prev) => prev.filter((s) => s !== u))
     }
 
     return (
       <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#374151', marginBottom: 8 }}>담당자 지정</div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, padding: selected.length > 0 ? '8px 0' : 0, marginBottom: selected.length > 0 ? 8 : 0 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#374151', marginBottom: 8 }}>
+          담당자 지정
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 6,
+            padding: selected.length > 0 ? '8px 0' : 0,
+            marginBottom: selected.length > 0 ? 8 : 0,
+          }}
+        >
           {selected.map((u) => (
             <div
               key={u.initials}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 8px 4px 4px', background: '#f1f5f9', borderRadius: 20, border: '1px solid #e2e8f0' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '4px 8px 4px 4px',
+                background: '#f1f5f9',
+                borderRadius: 20,
+                border: '1px solid #e2e8f0',
+              }}
             >
-              <div style={{ width: 20, height: 20, borderRadius: '50%', background: u.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: '#fff' }}>
+              <div
+                style={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: '50%',
+                  background: u.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 8,
+                  fontWeight: 700,
+                  color: '#fff',
+                }}
+              >
                 {u.initials}
               </div>
               <span style={{ fontSize: 12, color: '#374151' }}>{u.name}</span>
-              <button onClick={() => removeUser(u)} style={{ fontSize: 12, color: '#9ca3af', background: 'none', border: 'none', cursor: 'pointer', padding: 0, lineHeight: 1 }}>×</button>
+              <button
+                onClick={() => removeUser(u)}
+                style={{
+                  fontSize: 12,
+                  color: '#9ca3af',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                  lineHeight: 1,
+                }}
+              >
+                ×
+              </button>
             </div>
           ))}
         </div>
@@ -1639,11 +2414,22 @@ export const Ant_AppUI_멘션_선택기: Story = {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="이름 또는 역할로 검색..."
-          style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12, outline: 'none', boxSizing: 'border-box', marginBottom: 8 }}
+          style={{
+            width: '100%',
+            padding: '8px 12px',
+            borderRadius: 8,
+            border: '1px solid #e5e7eb',
+            fontSize: 12,
+            outline: 'none',
+            boxSizing: 'border-box',
+            marginBottom: 8,
+          }}
         />
         <div style={{ border: '1px solid #e5e7eb', borderRadius: 8, overflow: 'hidden' }}>
           {filtered.length === 0 ? (
-            <div style={{ padding: '12px 14px', fontSize: 12, color: '#9ca3af', textAlign: 'center' }}>
+            <div
+              style={{ padding: '12px 14px', fontSize: 12, color: '#9ca3af', textAlign: 'center' }}
+            >
               {query ? '검색 결과 없음' : '모든 멤버가 선택됨'}
             </div>
           ) : (
@@ -1651,10 +2437,28 @@ export const Ant_AppUI_멘션_선택기: Story = {
               <div
                 key={u.initials}
                 onClick={() => addUser(u)}
-                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', cursor: 'pointer', borderBottom: '1px solid #f9fafb' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '8px 12px',
+                  cursor: 'pointer',
+                  borderBottom: '1px solid #f9fafb',
+                }}
               >
                 <Avatar>
-                  <Avatar.Fallback style={{ background: u.color, color: '#fff', fontWeight: 700, width: 32, height: 32, fontSize: 11 }}>{u.initials}</Avatar.Fallback>
+                  <Avatar.Fallback
+                    style={{
+                      background: u.color,
+                      color: '#fff',
+                      fontWeight: 700,
+                      width: 32,
+                      height: 32,
+                      fontSize: 11,
+                    }}
+                  >
+                    {u.initials}
+                  </Avatar.Fallback>
                 </Avatar>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{u.name}</div>

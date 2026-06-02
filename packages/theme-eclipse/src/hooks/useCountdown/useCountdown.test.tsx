@@ -23,7 +23,7 @@ describe('useCountdown', () => {
 
   test('autoStart=true 면 즉시 진행, 시간이 줄어듦', () => {
     const { result } = renderHook(() =>
-      useCountdown({ from: 3000, autoStart: true, interval: 1000 }),
+      useCountdown({ from: 3000, autoStart: true, interval: 1000 })
     )
     expect(result.current.isRunning).toBe(true)
     expect(result.current.remaining).toBe(3000)
@@ -91,7 +91,7 @@ describe('useCountdown', () => {
   test('0 도달 시 isFinished=true 와 onFinish 콜백', () => {
     const onFinish = vi.fn()
     const { result } = renderHook(() =>
-      useCountdown({ from: 2000, interval: 1000, autoStart: true, onFinish }),
+      useCountdown({ from: 2000, interval: 1000, autoStart: true, onFinish })
     )
 
     act(() => {
@@ -105,7 +105,7 @@ describe('useCountdown', () => {
 
   test('finished 상태에서 start() 는 새 사이클을 시작한다', () => {
     const { result } = renderHook(() =>
-      useCountdown({ from: 1000, interval: 500, autoStart: true }),
+      useCountdown({ from: 1000, interval: 500, autoStart: true })
     )
     act(() => {
       vi.advanceTimersByTime(1000)
@@ -122,7 +122,7 @@ describe('useCountdown', () => {
   test('unmount 시 인터벌이 정리된다', () => {
     const onFinish = vi.fn()
     const { unmount } = renderHook(() =>
-      useCountdown({ from: 2000, interval: 1000, autoStart: true, onFinish }),
+      useCountdown({ from: 2000, interval: 1000, autoStart: true, onFinish })
     )
     unmount()
     act(() => {
@@ -133,7 +133,7 @@ describe('useCountdown', () => {
 
   test('이미 진행 중이면 start() 는 무시된다 (no-op)', () => {
     const { result } = renderHook(() =>
-      useCountdown({ from: 3000, interval: 1000, autoStart: true }),
+      useCountdown({ from: 3000, interval: 1000, autoStart: true })
     )
     act(() => {
       vi.advanceTimersByTime(1000)

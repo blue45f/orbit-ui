@@ -57,7 +57,9 @@ export function useCountdown(options: UseCountdownOptions): UseCountdownReturn {
   const [isRunning, setIsRunning] = useState<boolean>(autoStart)
 
   const onFinishRef = useRef(onFinish)
-  useLayoutEffect(() => { onFinishRef.current = onFinish })
+  useLayoutEffect(() => {
+    onFinishRef.current = onFinish
+  })
 
   const startedAtRef = useRef<number | null>(null)
   const remainingAtStartRef = useRef<number>(from)

@@ -105,7 +105,7 @@ export function useDisclosure(props: UseDisclosureProps = {}): UseDisclosureRetu
         onClose?.()
       }
     },
-    [isControlled, onOpenChange, onOpen, onClose],
+    [isControlled, onOpenChange, onOpen, onClose]
   )
 
   const handleOpen = useCallback(() => setIsOpen(true), [setIsOpen])
@@ -118,7 +118,7 @@ export function useDisclosure(props: UseDisclosureProps = {}): UseDisclosureRetu
       ...(id ? { 'aria-controls': id } : {}),
       onClick: handleToggle,
     }),
-    [isOpen, handleToggle],
+    [isOpen, handleToggle]
   )
 
   const getDisclosureProps = useCallback(
@@ -126,7 +126,7 @@ export function useDisclosure(props: UseDisclosureProps = {}): UseDisclosureRetu
       ...(id ? { id } : {}),
       hidden: !isOpen,
     }),
-    [isOpen],
+    [isOpen]
   )
 
   return useMemo(
@@ -138,6 +138,6 @@ export function useDisclosure(props: UseDisclosureProps = {}): UseDisclosureRetu
       getTriggerProps,
       getDisclosureProps,
     }),
-    [isOpen, handleOpen, handleClose, handleToggle, getTriggerProps, getDisclosureProps],
+    [isOpen, handleOpen, handleClose, handleToggle, getTriggerProps, getDisclosureProps]
   )
 }

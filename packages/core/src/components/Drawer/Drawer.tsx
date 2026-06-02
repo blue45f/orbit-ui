@@ -4,10 +4,7 @@ import { CancelIcon } from '@heejun-com/icons'
 
 import { cn } from '../../styles'
 
-const hasComponent = (
-  children: React.ReactNode,
-  components: React.ElementType[]
-): boolean =>
+const hasComponent = (children: React.ReactNode, components: React.ElementType[]): boolean =>
   React.Children.toArray(children).some((child) => {
     if (!React.isValidElement(child)) return false
     if (components.includes(child.type as React.ElementType)) return true
@@ -102,7 +99,10 @@ const DrawerTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn('text-lg font-semibold text-[var(--sem-eclipse-color-foregroundPrimary)]', className)}
+    className={cn(
+      'text-lg font-semibold text-[var(--sem-eclipse-color-foregroundPrimary)]',
+      className
+    )}
     {...props}
   />
 ))

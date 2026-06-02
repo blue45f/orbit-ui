@@ -58,13 +58,7 @@ describe('OutlineIconButton', () => {
   test('disabled 상태에서 클릭 핸들러가 호출되지 않는다', () => {
     const onClick = vi.fn()
     render(
-      <OutlineIconButton
-        color="black"
-        size="medium"
-        aria-label="btn"
-        disabled
-        onClick={onClick}
-      >
+      <OutlineIconButton color="black" size="medium" aria-label="btn" disabled onClick={onClick}>
         <span>+</span>
       </OutlineIconButton>
     )

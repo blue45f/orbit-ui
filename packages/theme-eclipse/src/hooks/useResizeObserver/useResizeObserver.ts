@@ -30,7 +30,7 @@ export type UseResizeObserverEntry = {
  * SSR 안전: ResizeObserver 미지원 환경(jsdom 기본 등)에서 size는 null로 유지됩니다.
  */
 export function useResizeObserver<T extends Element>(
-  ref: RefObject<T | null>,
+  ref: RefObject<T | null>
 ): UseResizeObserverEntry {
   const [state, setState] = useState<UseResizeObserverEntry>({ size: null, entry: null })
 

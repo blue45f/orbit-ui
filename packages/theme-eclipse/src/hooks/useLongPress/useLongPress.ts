@@ -44,12 +44,14 @@ export type UseLongPressHandlers = {
  */
 export function useLongPress(
   callback: (event: React.PointerEvent) => void,
-  options: UseLongPressOptions = {},
+  options: UseLongPressOptions = {}
 ): UseLongPressHandlers {
   const { delay = 500, movementThreshold = 8, preventContextMenu = true } = options
 
   const callbackRef = useRef(callback)
-  useLayoutEffect(() => { callbackRef.current = callback })
+  useLayoutEffect(() => {
+    callbackRef.current = callback
+  })
 
   const timerRef = useRef<number | null>(null)
   const startPointRef = useRef<{ x: number; y: number } | null>(null)
@@ -78,7 +80,7 @@ export function useLongPress(
         timerRef.current = null
       }, delay)
     },
-    [delay],
+    [delay]
   )
 
   const onPointerMove = useCallback(
@@ -91,7 +93,7 @@ export function useLongPress(
         clear()
       }
     },
-    [clear, movementThreshold],
+    [clear, movementThreshold]
   )
 
   const onPointerUp = useCallback(() => {
@@ -108,7 +110,7 @@ export function useLongPress(
         event.preventDefault()
       }
     },
-    [preventContextMenu],
+    [preventContextMenu]
   )
 
   return { onPointerDown, onPointerMove, onPointerUp, onPointerCancel, onContextMenu }

@@ -20,7 +20,7 @@ describe('useDebounce', () => {
     vi.useFakeTimers()
     const { result, rerender } = renderHook(
       ({ value }: { value: string }) => useDebounce(value, 300),
-      { initialProps: { value: 'a' } },
+      { initialProps: { value: 'a' } }
     )
     expect(result.current).toBe('a')
 
@@ -37,7 +37,7 @@ describe('useDebounce', () => {
     vi.useFakeTimers()
     const { result, rerender } = renderHook(
       ({ value }: { value: string }) => useDebounce(value, 300),
-      { initialProps: { value: 'a' } },
+      { initialProps: { value: 'a' } }
     )
 
     rerender({ value: 'b' })
@@ -52,7 +52,7 @@ describe('useDebounce', () => {
     vi.useFakeTimers()
     const { result, rerender } = renderHook(
       ({ value }: { value: string }) => useDebounce(value, 200),
-      { initialProps: { value: 'a' } },
+      { initialProps: { value: 'a' } }
     )
 
     rerender({ value: 'b' })
@@ -75,7 +75,7 @@ describe('useDebounce', () => {
     vi.useFakeTimers()
     const { result, rerender } = renderHook(
       ({ value }: { value: string }) => useDebounce(value, 0),
-      { initialProps: { value: 'a' } },
+      { initialProps: { value: 'a' } }
     )
 
     rerender({ value: 'b' })
@@ -90,7 +90,7 @@ describe('useDebounce', () => {
     vi.useFakeTimers()
     const { result, rerender } = renderHook(
       ({ value }: { value: number }) => useDebounce(value, 100),
-      { initialProps: { value: 1 } },
+      { initialProps: { value: 1 } }
     )
 
     rerender({ value: 2 })
@@ -108,7 +108,7 @@ describe('useDebounce', () => {
     const b = { id: 2 }
     const { result, rerender } = renderHook(
       ({ value }: { value: { id: number } }) => useDebounce(value, 100),
-      { initialProps: { value: a } },
+      { initialProps: { value: a } }
     )
     expect(result.current).toBe(a)
 
@@ -124,7 +124,7 @@ describe('useDebounce', () => {
     vi.useFakeTimers()
     const { rerender, unmount } = renderHook(
       ({ value }: { value: string }) => useDebounce(value, 200),
-      { initialProps: { value: 'a' } },
+      { initialProps: { value: 'a' } }
     )
 
     rerender({ value: 'b' })

@@ -1,4 +1,9 @@
-import { ComponentThemeProps, Checkbox, CheckboxProps, CheckboxSpecificProps } from '@heejun-com/core'
+import {
+  ComponentThemeProps,
+  Checkbox,
+  CheckboxProps,
+  CheckboxSpecificProps,
+} from '@heejun-com/core'
 import { CheckIcon, MinusIcon } from '@heejun-com/icons'
 import { forwardRef } from 'react'
 
@@ -39,7 +44,11 @@ export const BoxedCheckbox = forwardRef<HTMLButtonElement, BoxedCheckboxProps>((
       borderWidth={2}
     >
       <Checkbox.Icon>
-        {iconName === 'minus' ? <MinusIcon size={18} tone="soft" /> : <CheckIcon size={18} tone="soft" />}
+        {iconName === 'minus' ? (
+          <MinusIcon size={18} tone="soft" />
+        ) : (
+          <CheckIcon size={18} tone="soft" />
+        )}
       </Checkbox.Icon>
     </Checkbox>
   )

@@ -73,6 +73,6 @@ export function useMap<K, V>(initial: Iterable<readonly [K, V]> = []): UseMapRet
 
   return useMemo(
     () => ({ map, set, remove, get, has, clear, reset }),
-    [map, set, remove, get, has, clear, reset],
+    [map, set, remove, get, has, clear, reset]
   )
 }

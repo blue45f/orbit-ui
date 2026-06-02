@@ -35,11 +35,13 @@ export type UseOnClickOutsideOptions = {
 export function useOnClickOutside<T extends HTMLElement>(
   ref: RefObject<T | null> | Array<RefObject<HTMLElement | null>>,
   handler: (event: MouseEvent | TouchEvent) => void,
-  options: UseOnClickOutsideOptions = {},
+  options: UseOnClickOutsideOptions = {}
 ): void {
   const { enabled = true, event = 'mousedown' } = options
   const handlerRef = useRef(handler)
-  useLayoutEffect(() => { handlerRef.current = handler })
+  useLayoutEffect(() => {
+    handlerRef.current = handler
+  })
 
   useEffect(() => {
     if (!enabled || typeof document === 'undefined') return

@@ -97,7 +97,7 @@ describe('RadioButton (eclipse)', () => {
       <>
         <span id="rb-label">결제 방식 A</span>
         <RadioButton data-testid="rb" value="a" aria-labelledby="rb-label" />
-      </>,
+      </>
     )
     expect(screen.getByTestId('rb')).toHaveAttribute('aria-labelledby', 'rb-label')
   })
@@ -109,7 +109,7 @@ describe('RadioButton (eclipse)', () => {
       <>
         <RadioButton data-testid="rb-a" value="a" onChange={onChangeA} />
         <RadioButton data-testid="rb-b" value="b" onChange={onChangeB} />
-      </>,
+      </>
     )
 
     await userEvent.click(screen.getByTestId('rb-a'))

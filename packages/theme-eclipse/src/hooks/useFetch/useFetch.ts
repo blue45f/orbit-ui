@@ -8,7 +8,7 @@ export type FetchState<T> =
 
 export function useFetch<T = unknown>(
   url: string,
-  options?: RequestInit,
+  options?: RequestInit
 ): FetchState<T> & { refetch: () => void } {
   const [state, setState] = useState<FetchState<T>>({
     status: 'loading',

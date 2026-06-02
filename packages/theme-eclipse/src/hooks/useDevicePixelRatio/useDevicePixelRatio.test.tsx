@@ -7,7 +7,10 @@ import { useDevicePixelRatio } from './useDevicePixelRatio'
 
 describe('useDevicePixelRatio', () => {
   let changeListeners: Array<() => void> = []
-  let mockMediaQuery: { addEventListener: ReturnType<typeof vi.fn>; removeEventListener: ReturnType<typeof vi.fn> }
+  let mockMediaQuery: {
+    addEventListener: ReturnType<typeof vi.fn>
+    removeEventListener: ReturnType<typeof vi.fn>
+  }
 
   beforeEach(() => {
     changeListeners = []
@@ -16,7 +19,7 @@ describe('useDevicePixelRatio', () => {
         changeListeners.push(cb)
       }),
       removeEventListener: vi.fn((_event: string, cb: () => void) => {
-        changeListeners = changeListeners.filter(l => l !== cb)
+        changeListeners = changeListeners.filter((l) => l !== cb)
       }),
     }
 
@@ -26,9 +29,7 @@ describe('useDevicePixelRatio', () => {
       value: 2,
     })
 
-    vi.spyOn(window, 'matchMedia').mockReturnValue(
-      mockMediaQuery as unknown as MediaQueryList,
-    )
+    vi.spyOn(window, 'matchMedia').mockReturnValue(mockMediaQuery as unknown as MediaQueryList)
   })
 
   afterEach(() => {
@@ -51,7 +52,7 @@ describe('useDevicePixelRatio', () => {
         configurable: true,
         value: 3,
       })
-      changeListeners.forEach(cb => cb())
+      changeListeners.forEach((cb) => cb())
     })
 
     expect(result.current).toBe(3)

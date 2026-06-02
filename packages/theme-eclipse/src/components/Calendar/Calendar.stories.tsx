@@ -15,9 +15,19 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const StoryWrapper = ({ title, children }: { title: string, children: React.ReactNode }) => (
+const StoryWrapper = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: 'fit-content' }}>
-    <h4 style={{ margin: 0, fontSize: '14px', fontWeight: 600, color: 'inherit', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+    <h4
+      style={{
+        margin: 0,
+        fontSize: '14px',
+        fontWeight: 600,
+        color: 'inherit',
+        opacity: 0.6,
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+      }}
+    >
       {title}
     </h4>
     {children}
@@ -31,20 +41,17 @@ export const 기본: Story = {
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3rem' }}>
         <StoryWrapper title="Single Select">
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={setDate}
-          />
+          <Calendar mode="single" selected={date} onSelect={setDate} />
           <p style={{ fontSize: '14px', marginTop: '0.5rem', fontWeight: 500 }}>
-            Selected: <span style={{ color: 'var(--sem-eclipse-color-fillPrimary, #6366f1)' }}>{date?.toLocaleDateString() || 'None'}</span>
+            Selected:{' '}
+            <span style={{ color: 'var(--sem-eclipse-color-fillPrimary, #6366f1)' }}>
+              {date?.toLocaleDateString() || 'None'}
+            </span>
           </p>
         </StoryWrapper>
 
         <StoryWrapper title="Multiple Select">
-          <Calendar
-            mode="multiple"
-          />
+          <Calendar mode="multiple" />
         </StoryWrapper>
       </div>
     )
@@ -55,13 +62,10 @@ export const 범위선택: Story = {
   render: function Render() {
     return (
       <StoryWrapper title="Range Selection">
-        <Calendar
-          mode="range"
-          numberOfMonths={2}
-        />
+        <Calendar mode="range" numberOfMonths={2} />
       </StoryWrapper>
     )
-  }
+  },
 }
 
 /* --------------------------------------------------------------------------
@@ -75,14 +79,26 @@ export const AppUI_날짜_범위_선택: Story = {
     const [range, setRange] = React.useState<DateRange>({ from: undefined, to: undefined })
 
     const fmt = (d: Date | undefined) =>
-      d ? d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' }) : '선택 안 됨'
+      d
+        ? d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
+        : '선택 안 됨'
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>기간 선택</div>
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase' }}>시작일</div>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                color: '#94a3b8',
+                marginBottom: 8,
+                textTransform: 'uppercase',
+              }}
+            >
+              시작일
+            </div>
             <Calendar
               mode="single"
               selected={range.from}
@@ -90,7 +106,17 @@ export const AppUI_날짜_범위_선택: Story = {
             />
           </div>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase' }}>종료일</div>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                color: '#94a3b8',
+                marginBottom: 8,
+                textTransform: 'uppercase',
+              }}
+            >
+              종료일
+            </div>
             <Calendar
               mode="single"
               selected={range.to}
@@ -174,7 +200,10 @@ export const Ant_이벤트_마킹_달력: Story = {
         />
         <div style={{ minWidth: 220 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 10 }}>
-            {selected ? selected.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' }) : '날짜 선택'} 일정
+            {selected
+              ? selected.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })
+              : '날짜 선택'}{' '}
+            일정
           </div>
           {selectedEvents.length > 0 ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -192,9 +221,17 @@ export const Ant_이벤트_마킹_달력: Story = {
                   }}
                 >
                   <span
-                    style={{ width: 8, height: 8, borderRadius: '50%', background: ev.color, flexShrink: 0 }}
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      background: ev.color,
+                      flexShrink: 0,
+                    }}
                   />
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{ev.label}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                    {ev.label}
+                  </span>
                 </div>
               ))}
             </div>
@@ -230,41 +267,83 @@ export const 모바일_풀스크린: Story = {
     const [view, setView] = React.useState<'calendar' | 'confirm'>('calendar')
 
     return (
-      <div style={{
-        width: '375px', height: '812px', margin: '0 auto',
-        background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
-        display: 'flex', flexDirection: 'column',
-        border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
-        borderRadius: '20px', overflow: 'hidden',
-        boxShadow: '0 24px 48px -12px rgba(0,0,0,0.15)',
-      }}>
-        {/* Header */}
-        <div style={{
-          padding: '20px 20px 12px',
-          borderBottom: '1px solid var(--sem-eclipse-color-borderSecondary, #f1f5f9)',
+      <div
+        style={{
+          width: '375px',
+          height: '812px',
+          margin: '0 auto',
           background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
-        }}>
+          display: 'flex',
+          flexDirection: 'column',
+          border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+          borderRadius: '20px',
+          overflow: 'hidden',
+          boxShadow: '0 24px 48px -12px rgba(0,0,0,0.15)',
+        }}
+      >
+        {/* Header */}
+        <div
+          style={{
+            padding: '20px 20px 12px',
+            borderBottom: '1px solid var(--sem-eclipse-color-borderSecondary, #f1f5f9)',
+            background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
+          }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <button style={{ background: 'none', border: 'none', fontSize: '14px', color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)', cursor: 'pointer', padding: '4px 0' }}>
+            <button
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '14px',
+                color: 'var(--sem-eclipse-color-foregroundSecondary, #64748b)',
+                cursor: 'pointer',
+                padding: '4px 0',
+              }}
+            >
               Cancel
             </button>
-            <span style={{ fontSize: '16px', fontWeight: '700', color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>
+            <span
+              style={{
+                fontSize: '16px',
+                fontWeight: '700',
+                color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+              }}
+            >
               Select Date
             </span>
             <button
               onClick={() => setView('confirm')}
-              style={{ background: 'none', border: 'none', fontSize: '14px', fontWeight: '600', color: '#6366f1', cursor: 'pointer', padding: '4px 0' }}>
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#6366f1',
+                cursor: 'pointer',
+                padding: '4px 0',
+              }}
+            >
               Done
             </button>
           </div>
           {date && (
-            <div style={{
-              marginTop: '12px', padding: '10px 14px', borderRadius: '10px',
-              background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.15)',
-              textAlign: 'center',
-            }}>
+            <div
+              style={{
+                marginTop: '12px',
+                padding: '10px 14px',
+                borderRadius: '10px',
+                background: 'rgba(99,102,241,0.06)',
+                border: '1px solid rgba(99,102,241,0.15)',
+                textAlign: 'center',
+              }}
+            >
               <span style={{ fontSize: '13px', fontWeight: '600', color: '#6366f1' }}>
-                {date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
+                {date.toLocaleDateString('ko-KR', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  weekday: 'long',
+                })}
               </span>
             </div>
           )}
@@ -272,35 +351,46 @@ export const 모바일_풀스크린: Story = {
 
         {/* Calendar - fullscreen fill */}
         <div style={{ flex: 1, overflow: 'auto', padding: '8px 0' }}>
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={setDate}
-            style={{ width: '100%' }}
-          />
+          <Calendar mode="single" selected={date} onSelect={setDate} style={{ width: '100%' }} />
         </div>
 
         {/* Footer CTA */}
-        <div style={{
-          padding: '16px 20px 32px',
-          borderTop: '1px solid var(--sem-eclipse-color-borderSecondary, #f1f5f9)',
-          background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
-        }}>
+        <div
+          style={{
+            padding: '16px 20px 32px',
+            borderTop: '1px solid var(--sem-eclipse-color-borderSecondary, #f1f5f9)',
+            background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
+          }}
+        >
           {view === 'confirm' && date ? (
-            <div style={{
-              padding: '14px', borderRadius: '12px', marginBottom: '12px',
-              background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)',
-              textAlign: 'center', fontSize: '13px', color: '#10b981', fontWeight: '600',
-            }}>
+            <div
+              style={{
+                padding: '14px',
+                borderRadius: '12px',
+                marginBottom: '12px',
+                background: 'rgba(16,185,129,0.08)',
+                border: '1px solid rgba(16,185,129,0.2)',
+                textAlign: 'center',
+                fontSize: '13px',
+                color: '#10b981',
+                fontWeight: '600',
+              }}
+            >
               ✓ Date confirmed: {date.toLocaleDateString('ko-KR')}
             </div>
           ) : null}
           <button
             onClick={() => setView('confirm')}
             style={{
-              width: '100%', padding: '14px', borderRadius: '12px',
-              background: '#6366f1', color: '#fff', border: 'none',
-              fontSize: '15px', fontWeight: '700', cursor: 'pointer',
+              width: '100%',
+              padding: '14px',
+              borderRadius: '12px',
+              background: '#6366f1',
+              color: '#fff',
+              border: 'none',
+              fontSize: '15px',
+              fontWeight: '700',
+              cursor: 'pointer',
             }}
           >
             {date ? `Confirm — ${date.toLocaleDateString()}` : 'Select a date'}
@@ -308,7 +398,7 @@ export const 모바일_풀스크린: Story = {
         </div>
       </div>
     )
-  }
+  },
 }
 
 /* --------------------------------------------------------------------------
@@ -332,10 +422,42 @@ export const UtilityCSSUI_빠른_날짜_선택: Story = {
 
     const presets = [
       { key: 'today', label: '오늘', getDate: () => new Date() },
-      { key: 'tomorrow', label: '내일', getDate: () => { const d = new Date(); d.setDate(d.getDate() + 1); return d } },
-      { key: 'next7', label: '7일 후', getDate: () => { const d = new Date(); d.setDate(d.getDate() + 7); return d } },
-      { key: 'next30', label: '30일 후', getDate: () => { const d = new Date(); d.setDate(d.getDate() + 30); return d } },
-      { key: 'eom', label: '이번 달 말일', getDate: () => { const d = new Date(); d.setMonth(d.getMonth() + 1, 0); return d } },
+      {
+        key: 'tomorrow',
+        label: '내일',
+        getDate: () => {
+          const d = new Date()
+          d.setDate(d.getDate() + 1)
+          return d
+        },
+      },
+      {
+        key: 'next7',
+        label: '7일 후',
+        getDate: () => {
+          const d = new Date()
+          d.setDate(d.getDate() + 7)
+          return d
+        },
+      },
+      {
+        key: 'next30',
+        label: '30일 후',
+        getDate: () => {
+          const d = new Date()
+          d.setDate(d.getDate() + 30)
+          return d
+        },
+      },
+      {
+        key: 'eom',
+        label: '이번 달 말일',
+        getDate: () => {
+          const d = new Date()
+          d.setMonth(d.getMonth() + 1, 0)
+          return d
+        },
+      },
       { key: 'eoy', label: '연말', getDate: () => new Date(new Date().getFullYear(), 11, 31) },
     ]
 
@@ -345,10 +467,40 @@ export const UtilityCSSUI_빠른_날짜_선택: Story = {
     }
 
     return (
-      <div style={{ display: 'flex', gap: 0, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff', width: 'fit-content' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 0,
+          border: '1px solid #e2e8f0',
+          borderRadius: 12,
+          overflow: 'hidden',
+          background: '#fff',
+          width: 'fit-content',
+        }}
+      >
         {/* Preset sidebar */}
-        <div style={{ width: 120, borderRight: '1px solid #f1f5f9', background: '#f8fafc', padding: '12px 8px', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, paddingLeft: 4 }}>
+        <div
+          style={{
+            width: 120,
+            borderRight: '1px solid #f1f5f9',
+            background: '#f8fafc',
+            padding: '12px 8px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              marginBottom: 6,
+              paddingLeft: 4,
+            }}
+          >
             빠른 선택
           </div>
           {presets.map((p) => (
@@ -378,11 +530,28 @@ export const UtilityCSSUI_빠른_날짜_선택: Story = {
           <Calendar
             mode="single"
             selected={date}
-            onSelect={(d) => { setDate(d); setActivePreset('') }}
+            onSelect={(d) => {
+              setDate(d)
+              setActivePreset('')
+            }}
           />
           {date && (
-            <div style={{ padding: '8px 16px', borderTop: '1px solid #f1f5f9', textAlign: 'center', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
-              {date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' })}
+            <div
+              style={{
+                padding: '8px 16px',
+                borderTop: '1px solid #f1f5f9',
+                textAlign: 'center',
+                fontSize: 12,
+                color: '#6366f1',
+                fontWeight: 600,
+              }}
+            >
+              {date.toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'short',
+              })}
             </div>
           )}
         </div>
@@ -434,9 +603,25 @@ export const PlatformHIG_생일_날짜_입력: Story = {
     const today = new Date()
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start', width: 'fit-content' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          alignItems: 'flex-start',
+          width: 'fit-content',
+        }}
+      >
         <div style={{ width: '100%' }}>
-          <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 6 }}>
+          <label
+            style={{
+              display: 'block',
+              fontSize: 12,
+              fontWeight: 600,
+              color: '#475569',
+              marginBottom: 6,
+            }}
+          >
             생년월일
           </label>
           <input
@@ -462,7 +647,12 @@ export const PlatformHIG_생일_날짜_입력: Story = {
           {error && <div style={{ fontSize: 11, color: '#ef4444', marginTop: 4 }}>{error}</div>}
           {date && !error && (
             <div style={{ fontSize: 11, color: '#6366f1', fontWeight: 600, marginTop: 4 }}>
-              {date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
+              {date.toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
+              })}
             </div>
           )}
         </div>
@@ -478,7 +668,17 @@ export const PlatformHIG_생일_날짜_입력: Story = {
           defaultMonth={date ?? new Date(1995, 0, 1)}
         />
 
-        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b', width: '100%' }}>
+        <div
+          style={{
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            fontSize: 12,
+            color: '#64748b',
+            width: '100%',
+          }}
+        >
           <strong>나이:</strong>{' '}
           {date
             ? `${today.getFullYear() - date.getFullYear()}세`
@@ -522,15 +722,40 @@ export const UtilityCSSUI_예약_일정_선택: Story = {
 
     if (confirmed && date && timeSlot) {
       return (
-        <div style={{ width: 320, padding: 24, borderRadius: 16, border: '1px solid #bbf7d0', background: '#f0fdf4', textAlign: 'center' }}>
+        <div
+          style={{
+            width: 320,
+            padding: 24,
+            borderRadius: 16,
+            border: '1px solid #bbf7d0',
+            background: '#f0fdf4',
+            textAlign: 'center',
+          }}
+        >
           <div style={{ fontSize: 32, marginBottom: 12 }}>✅</div>
-          <div style={{ fontSize: 16, fontWeight: 800, color: '#15803d', marginBottom: 4 }}>예약 완료</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#15803d', marginBottom: 4 }}>
+            예약 완료
+          </div>
           <div style={{ fontSize: 14, color: '#166534', marginBottom: 16 }}>
-            {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' })} {timeSlot}
+            {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' })}{' '}
+            {timeSlot}
           </div>
           <button
-            onClick={() => { setConfirmed(false); setDate(undefined); setTimeSlot(null) }}
-            style={{ padding: '8px 20px', borderRadius: 8, border: '1px solid #16a34a', background: 'none', color: '#16a34a', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+            onClick={() => {
+              setConfirmed(false)
+              setDate(undefined)
+              setTimeSlot(null)
+            }}
+            style={{
+              padding: '8px 20px',
+              borderRadius: 8,
+              border: '1px solid #16a34a',
+              background: 'none',
+              color: '#16a34a',
+              fontSize: 13,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
           >
             다시 예약
           </button>
@@ -539,17 +764,32 @@ export const UtilityCSSUI_예약_일정_선택: Story = {
     }
 
     return (
-      <div style={{ width: 320, border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
-        <div style={{ padding: '14px 16px', borderBottom: '1px solid #f1f5f9', background: '#fafafa' }}>
+      <div
+        style={{
+          width: 320,
+          border: '1px solid #e2e8f0',
+          borderRadius: 14,
+          overflow: 'hidden',
+          background: '#fff',
+        }}
+      >
+        <div
+          style={{ padding: '14px 16px', borderBottom: '1px solid #f1f5f9', background: '#fafafa' }}
+        >
           <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>날짜 선택</div>
-          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>오늘 이후, 평일만 선택 가능합니다</div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+            오늘 이후, 평일만 선택 가능합니다
+          </div>
         </div>
 
         <div style={{ padding: '8px 0' }}>
           <Calendar
             mode="single"
             selected={date}
-            onSelect={(d) => { setDate(d); setTimeSlot(null) }}
+            onSelect={(d) => {
+              setDate(d)
+              setTimeSlot(null)
+            }}
             disabled={[{ before: new Date() }, isWeekend]}
           />
         </div>
@@ -557,7 +797,12 @@ export const UtilityCSSUI_예약_일정_선택: Story = {
         {date && (
           <div style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9' }}>
             <div style={{ fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 8 }}>
-              {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' })} 시간 선택
+              {date.toLocaleDateString('ko-KR', {
+                month: 'long',
+                day: 'numeric',
+                weekday: 'short',
+              })}{' '}
+              시간 선택
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
               {timeSlots.map((slot) => (
@@ -638,7 +883,14 @@ export const Primitive_접근성_다중_날짜_선택기: Story = {
       <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
         <div>
           <div
-            style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 8,
+            }}
             id="cal-label"
           >
             프로젝트 마감일 선택 ({dates.length}/{maxSelect})
@@ -669,17 +921,27 @@ export const Primitive_접근성_다중_날짜_선택기: Story = {
                 <div
                   key={d.toISOString()}
                   style={{
-                    display: 'flex', alignItems: 'center', gap: 8,
-                    padding: '8px 12px', borderRadius: 8,
-                    border: '1px solid #e2e8f0', background: '#fafafa',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    padding: '8px 12px',
+                    borderRadius: 8,
+                    border: '1px solid #e2e8f0',
+                    background: '#fafafa',
                   }}
                 >
                   <span
                     style={{
-                      width: 20, height: 20, borderRadius: '50%',
-                      background: '#6366f1', color: '#fff',
-                      fontSize: 10, fontWeight: 700,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      width: 20,
+                      height: 20,
+                      borderRadius: '50%',
+                      background: '#6366f1',
+                      color: '#fff',
+                      fontSize: 10,
+                      fontWeight: 700,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       flexShrink: 0,
                     }}
                   >
@@ -691,9 +953,15 @@ export const Primitive_접근성_다중_날짜_선택기: Story = {
               <button
                 onClick={() => setDates([])}
                 style={{
-                  marginTop: 4, padding: '6px 12px', borderRadius: 7,
-                  border: '1px solid #fee2e2', background: '#fff5f5',
-                  color: '#ef4444', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                  marginTop: 4,
+                  padding: '6px 12px',
+                  borderRadius: 7,
+                  border: '1px solid #fee2e2',
+                  background: '#fff5f5',
+                  color: '#ef4444',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: 'pointer',
                 }}
               >
                 전체 해제
@@ -742,8 +1010,25 @@ function WorkspaceEditorDeadlineRender() {
   today.setHours(0, 0, 0, 0)
 
   return (
-    <div style={{ width: 420, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'visible', background: '#fff' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', background: '#fafafa', fontSize: 14, fontWeight: 700, color: '#1e293b' }}>
+    <div
+      style={{
+        width: 420,
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'visible',
+        background: '#fff',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #f1f5f9',
+          background: '#fafafa',
+          fontSize: 14,
+          fontWeight: 700,
+          color: '#1e293b',
+        }}
+      >
         태스크 마감일 설정
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -753,7 +1038,9 @@ function WorkspaceEditorDeadlineRender() {
             <div key={task.id} style={{ position: 'relative' }}>
               <div
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
                   padding: '10px 16px',
                   borderBottom: '1px solid #f8fafc',
                   background: task.done ? '#f8fafc' : '#fff',
@@ -763,22 +1050,36 @@ function WorkspaceEditorDeadlineRender() {
                   type="checkbox"
                   checked={task.done}
                   onChange={() => toggleDone(task.id)}
-                  style={{ width: 15, height: 15, accentColor: '#6366f1', cursor: 'pointer', flexShrink: 0 }}
+                  style={{
+                    width: 15,
+                    height: 15,
+                    accentColor: '#6366f1',
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                  }}
                 />
-                <span style={{
-                  flex: 1, fontSize: 13, color: task.done ? '#94a3b8' : '#1e293b',
-                  textDecoration: task.done ? 'line-through' : 'none',
-                }}>
+                <span
+                  style={{
+                    flex: 1,
+                    fontSize: 13,
+                    color: task.done ? '#94a3b8' : '#1e293b',
+                    textDecoration: task.done ? 'line-through' : 'none',
+                  }}
+                >
                   {task.title}
                 </span>
                 <button
                   onClick={() => setOpenId(openId === task.id ? null : task.id)}
                   style={{
-                    padding: '3px 10px', borderRadius: 6,
+                    padding: '3px 10px',
+                    borderRadius: 6,
                     border: `1px solid ${isOverdue ? '#fecaca' : '#e2e8f0'}`,
                     background: isOverdue ? '#fef2f2' : '#f8fafc',
                     color: isOverdue ? '#ef4444' : task.deadline ? '#6366f1' : '#94a3b8',
-                    fontSize: 11, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap',
+                    fontSize: 11,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   {task.deadline
@@ -787,11 +1088,19 @@ function WorkspaceEditorDeadlineRender() {
                 </button>
               </div>
               {openId === task.id && (
-                <div style={{
-                  position: 'absolute', right: 12, top: '100%', zIndex: 10,
-                  border: '1px solid #e2e8f0', borderRadius: 12,
-                  background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,0.12)', padding: 4,
-                }}>
+                <div
+                  style={{
+                    position: 'absolute',
+                    right: 12,
+                    top: '100%',
+                    zIndex: 10,
+                    border: '1px solid #e2e8f0',
+                    borderRadius: 12,
+                    background: '#fff',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                    padding: 4,
+                  }}
+                >
                   <Calendar
                     mode="single"
                     selected={task.deadline}
@@ -802,7 +1111,17 @@ function WorkspaceEditorDeadlineRender() {
                     <div style={{ padding: '4px 8px', borderTop: '1px solid #f1f5f9' }}>
                       <button
                         onClick={() => setDeadline(task.id, undefined)}
-                        style={{ width: '100%', padding: '6px', borderRadius: 6, border: 'none', background: '#fef2f2', color: '#ef4444', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}
+                        style={{
+                          width: '100%',
+                          padding: '6px',
+                          borderRadius: 6,
+                          border: 'none',
+                          background: '#fef2f2',
+                          color: '#ef4444',
+                          fontSize: 11,
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                        }}
                       >
                         날짜 제거
                       </button>
@@ -876,11 +1195,28 @@ function ComposableUIExpenseTrackerRender() {
         />
       </div>
       <div style={{ minWidth: 220, display: 'flex', flexDirection: 'column', gap: 14 }}>
-        <div style={{ padding: '12px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fafafa' }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4 }}>
+        <div
+          style={{
+            padding: '12px 16px',
+            borderRadius: 10,
+            border: '1px solid #e2e8f0',
+            background: '#fafafa',
+          }}
+        >
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: 4,
+            }}
+          >
             {selected
               ? selected.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })
-              : '날짜 선택'} 지출
+              : '날짜 선택'}{' '}
+            지출
           </div>
           <div style={{ fontSize: 20, fontWeight: 800, color: '#1e293b' }}>
             {selected && expenses[key(selected)] ? fmt(expenses[key(selected)]) : fmt(0)}
@@ -896,32 +1232,69 @@ function ComposableUIExpenseTrackerRender() {
               placeholder="금액 (원)"
               min={0}
               style={{
-                flex: 1, padding: '8px 12px', borderRadius: 8,
-                border: '1.5px solid #e2e8f0', fontSize: 13, color: '#1e293b',
+                flex: 1,
+                padding: '8px 12px',
+                borderRadius: 8,
+                border: '1.5px solid #e2e8f0',
+                fontSize: 13,
+                color: '#1e293b',
                 outline: 'none',
               }}
             />
             <button
               onClick={addExpense}
               style={{
-                padding: '8px 14px', borderRadius: 8,
-                border: 'none', background: '#6366f1',
-                color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer',
+                padding: '8px 14px',
+                borderRadius: 8,
+                border: 'none',
+                background: '#6366f1',
+                color: '#fff',
+                fontSize: 13,
+                fontWeight: 700,
+                cursor: 'pointer',
               }}
             >
               추가
             </button>
           </div>
         )}
-        <div style={{ padding: '12px 16px', borderRadius: 10, border: '1px solid #d1fae5', background: '#f0fdf4' }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#059669', textTransform: 'uppercase', marginBottom: 4 }}>이번 달 총 지출</div>
+        <div
+          style={{
+            padding: '12px 16px',
+            borderRadius: 10,
+            border: '1px solid #d1fae5',
+            background: '#f0fdf4',
+          }}
+        >
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#059669',
+              textTransform: 'uppercase',
+              marginBottom: 4,
+            }}
+          >
+            이번 달 총 지출
+          </div>
           <div style={{ fontSize: 18, fontWeight: 800, color: '#047857' }}>{fmt(total)}</div>
-          <div style={{ fontSize: 11, color: '#6ee7b7', marginTop: 2 }}>{Object.keys(expenses).length}일 기록됨</div>
+          <div style={{ fontSize: 11, color: '#6ee7b7', marginTop: 2 }}>
+            {Object.keys(expenses).length}일 기록됨
+          </div>
         </div>
         {Object.keys(expenses).length > 0 && (
           <button
             onClick={() => setExpenses({})}
-            style={{ padding: '6px 12px', borderRadius: 7, border: '1px solid #fecaca', background: '#fff5f5', color: '#ef4444', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}
+            style={{
+              padding: '6px 12px',
+              borderRadius: 7,
+              border: '1px solid #fecaca',
+              background: '#fff5f5',
+              color: '#ef4444',
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
           >
             기록 초기화
           </button>
@@ -970,17 +1343,42 @@ function AccessibleTimeSlotPickerRender() {
   return (
     <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em' }}>날짜 선택</div>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          날짜 선택
+        </div>
         <Calendar
           mode="single"
           selected={date}
-          onSelect={(d) => { setDate(d); setSlot(null); setConfirmed(false) }}
+          onSelect={(d) => {
+            setDate(d)
+            setSlot(null)
+            setConfirmed(false)
+          }}
           disabled={(d) => d < new Date(new Date().setHours(0, 0, 0, 0))}
         />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, minWidth: 200 }}>
         <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>시간 선택</div>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: '#6366f1',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 10,
+            }}
+          >
+            시간 선택
+          </div>
           {date ? (
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
               {TIME_SLOTS.map((t) => {
@@ -990,7 +1388,10 @@ function AccessibleTimeSlotPickerRender() {
                   <button
                     key={t}
                     disabled={isBooked}
-                    onClick={() => { setSlot(t); setConfirmed(false) }}
+                    onClick={() => {
+                      setSlot(t)
+                      setConfirmed(false)
+                    }}
                     style={{
                       padding: '8px 0',
                       borderRadius: 8,
@@ -1010,24 +1411,57 @@ function AccessibleTimeSlotPickerRender() {
               })}
             </div>
           ) : (
-            <div style={{ fontSize: 13, color: '#94a3b8', padding: '12px 0' }}>날짜를 먼저 선택하세요</div>
+            <div style={{ fontSize: 13, color: '#94a3b8', padding: '12px 0' }}>
+              날짜를 먼저 선택하세요
+            </div>
           )}
         </div>
         {date && slot && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {confirmed ? (
-              <div style={{ padding: '12px 16px', borderRadius: 10, background: '#f0fdf4', border: '1.5px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
-                {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })} {slot} 예약 완료
+              <div
+                style={{
+                  padding: '12px 16px',
+                  borderRadius: 10,
+                  background: '#f0fdf4',
+                  border: '1.5px solid #bbf7d0',
+                  fontSize: 13,
+                  color: '#16a34a',
+                  fontWeight: 600,
+                }}
+              >
+                {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })} {slot} 예약
+                완료
               </div>
             ) : (
               <button
                 onClick={handleConfirm}
-                style={{ padding: '10px', borderRadius: 10, border: 'none', background: '#6366f1', color: '#fff', fontSize: 14, fontWeight: 700, cursor: 'pointer' }}
+                style={{
+                  padding: '10px',
+                  borderRadius: 10,
+                  border: 'none',
+                  background: '#6366f1',
+                  color: '#fff',
+                  fontSize: 14,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
               >
                 {date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })} {slot} 예약
               </button>
             )}
-            <button onClick={reset} style={{ padding: '8px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 12, cursor: 'pointer' }}>
+            <button
+              onClick={reset}
+              style={{
+                padding: '8px',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                color: '#64748b',
+                fontSize: 12,
+                cursor: 'pointer',
+              }}
+            >
               초기화
             </button>
           </div>
@@ -1071,7 +1505,10 @@ function AccessibleTaskPlannerRender() {
     if (!input.trim() || !currentKey) return
     setTasks((prev) => ({
       ...prev,
-      [currentKey]: [...(prev[currentKey] ?? []), { id: Date.now(), text: input.trim(), done: false }],
+      [currentKey]: [
+        ...(prev[currentKey] ?? []),
+        { id: Date.now(), text: input.trim(), done: false },
+      ],
     }))
     setInput('')
   }
@@ -1079,7 +1516,9 @@ function AccessibleTaskPlannerRender() {
   const toggleTask = (id: number) => {
     setTasks((prev) => ({
       ...prev,
-      [currentKey]: (prev[currentKey] ?? []).map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+      [currentKey]: (prev[currentKey] ?? []).map((t) =>
+        t.id === id ? { ...t, done: !t.done } : t
+      ),
     }))
   }
 
@@ -1088,20 +1527,41 @@ function AccessibleTaskPlannerRender() {
   return (
     <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em' }}>날짜</div>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          날짜
+        </div>
         <Calendar
           mode="single"
           selected={date}
           onSelect={setDate}
           modifiers={{ hasTasks: Array.from(daysWithTasks).map((k) => new Date(k)) }}
-          modifiersStyles={{ hasTasks: { fontWeight: 800, color: '#6366f1', textDecoration: 'underline', textUnderlineOffset: 3 } }}
+          modifiersStyles={{
+            hasTasks: {
+              fontWeight: 800,
+              color: '#6366f1',
+              textDecoration: 'underline',
+              textUnderlineOffset: 3,
+            },
+          }}
         />
       </div>
       <div style={{ flex: 1, minWidth: 220, display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
-          {date ? date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' }) : '날짜 선택'}
+          {date
+            ? date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' })
+            : '날짜 선택'}
           <span style={{ marginLeft: 8, fontSize: 11, color: '#94a3b8', fontWeight: 500 }}>
-            {currentTasks.length > 0 ? `${currentTasks.filter((t) => t.done).length}/${currentTasks.length} 완료` : ''}
+            {currentTasks.length > 0
+              ? `${currentTasks.filter((t) => t.done).length}/${currentTasks.length} 완료`
+              : ''}
           </span>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
@@ -1111,26 +1571,81 @@ function AccessibleTaskPlannerRender() {
             onKeyDown={(e) => e.key === 'Enter' && addTask()}
             placeholder="할 일 추가..."
             disabled={!date}
-            style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, color: '#1e293b', outline: 'none' }}
+            style={{
+              flex: 1,
+              padding: '8px 12px',
+              borderRadius: 8,
+              border: '1.5px solid #e2e8f0',
+              fontSize: 13,
+              color: '#1e293b',
+              outline: 'none',
+            }}
           />
-          <button onClick={addTask} disabled={!date || !input.trim()} style={{ padding: '8px 14px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer', opacity: !date || !input.trim() ? 0.4 : 1 }}>
+          <button
+            onClick={addTask}
+            disabled={!date || !input.trim()}
+            style={{
+              padding: '8px 14px',
+              borderRadius: 8,
+              border: 'none',
+              background: '#6366f1',
+              color: '#fff',
+              fontSize: 13,
+              fontWeight: 700,
+              cursor: 'pointer',
+              opacity: !date || !input.trim() ? 0.4 : 1,
+            }}
+          >
             추가
           </button>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {currentTasks.length === 0 && (
-            <div style={{ fontSize: 13, color: '#94a3b8', padding: '8px 0' }}>이 날 할 일이 없습니다.</div>
+            <div style={{ fontSize: 13, color: '#94a3b8', padding: '8px 0' }}>
+              이 날 할 일이 없습니다.
+            </div>
           )}
           {currentTasks.map((task) => (
             <div
               key={task.id}
               onClick={() => toggleTask(task.id)}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: task.done ? '#f0fdf4' : '#fff', cursor: 'pointer' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 12px',
+                borderRadius: 8,
+                border: '1px solid #f1f5f9',
+                background: task.done ? '#f0fdf4' : '#fff',
+                cursor: 'pointer',
+              }}
             >
-              <div style={{ width: 18, height: 18, borderRadius: 4, border: `2px solid ${task.done ? '#10b981' : '#d1d5db'}`, background: task.done ? '#10b981' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                {task.done && <span style={{ fontSize: 10, color: '#fff', fontWeight: 900 }}>✓</span>}
+              <div
+                style={{
+                  width: 18,
+                  height: 18,
+                  borderRadius: 4,
+                  border: `2px solid ${task.done ? '#10b981' : '#d1d5db'}`,
+                  background: task.done ? '#10b981' : '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                {task.done && (
+                  <span style={{ fontSize: 10, color: '#fff', fontWeight: 900 }}>✓</span>
+                )}
               </div>
-              <span style={{ fontSize: 13, color: task.done ? '#94a3b8' : '#1e293b', textDecoration: task.done ? 'line-through' : 'none' }}>{task.text}</span>
+              <span
+                style={{
+                  fontSize: 13,
+                  color: task.done ? '#94a3b8' : '#1e293b',
+                  textDecoration: task.done ? 'line-through' : 'none',
+                }}
+              >
+                {task.text}
+              </span>
             </div>
           ))}
         </div>
@@ -1166,21 +1681,54 @@ function AccessibleBirthDatePickerRender() {
   const minDate = new Date(today.getFullYear() - 120, today.getMonth(), today.getDate())
   const maxDate = new Date(today.getFullYear() - 14, today.getMonth(), today.getDate())
 
-  const ageYears = selected ? Math.floor((today.getTime() - selected.getTime()) / (365.25 * 24 * 3600 * 1000)) : null
-  const isValid = selected !== undefined && selected >= minDate && selected <= maxDate
-  const error = submitted && !isValid
-    ? selected === undefined ? '생년월일을 선택하세요.' : '14세 이상 120세 이하만 가입 가능합니다.'
+  const ageYears = selected
+    ? Math.floor((today.getTime() - selected.getTime()) / (365.25 * 24 * 3600 * 1000))
     : null
+  const isValid = selected !== undefined && selected >= minDate && selected <= maxDate
+  const error =
+    submitted && !isValid
+      ? selected === undefined
+        ? '생년월일을 선택하세요.'
+        : '14세 이상 120세 이하만 가입 가능합니다.'
+      : null
 
   return (
-    <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start', maxWidth: 600 }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: 24,
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        maxWidth: 600,
+      }}
+    >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em' }}>생년월일</div>
-        <div style={{ border: `2px solid ${error ? '#ef4444' : selected ? '#6366f1' : '#e2e8f0'}`, borderRadius: 12, padding: 4, transition: 'border-color 0.15s' }}>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          생년월일
+        </div>
+        <div
+          style={{
+            border: `2px solid ${error ? '#ef4444' : selected ? '#6366f1' : '#e2e8f0'}`,
+            borderRadius: 12,
+            padding: 4,
+            transition: 'border-color 0.15s',
+          }}
+        >
           <Calendar
             mode="single"
             selected={selected}
-            onSelect={(d) => { setSelected(d); setSubmitted(false) }}
+            onSelect={(d) => {
+              setSelected(d)
+              setSubmitted(false)
+            }}
             disabled={(d) => d > maxDate || d < minDate}
             startMonth={new Date(today.getFullYear() - 120, 0)}
             endMonth={new Date(today.getFullYear() - 14, 11)}
@@ -1188,7 +1736,15 @@ function AccessibleBirthDatePickerRender() {
           />
         </div>
         {error && (
-          <div style={{ fontSize: 12, color: '#ef4444', display: 'flex', alignItems: 'center', gap: 4 }}>
+          <div
+            style={{
+              fontSize: 12,
+              color: '#ef4444',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+            }}
+          >
             <span>!</span> {error}
           </div>
         )}
@@ -1199,18 +1755,49 @@ function AccessibleBirthDatePickerRender() {
         )}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingTop: 28 }}>
-        <div style={{ padding: '14px 18px', borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#f8fafc', fontSize: 13, color: '#64748b', lineHeight: 1.6, maxWidth: 220 }}>
+        <div
+          style={{
+            padding: '14px 18px',
+            borderRadius: 10,
+            border: '1.5px solid #e2e8f0',
+            background: '#f8fafc',
+            fontSize: 13,
+            color: '#64748b',
+            lineHeight: 1.6,
+            maxWidth: 220,
+          }}
+        >
           <strong style={{ color: '#1e293b', display: 'block', marginBottom: 4 }}>안내사항</strong>
-          14세 미만 또는 120세 초과는 선택 불가합니다. 드롭다운으로 연도를 빠르게 선택할 수 있습니다.
+          14세 미만 또는 120세 초과는 선택 불가합니다. 드롭다운으로 연도를 빠르게 선택할 수
+          있습니다.
         </div>
         <button
           onClick={() => setSubmitted(true)}
-          style={{ padding: '10px 24px', borderRadius: 10, border: 'none', background: '#6366f1', color: '#fff', fontSize: 14, fontWeight: 700, cursor: 'pointer' }}
+          style={{
+            padding: '10px 24px',
+            borderRadius: 10,
+            border: 'none',
+            background: '#6366f1',
+            color: '#fff',
+            fontSize: 14,
+            fontWeight: 700,
+            cursor: 'pointer',
+          }}
         >
           확인
         </button>
         {submitted && isValid && selected && (
-          <div style={{ padding: '10px 16px', borderRadius: 10, background: '#f0fdf4', border: '1.5px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
+          <div
+            style={{
+              padding: '10px 16px',
+              borderRadius: 10,
+              background: '#f0fdf4',
+              border: '1.5px solid #bbf7d0',
+              fontSize: 13,
+              color: '#16a34a',
+              fontWeight: 600,
+            }}
+          >
             {selected.toLocaleDateString('ko-KR')} 확인됨 (만 {ageYears}세)
           </div>
         )}
@@ -1283,7 +1870,9 @@ export const Ant_다중_날짜_선택: Story = {
             선택된 날짜 ({selected.length}개)
           </div>
           {selected.length === 0 ? (
-            <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 12 }}>날짜를 클릭하여 선택하세요.</div>
+            <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 12 }}>
+              날짜를 클릭하여 선택하세요.
+            </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 12 }}>
               {[...selected]
@@ -1292,17 +1881,33 @@ export const Ant_다중_날짜_선택: Story = {
                   <div
                     key={d.toDateString()}
                     style={{
-                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      padding: '6px 10px', borderRadius: 8,
-                      background: '#f0f0ff', border: '1px solid #c7d2fe', fontSize: 13,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '6px 10px',
+                      borderRadius: 8,
+                      background: '#f0f0ff',
+                      border: '1px solid #c7d2fe',
+                      fontSize: 13,
                     }}
                   >
                     <span style={{ color: '#4338ca', fontWeight: 600 }}>
-                      {d.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', weekday: 'short' })}
+                      {d.toLocaleDateString('ko-KR', {
+                        month: 'short',
+                        day: 'numeric',
+                        weekday: 'short',
+                      })}
                     </span>
                     <button
                       onClick={() => toggle(d)}
-                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', fontSize: 16, lineHeight: 1 }}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: '#94a3b8',
+                        fontSize: 16,
+                        lineHeight: 1,
+                      }}
                     >
                       ×
                     </button>
@@ -1314,10 +1919,15 @@ export const Ant_다중_날짜_선택: Story = {
             <button
               disabled={selected.length === 0}
               style={{
-                flex: 1, padding: '8px 0', borderRadius: 8, border: 'none',
+                flex: 1,
+                padding: '8px 0',
+                borderRadius: 8,
+                border: 'none',
                 background: selected.length > 0 ? '#6366f1' : '#e2e8f0',
                 color: selected.length > 0 ? '#fff' : '#94a3b8',
-                fontSize: 13, fontWeight: 600, cursor: selected.length > 0 ? 'pointer' : 'not-allowed',
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: selected.length > 0 ? 'pointer' : 'not-allowed',
               }}
             >
               일정 추가
@@ -1326,9 +1936,14 @@ export const Ant_다중_날짜_선택: Story = {
               disabled={selected.length === 0}
               onClick={() => setSelected([])}
               style={{
-                flex: 1, padding: '8px 0', borderRadius: 8,
-                border: '1px solid #e2e8f0', background: '#fff',
-                color: '#475569', fontSize: 13, fontWeight: 600,
+                flex: 1,
+                padding: '8px 0',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                color: '#475569',
+                fontSize: 13,
+                fontWeight: 600,
                 cursor: selected.length > 0 ? 'pointer' : 'not-allowed',
               }}
             >
@@ -1370,10 +1985,18 @@ export const AppUI_날짜_확인_다이얼로그: Story = {
         <div
           onClick={() => setOpen((v) => !v)}
           style={{
-            padding: '10px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0',
-            cursor: 'pointer', fontSize: 14, fontWeight: 500,
+            padding: '10px 14px',
+            borderRadius: 10,
+            border: '1.5px solid #e2e8f0',
+            cursor: 'pointer',
+            fontSize: 14,
+            fontWeight: 500,
             color: confirmed ? '#1e293b' : '#94a3b8',
-            background: '#fff', marginBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            background: '#fff',
+            marginBottom: 8,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <span>{confirmed ? fmt(confirmed) : '날짜를 선택하세요'}</span>
@@ -1382,34 +2005,52 @@ export const AppUI_날짜_확인_다이얼로그: Story = {
 
         {/* Popover-style calendar */}
         {open && (
-          <div style={{
-            padding: 16, borderRadius: 14, border: '1.5px solid #e2e8f0',
-            background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
-          }}>
-            <Calendar
-              mode="single"
-              selected={draft}
-              onSelect={setDraft}
-            />
+          <div
+            style={{
+              padding: 16,
+              borderRadius: 14,
+              border: '1.5px solid #e2e8f0',
+              background: '#fff',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+            }}
+          >
+            <Calendar mode="single" selected={draft} onSelect={setDraft} />
             <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
               <button
-                onClick={() => { setDraft(undefined); setOpen(false) }}
+                onClick={() => {
+                  setDraft(undefined)
+                  setOpen(false)
+                }}
                 style={{
-                  flex: 1, padding: '8px 0', borderRadius: 8,
-                  border: '1px solid #e2e8f0', background: '#f8fafc',
-                  fontSize: 13, fontWeight: 600, color: '#64748b', cursor: 'pointer',
+                  flex: 1,
+                  padding: '8px 0',
+                  borderRadius: 8,
+                  border: '1px solid #e2e8f0',
+                  background: '#f8fafc',
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: '#64748b',
+                  cursor: 'pointer',
                 }}
               >
                 취소
               </button>
               <button
                 disabled={!draft}
-                onClick={() => { setConfirmed(draft); setOpen(false) }}
+                onClick={() => {
+                  setConfirmed(draft)
+                  setOpen(false)
+                }}
                 style={{
-                  flex: 1, padding: '8px 0', borderRadius: 8, border: 'none',
+                  flex: 1,
+                  padding: '8px 0',
+                  borderRadius: 8,
+                  border: 'none',
                   background: draft ? '#6366f1' : '#e2e8f0',
                   color: draft ? '#fff' : '#94a3b8',
-                  fontSize: 13, fontWeight: 600, cursor: draft ? 'pointer' : 'not-allowed',
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: draft ? 'pointer' : 'not-allowed',
                 }}
               >
                 확인
@@ -1419,7 +2060,18 @@ export const AppUI_날짜_확인_다이얼로그: Story = {
         )}
 
         {confirmed && (
-          <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
+          <div
+            style={{
+              marginTop: 12,
+              padding: '10px 14px',
+              borderRadius: 10,
+              background: '#f0fdf4',
+              border: '1px solid #bbf7d0',
+              fontSize: 13,
+              color: '#16a34a',
+              fontWeight: 600,
+            }}
+          >
             ✓ 확정: {fmt(confirmed)}
           </div>
         )}
@@ -1450,9 +2102,10 @@ export const Ant_AppUI_스프린트_계획_달력: Story = {
       to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 13),
     })
 
-    const sprintDays = range.from && range.to
-      ? Math.ceil((range.to.getTime() - range.from.getTime()) / 86400000) + 1
-      : 0
+    const sprintDays =
+      range.from && range.to
+        ? Math.ceil((range.to.getTime() - range.from.getTime()) / 86400000) + 1
+        : 0
 
     const members = [
       { name: '김민준', role: 'Frontend', color: '#6366f1', tasks: 5 },
@@ -1470,30 +2123,69 @@ export const Ant_AppUI_스프린트_계획_달력: Story = {
           numberOfMonths={1}
         />
         <div style={{ minWidth: 240 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>스프린트 기간</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+            스프린트 기간
+          </div>
           <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
             {range.from?.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })} ~{' '}
             {range.to?.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })}{' '}
             <span style={{ color: '#6366f1', fontWeight: 700 }}>({sprintDays}일)</span>
           </div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>팀원 배정</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>
+            팀원 배정
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {members.map((m) => (
               <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <div style={{ width: 32, height: 32, borderRadius: '50%', background: m.color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    background: m.color,
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 13,
+                    fontWeight: 700,
+                    flexShrink: 0,
+                  }}
+                >
                   {m.name[0]}
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{m.name}</div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>{m.role} · {m.tasks}개 태스크</div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                    {m.role} · {m.tasks}개 태스크
+                  </div>
                 </div>
-                <div style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 20, background: `${m.color}18`, color: m.color }}>
-                  {Math.round(m.tasks / sprintDays * 10) / 10}/일
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: '2px 8px',
+                    borderRadius: 20,
+                    background: `${m.color}18`,
+                    color: m.color,
+                  }}
+                >
+                  {Math.round((m.tasks / sprintDays) * 10) / 10}/일
                 </div>
               </div>
             ))}
           </div>
-          <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b' }}>
+          <div
+            style={{
+              marginTop: 16,
+              padding: '10px 14px',
+              borderRadius: 10,
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              fontSize: 12,
+              color: '#64748b',
+            }}
+          >
             총 {members.reduce((s, m) => s + m.tasks, 0)}개 태스크 · {members.length}명 배정
           </div>
         </div>
@@ -1510,7 +2202,8 @@ export const ComposableUI_날짜_범위_예약: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI DateRangePicker 패턴. 체크인/체크아웃 날짜를 순차적으로 선택. 선택된 범위의 박 수와 예상 금액을 실시간으로 계산. 숙박/예약 폼에서 활용.',
+        story:
+          'ComposableUI DateRangePicker 패턴. 체크인/체크아웃 날짜를 순차적으로 선택. 선택된 범위의 박 수와 예상 금액을 실시간으로 계산. 숙박/예약 폼에서 활용.',
       },
     },
   },
@@ -1535,28 +2228,113 @@ export const ComposableUI_날짜_범위_예약: Story = {
       }
     }
 
-    const nights = checkIn && checkOut
-      ? Math.round((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))
-      : 0
+    const nights =
+      checkIn && checkOut
+        ? Math.round((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))
+        : 0
     const pricePerNight = 89000
 
     return (
       <div style={{ maxWidth: 520, fontFamily: 'system-ui, sans-serif' }}>
         <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
-          <div style={{ flex: 1, padding: '10px 14px', borderRadius: 8, border: `2px solid ${step === 'checkin' ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, cursor: 'pointer', background: step === 'checkin' ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent' }} onClick={() => setStep('checkin')}>
-            <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 2 }}>체크인</p>
-            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{checkIn ? checkIn.toLocaleDateString('ko-KR') : '날짜 선택'}</p>
+          <div
+            style={{
+              flex: 1,
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: `2px solid ${step === 'checkin' ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+              cursor: 'pointer',
+              background:
+                step === 'checkin' ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent',
+            }}
+            onClick={() => setStep('checkin')}
+          >
+            <p
+              style={{
+                fontSize: 9,
+                fontWeight: 700,
+                color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                textTransform: 'uppercase',
+                letterSpacing: 0.6,
+                marginBottom: 2,
+              }}
+            >
+              체크인
+            </p>
+            <p
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              }}
+            >
+              {checkIn ? checkIn.toLocaleDateString('ko-KR') : '날짜 선택'}
+            </p>
           </div>
-          <div style={{ flex: 1, padding: '10px 14px', borderRadius: 8, border: `2px solid ${step === 'checkout' ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`, cursor: 'pointer', background: step === 'checkout' ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent' }} onClick={() => checkIn && setStep('checkout')}>
-            <p style={{ fontSize: 9, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 2 }}>체크아웃</p>
-            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{checkOut ? checkOut.toLocaleDateString('ko-KR') : '날짜 선택'}</p>
+          <div
+            style={{
+              flex: 1,
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: `2px solid ${step === 'checkout' ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+              cursor: 'pointer',
+              background:
+                step === 'checkout' ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent',
+            }}
+            onClick={() => checkIn && setStep('checkout')}
+          >
+            <p
+              style={{
+                fontSize: 9,
+                fontWeight: 700,
+                color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                textTransform: 'uppercase',
+                letterSpacing: 0.6,
+                marginBottom: 2,
+              }}
+            >
+              체크아웃
+            </p>
+            <p
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              }}
+            >
+              {checkOut ? checkOut.toLocaleDateString('ko-KR') : '날짜 선택'}
+            </p>
           </div>
         </div>
-        <Calendar mode="single" selected={step === 'checkin' ? checkIn : checkOut} onSelect={handleSelect} />
+        <Calendar
+          mode="single"
+          selected={step === 'checkin' ? checkIn : checkOut}
+          onSelect={handleSelect}
+        />
         {nights > 0 && (
-          <div style={{ marginTop: 12, padding: '12px 16px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceSubtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>₩{pricePerNight.toLocaleString()} x {nights}박</span>
-            <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>₩{(pricePerNight * nights).toLocaleString()}</span>
+          <div
+            style={{
+              marginTop: 12,
+              padding: '12px 16px',
+              borderRadius: 8,
+              background: 'var(--sem-eclipse-color-surfaceSubtle)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+              ₩{pricePerNight.toLocaleString()} x {nights}박
+            </span>
+            <span
+              style={{
+                fontSize: 15,
+                fontWeight: 700,
+                color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              }}
+            >
+              ₩{(pricePerNight * nights).toLocaleString()}
+            </span>
           </div>
         )}
       </div>
@@ -1572,7 +2350,8 @@ export const IssueTracker_마일스톤_일정_계획: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker의 마일스톤 due date 선택 패턴. 오늘 이전 날짜 선택 방지, 마일스톤 색상 구분, 남은 일수 표시. 프로젝트 플래닝 UI에서 활용.',
+        story:
+          'IssueTracker의 마일스톤 due date 선택 패턴. 오늘 이전 날짜 선택 방지, 마일스톤 색상 구분, 남은 일수 표시. 프로젝트 플래닝 UI에서 활용.',
       },
     },
   },
@@ -1594,33 +2373,91 @@ export const IssueTracker_마일스톤_일정_계획: Story = {
 
     const handleDateSelect = (date: Date | undefined) => {
       if (date && date < today) return
-      setMilestones((prev) => prev.map((m) => m.id === activeId ? { ...m, date } : m))
+      setMilestones((prev) => prev.map((m) => (m.id === activeId ? { ...m, date } : m)))
     }
 
     return (
       <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
-        <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>마일스톤 일정 설정</p>
+        <p
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            marginBottom: 12,
+          }}
+        >
+          마일스톤 일정 설정
+        </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 14 }}>
           {milestones.map((m) => {
             const days = daysUntil(m.date)
             return (
-              <div key={m.id} onClick={() => setActiveId(m.id)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: `2px solid ${activeId === m.id ? m.color : 'var(--sem-eclipse-color-borderSubtle)'}`, background: activeId === m.id ? `${m.color}10` : 'var(--sem-eclipse-color-surfaceDefault)', cursor: 'pointer', transition: 'all 0.15s' }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: m.color, flexShrink: 0 }} />
-                <span style={{ flex: 1, fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.name}</span>
+              <div
+                key={m.id}
+                onClick={() => setActiveId(m.id)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '10px 14px',
+                  borderRadius: 8,
+                  border: `2px solid ${activeId === m.id ? m.color : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                  background:
+                    activeId === m.id ? `${m.color}10` : 'var(--sem-eclipse-color-surfaceDefault)',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: m.color,
+                    flexShrink: 0,
+                  }}
+                />
+                <span
+                  style={{
+                    flex: 1,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  }}
+                >
+                  {m.name}
+                </span>
                 {m.date ? (
                   <span style={{ fontSize: 11, color: m.color, fontWeight: 600 }}>
                     {days !== null && days >= 0 ? `D-${days}` : '기한 초과'}
                   </span>
                 ) : (
-                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>미설정</span>
+                  <span
+                    style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}
+                  >
+                    미설정
+                  </span>
                 )}
-                {m.date && <span style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{m.date.toLocaleDateString('ko-KR')}</span>}
+                {m.date && (
+                  <span
+                    style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                  >
+                    {m.date.toLocaleDateString('ko-KR')}
+                  </span>
+                )}
               </div>
             )
           })}
         </div>
-        <p style={{ fontSize: 11, color: active.color, fontWeight: 600, marginBottom: 6 }}>▸ {active.name} 목표일 선택</p>
-        <Calendar mode="single" selected={active.date} onSelect={handleDateSelect} disabled={{ before: today }} />
+        <p style={{ fontSize: 11, color: active.color, fontWeight: 600, marginBottom: 6 }}>
+          ▸ {active.name} 목표일 선택
+        </p>
+        <Calendar
+          mode="single"
+          selected={active.date}
+          onSelect={handleDateSelect}
+          disabled={{ before: today }}
+        />
       </div>
     )
   },
@@ -1634,7 +2471,8 @@ export const ComposableUI_IssueTracker_반복_이벤트_스케줄러: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI DatePicker + IssueTracker 반복 설정 패턴. 날짜 선택 후 반복 주기(없음/매일/매주/매월)와 종료 조건을 설정. 캘린더 앱 이벤트 생성 폼 패턴.',
+        story:
+          'ComposableUI DatePicker + IssueTracker 반복 설정 패턴. 날짜 선택 후 반복 주기(없음/매일/매주/매월)와 종료 조건을 설정. 캘린더 앱 이벤트 생성 폼 패턴.',
       },
     },
   },
@@ -1654,28 +2492,92 @@ export const ComposableUI_IssueTracker_반복_이벤트_스케줄러: Story = {
 
     return (
       <div style={{ maxWidth: 460, fontFamily: 'system-ui, sans-serif' }}>
-        <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>이벤트 스케줄 설정</p>
+        <p
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            marginBottom: 14,
+          }}
+        >
+          이벤트 스케줄 설정
+        </p>
         <Calendar mode="single" selected={startDate} onSelect={setStartDate} />
         <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {(['none', 'daily', 'weekly', 'monthly'] as const).map((r) => (
             <button
               key={r}
               onClick={() => setRepeat(r)}
-              style={{ fontSize: 11, padding: '5px 12px', borderRadius: 20, border: `1px solid ${repeat === r ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)'}`, background: repeat === r ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent', color: repeat === r ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer', fontWeight: repeat === r ? 600 : 400, transition: 'all 0.15s' }}
+              style={{
+                fontSize: 11,
+                padding: '5px 12px',
+                borderRadius: 20,
+                border: `1px solid ${repeat === r ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)'}`,
+                background:
+                  repeat === r ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent',
+                color:
+                  repeat === r
+                    ? 'var(--sem-eclipse-color-fillPrimary)'
+                    : 'var(--sem-eclipse-color-foregroundSecondary)',
+                cursor: 'pointer',
+                fontWeight: repeat === r ? 600 : 400,
+                transition: 'all 0.15s',
+              }}
             >
               {repeatLabels[r]}
             </button>
           ))}
         </div>
         {startDate && (
-          <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceSubtle)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+          <div
+            style={{
+              marginTop: 12,
+              padding: '10px 14px',
+              borderRadius: 8,
+              background: 'var(--sem-eclipse-color-surfaceSubtle)',
+              fontSize: 12,
+              color: 'var(--sem-eclipse-color-foregroundSecondary)',
+            }}
+          >
             {startDate.toLocaleDateString('ko-KR')} 시작
             {repeat !== 'none' && ` · ${repeatLabels[repeat]} 반복`}
           </div>
         )}
         <div style={{ marginTop: 12, display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
-          <button onClick={() => { setStartDate(undefined); setRepeat('none') }} style={{ fontSize: 12, padding: '7px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'transparent', color: 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer' }}>초기화</button>
-          <button onClick={handleSave} disabled={!startDate} style={{ fontSize: 12, padding: '7px 14px', borderRadius: 8, border: 'none', background: startDate ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderDefault)', color: '#fff', cursor: startDate ? 'pointer' : 'not-allowed', fontWeight: 600, transition: 'all 0.15s' }}>
+          <button
+            onClick={() => {
+              setStartDate(undefined)
+              setRepeat('none')
+            }}
+            style={{
+              fontSize: 12,
+              padding: '7px 14px',
+              borderRadius: 8,
+              border: '1px solid var(--sem-eclipse-color-borderDefault)',
+              background: 'transparent',
+              color: 'var(--sem-eclipse-color-foregroundSecondary)',
+              cursor: 'pointer',
+            }}
+          >
+            초기화
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={!startDate}
+            style={{
+              fontSize: 12,
+              padding: '7px 14px',
+              borderRadius: 8,
+              border: 'none',
+              background: startDate
+                ? 'var(--sem-eclipse-color-fillPrimary)'
+                : 'var(--sem-eclipse-color-borderDefault)',
+              color: '#fff',
+              cursor: startDate ? 'pointer' : 'not-allowed',
+              fontWeight: 600,
+              transition: 'all 0.15s',
+            }}
+          >
             {saved ? '저장 완료!' : '일정 저장'}
           </button>
         </div>
@@ -1693,14 +2595,21 @@ export const Accessible_생일_기념일_달력: Story = {
   render: function AccessibleBirthdayCalendarRender() {
     const today = new Date()
     const [selected, setSelected] = React.useState<Date | undefined>(undefined)
-    const anniversaries = [3, 8, 14, 21, 28].map((d) => new Date(today.getFullYear(), today.getMonth(), d))
+    const anniversaries = [3, 8, 14, 21, 28].map(
+      (d) => new Date(today.getFullYear(), today.getMonth(), d)
+    )
     const birthdays = [5, 12, 19, 26].map((d) => new Date(today.getFullYear(), today.getMonth(), d))
 
-    const isAnniversary = (d: Date) => anniversaries.some((a) => a.toDateString() === d.toDateString())
+    const isAnniversary = (d: Date) =>
+      anniversaries.some((a) => a.toDateString() === d.toDateString())
     const isBirthday = (d: Date) => birthdays.some((b) => b.toDateString() === d.toDateString())
 
     const selectedLabel = selected
-      ? isAnniversary(selected) ? '기념일' : isBirthday(selected) ? '생일' : '일반 날짜'
+      ? isAnniversary(selected)
+        ? '기념일'
+        : isBirthday(selected)
+          ? '생일'
+          : '일반 날짜'
       : '날짜를 선택하세요'
 
     return (
@@ -1715,18 +2624,65 @@ export const Accessible_생일_기념일_달력: Story = {
             birthday: { background: '#eff6ff', border: '2px solid #3b82f6', borderRadius: 4 },
           }}
         />
-        <div style={{ width: 180, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', padding: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 10 }}>범례</div>
-          {[{ color: '#f59e0b', bg: '#fef3c7', label: '기념일' }, { color: '#3b82f6', bg: '#eff6ff', label: '생일' }].map((item) => (
-            <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-              <div style={{ width: 14, height: 14, borderRadius: 3, background: item.bg, border: `2px solid ${item.color}` }} />
+        <div
+          style={{
+            width: 180,
+            background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+            borderRadius: 10,
+            border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+            padding: 14,
+          }}
+        >
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', marginBottom: 10 }}>
+            범례
+          </div>
+          {[
+            { color: '#f59e0b', bg: '#fef3c7', label: '기념일' },
+            { color: '#3b82f6', bg: '#eff6ff', label: '생일' },
+          ].map((item) => (
+            <div
+              key={item.label}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}
+            >
+              <div
+                style={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: 3,
+                  background: item.bg,
+                  border: `2px solid ${item.color}`,
+                }}
+              />
               <span style={{ fontSize: 12, color: '#64748b' }}>{item.label}</span>
             </div>
           ))}
-          <div style={{ marginTop: 12, padding: '8px 10px', borderRadius: 7, background: '#fff', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+          <div
+            style={{
+              marginTop: 12,
+              padding: '8px 10px',
+              borderRadius: 7,
+              background: '#fff',
+              border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+            }}
+          >
             <div style={{ fontSize: 11, color: '#94a3b8' }}>선택:</div>
-            <div style={{ fontSize: 12, color: '#0f172a', fontWeight: 600, marginTop: 2 }}>{selected?.toLocaleDateString('ko-KR') ?? '—'}</div>
-            <div style={{ fontSize: 11, color: selected ? (isAnniversary(selected) ? '#f59e0b' : isBirthday(selected) ? '#3b82f6' : '#64748b') : '#94a3b8' }}>{selectedLabel}</div>
+            <div style={{ fontSize: 12, color: '#0f172a', fontWeight: 600, marginTop: 2 }}>
+              {selected?.toLocaleDateString('ko-KR') ?? '—'}
+            </div>
+            <div
+              style={{
+                fontSize: 11,
+                color: selected
+                  ? isAnniversary(selected)
+                    ? '#f59e0b'
+                    : isBirthday(selected)
+                      ? '#3b82f6'
+                      : '#64748b'
+                  : '#94a3b8',
+              }}
+            >
+              {selectedLabel}
+            </div>
           </div>
         </div>
       </div>
@@ -1735,7 +2691,8 @@ export const Accessible_생일_기념일_달력: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI date picker 이벤트 마킹 패턴. 기념일(주황)/생일(파랑) 날짜 custom modifier로 하이라이트. 선택 날짜 이벤트 타입 자동 분류.',
+        story:
+          'AccessibleUI date picker 이벤트 마킹 패턴. 기념일(주황)/생일(파랑) 날짜 custom modifier로 하이라이트. 선택 날짜 이벤트 타입 자동 분류.',
       },
     },
   },
@@ -1759,9 +2716,10 @@ export const DataProduct_다중_달력_비교_뷰: Story = {
       }
     }
 
-    const daysBetween = range.from && range.to
-      ? Math.round((range.to.getTime() - range.from.getTime()) / 86400000)
-      : 0
+    const daysBetween =
+      range.from && range.to
+        ? Math.round((range.to.getTime() - range.from.getTime()) / 86400000)
+        : 0
 
     return (
       <div>
@@ -1771,9 +2729,8 @@ export const DataProduct_다중_달력_비교_뷰: Story = {
             selected={range.from}
             onSelect={handleSelect}
             defaultMonth={prevMonth}
-            modifiers={range.from && range.to
-              ? { inRange: { from: range.from, to: range.to } }
-              : undefined
+            modifiers={
+              range.from && range.to ? { inRange: { from: range.from, to: range.to } } : undefined
             }
           />
           <Calendar
@@ -1783,10 +2740,29 @@ export const DataProduct_다중_달력_비교_뷰: Story = {
             defaultMonth={nextMonth}
           />
         </div>
-        <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', display: 'flex', gap: 16, fontSize: 12 }}>
-          <div><span style={{ color: '#94a3b8' }}>시작:</span> <strong>{range.from?.toLocaleDateString('ko-KR') ?? '—'}</strong></div>
-          <div><span style={{ color: '#94a3b8' }}>종료:</span> <strong>{range.to?.toLocaleDateString('ko-KR') ?? '—'}</strong></div>
-          {daysBetween > 0 && <div style={{ color: '#6366f1', fontWeight: 700 }}>{daysBetween}일 선택됨</div>}
+        <div
+          style={{
+            marginTop: 12,
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+            border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+            display: 'flex',
+            gap: 16,
+            fontSize: 12,
+          }}
+        >
+          <div>
+            <span style={{ color: '#94a3b8' }}>시작:</span>{' '}
+            <strong>{range.from?.toLocaleDateString('ko-KR') ?? '—'}</strong>
+          </div>
+          <div>
+            <span style={{ color: '#94a3b8' }}>종료:</span>{' '}
+            <strong>{range.to?.toLocaleDateString('ko-KR') ?? '—'}</strong>
+          </div>
+          {daysBetween > 0 && (
+            <div style={{ color: '#6366f1', fontWeight: 700 }}>{daysBetween}일 선택됨</div>
+          )}
         </div>
       </div>
     )
@@ -1794,7 +2770,8 @@ export const DataProduct_다중_달력_비교_뷰: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI 이중 달력 범위 선택 패턴. 이전월/다음월 나란히 표시, 클릭 두 번으로 시작-종료 날짜 설정, 선택 기간 일수 자동 계산.',
+        story:
+          'DataProductUI 이중 달력 범위 선택 패턴. 이전월/다음월 나란히 표시, 클릭 두 번으로 시작-종료 날짜 설정, 선택 기간 일수 자동 계산.',
       },
     },
   },
@@ -1817,8 +2794,10 @@ export const Accessible_DataProduct_예약_일정_달력: Story = {
     )
 
     const isBooked = (d: Date) => bookedDates.some((b) => b.toDateString() === d.toDateString())
-    const _isUnavailable = (d: Date) => unavailableDates.some((u) => u.toDateString() === d.toDateString())
-    const isHighDemand = (d: Date) => highDemandDates.some((h) => h.toDateString() === d.toDateString())
+    const _isUnavailable = (d: Date) =>
+      unavailableDates.some((u) => u.toDateString() === d.toDateString())
+    const isHighDemand = (d: Date) =>
+      highDemandDates.some((h) => h.toDateString() === d.toDateString())
 
     const available = 31 - bookedDates.length - unavailableDates.length - highDemandDates.length
 
@@ -1842,16 +2821,47 @@ export const Accessible_DataProduct_예약_일정_달력: Story = {
             { color: '#94a3b8', bg: '#f1f5f9', label: '이용 불가', count: unavailableDates.length },
             { color: '#6366f1', bg: '#eff6ff', label: '잔여 가능', count: available },
           ].map((item) => (
-            <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, background: item.bg, border: `1px solid ${item.color}30` }}>
+            <div
+              key={item.label}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 10px',
+                borderRadius: 8,
+                background: item.bg,
+                border: `1px solid ${item.color}30`,
+              }}
+            >
               <div style={{ flex: 1, fontSize: 12, color: '#475569' }}>{item.label}</div>
               <span style={{ fontSize: 14, fontWeight: 800, color: item.color }}>{item.count}</span>
             </div>
           ))}
           {selected && (
-            <div style={{ marginTop: 4, padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+            <div
+              style={{
+                marginTop: 4,
+                padding: '10px 12px',
+                borderRadius: 8,
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+              }}
+            >
               <div style={{ fontSize: 11, color: '#94a3b8' }}>선택 날짜</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginTop: 2 }}>{selected.toLocaleDateString('ko-KR')}</div>
-              <div style={{ fontSize: 11, color: isBooked(selected) ? '#16a34a' : isHighDemand(selected) ? '#f59e0b' : '#64748b', marginTop: 2 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginTop: 2 }}>
+                {selected.toLocaleDateString('ko-KR')}
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: isBooked(selected)
+                    ? '#16a34a'
+                    : isHighDemand(selected)
+                      ? '#f59e0b'
+                      : '#64748b',
+                  marginTop: 2,
+                }}
+              >
                 {isBooked(selected) ? '예약 가능' : isHighDemand(selected) ? '인기 날짜' : '일반'}
               </div>
             </div>
@@ -1863,7 +2873,8 @@ export const Accessible_DataProduct_예약_일정_달력: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI + DataProductUI 예약 달력 패턴. 예약 가능(초록)/인기(노랑)/불가(회색) 3상태 modifier 적용. 날짜 유형별 카운트 사이드 패널 표시.',
+        story:
+          'AccessibleUI + DataProductUI 예약 달력 패턴. 예약 가능(초록)/인기(노랑)/불가(회색) 3상태 modifier 적용. 날짜 유형별 카운트 사이드 패널 표시.',
       },
     },
   },

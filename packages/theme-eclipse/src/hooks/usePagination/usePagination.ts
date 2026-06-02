@@ -91,7 +91,7 @@ export function usePagination(options: UsePaginationOptions): UsePaginationRetur
         return clamped
       })
     },
-    [total, onChange],
+    [total, onChange]
   )
 
   const next = useCallback(() => setPage(page + 1), [page, setPage])

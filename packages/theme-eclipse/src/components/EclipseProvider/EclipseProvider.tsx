@@ -66,7 +66,7 @@ export const EclipseProvider: React.FC<PropsWithChildren<EclipseProviderProps>> 
 
   const eclipseContext = useMemo<EclipseThemeContextValue>(
     () => ({ mode, platform, baseTextSize }),
-    [mode, platform, baseTextSize],
+    [mode, platform, baseTextSize]
   )
 
   return (

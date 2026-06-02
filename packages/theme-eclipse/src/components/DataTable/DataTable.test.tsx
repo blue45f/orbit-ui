@@ -23,7 +23,6 @@ const columns: ColumnDef<Row, unknown>[] = [
   { id: 'email', accessorKey: 'email', header: '이메일', enableSorting: false },
 ]
 
-
 const Table = DataTable as any
 
 describe('DataTable', () => {
@@ -57,35 +56,19 @@ describe('DataTable', () => {
   })
 
   test('빈 데이터일 때 emptyMessage가 노출된다', () => {
-    render(
-      <Table
-        columns={columns}
-        data={[]}
-        aria-label="users"
-        emptyMessage="데이터 없음"
-      />
-    )
+    render(<Table columns={columns} data={[]} aria-label="users" emptyMessage="데이터 없음" />)
 
     expect(screen.getByText('데이터 없음')).toBeInTheDocument()
   })
 
   test('caption이 렌더링된다', () => {
-    render(
-      <Table
-        columns={columns}
-        data={data}
-        aria-label="users"
-        caption="사용자 목록 캡션"
-      />
-    )
+    render(<Table columns={columns} data={data} aria-label="users" caption="사용자 목록 캡션" />)
 
     expect(screen.getByText('사용자 목록 캡션')).toBeInTheDocument()
   })
 
   test('loading 상태에서 aria-busy=true가 적용된다', () => {
-    render(
-      <Table columns={columns} data={[]} aria-label="users" loading skeletonCount={2} />
-    )
+    render(<Table columns={columns} data={[]} aria-label="users" loading skeletonCount={2} />)
 
     const table = screen.getByRole('table')
     expect(table).toHaveAttribute('aria-busy', 'true')

@@ -11,7 +11,9 @@ beforeAll(() => {
   // ResizeObserver는 test-utils에서 모킹되어 있음
   // 추가로 일부 환경에서 필요한 폴리필
   if (!Element.prototype.hasPointerCapture) {
-    Element.prototype.hasPointerCapture = vi.fn(() => false) as unknown as Element['hasPointerCapture']
+    Element.prototype.hasPointerCapture = vi.fn(
+      () => false
+    ) as unknown as Element['hasPointerCapture']
   }
 })
 
@@ -130,7 +132,9 @@ describe('Slider (eclipse)', () => {
 
   test('range 슬라이더에서 두 thumb 모두 키보드 조작이 가능하다', async () => {
     const onValueChange = vi.fn()
-    render(<Slider defaultValue={[20, 80]} min={0} max={100} step={1} onValueChange={onValueChange} />)
+    render(
+      <Slider defaultValue={[20, 80]} min={0} max={100} step={1} onValueChange={onValueChange} />
+    )
 
     const thumbs = screen.getAllByRole('slider')
     expect(thumbs).toHaveLength(2)
@@ -153,7 +157,7 @@ describe('Slider (eclipse)', () => {
         step={1}
         disabled
         onValueChange={onValueChange}
-      />,
+      />
     )
 
     const slider = screen.getByRole('slider')

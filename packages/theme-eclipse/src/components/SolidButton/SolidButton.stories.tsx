@@ -1,5 +1,12 @@
 import { Flex } from '@heejun-com/core'
-import { ArrowRightIcon, ChatLineIcon, ChevronRightLineIcon, NotificationLineIcon, SearchIcon, SettingLineIcon } from '@heejun-com/icons'
+import {
+  ArrowRightIcon,
+  ChatLineIcon,
+  ChevronRightLineIcon,
+  NotificationLineIcon,
+  SearchIcon,
+  SettingLineIcon,
+} from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { expect, fn, userEvent, within } from 'storybook/test'
 import { useState } from 'react'
@@ -212,7 +219,16 @@ export const Platform_HIG_버튼_계층: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '480px' }}>
       <div>
-        <p style={{ margin: '0 0 8px', fontSize: '11px', fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        <p
+          style={{
+            margin: '0 0 8px',
+            fontSize: '11px',
+            fontWeight: 600,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
           단계별 강조도
         </p>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -221,13 +237,20 @@ export const Platform_HIG_버튼_계층: Story = {
           </SolidButton>
         </div>
       </div>
-      <div style={{ padding: '24px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+      <div
+        style={{
+          padding: '24px',
+          background: '#f8fafc',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
         <p style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 600, color: '#0f172a' }}>
           결제 플로우 예시
         </p>
         <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b' }}>
-          Primary 버튼은 페이지당 하나만 존재해야 합니다.
-          Secondary와 Tertiary는 보조 액션에 사용합니다.
+          Primary 버튼은 페이지당 하나만 존재해야 합니다. Secondary와 Tertiary는 보조 액션에
+          사용합니다.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <SolidButton color="primary" size="large">
@@ -241,7 +264,14 @@ export const Platform_HIG_버튼_계층: Story = {
           </SolidButton>
         </div>
       </div>
-      <div style={{ padding: '24px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+      <div
+        style={{
+          padding: '24px',
+          background: '#f8fafc',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
         <p style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 600, color: '#0f172a' }}>
           모달 액션 예시 (파괴적 작업)
         </p>
@@ -269,7 +299,9 @@ export const 디자인QA = {
 
   render: ({ color, size, text, leading, trailing, ...rest }: any) => {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '2rem' }}
+      >
         <h4 style={{ margin: 0, fontSize: '14px', color: '#888' }}>Interactive Playground</h4>
         <SolidButton color={color} size={size} {...rest}>
           {leading && (
@@ -297,16 +329,28 @@ export const Material3_색상역할_시스템: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: '12px',
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           M3 Color Roles
         </p>
         <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
-          RoleToken Design의 색상 역할 시스템입니다. SolidButton의 color prop을 M3 역할에 매핑하여 사용합니다.
+          RoleToken Design의 색상 역할 시스템입니다. SolidButton의 color prop을 M3 역할에 매핑하여
+          사용합니다.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {/* Primary Role */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>Primary</div>
+            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>
+              Primary
+            </div>
             <SolidButton color="primary" size="medium">
               <SolidButton.Center>Filled Button</SolidButton.Center>
             </SolidButton>
@@ -314,7 +358,9 @@ export const Material3_색상역할_시스템: Story = {
           </div>
           {/* Secondary Role → black */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>Secondary</div>
+            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>
+              Secondary
+            </div>
             <SolidButton color="black" size="medium">
               <SolidButton.Center>Filled Button</SolidButton.Center>
             </SolidButton>
@@ -322,7 +368,9 @@ export const Material3_색상역할_시스템: Story = {
           </div>
           {/* Tertiary Role → gray */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>Tertiary</div>
+            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>
+              Tertiary
+            </div>
             <SolidButton color="gray" size="medium">
               <SolidButton.Center>Filled Button</SolidButton.Center>
             </SolidButton>
@@ -330,7 +378,9 @@ export const Material3_색상역할_시스템: Story = {
           </div>
           {/* Surface Role → white */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>Surface</div>
+            <div style={{ width: '120px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>
+              Surface
+            </div>
             <div style={{ background: '#1e293b', padding: '8px 12px', borderRadius: '12px' }}>
               <SolidButton color="white" size="medium">
                 <SolidButton.Center>Filled Button</SolidButton.Center>
@@ -342,13 +392,31 @@ export const Material3_색상역할_시스템: Story = {
       </div>
 
       {/* Color Role 실전 카드 */}
-      <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>M3 실전: 알림 다이얼로그</p>
+      <div
+        style={{
+          background: '#f8fafc',
+          borderRadius: '16px',
+          padding: '24px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
+          M3 실전: 알림 다이얼로그
+        </p>
         <p style={{ margin: '0 0 20px', fontSize: '12px', color: '#64748b' }}>
           위험한 액션에는 Error 역할(red), 확인에는 Primary, 취소에는 Surface를 권장합니다.
         </p>
-        <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', border: '1px solid #e2e8f0' }}>
-          <p style={{ margin: '0 0 6px', fontSize: '15px', fontWeight: 700, color: '#0f172a' }}>계정을 삭제하시겠습니까?</p>
+        <div
+          style={{
+            background: '#fff',
+            borderRadius: '12px',
+            padding: '24px',
+            border: '1px solid #e2e8f0',
+          }}
+        >
+          <p style={{ margin: '0 0 6px', fontSize: '15px', fontWeight: 700, color: '#0f172a' }}>
+            계정을 삭제하시겠습니까?
+          </p>
           <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.5 }}>
             이 작업은 되돌릴 수 없습니다. 모든 데이터가 영구적으로 삭제됩니다.
           </p>
@@ -374,7 +442,16 @@ export const Material3_밀도_시스템: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '600px' }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: '12px',
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           M3 Density System
         </p>
         <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
@@ -383,10 +460,32 @@ export const Material3_밀도_시스템: Story = {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {/* Compact */}
-          <div style={{ padding: '20px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '99px', background: '#f1f5f9', color: '#475569' }}>Compact (-2)</span>
-              <span style={{ fontSize: '12px', color: '#94a3b8' }}>정보 밀도 높음 · 데이터 대시보드, 툴바</span>
+          <div
+            style={{
+              padding: '20px',
+              background: '#fff',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+            }}
+          >
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}
+            >
+              <span
+                style={{
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: '99px',
+                  background: '#f1f5f9',
+                  color: '#475569',
+                }}
+              >
+                Compact (-2)
+              </span>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+                정보 밀도 높음 · 데이터 대시보드, 툴바
+              </span>
             </div>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
               <SolidButton color="primary" size="small">
@@ -402,10 +501,32 @@ export const Material3_밀도_시스템: Story = {
           </div>
 
           {/* Default */}
-          <div style={{ padding: '20px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '99px', background: '#ede9fe', color: '#7c3aed' }}>Default (0)</span>
-              <span style={{ fontSize: '12px', color: '#94a3b8' }}>기본값 · 대부분의 앱에 적합</span>
+          <div
+            style={{
+              padding: '20px',
+              background: '#fff',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+            }}
+          >
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}
+            >
+              <span
+                style={{
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: '99px',
+                  background: '#ede9fe',
+                  color: '#7c3aed',
+                }}
+              >
+                Default (0)
+              </span>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+                기본값 · 대부분의 앱에 적합
+              </span>
             </div>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
               <SolidButton color="primary" size="medium">
@@ -421,10 +542,32 @@ export const Material3_밀도_시스템: Story = {
           </div>
 
           {/* Comfortable */}
-          <div style={{ padding: '20px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '99px', background: '#dcfce7', color: '#16a34a' }}>Comfortable (+2)</span>
-              <span style={{ fontSize: '12px', color: '#94a3b8' }}>여유 있는 터치 타겟 · 모바일, 소비자 앱</span>
+          <div
+            style={{
+              padding: '20px',
+              background: '#fff',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+            }}
+          >
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}
+            >
+              <span
+                style={{
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: '99px',
+                  background: '#dcfce7',
+                  color: '#16a34a',
+                }}
+              >
+                Comfortable (+2)
+              </span>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+                여유 있는 터치 타겟 · 모바일, 소비자 앱
+              </span>
             </div>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
               <SolidButton color="primary" size="large">
@@ -442,21 +585,60 @@ export const Material3_밀도_시스템: Story = {
       </div>
 
       {/* 실전: 폼 제출 패턴 */}
-      <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>M3 실전: 폼 + 버튼 밀도 매칭</p>
+      <div
+        style={{
+          background: '#f8fafc',
+          borderRadius: '16px',
+          padding: '24px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
+          M3 실전: 폼 + 버튼 밀도 매칭
+        </p>
         <p style={{ margin: '0 0 20px', fontSize: '12px', color: '#64748b' }}>
           폼 필드의 크기와 버튼의 밀도를 일치시켜 일관된 레이아웃을 만듭니다.
         </p>
-        <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div
+          style={{
+            background: '#fff',
+            borderRadius: '12px',
+            padding: '24px',
+            border: '1px solid #e2e8f0',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+          }}
+        >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <label style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>이름</label>
-            <input style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '14px', outline: 'none' }} placeholder="홍길동" />
+            <input
+              style={{
+                padding: '10px 14px',
+                borderRadius: '8px',
+                border: '1px solid #e2e8f0',
+                fontSize: '14px',
+                outline: 'none',
+              }}
+              placeholder="홍길동"
+            />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <label style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>이메일</label>
-            <input style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '14px', outline: 'none' }} placeholder="hong@example.com" />
+            <input
+              style={{
+                padding: '10px 14px',
+                borderRadius: '8px',
+                border: '1px solid #e2e8f0',
+                fontSize: '14px',
+                outline: 'none',
+              }}
+              placeholder="hong@example.com"
+            />
           </div>
-          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', paddingTop: '8px' }}>
+          <div
+            style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', paddingTop: '8px' }}
+          >
             <SolidButton color="gray" size="medium">
               <SolidButton.Center>초기화</SolidButton.Center>
             </SolidButton>
@@ -478,12 +660,21 @@ export const Material3_FAB_패턴: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '560px' }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: '12px',
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           M3 FAB Variants
         </p>
         <p style={{ margin: '0 0 20px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
-          FAB는 SolidButton에 원형/확장 스타일을 추가하여 구현합니다.
-          페이지에서 가장 중요한 단일 액션에만 사용하세요.
+          FAB는 SolidButton에 원형/확장 스타일을 추가하여 구현합니다. 페이지에서 가장 중요한 단일
+          액션에만 사용하세요.
         </p>
       </div>
 
@@ -491,7 +682,17 @@ export const Material3_FAB_패턴: Story = {
       <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
         {/* Small FAB */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <span style={{ padding: '20px', background: 'rgba(99,102,241,0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
+          <span
+            style={{
+              padding: '20px',
+              background: 'rgba(99,102,241,0.1)',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 16px rgba(99,102,241,0.25)',
+            }}
+          >
             <SolidButton color="primary" size="small">
               <SolidButton.Center>+</SolidButton.Center>
             </SolidButton>
@@ -501,7 +702,17 @@ export const Material3_FAB_패턴: Story = {
 
         {/* Regular FAB */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <span style={{ padding: '20px', background: 'rgba(99,102,241,0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
+          <span
+            style={{
+              padding: '20px',
+              background: 'rgba(99,102,241,0.1)',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 16px rgba(99,102,241,0.25)',
+            }}
+          >
             <SolidButton color="primary" size="medium">
               <SolidButton.Center>+</SolidButton.Center>
             </SolidButton>
@@ -511,7 +722,17 @@ export const Material3_FAB_패턴: Story = {
 
         {/* Large FAB */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <span style={{ padding: '20px', background: 'rgba(99,102,241,0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
+          <span
+            style={{
+              padding: '20px',
+              background: 'rgba(99,102,241,0.1)',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 16px rgba(99,102,241,0.25)',
+            }}
+          >
             <SolidButton color="primary" size="large">
               <SolidButton.Center>+</SolidButton.Center>
             </SolidButton>
@@ -521,7 +742,17 @@ export const Material3_FAB_패턴: Story = {
 
         {/* Extended FAB */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <span style={{ padding: '20px', background: 'rgba(99,102,241,0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
+          <span
+            style={{
+              padding: '20px',
+              background: 'rgba(99,102,241,0.1)',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 16px rgba(99,102,241,0.25)',
+            }}
+          >
             <SolidButton color="primary" size="large">
               <SolidButton.Leading>
                 <ChatLineIcon />
@@ -534,20 +765,54 @@ export const Material3_FAB_패턴: Story = {
       </div>
 
       {/* FAB 실전 배치 예시 */}
-      <div style={{ position: 'relative', height: '280px', background: '#f8fafc', borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div
+        style={{
+          position: 'relative',
+          height: '280px',
+          background: '#f8fafc',
+          borderRadius: '16px',
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
         <div style={{ padding: '20px' }}>
-          <p style={{ margin: '0 0 8px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>M3 실전: FAB 배치 위치</p>
-          <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>FAB는 우측 하단(모바일) 또는 우측 상단(태블릿/PC)에 배치합니다.</p>
+          <p style={{ margin: '0 0 8px', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
+            M3 실전: FAB 배치 위치
+          </p>
+          <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>
+            FAB는 우측 하단(모바일) 또는 우측 상단(태블릿/PC)에 배치합니다.
+          </p>
           <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {['아티클 1 - Orbit UI 디자인 토큰 가이드', '아티클 2 - RoleToken Design 컬러 시스템', '아티클 3 - AppUI v7 마이그레이션'].map((item) => (
-              <div key={item} style={{ padding: '12px 16px', background: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '13px', color: '#374151' }}>
+            {[
+              '아티클 1 - Orbit UI 디자인 토큰 가이드',
+              '아티클 2 - RoleToken Design 컬러 시스템',
+              '아티클 3 - AppUI v7 마이그레이션',
+            ].map((item) => (
+              <div
+                key={item}
+                style={{
+                  padding: '12px 16px',
+                  background: '#fff',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  fontSize: '13px',
+                  color: '#374151',
+                }}
+              >
                 {item}
               </div>
             ))}
           </div>
         </div>
         {/* FAB 위치 */}
-        <div style={{ position: 'absolute', bottom: '20px', right: '20px', boxShadow: '0 6px 24px rgba(99,102,241,0.4)' }}>
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '20px',
+            right: '20px',
+            boxShadow: '0 6px 24px rgba(99,102,241,0.4)',
+          }}
+        >
           <SolidButton color="primary" size="large">
             <SolidButton.Leading>
               <ChatLineIcon />
@@ -568,7 +833,16 @@ export const ComposableUI_아이콘_조합_패턴: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '560px' }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: '12px',
+            fontWeight: '700',
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           ComposableUI Icon+Text Patterns
         </p>
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
@@ -576,51 +850,94 @@ export const ComposableUI_아이콘_조합_패턴: Story = {
         </p>
       </div>
 
-      <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>Leading Icon (아이콘 왼쪽)</p>
+      <div
+        style={{
+          padding: '20px',
+          background: '#f8fafc',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>
+          Leading Icon (아이콘 왼쪽)
+        </p>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           <SolidButton color="primary" size="medium">
-            <SolidButton.Leading><SearchIcon size={14} /></SolidButton.Leading>
+            <SolidButton.Leading>
+              <SearchIcon size={14} />
+            </SolidButton.Leading>
             <SolidButton.Center>검색</SolidButton.Center>
           </SolidButton>
           <SolidButton color="black" size="medium">
-            <SolidButton.Leading><NotificationLineIcon size={14} /></SolidButton.Leading>
+            <SolidButton.Leading>
+              <NotificationLineIcon size={14} />
+            </SolidButton.Leading>
             <SolidButton.Center>알림 설정</SolidButton.Center>
           </SolidButton>
           <SolidButton color="gray" size="medium">
-            <SolidButton.Leading><SettingLineIcon size={14} /></SolidButton.Leading>
+            <SolidButton.Leading>
+              <SettingLineIcon size={14} />
+            </SolidButton.Leading>
             <SolidButton.Center>환경설정</SolidButton.Center>
           </SolidButton>
         </div>
       </div>
 
-      <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>Trailing Icon (아이콘 오른쪽)</p>
+      <div
+        style={{
+          padding: '20px',
+          background: '#f8fafc',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>
+          Trailing Icon (아이콘 오른쪽)
+        </p>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           <SolidButton color="primary" size="medium">
             <SolidButton.Center>다음 단계</SolidButton.Center>
-            <SolidButton.Trailing><ArrowRightIcon size={14} /></SolidButton.Trailing>
+            <SolidButton.Trailing>
+              <ArrowRightIcon size={14} />
+            </SolidButton.Trailing>
           </SolidButton>
           <SolidButton color="black" size="medium">
             <SolidButton.Center>계속하기</SolidButton.Center>
-            <SolidButton.Trailing><ChevronRightLineIcon size={14} /></SolidButton.Trailing>
+            <SolidButton.Trailing>
+              <ChevronRightLineIcon size={14} />
+            </SolidButton.Trailing>
           </SolidButton>
         </div>
       </div>
 
-      <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>크기별 아이콘 스케일 (small / medium / large)</p>
+      <div
+        style={{
+          padding: '20px',
+          background: '#f8fafc',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>
+          크기별 아이콘 스케일 (small / medium / large)
+        </p>
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
           <SolidButton color="primary" size="small">
-            <SolidButton.Leading><ChatLineIcon size={12} /></SolidButton.Leading>
+            <SolidButton.Leading>
+              <ChatLineIcon size={12} />
+            </SolidButton.Leading>
             <SolidButton.Center>Small</SolidButton.Center>
           </SolidButton>
           <SolidButton color="primary" size="medium">
-            <SolidButton.Leading><ChatLineIcon size={14} /></SolidButton.Leading>
+            <SolidButton.Leading>
+              <ChatLineIcon size={14} />
+            </SolidButton.Leading>
             <SolidButton.Center>Medium</SolidButton.Center>
           </SolidButton>
           <SolidButton color="primary" size="large">
-            <SolidButton.Leading><ChatLineIcon size={16} /></SolidButton.Leading>
+            <SolidButton.Leading>
+              <ChatLineIcon size={16} />
+            </SolidButton.Leading>
             <SolidButton.Center>Large</SolidButton.Center>
           </SolidButton>
         </div>
@@ -650,15 +967,42 @@ function InteractiveLoadingRender() {
   }
 
   const actions = [
-    { key: 'save', label: '변경사항 저장', loadingLabel: '저장 중...', doneLabel: '저장 완료', color: 'primary' as const },
-    { key: 'submit', label: '제출하기', loadingLabel: '처리 중...', doneLabel: '제출 완료', color: 'black' as const },
-    { key: 'delete', label: '계정 삭제', loadingLabel: '삭제 중...', doneLabel: '삭제됨', color: 'gray' as const },
+    {
+      key: 'save',
+      label: '변경사항 저장',
+      loadingLabel: '저장 중...',
+      doneLabel: '저장 완료',
+      color: 'primary' as const,
+    },
+    {
+      key: 'submit',
+      label: '제출하기',
+      loadingLabel: '처리 중...',
+      doneLabel: '제출 완료',
+      color: 'black' as const,
+    },
+    {
+      key: 'delete',
+      label: '계정 삭제',
+      loadingLabel: '삭제 중...',
+      doneLabel: '삭제됨',
+      color: 'gray' as const,
+    },
   ]
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '480px' }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: '12px',
+            fontWeight: '700',
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           ComposableUI Interactive Loading Pattern
         </p>
         <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
@@ -683,11 +1027,21 @@ function InteractiveLoadingRender() {
                   {state === 'loading' ? loadingLabel : state === 'done' ? doneLabel : label}
                 </SolidButton.Center>
               </SolidButton>
-              <span style={{
-                fontSize: '11px', fontWeight: '600', padding: '3px 10px', borderRadius: '99px',
-                background: state === 'idle' ? '#f1f5f9' : state === 'loading' ? 'rgba(99,102,241,0.08)' : 'rgba(16,185,129,0.08)',
-                color: state === 'idle' ? '#94a3b8' : state === 'loading' ? '#6366f1' : '#10b981',
-              }}>
+              <span
+                style={{
+                  fontSize: '11px',
+                  fontWeight: '600',
+                  padding: '3px 10px',
+                  borderRadius: '99px',
+                  background:
+                    state === 'idle'
+                      ? '#f1f5f9'
+                      : state === 'loading'
+                        ? 'rgba(99,102,241,0.08)'
+                        : 'rgba(16,185,129,0.08)',
+                  color: state === 'idle' ? '#94a3b8' : state === 'loading' ? '#6366f1' : '#10b981',
+                }}
+              >
                 {state}
               </span>
             </div>
@@ -695,14 +1049,47 @@ function InteractiveLoadingRender() {
         })}
       </div>
 
-      <div style={{ padding: '16px', borderRadius: '10px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: '600', color: '#475569' }}>ComposableUI vs Orbit UI 로딩 패턴 비교</p>
+      <div
+        style={{
+          padding: '16px',
+          borderRadius: '10px',
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: '600', color: '#475569' }}>
+          ComposableUI vs Orbit UI 로딩 패턴 비교
+        </p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-          <div style={{ padding: '10px', borderRadius: '8px', background: '#0f172a', fontSize: '11px', color: '#94a3b8', fontFamily: 'monospace', lineHeight: 1.6 }}>
-            {'// ComposableUI\n<Button disabled={isPending}>\n  {isPending && <Loader2 />}\n  Save\n</Button>'}
+          <div
+            style={{
+              padding: '10px',
+              borderRadius: '8px',
+              background: '#0f172a',
+              fontSize: '11px',
+              color: '#94a3b8',
+              fontFamily: 'monospace',
+              lineHeight: 1.6,
+            }}
+          >
+            {
+              '// ComposableUI\n<Button disabled={isPending}>\n  {isPending && <Loader2 />}\n  Save\n</Button>'
+            }
           </div>
-          <div style={{ padding: '10px', borderRadius: '8px', background: '#0f172a', fontSize: '11px', color: '#e2e8f0', fontFamily: 'monospace', lineHeight: 1.6 }}>
-            {'// Orbit UI\n<SolidButton loading={isPending}>\n  <SolidButton.Loading />\n  <SolidButton.Center>Save\n  </SolidButton.Center>\n</SolidButton>'}
+          <div
+            style={{
+              padding: '10px',
+              borderRadius: '8px',
+              background: '#0f172a',
+              fontSize: '11px',
+              color: '#e2e8f0',
+              fontFamily: 'monospace',
+              lineHeight: 1.6,
+            }}
+          >
+            {
+              '// Orbit UI\n<SolidButton loading={isPending}>\n  <SolidButton.Loading />\n  <SolidButton.Center>Save\n  </SolidButton.Center>\n</SolidButton>'
+            }
           </div>
         </div>
       </div>
@@ -731,7 +1118,16 @@ export const Accessible_버튼_그룹_연결_패턴: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 32, maxWidth: 540 }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           AccessibleUI ButtonGroup isAttached
         </p>
         <p style={{ margin: '0 0 20px', fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
@@ -741,7 +1137,17 @@ export const Accessible_버튼_그룹_연결_패턴: Story = {
 
       {/* 텍스트 정렬 그룹 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>텍스트 정렬</span>
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          텍스트 정렬
+        </span>
         <div style={{ display: 'flex' }}>
           {(['좌', '가운데', '우'] as const).map((label, i, arr) => (
             <SolidButton
@@ -761,17 +1167,39 @@ export const Accessible_버튼_그룹_연결_패턴: Story = {
 
       {/* 뷰 전환 그룹 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>뷰 전환</span>
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          뷰 전환
+        </span>
         <div style={{ display: 'flex' }}>
           <SolidButton color="primary" size="medium" style={{ borderRadius: '8px 0 0 8px' }}>
-            <SolidButton.Leading><SearchIcon size={14} /></SolidButton.Leading>
+            <SolidButton.Leading>
+              <SearchIcon size={14} />
+            </SolidButton.Leading>
             <SolidButton.Center>목록</SolidButton.Center>
           </SolidButton>
-          <SolidButton color="gray" size="medium" style={{ borderRadius: '0', borderLeft: '1px solid rgba(0,0,0,0.12)' }}>
-            <SolidButton.Leading><SettingLineIcon size={14} /></SolidButton.Leading>
+          <SolidButton
+            color="gray"
+            size="medium"
+            style={{ borderRadius: '0', borderLeft: '1px solid rgba(0,0,0,0.12)' }}
+          >
+            <SolidButton.Leading>
+              <SettingLineIcon size={14} />
+            </SolidButton.Leading>
             <SolidButton.Center>그리드</SolidButton.Center>
           </SolidButton>
-          <SolidButton color="gray" size="medium" style={{ borderRadius: '0 8px 8px 0', borderLeft: '1px solid rgba(0,0,0,0.12)' }}>
+          <SolidButton
+            color="gray"
+            size="medium"
+            style={{ borderRadius: '0 8px 8px 0', borderLeft: '1px solid rgba(0,0,0,0.12)' }}
+          >
             <SolidButton.Center>캘린더</SolidButton.Center>
           </SolidButton>
         </div>
@@ -779,12 +1207,26 @@ export const Accessible_버튼_그룹_연결_패턴: Story = {
 
       {/* 위험 확인 그룹 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>확인·취소 그룹</span>
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          확인·취소 그룹
+        </span>
         <div style={{ display: 'flex' }}>
           <SolidButton color="gray" size="medium" style={{ borderRadius: '8px 0 0 8px' }}>
             <SolidButton.Center>취소</SolidButton.Center>
           </SolidButton>
-          <SolidButton color="black" size="medium" style={{ borderRadius: '0 8px 8px 0', borderLeft: '1px solid rgba(255,255,255,0.2)' }}>
+          <SolidButton
+            color="black"
+            size="medium"
+            style={{ borderRadius: '0 8px 8px 0', borderLeft: '1px solid rgba(255,255,255,0.2)' }}
+          >
             <SolidButton.Center>확인</SolidButton.Center>
           </SolidButton>
         </div>
@@ -804,10 +1246,22 @@ function AccessibleSocialButtonRender() {
       color: 'white' as const,
       icon: (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M15.68 8.18c0-.57-.05-1.12-.14-1.64H8v3.1h4.3a3.68 3.68 0 01-1.6 2.42v2h2.58c1.51-1.39 2.4-3.44 2.4-5.88z" fill="#4285F4" />
-          <path d="M8 16c2.16 0 3.97-.72 5.29-1.94l-2.58-2a4.8 4.8 0 01-7.14-2.52H.9v2.07A8 8 0 008 16z" fill="#34A853" />
-          <path d="M3.57 9.54A4.8 4.8 0 013.32 8c0-.54.1-1.06.25-1.54V4.39H.9A8 8 0 000 8c0 1.29.31 2.51.9 3.61l2.67-2.07z" fill="#FBBC05" />
-          <path d="M8 3.18c1.22 0 2.31.42 3.17 1.24l2.37-2.37A8 8 0 00.9 4.39l2.67 2.07A4.77 4.77 0 018 3.18z" fill="#EA4335" />
+          <path
+            d="M15.68 8.18c0-.57-.05-1.12-.14-1.64H8v3.1h4.3a3.68 3.68 0 01-1.6 2.42v2h2.58c1.51-1.39 2.4-3.44 2.4-5.88z"
+            fill="#4285F4"
+          />
+          <path
+            d="M8 16c2.16 0 3.97-.72 5.29-1.94l-2.58-2a4.8 4.8 0 01-7.14-2.52H.9v2.07A8 8 0 008 16z"
+            fill="#34A853"
+          />
+          <path
+            d="M3.57 9.54A4.8 4.8 0 013.32 8c0-.54.1-1.06.25-1.54V4.39H.9A8 8 0 000 8c0 1.29.31 2.51.9 3.61l2.67-2.07z"
+            fill="#FBBC05"
+          />
+          <path
+            d="M8 3.18c1.22 0 2.31.42 3.17 1.24l2.37-2.37A8 8 0 00.9 4.39l2.67 2.07A4.77 4.77 0 018 3.18z"
+            fill="#EA4335"
+          />
         </svg>
       ),
     },
@@ -834,11 +1288,21 @@ function AccessibleSocialButtonRender() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 28, maxWidth: 400 }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           AccessibleUI Social Auth Pattern
         </p>
         <p style={{ margin: '0 0 16px', fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
-          소셜 로그인 버튼은 AccessibleUI에서 흔히 볼 수 있는 패턴입니다. SVG 인라인 아이콘 + 레이블 조합입니다.
+          소셜 로그인 버튼은 AccessibleUI에서 흔히 볼 수 있는 패턴입니다. SVG 인라인 아이콘 + 레이블
+          조합입니다.
         </p>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -856,16 +1320,57 @@ function AccessibleSocialButtonRender() {
         ))}
       </div>
       {clickedProvider && (
-        <div style={{ padding: '10px 16px', borderRadius: 10, background: '#f0fdf4', border: '1.5px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
+        <div
+          style={{
+            padding: '10px 16px',
+            borderRadius: 10,
+            background: '#f0fdf4',
+            border: '1.5px solid #bbf7d0',
+            fontSize: 13,
+            color: '#16a34a',
+            fontWeight: 600,
+          }}
+        >
           {clickedProvider} 로그인 선택됨
         </div>
       )}
-      <div style={{ padding: '14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 11 }}>
-        <div style={{ padding: '8px', borderRadius: 8, background: '#0f172a', color: '#94a3b8', fontFamily: 'monospace', lineHeight: 1.6 }}>
+      <div
+        style={{
+          padding: '14px',
+          borderRadius: 10,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 8,
+          fontSize: 11,
+        }}
+      >
+        <div
+          style={{
+            padding: '8px',
+            borderRadius: 8,
+            background: '#0f172a',
+            color: '#94a3b8',
+            fontFamily: 'monospace',
+            lineHeight: 1.6,
+          }}
+        >
           {'// AccessibleUI\n<Button leftIcon={<Reference />}>\n  Reference로 계속\n</Button>'}
         </div>
-        <div style={{ padding: '8px', borderRadius: 8, background: '#0f172a', color: '#e2e8f0', fontFamily: 'monospace', lineHeight: 1.6 }}>
-          {'// Orbit UI\n<SolidButton>\n  <SolidButton.Leading><Reference /></SolidButton.Leading>\n  <SolidButton.Center>Reference로 계속</SolidButton.Center>\n</SolidButton>'}
+        <div
+          style={{
+            padding: '8px',
+            borderRadius: 8,
+            background: '#0f172a',
+            color: '#e2e8f0',
+            fontFamily: 'monospace',
+            lineHeight: 1.6,
+          }}
+        >
+          {
+            '// Orbit UI\n<SolidButton>\n  <SolidButton.Leading><Reference /></SolidButton.Leading>\n  <SolidButton.Center>Reference로 계속</SolidButton.Center>\n</SolidButton>'
+          }
         </div>
       </div>
     </div>
@@ -893,9 +1398,27 @@ function AccessibleConfirmDialogRender() {
   const [done, setDone] = useState<string | null>(null)
 
   const actions = [
-    { id: 'logout', label: '로그아웃', confirmLabel: '로그아웃', desc: '현재 세션이 종료됩니다.', danger: false },
-    { id: 'delete', label: '계정 삭제', confirmLabel: '영구 삭제', desc: '모든 데이터가 영구 삭제됩니다. 이 작업은 되돌릴 수 없습니다.', danger: true },
-    { id: 'archive', label: '프로젝트 보관', confirmLabel: '보관하기', desc: '프로젝트가 보관 처리됩니다. 언제든 복원할 수 있습니다.', danger: false },
+    {
+      id: 'logout',
+      label: '로그아웃',
+      confirmLabel: '로그아웃',
+      desc: '현재 세션이 종료됩니다.',
+      danger: false,
+    },
+    {
+      id: 'delete',
+      label: '계정 삭제',
+      confirmLabel: '영구 삭제',
+      desc: '모든 데이터가 영구 삭제됩니다. 이 작업은 되돌릴 수 없습니다.',
+      danger: true,
+    },
+    {
+      id: 'archive',
+      label: '프로젝트 보관',
+      confirmLabel: '보관하기',
+      desc: '프로젝트가 보관 처리됩니다. 언제든 복원할 수 있습니다.',
+      danger: false,
+    },
   ]
 
   const confirm = (id: string) => {
@@ -907,11 +1430,21 @@ function AccessibleConfirmDialogRender() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24, maxWidth: 440 }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           AccessibleUI AlertDialog 패턴
         </p>
         <p style={{ margin: '0 0 16px', fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
-          위험한 액션은 확인 다이얼로그로 사용자 의도를 재확인합니다. 취소를 기본 포커스로 설정합니다.
+          위험한 액션은 확인 다이얼로그로 사용자 의도를 재확인합니다. 취소를 기본 포커스로
+          설정합니다.
         </p>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -925,9 +1458,28 @@ function AccessibleConfirmDialogRender() {
               <SolidButton.Center>{action.label}</SolidButton.Center>
             </SolidButton>
             {open === action.id && (
-              <div style={{ marginTop: 10, padding: '16px', borderRadius: 12, border: `2px solid ${action.danger ? '#fecaca' : '#e2e8f0'}`, background: action.danger ? '#fff5f5' : '#f8fafc' }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: action.danger ? '#ef4444' : '#1e293b', marginBottom: 6 }}>{action.label} 확인</div>
-                <div style={{ fontSize: 13, color: '#64748b', marginBottom: 14 }}>{action.desc}</div>
+              <div
+                style={{
+                  marginTop: 10,
+                  padding: '16px',
+                  borderRadius: 12,
+                  border: `2px solid ${action.danger ? '#fecaca' : '#e2e8f0'}`,
+                  background: action.danger ? '#fff5f5' : '#f8fafc',
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: action.danger ? '#ef4444' : '#1e293b',
+                    marginBottom: 6,
+                  }}
+                >
+                  {action.label} 확인
+                </div>
+                <div style={{ fontSize: 13, color: '#64748b', marginBottom: 14 }}>
+                  {action.desc}
+                </div>
                 <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
                   <SolidButton color="gray" size="small" onClick={() => setOpen(null)}>
                     <SolidButton.Center>취소</SolidButton.Center>
@@ -942,7 +1494,17 @@ function AccessibleConfirmDialogRender() {
         ))}
       </div>
       {done && (
-        <div style={{ padding: '12px 16px', borderRadius: 10, background: '#f0fdf4', border: '1.5px solid #bbf7d0', fontSize: 13, color: '#16a34a', fontWeight: 600 }}>
+        <div
+          style={{
+            padding: '12px 16px',
+            borderRadius: 10,
+            background: '#f0fdf4',
+            border: '1.5px solid #bbf7d0',
+            fontSize: 13,
+            color: '#16a34a',
+            fontWeight: 600,
+          }}
+        >
           {actions.find((a) => a.id === done)?.label} 완료
         </div>
       )}
@@ -990,8 +1552,26 @@ function DeployPlatformDeployActionsRender() {
 
   return (
     <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 16, padding: 20 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff' }}>
-        <div style={{ width: 10, height: 10, borderRadius: '50%', background: statusConfig[status].color, flexShrink: 0 }} />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          padding: '12px 14px',
+          borderRadius: 8,
+          border: '1px solid #e2e8f0',
+          background: '#fff',
+        }}
+      >
+        <div
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: '50%',
+            background: statusConfig[status].color,
+            flexShrink: 0,
+          }}
+        />
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>orbit-ui / main</div>
           <div style={{ fontSize: 11, color: '#94a3b8' }}>상태: {statusConfig[status].label}</div>
@@ -1000,24 +1580,52 @@ function DeployPlatformDeployActionsRender() {
       </div>
 
       <div style={{ display: 'flex', gap: 8 }}>
-        <SolidButton color="primary" size="medium" disabled={status === 'deploying'} onClick={deploy}>
+        <SolidButton
+          color="primary"
+          size="medium"
+          disabled={status === 'deploying'}
+          onClick={deploy}
+        >
           <SolidButton.Center>{status === 'deploying' ? '배포 중...' : '배포'}</SolidButton.Center>
         </SolidButton>
         <SolidButton color="black" size="medium" disabled={status !== 'done'} onClick={rollback}>
           <SolidButton.Center>롤백</SolidButton.Center>
         </SolidButton>
-        <SolidButton color="black" size="medium" disabled={status !== 'deploying'} onClick={() => setStatus('error')}>
+        <SolidButton
+          color="black"
+          size="medium"
+          disabled={status !== 'deploying'}
+          onClick={() => setStatus('error')}
+        >
           <SolidButton.Center>취소</SolidButton.Center>
         </SolidButton>
       </div>
 
       {status === 'done' && (
-        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', fontSize: 12, color: '#16a34a' }}>
+        <div
+          style={{
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#f0fdf4',
+            border: '1px solid #bbf7d0',
+            fontSize: 12,
+            color: '#16a34a',
+          }}
+        >
           배포 완료 — storybook-static.deploy.example.com 에서 확인 가능합니다.
         </div>
       )}
       {status === 'error' && (
-        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#fef2f2', border: '1px solid #fecaca', fontSize: 12, color: '#dc2626' }}>
+        <div
+          style={{
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#fef2f2',
+            border: '1px solid #fecaca',
+            fontSize: 12,
+            color: '#dc2626',
+          }}
+        >
           배포가 취소되었습니다. 다시 시도하려면 배포 버튼을 클릭하세요.
         </div>
       )}
@@ -1061,12 +1669,31 @@ function ComposableUIFormSubmitRender() {
 
   if (submitted) {
     return (
-      <div style={{ width: 360, padding: '32px 24px', textAlign: 'center', border: '1px solid #bbf7d0', borderRadius: 10, background: '#f0fdf4' }}>
+      <div
+        style={{
+          width: 360,
+          padding: '32px 24px',
+          textAlign: 'center',
+          border: '1px solid #bbf7d0',
+          borderRadius: 10,
+          background: '#f0fdf4',
+        }}
+      >
         <div style={{ fontSize: 20, marginBottom: 8 }}>✓</div>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#16a34a', marginBottom: 4 }}>등록 완료</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#16a34a', marginBottom: 4 }}>
+          등록 완료
+        </div>
         <div style={{ fontSize: 13, color: '#4ade80' }}>{email} 로 확인 메일을 발송했습니다.</div>
         <div style={{ marginTop: 16 }}>
-          <SolidButton color="primary" size="small" onClick={() => { setSubmitted(false); setName(''); setEmail('') }}>
+          <SolidButton
+            color="primary"
+            size="small"
+            onClick={() => {
+              setSubmitted(false)
+              setName('')
+              setEmail('')
+            }}
+          >
             <SolidButton.Center>다시 시도</SolidButton.Center>
           </SolidButton>
         </div>
@@ -1075,26 +1702,59 @@ function ComposableUIFormSubmitRender() {
   }
 
   return (
-    <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 12, padding: 20, border: '1px solid #e2e8f0', borderRadius: 10 }}>
+    <div
+      style={{
+        width: 360,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        padding: 20,
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+      }}
+    >
       <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>회원 등록</div>
       <input
         placeholder="이름 (최소 2자)"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        style={{ padding: '8px 12px', borderRadius: 6, border: `1px solid ${name && name.trim().length < 2 ? '#fca5a5' : '#e2e8f0'}`, fontSize: 13, outline: 'none' }}
+        style={{
+          padding: '8px 12px',
+          borderRadius: 6,
+          border: `1px solid ${name && name.trim().length < 2 ? '#fca5a5' : '#e2e8f0'}`,
+          fontSize: 13,
+          outline: 'none',
+        }}
       />
       <input
         placeholder="이메일"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        style={{ padding: '8px 12px', borderRadius: 6, border: `1px solid ${email && !email.includes('@') ? '#fca5a5' : '#e2e8f0'}`, fontSize: 13, outline: 'none' }}
+        style={{
+          padding: '8px 12px',
+          borderRadius: 6,
+          border: `1px solid ${email && !email.includes('@') ? '#fca5a5' : '#e2e8f0'}`,
+          fontSize: 13,
+          outline: 'none',
+        }}
       />
-      <SolidButton color="primary" size="medium" disabled={!isValid || loading} onClick={handleSubmit}>
+      <SolidButton
+        color="primary"
+        size="medium"
+        disabled={!isValid || loading}
+        onClick={handleSubmit}
+      >
         <SolidButton.Center>{loading ? '처리 중...' : '등록하기'}</SolidButton.Center>
-        {!loading && isValid && <SolidButton.Trailing><ArrowRightIcon style={{ width: 14, height: 14 }} /></SolidButton.Trailing>}
+        {!loading && isValid && (
+          <SolidButton.Trailing>
+            <ArrowRightIcon style={{ width: 14, height: 14 }} />
+          </SolidButton.Trailing>
+        )}
       </SolidButton>
       {!isValid && (name || email) && (
-        <div style={{ fontSize: 11, color: '#f59e0b' }}>이름과 올바른 이메일을 입력해야 제출 버튼이 활성화됩니다.</div>
+        <div style={{ fontSize: 11, color: '#f59e0b' }}>
+          이름과 올바른 이메일을 입력해야 제출 버튼이 활성화됩니다.
+        </div>
       )}
     </div>
   )
@@ -1129,10 +1789,21 @@ function DeployPlatformComposableUIDestructiveRender() {
 
   return (
     <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 12, padding: 20 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>위험 영역</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+        위험 영역
+      </div>
 
-      <div style={{ padding: '16px', borderRadius: 8, border: '1.5px solid #fecaca', background: '#fff' }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#dc2626', marginBottom: 4 }}>프로젝트 삭제</div>
+      <div
+        style={{
+          padding: '16px',
+          borderRadius: 8,
+          border: '1.5px solid #fecaca',
+          background: '#fff',
+        }}
+      >
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#dc2626', marginBottom: 4 }}>
+          프로젝트 삭제
+        </div>
         <div style={{ fontSize: 12, color: '#64748b', marginBottom: 12 }}>
           이 작업은 되돌릴 수 없습니다. 모든 배포, 환경 변수, 설정이 영구 삭제됩니다.
         </div>
@@ -1146,16 +1817,32 @@ function DeployPlatformComposableUIDestructiveRender() {
         {confirmStep === 'confirm' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <div style={{ fontSize: 12, color: '#475569' }}>
-              확인을 위해 <code style={{ background: '#f1f5f9', padding: '1px 4px', borderRadius: 3 }}>{projectName}</code> 를 입력하세요:
+              확인을 위해{' '}
+              <code style={{ background: '#f1f5f9', padding: '1px 4px', borderRadius: 3 }}>
+                {projectName}
+              </code>{' '}
+              를 입력하세요:
             </div>
             <input
               placeholder={projectName}
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
-              style={{ padding: '7px 10px', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 13, outline: 'none', fontFamily: 'monospace' }}
+              style={{
+                padding: '7px 10px',
+                borderRadius: 6,
+                border: '1px solid #e2e8f0',
+                fontSize: 13,
+                outline: 'none',
+                fontFamily: 'monospace',
+              }}
             />
             <div style={{ display: 'flex', gap: 8 }}>
-              <SolidButton color="primary" size="small" disabled={inputVal !== projectName} onClick={() => setConfirmStep('done')}>
+              <SolidButton
+                color="primary"
+                size="small"
+                disabled={inputVal !== projectName}
+                onClick={() => setConfirmStep('done')}
+              >
                 <SolidButton.Center>영구 삭제</SolidButton.Center>
               </SolidButton>
               <SolidButton color="black" size="small" onClick={reset}>
@@ -1207,13 +1894,48 @@ function ComposableUIShareActionsRender() {
 
   return (
     <div style={{ maxWidth: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>공유 옵션</p>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>이 컴포넌트 예시를 팀과 공유하세요.</p>
-      <div style={{ display: 'flex', gap: 8, padding: '12px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', marginBottom: 12 }}>
+      <p
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
+        공유 옵션
+      </p>
+      <p
+        style={{
+          fontSize: 11,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 16,
+        }}
+      >
+        이 컴포넌트 예시를 팀과 공유하세요.
+      </p>
+      <div
+        style={{
+          display: 'flex',
+          gap: 8,
+          padding: '12px',
+          borderRadius: 10,
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          background: 'var(--sem-eclipse-color-surfaceDefault)',
+          marginBottom: 12,
+        }}
+      >
         <input
           readOnly
           value="https://orbit.ui/components/button#solid"
-          style={{ flex: 1, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', background: 'none', border: 'none', outline: 'none', fontFamily: 'monospace' }}
+          style={{
+            flex: 1,
+            fontSize: 12,
+            color: 'var(--sem-eclipse-color-foregroundSecondary)',
+            background: 'none',
+            border: 'none',
+            outline: 'none',
+            fontFamily: 'monospace',
+          }}
         />
         <SolidButton color="primary" size="small" onClick={handleCopy}>
           <SolidButton.Center>{copied ? '복사됨!' : 'URL 복사'}</SolidButton.Center>
@@ -1236,7 +1958,8 @@ export const ComposableUI_공유_액션_버튼_그룹: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI의 Copy URL 버튼 패턴. 클릭 후 "복사됨!" 텍스트로 즉각 피드백을 제공하고 2초 후 원래 텍스트로 복귀. SaaS 문서/컴포넌트 공유 UI에서 자주 쓰이는 패턴.',
+        story:
+          'ComposableUI의 Copy URL 버튼 패턴. 클릭 후 "복사됨!" 텍스트로 즉각 피드백을 제공하고 2초 후 원래 텍스트로 복귀. SaaS 문서/컴포넌트 공유 UI에서 자주 쓰이는 패턴.',
       },
     },
   },
@@ -1263,34 +1986,88 @@ function IssueTrackerIssueCreateRender() {
   const handleSubmit = () => {
     if (title.trim()) {
       setSubmitted(true)
-      setTimeout(() => { setSubmitted(false); setTitle('') }, 2500)
+      setTimeout(() => {
+        setSubmitted(false)
+        setTitle('')
+      }, 2500)
     }
   }
 
   return (
     <div style={{ maxWidth: 460, fontFamily: 'system-ui, sans-serif' }}>
       {submitted ? (
-        <div style={{ padding: '16px', borderRadius: 10, border: '1px solid #bbf7d0', background: '#f0fdf4', textAlign: 'center' }}>
+        <div
+          style={{
+            padding: '16px',
+            borderRadius: 10,
+            border: '1px solid #bbf7d0',
+            background: '#f0fdf4',
+            textAlign: 'center',
+          }}
+        >
           <p style={{ fontSize: 13, fontWeight: 600, color: '#16a34a' }}>이슈가 생성되었습니다</p>
-          {/* eslint-disable-next-line react-hooks/purity */}
-          <p style={{ fontSize: 11, color: '#22c55e' }}>ORB-{Math.floor(Math.random() * 900) + 100}: {title}</p>
+          <p style={{ fontSize: 11, color: '#22c55e' }}>
+            {/* eslint-disable-next-line react-hooks/purity */}
+            ORB-{Math.floor(Math.random() * 900) + 100}: {title}
+          </p>
         </div>
       ) : (
-        <div style={{ padding: '16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-surfaceDefault)', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
+        <div
+          style={{
+            padding: '16px',
+            borderRadius: 10,
+            border: '1px solid var(--sem-eclipse-color-borderDefault)',
+            background: 'var(--sem-eclipse-color-surfaceDefault)',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+          }}
+        >
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="이슈 제목..."
-            style={{ width: '100%', fontSize: 14, fontWeight: 500, color: 'var(--sem-eclipse-color-foregroundPrimary)', border: 'none', outline: 'none', background: 'none', marginBottom: 12, boxSizing: 'border-box' }}
+            style={{
+              width: '100%',
+              fontSize: 14,
+              fontWeight: 500,
+              color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              border: 'none',
+              outline: 'none',
+              background: 'none',
+              marginBottom: 12,
+              boxSizing: 'border-box',
+            }}
           />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, paddingTop: 10, borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
-            <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>우선순위:</span>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              paddingTop: 10,
+              borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)',
+            }}
+          >
+            <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+              우선순위:
+            </span>
             <div style={{ display: 'flex', gap: 4 }}>
               {priorities.map((p) => (
                 <button
                   key={p}
                   onClick={() => setPriority(p)}
-                  style={{ fontSize: 10, padding: '2px 8px', borderRadius: 20, border: `1px solid ${priority === p ? priorityConfig[p].color : 'var(--sem-eclipse-color-borderSubtle)'}`, background: priority === p ? `${priorityConfig[p].color}18` : 'transparent', color: priority === p ? priorityConfig[p].color : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontWeight: priority === p ? 600 : 400, transition: 'all 0.15s' }}
+                  style={{
+                    fontSize: 10,
+                    padding: '2px 8px',
+                    borderRadius: 20,
+                    border: `1px solid ${priority === p ? priorityConfig[p].color : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                    background: priority === p ? `${priorityConfig[p].color}18` : 'transparent',
+                    color:
+                      priority === p
+                        ? priorityConfig[p].color
+                        : 'var(--sem-eclipse-color-foregroundTertiary)',
+                    cursor: 'pointer',
+                    fontWeight: priority === p ? 600 : 400,
+                    transition: 'all 0.15s',
+                  }}
                 >
                   {priorityConfig[p].label}
                 </button>
@@ -1300,9 +2077,16 @@ function IssueTrackerIssueCreateRender() {
             <SolidButton color="gray" size="small" onClick={() => setTitle('')}>
               <SolidButton.Center>취소</SolidButton.Center>
             </SolidButton>
-            <SolidButton color="primary" size="small" onClick={handleSubmit} disabled={!title.trim()}>
+            <SolidButton
+              color="primary"
+              size="small"
+              onClick={handleSubmit}
+              disabled={!title.trim()}
+            >
               <SolidButton.Center>이슈 생성</SolidButton.Center>
-              <SolidButton.Trailing><ArrowRightIcon style={{ width: 12, height: 12 }} /></SolidButton.Trailing>
+              <SolidButton.Trailing>
+                <ArrowRightIcon style={{ width: 12, height: 12 }} />
+              </SolidButton.Trailing>
             </SolidButton>
           </div>
         </div>
@@ -1316,7 +2100,8 @@ export const IssueTracker_이슈_생성_인라인_폼: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker의 이슈 생성 인라인 폼 패턴. 우선순위 선택 → 제목 입력 → 생성/취소 버튼 구성. 제목 미입력 시 생성 버튼 비활성화, 성공 시 녹색 피드백 메시지.',
+        story:
+          'IssueTracker의 이슈 생성 인라인 폼 패턴. 우선순위 선택 → 제목 입력 → 생성/취소 버튼 구성. 제목 미입력 시 생성 버튼 비활성화, 성공 시 녹색 피드백 메시지.',
       },
     },
   },
@@ -1351,23 +2136,79 @@ function ComposableUIIssueTrackerConfirmActionsRender() {
           <button
             key={s.key}
             onClick={() => setScenario(s.key)}
-            style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: scenario === s.key ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent', color: scenario === s.key ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer' }}
+            style={{
+              fontSize: 10,
+              padding: '3px 8px',
+              borderRadius: 6,
+              border: '1px solid var(--sem-eclipse-color-borderDefault)',
+              background:
+                scenario === s.key ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent',
+              color: scenario === s.key ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)',
+              cursor: 'pointer',
+            }}
           >
             {s.label}
           </button>
         ))}
       </div>
-      <div style={{ padding: '20px', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
-        <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>변경 사항 저장</p>
-        <p style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>수정된 내용을 저장하면 다른 팀원에게도 반영됩니다.</p>
+      <div
+        style={{
+          padding: '20px',
+          borderRadius: 12,
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          background: 'var(--sem-eclipse-color-surfaceDefault)',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+        }}
+      >
+        <p
+          style={{
+            fontSize: 15,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            marginBottom: 6,
+          }}
+        >
+          변경 사항 저장
+        </p>
+        <p
+          style={{
+            fontSize: 12,
+            color: 'var(--sem-eclipse-color-foregroundTertiary)',
+            marginBottom: 20,
+          }}
+        >
+          수정된 내용을 저장하면 다른 팀원에게도 반영됩니다.
+        </p>
 
         {scenario === 'success' && (
-          <div style={{ padding: '8px 12px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #bbf7d0', marginBottom: 12, fontSize: 12, color: '#16a34a', fontWeight: 500 }}>
+          <div
+            style={{
+              padding: '8px 12px',
+              borderRadius: 8,
+              background: '#f0fdf4',
+              border: '1px solid #bbf7d0',
+              marginBottom: 12,
+              fontSize: 12,
+              color: '#16a34a',
+              fontWeight: 500,
+            }}
+          >
             저장이 완료되었습니다.
           </div>
         )}
         {scenario === 'error' && (
-          <div style={{ padding: '8px 12px', borderRadius: 8, background: '#fef2f2', border: '1px solid #fecaca', marginBottom: 12, fontSize: 12, color: '#dc2626', fontWeight: 500 }}>
+          <div
+            style={{
+              padding: '8px 12px',
+              borderRadius: 8,
+              background: '#fef2f2',
+              border: '1px solid #fecaca',
+              marginBottom: 12,
+              fontSize: 12,
+              color: '#dc2626',
+              fontWeight: 500,
+            }}
+          >
             저장에 실패했습니다. 다시 시도해 주세요.
           </div>
         )}
@@ -1397,7 +2238,8 @@ export const ComposableUI_IssueTracker_확인_취소_패턴: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI AlertDialog + IssueTracker 모달 액션 조합 패턴. 기본/처리중/성공/오류 4가지 상태를 SolidButton으로 표현. 처리 중 disabled 처리, 성공/오류 인라인 피드백.',
+        story:
+          'ComposableUI AlertDialog + IssueTracker 모달 액션 조합 패턴. 기본/처리중/성공/오류 4가지 상태를 SolidButton으로 표현. 처리 중 disabled 처리, 성공/오류 인라인 피드백.',
       },
     },
   },
@@ -1417,17 +2259,59 @@ function IssueTrackerPRActionRender() {
   }
 
   return (
-    <div style={{ width: 420, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
-      <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)', marginBottom: 4 }}>feat: Add IssueTracker PR action button pattern</div>
+    <div
+      style={{
+        width: 420,
+        background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
+        borderRadius: 12,
+        border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '14px 18px',
+          borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+        }}
+      >
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+            marginBottom: 4,
+          }}
+        >
+          feat: Add IssueTracker PR action button pattern
+        </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <span style={{ fontSize: 11, padding: '2px 7px', borderRadius: 99, background: state === 'merged' ? '#8b5cf620' : state === 'closed' ? '#ef444420' : '#22c55e20', color: state === 'merged' ? '#8b5cf6' : state === 'closed' ? '#ef4444' : '#16a34a', fontWeight: 600 }}>
+          <span
+            style={{
+              fontSize: 11,
+              padding: '2px 7px',
+              borderRadius: 99,
+              background:
+                state === 'merged' ? '#8b5cf620' : state === 'closed' ? '#ef444420' : '#22c55e20',
+              color: state === 'merged' ? '#8b5cf6' : state === 'closed' ? '#ef4444' : '#16a34a',
+              fontWeight: 600,
+            }}
+          >
             {state === 'merged' ? 'Merged' : state === 'closed' ? 'Closed' : 'Open'}
           </span>
-          <span style={{ fontSize: 11, color: '#94a3b8' }}>blue45f → main · 3 commits · +142 −28</span>
+          <span style={{ fontSize: 11, color: '#94a3b8' }}>
+            blue45f → main · 3 commits · +142 −28
+          </span>
         </div>
       </div>
-      <div style={{ padding: '12px 18px', background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', display: 'flex', gap: 6, alignItems: 'center' }}>
+      <div
+        style={{
+          padding: '12px 18px',
+          background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+          display: 'flex',
+          gap: 6,
+          alignItems: 'center',
+        }}
+      >
         {state === 'idle' && (
           <>
             <SolidButton color="primary" size="medium" onClick={handleMerge}>
@@ -1464,7 +2348,8 @@ export const IssueTracker_PR_병합_액션_버튼: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker CodeHost PR 액션 패턴. Merge pull request / Close 버튼 → Merging 로딩 → Merged 완료 상태 전환. 상태별 색상 배지 연동.',
+        story:
+          'IssueTracker CodeHost PR 액션 패턴. Merge pull request / Close 버튼 → Merging 로딩 → Merged 완료 상태 전환. 상태별 색상 배지 연동.',
       },
     },
   },
@@ -1474,9 +2359,28 @@ export const IssueTracker_PR_병합_액션_버튼: Story = {
 function UtilityCSSCTAButtonRender() {
   const [hovered, setHovered] = useState<number | null>(null)
   const plans = [
-    { label: 'Hobby', price: 'Free', cta: '시작하기', color: 'gray' as const, desc: '개인 프로젝트' },
-    { label: 'Pro', price: '$20/월', cta: '업그레이드', color: 'primary' as const, desc: '팀 협업 + 고급 기능', highlight: true },
-    { label: 'Enterprise', price: '문의', cta: '영업팀 연락', color: 'black' as const, desc: 'SSO·SLA·맞춤 계약' },
+    {
+      label: 'Hobby',
+      price: 'Free',
+      cta: '시작하기',
+      color: 'gray' as const,
+      desc: '개인 프로젝트',
+    },
+    {
+      label: 'Pro',
+      price: '$20/월',
+      cta: '업그레이드',
+      color: 'primary' as const,
+      desc: '팀 협업 + 고급 기능',
+      highlight: true,
+    },
+    {
+      label: 'Enterprise',
+      price: '문의',
+      cta: '영업팀 연락',
+      color: 'black' as const,
+      desc: 'SSO·SLA·맞춤 계약',
+    },
   ]
 
   return (
@@ -1486,11 +2390,44 @@ function UtilityCSSCTAButtonRender() {
           key={plan.label}
           onMouseEnter={() => setHovered(i)}
           onMouseLeave={() => setHovered(null)}
-          style={{ width: 160, padding: 20, borderRadius: 12, border: `2px solid ${plan.highlight ? '#6366f1' : 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)'}`, background: plan.highlight ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary, #fff)', display: 'flex', flexDirection: 'column', gap: 10, transition: 'box-shadow 200ms', boxShadow: hovered === i ? '0 8px 24px rgba(0,0,0,0.08)' : 'none' }}
+          style={{
+            width: 160,
+            padding: 20,
+            borderRadius: 12,
+            border: `2px solid ${plan.highlight ? '#6366f1' : 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)'}`,
+            background: plan.highlight
+              ? '#6366f108'
+              : 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+            transition: 'box-shadow 200ms',
+            boxShadow: hovered === i ? '0 8px 24px rgba(0,0,0,0.08)' : 'none',
+          }}
         >
-          <div style={{ fontSize: 12, fontWeight: 700, color: plan.highlight ? '#6366f1' : '#64748b', textTransform: 'uppercase', letterSpacing: 1 }}>{plan.label}</div>
-          <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{plan.price}</div>
-          <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5, flex: 1 }}>{plan.desc}</div>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: plan.highlight ? '#6366f1' : '#64748b',
+              textTransform: 'uppercase',
+              letterSpacing: 1,
+            }}
+          >
+            {plan.label}
+          </div>
+          <div
+            style={{
+              fontSize: 22,
+              fontWeight: 800,
+              color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+            }}
+          >
+            {plan.price}
+          </div>
+          <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.5, flex: 1 }}>
+            {plan.desc}
+          </div>
           <SolidButton color={plan.color} size="small" style={{ width: '100%' }}>
             <SolidButton.Center>{plan.cta}</SolidButton.Center>
           </SolidButton>
@@ -1506,7 +2443,8 @@ export const UtilityCSS_요금제_CTA_버튼_그룹: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI pricing 카드 패턴. Hobby(gray)/Pro(primary)/Enterprise(black) 3단계 플랜 CTA. 호버 시 카드 elevation, Pro 카드 강조 border.',
+        story:
+          'UtilityUI pricing 카드 패턴. Hobby(gray)/Pro(primary)/Enterprise(black) 3단계 플랜 CTA. 호버 시 카드 elevation, Pro 카드 강조 border.',
       },
     },
   },
@@ -1523,12 +2461,35 @@ function IssueTrackerUtilityCSSToolbarRender() {
   }
 
   return (
-    <div style={{ width: 560, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 12, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', overflow: 'hidden' }}>
-      <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div
+      style={{
+        width: 560,
+        background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
+        borderRadius: 12,
+        border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '10px 14px',
+          borderBottom: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <div style={{ display: 'flex', gap: 4 }}>
           {(['preview', 'edit', 'split'] as const).map((m) => (
-            <SolidButton key={m} color={mode === m ? 'primary' : 'gray'} size="small" onClick={() => setMode(m)}>
-              <SolidButton.Center>{m === 'preview' ? '미리보기' : m === 'edit' ? '편집' : '분할'}</SolidButton.Center>
+            <SolidButton
+              key={m}
+              color={mode === m ? 'primary' : 'gray'}
+              size="small"
+              onClick={() => setMode(m)}
+            >
+              <SolidButton.Center>
+                {m === 'preview' ? '미리보기' : m === 'edit' ? '편집' : '분할'}
+              </SolidButton.Center>
             </SolidButton>
           ))}
         </div>
@@ -1543,11 +2504,17 @@ function IssueTrackerUtilityCSSToolbarRender() {
       </div>
       <div style={{ padding: '20px', minHeight: 80, fontSize: 13, color: '#64748b' }}>
         {mode === 'preview' && <span>미리보기 모드: 렌더링된 마크다운 콘텐츠가 표시됩니다.</span>}
-        {mode === 'edit' && <span style={{ fontFamily: 'monospace' }}>편집 모드: # 마크다운 소스를 직접 입력합니다.</span>}
+        {mode === 'edit' && (
+          <span style={{ fontFamily: 'monospace' }}>
+            편집 모드: # 마크다운 소스를 직접 입력합니다.
+          </span>
+        )}
         {mode === 'split' && (
           <div style={{ display: 'flex', gap: 16 }}>
             <div style={{ flex: 1, fontFamily: 'monospace' }}>편집 영역</div>
-            <div style={{ width: 1, background: 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }} />
+            <div
+              style={{ width: 1, background: 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}
+            />
             <div style={{ flex: 1 }}>미리보기 영역</div>
           </div>
         )}
@@ -1562,7 +2529,8 @@ export const IssueTracker_UtilityCSS_에디터_툴바_버튼: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker + UtilityUI 에디터 툴바 패턴. Preview/Edit/Split 모드 토글 버튼 + 저장/취소 액션. 저장 시 2초간 저장됨 피드백.',
+        story:
+          'IssueTracker + UtilityUI 에디터 툴바 패턴. Preview/Edit/Split 모드 토글 버튼 + 저장/취소 액션. 저장 시 2초간 저장됨 피드백.',
       },
     },
   },

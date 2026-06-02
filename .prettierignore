@@ -1,0 +1,10 @@
+# build & generated output
+**/dist/
+**/build/
+**/coverage/
+**/storybook-static/
+**/.turbo/
+*.tsbuildinfo
+# test artifacts (gitignored)
+**/test-results/
+**/playwright-report/

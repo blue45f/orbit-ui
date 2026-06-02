@@ -59,10 +59,7 @@ describe('AppBar', () => {
 
   test('theme prop으로 토큰을 오버라이드할 수 있다', () => {
     render(
-      <AppBar
-        data-testid="themed"
-        theme={{ fillColor: 'rgb(255, 0, 0)' }}
-      >
+      <AppBar data-testid="themed" theme={{ fillColor: 'rgb(255, 0, 0)' }}>
         <AppBar.Center>Themed</AppBar.Center>
       </AppBar>
     )

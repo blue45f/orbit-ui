@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-export function useBroadcastChannel<T = unknown>(channelName: string): {
+export function useBroadcastChannel<T = unknown>(
+  channelName: string
+): {
   lastMessage: T | null
   postMessage: (message: T) => void
   close: () => void

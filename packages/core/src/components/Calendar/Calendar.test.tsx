@@ -64,9 +64,7 @@ describe('Calendar', () => {
       const user = userEvent.setup()
       const onSelect = vi.fn()
 
-      render(
-        <Calendar mode="single" month={new Date('2026-05-01')} onSelect={onSelect} />
-      )
+      render(<Calendar mode="single" month={new Date('2026-05-01')} onSelect={onSelect} />)
 
       // Find day "15"
       const day = screen.getByRole('button', { name: /15/i })
@@ -90,7 +88,13 @@ describe('Calendar', () => {
     })
 
     it('disabled prop을 받을 수 있어야 한다', () => {
-      render(<Calendar mode="single" disabled={[new Date('2026-05-15')]} month={new Date('2026-05-01')} />)
+      render(
+        <Calendar
+          mode="single"
+          disabled={[new Date('2026-05-15')]}
+          month={new Date('2026-05-01')}
+        />
+      )
       expect(screen.getByRole('grid')).toBeInTheDocument()
     })
   })

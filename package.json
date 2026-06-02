@@ -12,7 +12,7 @@
     "lint": "eslint packages",
     "lint:fix": "eslint packages --fix",
     "format": "prettier --write \"packages/**/*.{ts,tsx,json,md}\"",
-    "format:check": "pnpm -r --if-present run format:check",
+    "format:check": "prettier --check \"packages/**/*.{ts,tsx,json,md}\"",
     "clean": "pnpm -r clean && rm -rf node_modules",
     "ci": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run build && pnpm run test",
     "verify": "pnpm run validate:architecture && pnpm run ci",

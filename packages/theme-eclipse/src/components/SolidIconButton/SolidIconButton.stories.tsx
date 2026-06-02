@@ -147,7 +147,9 @@ function EditorToolbarRender() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       <div>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 12 }}>서식 도구바 (클릭으로 토글)</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 12 }}>
+          서식 도구바 (클릭으로 토글)
+        </div>
         <div
           style={{
             display: 'inline-flex',
@@ -199,7 +201,6 @@ function EditorToolbarRender() {
   )
 }
 
-
 export const ComposableUI_에디터_툴바 = {
   parameters: {
     docs: {
@@ -226,8 +227,26 @@ function FloatingActionRender() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div style={{ position: 'relative', height: 240, background: '#f8fafc', borderRadius: 12, border: '1px solid #e2e8f0' }}>
-      <div style={{ position: 'absolute', bottom: 16, right: 16, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
+    <div
+      style={{
+        position: 'relative',
+        height: 240,
+        background: '#f8fafc',
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 16,
+          right: 16,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-end',
+          gap: 8,
+        }}
+      >
         {open &&
           FAB_ACTIONS.map((action, i) => (
             <div
@@ -284,7 +303,6 @@ function FloatingActionRender() {
     </div>
   )
 }
-
 
 export const Primitive_플로팅_액션 = {
   parameters: {
@@ -424,7 +442,9 @@ function QuickActionClusterRender() {
           border: '1px solid #e2e8f0',
         }}
       >
-        <div style={{ fontWeight: 600, fontSize: 14, color: '#1e293b' }}>PRJ-247 · API 레이트리밋 구현</div>
+        <div style={{ fontWeight: 600, fontSize: 14, color: '#1e293b' }}>
+          PRJ-247 · API 레이트리밋 구현
+        </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <SolidIconButton
             color={starred ? 'black' : 'white'}
@@ -460,7 +480,8 @@ function QuickActionClusterRender() {
         </div>
       </div>
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        IssueTracker 이슈 헤더 패턴 — 즐겨찾기: {starred ? 'ON' : 'OFF'} / 공유: {shared ? 'ON' : 'OFF'} / 수정: {editMode ? 'ON' : 'OFF'}
+        IssueTracker 이슈 헤더 패턴 — 즐겨찾기: {starred ? 'ON' : 'OFF'} / 공유:{' '}
+        {shared ? 'ON' : 'OFF'} / 수정: {editMode ? 'ON' : 'OFF'}
       </div>
     </div>
   )
@@ -569,7 +590,10 @@ export const WorkspaceEditor_페이지_탐색_내비게이션 = {
 -------------------------------------------------------------------------- */
 type TaskStatus = 'todo' | 'inprogress' | 'done'
 
-const STATUS_CONFIG: Record<TaskStatus, { label: string; color: 'black' | 'white'; next: TaskStatus }> = {
+const STATUS_CONFIG: Record<
+  TaskStatus,
+  { label: string; color: 'black' | 'white'; next: TaskStatus }
+> = {
   todo: { label: '할 일', color: 'white', next: 'inprogress' },
   inprogress: { label: '진행 중', color: 'white', next: 'done' },
   done: { label: '완료', color: 'black', next: 'todo' },
@@ -635,8 +659,10 @@ function TaskStatusRender() {
               style={{
                 fontSize: 11,
                 fontWeight: 600,
-                color: status === 'done' ? '#16a34a' : status === 'inprogress' ? '#f59e0b' : '#94a3b8',
-                background: status === 'done' ? '#dcfce7' : status === 'inprogress' ? '#fef9c3' : '#f1f5f9',
+                color:
+                  status === 'done' ? '#16a34a' : status === 'inprogress' ? '#f59e0b' : '#94a3b8',
+                background:
+                  status === 'done' ? '#dcfce7' : status === 'inprogress' ? '#fef9c3' : '#f1f5f9',
                 padding: '2px 8px',
                 borderRadius: 10,
               }}
@@ -664,7 +690,6 @@ export const IssueTracker_WorkspaceEditor_태스크_상태_전환 = {
   },
   render: () => <TaskStatusRender />,
 }
-
 
 export const 알림_뱃지_조합 = {
   parameters: {
@@ -698,7 +723,8 @@ export const CommandPalette_빠른_필터_토글_그룹 = {
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette 리스트 필터 바 패턴. SolidIconButton의 color prop을 토글 상태로 전환. 활성: black, 비활성: gray. compact한 버튼 클러스터로 빠른 필터 전환.',
+        story:
+          'CommandPalette 리스트 필터 바 패턴. SolidIconButton의 color prop을 토글 상태로 전환. 활성: black, 비활성: gray. compact한 버튼 클러스터로 빠른 필터 전환.',
       },
     },
   },
@@ -715,10 +741,22 @@ export const CommandPalette_빠른_필터_토글_그룹 = {
     }
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: '16px 0', fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 4 }}>CommandPalette 스타일 필터 바 — 토글로 다중 선택 가능</div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 20,
+          padding: '16px 0',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 4 }}>
+          CommandPalette 스타일 필터 바 — 토글로 다중 선택 가능
+        </div>
         {/* 버튼 클러스터 */}
-        <div style={{ display: 'flex', gap: 4, background: '#f1f5f9', padding: 4, borderRadius: 10 }}>
+        <div
+          style={{ display: 'flex', gap: 4, background: '#f1f5f9', padding: 4, borderRadius: 10 }}
+        >
           {QUICK_FILTER_BUTTONS.map(({ id, Icon }) => (
             <SolidIconButton
               key={id}
@@ -736,7 +774,10 @@ export const CommandPalette_빠른_필터_토글_그룹 = {
             <div
               key={id}
               style={{
-                width: 32, textAlign: 'center', fontSize: 10, fontWeight: 600,
+                width: 32,
+                textAlign: 'center',
+                fontSize: 10,
+                fontWeight: 600,
                 color: active.has(id) ? '#0f172a' : '#94a3b8',
                 transition: 'color 0.15s',
               }}
@@ -747,7 +788,10 @@ export const CommandPalette_빠른_필터_토글_그룹 = {
         </div>
         {/* 선택 상태 */}
         <div style={{ fontSize: 12, color: '#64748b' }}>
-          활성 필터: <strong style={{ color: '#0f172a' }}>{active.size > 0 ? [...active].join(', ') : '없음'}</strong>
+          활성 필터:{' '}
+          <strong style={{ color: '#0f172a' }}>
+            {active.size > 0 ? [...active].join(', ') : '없음'}
+          </strong>
         </div>
       </div>
     )
@@ -771,13 +815,16 @@ export const WorkspaceEditor_인라인_텍스트_포맷_도구모음 = {
   parameters: {
     docs: {
       description: {
-        story: 'WorkspaceEditor 인라인 툴바 패턴. 텍스트 선택 영역 위에 float되는 포맷 버튼 클러스터. SolidIconButton B/I/U/정렬/즐겨찾기 토글로 다중 포맷 동시 적용.',
+        story:
+          'WorkspaceEditor 인라인 툴바 패턴. 텍스트 선택 영역 위에 float되는 포맷 버튼 클러스터. SolidIconButton B/I/U/정렬/즐겨찾기 토글로 다중 포맷 동시 적용.',
       },
     },
   },
   render: function WorkspaceEditorInlineToolbar() {
     const [formats, setFormats] = useState<Set<string>>(new Set())
-    const [sampleText, _setSampleText] = useState('Orbit UI 디자인 시스템 — 빌드 한 번, 어디서든 일관된 UX를 제공합니다.')
+    const [sampleText, _setSampleText] = useState(
+      'Orbit UI 디자인 시스템 — 빌드 한 번, 어디서든 일관된 UX를 제공합니다.'
+    )
 
     const toggle = (id: string) => {
       setFormats((prev) => {
@@ -798,11 +845,17 @@ export const WorkspaceEditor_인라인_텍스트_포맷_도구모음 = {
     return (
       <div style={{ padding: '16px 0', fontFamily: 'system-ui, sans-serif', width: 380 }}>
         {/* 툴바 */}
-        <div style={{
-          display: 'inline-flex', gap: 2, background: '#1e293b',
-          padding: '4px 6px', borderRadius: 8, marginBottom: 16,
-          boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-        }}>
+        <div
+          style={{
+            display: 'inline-flex',
+            gap: 2,
+            background: '#1e293b',
+            padding: '4px 6px',
+            borderRadius: 8,
+            marginBottom: 16,
+            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+          }}
+        >
           {WORKSPACE_FORMAT_BUTTONS.map(({ fid, FIcon }) => (
             <div key={fid} style={{ position: 'relative' }}>
               <SolidIconButton
@@ -813,33 +866,64 @@ export const WorkspaceEditor_인라인_텍스트_포맷_도구모음 = {
                 <FIcon />
               </SolidIconButton>
               {fid === 'star' && formats.has(fid) && (
-                <div style={{
-                  position: 'absolute', top: -2, right: -2,
-                  width: 6, height: 6, borderRadius: '50%',
-                  background: '#f59e0b', border: '1px solid #1e293b',
-                }} />
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: -2,
+                    right: -2,
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: '#f59e0b',
+                    border: '1px solid #1e293b',
+                  }}
+                />
               )}
             </div>
           ))}
         </div>
 
         {/* 텍스트 프리뷰 */}
-        <div style={{
-          padding: '16px 18px', borderRadius: 10, background: '#fff',
-          border: '1px solid #e2e8f0', lineHeight: 1.7,
-        }}>
-          <p style={{ fontSize: 14, color: '#0f172a', margin: 0, ...textStyle, transition: 'all 0.15s' }}>
+        <div
+          style={{
+            padding: '16px 18px',
+            borderRadius: 10,
+            background: '#fff',
+            border: '1px solid #e2e8f0',
+            lineHeight: 1.7,
+          }}
+        >
+          <p
+            style={{
+              fontSize: 14,
+              color: '#0f172a',
+              margin: 0,
+              ...textStyle,
+              transition: 'all 0.15s',
+            }}
+          >
             {sampleText}
           </p>
         </div>
 
         {/* 편집 */}
-        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        <div
+          style={{
+            marginTop: 12,
+            fontSize: 11,
+            color: '#94a3b8',
+            display: 'flex',
+            gap: 6,
+            flexWrap: 'wrap',
+          }}
+        >
           {WORKSPACE_FORMAT_BUTTONS.map(({ fid, label }) => (
             <span
               key={fid}
               style={{
-                padding: '2px 7px', borderRadius: 4, fontWeight: 600,
+                padding: '2px 7px',
+                borderRadius: 4,
+                fontWeight: 600,
                 background: formats.has(fid) ? '#dbeafe' : '#f1f5f9',
                 color: formats.has(fid) ? '#1d4ed8' : '#94a3b8',
               }}
@@ -864,7 +948,8 @@ export const CommandPalette_WorkspaceEditor_히스토리_내비게이션 = {
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette/WorkspaceEditor 내비게이션 히스토리 패턴. SolidIconButton의 disabled prop으로 이전/다음 버튼 비활성 구분. 히스토리 스택 시각화 + 현재 위치 표시.',
+        story:
+          'CommandPalette/WorkspaceEditor 내비게이션 히스토리 패턴. SolidIconButton의 disabled prop으로 이전/다음 버튼 비활성 구분. 히스토리 스택 시각화 + 현재 위치 표시.',
       },
     },
   },
@@ -872,7 +957,16 @@ export const CommandPalette_WorkspaceEditor_히스토리_내비게이션 = {
     const [historyIdx, setHistoryIdx] = useState(2)
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: '16px 0', fontFamily: 'system-ui, sans-serif', width: 360 }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 20,
+          padding: '16px 0',
+          fontFamily: 'system-ui, sans-serif',
+          width: 360,
+        }}
+      >
         {/* 내비게이션 바 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <SolidIconButton
@@ -891,18 +985,34 @@ export const CommandPalette_WorkspaceEditor_히스토리_내비게이션 = {
           >
             <ChevronRightLineIcon />
           </SolidIconButton>
-          <div style={{
-            flex: 1, padding: '6px 12px', borderRadius: 8,
-            background: '#f8fafc', border: '1px solid #e2e8f0',
-            fontSize: 12, color: '#374151', fontWeight: 500,
-          }}>
+          <div
+            style={{
+              flex: 1,
+              padding: '6px 12px',
+              borderRadius: 8,
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              fontSize: 12,
+              color: '#374151',
+              fontWeight: 500,
+            }}
+          >
             {NAV_HISTORY_PAGES[historyIdx]}
           </div>
         </div>
 
         {/* 히스토리 스택 시각화 */}
         <div>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              marginBottom: 6,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+          >
             탐색 히스토리
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
@@ -910,14 +1020,20 @@ export const CommandPalette_WorkspaceEditor_히스토리_내비게이션 = {
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <button
                   onClick={() => setHistoryIdx(i)}
-                  style={{
-                    padding: '4px 10px', borderRadius: 6, fontSize: 12, cursor: 'pointer',
-                    background: i === historyIdx ? '#0f172a' : i < historyIdx ? '#f1f5f9' : '#fff',
-                    color: i === historyIdx ? '#fff' : i < historyIdx ? '#374151' : '#cbd5e1',
-                    fontWeight: i === historyIdx ? 700 : 400,
-                    border: `1px solid ${i === historyIdx ? '#0f172a' : i < historyIdx ? '#e2e8f0' : '#f1f5f9'}`,
-                    transition: 'all 0.15s',
-                  } as React.CSSProperties}
+                  style={
+                    {
+                      padding: '4px 10px',
+                      borderRadius: 6,
+                      fontSize: 12,
+                      cursor: 'pointer',
+                      background:
+                        i === historyIdx ? '#0f172a' : i < historyIdx ? '#f1f5f9' : '#fff',
+                      color: i === historyIdx ? '#fff' : i < historyIdx ? '#374151' : '#cbd5e1',
+                      fontWeight: i === historyIdx ? 700 : 400,
+                      border: `1px solid ${i === historyIdx ? '#0f172a' : i < historyIdx ? '#e2e8f0' : '#f1f5f9'}`,
+                      transition: 'all 0.15s',
+                    } as React.CSSProperties
+                  }
                 >
                   {page}
                 </button>
@@ -940,7 +1056,12 @@ export const CommandPalette_WorkspaceEditor_히스토리_내비게이션 = {
 type ComposableUICard = { title: string; desc: string; tag: string; tagColor: string }
 
 const UTILITYUI_CARDS: ComposableUICard[] = [
-  { title: 'SolidButton', desc: '주요 액션용 CTA 버튼 컴포넌트', tag: 'Actions', tagColor: '#6366f1' },
+  {
+    title: 'SolidButton',
+    desc: '주요 액션용 CTA 버튼 컴포넌트',
+    tag: 'Actions',
+    tagColor: '#6366f1',
+  },
   { title: 'TextField', desc: '단일 라인 텍스트 입력 필드', tag: 'Inputs', tagColor: '#10b981' },
   { title: 'DataTable', desc: '정렬/필터 지원 데이터 테이블', tag: 'Data', tagColor: '#f59e0b' },
   { title: 'Tooltip', desc: '호버 시 컨텍스트 정보 표시', tag: 'Feedback', tagColor: '#8b5cf6' },
@@ -962,35 +1083,57 @@ export const ComposableUI_카드_호버_액션_버튼 = {
     const [bookmarked, setBookmarked] = useState<Set<number>>(new Set())
 
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, width: 480, fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 12,
+          width: 480,
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {UTILITYUI_CARDS.map((card, i) => (
           <div
             key={card.title}
             onMouseEnter={() => setHoveredIdx(i)}
             onMouseLeave={() => setHoveredIdx(null)}
             style={{
-              padding: '16px', borderRadius: 12, border: '1px solid #e2e8f0',
-              background: '#fff', position: 'relative',
+              padding: '16px',
+              borderRadius: 12,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              position: 'relative',
               transition: 'box-shadow 0.15s, border-color 0.15s',
               boxShadow: hoveredIdx === i ? '0 4px 16px rgba(0,0,0,0.06)' : 'none',
               borderColor: hoveredIdx === i ? '#c7d2fe' : '#e2e8f0',
             }}
           >
             {/* 액션 버튼 그룹 — hover 시 노출 */}
-            <div style={{
-              position: 'absolute', top: 10, right: 10,
-              display: 'flex', gap: 4,
-              opacity: hoveredIdx === i ? 1 : 0,
-              transition: 'opacity 0.15s',
-            }}>
+            <div
+              style={{
+                position: 'absolute',
+                top: 10,
+                right: 10,
+                display: 'flex',
+                gap: 4,
+                opacity: hoveredIdx === i ? 1 : 0,
+                transition: 'opacity 0.15s',
+              }}
+            >
               <SolidIconButton
                 color="white"
                 size="small"
-                onClick={() => setBookmarked((prev) => {
-                  const next = new Set(prev)
-                  if (next.has(i)) { next.delete(i) } else { next.add(i) }
-                  return next
-                })}
+                onClick={() =>
+                  setBookmarked((prev) => {
+                    const next = new Set(prev)
+                    if (next.has(i)) {
+                      next.delete(i)
+                    } else {
+                      next.add(i)
+                    }
+                    return next
+                  })
+                }
                 style={{ background: bookmarked.has(i) ? '#eff6ff' : undefined }}
               >
                 <StarLineIcon />
@@ -1003,14 +1146,23 @@ export const ComposableUI_카드_호버_액션_버튼 = {
               </SolidIconButton>
             </div>
             {/* 카드 내용 */}
-            <span style={{
-              display: 'inline-block', fontSize: 10, fontWeight: 700,
-              padding: '2px 8px', borderRadius: 20, marginBottom: 8,
-              color: card.tagColor, background: `${card.tagColor}18`,
-            }}>
+            <span
+              style={{
+                display: 'inline-block',
+                fontSize: 10,
+                fontWeight: 700,
+                padding: '2px 8px',
+                borderRadius: 20,
+                marginBottom: 8,
+                color: card.tagColor,
+                background: `${card.tagColor}18`,
+              }}
+            >
               {card.tag}
             </span>
-            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>{card.title}</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+              {card.title}
+            </div>
             <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.5 }}>{card.desc}</div>
           </div>
         ))}
@@ -1025,7 +1177,28 @@ export const ComposableUI_카드_호버_액션_버튼 = {
 -------------------------------------------------------------------------- */
 type NavItem = { key: string; Icon: React.FC<{ size?: number }>; label: string }
 const DEPLOY_NAV_ITEMS: NavItem[] = [
-  { key: 'home', Icon: (p) => <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: '홈' },
+  {
+    key: 'home',
+    Icon: (p) => (
+      <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none">
+        <path
+          d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <polyline
+          points="9 22 9 12 15 12 15 22"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+    label: '홈',
+  },
   { key: 'search', Icon: SearchIcon, label: '검색' },
   { key: 'notif', Icon: NotificationLineIcon, label: '알림' },
   { key: 'star', Icon: StarLineIcon, label: '즐겨찾기' },
@@ -1047,13 +1220,27 @@ export const DeployPlatform_다크_사이드바_네비게이션 = {
     const [active, setActive] = useState('home')
 
     return (
-      <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start', fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 32,
+          alignItems: 'flex-start',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {/* 사이드바 */}
-        <div style={{
-          width: 56, padding: '12px 8px', borderRadius: 14,
-          background: '#0f172a', display: 'flex', flexDirection: 'column', gap: 6,
-          boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-        }}>
+        <div
+          style={{
+            width: 56,
+            padding: '12px 8px',
+            borderRadius: 14,
+            background: '#0f172a',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 6,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+          }}
+        >
           {DEPLOY_NAV_ITEMS.map(({ key, Icon, label }) => (
             <SolidIconButton
               key={key}
@@ -1073,8 +1260,26 @@ export const DeployPlatform_다크_사이드바_네비게이션 = {
         </div>
 
         {/* 현재 선택 표시 */}
-        <div style={{ padding: '20px 24px', borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>현재 섹션</div>
+        <div
+          style={{
+            padding: '20px 24px',
+            borderRadius: 12,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+          }}
+        >
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 8,
+            }}
+          >
+            현재 섹션
+          </div>
           <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>
             {DEPLOY_NAV_ITEMS.find((n) => n.key === active)?.label}
           </div>
@@ -1091,13 +1296,85 @@ export const DeployPlatform_다크_사이드바_네비게이션 = {
 type EditorFmtKey = 'bold' | 'italic' | 'underline' | 'left' | 'center' | 'right'
 type EditorAlignKey = 'left' | 'center' | 'right'
 
-const EDITOR_FMT_BUTTONS: { key: EditorFmtKey; Icon: React.FC<{ size?: number }>; group: 'text' | 'align' }[] = [
+const EDITOR_FMT_BUTTONS: {
+  key: EditorFmtKey
+  Icon: React.FC<{ size?: number }>
+  group: 'text' | 'align'
+}[] = [
   { key: 'bold', Icon: TextBoldIcon, group: 'text' },
   { key: 'italic', Icon: TextItalicIcon, group: 'text' },
   { key: 'underline', Icon: TextUnderlineIcon, group: 'text' },
   { key: 'left', Icon: AlignLeftIcon, group: 'align' },
-  { key: 'center', Icon: (p) => <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="6" y1="12" x2="18" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>, group: 'align' },
-  { key: 'right', Icon: (p) => <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="9" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>, group: 'align' },
+  {
+    key: 'center',
+    Icon: (p) => (
+      <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none">
+        <line
+          x1="3"
+          y1="6"
+          x2="21"
+          y2="6"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <line
+          x1="6"
+          y1="12"
+          x2="18"
+          y2="12"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <line
+          x1="3"
+          y1="18"
+          x2="21"
+          y2="18"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+    group: 'align',
+  },
+  {
+    key: 'right',
+    Icon: (p) => (
+      <svg width={p.size ?? 16} height={p.size ?? 16} viewBox="0 0 24 24" fill="none">
+        <line
+          x1="3"
+          y1="6"
+          x2="21"
+          y2="6"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <line
+          x1="9"
+          y1="12"
+          x2="21"
+          y2="12"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <line
+          x1="3"
+          y1="18"
+          x2="21"
+          y2="18"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+    group: 'align',
+  },
 ]
 
 export const ComposableUI_에디터_포맷_툴바 = {
@@ -1119,19 +1396,37 @@ export const ComposableUI_에디터_포맷_툴바 = {
     const toggleFormat = (key: EditorFmtKey) => {
       setActive((prev) => {
         const next = new Set(prev)
-        if (next.has(key)) { next.delete(key) } else { next.add(key) }
+        if (next.has(key)) {
+          next.delete(key)
+        } else {
+          next.add(key)
+        }
         return next
       })
     }
 
     return (
-      <div style={{ fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div
+        style={{
+          fontFamily: 'system-ui, sans-serif',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+        }}
+      >
         {/* 툴바 */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 4, padding: '6px 10px',
-          borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff',
-          width: 'fit-content',
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            padding: '6px 10px',
+            borderRadius: 10,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            width: 'fit-content',
+          }}
+        >
           {/* 텍스트 포맷 그룹 */}
           {EDITOR_FMT_BUTTONS.filter((b) => b.group === 'text').map(({ key, Icon }) => (
             <SolidIconButton
@@ -1159,15 +1454,23 @@ export const ComposableUI_에디터_포맷_툴바 = {
         </div>
 
         {/* 미리보기 */}
-        <div style={{
-          padding: '14px 18px', borderRadius: 10, border: '1px solid #e2e8f0',
-          background: '#fafafa', minHeight: 60, maxWidth: 360,
-          fontWeight: active.has('bold') ? 700 : 400,
-          fontStyle: active.has('italic') ? 'italic' : 'normal',
-          textDecoration: active.has('underline') ? 'underline' : 'none',
-          textAlign: align,
-          fontSize: 14, color: '#0f172a', lineHeight: 1.6,
-        }}>
+        <div
+          style={{
+            padding: '14px 18px',
+            borderRadius: 10,
+            border: '1px solid #e2e8f0',
+            background: '#fafafa',
+            minHeight: 60,
+            maxWidth: 360,
+            fontWeight: active.has('bold') ? 700 : 400,
+            fontStyle: active.has('italic') ? 'italic' : 'normal',
+            textDecoration: active.has('underline') ? 'underline' : 'none',
+            textAlign: align,
+            fontSize: 14,
+            color: '#0f172a',
+            lineHeight: 1.6,
+          }}
+        >
           Orbit UI는 DesignTool 기반 React 디자인 시스템입니다.
         </div>
       </div>
@@ -1196,25 +1499,55 @@ function ProjectCardHover131() {
         <div
           key={card.id}
           style={{
-            position: 'relative', width: 180, borderRadius: 12,
-            border: '1px solid #e2e8f0', padding: '20px 16px',
-            background: '#fff', cursor: 'pointer', transition: 'box-shadow 150ms ease',
-            boxShadow: hovered === card.id ? '0 4px 20px rgba(0,0,0,0.10)' : '0 1px 4px rgba(0,0,0,0.04)',
+            position: 'relative',
+            width: 180,
+            borderRadius: 12,
+            border: '1px solid #e2e8f0',
+            padding: '20px 16px',
+            background: '#fff',
+            cursor: 'pointer',
+            transition: 'box-shadow 150ms ease',
+            boxShadow:
+              hovered === card.id ? '0 4px 20px rgba(0,0,0,0.10)' : '0 1px 4px rgba(0,0,0,0.04)',
           }}
           onMouseEnter={() => setHovered(card.id)}
           onMouseLeave={() => setHovered(null)}
         >
-          <div style={{ width: 40, height: 40, borderRadius: 10, background: card.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 10,
+              background: card.color + '20',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 12,
+            }}
+          >
             <span style={{ fontSize: 18 }}>📦</span>
           </div>
-          <div style={{ fontWeight: 700, fontSize: 14, color: '#0f172a', marginBottom: 4 }}>{card.title}</div>
+          <div style={{ fontWeight: 700, fontSize: 14, color: '#0f172a', marginBottom: 4 }}>
+            {card.title}
+          </div>
           <div style={{ fontSize: 12, color: '#64748b' }}>{card.lang}</div>
           {hovered === card.id && (
             <div style={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 6 }}>
               <SolidIconButton
                 color="white"
                 size="small"
-                onClick={(e) => { e.stopPropagation(); setStarred((prev) => { const n = new Set(prev); if (n.has(card.id)) { n.delete(card.id) } else { n.add(card.id) } return n }) }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setStarred((prev) => {
+                    const n = new Set(prev)
+                    if (n.has(card.id)) {
+                      n.delete(card.id)
+                    } else {
+                      n.add(card.id)
+                    }
+                    return n
+                  })
+                }}
               >
                 <StarLineIcon size={14} />
               </SolidIconButton>
@@ -1223,7 +1556,16 @@ function ProjectCardHover131() {
               </SolidIconButton>
             </div>
           )}
-          <div style={{ marginTop: 12, fontSize: 12, color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 4 }}>
+          <div
+            style={{
+              marginTop: 12,
+              fontSize: 12,
+              color: '#94a3b8',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+            }}
+          >
             <StarLineIcon size={12} />
             {card.stars + (starred.has(card.id) ? 1 : 0)}
           </div>
@@ -1245,7 +1587,16 @@ type FormatKey131 = 'bold' | 'italic' | 'underline'
 function PrimitiveToggleGroupRender131() {
   const [align, setAlign] = useState<AlignKey131>('left')
   const [formats, setFormats] = useState<Set<FormatKey131>>(new Set())
-  const toggleFormat = (k: FormatKey131) => setFormats((prev) => { const n = new Set(prev); if (n.has(k)) { n.delete(k) } else { n.add(k) } return n })
+  const toggleFormat = (k: FormatKey131) =>
+    setFormats((prev) => {
+      const n = new Set(prev)
+      if (n.has(k)) {
+        n.delete(k)
+      } else {
+        n.add(k)
+      }
+      return n
+    })
   const alignButtons: { key: AlignKey131; Icon: React.FC<{ size?: number }> }[] = [
     { key: 'left', Icon: AlignLeftIcon },
     { key: 'center', Icon: AlignLeftIcon },
@@ -1260,10 +1611,21 @@ function PrimitiveToggleGroupRender131() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: '24px' }}>
       <div>
-        <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#94a3b8',
+            marginBottom: 8,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+          }}
+        >
           정렬 (단일 선택)
         </div>
-        <div style={{ display: 'flex', gap: 4, background: '#f1f5f9', borderRadius: 8, padding: 4 }}>
+        <div
+          style={{ display: 'flex', gap: 4, background: '#f1f5f9', borderRadius: 8, padding: 4 }}
+        >
           {alignButtons.map(({ key, Icon }) => (
             <SolidIconButton
               key={key}
@@ -1277,10 +1639,21 @@ function PrimitiveToggleGroupRender131() {
         </div>
       </div>
       <div>
-        <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#94a3b8',
+            marginBottom: 8,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+          }}
+        >
           서식 (다중 선택)
         </div>
-        <div style={{ display: 'flex', gap: 4, background: '#f1f5f9', borderRadius: 8, padding: 4 }}>
+        <div
+          style={{ display: 'flex', gap: 4, background: '#f1f5f9', borderRadius: 8, padding: 4 }}
+        >
           {fmtButtons.map(({ key, Icon }) => (
             <SolidIconButton
               key={key}
@@ -1293,13 +1666,20 @@ function PrimitiveToggleGroupRender131() {
           ))}
         </div>
       </div>
-      <div style={{
-        padding: '14px 18px', borderRadius: 10, border: '1px solid #e2e8f0',
-        fontWeight: formats.has('bold') ? 700 : 400,
-        fontStyle: formats.has('italic') ? 'italic' : 'normal',
-        textDecoration: formats.has('underline') ? 'underline' : 'none',
-        textAlign: align, fontSize: 14, color: '#0f172a', lineHeight: 1.7,
-      }}>
+      <div
+        style={{
+          padding: '14px 18px',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          fontWeight: formats.has('bold') ? 700 : 400,
+          fontStyle: formats.has('italic') ? 'italic' : 'normal',
+          textDecoration: formats.has('underline') ? 'underline' : 'none',
+          textAlign: align,
+          fontSize: 14,
+          color: '#0f172a',
+          lineHeight: 1.7,
+        }}
+      >
         Orbit UI는 DesignTool 기반 컴포넌트 시스템입니다. 텍스트 서식 데모.
       </div>
     </div>
@@ -1324,16 +1704,39 @@ function WorkspaceEditorBlockEditorRender131() {
   ])
   const removeBlock = (id: number) => setBlocks((prev) => prev.filter((b) => b.id !== id))
   return (
-    <div style={{ maxWidth: 480, padding: '24px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0' }}>
+    <div
+      style={{
+        maxWidth: 480,
+        padding: '24px',
+        background: '#fff',
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+      }}
+    >
       {blocks.map((block) => (
         <div
           key={block.id}
-          style={{ position: 'relative', padding: '6px 0', display: 'flex', alignItems: 'flex-start', gap: 8 }}
+          style={{
+            position: 'relative',
+            padding: '6px 0',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 8,
+          }}
           onMouseEnter={() => setHovered(block.id)}
           onMouseLeave={() => setHovered(null)}
         >
           {hovered === block.id && (
-            <div style={{ position: 'absolute', left: -80, top: '50%', transform: 'translateY(-50%)', display: 'flex', gap: 4 }}>
+            <div
+              style={{
+                position: 'absolute',
+                left: -80,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                display: 'flex',
+                gap: 4,
+              }}
+            >
               <SolidIconButton color="white" size="small" onClick={() => removeBlock(block.id)}>
                 <PlusIcon size={12} />
               </SolidIconButton>
@@ -1342,13 +1745,16 @@ function WorkspaceEditorBlockEditorRender131() {
               </SolidIconButton>
             </div>
           )}
-          <div style={{
-            flex: 1,
-            fontSize: block.type === 'heading' ? 18 : 14,
-            fontWeight: block.type === 'heading' ? 700 : 400,
-            color: '#0f172a', lineHeight: 1.7,
-            paddingLeft: block.type === 'list' ? 16 : 0,
-          }}>
+          <div
+            style={{
+              flex: 1,
+              fontSize: block.type === 'heading' ? 18 : 14,
+              fontWeight: block.type === 'heading' ? 700 : 400,
+              color: '#0f172a',
+              lineHeight: 1.7,
+              paddingLeft: block.type === 'list' ? 16 : 0,
+            }}
+          >
             {block.type === 'list' && <span style={{ color: '#94a3b8', marginRight: 8 }}>•</span>}
             {block.text}
           </div>
@@ -1380,10 +1786,36 @@ function DeployPlatformDashboardActionClusterRender() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20, minWidth: 360 }}>
       {/* 대시보드 헤더 */}
-      <div style={{ padding: '12px 16px', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          padding: '12px 16px',
+          border: '1px solid var(--sem-eclipse-color-borderDefault)',
+          borderRadius: 10,
+          background: 'var(--sem-eclipse-color-backgroundPrimary)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <div>
-          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>프로덕션 배포</div>
-          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>orbit-ui.deploy.example.com · 2분 전</div>
+          <div
+            style={{
+              fontSize: 14,
+              fontWeight: 700,
+              color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            }}
+          >
+            프로덕션 배포
+          </div>
+          <div
+            style={{
+              fontSize: 11,
+              color: 'var(--sem-eclipse-color-foregroundTertiary)',
+              marginTop: 2,
+            }}
+          >
+            orbit-ui.deploy.example.com · 2분 전
+          </div>
         </div>
         <Flex gap="4px">
           <SolidIconButton
@@ -1401,11 +1833,7 @@ function DeployPlatformDashboardActionClusterRender() {
           >
             <StarLineIcon />
           </SolidIconButton>
-          <SolidIconButton
-            color="black"
-            size="small"
-            onClick={() => setShared((v) => !v)}
-          >
+          <SolidIconButton color="black" size="small" onClick={() => setShared((v) => !v)}>
             <ShareIcon />
           </SolidIconButton>
           <SolidIconButton color="black" size="small">
@@ -1414,7 +1842,15 @@ function DeployPlatformDashboardActionClusterRender() {
         </Flex>
       </div>
       {/* 상태 표시 */}
-      <div style={{ padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+      <div
+        style={{
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          fontSize: 11,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+        }}
+      >
         {refreshing && '새로고침 중...'}
         {!refreshing && starred && '즐겨찾기에 추가됨'}
         {!refreshing && !starred && shared && '공유 링크 복사됨'}
@@ -1430,7 +1866,8 @@ export const DeployPlatform_대시보드_액션_클러스터: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 대시보드의 모노크롬 아이콘 버튼 그룹 패턴. 새로고침(opacity 애니메이션), 즐겨찾기 토글, 공유. 컴팩트 헤더에 액션을 집약하는 DeployPlatform 스타일.',
+        story:
+          'DeployPlatform 대시보드의 모노크롬 아이콘 버튼 그룹 패턴. 새로고침(opacity 애니메이션), 즐겨찾기 토글, 공유. 컴팩트 헤더에 액션을 집약하는 DeployPlatform 스타일.',
       },
     },
   },
@@ -1455,20 +1892,83 @@ function AntTableCRUDRender() {
   const handleEdit = (id: number) => setEditId(id === editId ? null : id)
 
   return (
-    <div style={{ minWidth: 480, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
+    <div
+      style={{
+        minWidth: 480,
+        border: '1px solid var(--sem-eclipse-color-borderDefault)',
+        borderRadius: 10,
+        overflow: 'hidden',
+      }}
+    >
       {/* 테이블 헤더 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 80px 80px 88px', padding: '8px 16px', background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-        <span>이름</span><span>이메일</span><span>역할</span><span>상태</span><span style={{ textAlign: 'right' }}>액션</span>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1.2fr 80px 80px 88px',
+          padding: '8px 16px',
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          fontSize: 11,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+        }}
+      >
+        <span>이름</span>
+        <span>이메일</span>
+        <span>역할</span>
+        <span>상태</span>
+        <span style={{ textAlign: 'right' }}>액션</span>
       </div>
       {rows.length === 0 ? (
-        <div style={{ padding: '24px', textAlign: 'center', color: 'var(--sem-eclipse-color-foregroundDisabled)', fontSize: 13 }}>모든 멤버가 삭제되었습니다</div>
+        <div
+          style={{
+            padding: '24px',
+            textAlign: 'center',
+            color: 'var(--sem-eclipse-color-foregroundDisabled)',
+            fontSize: 13,
+          }}
+        >
+          모든 멤버가 삭제되었습니다
+        </div>
       ) : (
         rows.map((row, idx) => (
-          <div key={row.id} style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 80px 80px 88px', padding: '10px 16px', borderTop: idx === 0 ? 'none' : '1px solid var(--sem-eclipse-color-borderSubtle)', alignItems: 'center', background: editId === row.id ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'transparent' }}>
-            <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{row.name}</span>
-            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{row.email}</span>
-            <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{row.role}</span>
-            <span style={{ fontSize: 11, color: row.status === '활성' ? '#10b981' : '#94a3b8', fontWeight: 600 }}>{row.status}</span>
+          <div
+            key={row.id}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1.2fr 80px 80px 88px',
+              padding: '10px 16px',
+              borderTop: idx === 0 ? 'none' : '1px solid var(--sem-eclipse-color-borderSubtle)',
+              alignItems: 'center',
+              background:
+                editId === row.id ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'transparent',
+            }}
+          >
+            <span
+              style={{
+                fontSize: 13,
+                fontWeight: 500,
+                color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              }}
+            >
+              {row.name}
+            </span>
+            <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+              {row.email}
+            </span>
+            <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+              {row.role}
+            </span>
+            <span
+              style={{
+                fontSize: 11,
+                color: row.status === '활성' ? '#10b981' : '#94a3b8',
+                fontWeight: 600,
+              }}
+            >
+              {row.status}
+            </span>
             <Flex gap="4px" justifyContent="flex-end">
               <SolidIconButton color="black" size="small" onClick={() => handleEdit(row.id)}>
                 <WriteLineIcon />
@@ -1490,7 +1990,8 @@ export const Ant_테이블_인라인_CRUD_액션: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design DataTable 행별 편집/삭제 아이콘 액션 패턴. 편집 클릭 시 행 하이라이트, 삭제 시 행 제거. 모든 행 삭제 시 빈 상태 메시지 표시.',
+        story:
+          'Ant Design DataTable 행별 편집/삭제 아이콘 액션 패턴. 편집 클릭 시 행 하이라이트, 삭제 시 행 제거. 모든 행 삭제 시 빈 상태 메시지 표시.',
       },
     },
   },
@@ -1508,17 +2009,49 @@ function DeployPlatformAntMediaPlayerRender() {
   const [liked, setLiked] = useState(false)
 
   const totalSec = 243
-  const elapsed = Math.round(totalSec * progress / 100)
+  const elapsed = Math.round((totalSec * progress) / 100)
   const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
 
   return (
-    <div style={{ width: 360, padding: '14px 16px', border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 12, background: 'var(--sem-eclipse-color-backgroundPrimary)', display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div
+      style={{
+        width: 360,
+        padding: '14px 16px',
+        border: '1px solid var(--sem-eclipse-color-borderDefault)',
+        borderRadius: 12,
+        background: 'var(--sem-eclipse-color-backgroundPrimary)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+      }}
+    >
       {/* 트랙 정보 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <div style={{ width: 44, height: 44, borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #ec4899)', flexShrink: 0 }} />
+        <div
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: 8,
+            background: 'linear-gradient(135deg, #6366f1, #ec4899)',
+            flexShrink: 0,
+          }}
+        />
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Orbit UI Design Podcast</div>
-          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>Episode 12 — Design Tokens</div>
+          <div
+            style={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            Orbit UI Design Podcast
+          </div>
+          <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+            Episode 12 — Design Tokens
+          </div>
         </div>
         <SolidIconButton color="black" size="small" onClick={() => setLiked((v) => !v)}>
           <StarLineIcon />
@@ -1534,27 +2067,56 @@ function DeployPlatformAntMediaPlayerRender() {
           onChange={(e) => setProgress(Number(e.target.value))}
           style={{ width: '100%', height: 4, accentColor: '#6366f1', cursor: 'pointer' }}
         />
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--sem-eclipse-color-foregroundQuaternary)', marginTop: 2 }}>
-          <span>{fmt(elapsed)}</span><span>{fmt(totalSec)}</span>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            fontSize: 10,
+            color: 'var(--sem-eclipse-color-foregroundQuaternary)',
+            marginTop: 2,
+          }}
+        >
+          <span>{fmt(elapsed)}</span>
+          <span>{fmt(totalSec)}</span>
         </div>
       </div>
       {/* 컨트롤 버튼 */}
       <Flex gap="8px" justifyContent="center" alignItems="center">
-        <SolidIconButton color="black" size="small" onClick={() => setProgress((v) => Math.max(0, v - 10))}>
+        <SolidIconButton
+          color="black"
+          size="small"
+          onClick={() => setProgress((v) => Math.max(0, v - 10))}
+        >
           <ChevronLeftLineIcon />
         </SolidIconButton>
         <SolidIconButton color="black" size="medium" onClick={() => setPlaying((v) => !v)}>
           {playing ? <CheckIcon /> : <PlusIcon />}
         </SolidIconButton>
-        <SolidIconButton color="black" size="small" onClick={() => setProgress((v) => Math.min(100, v + 10))}>
+        <SolidIconButton
+          color="black"
+          size="small"
+          onClick={() => setProgress((v) => Math.min(100, v + 10))}
+        >
           <ChevronRightLineIcon />
         </SolidIconButton>
-        <SolidIconButton color="black" size="small" onClick={() => setMuted((v) => !v)} style={{ marginLeft: 8 }}>
+        <SolidIconButton
+          color="black"
+          size="small"
+          onClick={() => setMuted((v) => !v)}
+          style={{ marginLeft: 8 }}
+        >
           <NotificationLineIcon />
         </SolidIconButton>
       </Flex>
-      <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', textAlign: 'center' }}>
-        {playing ? '재생 중' : '일시정지'} · {muted ? '음소거' : '소리 켜짐'} · {liked ? '즐겨찾기 추가됨' : 'DeployPlatform + Ant 미디어 컨트롤'}
+      <div
+        style={{
+          fontSize: 10,
+          color: 'var(--sem-eclipse-color-foregroundDisabled)',
+          textAlign: 'center',
+        }}
+      >
+        {playing ? '재생 중' : '일시정지'} · {muted ? '음소거' : '소리 켜짐'} ·{' '}
+        {liked ? '즐겨찾기 추가됨' : 'DeployPlatform + Ant 미디어 컨트롤'}
       </div>
     </div>
   )
@@ -1566,7 +2128,8 @@ export const DeployPlatform_Ant_미디어_플레이어_컨트롤: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 스타일 + Ant Design 기능성 미디어 플레이어. 이전/재생-일시정지/다음 + 음소거 + 즐겨찾기. range 슬라이더로 진행률 제어, 경과/총 시간 표시.',
+        story:
+          'DeployPlatform 스타일 + Ant Design 기능성 미디어 플레이어. 이전/재생-일시정지/다음 + 음소거 + 즐겨찾기. range 슬라이더로 진행률 제어, 경과/총 시간 표시.',
       },
     },
   },
@@ -1585,16 +2148,28 @@ function PrimitiveA11yToggleRender(args: ComponentProps<typeof SolidIconButton>)
 
   return (
     <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 10 }}>Primitive 접근성 토글 버튼 패턴</div>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 10 }}>
+        Primitive 접근성 토글 버튼 패턴
+      </div>
       {/* Text format toggles with aria-pressed */}
-      <div style={{ display: 'flex', gap: 4, padding: '10px 12px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 4,
+          padding: '10px 12px',
+          background: '#f8fafc',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          marginBottom: 12,
+        }}
+      >
         <div style={{ display: 'flex', gap: 2 }}>
           <SolidIconButton
             {...args}
             color={bold ? 'black' : 'white'}
             size="small"
             aria-pressed={bold}
-            onClick={() => setBold(b => !b)}
+            onClick={() => setBold((b) => !b)}
           >
             <TextBoldIcon size={16} />
           </SolidIconButton>
@@ -1603,7 +2178,7 @@ function PrimitiveA11yToggleRender(args: ComponentProps<typeof SolidIconButton>)
             color={italic ? 'black' : 'white'}
             size="small"
             aria-pressed={italic}
-            onClick={() => setItalic(b => !b)}
+            onClick={() => setItalic((b) => !b)}
           >
             <TextItalicIcon size={16} />
           </SolidIconButton>
@@ -1612,18 +2187,26 @@ function PrimitiveA11yToggleRender(args: ComponentProps<typeof SolidIconButton>)
             color={underline ? 'black' : 'white'}
             size="small"
             aria-pressed={underline}
-            onClick={() => setUnderline(b => !b)}
+            onClick={() => setUnderline((b) => !b)}
           >
             <TextUnderlineIcon size={16} />
           </SolidIconButton>
         </div>
-        <div style={{ width: 1, height: 28, background: '#e2e8f0', margin: '0 4px', alignSelf: 'center' }} />
+        <div
+          style={{
+            width: 1,
+            height: 28,
+            background: '#e2e8f0',
+            margin: '0 4px',
+            alignSelf: 'center',
+          }}
+        />
         <SolidIconButton
           {...args}
           color={starred ? 'black' : 'white'}
           size="small"
           aria-pressed={starred}
-          onClick={() => setStarred(s => !s)}
+          onClick={() => setStarred((s) => !s)}
         >
           <StarLineIcon size={16} />
         </SolidIconButton>
@@ -1634,21 +2217,36 @@ function PrimitiveA11yToggleRender(args: ComponentProps<typeof SolidIconButton>)
             size="small"
             aria-expanded={menuOpen}
             aria-haspopup="menu"
-            onClick={() => setMenuOpen(m => !m)}
+            onClick={() => setMenuOpen((m) => !m)}
           >
             <MoreHorizontalIcon size={16} />
           </SolidIconButton>
         </div>
       </div>
       {menuOpen && (
-        <div style={{ padding: '8px 12px', background: '#fff', borderRadius: 8, border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', fontSize: 12, color: '#374151' }}>
+        <div
+          style={{
+            padding: '8px 12px',
+            background: '#fff',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+            fontSize: 12,
+            color: '#374151',
+          }}
+        >
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 4 }}>
             <span style={{ fontSize: 10, fontWeight: 600, color: '#6366f1' }}>ARIA 상태</span>
           </div>
-          <div style={{ fontSize: 11, color: '#64748b' }}>Bold: {bold ? 'pressed' : 'not-pressed'} / Italic: {italic ? 'pressed' : 'not-pressed'} / Star: {starred ? 'pressed' : 'not-pressed'}</div>
+          <div style={{ fontSize: 11, color: '#64748b' }}>
+            Bold: {bold ? 'pressed' : 'not-pressed'} / Italic: {italic ? 'pressed' : 'not-pressed'}{' '}
+            / Star: {starred ? 'pressed' : 'not-pressed'}
+          </div>
         </div>
       )}
-      <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 8 }}>PrimitiveUI의 aria-pressed, aria-expanded, role=&quot;button&quot; 패턴 적용</div>
+      <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 8 }}>
+        PrimitiveUI의 aria-pressed, aria-expanded, role=&quot;button&quot; 패턴 적용
+      </div>
     </div>
   )
 }
@@ -1672,13 +2270,24 @@ export const Primitive_접근성_토글_아이콘_버튼: Story = {
    Ant Design — 데이터 그리드 인라인 액션 아이콘 버튼
 -------------------------------------------------------------------------- */
 const ANT_TASKS = [
-  { id: 'T-001', title: 'DataTable 정렬 개선', priority: '높음', status: '진행중', assignee: 'Alex' },
+  {
+    id: 'T-001',
+    title: 'DataTable 정렬 개선',
+    priority: '높음',
+    status: '진행중',
+    assignee: 'Alex',
+  },
   { id: 'T-002', title: 'Modal 접근성 패치', priority: '긴급', status: '검토', assignee: 'Jin' },
   { id: 'T-003', title: 'Chip 색상 토큰 매핑', priority: '보통', status: '완료', assignee: 'Kim' },
   { id: 'T-004', title: 'SearchBar 디바운스', priority: '낮음', status: '대기', assignee: 'Alex' },
 ]
 
-const ANT_PRIORITY_COLOR: Record<string, string> = { 긴급: '#ef4444', 높음: '#f97316', 보통: '#6366f1', 낮음: '#94a3b8' }
+const ANT_PRIORITY_COLOR: Record<string, string> = {
+  긴급: '#ef4444',
+  높음: '#f97316',
+  보통: '#6366f1',
+  낮음: '#94a3b8',
+}
 const ANT_STATUS_BG: Record<string, { bg: string; color: string }> = {
   진행중: { bg: '#eef2ff', color: '#4f46e5' },
   검토: { bg: '#fff7ed', color: '#c2410c' },
@@ -1689,11 +2298,28 @@ const ANT_STATUS_BG: Record<string, { bg: string; color: string }> = {
 function AntTableInlineActionRender(args: ComponentProps<typeof SolidIconButton>) {
   const [tasks, setTasks] = useState(ANT_TASKS)
 
-  const deleteTask = (id: string) => setTasks(t => t.filter(task => task.id !== id))
+  const deleteTask = (id: string) => setTasks((t) => t.filter((task) => task.id !== id))
 
   return (
-    <div style={{ width: 460, fontFamily: "'Inter', system-ui, sans-serif", background: '#fff', borderRadius: 8, border: '1px solid #e5e7eb', overflow: 'hidden' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div
+      style={{
+        width: 460,
+        fontFamily: "'Inter', system-ui, sans-serif",
+        background: '#fff',
+        borderRadius: 8,
+        border: '1px solid #e5e7eb',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #e5e7eb',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>태스크 관리</span>
         <span style={{ fontSize: 11, color: '#9ca3af' }}>{tasks.length}개</span>
         <div style={{ marginLeft: 'auto' }}>
@@ -1705,8 +2331,20 @@ function AntTableInlineActionRender(args: ComponentProps<typeof SolidIconButton>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr style={{ background: '#f9fafb' }}>
-            {['ID', '제목', '우선순위', '상태', '담당자', '액션'].map(col => (
-              <th key={col} style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: '#6b7280', borderBottom: '1px solid #e5e7eb' }}>{col}</th>
+            {['ID', '제목', '우선순위', '상태', '담당자', '액션'].map((col) => (
+              <th
+                key={col}
+                style={{
+                  padding: '8px 12px',
+                  textAlign: 'left',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: '#6b7280',
+                  borderBottom: '1px solid #e5e7eb',
+                }}
+              >
+                {col}
+              </th>
             ))}
           </tr>
         </thead>
@@ -1715,21 +2353,72 @@ function AntTableInlineActionRender(args: ComponentProps<typeof SolidIconButton>
             const st = ANT_STATUS_BG[task.status] ?? { bg: '#f8fafc', color: '#64748b' }
             return (
               <tr key={task.id} style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-                <td style={{ padding: '9px 12px', fontSize: 11, color: '#6b7280', fontFamily: 'monospace', borderBottom: '1px solid #f3f4f6' }}>{task.id}</td>
-                <td style={{ padding: '9px 12px', fontSize: 12, color: '#111827', borderBottom: '1px solid #f3f4f6' }}>{task.title}</td>
-                <td style={{ padding: '9px 12px', borderBottom: '1px solid #f3f4f6' }}>
-                  <span style={{ fontSize: 10, color: ANT_PRIORITY_COLOR[task.priority], fontWeight: 600 }}>{task.priority}</span>
+                <td
+                  style={{
+                    padding: '9px 12px',
+                    fontSize: 11,
+                    color: '#6b7280',
+                    fontFamily: 'monospace',
+                    borderBottom: '1px solid #f3f4f6',
+                  }}
+                >
+                  {task.id}
+                </td>
+                <td
+                  style={{
+                    padding: '9px 12px',
+                    fontSize: 12,
+                    color: '#111827',
+                    borderBottom: '1px solid #f3f4f6',
+                  }}
+                >
+                  {task.title}
                 </td>
                 <td style={{ padding: '9px 12px', borderBottom: '1px solid #f3f4f6' }}>
-                  <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, ...st, fontWeight: 500 }}>{task.status}</span>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      color: ANT_PRIORITY_COLOR[task.priority],
+                      fontWeight: 600,
+                    }}
+                  >
+                    {task.priority}
+                  </span>
                 </td>
-                <td style={{ padding: '9px 12px', fontSize: 11, color: '#4b5563', borderBottom: '1px solid #f3f4f6' }}>{task.assignee}</td>
+                <td style={{ padding: '9px 12px', borderBottom: '1px solid #f3f4f6' }}>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      padding: '2px 8px',
+                      borderRadius: 10,
+                      ...st,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {task.status}
+                  </span>
+                </td>
+                <td
+                  style={{
+                    padding: '9px 12px',
+                    fontSize: 11,
+                    color: '#4b5563',
+                    borderBottom: '1px solid #f3f4f6',
+                  }}
+                >
+                  {task.assignee}
+                </td>
                 <td style={{ padding: '9px 12px', borderBottom: '1px solid #f3f4f6' }}>
                   <div style={{ display: 'flex', gap: 4 }}>
                     <SolidIconButton {...args} color="white" size="small">
                       <WriteLineIcon size={14} />
                     </SolidIconButton>
-                    <SolidIconButton {...args} color="white" size="small" onClick={() => deleteTask(task.id)}>
+                    <SolidIconButton
+                      {...args}
+                      color="white"
+                      size="small"
+                      onClick={() => deleteTask(task.id)}
+                    >
                       <CheckIcon size={14} />
                     </SolidIconButton>
                   </div>
@@ -1740,7 +2429,9 @@ function AntTableInlineActionRender(args: ComponentProps<typeof SolidIconButton>
         </tbody>
       </table>
       {tasks.length === 0 && (
-        <div style={{ padding: 32, textAlign: 'center', fontSize: 12, color: '#9ca3af' }}>모든 태스크 완료!</div>
+        <div style={{ padding: 32, textAlign: 'center', fontSize: 12, color: '#9ca3af' }}>
+          모든 태스크 완료!
+        </div>
       )}
     </div>
   )
@@ -1774,15 +2465,32 @@ function PrimitiveAntNotifCenterRender(args: ComponentProps<typeof SolidIconButt
 
   return (
     <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ padding: '12px 16px', background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+      <div
+        style={{
+          padding: '12px 16px',
+          background: '#fff',
+          borderRadius: 12,
+          border: '1px solid #e5e7eb',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 14, fontWeight: 700, color: '#111827', flex: 1 }}>알림 센터</span>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#111827', flex: 1 }}>
+            알림 센터
+          </span>
           {searchOpen && (
             <input
               autoFocus
               placeholder="알림 검색..."
               onBlur={() => setSearchOpen(false)}
-              style={{ flex: 1, padding: '4px 8px', border: '1px solid #e5e7eb', borderRadius: 6, fontSize: 12, outline: 'none' }}
+              style={{
+                flex: 1,
+                padding: '4px 8px',
+                border: '1px solid #e5e7eb',
+                borderRadius: 6,
+                fontSize: 12,
+                outline: 'none',
+              }}
             />
           )}
           <div style={{ display: 'flex', gap: 4 }}>
@@ -1791,7 +2499,7 @@ function PrimitiveAntNotifCenterRender(args: ComponentProps<typeof SolidIconButt
               color="white"
               size="small"
               aria-pressed={searchOpen}
-              onClick={() => setSearchOpen(s => !s)}
+              onClick={() => setSearchOpen((s) => !s)}
             >
               <SearchIcon size={16} />
             </SolidIconButton>
@@ -1800,7 +2508,7 @@ function PrimitiveAntNotifCenterRender(args: ComponentProps<typeof SolidIconButt
               color={muted ? 'black' : 'white'}
               size="small"
               aria-pressed={muted}
-              onClick={() => setMuted(m => !m)}
+              onClick={() => setMuted((m) => !m)}
               title={muted ? '음소거 해제' : '음소거'}
             >
               <NotificationLineIcon size={16} />
@@ -1811,23 +2519,64 @@ function PrimitiveAntNotifCenterRender(args: ComponentProps<typeof SolidIconButt
                 color="white"
                 size="small"
                 aria-expanded={panelOpen}
-                onClick={() => { setPanelOpen(p => !p); setCount(0) }}
+                onClick={() => {
+                  setPanelOpen((p) => !p)
+                  setCount(0)
+                }}
               >
                 <SettingLineIcon size={16} />
               </SolidIconButton>
               {count > 0 && (
-                <span style={{ position: 'absolute', top: -4, right: -4, width: 16, height: 16, borderRadius: '50%', background: '#ef4444', color: '#fff', fontSize: 9, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{count}</span>
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: -4,
+                    right: -4,
+                    width: 16,
+                    height: 16,
+                    borderRadius: '50%',
+                    background: '#ef4444',
+                    color: '#fff',
+                    fontSize: 9,
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {count}
+                </span>
               )}
             </div>
           </div>
         </div>
         {panelOpen && (
-          <div style={{ marginTop: 12, padding: '10px 12px', background: '#f9fafb', borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 12, color: '#6b7280' }}>
+          <div
+            style={{
+              marginTop: 12,
+              padding: '10px 12px',
+              background: '#f9fafb',
+              borderRadius: 8,
+              border: '1px solid #e5e7eb',
+              fontSize: 12,
+              color: '#6b7280',
+            }}
+          >
             <div style={{ fontWeight: 600, color: '#111827', marginBottom: 4 }}>알림 설정</div>
             {['이메일 알림', '슬랙 알림', '푸시 알림'].map((item, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0' }}>
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '4px 0',
+                }}
+              >
                 <span>{item}</span>
-                <span style={{ fontSize: 10, color: muted ? '#ef4444' : '#10b981' }}>{muted ? '비활성' : '활성'}</span>
+                <span style={{ fontSize: 10, color: muted ? '#ef4444' : '#10b981' }}>
+                  {muted ? '비활성' : '활성'}
+                </span>
               </div>
             ))}
           </div>

@@ -41,7 +41,7 @@ export function useScrollTo(): UseScrollToReturn {
         })
       }
     },
-    [],
+    []
   )
 
   return { scrollTo }

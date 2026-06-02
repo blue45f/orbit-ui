@@ -60,40 +60,59 @@ const faqItems = [
       </svg>
     ),
     question: 'Orbit UI는 어떤 프레임워크와 호환되나요?',
-    answer: 'React 18 이상, Next.js 13+ App Router, Vite 기반 프로젝트와 호환됩니다. TypeScript를 기본 지원하며 CommonJS / ESM 모두 제공합니다.',
+    answer:
+      'React 18 이상, Next.js 13+ App Router, Vite 기반 프로젝트와 호환됩니다. TypeScript를 기본 지원하며 CommonJS / ESM 모두 제공합니다.',
   },
   {
     value: 'faq-2',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-          stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
     question: '다크 모드는 어떻게 설정하나요?',
-    answer: 'EclipseProvider의 mode prop을 "dark"로 설정하면 됩니다. 런타임에서 동적으로 전환도 가능하며, CSS variables 기반으로 동작하여 SSR 환경에서도 플리커 없이 작동합니다.',
+    answer:
+      'EclipseProvider의 mode prop을 "dark"로 설정하면 됩니다. 런타임에서 동적으로 전환도 가능하며, CSS variables 기반으로 동작하여 SSR 환경에서도 플리커 없이 작동합니다.',
   },
   {
     value: 'faq-3',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-          stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
     question: '토큰을 커스터마이즈할 수 있나요?',
-    answer: 'CSS 변수 직접 override, theme prop을 통한 컴포넌트별 토큰 주입, UtilityCSS createTheme을 통한 새 테마 클래스 생성 등 3가지 방법을 지원합니다.',
+    answer:
+      'CSS 변수 직접 override, theme prop을 통한 컴포넌트별 토큰 주입, UtilityCSS createTheme을 통한 새 테마 클래스 생성 등 3가지 방법을 지원합니다.',
   },
   {
     value: 'faq-4',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M13 10V3L4 14h7v7l9-11h-7z"
-          stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M13 10V3L4 14h7v7l9-11h-7z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
     question: '번들 크기는 얼마나 되나요?',
-    answer: '트리 셰이킹을 완벽 지원하여 사용한 컴포넌트만 포함됩니다. 코어 패키지 기준 gzip 압축 후 약 12KB이며, 테마 레이어는 추가로 약 8KB입니다.',
+    answer:
+      '트리 셰이킹을 완벽 지원하여 사용한 컴포넌트만 포함됩니다. 코어 패키지 기준 gzip 압축 후 약 12KB이며, 테마 레이어는 추가로 약 8KB입니다.',
   },
 ]
 
@@ -120,8 +139,17 @@ const FaqAccordionRender = () => {
         {faqItems.map((item) => (
           <Accordion.Item key={item.value} value={item.value}>
             <Accordion.Trigger>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '10px', color: openItem === item.value ? '#6366f1' : '#1e293b' }}>
-                <span style={{ color: openItem === item.value ? '#6366f1' : '#94a3b8', flexShrink: 0 }}>
+              <span
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  color: openItem === item.value ? '#6366f1' : '#1e293b',
+                }}
+              >
+                <span
+                  style={{ color: openItem === item.value ? '#6366f1' : '#94a3b8', flexShrink: 0 }}
+                >
                   {item.icon}
                 </span>
                 {item.question}
@@ -161,8 +189,13 @@ export const 중첩Accordion: Story = {
           <Accordion.Trigger>
             <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               계정 및 보안
             </span>
@@ -172,7 +205,8 @@ export const 중첩Accordion: Story = {
               <Accordion.Item value="sub-1-1">
                 <Accordion.Trigger>비밀번호 변경 방법</Accordion.Trigger>
                 <Accordion.Content>
-                  설정 &gt; 보안 &gt; 비밀번호 변경에서 현재 비밀번호 확인 후 새 비밀번호를 입력하세요.
+                  설정 &gt; 보안 &gt; 비밀번호 변경에서 현재 비밀번호 확인 후 새 비밀번호를
+                  입력하세요.
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="sub-1-2">
@@ -188,8 +222,13 @@ export const 중첩Accordion: Story = {
           <Accordion.Trigger>
             <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               결제 및 청구
             </span>
@@ -199,7 +238,8 @@ export const 중첩Accordion: Story = {
               <Accordion.Item value="sub-2-1">
                 <Accordion.Trigger>결제 수단 추가</Accordion.Trigger>
                 <Accordion.Content>
-                  결제 설정 메뉴에서 신용카드, 체크카드, 계좌이체 등 다양한 수단을 추가할 수 있습니다.
+                  결제 설정 메뉴에서 신용카드, 체크카드, 계좌이체 등 다양한 수단을 추가할 수
+                  있습니다.
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="sub-2-2">
@@ -215,8 +255,13 @@ export const 중첩Accordion: Story = {
           <Accordion.Trigger>
             <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               서비스 이용
             </span>
@@ -232,7 +277,8 @@ export const 중첩Accordion: Story = {
               <Accordion.Item value="sub-3-2">
                 <Accordion.Trigger>사용량 제한 정책</Accordion.Trigger>
                 <Accordion.Content>
-                  무료 플랜은 월 1,000건, Pro 플랜은 월 100,000건, Enterprise는 무제한으로 제공됩니다.
+                  무료 플랜은 월 1,000건, Pro 플랜은 월 100,000건, Enterprise는 무제한으로
+                  제공됩니다.
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion>
@@ -268,47 +314,91 @@ const DeployPlatformSettingsRender = () => {
             <span style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%' }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" stroke="currentColor" strokeWidth="1.5" />
+                <path
+                  d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
               </svg>
               <span style={{ flex: 1 }}>도메인</span>
-              <LabelBadge color="benefit"><LabelBadge.Label>3개 연결됨</LabelBadge.Label></LabelBadge>
+              <LabelBadge color="benefit">
+                <LabelBadge.Label>3개 연결됨</LabelBadge.Label>
+              </LabelBadge>
             </span>
           </Accordion.Trigger>
           <Accordion.Content>
-            <div style={{ padding: '4px 0 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {['orbit-ui.deploy.example.com', 'orbit-ui.com', 'www.orbit-ui.com'].map((domain, i) => (
-                <div
-                  key={domain}
-                  style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    padding: '12px 14px', borderRadius: '8px',
-                    border: '1px solid #e2e8f0', background: '#f8fafc',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{
-                      width: '8px', height: '8px', borderRadius: '50%',
-                      background: i === 0 ? '#f59e0b' : '#22c55e', flexShrink: 0,
-                    }} />
-                    <code style={{ fontSize: '13px', color: '#1e293b', fontFamily: 'monospace' }}>{domain}</code>
+            <div
+              style={{
+                padding: '4px 0 16px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+              }}
+            >
+              {['orbit-ui.deploy.example.com', 'orbit-ui.com', 'www.orbit-ui.com'].map(
+                (domain, i) => (
+                  <div
+                    key={domain}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 14px',
+                      borderRadius: '8px',
+                      border: '1px solid #e2e8f0',
+                      background: '#f8fafc',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span
+                        style={{
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          background: i === 0 ? '#f59e0b' : '#22c55e',
+                          flexShrink: 0,
+                        }}
+                      />
+                      <code style={{ fontSize: '13px', color: '#1e293b', fontFamily: 'monospace' }}>
+                        {domain}
+                      </code>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      {i === 0 && (
+                        <LabelBadge color="gray">
+                          <LabelBadge.Label>기본</LabelBadge.Label>
+                        </LabelBadge>
+                      )}
+                      <Switch
+                        checked={domainEnabled}
+                        onChange={() => setDomainEnabled((v) => !v)}
+                      />
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    {i === 0 && <LabelBadge color="gray"><LabelBadge.Label>기본</LabelBadge.Label></LabelBadge>}
-                    <Switch
-                      checked={domainEnabled}
-                      onChange={() => setDomainEnabled((v) => !v)}
-                    />
-                  </div>
-                </div>
-              ))}
-              <button style={{
-                display: 'flex', alignItems: 'center', gap: '6px',
-                padding: '10px 14px', borderRadius: '8px',
-                border: '1.5px dashed #cbd5e1', background: 'transparent',
-                color: '#6366f1', fontSize: '13px', fontWeight: '600', cursor: 'pointer',
-              }}>
+                )
+              )}
+              <button
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  border: '1.5px dashed #cbd5e1',
+                  background: 'transparent',
+                  color: '#6366f1',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                }}
+              >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  <path
+                    d="M12 5v14M5 12h14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
                 </svg>
                 도메인 추가
               </button>
@@ -320,8 +410,20 @@ const DeployPlatformSettingsRender = () => {
           <Accordion.Trigger>
             <span style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%' }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M3 3v18h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M18 9l-5 5-2-2-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M3 3v18h18"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M18 9l-5 5-2-2-3 3"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               <span style={{ flex: 1 }}>Analytics</span>
               <LabelBadge color={analyticsEnabled ? 'benefit' : 'gray'}>
@@ -331,13 +433,23 @@ const DeployPlatformSettingsRender = () => {
           </Accordion.Trigger>
           <Accordion.Content>
             <div style={{ padding: '4px 0 16px' }}>
-              <div style={{
-                padding: '16px', borderRadius: '10px',
-                background: analyticsEnabled ? 'rgba(16,185,129,0.05)' : '#f8fafc',
-                border: `1px solid ${analyticsEnabled ? 'rgba(16,185,129,0.2)' : '#e2e8f0'}`,
-                marginBottom: '12px',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+              <div
+                style={{
+                  padding: '16px',
+                  borderRadius: '10px',
+                  background: analyticsEnabled ? 'rgba(16,185,129,0.05)' : '#f8fafc',
+                  border: `1px solid ${analyticsEnabled ? 'rgba(16,185,129,0.2)' : '#e2e8f0'}`,
+                  marginBottom: '12px',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: '4px',
+                  }}
+                >
                   <span style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>
                     DeployPlatform Analytics 활성화
                   </span>
@@ -347,8 +459,8 @@ const DeployPlatformSettingsRender = () => {
                   />
                 </div>
                 <p style={{ margin: 0, fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>
-                  실시간 방문자 수, 페이지뷰, 성능 지표를 대시보드에서 확인하세요.
-                  무료 플랜은 월 2,500 이벤트를 제공합니다.
+                  실시간 방문자 수, 페이지뷰, 성능 지표를 대시보드에서 확인하세요. 무료 플랜은 월
+                  2,500 이벤트를 제공합니다.
                 </p>
               </div>
             </div>
@@ -359,25 +471,63 @@ const DeployPlatformSettingsRender = () => {
           <Accordion.Trigger>
             <span style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%' }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke="currentColor" strokeWidth="1.5" />
+                <path
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
               </svg>
               <span style={{ flex: 1 }}>Preview 배포</span>
             </span>
           </Accordion.Trigger>
           <Accordion.Content>
-            <div style={{ padding: '4px 0 16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div
+              style={{
+                padding: '4px 0 16px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+              }}
+            >
               {[
-                { label: 'PR Preview 자동 생성', desc: 'PR 생성 시 Preview URL을 자동으로 배포합니다.' },
-                { label: 'Preview URL 비밀번호 보호', desc: 'Preview URL에 접근하려면 비밀번호가 필요합니다.' },
+                {
+                  label: 'PR Preview 자동 생성',
+                  desc: 'PR 생성 시 Preview URL을 자동으로 배포합니다.',
+                },
+                {
+                  label: 'Preview URL 비밀번호 보호',
+                  desc: 'Preview URL에 접근하려면 비밀번호가 필요합니다.',
+                },
               ].map((item, i) => (
-                <div key={i} style={{
-                  display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',
-                  gap: '12px', padding: '12px 14px', borderRadius: '8px',
-                  border: '1px solid #e2e8f0', background: '#f8fafc',
-                }}>
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    gap: '12px',
+                    padding: '12px 14px',
+                    borderRadius: '8px',
+                    border: '1px solid #e2e8f0',
+                    background: '#f8fafc',
+                  }}
+                >
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b', marginBottom: '2px' }}>{item.label}</div>
+                    <div
+                      style={{
+                        fontSize: '13px',
+                        fontWeight: '600',
+                        color: '#1e293b',
+                        marginBottom: '2px',
+                      }}
+                    >
+                      {item.label}
+                    </div>
                     <div style={{ fontSize: '12px', color: '#64748b' }}>{item.desc}</div>
                   </div>
                   <Switch
@@ -394,25 +544,56 @@ const DeployPlatformSettingsRender = () => {
           <Accordion.Trigger>
             <span style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#ef4444' }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               위험 영역
             </span>
           </Accordion.Trigger>
           <Accordion.Content>
-            <div style={{ padding: '4px 0 16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div
+              style={{
+                padding: '4px 0 16px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+              }}
+            >
               {['프로젝트 전송', '프로젝트 삭제'].map((action) => (
-                <div key={action} style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '12px 14px', borderRadius: '8px',
-                  border: '1px solid rgba(239,68,68,0.2)', background: 'rgba(239,68,68,0.03)',
-                }}>
-                  <span style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>{action}</span>
-                  <button style={{
-                    padding: '6px 14px', borderRadius: '6px', border: '1px solid #ef4444',
-                    background: 'transparent', color: '#ef4444',
-                    fontSize: '12px', fontWeight: '600', cursor: 'pointer',
-                  }}>{action}</button>
+                <div
+                  key={action}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '12px 14px',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(239,68,68,0.2)',
+                    background: 'rgba(239,68,68,0.03)',
+                  }}
+                >
+                  <span style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b' }}>
+                    {action}
+                  </span>
+                  <button
+                    style={{
+                      padding: '6px 14px',
+                      borderRadius: '6px',
+                      border: '1px solid #ef4444',
+                      background: 'transparent',
+                      color: '#ef4444',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {action}
+                  </button>
                 </div>
               ))}
             </div>
@@ -472,7 +653,13 @@ const CheckIcon = ({ checked }: { checked: boolean | string }) => {
     return (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="10" fill="#22c55e" />
-        <path d="M8 12l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M8 12l3 3 5-5"
+          stroke="#fff"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     )
   }
@@ -495,9 +682,28 @@ export const 플랜별_기능비교: Story = {
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b' }}>
           ComposableUI 스타일 — 카테고리별 기능을 Accordion으로 그룹화
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0', padding: '10px 0', borderBottom: '2px solid #e2e8f0', marginLeft: 'auto', marginRight: '0', width: '55%', textAlign: 'center' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr',
+            gap: '0',
+            padding: '10px 0',
+            borderBottom: '2px solid #e2e8f0',
+            marginLeft: 'auto',
+            marginRight: '0',
+            width: '55%',
+            textAlign: 'center',
+          }}
+        >
           {['Free', 'Pro', 'Enterprise'].map((plan) => (
-            <div key={plan} style={{ fontSize: '12px', fontWeight: '700', color: plan === 'Pro' ? '#6366f1' : '#64748b' }}>
+            <div
+              key={plan}
+              style={{
+                fontSize: '12px',
+                fontWeight: '700',
+                color: plan === 'Pro' ? '#6366f1' : '#64748b',
+              }}
+            >
               {plan}
             </div>
           ))}
@@ -518,12 +724,23 @@ export const 플랜별_기능비교: Story = {
                   <div
                     key={fi}
                     style={{
-                      display: 'flex', alignItems: 'center',
-                      padding: '10px 4px', borderBottom: '1px solid #f1f5f9',
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '10px 4px',
+                      borderBottom: '1px solid #f1f5f9',
                     }}
                   >
-                    <span style={{ flex: 1, fontSize: '13px', color: '#334155' }}>{feature.name}</span>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', width: '55%', textAlign: 'center' }}>
+                    <span style={{ flex: 1, fontSize: '13px', color: '#334155' }}>
+                      {feature.name}
+                    </span>
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr 1fr',
+                        width: '55%',
+                        textAlign: 'center',
+                      }}
+                    >
                       <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <CheckIcon checked={feature.free} />
                       </div>
@@ -555,23 +772,25 @@ const PAGE_SECTIONS = [
     badge: 'sale' as const,
     content: (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, paddingTop: 4 }}>
-        {['React 18', 'TypeScript 5.7', 'PrimitiveUI', 'Vite', 'Storybook 8', 'pnpm'].map((tech) => (
-          <span
-            key={tech}
-            style={{
-              display: 'inline-block',
-              padding: '2px 10px',
-              borderRadius: 20,
-              background: '#f1f5f9',
-              border: '1px solid #e2e8f0',
-              fontSize: 12,
-              fontWeight: 600,
-              color: '#475569',
-            }}
-          >
-            {tech}
-          </span>
-        ))}
+        {['React 18', 'TypeScript 5.7', 'PrimitiveUI', 'Vite', 'Storybook 8', 'pnpm'].map(
+          (tech) => (
+            <span
+              key={tech}
+              style={{
+                display: 'inline-block',
+                padding: '2px 10px',
+                borderRadius: 20,
+                background: '#f1f5f9',
+                border: '1px solid #e2e8f0',
+                fontSize: 12,
+                fontWeight: 600,
+                color: '#475569',
+              }}
+            >
+              {tech}
+            </span>
+          )
+        )}
       </div>
     ),
   },
@@ -633,7 +852,9 @@ const PAGE_SECTIONS = [
               }}
             />
             <span style={{ fontSize: 11, color: '#94a3b8', minWidth: 64 }}>{row.q}</span>
-            <span style={{ fontSize: 13, color: row.done ? '#1e293b' : '#64748b' }}>{row.item}</span>
+            <span style={{ fontSize: 13, color: row.done ? '#1e293b' : '#64748b' }}>
+              {row.item}
+            </span>
             {row.done && (
               <LabelBadge color="benefit">
                 <LabelBadge.Label>완료</LabelBadge.Label>
@@ -660,13 +881,17 @@ export const WorkspaceEditor_페이지_섹션_토글 = {
               <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 {section.title}
                 <LabelBadge color={section.badge}>
-                  <LabelBadge.Label>{section.badge === 'sale' ? '기술' : section.badge === 'benefit' ? '팀' : '계획'}</LabelBadge.Label>
+                  <LabelBadge.Label>
+                    {section.badge === 'sale'
+                      ? '기술'
+                      : section.badge === 'benefit'
+                        ? '팀'
+                        : '계획'}
+                  </LabelBadge.Label>
                 </LabelBadge>
               </span>
             </Accordion.Trigger>
-            <Accordion.Content>
-              {section.content}
-            </Accordion.Content>
+            <Accordion.Content>{section.content}</Accordion.Content>
           </Accordion.Item>
         ))}
       </Accordion>
@@ -723,7 +948,9 @@ export const DesignTool_플러그인_설정_패널 = {
             </Accordion.Trigger>
             <Accordion.Content>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
                   <span style={{ fontSize: 12, color: '#475569' }}>자동 동기화</span>
                   <Switch
                     checked={settings.autoSync}
@@ -739,14 +966,18 @@ export const DesignTool_플러그인_설정_패널 = {
             </Accordion.Trigger>
             <Accordion.Content>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
                   <span style={{ fontSize: 12, color: '#475569' }}>PNG 내보내기</span>
                   <Switch
                     checked={settings.exportPNG}
                     onCheckedChange={(v) => setSettings((p) => ({ ...p, exportPNG: v }))}
                   />
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
                   <span style={{ fontSize: 12, color: '#475569' }}>SVG 내보내기</span>
                   <Switch
                     checked={settings.exportSVG}
@@ -766,7 +997,14 @@ export const DesignTool_플러그인_설정_패널 = {
                   { label: '토큰 적용', key: settings.shortcutA },
                   { label: '내보내기', key: settings.shortcutE },
                 ].map((sc) => (
-                  <div key={sc.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div
+                    key={sc.label}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
                     <span style={{ fontSize: 12, color: '#475569' }}>{sc.label}</span>
                     <span
                       style={{
@@ -830,7 +1068,13 @@ const EnterpriseUI_SETTINGS = [
     title: '외관',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"
+          stroke="#6366f1"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
     summary: '다크 모드 · 컴팩트 밀도',
@@ -845,7 +1089,13 @@ const EnterpriseUI_SETTINGS = [
     title: '알림',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"
+          stroke="#10b981"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
     summary: '푸시 켜짐 · 이메일 꺼짐',
@@ -860,7 +1110,13 @@ const EnterpriseUI_SETTINGS = [
     title: '보안',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+          stroke="#f59e0b"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
     summary: '2FA 활성화 · 세션 14일',
@@ -889,10 +1145,20 @@ function EnterpriseUISummaryAccordionRender() {
         {EnterpriseUI_SETTINGS.map((setting) => (
           <Accordion.Item key={setting.id} value={setting.id}>
             <Accordion.Trigger>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingRight: 8 }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  paddingRight: 8,
+                }}
+              >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   {setting.icon}
-                  <span style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{setting.title}</span>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>
+                    {setting.title}
+                  </span>
                 </div>
                 {open !== setting.id && (
                   <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>
@@ -902,11 +1168,22 @@ function EnterpriseUISummaryAccordionRender() {
               </div>
             </Accordion.Trigger>
             <Accordion.Content>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '4px 0 8px' }}>
+              <div
+                style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '4px 0 8px' }}
+              >
                 {setting.fields.map((field) => (
-                  <div key={field.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div
+                    key={field.label}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
                     <span style={{ fontSize: 13, color: '#64748b' }}>{field.label}</span>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{field.value}</span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
+                      {field.value}
+                    </span>
                   </div>
                 ))}
                 <button
@@ -1014,10 +1291,30 @@ function CommandPaletteSectionsRender() {
         style={{ background: 'transparent' }}
       >
         {LAUNCHER_SECTIONS.map((section) => (
-          <Accordion.Item key={section.id} value={section.id} style={{ border: 'none', borderBottom: '1px solid #2a2a3e' }}>
+          <Accordion.Item
+            key={section.id}
+            value={section.id}
+            style={{ border: 'none', borderBottom: '1px solid #2a2a3e' }}
+          >
             <Accordion.Trigger style={{ padding: '6px 14px', background: '#252535', fontSize: 11 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingRight: 6 }}>
-                <span style={{ fontSize: 10, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  paddingRight: 6,
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    color: '#64748b',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                  }}
+                >
                   {section.title}
                 </span>
                 <span
@@ -1046,11 +1343,17 @@ function CommandPaletteSectionsRender() {
                       padding: '8px 14px',
                       cursor: 'pointer',
                     }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#252535' }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
+                    onMouseEnter={(e) => {
+                      ;(e.currentTarget as HTMLDivElement).style.background = '#252535'
+                    }}
+                    onMouseLeave={(e) => {
+                      ;(e.currentTarget as HTMLDivElement).style.background = 'transparent'
+                    }}
                   >
                     <div>
-                      <div style={{ fontSize: 13, color: '#e2e8f0', fontWeight: 500 }}>{cmd.label}</div>
+                      <div style={{ fontSize: 13, color: '#e2e8f0', fontWeight: 500 }}>
+                        {cmd.label}
+                      </div>
                       <div style={{ fontSize: 11, color: '#475569' }}>{cmd.desc}</div>
                     </div>
                     <div style={{ display: 'flex', gap: 3 }}>
@@ -1124,7 +1427,11 @@ const RELEASE_ITEMS = [
 
 const KIND_COLOR = { feat: '#10b981', fix: '#ef4444', docs: '#3b82f6' } as const
 const KIND_LABEL = { feat: 'FEAT', fix: 'FIX', docs: 'DOCS' } as const
-const TYPE_BADGE = { major: { bg: '#eff6ff', color: '#6366f1', label: 'MAJOR' }, minor: { bg: '#f0fdf4', color: '#10b981', label: 'MINOR' }, patch: { bg: '#fefce8', color: '#f59e0b', label: 'PATCH' } } as const
+const TYPE_BADGE = {
+  major: { bg: '#eff6ff', color: '#6366f1', label: 'MAJOR' },
+  minor: { bg: '#f0fdf4', color: '#10b981', label: 'MINOR' },
+  patch: { bg: '#fefce8', color: '#f59e0b', label: 'PATCH' },
+} as const
 
 export const EnterpriseUI_Dense_릴리즈_노트 = {
   name: 'EnterpriseUI Dense - 릴리즈 노트 아코디언 (LabelBadge 조합)',
@@ -1147,9 +1454,24 @@ export const EnterpriseUI_Dense_릴리즈_노트 = {
             return (
               <Accordion.Item key={release.version} value={release.version}>
                 <Accordion.Trigger>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingRight: 8 }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      width: '100%',
+                      paddingRight: 8,
+                    }}
+                  >
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: '#0f172a' }}>
+                      <span
+                        style={{
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight: 700,
+                          color: '#0f172a',
+                        }}
+                      >
                         {release.version}
                       </span>
                       <span
@@ -1170,7 +1492,14 @@ export const EnterpriseUI_Dense_릴리즈_노트 = {
                   </div>
                 </Accordion.Trigger>
                 <Accordion.Content>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '4px 0 8px' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 6,
+                      padding: '4px 0 8px',
+                    }}
+                  >
                     {release.changes.map((change, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span
@@ -1219,7 +1548,9 @@ export const FAQ_아코디언_패턴 = {
           {FAQ_ITEMS.map((item, i) => (
             <Accordion.Item key={i} value={`faq-${i}`}>
               <Accordion.Trigger>
-                <span style={{ textAlign: 'left', fontWeight: openItem === `faq-${i}` ? 700 : 500 }}>
+                <span
+                  style={{ textAlign: 'left', fontWeight: openItem === `faq-${i}` ? 700 : 500 }}
+                >
                   {item.q}
                 </span>
               </Accordion.Trigger>
@@ -1285,39 +1616,61 @@ const ComposableUIChangelogRender = () => {
   type ChangeKind = keyof typeof KIND_COLOR
 
   const toggle = (v: string) =>
-    setOpenItems((prev) => prev.includes(v) ? prev.filter((i) => i !== v) : [...prev, v])
+    setOpenItems((prev) => (prev.includes(v) ? prev.filter((i) => i !== v) : [...prev, v]))
 
   return (
     <div style={{ width: 500, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>변경 이력 (Changelog)</div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>
+        변경 이력 (Changelog)
+      </div>
       <Accordion type="multiple" value={openItems} onValueChange={setOpenItems}>
         {CHANGELOG.map((release) => (
           <Accordion.Item key={release.version} value={release.version}>
             <Accordion.Trigger onClick={() => toggle(release.version)}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
-                <span style={{ fontWeight: 700, fontSize: 14, fontFamily: 'monospace' }}>{release.version}</span>
-                <span style={{
-                  fontSize: 9, padding: '1px 6px', borderRadius: 3, fontWeight: 700,
-                  background: TYPE_COLOR[release.type as keyof typeof TYPE_COLOR] + '20',
-                  color: TYPE_COLOR[release.type as keyof typeof TYPE_COLOR],
-                }}>
+                <span style={{ fontWeight: 700, fontSize: 14, fontFamily: 'monospace' }}>
+                  {release.version}
+                </span>
+                <span
+                  style={{
+                    fontSize: 9,
+                    padding: '1px 6px',
+                    borderRadius: 3,
+                    fontWeight: 700,
+                    background: TYPE_COLOR[release.type as keyof typeof TYPE_COLOR] + '20',
+                    color: TYPE_COLOR[release.type as keyof typeof TYPE_COLOR],
+                  }}
+                >
                   {release.type.toUpperCase()}
                 </span>
-                <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8', marginRight: 8 }}>{release.date}</span>
+                <span
+                  style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8', marginRight: 8 }}
+                >
+                  {release.date}
+                </span>
               </div>
             </Accordion.Trigger>
             <Accordion.Content>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {release.changes.map((c, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <span style={{
-                      fontSize: 9, padding: '2px 6px', borderRadius: 3, fontWeight: 700, flexShrink: 0, marginTop: 1,
-                      background: KIND_COLOR[c.kind as ChangeKind] + '20',
-                      color: KIND_COLOR[c.kind as ChangeKind],
-                    }}>
+                    <span
+                      style={{
+                        fontSize: 9,
+                        padding: '2px 6px',
+                        borderRadius: 3,
+                        fontWeight: 700,
+                        flexShrink: 0,
+                        marginTop: 1,
+                        background: KIND_COLOR[c.kind as ChangeKind] + '20',
+                        color: KIND_COLOR[c.kind as ChangeKind],
+                      }}
+                    >
                       {c.kind}
                     </span>
-                    <span style={{ fontSize: 13, color: '#475569', lineHeight: 1.5 }}>{c.text}</span>
+                    <span style={{ fontSize: 13, color: '#475569', lineHeight: 1.5 }}>
+                      {c.text}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -1393,30 +1746,54 @@ const DeployPlatformProjectSettingsRender = () => {
   return (
     <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>프로젝트 설정</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>
+          프로젝트 설정
+        </div>
         <div style={{ fontSize: 12, color: '#94a3b8' }}>orbit-ui-storybook</div>
       </div>
-      <Accordion type="single" value={openSection} onValueChange={(v) => setOpenSection(v ?? '')} collapsible>
+      <Accordion
+        type="single"
+        value={openSection}
+        onValueChange={(v) => setOpenSection(v ?? '')}
+        collapsible
+      >
         {SECTIONS.map((s) => (
           <Accordion.Item key={s.id} value={s.id}>
             <Accordion.Trigger>
               <div style={{ flex: 1, textAlign: 'left' }}>
                 <div style={{ fontSize: 13, fontWeight: 600 }}>{s.title}</div>
-                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2, fontWeight: 400 }}>{s.desc}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2, fontWeight: 400 }}>
+                  {s.desc}
+                </div>
               </div>
             </Accordion.Trigger>
             <Accordion.Content>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {s.content.map((item) => (
-                  <div key={item.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div
+                    key={item.label}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
                     <div>
-                      <div style={{ fontSize: 12, fontWeight: 500, color: '#1e293b' }}>{item.label}</div>
+                      <div style={{ fontSize: 12, fontWeight: 500, color: '#1e293b' }}>
+                        {item.label}
+                      </div>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <code style={{
-                        fontFamily: 'monospace', fontSize: 11, background: '#f1f5f9',
-                        padding: '3px 8px', borderRadius: 4, color: '#475569',
-                      }}>
+                      <code
+                        style={{
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          background: '#f1f5f9',
+                          padding: '3px 8px',
+                          borderRadius: 4,
+                          color: '#475569',
+                        }}
+                      >
                         {item.value}
                       </code>
                       {item.editable && (
@@ -1462,12 +1839,7 @@ const ComposableUIDeployPlatformPricingRender = () => {
       name: 'Hobby',
       price: '무료',
       badge: null,
-      features: [
-        '개인 프로젝트 무제한',
-        '100회/일 배포',
-        '공유 컴퓨팅',
-        '기본 분석',
-      ],
+      features: ['개인 프로젝트 무제한', '100회/일 배포', '공유 컴퓨팅', '기본 분석'],
     },
     {
       id: 'pro',
@@ -1499,28 +1871,51 @@ const ComposableUIDeployPlatformPricingRender = () => {
 
   return (
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>플랜 선택</div>
-      <Accordion type="single" value={openPlan} onValueChange={(v) => setOpenPlan(v ?? openPlan)} collapsible={false}>
+      <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>
+        플랜 선택
+      </div>
+      <Accordion
+        type="single"
+        value={openPlan}
+        onValueChange={(v) => setOpenPlan(v ?? openPlan)}
+        collapsible={false}
+      >
         {PLANS.map((plan) => (
           <Accordion.Item key={plan.id} value={plan.id}>
             <Accordion.Trigger>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
-                <div style={{
-                  width: 16, height: 16, borderRadius: '50%', flexShrink: 0,
-                  border: openPlan === plan.id ? '5px solid #0f172a' : '2px solid #e2e8f0',
-                  transition: 'all 0.2s',
-                }} />
+                <div
+                  style={{
+                    width: 16,
+                    height: 16,
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                    border: openPlan === plan.id ? '5px solid #0f172a' : '2px solid #e2e8f0',
+                    transition: 'all 0.2s',
+                  }}
+                />
                 <div style={{ flex: 1, textAlign: 'left' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <span style={{ fontSize: 13, fontWeight: 600 }}>{plan.name}</span>
                     {plan.badge && (
-                      <span style={{ fontSize: 9, background: '#0f172a', color: '#fff', padding: '1px 6px', borderRadius: 10, fontWeight: 700 }}>
+                      <span
+                        style={{
+                          fontSize: 9,
+                          background: '#0f172a',
+                          color: '#fff',
+                          padding: '1px 6px',
+                          borderRadius: 10,
+                          fontWeight: 700,
+                        }}
+                      >
                         {plan.badge}
                       </span>
                     )}
                   </div>
                 </div>
-                <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginRight: 8 }}>{plan.price}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginRight: 8 }}>
+                  {plan.price}
+                </span>
               </div>
             </Accordion.Trigger>
             <Accordion.Content>
@@ -1532,12 +1927,11 @@ const ComposableUIDeployPlatformPricingRender = () => {
                   </div>
                 ))}
                 <div style={{ marginTop: 10 }}>
-                  <Switch
-                    id={`annual-${plan.id}`}
-                    checked={false}
-                    onCheckedChange={() => {}}
-                  />
-                  <label htmlFor={`annual-${plan.id}`} style={{ fontSize: 11, color: '#94a3b8', marginLeft: 6 }}>
+                  <Switch id={`annual-${plan.id}`} checked={false} onCheckedChange={() => {}} />
+                  <label
+                    htmlFor={`annual-${plan.id}`}
+                    style={{ fontSize: 11, color: '#94a3b8', marginLeft: 6 }}
+                  >
                     연간 결제 시 20% 할인
                   </label>
                 </div>
@@ -1547,7 +1941,8 @@ const ComposableUIDeployPlatformPricingRender = () => {
         ))}
       </Accordion>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
-        ComposableUI + DeployPlatform Pricing — 라디오 선택 Accordion + 기능 체크리스트 + Switch 연간 결제 토글
+        ComposableUI + DeployPlatform Pricing — 라디오 선택 Accordion + 기능 체크리스트 + Switch
+        연간 결제 토글
       </div>
     </div>
   )
@@ -1610,7 +2005,16 @@ function EnterpriseUIExpansionPanelSettingsRender() {
   ]
   return (
     <div style={{ width: 480 }}>
-      <div style={{ marginBottom: 16, fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>설정 패널 (EnterpriseUI Expansion Pattern)</div>
+      <div
+        style={{
+          marginBottom: 16,
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        설정 패널 (EnterpriseUI Expansion Pattern)
+      </div>
       <Accordion type="single" value={expanded || undefined} className="w-full">
         {sections.map((sec) => (
           <Accordion.Item key={sec.id} value={sec.id} onClick={toggle(sec.id)}>
@@ -1623,9 +2027,31 @@ function EnterpriseUIExpansionPanelSettingsRender() {
             <Accordion.Content>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {sec.fields.map((f) => (
-                  <div key={f.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{f.label}</span>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{f.value}</span>
+                  <div
+                    key={f.label}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: 13,
+                        color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                      }}
+                    >
+                      {f.label}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                      }}
+                    >
+                      {f.value}
+                    </span>
                   </div>
                 ))}
                 <div style={{ marginTop: 4, display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
@@ -1674,14 +2100,40 @@ function AccessibleStepGuideRender() {
     })
   }
   const steps = [
-    { id: 'step-1', title: '프로젝트 생성', desc: '새 Orbit UI 프로젝트를 초기화합니다.', code: 'pnpm create orbit-app my-app' },
-    { id: 'step-2', title: 'EclipseProvider 설정', desc: '앱 루트에 EclipseProvider를 추가합니다.', code: '<EclipseProvider mode="light">' },
-    { id: 'step-3', title: '컴포넌트 임포트', desc: '필요한 컴포넌트를 임포트합니다.', code: "import { SolidButton } from '@heejun-com/theme-eclipse'" },
-    { id: 'step-4', title: '스토리북 실행', desc: 'Storybook을 실행해 컴포넌트를 확인합니다.', code: 'pnpm dev' },
+    {
+      id: 'step-1',
+      title: '프로젝트 생성',
+      desc: '새 Orbit UI 프로젝트를 초기화합니다.',
+      code: 'pnpm create orbit-app my-app',
+    },
+    {
+      id: 'step-2',
+      title: 'EclipseProvider 설정',
+      desc: '앱 루트에 EclipseProvider를 추가합니다.',
+      code: '<EclipseProvider mode="light">',
+    },
+    {
+      id: 'step-3',
+      title: '컴포넌트 임포트',
+      desc: '필요한 컴포넌트를 임포트합니다.',
+      code: "import { SolidButton } from '@heejun-com/theme-eclipse'",
+    },
+    {
+      id: 'step-4',
+      title: '스토리북 실행',
+      desc: 'Storybook을 실행해 컴포넌트를 확인합니다.',
+      code: 'pnpm dev',
+    },
   ]
   return (
     <div style={{ width: 500 }}>
-      <div style={{ marginBottom: 12, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+      <div
+        style={{
+          marginBottom: 12,
+          fontSize: 13,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+        }}
+      >
         완료: {completedSteps.size}/{steps.length}단계
       </div>
       <Accordion type="multiple" className="w-full">
@@ -1689,15 +2141,29 @@ function AccessibleStepGuideRender() {
           <Accordion.Item key={step.id} value={step.id}>
             <Accordion.Trigger>
               <span style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%' }}>
-                <span style={{
-                  width: 22, height: 22, borderRadius: '50%', flexShrink: 0,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 11, fontWeight: 700,
-                  background: completedSteps.has(step.id) ? '#10b981' : 'var(--sem-eclipse-color-backgroundSecondary)',
-                  color: completedSteps.has(step.id) ? '#fff' : 'var(--sem-eclipse-color-foregroundSecondary)',
-                  border: '1.5px solid',
-                  borderColor: completedSteps.has(step.id) ? '#10b981' : 'var(--sem-eclipse-color-borderDefault)',
-                }}>
+                <span
+                  style={{
+                    width: 22,
+                    height: 22,
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    background: completedSteps.has(step.id)
+                      ? '#10b981'
+                      : 'var(--sem-eclipse-color-backgroundSecondary)',
+                    color: completedSteps.has(step.id)
+                      ? '#fff'
+                      : 'var(--sem-eclipse-color-foregroundSecondary)',
+                    border: '1.5px solid',
+                    borderColor: completedSteps.has(step.id)
+                      ? '#10b981'
+                      : 'var(--sem-eclipse-color-borderDefault)',
+                  }}
+                >
                   {completedSteps.has(step.id) ? '✓' : i + 1}
                 </span>
                 <span>{step.title}</span>
@@ -1710,13 +2176,43 @@ function AccessibleStepGuideRender() {
             </Accordion.Trigger>
             <Accordion.Content>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <p style={{ margin: 0, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{step.desc}</p>
-                <code style={{ display: 'block', padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 12, fontFamily: 'monospace', color: 'var(--sem-eclipse-color-foregroundPrimary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 13,
+                    color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                  }}
+                >
+                  {step.desc}
+                </p>
+                <code
+                  style={{
+                    display: 'block',
+                    padding: '8px 12px',
+                    borderRadius: 6,
+                    background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+                  }}
+                >
                   {step.code}
                 </code>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <Switch checked={completedSteps.has(step.id)} onCheckedChange={() => toggleStep(step.id)} />
-                  <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>완료로 표시</span>
+                  <Switch
+                    checked={completedSteps.has(step.id)}
+                    onCheckedChange={() => toggleStep(step.id)}
+                  />
+                  <span
+                    style={{
+                      fontSize: 12,
+                      color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                      marginLeft: 8,
+                    }}
+                  >
+                    완료로 표시
+                  </span>
                 </div>
               </div>
             </Accordion.Content>
@@ -1782,7 +2278,9 @@ function EnterpriseUIAccessibleIssueTrackerRender() {
     },
   ]
   const priorityColor: Record<string, string> = {
-    높음: '#ef4444', 중간: '#f59e0b', 낮음: '#94a3b8',
+    높음: '#ef4444',
+    중간: '#f59e0b',
+    낮음: '#94a3b8',
   }
   return (
     <div style={{ width: 480 }}>
@@ -1791,7 +2289,15 @@ function EnterpriseUIAccessibleIssueTrackerRender() {
           <Accordion.Item key={cat.id} value={cat.id}>
             <Accordion.Trigger>
               <span style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: cat.color, flexShrink: 0 }} />
+                <span
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    background: cat.color,
+                    flexShrink: 0,
+                  }}
+                />
                 <span>{cat.label}</span>
                 <LabelBadge color="gray" style={{ marginLeft: 'auto' }}>
                   <LabelBadge.Label>{cat.badge}</LabelBadge.Label>
@@ -1801,10 +2307,47 @@ function EnterpriseUIAccessibleIssueTrackerRender() {
             <Accordion.Content>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {cat.issues.map((issue) => (
-                  <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
-                    <code style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace', flexShrink: 0 }}>{issue.id}</code>
-                    <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{issue.title}</span>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: priorityColor[issue.priority], flexShrink: 0 }}>{issue.priority}</span>
+                  <div
+                    key={issue.id}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: '8px 10px',
+                      borderRadius: 6,
+                      background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                      border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+                    }}
+                  >
+                    <code
+                      style={{
+                        fontSize: 11,
+                        color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                        fontFamily: 'monospace',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {issue.id}
+                    </code>
+                    <span
+                      style={{
+                        fontSize: 13,
+                        color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                        flex: 1,
+                      }}
+                    >
+                      {issue.title}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 700,
+                        color: priorityColor[issue.priority],
+                        flexShrink: 0,
+                      }}
+                    >
+                      {issue.priority}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -1846,21 +2389,15 @@ function PlatformHIGSettingsGroup142Render() {
   const groups = [
     {
       title: '화면 및 디스플레이',
-      items: [
-        { key: 'darkMode', label: '다크 모드', desc: '어두운 테마 사용' },
-      ],
+      items: [{ key: 'darkMode', label: '다크 모드', desc: '어두운 테마 사용' }],
     },
     {
       title: '알림',
-      items: [
-        { key: 'pushNotif', label: '푸시 알림', desc: '앱 알림 수신 허용' },
-      ],
+      items: [{ key: 'pushNotif', label: '푸시 알림', desc: '앱 알림 수신 허용' }],
     },
     {
       title: '보안',
-      items: [
-        { key: 'biometric', label: '생체 인증', desc: 'Face ID / Touch ID 사용' },
-      ],
+      items: [{ key: 'biometric', label: '생체 인증', desc: 'Face ID / Touch ID 사용' }],
     },
     {
       title: '시스템',
@@ -1875,7 +2412,9 @@ function PlatformHIGSettingsGroup142Render() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 22, fontWeight: 700, color: '#0f172a' }}>설정</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Platform HIG — 설정 그룹 아코디언</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+          Platform HIG — 설정 그룹 아코디언
+        </div>
       </div>
       <Accordion type="multiple" defaultValue={['화면 및 디스플레이', '보안', '시스템']}>
         {groups.map((group) => (
@@ -1886,16 +2425,38 @@ function PlatformHIGSettingsGroup142Render() {
                 {group.items.map((item, i) => (
                   <div
                     key={item.key}
-                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: i < group.items.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none' }}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '12px 0',
+                      borderBottom:
+                        i < group.items.length - 1
+                          ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                          : 'none',
+                    }}
                   >
                     <div>
-                      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 500 }}>{item.label}</div>
-                      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{item.desc}</div>
+                      <div
+                        style={{
+                          fontSize: 13,
+                          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                          fontWeight: 500,
+                        }}
+                      >
+                        {item.label}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                          marginTop: 2,
+                        }}
+                      >
+                        {item.desc}
+                      </div>
                     </div>
-                    <Switch
-                      checked={enabled[item.key]}
-                      onCheckedChange={() => toggle(item.key)}
-                    />
+                    <Switch checked={enabled[item.key]} onCheckedChange={() => toggle(item.key)} />
                   </div>
                 ))}
               </div>
@@ -1913,7 +2474,8 @@ export const Platform_HIG_설정_그룹_아코디언: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Platform HIG 설정 화면 패턴. multiple 타입 아코디언으로 카테고리 그룹화, Switch 토글로 옵션 제어. iOS 설정 앱 UX.',
+        story:
+          'Platform HIG 설정 화면 패턴. multiple 타입 아코디언으로 카테고리 그룹화, Switch 토글로 옵션 제어. iOS 설정 앱 UX.',
       },
     },
   },
@@ -1930,7 +2492,8 @@ function M3ExpansionPanel142Render() {
       subtitle: '3단계 토큰 시스템',
       badge: '완료',
       color: '#6750a4',
-      content: '레퍼런스 → 시맨틱 → 컴포넌트 토큰의 3단계 계층 구조. UtilityCSS 유틸 + CSS 변수로 완전한 타입 안전성 보장. 런타임 오버헤드 없는 제로-런타임 스타일링.',
+      content:
+        '레퍼런스 → 시맨틱 → 컴포넌트 토큰의 3단계 계층 구조. UtilityCSS 유틸 + CSS 변수로 완전한 타입 안전성 보장. 런타임 오버헤드 없는 제로-런타임 스타일링.',
     },
     {
       id: 'components',
@@ -1938,7 +2501,8 @@ function M3ExpansionPanel142Render() {
       subtitle: '기반 컴포넌트 세트',
       badge: '개발 중',
       color: '#0284c7',
-      content: '비스타일 기반 컴포넌트(core 패키지)와 Eclipse 테마 컴포넌트의 분리. forwardRef, compound component 패턴 전면 적용. WAI-ARIA 접근성 기본 탑재.',
+      content:
+        '비스타일 기반 컴포넌트(core 패키지)와 Eclipse 테마 컴포넌트의 분리. forwardRef, compound component 패턴 전면 적용. WAI-ARIA 접근성 기본 탑재.',
     },
     {
       id: 'theming',
@@ -1946,32 +2510,94 @@ function M3ExpansionPanel142Render() {
       subtitle: '프로덕션 레디 테마',
       badge: 'v2 Beta',
       color: '#059669',
-      content: 'DesignTool 디자인 시스템과 1:1 매핑. 다크모드 CSS 변수 기반 자동 전환. 커스텀 테마 확장 API 제공. Storybook 141+ 사이클 스토리 포함.',
+      content:
+        'DesignTool 디자인 시스템과 1:1 매핑. 다크모드 CSS 변수 기반 자동 전환. 커스텀 테마 확장 API 제공. Storybook 141+ 사이클 스토리 포함.',
     },
   ]
 
-  const badgeColor: Record<string, string> = { '완료': '#10b981', '개발 중': '#f59e0b', 'v2 Beta': '#6750a4' }
+  const badgeColor: Record<string, string> = {
+    완료: '#10b981',
+    '개발 중': '#f59e0b',
+    'v2 Beta': '#6750a4',
+  }
 
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 14, fontSize: 11, color: '#64748b' }}>RoleToken Design — Expansion Panel 패턴</div>
+      <div style={{ marginBottom: 14, fontSize: 11, color: '#64748b' }}>
+        RoleToken Design — Expansion Panel 패턴
+      </div>
       <Accordion type="single" value={openItem ?? ''} onValueChange={(v) => setOpenItem(v || null)}>
         {panels.map((panel) => (
-          <Accordion.Item key={panel.id} value={panel.id} style={{ marginBottom: 8, border: `1px solid ${openItem === panel.id ? panel.color + '40' : 'var(--sem-eclipse-color-borderDefault)'}`, borderRadius: 12, overflow: 'hidden', transition: 'border-color 0.2s' }}>
-            <Accordion.Trigger style={{ background: openItem === panel.id ? `${panel.color}08` : 'transparent' }}>
+          <Accordion.Item
+            key={panel.id}
+            value={panel.id}
+            style={{
+              marginBottom: 8,
+              border: `1px solid ${openItem === panel.id ? panel.color + '40' : 'var(--sem-eclipse-color-borderDefault)'}`,
+              borderRadius: 12,
+              overflow: 'hidden',
+              transition: 'border-color 0.2s',
+            }}
+          >
+            <Accordion.Trigger
+              style={{ background: openItem === panel.id ? `${panel.color}08` : 'transparent' }}
+            >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: panel.color, flexShrink: 0 }} />
+                <div
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: panel.color,
+                    flexShrink: 0,
+                  }}
+                />
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', textAlign: 'left' }}>{panel.title}</div>
-                  <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', textAlign: 'left' }}>{panel.subtitle}</div>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                      textAlign: 'left',
+                    }}
+                  >
+                    {panel.title}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                      textAlign: 'left',
+                    }}
+                  >
+                    {panel.subtitle}
+                  </div>
                 </div>
-                <span style={{ marginLeft: 'auto', marginRight: 8, fontSize: 10, fontWeight: 700, color: badgeColor[panel.badge], background: `${badgeColor[panel.badge]}15`, padding: '2px 8px', borderRadius: 10 }}>
+                <span
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 8,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    color: badgeColor[panel.badge],
+                    background: `${badgeColor[panel.badge]}15`,
+                    padding: '2px 8px',
+                    borderRadius: 10,
+                  }}
+                >
                   {panel.badge}
                 </span>
               </div>
             </Accordion.Trigger>
             <Accordion.Content>
-              <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.7, padding: '4px 0 8px' }}>
+              <div
+                style={{
+                  fontSize: 13,
+                  color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                  lineHeight: 1.7,
+                  padding: '4px 0 8px',
+                }}
+              >
                 {panel.content}
               </div>
             </Accordion.Content>
@@ -1988,7 +2614,8 @@ export const M3_익스팬션_패널: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'RoleToken Design Expansion Panel 패턴. single 타입으로 하나만 열림. 활성 패널 테마 색상 보더/배경 강조, 배지 상태 표시.',
+        story:
+          'RoleToken Design Expansion Panel 패턴. single 타입으로 하나만 열림. 활성 패널 테마 색상 보더/배경 강조, 배지 상태 표시.',
       },
     },
   },
@@ -1997,18 +2624,43 @@ export const M3_익스팬션_패널: Story = {
 
 function PlatformM3FAQ142Render() {
   const faqs = [
-    { q: 'Orbit UI는 Next.js에서 사용할 수 있나요?', a: '네. theme-eclipse 패키지의 server/ 디렉토리에 서버 컴포넌트 래퍼가 포함되어 있습니다. Next.js 13+ App Router와 완전히 호환됩니다.' },
-    { q: '기존 UtilityCSS CSS 프로젝트에 적용하려면?', a: 'pnpm add @heejun-com/theme-eclipse 후, tailwind.config.ts에 orbit-ui 프리셋을 추가하세요. 기존 클래스와 충돌 없이 사용할 수 있습니다.' },
-    { q: '커스텀 테마를 만들려면 어떻게 하나요?', a: 'EclipseProvider에 theme prop으로 토큰 오버라이드 객체를 전달하세요. CSS 변수 기반이라 런타임에서도 동적 변경이 가능합니다.' },
-    { q: 'TypeScript 없이도 사용 가능한가요?', a: 'JavaScript로도 import 가능하나, 타입 추론과 자동완성의 이점을 위해 TypeScript 사용을 권장합니다.' },
-    { q: '아이콘은 어떻게 사용하나요?', a: '@heejun-com/icons 패키지를 별도 설치하세요. 모든 아이콘은 SVG 기반 React 컴포넌트로 tree-shaking을 지원합니다.' },
+    {
+      q: 'Orbit UI는 Next.js에서 사용할 수 있나요?',
+      a: '네. theme-eclipse 패키지의 server/ 디렉토리에 서버 컴포넌트 래퍼가 포함되어 있습니다. Next.js 13+ App Router와 완전히 호환됩니다.',
+    },
+    {
+      q: '기존 UtilityCSS CSS 프로젝트에 적용하려면?',
+      a: 'pnpm add @heejun-com/theme-eclipse 후, tailwind.config.ts에 orbit-ui 프리셋을 추가하세요. 기존 클래스와 충돌 없이 사용할 수 있습니다.',
+    },
+    {
+      q: '커스텀 테마를 만들려면 어떻게 하나요?',
+      a: 'EclipseProvider에 theme prop으로 토큰 오버라이드 객체를 전달하세요. CSS 변수 기반이라 런타임에서도 동적 변경이 가능합니다.',
+    },
+    {
+      q: 'TypeScript 없이도 사용 가능한가요?',
+      a: 'JavaScript로도 import 가능하나, 타입 추론과 자동완성의 이점을 위해 TypeScript 사용을 권장합니다.',
+    },
+    {
+      q: '아이콘은 어떻게 사용하나요?',
+      a: '@heejun-com/icons 패키지를 별도 설치하세요. 모든 아이콘은 SVG 기반 React 컴포넌트로 tree-shaking을 지원합니다.',
+    },
   ]
 
   return (
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>자주 묻는 질문</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3 }}>Platform HIG + M3 — FAQ 아코디언 패턴</div>
+        <div
+          style={{
+            fontSize: 18,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          }}
+        >
+          자주 묻는 질문
+        </div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3 }}>
+          Platform HIG + M3 — FAQ 아코디언 패턴
+        </div>
       </div>
       <Accordion type="single">
         {faqs.map((faq, i) => (
@@ -2017,7 +2669,14 @@ function PlatformM3FAQ142Render() {
               <span style={{ textAlign: 'left', fontSize: 13, fontWeight: 500 }}>{faq.q}</span>
             </Accordion.Trigger>
             <Accordion.Content>
-              <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.7, padding: '4px 0 8px' }}>
+              <div
+                style={{
+                  fontSize: 13,
+                  color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                  lineHeight: 1.7,
+                  padding: '4px 0 8px',
+                }}
+              >
                 {faq.a}
               </div>
             </Accordion.Content>
@@ -2034,7 +2693,8 @@ export const Platform_M3_FAQ_아코디언: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Platform HIG + RoleToken Design FAQ 패턴. single 타입 아코디언으로 하나만 펼쳐지는 표준 FAQ UI. Orbit UI 실제 사용법 Q&A로 구성.',
+        story:
+          'Platform HIG + RoleToken Design FAQ 패턴. single 타입 아코디언으로 하나만 펼쳐지는 표준 FAQ UI. Orbit UI 실제 사용법 Q&A로 구성.',
       },
     },
   },
@@ -2064,8 +2724,18 @@ export const AntDesign_API_레퍼런스_아코디언: Story = {
         title: 'Props',
         badge: '12',
         content: [
-          { name: 'color', type: '"primary" | "gray" | "black"', default: '"primary"', desc: '버튼 색상 변형' },
-          { name: 'size', type: '"small" | "medium" | "large"', default: '"medium"', desc: '버튼 크기' },
+          {
+            name: 'color',
+            type: '"primary" | "gray" | "black"',
+            default: '"primary"',
+            desc: '버튼 색상 변형',
+          },
+          {
+            name: 'size',
+            type: '"small" | "medium" | "large"',
+            default: '"medium"',
+            desc: '버튼 크기',
+          },
           { name: 'loading', type: 'boolean', default: 'false', desc: '로딩 상태 표시' },
           { name: 'disabled', type: 'boolean', default: 'false', desc: '비활성화 상태' },
         ],
@@ -2095,31 +2765,85 @@ export const AntDesign_API_레퍼런스_아코디언: Story = {
 
     return (
       <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>SolidButton</div>
-        <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 14 }}>Compound 패턴의 기본 버튼 컴포넌트</div>
+        <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>
+          SolidButton
+        </div>
+        <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 14 }}>
+          Compound 패턴의 기본 버튼 컴포넌트
+        </div>
         <Accordion type="multiple">
           {sections.map((section) => (
             <Accordion.Item key={section.id} value={section.id}>
               <Accordion.Trigger>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{section.title}</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 7px', borderRadius: 10, background: '#f1f5f9', color: '#64748b' }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+                    {section.title}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      padding: '1px 7px',
+                      borderRadius: 10,
+                      background: '#f1f5f9',
+                      color: '#64748b',
+                    }}
+                  >
                     {section.badge}
                   </span>
                 </div>
               </Accordion.Trigger>
               <Accordion.Content>
                 <div style={{ padding: '0 4px 8px' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr 0.8fr 1.5fr', gap: '4px 12px', marginBottom: 4 }}>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1.2fr 2fr 0.8fr 1.5fr',
+                      gap: '4px 12px',
+                      marginBottom: 4,
+                    }}
+                  >
                     {['이름', '타입', '기본값', '설명'].map((h) => (
-                      <span key={h} style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', letterSpacing: 0.5 }}>{h.toUpperCase()}</span>
+                      <span
+                        key={h}
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 700,
+                          color: '#9ca3af',
+                          letterSpacing: 0.5,
+                        }}
+                      >
+                        {h.toUpperCase()}
+                      </span>
                     ))}
                   </div>
                   {section.content.map((row) => (
-                    <div key={row.name} style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr 0.8fr 1.5fr', gap: '4px 12px', padding: '6px 0', borderTop: '1px solid #f3f4f6' }}>
-                      <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#6366f1', fontWeight: 600 }}>{row.name}</span>
-                      <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#64748b' }}>{row.type}</span>
-                      <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#9ca3af' }}>{row.default}</span>
+                    <div
+                      key={row.name}
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1.2fr 2fr 0.8fr 1.5fr',
+                        gap: '4px 12px',
+                        padding: '6px 0',
+                        borderTop: '1px solid #f3f4f6',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          color: '#6366f1',
+                          fontWeight: 600,
+                        }}
+                      >
+                        {row.name}
+                      </span>
+                      <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#64748b' }}>
+                        {row.type}
+                      </span>
+                      <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#9ca3af' }}>
+                        {row.default}
+                      </span>
                       <span style={{ fontSize: 11, color: '#374151' }}>{row.desc}</span>
                     </div>
                   ))}
@@ -2155,53 +2879,100 @@ export const AppUI_훅_기반_상태_아코디언: Story = {
 
     return (
       <div style={{ width: 460, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 12,
+          }}
+        >
           <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
-            시작 가이드 <span style={{ fontSize: 11, color: '#6b7280', fontWeight: 400 }}>({openItems.length}/{ITEMS.length} 열림)</span>
+            시작 가이드{' '}
+            <span style={{ fontSize: 11, color: '#6b7280', fontWeight: 400 }}>
+              ({openItems.length}/{ITEMS.length} 열림)
+            </span>
           </span>
           <div style={{ display: 'flex', gap: 8 }}>
             <button
               onClick={expandAll}
-              style={{ fontSize: 11, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              style={{
+                fontSize: 11,
+                color: '#3b82f6',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
+              }}
             >
               전체 펼치기
             </button>
             <button
               onClick={collapseAll}
-              style={{ fontSize: 11, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              style={{
+                fontSize: 11,
+                color: '#6b7280',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
+              }}
             >
               전체 접기
             </button>
           </div>
         </div>
-        <Accordion
-          type="multiple"
-          value={openItems}
-          onValueChange={setOpenItems}
-        >
+        <Accordion type="multiple" value={openItems} onValueChange={setOpenItems}>
           {ITEMS.map((item, i) => (
             <Accordion.Item key={i} value={String(i)}>
               <Accordion.Trigger>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{
-                    width: 22, height: 22, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0,
-                    background: openItems.includes(String(i)) ? '#3b82f6' : '#e5e7eb',
-                    color: openItems.includes(String(i)) ? '#fff' : '#9ca3af',
-                  }}>
+                  <div
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 11,
+                      fontWeight: 700,
+                      flexShrink: 0,
+                      background: openItems.includes(String(i)) ? '#3b82f6' : '#e5e7eb',
+                      color: openItems.includes(String(i)) ? '#fff' : '#9ca3af',
+                    }}
+                  >
                     {i + 1}
                   </div>
                   <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{item}</span>
                 </div>
               </Accordion.Trigger>
               <Accordion.Content>
-                <div style={{ padding: '8px 4px 12px 32px', fontSize: 12, color: '#6b7280', lineHeight: 1.7 }}>
-                  이 단계에서는 {item}에 필요한 설정과 코드를 안내합니다. 각 항목을 순서대로 따라하면 빠르게 시작할 수 있습니다.
+                <div
+                  style={{
+                    padding: '8px 4px 12px 32px',
+                    fontSize: 12,
+                    color: '#6b7280',
+                    lineHeight: 1.7,
+                  }}
+                >
+                  이 단계에서는 {item}에 필요한 설정과 코드를 안내합니다. 각 항목을 순서대로
+                  따라하면 빠르게 시작할 수 있습니다.
                 </div>
               </Accordion.Content>
             </Accordion.Item>
           ))}
         </Accordion>
-        <div style={{ marginTop: 12, padding: '8px 12px', background: '#f0fdf4', borderRadius: 8, fontSize: 11, color: '#16a34a' }}>
+        <div
+          style={{
+            marginTop: 12,
+            padding: '8px 12px',
+            background: '#f0fdf4',
+            borderRadius: 8,
+            fontSize: 11,
+            color: '#16a34a',
+          }}
+        >
           완료: {openItems.length}단계 / 전체 {ITEMS.length}단계
         </div>
       </div>
@@ -2247,8 +3018,18 @@ export const Ant_AppUI_대시보드_위젯_아코디언: Story = {
               </div>
             </Accordion.Trigger>
             <Accordion.Content>
-              <div style={{ padding: '8px 4px 12px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {[{ label: '기간', key: 'period', opts: ['7일', '30일', '90일'] }, { label: '유형', key: 'type', opts: ['전체', '신규', '복귀'] }].map((f) => (
+              <div
+                style={{
+                  padding: '8px 4px 12px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 10,
+                }}
+              >
+                {[
+                  { label: '기간', key: 'period', opts: ['7일', '30일', '90일'] },
+                  { label: '유형', key: 'type', opts: ['전체', '신규', '복귀'] },
+                ].map((f) => (
                   <div key={f.key}>
                     <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 4 }}>{f.label}</div>
                     <div style={{ display: 'flex', gap: 6 }}>
@@ -2257,9 +3038,18 @@ export const Ant_AppUI_대시보드_위젯_아코디언: Story = {
                           key={opt}
                           onClick={() => setFilters((prev) => ({ ...prev, [f.key]: opt }))}
                           style={{
-                            padding: '3px 10px', borderRadius: 6, fontSize: 11, fontWeight: 600, cursor: 'pointer', border: 'none',
-                            background: filters[f.key as keyof typeof filters] === opt ? '#3b82f6' : '#f1f5f9',
-                            color: filters[f.key as keyof typeof filters] === opt ? '#fff' : '#6b7280',
+                            padding: '3px 10px',
+                            borderRadius: 6,
+                            fontSize: 11,
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            border: 'none',
+                            background:
+                              filters[f.key as keyof typeof filters] === opt
+                                ? '#3b82f6'
+                                : '#f1f5f9',
+                            color:
+                              filters[f.key as keyof typeof filters] === opt ? '#fff' : '#6b7280',
                           }}
                         >
                           {opt}
@@ -2277,14 +3067,36 @@ export const Ant_AppUI_대시보드_위젯_아코디언: Story = {
               <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>핵심 지표</span>
             </Accordion.Trigger>
             <Accordion.Content>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 12px' }}>
+              <div
+                style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 12px' }}
+              >
                 {stats.map((stat) => (
-                  <div key={stat.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 10px', background: '#f9fafb', borderRadius: 8 }}>
+                  <div
+                    key={stat.label}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      padding: '8px 10px',
+                      background: '#f9fafb',
+                      borderRadius: 8,
+                    }}
+                  >
                     <div>
                       <div style={{ fontSize: 11, color: '#9ca3af' }}>{stat.label}</div>
-                      <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>{stat.value}</div>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>
+                        {stat.value}
+                      </div>
                     </div>
-                    <span style={{ fontSize: 11, fontWeight: 600, color: stat.up ? '#10b981' : '#ef4444', alignSelf: 'center' }}>{stat.change}</span>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: stat.up ? '#10b981' : '#ef4444',
+                        alignSelf: 'center',
+                      }}
+                    >
+                      {stat.change}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -2295,14 +3107,41 @@ export const Ant_AppUI_대시보드_위젯_아코디언: Story = {
             <Accordion.Trigger>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>최근 활동</span>
-                <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 10, background: '#eff6ff', color: '#3b82f6' }}>{activities.length}</span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: '1px 6px',
+                    borderRadius: 10,
+                    background: '#eff6ff',
+                    color: '#3b82f6',
+                  }}
+                >
+                  {activities.length}
+                </span>
               </div>
             </Accordion.Trigger>
             <Accordion.Content>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 12px' }}>
+              <div
+                style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '4px 0 12px' }}
+              >
                 {activities.map((act, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                    <div
+                      style={{
+                        width: 26,
+                        height: 26,
+                        borderRadius: '50%',
+                        background: '#3b82f6',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 9,
+                        fontWeight: 700,
+                        color: '#fff',
+                        flexShrink: 0,
+                      }}
+                    >
                       {act.user}
                     </div>
                     <div style={{ flex: 1 }}>

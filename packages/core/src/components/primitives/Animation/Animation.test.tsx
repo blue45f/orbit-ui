@@ -98,10 +98,7 @@ describe('Animation', () => {
 
       render(
         <LottieProvider>
-          <Animation
-            animationData={{ v: '5.5.0', layers: [] }}
-            onAnimationLoad={onAnimationLoad}
-          />
+          <Animation animationData={{ v: '5.5.0', layers: [] }} onAnimationLoad={onAnimationLoad} />
         </LottieProvider>
       )
 

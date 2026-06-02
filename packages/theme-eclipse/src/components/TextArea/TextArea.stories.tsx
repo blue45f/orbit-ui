@@ -271,11 +271,16 @@ const CharCounterTextArea = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-      <label style={{
-        fontSize: '13px', fontWeight: '600',
-        color: isError ? '#ef4444' : '#374151',
-        display: 'flex', alignItems: 'center', gap: '4px',
-      }}>
+      <label
+        style={{
+          fontSize: '13px',
+          fontWeight: '600',
+          color: isError ? '#ef4444' : '#374151',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+        }}
+      >
         {label}
         {required && <span style={{ color: '#ef4444', fontSize: '12px' }}>*</span>}
       </label>
@@ -285,15 +290,21 @@ const CharCounterTextArea = ({
         error={isError}
         minimumLine={3}
         maximumLine={8}
-        onChange={(e) => { setValue(e.target.value); onLengthChange?.(e.target.value.length) }}
+        onChange={(e) => {
+          setValue(e.target.value)
+          onLengthChange?.(e.target.value.length)
+        }}
       />
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontSize: '12px', color: '#94a3b8' }}>{helperText}</span>
-        <span style={{
-          fontSize: '12px', fontWeight: '600',
-          color: isOver ? '#ef4444' : isNearLimit ? '#f59e0b' : '#94a3b8',
-          fontVariantNumeric: 'tabular-nums',
-        }}>
+        <span
+          style={{
+            fontSize: '12px',
+            fontWeight: '600',
+            color: isOver ? '#ef4444' : isNearLimit ? '#f59e0b' : '#94a3b8',
+            fontVariantNumeric: 'tabular-nums',
+          }}
+        >
           {value.length} / {maxLength}
         </span>
       </div>
@@ -312,15 +323,37 @@ const MultiFieldFormDemo = () => {
   const isReady = title.length >= 5 && contentLen >= 20
 
   return (
-    <div style={{
-      width: '560px', padding: '36px', background: '#fff',
-      borderRadius: '20px', boxShadow: '0 8px 40px rgba(0,0,0,0.1)',
-    }}>
+    <div
+      style={{
+        width: '560px',
+        padding: '36px',
+        background: '#fff',
+        borderRadius: '20px',
+        boxShadow: '0 8px 40px rgba(0,0,0,0.1)',
+      }}
+    >
       <div style={{ marginBottom: '28px' }}>
-        <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
+        <div
+          style={{
+            fontSize: '11px',
+            fontWeight: '700',
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            marginBottom: '6px',
+          }}
+        >
           EnterpriseUI TextArea Pattern
         </div>
-        <h2 style={{ margin: '0 0 6px', fontSize: '22px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.02em' }}>
+        <h2
+          style={{
+            margin: '0 0 6px',
+            fontSize: '22px',
+            fontWeight: '800',
+            color: '#0f172a',
+            letterSpacing: '-0.02em',
+          }}
+        >
           새 글 작성
         </h2>
         <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
@@ -331,11 +364,16 @@ const MultiFieldFormDemo = () => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         {/* 제목 */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          <label style={{
-            fontSize: '13px', fontWeight: '600',
-            color: titleError ? '#ef4444' : '#374151',
-            display: 'flex', alignItems: 'center', gap: '4px',
-          }}>
+          <label
+            style={{
+              fontSize: '13px',
+              fontWeight: '600',
+              color: titleError ? '#ef4444' : '#374151',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+            }}
+          >
             제목 <span style={{ color: '#ef4444', fontSize: '12px' }}>*</span>
           </label>
           <TextArea
@@ -348,14 +386,20 @@ const MultiFieldFormDemo = () => {
           />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {titleError ? (
-              <span style={{ fontSize: '12px', color: '#ef4444' }}>제목은 5자 이상이어야 합니다</span>
+              <span style={{ fontSize: '12px', color: '#ef4444' }}>
+                제목은 5자 이상이어야 합니다
+              </span>
             ) : (
               <span style={{ fontSize: '12px', color: '#94a3b8' }}>게시물의 제목을 입력하세요</span>
             )}
-            <span style={{
-              fontSize: '12px', fontWeight: '600', fontVariantNumeric: 'tabular-nums',
-              color: title.length > 80 ? '#ef4444' : '#94a3b8',
-            }}>
+            <span
+              style={{
+                fontSize: '12px',
+                fontWeight: '600',
+                fontVariantNumeric: 'tabular-nums',
+                color: title.length > 80 ? '#ef4444' : '#94a3b8',
+              }}
+            >
               {title.length} / 100
             </span>
           </div>
@@ -373,9 +417,7 @@ const MultiFieldFormDemo = () => {
 
         {/* 태그 */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          <label style={{ fontSize: '13px', fontWeight: '600', color: '#374151' }}>
-            태그
-          </label>
+          <label style={{ fontSize: '13px', fontWeight: '600', color: '#374151' }}>태그</label>
           <TextArea
             value={tags}
             placeholder="태그를 쉼표로 구분해서 입력하세요 (예: React, TypeScript, UI)"
@@ -389,11 +431,17 @@ const MultiFieldFormDemo = () => {
 
       <button
         style={{
-          marginTop: '28px', width: '100%', padding: '14px', borderRadius: '12px',
-          border: 'none', cursor: isReady ? 'pointer' : 'not-allowed',
+          marginTop: '28px',
+          width: '100%',
+          padding: '14px',
+          borderRadius: '12px',
+          border: 'none',
+          cursor: isReady ? 'pointer' : 'not-allowed',
           background: isReady ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : '#e2e8f0',
           color: isReady ? '#fff' : '#94a3b8',
-          fontSize: '14px', fontWeight: '700', transition: 'all 0.2s',
+          fontSize: '14px',
+          fontWeight: '700',
+          transition: 'all 0.2s',
         }}
       >
         게시하기
@@ -419,29 +467,50 @@ const FeedbackFormDemo = () => {
   const isError = feedback.length > 0 && feedback.length < 10
 
   return (
-    <div style={{
-      width: '420px', padding: '32px', background: '#fff',
-      borderRadius: '20px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
-    }}>
+    <div
+      style={{
+        width: '420px',
+        padding: '32px',
+        background: '#fff',
+        borderRadius: '20px',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+      }}
+    >
       <div style={{ marginBottom: '24px' }}>
-        <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
+        <div
+          style={{
+            fontSize: '11px',
+            fontWeight: '700',
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            marginBottom: '6px',
+          }}
+        >
           Accessible Textarea Pattern
         </div>
-        <h3 style={{ margin: '0 0 4px', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>피드백 보내기</h3>
+        <h3 style={{ margin: '0 0 4px', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>
+          피드백 보내기
+        </h3>
         <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>서비스 개선에 도움이 됩니다</p>
       </div>
 
       {/* 카테고리 */}
       <div style={{ marginBottom: '20px' }}>
-        <div style={{ fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>카테고리</div>
+        <div style={{ fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+          카테고리
+        </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setCategory(cat === category ? null : cat)}
               style={{
-                padding: '6px 12px', borderRadius: '20px', cursor: 'pointer',
-                fontSize: '12px', fontWeight: '600',
+                padding: '6px 12px',
+                borderRadius: '20px',
+                cursor: 'pointer',
+                fontSize: '12px',
+                fontWeight: '600',
                 background: category === cat ? 'rgba(99,102,241,0.1)' : '#f8fafc',
                 color: category === cat ? '#6366f1' : '#64748b',
                 border: `1.5px solid ${category === cat ? 'rgba(99,102,241,0.3)' : '#e2e8f0'}`,
@@ -456,15 +525,20 @@ const FeedbackFormDemo = () => {
 
       {/* 별점 */}
       <div style={{ marginBottom: '20px' }}>
-        <div style={{ fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>만족도</div>
+        <div style={{ fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+          만족도
+        </div>
         <div style={{ display: 'flex', gap: '4px' }}>
           {[1, 2, 3, 4, 5].map((star) => (
             <button
               key={star}
               onClick={() => setRating(star === rating ? null : star)}
               style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                fontSize: '28px', padding: '2px',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '28px',
+                padding: '2px',
                 color: rating !== null && star <= rating ? '#f59e0b' : '#e2e8f0',
                 transition: 'color 0.15s',
               }}
@@ -473,7 +547,9 @@ const FeedbackFormDemo = () => {
             </button>
           ))}
           {rating && (
-            <span style={{ fontSize: '13px', color: '#64748b', alignSelf: 'center', marginLeft: '6px' }}>
+            <span
+              style={{ fontSize: '13px', color: '#64748b', alignSelf: 'center', marginLeft: '6px' }}
+            >
               {['', '매우 불만족', '불만족', '보통', '만족', '매우 만족'][rating]}
             </span>
           )}
@@ -482,7 +558,9 @@ const FeedbackFormDemo = () => {
 
       {/* 피드백 텍스트 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '20px' }}>
-        <label style={{ fontSize: '12px', fontWeight: '600', color: isError ? '#ef4444' : '#374151' }}>
+        <label
+          style={{ fontSize: '12px', fontWeight: '600', color: isError ? '#ef4444' : '#374151' }}
+        >
           상세 내용
         </label>
         <TextArea
@@ -497,10 +575,14 @@ const FeedbackFormDemo = () => {
           <span style={{ fontSize: '12px', color: isError ? '#ef4444' : '#94a3b8' }}>
             {isError ? '10자 이상 입력해주세요' : '최소 10자 이상 입력하세요'}
           </span>
-          <span style={{
-            fontSize: '12px', fontWeight: '600', fontVariantNumeric: 'tabular-nums',
-            color: remaining < 50 ? '#f59e0b' : remaining < 0 ? '#ef4444' : '#94a3b8',
-          }}>
+          <span
+            style={{
+              fontSize: '12px',
+              fontWeight: '600',
+              fontVariantNumeric: 'tabular-nums',
+              color: remaining < 50 ? '#f59e0b' : remaining < 0 ? '#ef4444' : '#94a3b8',
+            }}
+          >
             {feedback.length} / {maxLen}
           </span>
         </div>
@@ -508,10 +590,17 @@ const FeedbackFormDemo = () => {
 
       <button
         style={{
-          width: '100%', padding: '13px', borderRadius: '12px', border: 'none',
-          background: feedback.length >= 10 && rating !== null ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : '#e2e8f0',
+          width: '100%',
+          padding: '13px',
+          borderRadius: '12px',
+          border: 'none',
+          background:
+            feedback.length >= 10 && rating !== null
+              ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
+              : '#e2e8f0',
           color: feedback.length >= 10 && rating !== null ? '#fff' : '#94a3b8',
-          fontSize: '14px', fontWeight: '700',
+          fontSize: '14px',
+          fontWeight: '700',
           cursor: feedback.length >= 10 && rating !== null ? 'pointer' : 'not-allowed',
           transition: 'all 0.2s',
         }}
@@ -540,36 +629,54 @@ const PrimitiveCharCounterRender = () => {
     <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 8 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <label style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>소개글</label>
-        <span style={{
-          fontSize: 11,
-          fontWeight: 600,
-          color: remaining < 50 ? '#ef4444' : remaining < 100 ? '#f59e0b' : '#94a3b8',
-        }}>
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: remaining < 50 ? '#ef4444' : remaining < 100 ? '#f59e0b' : '#94a3b8',
+          }}
+        >
           {remaining}자 남음
         </span>
       </div>
       <TextArea
         value={value}
-        onChange={(e) => { if (e.target.value.length <= maxChars) setValue(e.target.value) }}
+        onChange={(e) => {
+          if (e.target.value.length <= maxChars) setValue(e.target.value)
+        }}
         placeholder="자신을 소개해 보세요. 팀원들이 볼 수 있습니다..."
         minimumLine={3}
         maximumLine={10}
       />
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        {value.length > 0 ? `${value.length}자 입력됨` : '선택 사항입니다. 최대 500자까지 입력할 수 있습니다.'}
+        {value.length > 0
+          ? `${value.length}자 입력됨`
+          : '선택 사항입니다. 최대 500자까지 입력할 수 있습니다.'}
       </div>
       {value.length > 0 && (
-        <div style={{
-          padding: '10px 14px',
-          borderRadius: 8,
-          background: '#f8fafc',
-          border: '1px solid #e2e8f0',
-          fontSize: 13,
-          color: '#475569',
-          whiteSpace: 'pre-wrap',
-          lineHeight: 1.6,
-        }}>
-          <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', display: 'block', marginBottom: 4 }}>미리보기</span>
+        <div
+          style={{
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            fontSize: 13,
+            color: '#475569',
+            whiteSpace: 'pre-wrap',
+            lineHeight: 1.6,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              display: 'block',
+              marginBottom: 4,
+            }}
+          >
+            미리보기
+          </span>
           {value}
         </div>
       )}
@@ -609,7 +716,11 @@ const M3InlineValidationRender = () => {
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-          <label style={{ fontSize: 12, fontWeight: 600, color: emailHasError ? '#ef4444' : '#475569' }}>이메일</label>
+          <label
+            style={{ fontSize: 12, fontWeight: 600, color: emailHasError ? '#ef4444' : '#475569' }}
+          >
+            이메일
+          </label>
         </div>
         <TextArea
           value={email}
@@ -620,13 +731,19 @@ const M3InlineValidationRender = () => {
           maximumLine={1}
         />
         <div style={{ fontSize: 11, marginTop: 4, color: emailHasError ? '#ef4444' : '#94a3b8' }}>
-          {emailHasError ? '올바른 이메일 형식을 입력해 주세요.' : '계정 알림을 받을 이메일 주소입니다.'}
+          {emailHasError
+            ? '올바른 이메일 형식을 입력해 주세요.'
+            : '계정 알림을 받을 이메일 주소입니다.'}
         </div>
       </div>
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-          <label style={{ fontSize: 12, fontWeight: 600, color: urlHasError ? '#ef4444' : '#475569' }}>웹사이트 URL</label>
+          <label
+            style={{ fontSize: 12, fontWeight: 600, color: urlHasError ? '#ef4444' : '#475569' }}
+          >
+            웹사이트 URL
+          </label>
         </div>
         <TextArea
           value={url}
@@ -637,7 +754,9 @@ const M3InlineValidationRender = () => {
           maximumLine={1}
         />
         <div style={{ fontSize: 11, marginTop: 4, color: urlHasError ? '#ef4444' : '#94a3b8' }}>
-          {urlHasError ? 'URL은 http:// 또는 https://로 시작해야 합니다.' : '포트폴리오나 블로그 주소를 입력하세요.'}
+          {urlHasError
+            ? 'URL은 http:// 또는 https://로 시작해야 합니다.'
+            : '포트폴리오나 블로그 주소를 입력하세요.'}
         </div>
       </div>
 
@@ -648,7 +767,9 @@ const M3InlineValidationRender = () => {
         </div>
         <TextArea
           value={bio}
-          onChange={(e) => { if (e.target.value.length <= 200) setBio(e.target.value) }}
+          onChange={(e) => {
+            if (e.target.value.length <= 200) setBio(e.target.value)
+          }}
           placeholder="간단한 소개를 작성해 주세요..."
           minimumLine={3}
           maximumLine={6}
@@ -657,19 +778,35 @@ const M3InlineValidationRender = () => {
 
       <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
         <button
-          style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #e2e8f0', background: 'none', cursor: 'pointer', fontSize: 13, color: '#64748b', fontWeight: 500 }}
-          onClick={() => { setEmail(''); setUrl(''); setBio('') }}
+          style={{
+            padding: '8px 16px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: 'none',
+            cursor: 'pointer',
+            fontSize: 13,
+            color: '#64748b',
+            fontWeight: 500,
+          }}
+          onClick={() => {
+            setEmail('')
+            setUrl('')
+            setBio('')
+          }}
         >
           초기화
         </button>
         <button
           disabled={emailHasError || urlHasError}
           style={{
-            padding: '8px 20px', borderRadius: 8, border: 'none',
+            padding: '8px 20px',
+            borderRadius: 8,
+            border: 'none',
             background: emailHasError || urlHasError ? '#f1f5f9' : '#6366f1',
             color: emailHasError || urlHasError ? '#94a3b8' : '#fff',
             cursor: emailHasError || urlHasError ? 'not-allowed' : 'pointer',
-            fontSize: 13, fontWeight: 700,
+            fontSize: 13,
+            fontWeight: 700,
           }}
         >
           저장
@@ -725,12 +862,16 @@ const PrimitiveCodeEditorRender = () => {
           <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 8 }}>{lineCount}줄</span>
         </div>
         {isValid !== null && (
-          <span style={{
-            fontSize: 11, fontWeight: 700,
-            color: isValid ? '#10b981' : '#ef4444',
-            padding: '2px 8px', borderRadius: 20,
-            background: isValid ? '#f0fdf4' : '#fef2f2',
-          }}>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: isValid ? '#10b981' : '#ef4444',
+              padding: '2px 8px',
+              borderRadius: 20,
+              background: isValid ? '#f0fdf4' : '#fef2f2',
+            }}
+          >
             {isValid ? '유효한 JSON' : 'JSON 오류'}
           </span>
         )}
@@ -762,7 +903,10 @@ const PrimitiveCodeEditorRender = () => {
         <div style={{ fontFamily: 'monospace', fontSize: 13 }}>
           <TextArea
             value={code}
-            onChange={(e) => { setCode(e.target.value); setIsValid(null) }}
+            onChange={(e) => {
+              setCode(e.target.value)
+              setIsValid(null)
+            }}
             placeholder="{}"
             error={isValid === false}
             minimumLine={8}
@@ -774,13 +918,34 @@ const PrimitiveCodeEditorRender = () => {
       <div style={{ display: 'flex', gap: 8 }}>
         <button
           onClick={validate}
-          style={{ padding: '7px 14px', borderRadius: 7, border: 'none', background: '#6366f1', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+          style={{
+            padding: '7px 14px',
+            borderRadius: 7,
+            border: 'none',
+            background: '#6366f1',
+            color: '#fff',
+            fontSize: 12,
+            fontWeight: 700,
+            cursor: 'pointer',
+          }}
         >
           JSON 검증
         </button>
         <button
-          onClick={() => { setCode(defaultJson); setIsValid(null) }}
-          style={{ padding: '7px 14px', borderRadius: 7, border: '1px solid #e2e8f0', background: 'none', color: '#64748b', fontSize: 12, fontWeight: 500, cursor: 'pointer' }}
+          onClick={() => {
+            setCode(defaultJson)
+            setIsValid(null)
+          }}
+          style={{
+            padding: '7px 14px',
+            borderRadius: 7,
+            border: '1px solid #e2e8f0',
+            background: 'none',
+            color: '#64748b',
+            fontSize: 12,
+            fontWeight: 500,
+            cursor: 'pointer',
+          }}
         >
           초기화
         </button>
@@ -823,11 +988,24 @@ function ComposableUICommentEditorRender() {
   const handleSubmit = () => {
     if (!value.trim() || isOver) return
     setSubmitted(true)
-    setTimeout(() => { setSubmitted(false); setValue('') }, 2000)
+    setTimeout(() => {
+      setSubmitted(false)
+      setValue('')
+    }, 2000)
   }
 
   return (
-    <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+    <div
+      style={{
+        width: 480,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+      }}
+    >
       {/* Header tabs */}
       <div style={{ display: 'flex', borderBottom: '1px solid #f1f5f9', background: '#fafafa' }}>
         {(['write', 'preview'] as const).map((m) => (
@@ -835,8 +1013,12 @@ function ComposableUICommentEditorRender() {
             key={m}
             onClick={() => setMode(m)}
             style={{
-              padding: '10px 16px', background: 'none', border: 'none', cursor: 'pointer',
-              fontSize: 13, fontWeight: mode === m ? 700 : 500,
+              padding: '10px 16px',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 13,
+              fontWeight: mode === m ? 700 : 500,
               color: mode === m ? '#1e293b' : '#94a3b8',
               borderBottom: mode === m ? '2px solid #6366f1' : '2px solid transparent',
               transition: 'all 0.15s',
@@ -858,27 +1040,55 @@ function ComposableUICommentEditorRender() {
             error={isOver}
           />
         ) : (
-          <div style={{
-            minHeight: 120, padding: '10px 14px', fontSize: 14, color: '#1e293b', lineHeight: 1.7,
-            background: '#f8fafc', borderRadius: 8,
-          }}>
+          <div
+            style={{
+              minHeight: 120,
+              padding: '10px 14px',
+              fontSize: 14,
+              color: '#1e293b',
+              lineHeight: 1.7,
+              background: '#f8fafc',
+              borderRadius: 8,
+            }}
+          >
             {value || <span style={{ color: '#94a3b8' }}>미리보기할 내용이 없습니다.</span>}
           </div>
         )}
       </div>
 
       {/* Footer */}
-      <div style={{ padding: '8px 12px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fafafa' }}>
-        <span style={{
-          fontSize: 11, fontWeight: 600,
-          color: isOver ? '#ef4444' : remaining <= 50 ? '#f59e0b' : '#94a3b8',
-        }}>
+      <div
+        style={{
+          padding: '8px 12px',
+          borderTop: '1px solid #f1f5f9',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          background: '#fafafa',
+        }}
+      >
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: isOver ? '#ef4444' : remaining <= 50 ? '#f59e0b' : '#94a3b8',
+          }}
+        >
           {remaining < 0 ? `-${Math.abs(remaining)}` : remaining}자 남음
         </span>
         <div style={{ display: 'flex', gap: 6 }}>
           <button
             onClick={() => setValue('')}
-            style={{ padding: '6px 12px', borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+            style={{
+              padding: '6px 12px',
+              borderRadius: 7,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              color: '#64748b',
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
           >
             초기화
           </button>
@@ -886,10 +1096,15 @@ function ComposableUICommentEditorRender() {
             onClick={handleSubmit}
             disabled={!value.trim() || isOver}
             style={{
-              padding: '6px 14px', borderRadius: 7, border: 'none',
-              background: submitted ? '#10b981' : (!value.trim() || isOver) ? '#e2e8f0' : '#6366f1',
-              color: submitted || (!value.trim() && !isOver) ? (submitted ? '#fff' : '#94a3b8') : '#fff',
-              fontSize: 12, fontWeight: 700, cursor: (!value.trim() || isOver) ? 'not-allowed' : 'pointer',
+              padding: '6px 14px',
+              borderRadius: 7,
+              border: 'none',
+              background: submitted ? '#10b981' : !value.trim() || isOver ? '#e2e8f0' : '#6366f1',
+              color:
+                submitted || (!value.trim() && !isOver) ? (submitted ? '#fff' : '#94a3b8') : '#fff',
+              fontSize: 12,
+              fontWeight: 700,
+              cursor: !value.trim() || isOver ? 'not-allowed' : 'pointer',
               transition: 'all 0.2s',
             }}
           >
@@ -950,8 +1165,28 @@ function DeployPlatformEnvEditorRender() {
     <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>환경 변수 일괄 입력</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 7, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 11, color: '#64748b' }}>
-          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '4px 10px',
+            borderRadius: 7,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            fontSize: 11,
+            color: '#64748b',
+          }}
+        >
+          <span
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: '50%',
+              background: '#10b981',
+              display: 'inline-block',
+            }}
+          />
           .env 형식
         </div>
       </div>
@@ -959,7 +1194,10 @@ function DeployPlatformEnvEditorRender() {
       <div style={{ fontFamily: 'monospace', fontSize: 12 }}>
         <TextArea
           value={raw}
-          onChange={(e) => { setRaw(e.target.value); setShowParsed(false) }}
+          onChange={(e) => {
+            setRaw(e.target.value)
+            setShowParsed(false)
+          }}
           minimumLine={6}
           placeholder="KEY=value 형식으로 입력 (한 줄에 하나씩)"
         />
@@ -968,13 +1206,35 @@ function DeployPlatformEnvEditorRender() {
       <div style={{ display: 'flex', gap: 8 }}>
         <button
           onClick={parseEnv}
-          style={{ flex: 1, padding: '9px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
+          style={{
+            flex: 1,
+            padding: '9px',
+            borderRadius: 8,
+            border: 'none',
+            background: '#6366f1',
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 700,
+            cursor: 'pointer',
+          }}
         >
           파싱 & 검증
         </button>
         <button
-          onClick={() => { setRaw(''); setShowParsed(false) }}
-          style={{ padding: '9px 16px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+          onClick={() => {
+            setRaw('')
+            setShowParsed(false)
+          }}
+          style={{
+            padding: '9px 16px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#64748b',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
         >
           초기화
         </button>
@@ -982,27 +1242,73 @@ function DeployPlatformEnvEditorRender() {
 
       {showParsed && parsed.length > 0 && (
         <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
-          <div style={{ padding: '8px 14px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>파싱 결과 ({parsed.length}개)</span>
+          <div
+            style={{
+              padding: '8px 14px',
+              background: '#f8fafc',
+              borderBottom: '1px solid #f1f5f9',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>
+              파싱 결과 ({parsed.length}개)
+            </span>
             <div style={{ display: 'flex', gap: 10, fontSize: 11 }}>
-              {validCount > 0 && <span style={{ color: '#10b981', fontWeight: 700 }}>유효 {validCount}</span>}
-              {errorCount > 0 && <span style={{ color: '#ef4444', fontWeight: 700 }}>오류 {errorCount}</span>}
+              {validCount > 0 && (
+                <span style={{ color: '#10b981', fontWeight: 700 }}>유효 {validCount}</span>
+              )}
+              {errorCount > 0 && (
+                <span style={{ color: '#ef4444', fontWeight: 700 }}>오류 {errorCount}</span>
+              )}
             </div>
           </div>
           {parsed.map((item, i) => (
             <div
               key={i}
               style={{
-                display: 'flex', alignItems: 'center', gap: 10,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
                 padding: '8px 14px',
                 borderBottom: i < parsed.length - 1 ? '1px solid #f8fafc' : 'none',
                 background: item.valid ? '#fff' : '#fef2f2',
               }}
             >
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: item.valid ? '#10b981' : '#ef4444', flexShrink: 0 }} />
-              <span style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: '#1e293b', minWidth: 160 }}>{item.key}</span>
-              <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {item.value ? item.value.slice(0, 30) + (item.value.length > 30 ? '...' : '') : '(값 없음)'}
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: item.valid ? '#10b981' : '#ef4444',
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  color: '#1e293b',
+                  minWidth: 160,
+                }}
+              >
+                {item.key}
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: '#94a3b8',
+                  fontFamily: 'monospace',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {item.value
+                  ? item.value.slice(0, 30) + (item.value.length > 30 ? '...' : '')
+                  : '(값 없음)'}
               </span>
             </div>
           ))}
@@ -1033,7 +1339,9 @@ export const DeployPlatform_환경변수_멀티라인_편집기: Story = {
 type AutoSaveStatus = 'idle' | 'saving' | 'saved' | 'error'
 
 function IssueTrackerAutoSaveEditorRender() {
-  const [desc, setDesc] = useState('이슈 재현 단계:\n1. Storybook을 실행한다\n2. Chip 컴포넌트로 이동한다\n3. 클릭 이벤트 확인')
+  const [desc, setDesc] = useState(
+    '이슈 재현 단계:\n1. Storybook을 실행한다\n2. Chip 컴포넌트로 이동한다\n3. 클릭 이벤트 확인'
+  )
   const [status, setStatus] = useState<AutoSaveStatus>('saved')
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -1068,8 +1376,24 @@ function IssueTrackerAutoSaveEditorRender() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>이슈 설명</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span style={{ width: 6, height: 6, borderRadius: '50%', background: STATUS_COLOR[status], display: 'inline-block', transition: 'background 0.2s' }} />
-          <span style={{ fontSize: 11, color: STATUS_COLOR[status], fontWeight: 600, transition: 'color 0.2s' }}>
+          <span
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: '50%',
+              background: STATUS_COLOR[status],
+              display: 'inline-block',
+              transition: 'background 0.2s',
+            }}
+          />
+          <span
+            style={{
+              fontSize: 11,
+              color: STATUS_COLOR[status],
+              fontWeight: 600,
+              transition: 'color 0.2s',
+            }}
+          >
             {STATUS_LABEL[status]}
           </span>
         </div>
@@ -1082,11 +1406,27 @@ function IssueTrackerAutoSaveEditorRender() {
         placeholder="이슈를 자세히 설명해 주세요. Markdown 문법을 지원합니다."
       />
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 10px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '6px 10px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #f1f5f9',
+        }}
+      >
         <div style={{ display: 'flex', gap: 14, fontSize: 11, color: '#94a3b8' }}>
-          <span><strong style={{ color: '#64748b' }}>{desc.length}</strong>자</span>
-          <span><strong style={{ color: '#64748b' }}>{wordCount}</strong>단어</span>
-          <span><strong style={{ color: '#64748b' }}>{desc.split('\n').length}</strong>줄</span>
+          <span>
+            <strong style={{ color: '#64748b' }}>{desc.length}</strong>자
+          </span>
+          <span>
+            <strong style={{ color: '#64748b' }}>{wordCount}</strong>단어
+          </span>
+          <span>
+            <strong style={{ color: '#64748b' }}>{desc.split('\n').length}</strong>줄
+          </span>
         </div>
         <span style={{ fontSize: 11, color: '#94a3b8' }}>Ctrl+Enter로 제출</span>
       </div>
@@ -1121,13 +1461,38 @@ function AppUIFeedbackFormRender() {
 
   if (submitted) {
     return (
-      <div style={{ width: 440, padding: 32, borderRadius: 12, background: '#f0fdf4', border: '1px solid #bbf7d0', textAlign: 'center' }}>
+      <div
+        style={{
+          width: 440,
+          padding: 32,
+          borderRadius: 12,
+          background: '#f0fdf4',
+          border: '1px solid #bbf7d0',
+          textAlign: 'center',
+        }}
+      >
         <div style={{ fontSize: 36, marginBottom: 12 }}>🎉</div>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#15803d', marginBottom: 6 }}>피드백 감사합니다!</div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#15803d', marginBottom: 6 }}>
+          피드백 감사합니다!
+        </div>
         <div style={{ fontSize: 13, color: '#4ade80' }}>소중한 의견을 반영하겠습니다.</div>
         <button
-          onClick={() => { setRating(0); setFeedback(''); setSubmitted(false) }}
-          style={{ marginTop: 20, padding: '8px 20px', borderRadius: 8, border: 'none', background: '#16a34a', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+          onClick={() => {
+            setRating(0)
+            setFeedback('')
+            setSubmitted(false)
+          }}
+          style={{
+            marginTop: 20,
+            padding: '8px 20px',
+            borderRadius: 8,
+            border: 'none',
+            background: '#16a34a',
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
         >
           다시 작성
         </button>
@@ -1136,9 +1501,22 @@ function AppUIFeedbackFormRender() {
   }
 
   return (
-    <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 20, padding: 24, borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+    <div
+      style={{
+        width: 440,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+        padding: 24,
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+        background: '#fff',
+      }}
+    >
       <div>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>서비스 만족도</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+          서비스 만족도
+        </div>
         <div style={{ fontSize: 12, color: '#94a3b8' }}>전반적인 경험을 평가해 주세요</div>
       </div>
 
@@ -1147,7 +1525,15 @@ function AppUIFeedbackFormRender() {
           <button
             key={star}
             onClick={() => setRating(star)}
-            style={{ background: 'none', border: 'none', fontSize: 28, cursor: 'pointer', opacity: star <= rating ? 1 : 0.3, transition: 'opacity 0.15s', lineHeight: 1 }}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: 28,
+              cursor: 'pointer',
+              opacity: star <= rating ? 1 : 0.3,
+              transition: 'opacity 0.15s',
+              lineHeight: 1,
+            }}
           >
             ★
           </button>
@@ -1163,7 +1549,8 @@ function AppUIFeedbackFormRender() {
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>상세 피드백</div>
           <div style={{ fontSize: 11, color: feedback.length < 10 ? '#ef4444' : '#10b981' }}>
-            {feedback.length}/500 {feedback.length < 10 ? `(최소 ${10 - feedback.length}자 더 필요)` : '✓'}
+            {feedback.length}/500{' '}
+            {feedback.length < 10 ? `(최소 ${10 - feedback.length}자 더 필요)` : '✓'}
           </div>
         </div>
         <TextArea
@@ -1211,7 +1598,13 @@ export const AppUI_피드백_폼_별점: Story = {
 }
 
 function DataProductCodeReviewRender() {
-  type ReviewLine = { line: number; code: string; comment: string; setComment: (v: string) => void; severity: 'info' | 'warn' | 'error' }
+  type ReviewLine = {
+    line: number
+    code: string
+    comment: string
+    setComment: (v: string) => void
+    severity: 'info' | 'warn' | 'error'
+  }
   const [comment1, setComment1] = useState('')
   const [comment2, setComment2] = useState('')
   const [comment3, setComment3] = useState('')
@@ -1219,39 +1612,125 @@ function DataProductCodeReviewRender() {
   const [submitted, setSubmitted] = useState<number[]>([])
 
   const reviewLines: ReviewLine[] = [
-    { line: 42, code: 'const data = JSON.parse(req.body)', comment: comment1, setComment: setComment1, severity: 'error' },
-    { line: 67, code: 'await Promise.all(requests.map(fetch))', comment: comment2, setComment: setComment2, severity: 'warn' },
-    { line: 91, code: 'return res.send(result)', comment: comment3, setComment: setComment3, severity: 'info' },
+    {
+      line: 42,
+      code: 'const data = JSON.parse(req.body)',
+      comment: comment1,
+      setComment: setComment1,
+      severity: 'error',
+    },
+    {
+      line: 67,
+      code: 'await Promise.all(requests.map(fetch))',
+      comment: comment2,
+      setComment: setComment2,
+      severity: 'warn',
+    },
+    {
+      line: 91,
+      code: 'return res.send(result)',
+      comment: comment3,
+      setComment: setComment3,
+      severity: 'info',
+    },
   ]
 
   const severityColor = { error: '#ef4444', warn: '#f59e0b', info: '#3b82f6' }
   const severityLabel = { error: 'Critical', warn: 'Warning', info: 'Suggestion' }
 
   return (
-    <div style={{ width: 520, display: 'flex', flexDirection: 'column', gap: 0, borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-      <div style={{ background: '#1e293b', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: 1 }}>CODE REVIEW</span>
+    <div
+      style={{
+        width: 520,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+        borderRadius: 10,
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          background: '#1e293b',
+          padding: '10px 16px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: 1 }}>
+          CODE REVIEW
+        </span>
         <span style={{ marginLeft: 'auto', fontSize: 11, color: '#475569' }}>api/handler.ts</span>
       </div>
       {reviewLines.map((r, idx) => (
         <div key={r.line} style={{ borderTop: idx === 0 ? 'none' : '1px solid #f1f5f9' }}>
           <div
             onClick={() => setActive(active === r.line ? null : r.line)}
-            style={{ display: 'flex', alignItems: 'center', gap: 0, cursor: 'pointer', background: active === r.line ? '#fafafa' : '#fff', transition: 'background 0.1s' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0,
+              cursor: 'pointer',
+              background: active === r.line ? '#fafafa' : '#fff',
+              transition: 'background 0.1s',
+            }}
           >
-            <div style={{ width: 40, padding: '10px 0', textAlign: 'center', fontSize: 11, color: '#94a3b8', background: '#f8fafc', borderRight: '1px solid #f1f5f9', flexShrink: 0 }}>{r.line}</div>
-            <div style={{ flex: 1, padding: '10px 14px', fontFamily: 'monospace', fontSize: 12, color: '#334155' }}>{r.code}</div>
+            <div
+              style={{
+                width: 40,
+                padding: '10px 0',
+                textAlign: 'center',
+                fontSize: 11,
+                color: '#94a3b8',
+                background: '#f8fafc',
+                borderRight: '1px solid #f1f5f9',
+                flexShrink: 0,
+              }}
+            >
+              {r.line}
+            </div>
+            <div
+              style={{
+                flex: 1,
+                padding: '10px 14px',
+                fontFamily: 'monospace',
+                fontSize: 12,
+                color: '#334155',
+              }}
+            >
+              {r.code}
+            </div>
             <div style={{ padding: '0 12px', flexShrink: 0 }}>
-              <span style={{ fontSize: 10, fontWeight: 700, color: severityColor[r.severity], background: `${severityColor[r.severity]}18`, padding: '2px 7px', borderRadius: 4 }}>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  color: severityColor[r.severity],
+                  background: `${severityColor[r.severity]}18`,
+                  padding: '2px 7px',
+                  borderRadius: 4,
+                }}
+              >
                 {severityLabel[r.severity]}
               </span>
             </div>
           </div>
 
           {active === r.line && (
-            <div style={{ padding: '10px 14px 12px', background: '#f8fafc', borderTop: '1px solid #f1f5f9' }}>
+            <div
+              style={{
+                padding: '10px 14px 12px',
+                background: '#f8fafc',
+                borderTop: '1px solid #f1f5f9',
+              }}
+            >
               <div style={{ fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 6 }}>
-                리뷰 코멘트 {submitted.includes(r.line) && <span style={{ color: '#10b981', fontWeight: 400 }}>✓ 제출됨</span>}
+                리뷰 코멘트{' '}
+                {submitted.includes(r.line) && (
+                  <span style={{ color: '#10b981', fontWeight: 400 }}>✓ 제출됨</span>
+                )}
               </div>
               <TextArea
                 value={r.comment}
@@ -1262,14 +1741,34 @@ function DataProductCodeReviewRender() {
               <div style={{ display: 'flex', gap: 8, marginTop: 8, justifyContent: 'flex-end' }}>
                 <button
                   onClick={() => setActive(null)}
-                  style={{ padding: '5px 14px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#64748b' }}
+                  style={{
+                    padding: '5px 14px',
+                    borderRadius: 6,
+                    border: '1px solid #e2e8f0',
+                    background: '#fff',
+                    fontSize: 12,
+                    cursor: 'pointer',
+                    color: '#64748b',
+                  }}
                 >
                   취소
                 </button>
                 <button
                   disabled={!r.comment.trim()}
-                  onClick={() => { setSubmitted((prev) => [...prev, r.line]); setActive(null) }}
-                  style={{ padding: '5px 14px', borderRadius: 6, border: 'none', background: r.comment.trim() ? severityColor[r.severity] : '#e2e8f0', color: r.comment.trim() ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 600, cursor: r.comment.trim() ? 'pointer' : 'not-allowed' }}
+                  onClick={() => {
+                    setSubmitted((prev) => [...prev, r.line])
+                    setActive(null)
+                  }}
+                  style={{
+                    padding: '5px 14px',
+                    borderRadius: 6,
+                    border: 'none',
+                    background: r.comment.trim() ? severityColor[r.severity] : '#e2e8f0',
+                    color: r.comment.trim() ? '#fff' : '#94a3b8',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: r.comment.trim() ? 'pointer' : 'not-allowed',
+                  }}
                 >
                   코멘트 추가
                 </button>
@@ -1278,11 +1777,29 @@ function DataProductCodeReviewRender() {
           )}
         </div>
       ))}
-      <div style={{ padding: '10px 16px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          padding: '10px 16px',
+          background: '#f8fafc',
+          borderTop: '1px solid #e2e8f0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <span style={{ fontSize: 11, color: '#94a3b8' }}>{submitted.length}개 코멘트 작성됨</span>
         <button
           disabled={submitted.length === 0}
-          style={{ padding: '5px 16px', borderRadius: 6, border: 'none', background: submitted.length > 0 ? '#3b82f6' : '#e2e8f0', color: submitted.length > 0 ? '#fff' : '#94a3b8', fontSize: 12, fontWeight: 600, cursor: submitted.length > 0 ? 'pointer' : 'not-allowed' }}
+          style={{
+            padding: '5px 16px',
+            borderRadius: 6,
+            border: 'none',
+            background: submitted.length > 0 ? '#3b82f6' : '#e2e8f0',
+            color: submitted.length > 0 ? '#fff' : '#94a3b8',
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: submitted.length > 0 ? 'pointer' : 'not-allowed',
+          }}
         >
           리뷰 완료
         </button>
@@ -1312,7 +1829,9 @@ function AppUICollaborativeNotesRender() {
     { id: 2, name: '이민준', color: '#8b5cf6', avatar: '이' },
     { id: 3, name: '박서연', color: '#10b981', avatar: '박' },
   ]
-  const [notes, setNotes] = useState('# 스프린트 계획 회의\n\n## 목표\n- 로그인 플로우 개선\n- 대시보드 v2 설계\n\n## 논의 사항\n')
+  const [notes, setNotes] = useState(
+    '# 스프린트 계획 회의\n\n## 목표\n- 로그인 플로우 개선\n- 대시보드 v2 설계\n\n## 논의 사항\n'
+  )
   const [typingId, setTypingId] = useState<number | null>(null)
   const [version, setVersion] = useState(1)
 
@@ -1328,8 +1847,25 @@ function AppUICollaborativeNotesRender() {
   const wordCount = notes.trim() ? notes.trim().split(/\s+/).length : 0
 
   return (
-    <div style={{ width: 500, borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
-      <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 10 }}>
+    <div
+      style={{
+        width: 500,
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
         <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', flex: 1 }}>공유 노트</div>
         <div style={{ display: 'flex', gap: -4 }}>
           {collaborators.map((c) => (
@@ -1337,9 +1873,18 @@ function AppUICollaborativeNotesRender() {
               key={c.id}
               title={c.name}
               style={{
-                width: 26, height: 26, borderRadius: '50%', background: c.color, color: '#fff', fontSize: 11, fontWeight: 700,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                border: '2px solid #fff', marginLeft: -6,
+                width: 26,
+                height: 26,
+                borderRadius: '50%',
+                background: c.color,
+                color: '#fff',
+                fontSize: 11,
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '2px solid #fff',
+                marginLeft: -6,
                 opacity: typingId === c.id ? 1 : 0.6,
                 transform: typingId === c.id ? 'scale(1.15)' : 'scale(1)',
                 transition: 'opacity 0.2s, transform 0.2s',
@@ -1349,14 +1894,31 @@ function AppUICollaborativeNotesRender() {
             </div>
           ))}
         </div>
-        <div style={{ fontSize: 10, color: '#94a3b8', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 4, padding: '2px 7px' }}>
+        <div
+          style={{
+            fontSize: 10,
+            color: '#94a3b8',
+            background: '#fff',
+            border: '1px solid #e2e8f0',
+            borderRadius: 4,
+            padding: '2px 7px',
+          }}
+        >
           v{version}
         </div>
       </div>
 
       <div style={{ padding: '12px 16px' }}>
         {typingId !== null && (
-          <div style={{ fontSize: 11, color: collaborators.find((c) => c.id === typingId)?.color, marginBottom: 6, height: 16, transition: 'opacity 0.2s' }}>
+          <div
+            style={{
+              fontSize: 11,
+              color: collaborators.find((c) => c.id === typingId)?.color,
+              marginBottom: 6,
+              height: 16,
+              transition: 'opacity 0.2s',
+            }}
+          >
             {collaborators.find((c) => c.id === typingId)?.name}님이 편집 중...
           </div>
         )}
@@ -1369,7 +1931,17 @@ function AppUICollaborativeNotesRender() {
         />
       </div>
 
-      <div style={{ padding: '8px 16px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', display: 'flex', gap: 16, fontSize: 11, color: '#94a3b8' }}>
+      <div
+        style={{
+          padding: '8px 16px',
+          background: '#f8fafc',
+          borderTop: '1px solid #e2e8f0',
+          display: 'flex',
+          gap: 16,
+          fontSize: 11,
+          color: '#94a3b8',
+        }}
+      >
         <span>{lineCount}줄</span>
         <span>{wordCount}단어</span>
         <span>{notes.length}자</span>
@@ -1399,7 +1971,9 @@ export const AppUI_협업_공유_노트_에디터: Story = {
 -------------------------------------------------------------------------- */
 function ComposableUIInlineEditRender() {
   const [editing, setEditing] = useState(false)
-  const [text, setText] = useState('클릭하여 편집하세요. ComposableUI는 뷰 모드와 편집 모드를 명확히 분리해 사용자가 실수로 편집하는 것을 방지합니다.')
+  const [text, setText] = useState(
+    '클릭하여 편집하세요. ComposableUI는 뷰 모드와 편집 모드를 명확히 분리해 사용자가 실수로 편집하는 것을 방지합니다.'
+  )
   const [draft, setDraft] = useState(text)
 
   const save = () => {
@@ -1413,8 +1987,26 @@ function ComposableUIInlineEditRender() {
   }
 
   return (
-    <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>설명</div>
+    <div
+      style={{
+        width: 400,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#64748b',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+        }}
+      >
+        설명
+      </div>
       {editing ? (
         <>
           <TextArea
@@ -1426,13 +2018,31 @@ function ComposableUIInlineEditRender() {
           <div style={{ display: 'flex', gap: 6 }}>
             <button
               onClick={save}
-              style={{ padding: '6px 14px', fontSize: 12, fontWeight: 600, background: '#18181b', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
+              style={{
+                padding: '6px 14px',
+                fontSize: 12,
+                fontWeight: 600,
+                background: '#18181b',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 6,
+                cursor: 'pointer',
+              }}
             >
               저장
             </button>
             <button
               onClick={cancel}
-              style={{ padding: '6px 14px', fontSize: 12, fontWeight: 500, background: 'transparent', color: '#64748b', border: '1px solid #e2e8f0', borderRadius: 6, cursor: 'pointer' }}
+              style={{
+                padding: '6px 14px',
+                fontSize: 12,
+                fontWeight: 500,
+                background: 'transparent',
+                color: '#64748b',
+                border: '1px solid #e2e8f0',
+                borderRadius: 6,
+                cursor: 'pointer',
+              }}
             >
               취소
             </button>
@@ -1467,7 +2077,9 @@ function ComposableUIInlineEditRender() {
           {text}
         </div>
       )}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>클릭하면 편집 모드로 전환 — ComposableUI 인라인 편집 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        클릭하면 편집 모드로 전환 — ComposableUI 인라인 편집 패턴
+      </div>
     </div>
   )
 }
@@ -1492,21 +2104,40 @@ export const ComposableUI_인라인_편집_모드_전환: Story = {
 -------------------------------------------------------------------------- */
 function PrimitiveMarkdownEditorRender() {
   const [tab, setTab] = useState<'write' | 'preview'>('write')
-  const [md, setMd] = useState(`## 릴리즈 노트 v2.0\n\n**주요 변경사항:**\n- 신규 토큰 시스템 적용\n- 스토리 고도화 완료\n- TypeScript 5.7 업그레이드\n\n> 이 버전은 Breaking Change를 포함합니다.`)
+  const [md, setMd] = useState(
+    `## 릴리즈 노트 v2.0\n\n**주요 변경사항:**\n- 신규 토큰 시스템 적용\n- 스토리 고도화 완료\n- TypeScript 5.7 업그레이드\n\n> 이 버전은 Breaking Change를 포함합니다.`
+  )
 
   const renderMd = (raw: string) =>
     raw
-      .replace(/^## (.+)$/gm, '<h2 style="font-size:15px;font-weight:700;color:#1e293b;margin:12px 0 6px">$1</h2>')
-      .replace(/^> (.+)$/gm, '<blockquote style="border-left:3px solid #6366f1;padding:6px 10px;color:#64748b;margin:8px 0;font-size:12px">$1</blockquote>')
+      .replace(
+        /^## (.+)$/gm,
+        '<h2 style="font-size:15px;font-weight:700;color:#1e293b;margin:12px 0 6px">$1</h2>'
+      )
+      .replace(
+        /^> (.+)$/gm,
+        '<blockquote style="border-left:3px solid #6366f1;padding:6px 10px;color:#64748b;margin:8px 0;font-size:12px">$1</blockquote>'
+      )
       .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#1e293b">$1</strong>')
-      .replace(/^- (.+)$/gm, '<li style="font-size:13px;color:#475569;margin:3px 0;list-style:disc;margin-left:16px">$1</li>')
+      .replace(
+        /^- (.+)$/gm,
+        '<li style="font-size:13px;color:#475569;margin:3px 0;list-style:disc;margin-left:16px">$1</li>'
+      )
       .replace(/\n/g, '<br/>')
 
   return (
-    <div style={{ width: 440, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+    <div
+      style={{
+        width: 440,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        overflow: 'hidden',
+      }}
+    >
       {/* 탭 헤더 */}
       <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', background: '#fafafa' }}>
-        {(['write', 'preview'] as const).map(t => (
+        {(['write', 'preview'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -1524,7 +2155,16 @@ function PrimitiveMarkdownEditorRender() {
             {t === 'write' ? '작성' : '미리보기'}
           </button>
         ))}
-        <div style={{ marginLeft: 'auto', padding: '6px 12px', fontSize: 11, color: '#94a3b8', display: 'flex', alignItems: 'center' }}>
+        <div
+          style={{
+            marginLeft: 'auto',
+            padding: '6px 12px',
+            fontSize: 11,
+            color: '#94a3b8',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
           {md.length}자
         </div>
       </div>
@@ -1539,12 +2179,26 @@ function PrimitiveMarkdownEditorRender() {
           />
         ) : (
           <div
-            style={{ minHeight: 160, fontSize: 13, color: '#475569', lineHeight: 1.7, padding: '4px 2px' }}
+            style={{
+              minHeight: 160,
+              fontSize: 13,
+              color: '#475569',
+              lineHeight: 1.7,
+              padding: '4px 2px',
+            }}
             dangerouslySetInnerHTML={{ __html: renderMd(md) }}
           />
         )}
       </div>
-      <div style={{ padding: '6px 12px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8' }}>
+      <div
+        style={{
+          padding: '6px 12px',
+          background: '#f8fafc',
+          borderTop: '1px solid #e2e8f0',
+          fontSize: 11,
+          color: '#94a3b8',
+        }}
+      >
         Primitive Tabs 패턴 — 작성/미리보기 분할 에디터
       </div>
     </div>
@@ -1588,14 +2242,25 @@ function ComposableUIPrimitiveAutoSaveRender() {
   const ringColor = remaining <= 20 ? '#ef4444' : remaining <= 60 ? '#f59e0b' : '#22c55e'
 
   return (
-    <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 8 }}>
+    <div
+      style={{
+        width: 400,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+      }}
+    >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>게시물 작성</span>
-        <span style={{
-          fontSize: 11,
-          color: saveState === 'saving' ? '#f59e0b' : saveState === 'saved' ? '#22c55e' : '#94a3b8',
-          transition: 'color 0.3s',
-        }}>
+        <span
+          style={{
+            fontSize: 11,
+            color:
+              saveState === 'saving' ? '#f59e0b' : saveState === 'saved' ? '#22c55e' : '#94a3b8',
+            transition: 'color 0.3s',
+          }}
+        >
           {saveState === 'saving' ? '저장 중...' : saveState === 'saved' ? '자동 저장됨' : ''}
         </span>
       </div>
@@ -1611,7 +2276,9 @@ function ComposableUIPrimitiveAutoSaveRender() {
           <svg width={24} height={24} viewBox="0 0 24 24" style={{ transform: 'rotate(-90deg)' }}>
             <circle cx={12} cy={12} r={9} fill="none" stroke="#f1f5f9" strokeWidth={3} />
             <circle
-              cx={12} cy={12} r={9}
+              cx={12}
+              cy={12}
+              r={9}
               fill="none"
               stroke={ringColor}
               strokeWidth={3}
@@ -1621,7 +2288,18 @@ function ComposableUIPrimitiveAutoSaveRender() {
             />
           </svg>
           {remaining <= 20 && (
-            <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 7, fontWeight: 700, color: ringColor }}>
+            <span
+              style={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 7,
+                fontWeight: 700,
+                color: ringColor,
+              }}
+            >
               {remaining}
             </span>
           )}
@@ -1643,7 +2321,9 @@ function ComposableUIPrimitiveAutoSaveRender() {
           게시
         </button>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>ComposableUI + Primitive — 280자 제한 + 원형 게이지 + 자동저장</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        ComposableUI + Primitive — 280자 제한 + 원형 게이지 + 자동저장
+      </div>
     </div>
   )
 }
@@ -1672,12 +2352,12 @@ function DeployPlatformEnvBulkEditorRender() {
   const [saved, setSaved] = useState(false)
 
   const lines = value.split('\n').filter(Boolean)
-  const parsed = lines.map(l => {
+  const parsed = lines.map((l) => {
     const [k, ...v] = l.split('=')
     return { key: k?.trim(), value: v.join('=').trim(), valid: !!k?.trim() }
   })
-  const validCount = parsed.filter(p => p.valid && p.value).length
-  const missingCount = parsed.filter(p => p.valid && !p.value).length
+  const validCount = parsed.filter((p) => p.valid && p.value).length
+  const missingCount = parsed.filter((p) => p.valid && !p.value).length
 
   const handleSave = () => {
     setSaved(true)
@@ -1685,27 +2365,108 @@ function DeployPlatformEnvBulkEditorRender() {
   }
 
   return (
-    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 14, overflow: 'hidden', border: '1px solid #1e293b' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div
+      style={{
+        width: 420,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#0f172a',
+        borderRadius: 14,
+        overflow: 'hidden',
+        border: '1px solid #1e293b',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #1e293b',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>환경 변수 bulk 편집</span>
         <span style={{ marginLeft: 'auto', fontSize: 10, color: '#64748b' }}>KEY=VALUE 형식</span>
       </div>
       <div style={{ padding: '12px 16px' }}>
         <TextArea
           value={value}
-          onChange={e => setValue(e.target.value)}
+          onChange={(e) => setValue(e.target.value)}
           placeholder={'KEY=VALUE\nAPI_URL=https://...'}
           rows={8}
         />
         <div style={{ marginTop: 10, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: '#14532d', color: '#4ade80' }}>{validCount}개 설정됨</span>
-          {missingCount > 0 && <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: '#7c2d12', color: '#fca5a5' }}>{missingCount}개 값 없음</span>}
-          <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: '#1e293b', color: '#64748b' }}>{parsed.length}개 변수</span>
+          <span
+            style={{
+              fontSize: 10,
+              padding: '2px 7px',
+              borderRadius: 4,
+              background: '#14532d',
+              color: '#4ade80',
+            }}
+          >
+            {validCount}개 설정됨
+          </span>
+          {missingCount > 0 && (
+            <span
+              style={{
+                fontSize: 10,
+                padding: '2px 7px',
+                borderRadius: 4,
+                background: '#7c2d12',
+                color: '#fca5a5',
+              }}
+            >
+              {missingCount}개 값 없음
+            </span>
+          )}
+          <span
+            style={{
+              fontSize: 10,
+              padding: '2px 7px',
+              borderRadius: 4,
+              background: '#1e293b',
+              color: '#64748b',
+            }}
+          >
+            {parsed.length}개 변수
+          </span>
         </div>
       </div>
-      <div style={{ padding: '10px 16px', borderTop: '1px solid #1e293b', display: 'flex', gap: 8 }}>
-        <button onClick={() => setValue('')} style={{ flex: 1, padding: '8px', fontSize: 11, borderRadius: 8, border: '1px solid #334155', background: '#1e293b', color: '#64748b', cursor: 'pointer' }}>초기화</button>
-        <button onClick={handleSave} style={{ flex: 2, padding: '8px', fontSize: 12, borderRadius: 8, border: 'none', background: saved ? '#14532d' : '#fff', color: saved ? '#4ade80' : '#0f172a', cursor: 'pointer', fontWeight: 700, transition: 'all 0.2s' }}>{saved ? '저장 완료' : '저장'}</button>
+      <div
+        style={{ padding: '10px 16px', borderTop: '1px solid #1e293b', display: 'flex', gap: 8 }}
+      >
+        <button
+          onClick={() => setValue('')}
+          style={{
+            flex: 1,
+            padding: '8px',
+            fontSize: 11,
+            borderRadius: 8,
+            border: '1px solid #334155',
+            background: '#1e293b',
+            color: '#64748b',
+            cursor: 'pointer',
+          }}
+        >
+          초기화
+        </button>
+        <button
+          onClick={handleSave}
+          style={{
+            flex: 2,
+            padding: '8px',
+            fontSize: 12,
+            borderRadius: 8,
+            border: 'none',
+            background: saved ? '#14532d' : '#fff',
+            color: saved ? '#4ade80' : '#0f172a',
+            cursor: 'pointer',
+            fontWeight: 700,
+            transition: 'all 0.2s',
+          }}
+        >
+          {saved ? '저장 완료' : '저장'}
+        </button>
       </div>
     </div>
   )
@@ -1716,7 +2477,8 @@ export const DeployPlatform_환경변수_벌크_편집기: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform의 Environment Variables 편집기 패턴. TextArea에 KEY=VALUE 형식으로 입력하면 실시간으로 파싱해 설정/누락 상태를 표시합니다.',
+        story:
+          'DeployPlatform의 Environment Variables 편집기 패턴. TextArea에 KEY=VALUE 형식으로 입력하면 실시간으로 파싱해 설정/누락 상태를 표시합니다.',
       },
     },
   },
@@ -1739,48 +2501,115 @@ function AntIssueFormRender() {
   const isValid = title.trim().length >= 5 && desc.trim().length >= 10
 
   const handleSubmit = () => {
-    if (isValid) { setSubmitted(true); setTimeout(() => setSubmitted(false), 2500) }
+    if (isValid) {
+      setSubmitted(true)
+      setTimeout(() => setSubmitted(false), 2500)
+    }
   }
 
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
       <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 16 }}>이슈 등록</p>
       <div style={{ marginBottom: 12 }}>
-        <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 4 }}>제목 <span style={{ color: '#ef4444' }}>*</span></label>
+        <label
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#475569',
+            display: 'block',
+            marginBottom: 4,
+          }}
+        >
+          제목 <span style={{ color: '#ef4444' }}>*</span>
+        </label>
         <input
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder="이슈 제목을 입력하세요 (5자 이상)"
-          style={{ width: '100%', padding: '8px 12px', fontSize: 13, borderRadius: 8, border: `1.5px solid ${title.length > 0 && title.trim().length < 5 ? '#ef4444' : '#e2e8f0'}`, outline: 'none', boxSizing: 'border-box' }}
+          style={{
+            width: '100%',
+            padding: '8px 12px',
+            fontSize: 13,
+            borderRadius: 8,
+            border: `1.5px solid ${title.length > 0 && title.trim().length < 5 ? '#ef4444' : '#e2e8f0'}`,
+            outline: 'none',
+            boxSizing: 'border-box',
+          }}
         />
-        {title.length > 0 && title.trim().length < 5 && <p style={{ fontSize: 11, color: '#ef4444', marginTop: 3 }}>최소 5자 이상 입력해주세요</p>}
+        {title.length > 0 && title.trim().length < 5 && (
+          <p style={{ fontSize: 11, color: '#ef4444', marginTop: 3 }}>최소 5자 이상 입력해주세요</p>
+        )}
       </div>
       <div style={{ marginBottom: 12 }}>
-        <label style={{ fontSize: 11, fontWeight: 600, color: '#475569', display: 'block', marginBottom: 4 }}>카테고리</label>
+        <label
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#475569',
+            display: 'block',
+            marginBottom: 4,
+          }}
+        >
+          카테고리
+        </label>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          {ANT_CATEGORIES.map(c => (
-            <button key={c} onClick={() => setCategory(c)} style={{ padding: '5px 10px', fontSize: 11, borderRadius: 6, border: `1.5px solid ${category === c ? '#6366f1' : '#e2e8f0'}`, background: category === c ? '#f0eeff' : '#fff', color: category === c ? '#6366f1' : '#64748b', cursor: 'pointer', fontWeight: category === c ? 700 : 400 }}>{c}</button>
+          {ANT_CATEGORIES.map((c) => (
+            <button
+              key={c}
+              onClick={() => setCategory(c)}
+              style={{
+                padding: '5px 10px',
+                fontSize: 11,
+                borderRadius: 6,
+                border: `1.5px solid ${category === c ? '#6366f1' : '#e2e8f0'}`,
+                background: category === c ? '#f0eeff' : '#fff',
+                color: category === c ? '#6366f1' : '#64748b',
+                cursor: 'pointer',
+                fontWeight: category === c ? 700 : 400,
+              }}
+            >
+              {c}
+            </button>
           ))}
         </div>
       </div>
       <div style={{ marginBottom: 14 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-          <label style={{ fontSize: 11, fontWeight: 600, color: '#475569' }}>설명 <span style={{ color: '#ef4444' }}>*</span></label>
-          <span style={{ fontSize: 10, color: remaining < 50 ? '#ef4444' : '#94a3b8' }}>{desc.length}/{maxLen}</span>
+          <label style={{ fontSize: 11, fontWeight: 600, color: '#475569' }}>
+            설명 <span style={{ color: '#ef4444' }}>*</span>
+          </label>
+          <span style={{ fontSize: 10, color: remaining < 50 ? '#ef4444' : '#94a3b8' }}>
+            {desc.length}/{maxLen}
+          </span>
         </div>
         <TextArea
           value={desc}
-          onChange={e => setDesc(e.target.value.slice(0, maxLen))}
+          onChange={(e) => setDesc(e.target.value.slice(0, maxLen))}
           placeholder="이슈 내용을 자세히 설명해주세요 (10자 이상)&#10;재현 방법, 예상 동작, 실제 동작 등을 포함하면 빠른 처리에 도움이 됩니다."
           error={desc.length > 0 && desc.trim().length < 10}
           rows={5}
         />
-        {desc.length > 0 && desc.trim().length < 10 && <p style={{ fontSize: 11, color: '#ef4444', marginTop: 3 }}>최소 10자 이상 입력해주세요</p>}
+        {desc.length > 0 && desc.trim().length < 10 && (
+          <p style={{ fontSize: 11, color: '#ef4444', marginTop: 3 }}>
+            최소 10자 이상 입력해주세요
+          </p>
+        )}
       </div>
       <button
         disabled={!isValid}
         onClick={handleSubmit}
-        style={{ width: '100%', padding: '10px', fontSize: 13, fontWeight: 700, borderRadius: 8, border: 'none', background: submitted ? '#22c55e' : isValid ? '#6366f1' : '#e2e8f0', color: isValid ? '#fff' : '#94a3b8', cursor: isValid ? 'pointer' : 'not-allowed', transition: 'all 0.2s' }}
+        style={{
+          width: '100%',
+          padding: '10px',
+          fontSize: 13,
+          fontWeight: 700,
+          borderRadius: 8,
+          border: 'none',
+          background: submitted ? '#22c55e' : isValid ? '#6366f1' : '#e2e8f0',
+          color: isValid ? '#fff' : '#94a3b8',
+          cursor: isValid ? 'pointer' : 'not-allowed',
+          transition: 'all 0.2s',
+        }}
       >
         {submitted ? '이슈 등록 완료!' : '이슈 등록'}
       </button>
@@ -1793,7 +2622,8 @@ export const Ant_이슈_등록_폼: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design의 Form Validation 패턴. 제목+카테고리+TextArea 조합으로 이슈 등록 폼을 구현하며 실시간 유효성 검사를 제공합니다.',
+        story:
+          'Ant Design의 Form Validation 패턴. 제목+카테고리+TextArea 조합으로 이슈 등록 폼을 구현하며 실시간 유효성 검사를 제공합니다.',
       },
     },
   },
@@ -1804,9 +2634,18 @@ export const Ant_이슈_등록_폼: Story = {
    DeployPlatform + Ant: 배포 노트 + 릴리즈 설명 복합 편집 패턴
 -------------------------------------------------------------------------- */
 const RELEASE_TEMPLATES = [
-  { label: '버그 수정', body: '## 버그 수정\n\n- [ ] 재현 경로\n- [ ] 수정 내용\n- [ ] 테스트 결과' },
-  { label: '기능 추가', body: '## 새 기능\n\n### 변경 사항\n\n### 사용 방법\n\n```tsx\n// 코드 예시\n```' },
-  { label: '중단 변경', body: '## Breaking Changes\n\n### 영향 범위\n\n### 마이그레이션 가이드\n\n### 이전 동작 / 이후 동작' },
+  {
+    label: '버그 수정',
+    body: '## 버그 수정\n\n- [ ] 재현 경로\n- [ ] 수정 내용\n- [ ] 테스트 결과',
+  },
+  {
+    label: '기능 추가',
+    body: '## 새 기능\n\n### 변경 사항\n\n### 사용 방법\n\n```tsx\n// 코드 예시\n```',
+  },
+  {
+    label: '중단 변경',
+    body: '## Breaking Changes\n\n### 영향 범위\n\n### 마이그레이션 가이드\n\n### 이전 동작 / 이후 동작',
+  },
 ]
 
 function DeployPlatformAntReleaseNoteRender() {
@@ -1821,29 +2660,84 @@ function DeployPlatformAntReleaseNoteRender() {
   }
 
   return (
-    <div style={{ width: 440, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
-      <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div
+      style={{
+        width: 440,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>릴리즈 노트</span>
         <input
           value={version}
-          onChange={e => setVersion(e.target.value)}
-          style={{ width: 70, fontSize: 12, padding: '3px 8px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontFamily: 'monospace', fontWeight: 600, color: '#6366f1', textAlign: 'center' }}
+          onChange={(e) => setVersion(e.target.value)}
+          style={{
+            width: 70,
+            fontSize: 12,
+            padding: '3px 8px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontFamily: 'monospace',
+            fontWeight: 600,
+            color: '#6366f1',
+            textAlign: 'center',
+          }}
         />
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
           <button
             onClick={() => setPreview(!preview)}
-            style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, border: `1px solid ${preview ? '#6366f1' : '#e2e8f0'}`, background: preview ? '#f0eeff' : '#fff', color: preview ? '#6366f1' : '#64748b', cursor: 'pointer', fontWeight: preview ? 700 : 400 }}
+            style={{
+              padding: '4px 10px',
+              fontSize: 11,
+              borderRadius: 6,
+              border: `1px solid ${preview ? '#6366f1' : '#e2e8f0'}`,
+              background: preview ? '#f0eeff' : '#fff',
+              color: preview ? '#6366f1' : '#64748b',
+              cursor: 'pointer',
+              fontWeight: preview ? 700 : 400,
+            }}
           >
             {preview ? '편집' : '미리보기'}
           </button>
         </div>
       </div>
-      <div style={{ padding: '10px 14px 6px', background: '#fff', borderBottom: '1px solid #f1f5f9', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-        {RELEASE_TEMPLATES.map(t => (
+      <div
+        style={{
+          padding: '10px 14px 6px',
+          background: '#fff',
+          borderBottom: '1px solid #f1f5f9',
+          display: 'flex',
+          gap: 6,
+          flexWrap: 'wrap',
+        }}
+      >
+        {RELEASE_TEMPLATES.map((t) => (
           <button
             key={t.label}
             onClick={() => setNote(t.body)}
-            style={{ padding: '3px 8px', fontSize: 10, borderRadius: 5, border: '1px solid #e2e8f0', background: '#f8fafc', color: '#64748b', cursor: 'pointer', fontWeight: 500 }}
+            style={{
+              padding: '3px 8px',
+              fontSize: 10,
+              borderRadius: 5,
+              border: '1px solid #e2e8f0',
+              background: '#f8fafc',
+              color: '#64748b',
+              cursor: 'pointer',
+              fontWeight: 500,
+            }}
           >
             {t.label} 템플릿
           </button>
@@ -1851,27 +2745,68 @@ function DeployPlatformAntReleaseNoteRender() {
       </div>
       <div style={{ padding: '12px 16px' }}>
         {preview ? (
-          <div style={{ minHeight: 150, fontSize: 12, color: '#1e293b', lineHeight: 1.8, whiteSpace: 'pre-wrap', background: '#f8fafc', borderRadius: 8, padding: '10px 12px', border: '1px solid #f1f5f9' }}>
+          <div
+            style={{
+              minHeight: 150,
+              fontSize: 12,
+              color: '#1e293b',
+              lineHeight: 1.8,
+              whiteSpace: 'pre-wrap',
+              background: '#f8fafc',
+              borderRadius: 8,
+              padding: '10px 12px',
+              border: '1px solid #f1f5f9',
+            }}
+          >
             {note || <span style={{ color: '#94a3b8' }}>미리보기할 내용이 없습니다</span>}
           </div>
         ) : (
           <TextArea
             value={note}
             onChange={handleChange}
-            placeholder={'릴리즈 노트를 작성하세요.\n상단 템플릿 버튼으로 빠르게 시작할 수 있습니다.'}
+            placeholder={
+              '릴리즈 노트를 작성하세요.\n상단 템플릿 버튼으로 빠르게 시작할 수 있습니다.'
+            }
             rows={7}
           />
         )}
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
           <span style={{ fontSize: 10, color: '#94a3b8' }}>Markdown 지원</span>
-          <span style={{ fontSize: 10, color: charCount > 2000 ? '#ef4444' : '#94a3b8' }}>{charCount}자</span>
+          <span style={{ fontSize: 10, color: charCount > 2000 ? '#ef4444' : '#94a3b8' }}>
+            {charCount}자
+          </span>
         </div>
       </div>
-      <div style={{ padding: '10px 16px', borderTop: '1px solid #e2e8f0', display: 'flex', gap: 8 }}>
-        <button onClick={() => setNote('')} style={{ padding: '7px 14px', fontSize: 11, borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: 'pointer' }}>초기화</button>
+      <div
+        style={{ padding: '10px 16px', borderTop: '1px solid #e2e8f0', display: 'flex', gap: 8 }}
+      >
+        <button
+          onClick={() => setNote('')}
+          style={{
+            padding: '7px 14px',
+            fontSize: 11,
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#64748b',
+            cursor: 'pointer',
+          }}
+        >
+          초기화
+        </button>
         <button
           disabled={!note.trim()}
-          style={{ flex: 1, padding: '7px', fontSize: 12, borderRadius: 8, border: 'none', background: note.trim() ? '#1e293b' : '#e2e8f0', color: note.trim() ? '#fff' : '#94a3b8', cursor: note.trim() ? 'pointer' : 'not-allowed', fontWeight: 600 }}
+          style={{
+            flex: 1,
+            padding: '7px',
+            fontSize: 12,
+            borderRadius: 8,
+            border: 'none',
+            background: note.trim() ? '#1e293b' : '#e2e8f0',
+            color: note.trim() ? '#fff' : '#94a3b8',
+            cursor: note.trim() ? 'pointer' : 'not-allowed',
+            fontWeight: 600,
+          }}
         >
           v{version} 배포 노트 게시
         </button>
@@ -1885,7 +2820,8 @@ export const DeployPlatform_Ant_릴리즈_노트_에디터: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform Design + Ant Design 복합 패턴. 버전 입력 + 템플릿 선택 + TextArea 편집/미리보기 전환으로 릴리즈 노트를 작성합니다.',
+        story:
+          'DeployPlatform Design + Ant Design 복합 패턴. 버전 입력 + 템플릿 선택 + TextArea 편집/미리보기 전환으로 릴리즈 노트를 작성합니다.',
       },
     },
   },
@@ -1904,19 +2840,43 @@ function PrimitiveAccessibleDescriptionRender() {
 
   return (
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 16, padding: '12px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0' }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 2 }}>이슈 설명</div>
-        <div style={{ fontSize: 11, color: '#64748b' }}>PrimitiveUI 접근성 패턴 — aria-label + aria-describedby</div>
+      <div
+        style={{
+          marginBottom: 16,
+          padding: '12px 16px',
+          background: '#f8fafc',
+          borderRadius: 8,
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', marginBottom: 2 }}>
+          이슈 설명
+        </div>
+        <div style={{ fontSize: 11, color: '#64748b' }}>
+          PrimitiveUI 접근성 패턴 — aria-label + aria-describedby
+        </div>
       </div>
-      <div role="group" aria-labelledby="desc-label" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <label id="desc-label" htmlFor="issue-desc" style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>
+      <div
+        role="group"
+        aria-labelledby="desc-label"
+        style={{ display: 'flex', flexDirection: 'column', gap: 4 }}
+      >
+        <label
+          id="desc-label"
+          htmlFor="issue-desc"
+          style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}
+        >
           상세 설명 <span style={{ color: '#ef4444' }}>*</span>
         </label>
         <div
           style={{
             position: 'relative',
             borderRadius: 8,
-            outline: focused ? '2px solid #3b82f6' : isOver ? '2px solid #ef4444' : '1px solid #d1d5db',
+            outline: focused
+              ? '2px solid #3b82f6'
+              : isOver
+                ? '2px solid #ef4444'
+                : '1px solid #d1d5db',
             transition: 'outline 0.15s',
           }}
         >
@@ -1934,17 +2894,38 @@ function PrimitiveAccessibleDescriptionRender() {
             onBlur={() => setFocused(false)}
           />
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 2 }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 2,
+          }}
+        >
           <span id="desc-hint" style={{ fontSize: 10, color: isOver ? '#ef4444' : '#6b7280' }}>
             {isOver ? `${Math.abs(remaining)}자 초과` : 'Markdown 문법을 지원합니다'}
           </span>
-          <span id="desc-count" aria-live="polite" style={{ fontSize: 10, color: isOver ? '#ef4444' : '#9ca3af' }}>
+          <span
+            id="desc-count"
+            aria-live="polite"
+            style={{ fontSize: 10, color: isOver ? '#ef4444' : '#9ca3af' }}
+          >
             {value.length} / {MAX}
           </span>
         </div>
       </div>
       {value.length > 0 && !isOver && (
-        <div style={{ marginTop: 12, padding: '10px 12px', background: '#f0fdf4', borderRadius: 6, border: '1px solid #bbf7d0', fontSize: 11, color: '#16a34a' }}>
+        <div
+          style={{
+            marginTop: 12,
+            padding: '10px 12px',
+            background: '#f0fdf4',
+            borderRadius: 6,
+            border: '1px solid #bbf7d0',
+            fontSize: 11,
+            color: '#16a34a',
+          }}
+        >
           입력 완료. 저장 버튼을 클릭하세요.
         </div>
       )}
@@ -1990,11 +2971,42 @@ function AntFormValidationRender() {
 
   if (submitted) {
     return (
-      <div style={{ width: 440, padding: 24, fontFamily: 'system-ui, sans-serif', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 10, textAlign: 'center' }}>
+      <div
+        style={{
+          width: 440,
+          padding: 24,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#f0fdf4',
+          border: '1px solid #bbf7d0',
+          borderRadius: 10,
+          textAlign: 'center',
+        }}
+      >
         <div style={{ fontSize: 32, marginBottom: 8 }}>✓</div>
-        <div style={{ fontSize: 14, fontWeight: 600, color: '#15803d' }}>피드백이 제출되었습니다</div>
-        <div style={{ fontSize: 12, color: '#4ade80', marginTop: 4 }}>{feedback.slice(0, 60)}{feedback.length > 60 ? '...' : ''}</div>
-        <button onClick={() => { setSubmitted(false); setFeedback(''); setTouched(false) }} style={{ marginTop: 12, padding: '6px 16px', fontSize: 12, borderRadius: 6, border: '1px solid #16a34a', background: '#fff', color: '#16a34a', cursor: 'pointer' }}>
+        <div style={{ fontSize: 14, fontWeight: 600, color: '#15803d' }}>
+          피드백이 제출되었습니다
+        </div>
+        <div style={{ fontSize: 12, color: '#4ade80', marginTop: 4 }}>
+          {feedback.slice(0, 60)}
+          {feedback.length > 60 ? '...' : ''}
+        </div>
+        <button
+          onClick={() => {
+            setSubmitted(false)
+            setFeedback('')
+            setTouched(false)
+          }}
+          style={{
+            marginTop: 12,
+            padding: '6px 16px',
+            fontSize: 12,
+            borderRadius: 6,
+            border: '1px solid #16a34a',
+            background: '#fff',
+            color: '#16a34a',
+            cursor: 'pointer',
+          }}
+        >
           다시 작성
         </button>
       </div>
@@ -2005,18 +3017,35 @@ function AntFormValidationRender() {
     <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: '#111827' }}>제품 피드백</div>
-        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>Ant Design Form 유효성 검사 패턴</div>
+        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>
+          Ant Design Form 유효성 검사 패턴
+        </div>
       </div>
       <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
         {ANT_FEEDBACK_RULES.map((rule) => {
-          const ok = rule.id === 1
-            ? feedback.trim().length > 20
-            : rule.id === 2
-              ? feedback.includes('개선') || feedback.includes('제안') || feedback.includes('바람')
-              : feedback.trim().length >= 10
+          const ok =
+            rule.id === 1
+              ? feedback.trim().length > 20
+              : rule.id === 2
+                ? feedback.includes('개선') ||
+                  feedback.includes('제안') ||
+                  feedback.includes('바람')
+                : feedback.trim().length >= 10
           return (
-            <div key={rule.id} style={{ flex: 1, padding: '8px 10px', borderRadius: 6, background: ok ? '#f0fdf4' : '#f9fafb', border: `1px solid ${ok ? '#bbf7d0' : '#e5e7eb'}` }}>
-              <div style={{ fontSize: 10, fontWeight: 600, color: ok ? '#16a34a' : '#9ca3af' }}>{ok ? '✓ ' : ''}{rule.label}</div>
+            <div
+              key={rule.id}
+              style={{
+                flex: 1,
+                padding: '8px 10px',
+                borderRadius: 6,
+                background: ok ? '#f0fdf4' : '#f9fafb',
+                border: `1px solid ${ok ? '#bbf7d0' : '#e5e7eb'}`,
+              }}
+            >
+              <div style={{ fontSize: 10, fontWeight: 600, color: ok ? '#16a34a' : '#9ca3af' }}>
+                {ok ? '✓ ' : ''}
+                {rule.label}
+              </div>
               <div style={{ fontSize: 9, color: '#9ca3af', marginTop: 2 }}>{rule.hint}</div>
             </div>
           )
@@ -2028,7 +3057,10 @@ function AntFormValidationRender() {
         minimumLine={4}
         maximumLine={10}
         error={hasError}
-        onChange={(e) => { setFeedback(e.target.value); if (!touched) setTouched(true) }}
+        onChange={(e) => {
+          setFeedback(e.target.value)
+          if (!touched) setTouched(true)
+        }}
         onBlur={() => setTouched(true)}
       />
       {hasError && (
@@ -2072,8 +3104,16 @@ export const Ant_폼_유효성_검사_텍스트_영역: Story = {
 }
 
 const ISSUE_TEMPLATES_186 = [
-  { id: 'bug', label: '버그 리포트', text: '## 버그 설명\n\n## 재현 단계\n1. \n2. \n\n## 예상 동작\n\n## 실제 동작\n' },
-  { id: 'feat', label: '기능 요청', text: '## 기능 요청\n\n## 필요한 이유\n\n## 제안하는 구현 방법\n' },
+  {
+    id: 'bug',
+    label: '버그 리포트',
+    text: '## 버그 설명\n\n## 재현 단계\n1. \n2. \n\n## 예상 동작\n\n## 실제 동작\n',
+  },
+  {
+    id: 'feat',
+    label: '기능 요청',
+    text: '## 기능 요청\n\n## 필요한 이유\n\n## 제안하는 구현 방법\n',
+  },
   { id: 'blank', label: '직접 작성', text: '' },
 ]
 
@@ -2084,16 +3124,37 @@ function PrimitiveAntIssueCommentRender() {
 
   const handleTemplate = (id: string) => {
     const tpl = ISSUE_TEMPLATES_186.find((t) => t.id === id)
-    if (tpl) { setBody(tpl.text); setSelectedTpl(id) }
+    if (tpl) {
+      setBody(tpl.text)
+      setSelectedTpl(id)
+    }
   }
 
   return (
     <div style={{ width: 560, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#818cf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: '#fff', fontWeight: 700, flexShrink: 0 }}>U</div>
+        <div
+          style={{
+            width: 28,
+            height: 28,
+            borderRadius: '50%',
+            background: '#818cf8',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 12,
+            color: '#fff',
+            fontWeight: 700,
+            flexShrink: 0,
+          }}
+        >
+          U
+        </div>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a' }}>새 이슈 작성</div>
-          <div style={{ fontSize: 10, color: '#64748b' }}>Primitive + Ant Design — 이슈 댓글 에디터</div>
+          <div style={{ fontSize: 10, color: '#64748b' }}>
+            Primitive + Ant Design — 이슈 댓글 에디터
+          </div>
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           {ISSUE_TEMPLATES_186.map((t) => (
@@ -2143,7 +3204,16 @@ function PrimitiveAntIssueCommentRender() {
           })}
         </div>
         {preview ? (
-          <div style={{ minHeight: 140, padding: '12px 14px', fontSize: 13, color: '#374151', whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
+          <div
+            style={{
+              minHeight: 140,
+              padding: '12px 14px',
+              fontSize: 13,
+              color: '#374151',
+              whiteSpace: 'pre-wrap',
+              lineHeight: 1.6,
+            }}
+          >
             {body || <span style={{ color: '#9ca3af' }}>미리보기할 내용이 없습니다.</span>}
           </div>
         ) : (
@@ -2157,13 +3227,44 @@ function PrimitiveAntIssueCommentRender() {
             aria-multiline="true"
           />
         )}
-        <div style={{ padding: '8px 12px', borderTop: '1px solid #e2e8f0', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            padding: '8px 12px',
+            borderTop: '1px solid #e2e8f0',
+            background: '#f8fafc',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <span style={{ fontSize: 10, color: '#94a3b8' }}>Markdown 지원 · {body.length}자</span>
           <div style={{ display: 'flex', gap: 6 }}>
-            <button onClick={() => setBody('')} style={{ padding: '5px 12px', fontSize: 11, borderRadius: 6, border: '1px solid #d1d5db', background: '#fff', color: '#6b7280', cursor: 'pointer' }}>초기화</button>
+            <button
+              onClick={() => setBody('')}
+              style={{
+                padding: '5px 12px',
+                fontSize: 11,
+                borderRadius: 6,
+                border: '1px solid #d1d5db',
+                background: '#fff',
+                color: '#6b7280',
+                cursor: 'pointer',
+              }}
+            >
+              초기화
+            </button>
             <button
               disabled={!body.trim()}
-              style={{ padding: '5px 14px', fontSize: 11, fontWeight: 600, borderRadius: 6, border: 'none', background: body.trim() ? '#111827' : '#e5e7eb', color: body.trim() ? '#fff' : '#9ca3af', cursor: body.trim() ? 'pointer' : 'not-allowed' }}
+              style={{
+                padding: '5px 14px',
+                fontSize: 11,
+                fontWeight: 600,
+                borderRadius: 6,
+                border: 'none',
+                background: body.trim() ? '#111827' : '#e5e7eb',
+                color: body.trim() ? '#fff' : '#9ca3af',
+                cursor: body.trim() ? 'pointer' : 'not-allowed',
+              }}
             >
               이슈 등록
             </button>

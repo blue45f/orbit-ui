@@ -37,7 +37,7 @@ type SetValue<T> = T | ((prev: T) => T)
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
-  options: UseLocalStorageOptions<T> = {},
+  options: UseLocalStorageOptions<T> = {}
 ): [T, (value: SetValue<T>) => void, () => void] {
   const {
     serialize = JSON.stringify,
@@ -76,7 +76,7 @@ export function useLocalStorage<T>(
         return next
       })
     },
-    [key],
+    [key]
   )
 
   const remove = useCallback(() => {

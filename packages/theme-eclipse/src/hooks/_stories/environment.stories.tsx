@@ -120,7 +120,10 @@ const inputStyle: React.CSSProperties = {
 function EclipseThemeDemo() {
   const theme = useEclipseTheme()
   return (
-    <Panel title="useEclipseTheme" signature="const { mode, platform, baseTextSize } = useEclipseTheme()">
+    <Panel
+      title="useEclipseTheme"
+      signature="const { mode, platform, baseTextSize } = useEclipseTheme()"
+    >
       <Readout label="mode" value={theme.mode} />
       <Readout label="platform" value={theme.platform} />
       <Readout label="baseTextSize" value={theme.baseTextSize} />
@@ -236,10 +239,13 @@ export const WindowSize: Story = { render: () => <WindowSizeDemo /> }
 function LocalStorageDemo() {
   const [note, setNote, removeNote] = useLocalStorage<string>(
     'orbit-demo-note',
-    '여기에 입력한 내용은 새로고침 후에도 유지됩니다.',
+    '여기에 입력한 내용은 새로고침 후에도 유지됩니다.'
   )
   return (
-    <Panel title="useLocalStorage" signature="const [note, setNote, removeNote] = useLocalStorage('key', initial)">
+    <Panel
+      title="useLocalStorage"
+      signature="const [note, setNote, removeNote] = useLocalStorage('key', initial)"
+    >
       <textarea
         value={note}
         onChange={(e) => setNote(e.target.value)}
@@ -323,7 +329,7 @@ export const Clipboard: Story = { render: () => <ClipboardDemo /> }
 function SessionStorageDemo() {
   const [draft, setDraft, clearDraft] = useSessionStorage<string>(
     'orbit-demo-session-draft',
-    '이 탭에서만 유지됩니다. 새 탭을 열면 초기값으로 시작합니다.',
+    '이 탭에서만 유지됩니다. 새 탭을 열면 초기값으로 시작합니다.'
   )
   return (
     <Panel
@@ -450,7 +456,10 @@ function PageVisibilityDemo() {
             visibility === 'visible'
               ? 'color-mix(in oklab, rgb(37, 99, 235) 10%, transparent)'
               : 'color-mix(in oklab, rgb(24,26,28) 8%, transparent)',
-          color: visibility === 'visible' ? 'rgb(37, 99, 235)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          color:
+            visibility === 'visible'
+              ? 'rgb(37, 99, 235)'
+              : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
           fontWeight: 660,
           fontSize: 14,
           letterSpacing: '-0.01em',
@@ -465,7 +474,9 @@ function PageVisibilityDemo() {
             background: 'currentColor',
           }}
         />
-        {visibility === 'visible' ? 'Visible — 폴링/애니메이션 진행' : 'Hidden — 백그라운드 작업 일시정지'}
+        {visibility === 'visible'
+          ? 'Visible — 폴링/애니메이션 진행'
+          : 'Hidden — 백그라운드 작업 일시정지'}
       </div>
       <Readout label="document.visibilityState" value={visibility} />
       <div
@@ -581,7 +592,8 @@ function ScrollPositionDemo() {
           lineHeight: 1.55,
         }}
       >
-        문서를 스크롤하면 즉시 갱신됩니다. 내부적으로 <code>requestAnimationFrame</code> 으로 묶어 리렌더는 프레임당 1회.
+        문서를 스크롤하면 즉시 갱신됩니다. 내부적으로 <code>requestAnimationFrame</code> 으로 묶어
+        리렌더는 프레임당 1회.
       </div>
     </Panel>
   )
@@ -592,13 +604,24 @@ export const ScrollPosition: Story = { render: () => <ScrollPositionDemo /> }
 function FaviconDemo() {
   const icons = [
     { label: '기본 (favicon.ico)', href: '/favicon.ico' },
-    { label: '⭕ 빨간 원', href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23d92d20'/></svg>" },
-    { label: '💚 초록 원', href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%2300844d'/></svg>" },
-    { label: '🔵 파란 원', href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%232563eb'/></svg>" },
+    {
+      label: '⭕ 빨간 원',
+      href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23d92d20'/></svg>",
+    },
+    {
+      label: '💚 초록 원',
+      href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%2300844d'/></svg>",
+    },
+    {
+      label: '🔵 파란 원',
+      href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%232563eb'/></svg>",
+    },
   ] as const
 
   const [selected, setSelected] = useState<string>(icons[0].href)
-  useFavicon(selected, { type: selected.startsWith('data:image/svg') ? 'image/svg+xml' : undefined })
+  useFavicon(selected, {
+    type: selected.startsWith('data:image/svg') ? 'image/svg+xml' : undefined,
+  })
 
   return (
     <Panel title="useFavicon" signature="useFavicon(href, { rel?: string, type?: string })">
@@ -612,9 +635,10 @@ function FaviconDemo() {
               gap: 10,
               padding: '8px 12px',
               borderRadius: 8,
-              border: selected === href
-                ? '1px solid rgb(37, 99, 235)'
-                : '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+              border:
+                selected === href
+                  ? '1px solid rgb(37, 99, 235)'
+                  : '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
               background: selected === href ? 'rgba(37, 99, 235, 0.06)' : 'transparent',
               cursor: 'pointer',
               fontSize: 13.5,
@@ -640,7 +664,8 @@ function FaviconDemo() {
           lineHeight: 1.55,
         }}
       >
-        선택하면 브라우저 탭의 favicon 이 즉시 바뀝니다. 알림 뱃지, 상태 아이콘 등 동적 favicon 에 활용.
+        선택하면 브라우저 탭의 favicon 이 즉시 바뀝니다. 알림 뱃지, 상태 아이콘 등 동적 favicon 에
+        활용.
       </div>
     </Panel>
   )
@@ -704,7 +729,10 @@ export const Permission: Story = { render: () => <PermissionDemo /> }
 function GeolocationDemo() {
   const { loading, error, coords, timestamp } = useGeolocation({ enableHighAccuracy: false })
   return (
-    <Panel title="useGeolocation" signature="const { loading, error, coords } = useGeolocation(options)">
+    <Panel
+      title="useGeolocation"
+      signature="const { loading, error, coords } = useGeolocation(options)"
+    >
       {loading && (
         <div
           style={{
@@ -790,7 +818,8 @@ function GeolocationDemo() {
           lineHeight: 1.55,
         }}
       >
-        브라우저에서 위치 권한을 허용하면 실시간으로 갱신됩니다.{timestamp && ` · ${new Date(timestamp).toLocaleTimeString()}`}
+        브라우저에서 위치 권한을 허용하면 실시간으로 갱신됩니다.
+        {timestamp && ` · ${new Date(timestamp).toLocaleTimeString()}`}
       </div>
     </Panel>
   )
@@ -801,16 +830,43 @@ export const Geolocation: Story = { render: () => <GeolocationDemo /> }
 function NetworkDemo() {
   const { supported, online, effectiveType, downlink, rtt, saveData } = useNetwork()
   return (
-    <Panel title="useNetwork" signature="const { effectiveType, downlink, rtt, online } = useNetwork()">
+    <Panel
+      title="useNetwork"
+      signature="const { effectiveType, downlink, rtt, online } = useNetwork()"
+    >
       {!supported && (
-        <div style={{ padding: 12, borderRadius: 8, background: 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))', fontSize: 13, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+        <div
+          style={{
+            padding: 12,
+            borderRadius: 8,
+            background: 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))',
+            fontSize: 13,
+            color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          }}
+        >
           이 브라우저는 Network Information API를 지원하지 않습니다.
         </div>
       )}
       {supported && (
         <>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, fontWeight: 660 }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: online ? 'rgb(0,132,77)' : 'rgb(185,28,28)', display: 'inline-block' }} />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              marginBottom: 12,
+              fontWeight: 660,
+            }}
+          >
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: online ? 'rgb(0,132,77)' : 'rgb(185,28,28)',
+                display: 'inline-block',
+              }}
+            />
             {online ? 'Online' : 'Offline'}
           </div>
           {/* Readout rows */}
@@ -820,14 +876,32 @@ function NetworkDemo() {
             ['rtt', rtt !== null ? `${rtt} ms` : '–'],
             ['saveData', saveData !== null ? String(saveData) : '–'],
           ].map(([key, val]) => (
-            <div key={key} style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 10, padding: '6px 0', fontFamily: '"JetBrains Mono", monospace', fontSize: 12, borderBottom: '1px dashed var(--orbit-line, rgba(24,26,28,0.08))' }}>
+            <div
+              key={key}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '140px 1fr',
+                gap: 10,
+                padding: '6px 0',
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: 12,
+                borderBottom: '1px dashed var(--orbit-line, rgba(24,26,28,0.08))',
+              }}
+            >
               <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>{key}</span>
               <span style={{ fontWeight: 700 }}>{val}</span>
             </div>
           ))}
         </>
       )}
-      <div style={{ marginTop: 12, fontFamily: '"JetBrains Mono", monospace', fontSize: 11.5, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+      <div
+        style={{
+          marginTop: 12,
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+        }}
+      >
         DevTools → Network → Throttling 으로 속도를 바꾸면 effectiveType 이 갱신됩니다.
       </div>
     </Panel>
@@ -843,17 +917,55 @@ function HashDemo() {
     <Panel title="useHash" signature="const { hash, setHash } = useHash()">
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
         {sections.map((s) => (
-          <button key={s} type="button" onClick={() => setHash(s)} style={{
-            height: 28, padding: '0 12px', borderRadius: 6,
-            border: hash === s ? '1px solid rgb(37,99,235)' : '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
-            background: hash === s ? 'rgba(37,99,235,0.08)' : 'transparent',
-            color: hash === s ? 'rgb(37,99,235)' : 'var(--orbit-ink, rgb(24,26,28))',
-            fontFamily: '"JetBrains Mono", monospace', fontSize: 12.5, fontWeight: 600, cursor: 'pointer',
-          }}>{s}</button>
+          <button
+            key={s}
+            type="button"
+            onClick={() => setHash(s)}
+            style={{
+              height: 28,
+              padding: '0 12px',
+              borderRadius: 6,
+              border:
+                hash === s
+                  ? '1px solid rgb(37,99,235)'
+                  : '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+              background: hash === s ? 'rgba(37,99,235,0.08)' : 'transparent',
+              color: hash === s ? 'rgb(37,99,235)' : 'var(--orbit-ink, rgb(24,26,28))',
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: 12.5,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            {s}
+          </button>
         ))}
-        <button type="button" onClick={() => setHash('')} style={{ height: 28, padding: '0 12px', borderRadius: 6, border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))', background: 'transparent', color: 'var(--orbit-ink, rgb(24,26,28))', fontFamily: '"JetBrains Mono", monospace', fontSize: 12.5, fontWeight: 600, cursor: 'pointer' }}>Clear</button>
+        <button
+          type="button"
+          onClick={() => setHash('')}
+          style={{
+            height: 28,
+            padding: '0 12px',
+            borderRadius: 6,
+            border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
+            background: 'transparent',
+            color: 'var(--orbit-ink, rgb(24,26,28))',
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 12.5,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+        >
+          Clear
+        </button>
       </div>
-      <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 11.5, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+      <div
+        style={{
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+        }}
+      >
         hash: <strong>&quot;{hash}&quot;</strong>
       </div>
     </Panel>
@@ -867,19 +979,55 @@ function OrientationDemo() {
   const isLandscape = type.startsWith('landscape')
   return (
     <Panel title="useOrientation" signature="const { type, angle } = useOrientation()">
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 100, marginBottom: 14 }}>
-        <div style={{
-          width: isLandscape ? 80 : 48, height: isLandscape ? 48 : 80,
-          borderRadius: 10, border: '3px solid rgb(37,99,235)',
-          background: 'rgba(37,99,235,0.08)', transition: 'width 300ms, height 300ms',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontFamily: '"JetBrains Mono", monospace', fontSize: 10, color: 'rgb(37,99,235)', fontWeight: 600,
-        }}>{isLandscape ? '⟺' : '⟹'}</div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 100,
+          marginBottom: 14,
+        }}
+      >
+        <div
+          style={{
+            width: isLandscape ? 80 : 48,
+            height: isLandscape ? 48 : 80,
+            borderRadius: 10,
+            border: '3px solid rgb(37,99,235)',
+            background: 'rgba(37,99,235,0.08)',
+            transition: 'width 300ms, height 300ms',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 10,
+            color: 'rgb(37,99,235)',
+            fontWeight: 600,
+          }}
+        >
+          {isLandscape ? '⟺' : '⟹'}
+        </div>
       </div>
-      <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 11.5, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))', lineHeight: 1.8 }}>
-        type: <strong>{type}</strong><br />angle: <strong>{angle}°</strong>
+      <div
+        style={{
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+          lineHeight: 1.8,
+        }}
+      >
+        type: <strong>{type}</strong>
+        <br />
+        angle: <strong>{angle}°</strong>
       </div>
-      <div style={{ marginTop: 8, fontFamily: '"JetBrains Mono", monospace', fontSize: 11, color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>
+      <div
+        style={{
+          marginTop: 8,
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11,
+          color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
+        }}
+      >
         모바일 기기를 회전하면 즉시 반영됩니다. 데스크탑은 landscape-primary 고정.
       </div>
     </Panel>
@@ -893,16 +1041,18 @@ function VibrateDemo() {
   return (
     <Panel title="useVibrate" signature="const { vibrate, supported } = useVibrate()">
       {!supported && (
-        <div style={{
-          padding: '8px 12px',
-          borderRadius: 8,
-          background: 'rgba(187,37,35,0.06)',
-          border: '1px solid rgba(187,37,35,0.15)',
-          color: 'rgb(187,37,35)',
-          fontFamily: '"JetBrains Mono", monospace',
-          fontSize: 12,
-          marginBottom: 14,
-        }}>
+        <div
+          style={{
+            padding: '8px 12px',
+            borderRadius: 8,
+            background: 'rgba(187,37,35,0.06)',
+            border: '1px solid rgba(187,37,35,0.15)',
+            color: 'rgb(187,37,35)',
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 12,
+            marginBottom: 14,
+          }}
+        >
           Vibration API 미지원 환경 (supported: false)
         </div>
       )}
@@ -911,10 +1061,16 @@ function VibrateDemo() {
           type="button"
           onClick={() => vibrate()}
           style={{
-            height: 36, padding: '0 14px', borderRadius: 8,
-            border: '1px solid transparent', background: 'rgb(37, 99, 235)',
-            color: 'rgb(255,255,255)', fontFamily: 'inherit',
-            fontSize: 13, fontWeight: 600, cursor: 'pointer',
+            height: 36,
+            padding: '0 14px',
+            borderRadius: 8,
+            border: '1px solid transparent',
+            background: 'rgb(37, 99, 235)',
+            color: 'rgb(255,255,255)',
+            fontFamily: 'inherit',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
           }}
         >
           Buzz (200ms)
@@ -923,10 +1079,16 @@ function VibrateDemo() {
           type="button"
           onClick={() => vibrate([100, 50, 100])}
           style={{
-            height: 36, padding: '0 14px', borderRadius: 8,
+            height: 36,
+            padding: '0 14px',
+            borderRadius: 8,
             border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
-            background: 'transparent', color: 'var(--orbit-ink, rgb(24,26,28))',
-            fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+            background: 'transparent',
+            color: 'var(--orbit-ink, rgb(24,26,28))',
+            fontFamily: 'inherit',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
           }}
         >
           Pattern [100, 50, 100]
@@ -935,16 +1097,28 @@ function VibrateDemo() {
           type="button"
           onClick={() => vibrate([50, 30, 50, 30, 50])}
           style={{
-            height: 36, padding: '0 14px', borderRadius: 8,
+            height: 36,
+            padding: '0 14px',
+            borderRadius: 8,
             border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
-            background: 'transparent', color: 'var(--orbit-ink, rgb(24,26,28))',
-            fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+            background: 'transparent',
+            color: 'var(--orbit-ink, rgb(24,26,28))',
+            fontFamily: 'inherit',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
           }}
         >
           Triple [50,30,50,30,50]
         </button>
       </div>
-      <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 11.5, color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))' }}>
+      <div
+        style={{
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: 11.5,
+          color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
+        }}
+      >
         supported: <strong>{String(supported)}</strong>
         {supported && ' · 모바일 기기에서 직접 진동을 확인하세요.'}
       </div>
@@ -1057,7 +1231,10 @@ function BatteryDemo() {
 
   if (!supported) {
     return (
-      <Panel title="useBattery" signature="const { supported, loading, level, charging } = useBattery()">
+      <Panel
+        title="useBattery"
+        signature="const { supported, loading, level, charging } = useBattery()"
+      >
         <div
           style={{
             padding: '10px 14px',
@@ -1076,7 +1253,10 @@ function BatteryDemo() {
 
   if (loading) {
     return (
-      <Panel title="useBattery" signature="const { supported, loading, level, charging } = useBattery()">
+      <Panel
+        title="useBattery"
+        signature="const { supported, loading, level, charging } = useBattery()"
+      >
         <div
           style={{
             padding: '10px 14px',
@@ -1096,7 +1276,10 @@ function BatteryDemo() {
   const pct = level !== null ? Math.round(level * 100) : null
 
   return (
-    <Panel title="useBattery" signature="const { supported, loading, level, charging } = useBattery()">
+    <Panel
+      title="useBattery"
+      signature="const { supported, loading, level, charging } = useBattery()"
+    >
       {pct !== null && (
         <div style={{ marginBottom: 14 }}>
           <div
@@ -1111,7 +1294,9 @@ function BatteryDemo() {
             }}
           >
             <span>level</span>
-            <span style={{ fontWeight: 700, color: 'var(--orbit-ink, rgb(24,26,28))' }}>{pct}%</span>
+            <span style={{ fontWeight: 700, color: 'var(--orbit-ink, rgb(24,26,28))' }}>
+              {pct}%
+            </span>
           </div>
           <div
             style={{
@@ -1137,13 +1322,7 @@ function BatteryDemo() {
       <Readout label="charging" value={charging !== null ? String(charging) : '–'} />
       <Readout
         label="chargingTime"
-        value={
-          chargingTime !== null
-            ? chargingTime === Infinity
-              ? '∞'
-              : `${chargingTime}s`
-            : '–'
-        }
+        value={chargingTime !== null ? (chargingTime === Infinity ? '∞' : `${chargingTime}s`) : '–'}
       />
       <Readout
         label="dischargingTime"
@@ -1186,7 +1365,10 @@ function BreakpointDemo() {
   const { breakpoint, isAtLeast } = useBreakpoint()
 
   return (
-    <Panel title="useBreakpoint" signature="const { breakpoint, isAtLeast, isAtMost } = useBreakpoint()">
+    <Panel
+      title="useBreakpoint"
+      signature="const { breakpoint, isAtLeast, isAtMost } = useBreakpoint()"
+    >
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
         <div
           style={{
@@ -1246,7 +1428,9 @@ function BreakpointDemo() {
               >
                 {bp}
               </span>
-              <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>{BP_WIDTHS[bp]}</span>
+              <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>
+                {BP_WIDTHS[bp]}
+              </span>
               <span
                 style={{
                   color: active ? 'rgb(0,132,77)' : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
@@ -1370,10 +1554,7 @@ export const CssVariable: Story = { render: () => <CssVariableDemo /> }
 function DevicePixelRatioDemo() {
   const dpr = useDevicePixelRatio()
   return (
-    <Panel
-      title="useDevicePixelRatio"
-      signature="const dpr = useDevicePixelRatio()"
-    >
+    <Panel title="useDevicePixelRatio" signature="const dpr = useDevicePixelRatio()">
       <div
         style={{
           display: 'flex',
@@ -1457,7 +1638,9 @@ function WindowFocusDemo() {
             borderRadius: '50%',
             background: 'currentColor',
             flexShrink: 0,
-            boxShadow: focused ? '0 0 0 4px color-mix(in oklab, currentColor 20%, transparent)' : 'none',
+            boxShadow: focused
+              ? '0 0 0 4px color-mix(in oklab, currentColor 20%, transparent)'
+              : 'none',
           }}
         />
         {focused ? 'Window focused' : 'Window blurred'}
@@ -1474,7 +1657,8 @@ function WindowFocusDemo() {
           lineHeight: 1.55,
         }}
       >
-        다른 탭이나 창으로 전환하면 즉시 <code>false</code>로 바뀝니다. 다시 이 탭을 클릭하면 <code>true</code>로 복귀.
+        다른 탭이나 창으로 전환하면 즉시 <code>false</code>로 바뀝니다. 다시 이 탭을 클릭하면{' '}
+        <code>true</code>로 복귀.
       </div>
     </Panel>
   )

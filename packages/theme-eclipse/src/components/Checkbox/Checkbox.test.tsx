@@ -113,7 +113,7 @@ describe('Checkbox (eclipse)', () => {
       <>
         <span id="cb-label">개인정보 수집 동의</span>
         <Checkbox data-testid="cb" aria-labelledby="cb-label" />
-      </>,
+      </>
     )
     expect(screen.getByTestId('cb')).toHaveAttribute('aria-labelledby', 'cb-label')
   })

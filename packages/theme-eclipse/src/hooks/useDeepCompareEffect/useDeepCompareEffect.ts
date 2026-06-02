@@ -18,7 +18,7 @@ import { useDeepCompareMemoize } from '../_internal/useDeepCompareMemoize'
  */
 export function useDeepCompareEffect(
   effect: React.EffectCallback,
-  deps: React.DependencyList,
+  deps: React.DependencyList
 ): void {
   const memoizedDeps = useDeepCompareMemoize(deps)
   // eslint-disable-next-line react-hooks/exhaustive-deps

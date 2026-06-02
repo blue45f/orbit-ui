@@ -25,7 +25,7 @@ export type UseInViewportOptions = {
  */
 export function useInViewport<T extends Element = Element>(
   ref: { current: T | null },
-  options: UseInViewportOptions = {},
+  options: UseInViewportOptions = {}
 ): boolean {
   const [isInViewport, setIsInViewport] = useState(false)
   const { threshold = 0, rootMargin = '0px', once = false } = options
@@ -40,7 +40,7 @@ export function useInViewport<T extends Element = Element>(
         setIsInViewport(visible)
         if (visible && once) observer.disconnect()
       },
-      { threshold, rootMargin },
+      { threshold, rootMargin }
     )
 
     observer.observe(node)

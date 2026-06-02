@@ -1,5 +1,10 @@
 import React from 'react'
-import { ChevronRightLineIcon, CircleInfoLineIcon, CircleNewLineIcon, SettingLineIcon } from '@heejun-com/icons'
+import {
+  ChevronRightLineIcon,
+  CircleInfoLineIcon,
+  CircleNewLineIcon,
+  SettingLineIcon,
+} from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { TextButton } from '../GhostButton'
@@ -97,8 +102,12 @@ const DashboardItem = ({
     }}
   >
     <div>
-      <Typography textStyle="descriptionLargeEmphasized" color="foregroundPrimary">{title}</Typography>
-      <Typography textStyle="descriptionMedium" color="foregroundTertiary">{desc}</Typography>
+      <Typography textStyle="descriptionLargeEmphasized" color="foregroundPrimary">
+        {title}
+      </Typography>
+      <Typography textStyle="descriptionMedium" color="foregroundTertiary">
+        {desc}
+      </Typography>
     </div>
     {badge && <LabelBadge color={badgeColor ?? 'gray'}>{badge}</LabelBadge>}
   </div>
@@ -113,9 +122,19 @@ const DashboardSectionsRender = () => (
         <CounterBadge>{3}</CounterBadge>
       </SectionTitle.Trailing>
     </SectionTitle>
-    <DashboardItem title="랜딩 페이지 리뉴얼" desc="디자인 검수 단계" badge="In Progress" badgeColor="benefit" />
+    <DashboardItem
+      title="랜딩 페이지 리뉴얼"
+      desc="디자인 검수 단계"
+      badge="In Progress"
+      badgeColor="benefit"
+    />
     <DashboardItem title="API 통합 테스트" desc="QA팀과 협업 중" badge="Review" badgeColor="sale" />
-    <DashboardItem title="Storybook 문서 정리" desc="컴포넌트 5개 남음" badge="In Progress" badgeColor="benefit" />
+    <DashboardItem
+      title="Storybook 문서 정리"
+      desc="컴포넌트 5개 남음"
+      badge="In Progress"
+      badgeColor="benefit"
+    />
 
     <div style={{ height: '24px' }} />
 
@@ -126,8 +145,18 @@ const DashboardSectionsRender = () => (
         <CounterBadge>{5}</CounterBadge>
       </SectionTitle.Trailing>
     </SectionTitle>
-    <DashboardItem title="디자인 토큰 시스템 구축" desc="3단계 토큰 계층 완료" badge="Done" badgeColor="gray" />
-    <DashboardItem title="반응형 레이아웃 적용" desc="모바일/PC 대응 완료" badge="Done" badgeColor="gray" />
+    <DashboardItem
+      title="디자인 토큰 시스템 구축"
+      desc="3단계 토큰 계층 완료"
+      badge="Done"
+      badgeColor="gray"
+    />
+    <DashboardItem
+      title="반응형 레이아웃 적용"
+      desc="모바일/PC 대응 완료"
+      badge="Done"
+      badgeColor="gray"
+    />
 
     <div style={{ height: '24px' }} />
 
@@ -142,7 +171,12 @@ const DashboardSectionsRender = () => (
         </TextButton>
       </SectionTitle.Trailing>
     </SectionTitle>
-    <DashboardItem title="다크모드 토큰 확장" desc="예정일: 2025년 5월" badge="Planned" badgeColor="sale" />
+    <DashboardItem
+      title="다크모드 토큰 확장"
+      desc="예정일: 2025년 5월"
+      badge="Planned"
+      badgeColor="sale"
+    />
   </div>
 )
 
@@ -173,9 +207,13 @@ const SettingRow = ({
     }}
   >
     <div>
-      <Typography textStyle="descriptionLargeEmphasized" color="foregroundPrimary">{label}</Typography>
+      <Typography textStyle="descriptionLargeEmphasized" color="foregroundPrimary">
+        {label}
+      </Typography>
       {desc && (
-        <Typography textStyle="descriptionSmall" color="foregroundTertiary">{desc}</Typography>
+        <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+          {desc}
+        </Typography>
       )}
     </div>
     {control && <div>{control}</div>}
@@ -184,7 +222,13 @@ const SettingRow = ({
 
 const ChevronIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M6 12l4-4-4-4" stroke="#94a3b8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M6 12l4-4-4-4"
+      stroke="#94a3b8"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 )
 
@@ -220,12 +264,16 @@ const SettingsPageRender = () => (
   <div style={{ width: 420 }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
       <SettingLineIcon size={20} color="#1e293b" />
-      <Typography textStyle="headingMedium" color="foregroundPrimary">설정</Typography>
+      <Typography textStyle="headingMedium" color="foregroundPrimary">
+        설정
+      </Typography>
     </div>
 
     <SectionTitle>
       <SectionTitle.Title>알림 설정</SectionTitle.Title>
-      <SectionTitle.Description>푸시 알림 및 이메일 수신 방법을 설정합니다</SectionTitle.Description>
+      <SectionTitle.Description>
+        푸시 알림 및 이메일 수신 방법을 설정합니다
+      </SectionTitle.Description>
     </SectionTitle>
     <SettingRow label="푸시 알림" desc="새 메시지 및 업데이트 알림" control={<ToggleSwitch on />} />
     <SettingRow label="이메일 뉴스레터" desc="주간 업데이트 이메일" control={<ToggleSwitch />} />
@@ -298,8 +346,12 @@ const M3SectionItem = ({
       {icon}
     </div>
     <div style={{ flex: 1 }}>
-      <Typography textStyle="descriptionLargeEmphasized" color="foregroundPrimary">{title}</Typography>
-      <Typography textStyle="descriptionSmall" color="foregroundTertiary">{meta}</Typography>
+      <Typography textStyle="descriptionLargeEmphasized" color="foregroundPrimary">
+        {title}
+      </Typography>
+      <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+        {meta}
+      </Typography>
     </div>
     <ChevronIcon />
   </div>
@@ -307,18 +359,32 @@ const M3SectionItem = ({
 
 const StarIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-    <path d="M9 2l1.8 5.2H17l-5 3.6 1.8 5.2L9 13l-4.8 3 1.8-5.2-5-3.6h6.2z" fill="#6366f1" fillOpacity="0.7" />
+    <path
+      d="M9 2l1.8 5.2H17l-5 3.6 1.8 5.2L9 13l-4.8 3 1.8-5.2-5-3.6h6.2z"
+      fill="#6366f1"
+      fillOpacity="0.7"
+    />
   </svg>
 )
 const ClockIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
     <circle cx="9" cy="9" r="7" stroke="#6366f1" strokeWidth="1.5" strokeOpacity="0.7" />
-    <path d="M9 5v4l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.7" />
+    <path
+      d="M9 5v4l3 2"
+      stroke="#6366f1"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeOpacity="0.7"
+    />
   </svg>
 )
 const FolderIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-    <path d="M2 5a2 2 0 012-2h3l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V5z" fill="#6366f1" fillOpacity="0.5" />
+    <path
+      d="M2 5a2 2 0 012-2h3l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V5z"
+      fill="#6366f1"
+      fillOpacity="0.5"
+    />
   </svg>
 )
 
@@ -334,7 +400,15 @@ const Material3ListRender = () => (
     >
       <SectionTitle>
         <SectionTitle.Title>
-          <span style={{ color: '#6366f1', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <span
+            style={{
+              color: '#6366f1',
+              fontSize: '12px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+            }}
+          >
             즐겨찾기
           </span>
         </SectionTitle.Title>
@@ -357,7 +431,15 @@ const Material3ListRender = () => (
     >
       <SectionTitle>
         <SectionTitle.Title>
-          <span style={{ color: '#10b981', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <span
+            style={{
+              color: '#10b981',
+              fontSize: '12px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+            }}
+          >
             최근 항목
           </span>
         </SectionTitle.Title>
@@ -510,7 +592,16 @@ function UtilityCSSSectionNavDemo() {
           >
             {tab.label}
             {tab.count !== null && (
-              <span style={{ padding: '1px 7px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: activeTab === tab.id ? '#eef2ff' : '#f1f5f9', color: activeTab === tab.id ? '#6366f1' : '#94a3b8' }}>
+              <span
+                style={{
+                  padding: '1px 7px',
+                  borderRadius: 10,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  background: activeTab === tab.id ? '#eef2ff' : '#f1f5f9',
+                  color: activeTab === tab.id ? '#6366f1' : '#94a3b8',
+                }}
+              >
                 {tab.count}
               </span>
             )}
@@ -589,28 +680,64 @@ function DataProductSettingGroupsDemo() {
       {ARCO_SETTING_GROUPS.map((group) => {
         const isOpen = expanded.has(group.id)
         return (
-          <div key={group.id} style={{ borderRadius: 10, border: `1.5px solid ${isOpen ? '#6366f1' : '#e2e8f0'}`, overflow: 'hidden', transition: 'border-color 0.15s' }}>
+          <div
+            key={group.id}
+            style={{
+              borderRadius: 10,
+              border: `1.5px solid ${isOpen ? '#6366f1' : '#e2e8f0'}`,
+              overflow: 'hidden',
+              transition: 'border-color 0.15s',
+            }}
+          >
             <SectionTitle style={{ cursor: 'pointer' }} onClick={() => toggle(group.id)}>
               <SectionTitle.Title>
                 <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ color: isOpen ? '#6366f1' : '#64748b', display: 'flex', alignItems: 'center' }}>{group.icon}</span>
+                  <span
+                    style={{
+                      color: isOpen ? '#6366f1' : '#64748b',
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {group.icon}
+                  </span>
                   {group.title}
-                  {group.badge !== null && (
-                    <CounterBadge>{group.badge}</CounterBadge>
-                  )}
+                  {group.badge !== null && <CounterBadge>{group.badge}</CounterBadge>}
                 </span>
               </SectionTitle.Title>
               <SectionTitle.Description>{group.description}</SectionTitle.Description>
               <SectionTitle.Trailing>
-                <span style={{ color: '#94a3b8', fontSize: 12, transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block', transition: 'transform 0.2s' }}>▶</span>
+                <span
+                  style={{
+                    color: '#94a3b8',
+                    fontSize: 12,
+                    transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+                    display: 'inline-block',
+                    transition: 'transform 0.2s',
+                  }}
+                >
+                  ▶
+                </span>
               </SectionTitle.Trailing>
             </SectionTitle>
             {isOpen && (
-              <div style={{ padding: '0 16px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div
+                style={{ padding: '0 16px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}
+              >
                 <Divider />
                 {group.items.map((item) => (
-                  <div key={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0' }}>
-                    <Typography textStyle="descriptionLarge" style={{ color: '#334155' }}>{item}</Typography>
+                  <div
+                    key={item}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '8px 0',
+                    }}
+                  >
+                    <Typography textStyle="descriptionLarge" style={{ color: '#334155' }}>
+                      {item}
+                    </Typography>
                     <TextButton color="black" size="small">
                       <TextButton.Center>편집</TextButton.Center>
                     </TextButton>
@@ -644,7 +771,7 @@ export const DataProduct_다단계_설정_그룹: Story = {
    UtilityUI의 Application Shell — 리스트 위에 검색/필터 컨트롤을 배치하는 패턴
 -------------------------------------------------------------------------- */
 const FILTER_OPTIONS = ['전체', '진행 중', '완료', '보류'] as const
-type FilterOption = typeof FILTER_OPTIONS[number]
+type FilterOption = (typeof FILTER_OPTIONS)[number]
 
 function UtilityCSSFilterSectionDemo() {
   const [activeFilter, setActiveFilter] = React.useState<FilterOption>('전체')
@@ -666,27 +793,46 @@ function UtilityCSSFilterSectionDemo() {
 
   const statusColor: Record<string, string> = {
     '진행 중': '#6366f1',
-    '완료': '#10b981',
-    '보류': '#f59e0b',
+    완료: '#10b981',
+    보류: '#f59e0b',
   }
 
   return (
     <div style={{ width: 480 }}>
       <SectionTitle>
         <SectionTitle.Title>프로젝트 ({items.length})</SectionTitle.Title>
-        <SectionTitle.Description>팀 프로젝트 현황을 확인하고 필터링하세요</SectionTitle.Description>
+        <SectionTitle.Description>
+          팀 프로젝트 현황을 확인하고 필터링하세요
+        </SectionTitle.Description>
         <SectionTitle.Trailing>
           <LabelBadge color="benefit">
             <LabelBadge.Label>NEW</LabelBadge.Label>
           </LabelBadge>
         </SectionTitle.Trailing>
       </SectionTitle>
-      <div style={{ display: 'flex', gap: 8, margin: '12px 0', flexWrap: 'wrap', alignItems: 'center' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 8,
+          margin: '12px 0',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+        }}
+      >
         <input
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="프로젝트 검색..."
-          style={{ flex: 1, minWidth: 160, padding: '6px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, color: '#1e293b', outline: 'none' }}
+          style={{
+            flex: 1,
+            minWidth: 160,
+            padding: '6px 12px',
+            borderRadius: 8,
+            border: '1.5px solid #e2e8f0',
+            fontSize: 13,
+            color: '#1e293b',
+            outline: 'none',
+          }}
         />
         <div style={{ display: 'flex', gap: 4 }}>
           {FILTER_OPTIONS.map((opt) => (
@@ -712,14 +858,47 @@ function UtilityCSSFilterSectionDemo() {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {filtered.length === 0 && (
-          <div style={{ padding: '20px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>검색 결과가 없습니다</div>
+          <div style={{ padding: '20px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+            검색 결과가 없습니다
+          </div>
         )}
         {filtered.map((item) => (
-          <div key={item.name} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: statusColor[item.status] ?? '#94a3b8', flexShrink: 0 }} />
-            <Typography textStyle="descriptionLarge" style={{ flex: 1, color: '#1e293b', fontWeight: 500 }}>{item.name}</Typography>
-            <Typography textStyle="descriptionSmall" color="foregroundSecondary">{item.owner}</Typography>
-            <Typography textStyle="descriptionSmall" style={{ color: statusColor[item.status] ?? '#94a3b8', fontWeight: 700 }}>{item.status}</Typography>
+          <div
+            key={item.name}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: '1px solid #f1f5f9',
+              background: '#fff',
+            }}
+          >
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: statusColor[item.status] ?? '#94a3b8',
+                flexShrink: 0,
+              }}
+            />
+            <Typography
+              textStyle="descriptionLarge"
+              style={{ flex: 1, color: '#1e293b', fontWeight: 500 }}
+            >
+              {item.name}
+            </Typography>
+            <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+              {item.owner}
+            </Typography>
+            <Typography
+              textStyle="descriptionSmall"
+              style={{ color: statusColor[item.status] ?? '#94a3b8', fontWeight: 700 }}
+            >
+              {item.status}
+            </Typography>
           </div>
         ))}
       </div>
@@ -750,24 +929,27 @@ type EnvVar = { key: string; env: 'Production' | 'Preview' | 'Development'; secr
 
 function DeployPlatformEnvSectionRender() {
   const [vars, setVars] = React.useState<EnvVar[]>([
-    { key: 'NEXT_PUBLIC_API_URL',    env: 'Production',   secret: false },
-    { key: 'DATABASE_URL',            env: 'Production',   secret: true  },
-    { key: 'NEXT_PUBLIC_SITE_URL',    env: 'Preview',      secret: false },
-    { key: 'BILLING_SECRET_KEY',       env: 'Development',  secret: true  },
+    { key: 'NEXT_PUBLIC_API_URL', env: 'Production', secret: false },
+    { key: 'DATABASE_URL', env: 'Production', secret: true },
+    { key: 'NEXT_PUBLIC_SITE_URL', env: 'Preview', secret: false },
+    { key: 'BILLING_SECRET_KEY', env: 'Development', secret: true },
   ])
   const [adding, setAdding] = React.useState(false)
   const [newKey, setNewKey] = React.useState('')
 
   const handleAdd = () => {
     if (!newKey.trim()) return
-    setVars((prev) => [...prev, { key: newKey.toUpperCase().replace(/ /g, '_'), env: 'Production', secret: false }])
+    setVars((prev) => [
+      ...prev,
+      { key: newKey.toUpperCase().replace(/ /g, '_'), env: 'Production', secret: false },
+    ])
     setNewKey('')
     setAdding(false)
   }
 
   const ENV_COLOR: Record<EnvVar['env'], string> = {
-    Production:  '#10b981',
-    Preview:     '#6366f1',
+    Production: '#10b981',
+    Preview: '#6366f1',
     Development: '#f59e0b',
   }
 
@@ -775,7 +957,9 @@ function DeployPlatformEnvSectionRender() {
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
       <SectionTitle>
         <SectionTitle.Title>환경변수</SectionTitle.Title>
-        <SectionTitle.Description>프로덕션·프리뷰·개발 환경별로 설정값을 관리합니다</SectionTitle.Description>
+        <SectionTitle.Description>
+          프로덕션·프리뷰·개발 환경별로 설정값을 관리합니다
+        </SectionTitle.Description>
         <SectionTitle.Trailing>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <CounterBadge>{vars.length}</CounterBadge>
@@ -794,24 +978,109 @@ function DeployPlatformEnvSectionRender() {
             onChange={(e) => setNewKey(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
             placeholder="VARIABLE_NAME"
-            style={{ flex: 1, padding: '7px 10px', borderRadius: 8, border: '1.5px solid #6366f1', fontSize: 12, fontFamily: 'monospace', outline: 'none' }}
+            style={{
+              flex: 1,
+              padding: '7px 10px',
+              borderRadius: 8,
+              border: '1.5px solid #6366f1',
+              fontSize: 12,
+              fontFamily: 'monospace',
+              outline: 'none',
+            }}
           />
-          <button onClick={handleAdd} style={{ padding: '7px 14px', borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>저장</button>
-          <button onClick={() => setAdding(false)} style={{ padding: '7px 10px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: '#64748b', cursor: 'pointer' }}>취소</button>
+          <button
+            onClick={handleAdd}
+            style={{
+              padding: '7px 14px',
+              borderRadius: 8,
+              border: 'none',
+              background: '#0f172a',
+              color: '#fff',
+              fontSize: 12,
+              fontWeight: 700,
+              cursor: 'pointer',
+            }}
+          >
+            저장
+          </button>
+          <button
+            onClick={() => setAdding(false)}
+            style={{
+              padding: '7px 10px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              fontSize: 12,
+              color: '#64748b',
+              cursor: 'pointer',
+            }}
+          >
+            취소
+          </button>
         </div>
       )}
 
       <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         {vars.map((v, i) => (
-          <div key={v.key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderBottom: i < vars.length - 1 ? '1px solid #f8fafc' : 'none', background: '#fff' }}>
-            <code style={{ flex: 1, fontSize: 12, fontFamily: 'monospace', color: '#0f172a', fontWeight: 600 }}>{v.key}</code>
-            <span style={{ padding: '2px 8px', borderRadius: 6, background: ENV_COLOR[v.env] + '18', color: ENV_COLOR[v.env], fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{v.env}</span>
-            {v.secret && <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0 }}>●●●●●●</span>}
-            <button onClick={() => setVars((prev) => prev.filter((_, j) => j !== i))} style={{ padding: '3px 8px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, color: '#ef4444', cursor: 'pointer', flexShrink: 0 }}>삭제</button>
+          <div
+            key={v.key}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 14px',
+              borderBottom: i < vars.length - 1 ? '1px solid #f8fafc' : 'none',
+              background: '#fff',
+            }}
+          >
+            <code
+              style={{
+                flex: 1,
+                fontSize: 12,
+                fontFamily: 'monospace',
+                color: '#0f172a',
+                fontWeight: 600,
+              }}
+            >
+              {v.key}
+            </code>
+            <span
+              style={{
+                padding: '2px 8px',
+                borderRadius: 6,
+                background: ENV_COLOR[v.env] + '18',
+                color: ENV_COLOR[v.env],
+                fontSize: 11,
+                fontWeight: 700,
+                flexShrink: 0,
+              }}
+            >
+              {v.env}
+            </span>
+            {v.secret && (
+              <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0 }}>●●●●●●</span>
+            )}
+            <button
+              onClick={() => setVars((prev) => prev.filter((_, j) => j !== i))}
+              style={{
+                padding: '3px 8px',
+                borderRadius: 6,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                fontSize: 11,
+                color: '#ef4444',
+                cursor: 'pointer',
+                flexShrink: 0,
+              }}
+            >
+              삭제
+            </button>
           </div>
         ))}
         {vars.length === 0 && (
-          <div style={{ padding: '24px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>환경변수가 없습니다</div>
+          <div style={{ padding: '24px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+            환경변수가 없습니다
+          </div>
         )}
       </div>
     </div>
@@ -838,20 +1107,24 @@ export const DeployPlatform_환경변수_섹션: Story = {
 -------------------------------------------------------------------------- */
 type DomainStatus95 = 'valid' | 'invalid' | 'pending'
 
-interface Domain95 { host: string; status: DomainStatus95; primary: boolean }
+interface Domain95 {
+  host: string
+  status: DomainStatus95
+  primary: boolean
+}
 
 const DOMAIN_STATUS_META: Record<DomainStatus95, { label: string; color: string; bg: string }> = {
-  valid:   { label: 'Valid',   color: '#10b981', bg: '#f0fdf4' },
+  valid: { label: 'Valid', color: '#10b981', bg: '#f0fdf4' },
   invalid: { label: 'Invalid', color: '#ef4444', bg: '#fef2f2' },
   pending: { label: 'Pending', color: '#f59e0b', bg: '#fffbeb' },
 }
 
 const DeployPlatformDomainSectionRender = () => {
   const [domains] = React.useState<Domain95[]>([
-    { host: 'orbit-ui.deploy.example.com',      status: 'valid',   primary: false },
+    { host: 'orbit-ui.deploy.example.com', status: 'valid', primary: false },
     { host: 'orbit-ui-git-main.deploy.example.com', status: 'valid', primary: false },
-    { host: 'orbitui.dev',               status: 'pending', primary: true  },
-    { host: 'storybook.orbitui.dev',     status: 'invalid', primary: false },
+    { host: 'orbitui.dev', status: 'pending', primary: true },
+    { host: 'storybook.orbitui.dev', status: 'invalid', primary: false },
   ])
 
   const validCount = domains.filter((d) => d.status === 'valid').length
@@ -860,7 +1133,9 @@ const DeployPlatformDomainSectionRender = () => {
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
       <SectionTitle>
         <SectionTitle.Title>도메인</SectionTitle.Title>
-        <SectionTitle.Description>프로젝트에 연결된 모든 도메인을 관리합니다</SectionTitle.Description>
+        <SectionTitle.Description>
+          프로젝트에 연결된 모든 도메인을 관리합니다
+        </SectionTitle.Description>
         <SectionTitle.Trailing>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <LabelBadge color="benefit">
@@ -872,25 +1147,83 @@ const DeployPlatformDomainSectionRender = () => {
           </div>
         </SectionTitle.Trailing>
       </SectionTitle>
-      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', marginTop: 8 }}>
+      <div
+        style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', marginTop: 8 }}
+      >
         {domains.map((d, i) => {
           const st = DOMAIN_STATUS_META[d.status]
           return (
-            <div key={d.host} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderBottom: i < domains.length - 1 ? '1px solid #f8fafc' : 'none', background: '#fff' }}>
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: st.color, flexShrink: 0 }} />
+            <div
+              key={d.host}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 16px',
+                borderBottom: i < domains.length - 1 ? '1px solid #f8fafc' : 'none',
+                background: '#fff',
+              }}
+            >
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: st.color,
+                  flexShrink: 0,
+                }}
+              />
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', fontFamily: 'monospace' }}>{d.host}</span>
-                  {d.primary && <span style={{ padding: '1px 6px', borderRadius: 4, background: '#eef2ff', color: '#6366f1', fontSize: 10, fontWeight: 700 }}>Primary</span>}
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: '#0f172a',
+                      fontFamily: 'monospace',
+                    }}
+                  >
+                    {d.host}
+                  </span>
+                  {d.primary && (
+                    <span
+                      style={{
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: '#eef2ff',
+                        color: '#6366f1',
+                        fontSize: 10,
+                        fontWeight: 700,
+                      }}
+                    >
+                      Primary
+                    </span>
+                  )}
                 </div>
                 {d.status === 'invalid' && (
-                  <div style={{ fontSize: 11, color: '#ef4444', marginTop: 2 }}>DNS 레코드 설정이 필요합니다</div>
+                  <div style={{ fontSize: 11, color: '#ef4444', marginTop: 2 }}>
+                    DNS 레코드 설정이 필요합니다
+                  </div>
                 )}
                 {d.status === 'pending' && (
-                  <div style={{ fontSize: 11, color: '#f59e0b', marginTop: 2 }}>DNS 전파 대기 중 (최대 48시간)</div>
+                  <div style={{ fontSize: 11, color: '#f59e0b', marginTop: 2 }}>
+                    DNS 전파 대기 중 (최대 48시간)
+                  </div>
                 )}
               </div>
-              <span style={{ padding: '2px 10px', borderRadius: 20, background: st.bg, color: st.color, fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{st.label}</span>
+              <span
+                style={{
+                  padding: '2px 10px',
+                  borderRadius: 20,
+                  background: st.bg,
+                  color: st.color,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  flexShrink: 0,
+                }}
+              >
+                {st.label}
+              </span>
             </div>
           )
         })}
@@ -921,9 +1254,9 @@ export const DeployPlatform_도메인_섹션: Story = {
 type UsageMeter = { label: string; used: number; limit: number; unit: string; color: string }
 
 const USAGE_METERS: UsageMeter[] = [
-  { label: '대역폭', used: 78,  limit: 100, unit: 'GB',  color: '#6366f1' },
+  { label: '대역폭', used: 78, limit: 100, unit: 'GB', color: '#6366f1' },
   { label: '빌드 시간', used: 340, limit: 600, unit: 'min', color: '#0ea5e9' },
-  { label: '함수 호출', used: 42,  limit: 100, unit: '만 회', color: '#10b981' },
+  { label: '함수 호출', used: 42, limit: 100, unit: '만 회', color: '#10b981' },
   { label: '이미지 최적화', used: 9, limit: 10, unit: '만 건', color: '#f59e0b' },
 ]
 
@@ -948,21 +1281,33 @@ const DeployPlatformUsageSectionRender = () => {
           const pct = Math.round((m.used / m.limit) * 100)
           const isNear = pct >= 80
           return (
-            <div key={m.label} style={{ padding: '14px 16px', borderRadius: 10, border: `1.5px solid ${isNear ? '#fecaca' : '#e2e8f0'}`, background: isNear ? '#fff5f5' : '#fff' }}>
+            <div
+              key={m.label}
+              style={{
+                padding: '14px 16px',
+                borderRadius: 10,
+                border: `1.5px solid ${isNear ? '#fecaca' : '#e2e8f0'}`,
+                background: isNear ? '#fff5f5' : '#fff',
+              }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                 <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{m.label}</span>
                 <span style={{ fontSize: 12, color: isNear ? '#ef4444' : '#94a3b8' }}>
                   {m.used}/{m.limit} {m.unit} ({pct}%)
                 </span>
               </div>
-              <div style={{ height: 6, borderRadius: 3, background: '#f1f5f9', overflow: 'hidden' }}>
-                <div style={{
-                  width: `${pct}%`,
-                  height: '100%',
-                  borderRadius: 3,
-                  background: isNear ? '#ef4444' : m.color,
-                  transition: 'width 0.3s',
-                }} />
+              <div
+                style={{ height: 6, borderRadius: 3, background: '#f1f5f9', overflow: 'hidden' }}
+              >
+                <div
+                  style={{
+                    width: `${pct}%`,
+                    height: '100%',
+                    borderRadius: 3,
+                    background: isNear ? '#ef4444' : m.color,
+                    transition: 'width 0.3s',
+                  }}
+                />
               </div>
               {isNear && (
                 <div style={{ marginTop: 6, fontSize: 11, color: '#ef4444' }}>
@@ -1009,7 +1354,9 @@ export const Primitive_접근성_섹션_헤더: Story = {
     <div style={{ width: 480, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <SectionTitle>
         <SectionTitle.Title>컴포넌트 라이브러리</SectionTitle.Title>
-        <SectionTitle.Description>Orbit UI 디자인 시스템의 핵심 컴포넌트 목록입니다.</SectionTitle.Description>
+        <SectionTitle.Description>
+          Orbit UI 디자인 시스템의 핵심 컴포넌트 목록입니다.
+        </SectionTitle.Description>
         <SectionTitle.Trailing>
           <CounterBadge>{47}</CounterBadge>
         </SectionTitle.Trailing>
@@ -1050,18 +1397,47 @@ export const UtilityCSS_위젯_섹션_헤더: Story = {
   render: () => (
     <div style={{ width: 500, display: 'flex', flexDirection: 'column', gap: 16 }}>
       {[
-        { title: '최근 배포', desc: '지난 7일간의 배포 이력', badge: '119회', badgeColor: 'sale' as const, action: '전체 보기' },
-        { title: '활성 컴포넌트', desc: '현재 사용 중인 컴포넌트 목록', badge: '47개', badgeColor: 'benefit' as const, action: '관리' },
-        { title: '알림', desc: '새 업데이트 및 변경사항', badge: '3개 미확인', badgeColor: 'gray' as const, action: '모두 읽음' },
+        {
+          title: '최근 배포',
+          desc: '지난 7일간의 배포 이력',
+          badge: '119회',
+          badgeColor: 'sale' as const,
+          action: '전체 보기',
+        },
+        {
+          title: '활성 컴포넌트',
+          desc: '현재 사용 중인 컴포넌트 목록',
+          badge: '47개',
+          badgeColor: 'benefit' as const,
+          action: '관리',
+        },
+        {
+          title: '알림',
+          desc: '새 업데이트 및 변경사항',
+          badge: '3개 미확인',
+          badgeColor: 'gray' as const,
+          action: '모두 읽음',
+        },
       ].map((item) => (
-        <div key={item.title} style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
-          <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+        <div
+          key={item.title}
+          style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}
+        >
+          <div
+            style={{
+              padding: '12px 16px',
+              borderBottom: '1px solid #f1f5f9',
+              background: '#f8fafc',
+            }}
+          >
             <SectionTitle>
               <SectionTitle.Title>{item.title}</SectionTitle.Title>
               <SectionTitle.Description>{item.desc}</SectionTitle.Description>
               <SectionTitle.Trailing>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <LabelBadge color={item.badgeColor}><LabelBadge.Label>{item.badge}</LabelBadge.Label></LabelBadge>
+                  <LabelBadge color={item.badgeColor}>
+                    <LabelBadge.Label>{item.badge}</LabelBadge.Label>
+                  </LabelBadge>
                   <TextButton size="small" color="black">
                     <TextButton.Center>{item.action}</TextButton.Center>
                   </TextButton>
@@ -1069,7 +1445,9 @@ export const UtilityCSS_위젯_섹션_헤더: Story = {
               </SectionTitle.Trailing>
             </SectionTitle>
           </div>
-          <div style={{ padding: '12px 16px', fontSize: 12, color: '#94a3b8' }}>위젯 콘텐츠 영역</div>
+          <div style={{ padding: '12px 16px', fontSize: 12, color: '#94a3b8' }}>
+            위젯 콘텐츠 영역
+          </div>
         </div>
       ))}
     </div>
@@ -1096,7 +1474,9 @@ export const Primitive_UtilityCSS_중첩_섹션_계층: Story = {
         <SectionTitle.Title>프로젝트 설정</SectionTitle.Title>
         <SectionTitle.Description>프로젝트의 기본 구성을 관리합니다.</SectionTitle.Description>
         <SectionTitle.Trailing>
-          <LabelBadge color="benefit"><LabelBadge.Label>Pro</LabelBadge.Label></LabelBadge>
+          <LabelBadge color="benefit">
+            <LabelBadge.Label>Pro</LabelBadge.Label>
+          </LabelBadge>
         </SectionTitle.Trailing>
       </SectionTitle>
       <Divider />
@@ -1121,13 +1501,25 @@ export const Primitive_UtilityCSS_중첩_섹션_계층: Story = {
           <SectionTitle>
             <SectionTitle.Title>
               <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                {group.icon}{group.title}
+                {group.icon}
+                {group.title}
               </span>
             </SectionTitle.Title>
           </SectionTitle>
           <div style={{ paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 4 }}>
             {group.subs.map((sub) => (
-              <div key={sub} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 6, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
+              <div
+                key={sub}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  background: '#f8fafc',
+                  border: '1px solid #f1f5f9',
+                }}
+              >
                 <span style={{ fontSize: 12, color: '#475569', flex: 1 }}>{sub}</span>
                 <ChevronRightLineIcon style={{ width: 12, height: 12, color: '#94a3b8' }} />
               </div>
@@ -1146,45 +1538,107 @@ export const Primitive_UtilityCSS_중첩_섹션_계층: Story = {
 function PrimitiveCollapseSectionRender() {
   const sections = [
     { id: 1, title: '기본 설정', desc: '3개 항목', items: ['언어 설정', '시간대', '날짜 형식'] },
-    { id: 2, title: '알림 설정', desc: '5개 항목', items: ['이메일 알림', '푸시 알림', 'Slack 연동', '주간 다이제스트', '긴급 알림'] },
+    {
+      id: 2,
+      title: '알림 설정',
+      desc: '5개 항목',
+      items: ['이메일 알림', '푸시 알림', 'Slack 연동', '주간 다이제스트', '긴급 알림'],
+    },
     { id: 3, title: '고급 설정', desc: '2개 항목', items: ['개발자 모드', 'API 접근'] },
   ]
   const [openIds, setOpenIds] = React.useState<number[]>([1])
-  const toggleSection = (id: number) => setOpenIds((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
+  const toggleSection = (id: number) =>
+    setOpenIds((prev) => (prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]))
 
-    return (
-      <div style={{ maxWidth: 400, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {sections.map((sec) => {
-          const isOpen = openIds.includes(sec.id)
-          return (
-            <div key={sec.id} style={{ borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
-              <SectionTitle
-                onClick={() => toggleSection(sec.id)}
-                style={{ cursor: 'pointer', padding: '10px 14px' }}
+  return (
+    <div
+      style={{
+        maxWidth: 400,
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+      }}
+    >
+      {sections.map((sec) => {
+        const isOpen = openIds.includes(sec.id)
+        return (
+          <div
+            key={sec.id}
+            style={{
+              borderRadius: 8,
+              border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+              overflow: 'hidden',
+            }}
+          >
+            <SectionTitle
+              onClick={() => toggleSection(sec.id)}
+              style={{ cursor: 'pointer', padding: '10px 14px' }}
+            >
+              <SectionTitle.Title>
+                <Typography textStyle="labelMedium" color="foregroundPrimary">
+                  {sec.title}
+                </Typography>
+              </SectionTitle.Title>
+              <SectionTitle.Trailing>
+                <span
+                  style={{
+                    fontSize: 11,
+                    color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                    marginRight: 8,
+                  }}
+                >
+                  {sec.desc}
+                </span>
+                <ChevronRightLineIcon
+                  style={{
+                    width: 14,
+                    height: 14,
+                    transform: isOpen ? 'rotate(90deg)' : 'none',
+                    transition: 'transform 0.2s',
+                    color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  }}
+                />
+              </SectionTitle.Trailing>
+            </SectionTitle>
+            {isOpen && (
+              <div
+                style={{
+                  background: 'var(--sem-eclipse-color-surfaceSubtle)',
+                  borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)',
+                }}
               >
-                <SectionTitle.Title>
-                  <Typography textStyle="labelMedium" color="foregroundPrimary">{sec.title}</Typography>
-                </SectionTitle.Title>
-                <SectionTitle.Trailing>
-                  <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginRight: 8 }}>{sec.desc}</span>
-                  <ChevronRightLineIcon style={{ width: 14, height: 14, transform: isOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s', color: 'var(--sem-eclipse-color-foregroundTertiary)' }} />
-                </SectionTitle.Trailing>
-              </SectionTitle>
-              {isOpen && (
-                <div style={{ background: 'var(--sem-eclipse-color-surfaceSubtle)', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
-                  {sec.items.map((item) => (
-                    <div key={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 14px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', cursor: 'pointer' }}>
-                      <span>{item}</span>
-                      <ChevronRightLineIcon style={{ width: 12, height: 12, color: 'var(--sem-eclipse-color-foregroundDisabled)' }} />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )
-        })}
-      </div>
-    )
+                {sec.items.map((item) => (
+                  <div
+                    key={item}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '8px 14px',
+                      borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+                      fontSize: 12,
+                      color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <span>{item}</span>
+                    <ChevronRightLineIcon
+                      style={{
+                        width: 12,
+                        height: 12,
+                        color: 'var(--sem-eclipse-color-foregroundDisabled)',
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 
 export const Primitive_콜랩스_섹션_헤더: Story = {
@@ -1192,7 +1646,8 @@ export const Primitive_콜랩스_섹션_헤더: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI Collapsible 패턴을 SectionTitle로 구현. 헤더 클릭 시 섹션 콘텐츠가 접히고 펼쳐지는 아코디언 패턴. 설정 패널이나 필터 그룹에 유용.',
+        story:
+          'PrimitiveUI Collapsible 패턴을 SectionTitle로 구현. 헤더 클릭 시 섹션 콘텐츠가 접히고 펼쳐지는 아코디언 패턴. 설정 패널이나 필터 그룹에 유용.',
       },
     },
   },
@@ -1207,7 +1662,8 @@ export const DeployPlatform_프로젝트_리소스_섹션: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 프로젝트 대시보드의 리소스 섹션 패턴. SectionTitle에 현재 플랜 뱃지 + 업그레이드 링크를 Trailing으로 배치. 각 리소스의 사용량을 Progress 바로 표시.',
+        story:
+          'DeployPlatform 프로젝트 대시보드의 리소스 섹션 패턴. SectionTitle에 현재 플랜 뱃지 + 업그레이드 링크를 Trailing으로 배치. 각 리소스의 사용량을 Progress 바로 표시.',
       },
     },
   },
@@ -1222,7 +1678,9 @@ export const DeployPlatform_프로젝트_리소스_섹션: Story = {
       <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
         <SectionTitle style={{ marginBottom: 12 }}>
           <SectionTitle.Title>
-            <Typography textStyle="labelMedium" color="foregroundPrimary">리소스 사용량</Typography>
+            <Typography textStyle="labelMedium" color="foregroundPrimary">
+              리소스 사용량
+            </Typography>
           </SectionTitle.Title>
           <SectionTitle.Trailing>
             <LabelBadge color="gray">Pro 플랜</LabelBadge>
@@ -1231,18 +1689,55 @@ export const DeployPlatform_프로젝트_리소스_섹션: Story = {
             </TextButton>
           </SectionTitle.Trailing>
         </SectionTitle>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '14px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-surfaceDefault)' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12,
+            padding: '14px',
+            borderRadius: 10,
+            border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+            background: 'var(--sem-eclipse-color-surfaceDefault)',
+          }}
+        >
           {resources.map((res) => {
             const pct = Math.round((res.used / res.total) * 100)
             const isWarn = pct >= 80
             return (
               <div key={res.name}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
-                  <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{res.name}</span>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: isWarn ? '#f59e0b' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{res.used.toLocaleString()} / {res.total.toLocaleString()} {res.unit}</span>
+                  <span
+                    style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}
+                  >
+                    {res.name}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: isWarn ? '#f59e0b' : 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {res.used.toLocaleString()} / {res.total.toLocaleString()} {res.unit}
+                  </span>
                 </div>
-                <div style={{ height: 5, borderRadius: 3, background: 'var(--sem-eclipse-color-surfaceSubtle)', overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: `${pct}%`, borderRadius: 3, background: isWarn ? '#f59e0b' : 'var(--sem-eclipse-color-fillPrimary)', transition: 'width 0.3s' }} />
+                <div
+                  style={{
+                    height: 5,
+                    borderRadius: 3,
+                    background: 'var(--sem-eclipse-color-surfaceSubtle)',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <div
+                    style={{
+                      height: '100%',
+                      width: `${pct}%`,
+                      borderRadius: 3,
+                      background: isWarn ? '#f59e0b' : 'var(--sem-eclipse-color-fillPrimary)',
+                      transition: 'width 0.3s',
+                    }}
+                  />
                 </div>
               </div>
             )
@@ -1259,45 +1754,91 @@ export const DeployPlatform_프로젝트_리소스_섹션: Story = {
 function ComposableUIDocSectionRender() {
   const [copiedId, setCopiedId] = React.useState<string | null>(null)
 
-    const docSections = [
-      { id: 'installation', title: '설치', badge: null, code: 'pnpm add @heejun-com/theme-eclipse' },
-      { id: 'usage', title: '기본 사용법', badge: '업데이트됨', code: "import { SolidButton } from '@heejun-com/theme-eclipse'" },
-      { id: 'variants', title: 'Variants', badge: '신규', code: '<SolidButton color="primary" size="medium">' },
-    ]
+  const docSections = [
+    { id: 'installation', title: '설치', badge: null, code: 'pnpm add @heejun-com/theme-eclipse' },
+    {
+      id: 'usage',
+      title: '기본 사용법',
+      badge: '업데이트됨',
+      code: "import { SolidButton } from '@heejun-com/theme-eclipse'",
+    },
+    {
+      id: 'variants',
+      title: 'Variants',
+      badge: '신규',
+      code: '<SolidButton color="primary" size="medium">',
+    },
+  ]
 
-    const handleCopy = (id: string, code: string) => {
-      void navigator.clipboard.writeText(code).catch(() => null)
-      setCopiedId(id)
-      setTimeout(() => setCopiedId(null), 2000)
-    }
+  const handleCopy = (id: string, code: string) => {
+    void navigator.clipboard.writeText(code).catch(() => null)
+    setCopiedId(id)
+    setTimeout(() => setCopiedId(null), 2000)
+  }
 
-    return (
-      <div style={{ maxWidth: 520, fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
-        {docSections.map((sec) => (
-          <div key={sec.id}>
-            <SectionTitle style={{ marginBottom: 6 }}>
-              <SectionTitle.Title>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <Typography textStyle="titleMedium" color="foregroundPrimary">{sec.title}</Typography>
-                  {sec.badge && <LabelBadge color="gray">{sec.badge}</LabelBadge>}
-                </div>
-              </SectionTitle.Title>
-              <SectionTitle.Trailing>
-                <button
-                  onClick={() => handleCopy(sec.id, sec.code)}
-                  style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: copiedId === sec.id ? 'var(--sem-eclipse-color-fillPrimarySubtle)' : 'transparent', color: copiedId === sec.id ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', cursor: 'pointer', fontWeight: 500, transition: 'all 0.15s', fontFamily: 'system-ui' }}
-                >
-                  {copiedId === sec.id ? '복사됨!' : '코드 복사'}
-                </button>
-              </SectionTitle.Trailing>
-            </SectionTitle>
-            <div style={{ padding: '10px 14px', borderRadius: 8, background: '#0f172a', fontSize: 12, fontFamily: 'monospace', color: '#94a3b8' }}>
-              {sec.code}
-            </div>
+  return (
+    <div
+      style={{
+        maxWidth: 520,
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+      }}
+    >
+      {docSections.map((sec) => (
+        <div key={sec.id}>
+          <SectionTitle style={{ marginBottom: 6 }}>
+            <SectionTitle.Title>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Typography textStyle="titleMedium" color="foregroundPrimary">
+                  {sec.title}
+                </Typography>
+                {sec.badge && <LabelBadge color="gray">{sec.badge}</LabelBadge>}
+              </div>
+            </SectionTitle.Title>
+            <SectionTitle.Trailing>
+              <button
+                onClick={() => handleCopy(sec.id, sec.code)}
+                style={{
+                  fontSize: 10,
+                  padding: '3px 8px',
+                  borderRadius: 6,
+                  border: '1px solid var(--sem-eclipse-color-borderDefault)',
+                  background:
+                    copiedId === sec.id
+                      ? 'var(--sem-eclipse-color-fillPrimarySubtle)'
+                      : 'transparent',
+                  color:
+                    copiedId === sec.id
+                      ? 'var(--sem-eclipse-color-fillPrimary)'
+                      : 'var(--sem-eclipse-color-foregroundTertiary)',
+                  cursor: 'pointer',
+                  fontWeight: 500,
+                  transition: 'all 0.15s',
+                  fontFamily: 'system-ui',
+                }}
+              >
+                {copiedId === sec.id ? '복사됨!' : '코드 복사'}
+              </button>
+            </SectionTitle.Trailing>
+          </SectionTitle>
+          <div
+            style={{
+              padding: '10px 14px',
+              borderRadius: 8,
+              background: '#0f172a',
+              fontSize: 12,
+              fontFamily: 'monospace',
+              color: '#94a3b8',
+            }}
+          >
+            {sec.code}
           </div>
-        ))}
-      </div>
-    )
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export const ComposableUI_문서_섹션_헤더: Story = {
@@ -1305,7 +1846,8 @@ export const ComposableUI_문서_섹션_헤더: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI 문서 사이트의 섹션 헤더 패턴. SectionTitle에 앵커 링크 아이콘을 호버 시 표시하고, "새 기능" 뱃지와 우측에 "코드 복사" 버튼을 배치.',
+        story:
+          'ComposableUI 문서 사이트의 섹션 헤더 패턴. SectionTitle에 앵커 링크 아이콘을 호버 시 표시하고, "새 기능" 뱃지와 우측에 "코드 복사" 버튼을 배치.',
       },
     },
   },
@@ -1333,7 +1875,11 @@ function AppUICollapseSectionRender() {
       title: '최근 작업',
       desc: '지난 7일 내 수정된 항목',
       count: 5,
-      items: ['디자인 시스템 v2.1 스펙 검토', 'Button 컴포넌트 접근성 개선', '스토리북 배포 파이프라인 수정'],
+      items: [
+        '디자인 시스템 v2.1 스펙 검토',
+        'Button 컴포넌트 접근성 개선',
+        '스토리북 배포 파이프라인 수정',
+      ],
     },
     {
       id: 'pinned',
@@ -1358,15 +1904,49 @@ function AppUICollapseSectionRender() {
           <SectionTitle>
             <SectionTitle.Title>
               {sec.title}
-              <span style={{ marginLeft: 6, fontSize: 10, padding: '1px 6px', borderRadius: 99, background: '#f1f5f9', color: '#64748b', fontWeight: 600, verticalAlign: 'middle' }}>{sec.count}</span>
+              <span
+                style={{
+                  marginLeft: 6,
+                  fontSize: 10,
+                  padding: '1px 6px',
+                  borderRadius: 99,
+                  background: '#f1f5f9',
+                  color: '#64748b',
+                  fontWeight: 600,
+                  verticalAlign: 'middle',
+                }}
+              >
+                {sec.count}
+              </span>
             </SectionTitle.Title>
             <SectionTitle.Description>{sec.desc}</SectionTitle.Description>
             <SectionTitle.Trailing>
               <button
                 onClick={() => setCollapsed((prev) => ({ ...prev, [sec.id]: !prev[sec.id] }))}
-                style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, border: '1px solid #e5e7eb', background: 'transparent', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', gap: 4, fontFamily: 'system-ui' }}
+                style={{
+                  fontSize: 11,
+                  padding: '3px 8px',
+                  borderRadius: 6,
+                  border: '1px solid #e5e7eb',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  color: '#64748b',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  fontFamily: 'system-ui',
+                }}
               >
-                <span style={{ display: 'inline-block', transform: collapsed[sec.id] ? 'rotate(-90deg)' : 'rotate(0deg)', transition: 'transform 0.2s', fontSize: 10 }}>▼</span>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    transform: collapsed[sec.id] ? 'rotate(-90deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s',
+                    fontSize: 10,
+                  }}
+                >
+                  ▼
+                </span>
                 {collapsed[sec.id] ? '펼치기' : '접기'}
               </button>
             </SectionTitle.Trailing>
@@ -1374,7 +1954,20 @@ function AppUICollapseSectionRender() {
           {!collapsed[sec.id] && (
             <div style={{ marginTop: 4 }}>
               {sec.items.map((item, i) => (
-                <div key={i} style={{ padding: '8px 12px', borderRadius: 8, marginBottom: 2, background: '#f8fafc', fontSize: 12, color: '#374151', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div
+                  key={i}
+                  style={{
+                    padding: '8px 12px',
+                    borderRadius: 8,
+                    marginBottom: 2,
+                    background: '#f8fafc',
+                    fontSize: 12,
+                    color: '#374151',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                  }}
+                >
                   <span style={{ color: '#94a3b8', fontSize: 10 }}>◎</span>
                   {item}
                 </div>
@@ -1393,7 +1986,8 @@ export const AppUI_접기_펼치기_섹션: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'AppUI Collapse 컴포넌트의 섹션 헤더 패턴 적용. SectionTitle.Trailing에 접기/펼치기 버튼을 배치하고, count 배지로 항목 수 표시. 워크스페이스 사이드바의 섹션 그룹 탐색 UI.',
+        story:
+          'AppUI Collapse 컴포넌트의 섹션 헤더 패턴 적용. SectionTitle.Trailing에 접기/펼치기 버튼을 배치하고, count 배지로 항목 수 표시. 워크스페이스 사이드바의 섹션 그룹 탐색 UI.',
       },
     },
   },
@@ -1418,9 +2012,7 @@ function AntTaskGroupSectionRender() {
       id: 'progress',
       title: '진행 중',
       color: '#f59e0b',
-      tasks: [
-        { title: 'Calendar storybook 고도화', priority: 'high', due: '오늘' },
-      ],
+      tasks: [{ title: 'Calendar storybook 고도화', priority: 'high', due: '오늘' }],
     },
   ]
 
@@ -1430,7 +2022,20 @@ function AntTaskGroupSectionRender() {
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 12, display: 'flex', gap: 4, justifyContent: 'flex-end' }}>
         {(['list', 'board'] as const).map((v) => (
-          <button key={v} onClick={() => setView(v)} style={{ fontSize: 11, padding: '3px 9px', borderRadius: 6, border: `1px solid ${view === v ? '#6366f1' : '#e5e7eb'}`, background: view === v ? '#ede9fe' : 'transparent', color: view === v ? '#6366f1' : '#94a3b8', cursor: 'pointer', fontFamily: 'system-ui' }}>
+          <button
+            key={v}
+            onClick={() => setView(v)}
+            style={{
+              fontSize: 11,
+              padding: '3px 9px',
+              borderRadius: 6,
+              border: `1px solid ${view === v ? '#6366f1' : '#e5e7eb'}`,
+              background: view === v ? '#ede9fe' : 'transparent',
+              color: view === v ? '#6366f1' : '#94a3b8',
+              cursor: 'pointer',
+              fontFamily: 'system-ui',
+            }}
+          >
             {v === 'list' ? '목록' : '보드'}
           </button>
         ))}
@@ -1440,15 +2045,47 @@ function AntTaskGroupSectionRender() {
           <SectionTitle>
             <SectionTitle.Title>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: group.color, display: 'inline-block' }} />
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: group.color,
+                    display: 'inline-block',
+                  }}
+                />
                 {group.title}
-                <span style={{ fontSize: 10, padding: '0px 5px', borderRadius: 99, background: group.color + '15', color: group.color, fontWeight: 700 }}>{group.tasks.length}</span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    padding: '0px 5px',
+                    borderRadius: 99,
+                    background: group.color + '15',
+                    color: group.color,
+                    fontWeight: 700,
+                  }}
+                >
+                  {group.tasks.length}
+                </span>
               </span>
             </SectionTitle.Title>
             <SectionTitle.Trailing>
               <div style={{ display: 'flex', gap: 4 }}>
                 {(['priority', 'date', 'assignee'] as const).map((s) => (
-                  <button key={s} onClick={() => setSort(s)} style={{ fontSize: 9, padding: '2px 6px', borderRadius: 4, border: 'none', background: sort === s ? '#f1f5f9' : 'transparent', color: sort === s ? '#374151' : '#94a3b8', cursor: 'pointer', fontFamily: 'system-ui' }}>
+                  <button
+                    key={s}
+                    onClick={() => setSort(s)}
+                    style={{
+                      fontSize: 9,
+                      padding: '2px 6px',
+                      borderRadius: 4,
+                      border: 'none',
+                      background: sort === s ? '#f1f5f9' : 'transparent',
+                      color: sort === s ? '#374151' : '#94a3b8',
+                      cursor: 'pointer',
+                      fontFamily: 'system-ui',
+                    }}
+                  >
                     {{ priority: '우선순위', date: '날짜', assignee: '담당자' }[s]}
                   </button>
                 ))}
@@ -1457,8 +2094,27 @@ function AntTaskGroupSectionRender() {
           </SectionTitle>
           <div style={{ marginTop: 6 }}>
             {group.tasks.map((task, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 10px', borderRadius: 8, background: '#f8fafc', marginBottom: 3 }}>
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: priorityDot[task.priority], flexShrink: 0 }} />
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '7px 10px',
+                  borderRadius: 8,
+                  background: '#f8fafc',
+                  marginBottom: 3,
+                }}
+              >
+                <div
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: priorityDot[task.priority],
+                    flexShrink: 0,
+                  }}
+                />
                 <span style={{ flex: 1, fontSize: 12, color: '#374151' }}>{task.title}</span>
                 <span style={{ fontSize: 10, color: '#94a3b8' }}>{task.due}</span>
               </div>
@@ -1476,7 +2132,8 @@ export const Ant_작업_그룹_섹션: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'Ant Design List.Header 패턴 적용. SectionTitle.Trailing에 정렬 버튼 그룹(우선순위/날짜/담당자)과 목록/보드 뷰 전환 컨트롤 배치. 프로젝트 관리 앱의 태스크 그룹 헤더 패턴.',
+        story:
+          'Ant Design List.Header 패턴 적용. SectionTitle.Trailing에 정렬 버튼 그룹(우선순위/날짜/담당자)과 목록/보드 뷰 전환 컨트롤 배치. 프로젝트 관리 앱의 태스크 그룹 헤더 패턴.',
       },
     },
   },
@@ -1507,8 +2164,22 @@ function AppUIAntWidgetSectionRender() {
             {filterChips.map((chip, i) => (
               <button
                 key={chip}
-                onClick={() => { setActiveFilter(filterValues[i]); setMetricPeriod(filterValues[i]) }}
-                style={{ fontSize: 10, padding: '3px 8px', borderRadius: 99, border: 'none', background: activeFilter === filterValues[i] ? '#6366f1' : '#f1f5f9', color: activeFilter === filterValues[i] ? '#fff' : '#64748b', cursor: 'pointer', fontWeight: activeFilter === filterValues[i] ? 600 : 400, fontFamily: 'system-ui', transition: 'all 0.15s' }}
+                onClick={() => {
+                  setActiveFilter(filterValues[i])
+                  setMetricPeriod(filterValues[i])
+                }}
+                style={{
+                  fontSize: 10,
+                  padding: '3px 8px',
+                  borderRadius: 99,
+                  border: 'none',
+                  background: activeFilter === filterValues[i] ? '#6366f1' : '#f1f5f9',
+                  color: activeFilter === filterValues[i] ? '#fff' : '#64748b',
+                  cursor: 'pointer',
+                  fontWeight: activeFilter === filterValues[i] ? 600 : 400,
+                  fontFamily: 'system-ui',
+                  transition: 'all 0.15s',
+                }}
               >
                 {chip}
               </button>
@@ -1519,17 +2190,63 @@ function AppUIAntWidgetSectionRender() {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 10 }}>
         {widgets.map((w) => (
-          <div key={w.label} style={{ padding: '12px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+          <div
+            key={w.label}
+            style={{
+              padding: '12px 14px',
+              borderRadius: 10,
+              border: '1px solid #f1f5f9',
+              background: '#fff',
+            }}
+          >
             <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>{w.label}</div>
-            <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a' }}>{w.value}<span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 400 }}>{w.unit}</span></div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: '#0f172a' }}>
+              {w.value}
+              <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 400 }}>{w.unit}</span>
+            </div>
             {w.trend !== 0 && (
-              <div style={{ fontSize: 10, color: w.trend > 0 ? '#10b981' : '#ef4444', marginTop: 4, display: 'flex', alignItems: 'center', gap: 2 }}>
+              <div
+                style={{
+                  fontSize: 10,
+                  color: w.trend > 0 ? '#10b981' : '#ef4444',
+                  marginTop: 4,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                }}
+              >
                 <span>{w.trend > 0 ? '▲' : '▼'}</span>
-                <span>{Math.abs(w.trend)}{w.unit} ({metricPeriod === 'all' ? '전체' : metricPeriod === 'week' ? '주간' : metricPeriod === 'month' ? '월간' : '분기'} 기준)</span>
+                <span>
+                  {Math.abs(w.trend)}
+                  {w.unit} (
+                  {metricPeriod === 'all'
+                    ? '전체'
+                    : metricPeriod === 'week'
+                      ? '주간'
+                      : metricPeriod === 'month'
+                        ? '월간'
+                        : '분기'}{' '}
+                  기준)
+                </span>
               </div>
             )}
-            <div style={{ height: 3, borderRadius: 2, background: '#f1f5f9', marginTop: 8, overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: `${Math.min(w.value, 100)}%`, background: w.color, borderRadius: 2 }} />
+            <div
+              style={{
+                height: 3,
+                borderRadius: 2,
+                background: '#f1f5f9',
+                marginTop: 8,
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{
+                  height: '100%',
+                  width: `${Math.min(w.value, 100)}%`,
+                  background: w.color,
+                  borderRadius: 2,
+                }}
+              />
             </div>
           </div>
         ))}
@@ -1544,7 +2261,8 @@ export const AppUI_Ant_위젯_섹션: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'AppUI SegmentedControl 스타일의 필터 칩 + Ant Design Statistics 위젯 패턴. SectionTitle.Trailing에 전체/주간/월간/분기 필터 칩을 배치하고, 선택된 기간에 따라 지표 카드 트렌드 업데이트.',
+        story:
+          'AppUI SegmentedControl 스타일의 필터 칩 + Ant Design Statistics 위젯 패턴. SectionTitle.Trailing에 전체/주간/월간/분기 필터 칩을 배치하고, 선택된 기간에 따라 지표 카드 트렌드 업데이트.',
       },
     },
   },

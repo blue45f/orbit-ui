@@ -76,7 +76,8 @@ const cardItems = [
 
 const CardCarouselRender = () => {
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
+  const [api, setApi] =
+    useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
 
   useEffect(() => {
     if (!api) return
@@ -86,8 +87,24 @@ const CardCarouselRender = () => {
   }, [api])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', padding: '40px' }}>
-      <div style={{ fontSize: '12px', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '20px',
+        padding: '40px',
+      }}
+    >
+      <div
+        style={{
+          fontSize: '12px',
+          fontWeight: 600,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+        }}
+      >
         Orbit UI Design Principles
       </div>
 
@@ -125,7 +142,14 @@ const CardCarouselRender = () => {
                     >
                       {item.tag}
                     </span>
-                    <div style={{ fontSize: '18px', fontWeight: 800, color: '#1e293b', lineHeight: 1.3 }}>
+                    <div
+                      style={{
+                        fontSize: '18px',
+                        fontWeight: 800,
+                        color: '#1e293b',
+                        lineHeight: 1.3,
+                      }}
+                    >
                       {item.title}
                     </div>
                     <div style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
@@ -177,7 +201,12 @@ export const 카드캐러셀: Story = {
    썸네일 네비게이션 + 슬라이드 카운터 + 풀너비 레이아웃
 -------------------------------------------------------------------------- */
 const gallerySlides = [
-  { label: 'Orbit UI Core', sub: 'Base components without styles', icon: 'C', accentColor: '#6366f1' },
+  {
+    label: 'Orbit UI Core',
+    sub: 'Base components without styles',
+    icon: 'C',
+    accentColor: '#6366f1',
+  },
   { label: 'Eclipse Theme', sub: 'Themed component wrappers', icon: 'E', accentColor: '#8b5cf6' },
   { label: 'Icon Library', sub: '200+ SVG icons', icon: 'I', accentColor: '#10b981' },
   { label: 'Vite Plugin', sub: 'CSS ordering automation', icon: 'V', accentColor: '#f59e0b' },
@@ -186,7 +215,8 @@ const gallerySlides = [
 
 const GalleryCarouselRender = () => {
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
+  const [api, setApi] =
+    useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
 
   useEffect(() => {
     if (!api) return
@@ -196,7 +226,15 @@ const GalleryCarouselRender = () => {
   }, [api])
 
   return (
-    <div style={{ width: '480px', display: 'flex', flexDirection: 'column', gap: '16px', padding: '32px' }}>
+    <div
+      style={{
+        width: '480px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        padding: '32px',
+      }}
+    >
       {/* 메인 슬라이드 */}
       <div style={{ position: 'relative' }}>
         <Carousel setApi={setApi} className="w-full">
@@ -234,8 +272,12 @@ const GalleryCarouselRender = () => {
                     {slide.icon}
                   </div>
                   <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '18px', fontWeight: 800, color: '#1e293b' }}>{slide.label}</div>
-                    <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>{slide.sub}</div>
+                    <div style={{ fontSize: '18px', fontWeight: 800, color: '#1e293b' }}>
+                      {slide.label}
+                    </div>
+                    <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>
+                      {slide.sub}
+                    </div>
                   </div>
                 </div>
               </Carousel.Item>
@@ -312,7 +354,8 @@ const autoplayItems = [
 const AutoplayCarouselRender = () => {
   const [isPlaying, setIsPlaying] = useState(true)
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
+  const [api, setApi] =
+    useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
@@ -345,7 +388,15 @@ const AutoplayCarouselRender = () => {
   }, [])
 
   return (
-    <div style={{ width: '360px', display: 'flex', flexDirection: 'column', gap: '16px', padding: '32px' }}>
+    <div
+      style={{
+        width: '360px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        padding: '32px',
+      }}
+    >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>업데이트 소식</div>
         <button
@@ -366,22 +417,29 @@ const AutoplayCarouselRender = () => {
         >
           {isPlaying ? (
             <>
-              <span style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#6366f1' }} />
+              <span
+                style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#6366f1' }}
+              />
               정지
             </>
           ) : (
             <>
-              <span style={{ width: 0, height: 0, borderLeft: '8px solid #10b981', borderTop: '5px solid transparent', borderBottom: '5px solid transparent' }} />
+              <span
+                style={{
+                  width: 0,
+                  height: 0,
+                  borderLeft: '8px solid #10b981',
+                  borderTop: '5px solid transparent',
+                  borderBottom: '5px solid transparent',
+                }}
+              />
               재생
             </>
           )}
         </button>
       </div>
 
-      <Carousel
-        setApi={setApi}
-        className="w-full"
-      >
+      <Carousel setApi={setApi} className="w-full">
         <Carousel.Content>
           {autoplayItems.map((item, index) => (
             <Carousel.Item key={index}>
@@ -397,8 +455,12 @@ const AutoplayCarouselRender = () => {
                   gap: '8px',
                 }}
               >
-                <div style={{ fontSize: '16px', fontWeight: 800, color: '#1e293b' }}>{item.label}</div>
-                <div style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>{item.desc}</div>
+                <div style={{ fontSize: '16px', fontWeight: 800, color: '#1e293b' }}>
+                  {item.label}
+                </div>
+                <div style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.6 }}>
+                  {item.desc}
+                </div>
               </div>
             </Carousel.Item>
           ))}
@@ -473,7 +535,8 @@ const onboardingSteps = [
 
 const OnboardingCarouselRender = () => {
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
+  const [api, setApi] =
+    useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
   const [completed, setCompleted] = useState(false)
 
   useEffect(() => {
@@ -488,19 +551,49 @@ const OnboardingCarouselRender = () => {
 
   if (completed) {
     return (
-      <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-        <div style={{
-          width: 72, height: 72, borderRadius: '50%', background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32,
-          boxShadow: '0 12px 32px #10b98140',
-        }}>
+      <div
+        style={{
+          padding: '40px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 16,
+        }}
+      >
+        <div
+          style={{
+            width: 72,
+            height: 72,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 32,
+            boxShadow: '0 12px 32px #10b98140',
+          }}
+        >
           {'✓'}
         </div>
         <div style={{ fontSize: 20, fontWeight: 800, color: '#1e293b' }}>설정 완료!</div>
-        <div style={{ fontSize: 13, color: '#64748b', textAlign: 'center' }}>Orbit UI를 사용할 준비가 되었습니다.</div>
+        <div style={{ fontSize: 13, color: '#64748b', textAlign: 'center' }}>
+          Orbit UI를 사용할 준비가 되었습니다.
+        </div>
         <button
-          onClick={() => { setCompleted(false); setCurrent(0); api?.scrollTo(0) }}
-          style={{ padding: '8px 20px', borderRadius: 8, border: '1.5px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer', color: '#64748b' }}
+          onClick={() => {
+            setCompleted(false)
+            setCurrent(0)
+            api?.scrollTo(0)
+          }}
+          style={{
+            padding: '8px 20px',
+            borderRadius: 8,
+            border: '1.5px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 13,
+            cursor: 'pointer',
+            color: '#64748b',
+          }}
         >
           다시 보기
         </button>
@@ -519,11 +612,15 @@ const OnboardingCarouselRender = () => {
           </span>
         </div>
         <div style={{ height: 4, borderRadius: 2, background: '#f1f5f9', overflow: 'hidden' }}>
-          <div style={{
-            height: '100%', borderRadius: 2,
-            background: `linear-gradient(90deg, ${onboardingSteps[current].color} 0%, ${onboardingSteps[current].color}aa 100%)`,
-            width: `${progress}%`, transition: 'width 0.4s ease',
-          }} />
+          <div
+            style={{
+              height: '100%',
+              borderRadius: 2,
+              background: `linear-gradient(90deg, ${onboardingSteps[current].color} 0%, ${onboardingSteps[current].color}aa 100%)`,
+              width: `${progress}%`,
+              transition: 'width 0.4s ease',
+            }}
+          />
         </div>
       </div>
 
@@ -532,20 +629,33 @@ const OnboardingCarouselRender = () => {
         <Carousel.Content>
           {onboardingSteps.map((step, index) => (
             <Carousel.Item key={index}>
-              <div style={{
-                padding: '28px 24px', borderRadius: 16, minHeight: 200,
-                background: `linear-gradient(145deg, ${step.color}10 0%, ${step.color}06 100%)`,
-                border: `1.5px solid ${step.color}22`,
-                display: 'flex', flexDirection: 'column', gap: 12,
-              }}>
+              <div
+                style={{
+                  padding: '28px 24px',
+                  borderRadius: 16,
+                  minHeight: 200,
+                  background: `linear-gradient(145deg, ${step.color}10 0%, ${step.color}06 100%)`,
+                  border: `1.5px solid ${step.color}22`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 12,
+                }}
+              >
                 <div style={{ fontSize: 40 }}>{step.icon}</div>
                 <div style={{ fontSize: 18, fontWeight: 800, color: '#1e293b' }}>{step.title}</div>
                 <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>{step.desc}</div>
-                <div style={{
-                  marginTop: 8, padding: '8px 12px', borderRadius: 8,
-                  background: `${step.color}0f`, fontFamily: 'monospace',
-                  fontSize: 12, color: step.color, fontWeight: 600,
-                }}>
+                <div
+                  style={{
+                    marginTop: 8,
+                    padding: '8px 12px',
+                    borderRadius: 8,
+                    background: `${step.color}0f`,
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                    color: step.color,
+                    fontWeight: 600,
+                  }}
+                >
                   {step.hint}
                 </div>
               </div>
@@ -560,9 +670,14 @@ const OnboardingCarouselRender = () => {
           onClick={() => api?.scrollPrev()}
           disabled={current === 0}
           style={{
-            padding: '8px 16px', borderRadius: 8, border: '1.5px solid #e2e8f0',
-            background: '#fff', fontSize: 13, cursor: current === 0 ? 'default' : 'pointer',
-            color: current === 0 ? '#cbd5e1' : '#475569', fontWeight: 600,
+            padding: '8px 16px',
+            borderRadius: 8,
+            border: '1.5px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 13,
+            cursor: current === 0 ? 'default' : 'pointer',
+            color: current === 0 ? '#cbd5e1' : '#475569',
+            fontWeight: 600,
           }}
         >
           이전
@@ -573,9 +688,14 @@ const OnboardingCarouselRender = () => {
               key={i}
               onClick={() => api?.scrollTo(i)}
               style={{
-                width: i === current ? 20 : 8, height: 8, borderRadius: 4, border: 'none', padding: 0,
+                width: i === current ? 20 : 8,
+                height: 8,
+                borderRadius: 4,
+                border: 'none',
+                padding: 0,
                 background: i === current ? step.color : '#e2e8f0',
-                cursor: 'pointer', transition: 'all 0.25s ease',
+                cursor: 'pointer',
+                transition: 'all 0.25s ease',
               }}
             />
           ))}
@@ -584,9 +704,14 @@ const OnboardingCarouselRender = () => {
           <button
             onClick={() => setCompleted(true)}
             style={{
-              padding: '8px 16px', borderRadius: 8, border: 'none',
-              background: onboardingSteps[current].color, fontSize: 13,
-              cursor: 'pointer', color: '#fff', fontWeight: 700,
+              padding: '8px 16px',
+              borderRadius: 8,
+              border: 'none',
+              background: onboardingSteps[current].color,
+              fontSize: 13,
+              cursor: 'pointer',
+              color: '#fff',
+              fontWeight: 700,
             }}
           >
             완료
@@ -595,9 +720,14 @@ const OnboardingCarouselRender = () => {
           <button
             onClick={() => api?.scrollNext()}
             style={{
-              padding: '8px 16px', borderRadius: 8, border: 'none',
-              background: onboardingSteps[current].color, fontSize: 13,
-              cursor: 'pointer', color: '#fff', fontWeight: 700,
+              padding: '8px 16px',
+              borderRadius: 8,
+              border: 'none',
+              background: onboardingSteps[current].color,
+              fontSize: 13,
+              cursor: 'pointer',
+              color: '#fff',
+              fontWeight: 700,
             }}
           >
             다음
@@ -627,16 +757,52 @@ export const DataProduct_온보딩_단계형: Story = {
    aspect-ratio 기반 이미지 영역, 리플 효과 시뮬레이션
 -------------------------------------------------------------------------- */
 const m3MediaItems = [
-  { title: 'SolidButton', category: 'Actions', lines: 248, contributors: 3, updated: '2일 전', accent: '#6750A4' },
-  { title: 'DataTable', category: 'Data Display', lines: 512, contributors: 5, updated: '5일 전', accent: '#006E1C' },
-  { title: 'TextField', category: 'Forms', lines: 186, contributors: 2, updated: '1일 전', accent: '#984061' },
-  { title: 'Command', category: 'Navigation', lines: 324, contributors: 4, updated: '3일 전', accent: '#7B4800' },
-  { title: 'Toast', category: 'Feedback', lines: 142, contributors: 2, updated: '7일 전', accent: '#006A6A' },
+  {
+    title: 'SolidButton',
+    category: 'Actions',
+    lines: 248,
+    contributors: 3,
+    updated: '2일 전',
+    accent: '#6750A4',
+  },
+  {
+    title: 'DataTable',
+    category: 'Data Display',
+    lines: 512,
+    contributors: 5,
+    updated: '5일 전',
+    accent: '#006E1C',
+  },
+  {
+    title: 'TextField',
+    category: 'Forms',
+    lines: 186,
+    contributors: 2,
+    updated: '1일 전',
+    accent: '#984061',
+  },
+  {
+    title: 'Command',
+    category: 'Navigation',
+    lines: 324,
+    contributors: 4,
+    updated: '3일 전',
+    accent: '#7B4800',
+  },
+  {
+    title: 'Toast',
+    category: 'Feedback',
+    lines: 142,
+    contributors: 2,
+    updated: '7일 전',
+    accent: '#006A6A',
+  },
 ]
 
 const M3MediaCarouselRender = () => {
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
+  const [api, setApi] =
+    useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
 
   useEffect(() => {
     if (!api) return
@@ -648,8 +814,24 @@ const M3MediaCarouselRender = () => {
   const item = m3MediaItems[current]
 
   return (
-    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#49454F', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+    <div
+      style={{
+        padding: '32px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        alignItems: 'center',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#49454F',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+        }}
+      >
         Component Library
       </div>
 
@@ -660,58 +842,109 @@ const M3MediaCarouselRender = () => {
               <Carousel.Item key={index}>
                 <div style={{ padding: '4px' }}>
                   {/* M3 Filled Card */}
-                  <div style={{
-                    borderRadius: 12, overflow: 'hidden',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15)',
-                    background: '#FFFBFE',
-                  }}>
+                  <div
+                    style={{
+                      borderRadius: 12,
+                      overflow: 'hidden',
+                      boxShadow: '0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15)',
+                      background: '#FFFBFE',
+                    }}
+                  >
                     {/* M3 컬러 헤더 (이미지 영역 대체) */}
-                    <div style={{
-                      height: 160, background: m.accent,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}>
-                      <div style={{
-                        fontSize: 48, fontWeight: 900, color: 'rgba(255,255,255,0.9)',
-                        fontFamily: '"Roboto", system-ui, sans-serif', letterSpacing: '-0.02em',
-                      }}>
+                    <div
+                      style={{
+                        height: 160,
+                        background: m.accent,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 48,
+                          fontWeight: 900,
+                          color: 'rgba(255,255,255,0.9)',
+                          fontFamily: '"Roboto", system-ui, sans-serif',
+                          letterSpacing: '-0.02em',
+                        }}
+                      >
                         {m.title[0]}
                       </div>
                     </div>
                     {/* M3 카드 바디 */}
                     <div style={{ padding: '16px' }}>
-                      <div style={{ fontSize: 16, fontWeight: 500, color: '#1C1B1F', marginBottom: 4, letterSpacing: '0.015em' }}>
+                      <div
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 500,
+                          color: '#1C1B1F',
+                          marginBottom: 4,
+                          letterSpacing: '0.015em',
+                        }}
+                      >
                         {m.title}
                       </div>
-                      <div style={{ fontSize: 12, color: '#49454F', letterSpacing: '0.04em', textTransform: 'uppercase', fontWeight: 500, marginBottom: 12 }}>
+                      <div
+                        style={{
+                          fontSize: 12,
+                          color: '#49454F',
+                          letterSpacing: '0.04em',
+                          textTransform: 'uppercase',
+                          fontWeight: 500,
+                          marginBottom: 12,
+                        }}
+                      >
                         {m.category}
                       </div>
                       <div style={{ display: 'flex', gap: 16 }}>
                         <div>
-                          <div style={{ fontSize: 11, color: '#79747E', letterSpacing: '0.04em' }}>Lines</div>
-                          <div style={{ fontSize: 14, fontWeight: 600, color: '#1C1B1F' }}>{m.lines}</div>
+                          <div style={{ fontSize: 11, color: '#79747E', letterSpacing: '0.04em' }}>
+                            Lines
+                          </div>
+                          <div style={{ fontSize: 14, fontWeight: 600, color: '#1C1B1F' }}>
+                            {m.lines}
+                          </div>
                         </div>
                         <div>
-                          <div style={{ fontSize: 11, color: '#79747E', letterSpacing: '0.04em' }}>Contributors</div>
-                          <div style={{ fontSize: 14, fontWeight: 600, color: '#1C1B1F' }}>{m.contributors}</div>
+                          <div style={{ fontSize: 11, color: '#79747E', letterSpacing: '0.04em' }}>
+                            Contributors
+                          </div>
+                          <div style={{ fontSize: 14, fontWeight: 600, color: '#1C1B1F' }}>
+                            {m.contributors}
+                          </div>
                         </div>
                         <div style={{ marginLeft: 'auto', textAlign: 'right' }}>
-                          <div style={{ fontSize: 11, color: '#79747E', letterSpacing: '0.04em' }}>Updated</div>
-                          <div style={{ fontSize: 14, fontWeight: 600, color: '#1C1B1F' }}>{m.updated}</div>
+                          <div style={{ fontSize: 11, color: '#79747E', letterSpacing: '0.04em' }}>
+                            Updated
+                          </div>
+                          <div style={{ fontSize: 14, fontWeight: 600, color: '#1C1B1F' }}>
+                            {m.updated}
+                          </div>
                         </div>
                       </div>
                     </div>
                     {/* M3 액션 영역 */}
-                    <div style={{
-                      padding: '0 8px 8px',
-                      display: 'flex', justifyContent: 'flex-end', gap: 4,
-                    }}>
+                    <div
+                      style={{
+                        padding: '0 8px 8px',
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        gap: 4,
+                      }}
+                    >
                       {['상세 보기', '편집'].map((label) => (
                         <button
                           key={label}
                           style={{
-                            padding: '8px 16px', borderRadius: 20, border: 'none',
-                            background: 'transparent', fontSize: 13, fontWeight: 600,
-                            color: m.accent, cursor: 'pointer',
+                            padding: '8px 16px',
+                            borderRadius: 20,
+                            border: 'none',
+                            background: 'transparent',
+                            fontSize: 13,
+                            fontWeight: 600,
+                            color: m.accent,
+                            cursor: 'pointer',
                             letterSpacing: '0.01em',
                           }}
                         >
@@ -736,14 +969,26 @@ const M3MediaCarouselRender = () => {
             key={i}
             onClick={() => api?.scrollTo(i)}
             style={{
-              width: i === current ? 28 : 8, height: 8, borderRadius: 4, border: 'none', padding: 0,
+              width: i === current ? 28 : 8,
+              height: 8,
+              borderRadius: 4,
+              border: 'none',
+              padding: 0,
               background: i === current ? item.accent : '#E6E1E5',
-              cursor: 'pointer', transition: 'all 0.3s cubic-bezier(0.2, 0, 0, 1)',
+              cursor: 'pointer',
+              transition: 'all 0.3s cubic-bezier(0.2, 0, 0, 1)',
             }}
           />
         ))}
       </div>
-      <div style={{ fontSize: 11, color: '#79747E', fontFamily: '"Roboto", system-ui, sans-serif', letterSpacing: '0.04em' }}>
+      <div
+        style={{
+          fontSize: 11,
+          color: '#79747E',
+          fontFamily: '"Roboto", system-ui, sans-serif',
+          letterSpacing: '0.04em',
+        }}
+      >
         {current + 1} of {m3MediaItems.length} · Material Design 3 Card
       </div>
     </div>
@@ -797,7 +1042,8 @@ const testimonials = [
 
 const TestimonialCarouselRender = () => {
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
+  const [api, setApi] =
+    useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]>()
 
   useEffect(() => {
     if (!api) return
@@ -807,9 +1053,26 @@ const TestimonialCarouselRender = () => {
   }, [api])
 
   return (
-    <div style={{ padding: '40px 32px', display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center' }}>
+    <div
+      style={{
+        padding: '40px 32px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+        alignItems: 'center',
+      }}
+    >
       <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6 }}>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+            marginBottom: 6,
+          }}
+        >
           Social Proof
         </div>
         <div style={{ fontSize: 20, fontWeight: 800, color: '#1e293b' }}>개발자 후기</div>
@@ -821,35 +1084,73 @@ const TestimonialCarouselRender = () => {
             {testimonials.map((t, index) => (
               <Carousel.Item key={index}>
                 <div style={{ padding: '4px' }}>
-                  <div style={{
-                    borderRadius: 20, padding: '28px 24px',
-                    background: '#fff', border: '1.5px solid #e2e8f0',
-                    boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-                    display: 'flex', flexDirection: 'column', gap: 16,
-                  }}>
+                  <div
+                    style={{
+                      borderRadius: 20,
+                      padding: '28px 24px',
+                      background: '#fff',
+                      border: '1.5px solid #e2e8f0',
+                      boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 16,
+                    }}
+                  >
                     {/* 별점 */}
                     <div style={{ display: 'flex', gap: 3 }}>
                       {Array.from({ length: 5 }).map((_, i) => (
-                        <span key={i} style={{ fontSize: 16, color: i < t.rating ? '#f59e0b' : '#e2e8f0' }}>
+                        <span
+                          key={i}
+                          style={{ fontSize: 16, color: i < t.rating ? '#f59e0b' : '#e2e8f0' }}
+                        >
                           {'★'}
                         </span>
                       ))}
                     </div>
                     {/* 인용 */}
-                    <div style={{ fontSize: 14, color: '#374151', lineHeight: 1.7, fontStyle: 'italic' }}>
-                      {'"'}{t.text}{'"'}
+                    <div
+                      style={{
+                        fontSize: 14,
+                        color: '#374151',
+                        lineHeight: 1.7,
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      {'"'}
+                      {t.text}
+                      {'"'}
                     </div>
                     {/* 프로필 */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingTop: 8, borderTop: '1px solid #f1f5f9' }}>
-                      <div style={{
-                        width: 40, height: 40, borderRadius: '50%',
-                        background: t.avatarColor, display: 'flex', alignItems: 'center',
-                        justifyContent: 'center', fontSize: 13, fontWeight: 800, color: '#fff', flexShrink: 0,
-                      }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 12,
+                        paddingTop: 8,
+                        borderTop: '1px solid #f1f5f9',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: '50%',
+                          background: t.avatarColor,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 13,
+                          fontWeight: 800,
+                          color: '#fff',
+                          flexShrink: 0,
+                        }}
+                      >
                         {t.avatar}
                       </div>
                       <div>
-                        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{t.name}</div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+                          {t.name}
+                        </div>
                         <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{t.role}</div>
                       </div>
                     </div>
@@ -870,9 +1171,14 @@ const TestimonialCarouselRender = () => {
             key={i}
             onClick={() => api?.scrollTo(i)}
             style={{
-              width: 8, height: 8, borderRadius: '50%', border: 'none', padding: 0,
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              border: 'none',
+              padding: 0,
               background: i === current ? '#6366f1' : '#e2e8f0',
-              cursor: 'pointer', transition: 'background 0.2s ease',
+              cursor: 'pointer',
+              transition: 'background 0.2s ease',
               transform: i === current ? 'scale(1.3)' : 'scale(1)',
             }}
           />
@@ -932,7 +1238,9 @@ const FEATURES = [
 
 function FeatureCarouselRender() {
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0] | null>(null)
+  const [api, setApi] = useState<
+    Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0] | null
+  >(null)
 
   useEffect(() => {
     if (!api) return
@@ -940,28 +1248,48 @@ function FeatureCarouselRender() {
   }, [api])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: '20px' }}>
-      <Carousel
-        className="w-full"
-        style={{ maxWidth: 380 }}
-        setApi={setApi}
-      >
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 20,
+        padding: '20px',
+      }}
+    >
+      <Carousel className="w-full" style={{ maxWidth: 380 }} setApi={setApi}>
         <Carousel.Content>
           {FEATURES.map((f) => (
             <Carousel.Item key={f.title}>
-              <div style={{
-                margin: '0 8px', padding: '32px 24px',
-                background: f.bg, borderRadius: '16px',
-                border: `1px solid ${f.color}30`,
-                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14,
-                textAlign: 'center', minHeight: 200,
-              }}>
-                <div style={{
-                  width: 52, height: 52, borderRadius: '14px',
-                  background: f.color, color: '#fff',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '22px', fontWeight: 700,
-                }}>
+              <div
+                style={{
+                  margin: '0 8px',
+                  padding: '32px 24px',
+                  background: f.bg,
+                  borderRadius: '16px',
+                  border: `1px solid ${f.color}30`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 14,
+                  textAlign: 'center',
+                  minHeight: 200,
+                }}
+              >
+                <div
+                  style={{
+                    width: 52,
+                    height: 52,
+                    borderRadius: '14px',
+                    background: f.color,
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '22px',
+                    fontWeight: 700,
+                  }}
+                >
                   {f.icon}
                 </div>
                 <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>{f.title}</div>
@@ -981,9 +1309,14 @@ function FeatureCarouselRender() {
             key={f.title}
             onClick={() => api?.scrollTo(i)}
             style={{
-              width: i === current ? 20 : 8, height: 8, borderRadius: 4, border: 'none', padding: 0,
+              width: i === current ? 20 : 8,
+              height: 8,
+              borderRadius: 4,
+              border: 'none',
+              padding: 0,
               background: i === current ? FEATURES[current].color : '#e2e8f0',
-              cursor: 'pointer', transition: 'all 0.2s ease',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
             }}
           />
         ))}
@@ -1013,14 +1346,31 @@ export const ComposableUI_피처_하이라이트: Story = {
 -------------------------------------------------------------------------- */
 const STEPS = [
   { step: 1, title: '패키지 설치', code: 'pnpm add @heejun-com/theme-eclipse', color: '#6366f1' },
-  { step: 2, title: 'Provider 설정', code: 'import { EclipseProvider } from "@heejun-com/theme-eclipse"', color: '#8b5cf6' },
-  { step: 3, title: '컴포넌트 임포트', code: 'import { SolidButton } from "@heejun-com/theme-eclipse"', color: '#06b6d4' },
-  { step: 4, title: '완료!', code: '<SolidButton color="primary">시작하기</SolidButton>', color: '#10b981' },
+  {
+    step: 2,
+    title: 'Provider 설정',
+    code: 'import { EclipseProvider } from "@heejun-com/theme-eclipse"',
+    color: '#8b5cf6',
+  },
+  {
+    step: 3,
+    title: '컴포넌트 임포트',
+    code: 'import { SolidButton } from "@heejun-com/theme-eclipse"',
+    color: '#06b6d4',
+  },
+  {
+    step: 4,
+    title: '완료!',
+    code: '<SolidButton color="primary">시작하기</SolidButton>',
+    color: '#10b981',
+  },
 ]
 
 function StepCarouselRender() {
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0] | null>(null)
+  const [api, setApi] = useState<
+    Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0] | null
+  >(null)
   const [completed, setCompleted] = useState<Set<number>>(new Set())
 
   useEffect(() => {
@@ -1034,26 +1384,40 @@ function StepCarouselRender() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '20px', maxWidth: 420 }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '20px', maxWidth: 420 }}
+    >
       {/* Step progress bar */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
         {STEPS.map((s, i) => (
           <React.Fragment key={s.step}>
-            <div style={{
-              width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-              background: completed.has(i) ? '#10b981' : i === current ? s.color : '#e2e8f0',
-              color: completed.has(i) || i === current ? '#fff' : '#94a3b8',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '12px', fontWeight: 700, transition: 'all 0.2s',
-            }}>
+            <div
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: '50%',
+                flexShrink: 0,
+                background: completed.has(i) ? '#10b981' : i === current ? s.color : '#e2e8f0',
+                color: completed.has(i) || i === current ? '#fff' : '#94a3b8',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '12px',
+                fontWeight: 700,
+                transition: 'all 0.2s',
+              }}
+            >
               {completed.has(i) ? '✓' : s.step}
             </div>
             {i < STEPS.length - 1 && (
-              <div style={{
-                flex: 1, height: 2,
-                background: completed.has(i) ? '#10b981' : '#e2e8f0',
-                transition: 'background 0.3s',
-              }} />
+              <div
+                style={{
+                  flex: 1,
+                  height: 2,
+                  background: completed.has(i) ? '#10b981' : '#e2e8f0',
+                  transition: 'background 0.3s',
+                }}
+              />
             )}
           </React.Fragment>
         ))}
@@ -1063,29 +1427,50 @@ function StepCarouselRender() {
         <Carousel.Content>
           {STEPS.map((s) => (
             <Carousel.Item key={s.step}>
-              <div style={{
-                margin: '0 4px', padding: '20px',
-                background: '#fff', borderRadius: '12px',
-                border: `1px solid ${s.color}30`,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-              }}>
+              <div
+                style={{
+                  margin: '0 4px',
+                  padding: '20px',
+                  background: '#fff',
+                  borderRadius: '12px',
+                  border: `1px solid ${s.color}30`,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                }}
+              >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                  <div style={{
-                    width: 32, height: 32, borderRadius: '8px',
-                    background: s.color, color: '#fff',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '13px', fontWeight: 700, flexShrink: 0,
-                  }}>
+                  <div
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: '8px',
+                      background: s.color,
+                      color: '#fff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}
+                  >
                     {s.step}
                   </div>
                   <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>{s.title}</div>
                 </div>
-                <pre style={{
-                  margin: 0, padding: '12px 14px', borderRadius: '8px',
-                  background: '#0f172a', color: '#e2e8f0',
-                  fontSize: '12px', lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-all',
-                  fontFamily: 'monospace',
-                }}>
+                <pre
+                  style={{
+                    margin: 0,
+                    padding: '12px 14px',
+                    borderRadius: '8px',
+                    background: '#0f172a',
+                    color: '#e2e8f0',
+                    fontSize: '12px',
+                    lineHeight: 1.6,
+                    whiteSpace: 'pre-wrap',
+                    wordBreak: 'break-all',
+                    fontFamily: 'monospace',
+                  }}
+                >
                   {s.code}
                 </pre>
               </div>
@@ -1099,9 +1484,15 @@ function StepCarouselRender() {
           onClick={() => api?.scrollPrev()}
           disabled={current === 0}
           style={{
-            flex: 1, padding: '9px', borderRadius: '8px',
-            border: '1px solid #e2e8f0', background: '#fff', color: '#374151',
-            fontSize: '13px', fontWeight: 500, cursor: current === 0 ? 'not-allowed' : 'pointer',
+            flex: 1,
+            padding: '9px',
+            borderRadius: '8px',
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#374151',
+            fontSize: '13px',
+            fontWeight: 500,
+            cursor: current === 0 ? 'not-allowed' : 'pointer',
             opacity: current === 0 ? 0.4 : 1,
           }}
         >
@@ -1111,9 +1502,15 @@ function StepCarouselRender() {
           <button
             onClick={handleNext}
             style={{
-              flex: 2, padding: '9px', borderRadius: '8px',
-              border: 'none', background: STEPS[current].color, color: '#fff',
-              fontSize: '13px', fontWeight: 600, cursor: 'pointer',
+              flex: 2,
+              padding: '9px',
+              borderRadius: '8px',
+              border: 'none',
+              background: STEPS[current].color,
+              color: '#fff',
+              fontSize: '13px',
+              fontWeight: 600,
+              cursor: 'pointer',
             }}
           >
             다음 단계
@@ -1122,9 +1519,15 @@ function StepCarouselRender() {
           <button
             onClick={() => setCompleted((prev) => new Set([...prev, current]))}
             style={{
-              flex: 2, padding: '9px', borderRadius: '8px',
-              border: 'none', background: '#10b981', color: '#fff',
-              fontSize: '13px', fontWeight: 600, cursor: 'pointer',
+              flex: 2,
+              padding: '9px',
+              borderRadius: '8px',
+              border: 'none',
+              background: '#10b981',
+              color: '#fff',
+              fontSize: '13px',
+              fontWeight: 600,
+              cursor: 'pointer',
             }}
           >
             완료!
@@ -1158,12 +1561,19 @@ const PRODUCT_SLIDES = [
   { id: 1, bg: 'linear-gradient(135deg, #6366f1, #8b5cf6)', label: 'Front View', caption: '전면' },
   { id: 2, bg: 'linear-gradient(135deg, #06b6d4, #0284c7)', label: 'Side View', caption: '측면' },
   { id: 3, bg: 'linear-gradient(135deg, #10b981, #059669)', label: 'Back View', caption: '후면' },
-  { id: 4, bg: 'linear-gradient(135deg, #f59e0b, #d97706)', label: 'Detail View', caption: '디테일' },
+  {
+    id: 4,
+    bg: 'linear-gradient(135deg, #f59e0b, #d97706)',
+    label: 'Detail View',
+    caption: '디테일',
+  },
 ]
 
 function ProductGalleryRender() {
   const [current, setCurrent] = useState(0)
-  const [api, setApi] = useState<Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0] | null>(null)
+  const [api, setApi] = useState<
+    Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0] | null
+  >(null)
 
   useEffect(() => {
     if (!api) return
@@ -1175,26 +1585,49 @@ function ProductGalleryRender() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '20px', maxWidth: 360 }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '20px', maxWidth: 360 }}
+    >
       {/* Main carousel */}
       <Carousel setApi={setApi} className="w-full">
         <Carousel.Content>
           {PRODUCT_SLIDES.map((slide) => (
             <Carousel.Item key={slide.id}>
-              <div style={{
-                margin: '0 4px', height: 220, borderRadius: '12px',
-                background: slide.bg,
-                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8,
-              }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.9)', letterSpacing: '0.05em' }}>
+              <div
+                style={{
+                  margin: '0 4px',
+                  height: 220,
+                  borderRadius: '12px',
+                  background: slide.bg,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: 'rgba(255,255,255,0.9)',
+                    letterSpacing: '0.05em',
+                  }}
+                >
                   {slide.label}
                 </div>
-                <div style={{
-                  width: 80, height: 80, borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.2)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '30px',
-                }}>
+                <div
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: '50%',
+                    background: 'rgba(255,255,255,0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '30px',
+                  }}
+                >
                   ◈
                 </div>
               </div>
@@ -1212,8 +1645,13 @@ function ProductGalleryRender() {
             key={slide.id}
             onClick={() => handleThumbClick(i)}
             style={{
-              flex: 1, height: 52, borderRadius: '8px',
-              background: slide.bg, border: 'none', cursor: 'pointer', padding: 0,
+              flex: 1,
+              height: 52,
+              borderRadius: '8px',
+              background: slide.bg,
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
               outline: i === current ? '2px solid #1e293b' : '2px solid transparent',
               outlineOffset: '2px',
               opacity: i === current ? 1 : 0.55,
@@ -1281,18 +1719,79 @@ const HeroSliderRender = () => {
   }, [])
   const slide = HERO_SLIDES[current]
   return (
-    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
-      <div style={{ width: '100%', maxWidth: 560, borderRadius: 20, overflow: 'hidden', background: slide.bg, padding: '48px 40px', color: '#fff', position: 'relative', minHeight: 200, transition: 'background 0.6s' }}>
-        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: slide.accent, display: 'block', marginBottom: 12 }}>{slide.label}</span>
-        <h2 style={{ fontSize: 28, fontWeight: 800, lineHeight: 1.25, marginBottom: 14, whiteSpace: 'pre-line', margin: '0 0 14px' }}>{slide.headline}</h2>
-        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', lineHeight: 1.6, margin: 0 }}>{slide.sub}</p>
+    <div
+      style={{
+        padding: '32px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 24,
+      }}
+    >
+      <div
+        style={{
+          width: '100%',
+          maxWidth: 560,
+          borderRadius: 20,
+          overflow: 'hidden',
+          background: slide.bg,
+          padding: '48px 40px',
+          color: '#fff',
+          position: 'relative',
+          minHeight: 200,
+          transition: 'background 0.6s',
+        }}
+      >
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: slide.accent,
+            display: 'block',
+            marginBottom: 12,
+          }}
+        >
+          {slide.label}
+        </span>
+        <h2
+          style={{
+            fontSize: 28,
+            fontWeight: 800,
+            lineHeight: 1.25,
+            marginBottom: 14,
+            whiteSpace: 'pre-line',
+            margin: '0 0 14px',
+          }}
+        >
+          {slide.headline}
+        </h2>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', lineHeight: 1.6, margin: 0 }}>
+          {slide.sub}
+        </p>
         <div style={{ position: 'absolute', bottom: 20, right: 24, display: 'flex', gap: 6 }}>
           {HERO_SLIDES.map((_, i) => (
-            <button key={i} onClick={() => setCurrent(i)} style={{ width: i === current ? 20 : 6, height: 6, borderRadius: 3, background: i === current ? '#fff' : 'rgba(255,255,255,0.4)', border: 'none', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }} />
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              style={{
+                width: i === current ? 20 : 6,
+                height: 6,
+                borderRadius: 3,
+                background: i === current ? '#fff' : 'rgba(255,255,255,0.4)',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'all 0.3s',
+                padding: 0,
+              }}
+            />
           ))}
         </div>
       </div>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI Hero Slider — 자동 전환 + 도트 내비게이션</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>
+        UtilityUI Hero Slider — 자동 전환 + 도트 내비게이션
+      </p>
     </div>
   )
 }
@@ -1314,29 +1813,105 @@ export const UtilityCSS_히어로_슬라이더: Story = {
    카드형 팀원 프로필 슬라이드
 -------------------------------------------------------------------------- */
 const TEAM_MEMBERS = [
-  { name: '김지훈', role: 'Design Lead', initials: 'KJ', bg: '#6366f1', tags: ['DesignTool', 'Research', 'System'] },
-  { name: '이수연', role: 'Frontend Engineer', initials: 'LS', bg: '#10b981', tags: ['React', 'TypeScript', 'CSS'] },
-  { name: '박민준', role: 'Product Manager', initials: 'PM', bg: '#f59e0b', tags: ['Roadmap', 'OKR', 'UX'] },
-  { name: '최아름', role: 'Backend Engineer', initials: 'CA', bg: '#ec4899', tags: ['Node.js', 'DB', 'API'] },
+  {
+    name: '김지훈',
+    role: 'Design Lead',
+    initials: 'KJ',
+    bg: '#6366f1',
+    tags: ['DesignTool', 'Research', 'System'],
+  },
+  {
+    name: '이수연',
+    role: 'Frontend Engineer',
+    initials: 'LS',
+    bg: '#10b981',
+    tags: ['React', 'TypeScript', 'CSS'],
+  },
+  {
+    name: '박민준',
+    role: 'Product Manager',
+    initials: 'PM',
+    bg: '#f59e0b',
+    tags: ['Roadmap', 'OKR', 'UX'],
+  },
+  {
+    name: '최아름',
+    role: 'Backend Engineer',
+    initials: 'CA',
+    bg: '#ec4899',
+    tags: ['Node.js', 'DB', 'API'],
+  },
 ]
 
 const TeamCarouselRender = () => {
   const [idx, setIdx] = React.useState(0)
   return (
-    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
+    <div
+      style={{
+        padding: '32px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 20,
+      }}
+    >
       <Carousel className="w-full max-w-sm">
         <Carousel.Content>
           {TEAM_MEMBERS.map((m) => (
             <Carousel.Item key={m.name}>
-              <div style={{ margin: '0 8px', padding: '28px', borderRadius: 16, border: '1px solid #e2e8f0', background: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, minHeight: 200 }}>
-                <div style={{ width: 72, height: 72, borderRadius: '50%', background: m.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 800, color: '#fff' }}>{m.initials}</div>
+              <div
+                style={{
+                  margin: '0 8px',
+                  padding: '28px',
+                  borderRadius: 16,
+                  border: '1px solid #e2e8f0',
+                  background: '#fff',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 12,
+                  minHeight: 200,
+                }}
+              >
+                <div
+                  style={{
+                    width: 72,
+                    height: 72,
+                    borderRadius: '50%',
+                    background: m.bg,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 22,
+                    fontWeight: 800,
+                    color: '#fff',
+                  }}
+                >
+                  {m.initials}
+                </div>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>{m.name}</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+                    {m.name}
+                  </div>
                   <div style={{ fontSize: 13, color: '#64748b' }}>{m.role}</div>
                 </div>
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', justifyContent: 'center' }}>
+                <div
+                  style={{ display: 'flex', gap: 6, flexWrap: 'wrap', justifyContent: 'center' }}
+                >
                   {m.tags.map((t) => (
-                    <span key={t} style={{ fontSize: 11, fontWeight: 600, padding: '3px 10px', borderRadius: 99, background: '#f1f5f9', color: '#475569' }}>{t}</span>
+                    <span
+                      key={t}
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 600,
+                        padding: '3px 10px',
+                        borderRadius: 99,
+                        background: '#f1f5f9',
+                        color: '#475569',
+                      }}
+                    >
+                      {t}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -1348,10 +1923,25 @@ const TeamCarouselRender = () => {
       </Carousel>
       <div style={{ display: 'flex', gap: 6 }}>
         {TEAM_MEMBERS.map((_, i) => (
-          <button key={i} onClick={() => setIdx(i)} style={{ width: idx === i ? 16 : 6, height: 6, borderRadius: 3, background: idx === i ? '#6366f1' : '#e2e8f0', border: 'none', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }} />
+          <button
+            key={i}
+            onClick={() => setIdx(i)}
+            style={{
+              width: idx === i ? 16 : 6,
+              height: 6,
+              borderRadius: 3,
+              background: idx === i ? '#6366f1' : '#e2e8f0',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.3s',
+              padding: 0,
+            }}
+          />
         ))}
       </div>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI 팀 소개 패턴 — 아바타 + 역할 + 스킬 태그</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>
+        UtilityUI 팀 소개 패턴 — 아바타 + 역할 + 스킬 태그
+      </p>
     </div>
   )
 }
@@ -1373,9 +1963,36 @@ export const UtilityCSS_팀원_소개_캐러셀: Story = {
    배경 아이콘 + 알림 텍스트 + 배지 카운트 패턴
 -------------------------------------------------------------------------- */
 const ANT_NOTICES = [
-  { type: 'info', color: '#3b82f6', bg: '#eff6ff', border: '#bfdbfe', icon: 'i', title: '시스템 점검 안내', body: '2026년 4월 15일 02:00~04:00 정기 점검이 예정되어 있습니다. 해당 시간 동안 서비스 이용이 제한됩니다.', badge: '예정' },
-  { type: 'warning', color: '#f59e0b', bg: '#fffbeb', border: '#fde68a', icon: '!', title: 'API 요청 한도 80% 도달', body: '현재 월간 API 사용량이 80%에 도달했습니다. 한도 초과 방지를 위해 플랜 업그레이드를 권장합니다.', badge: '경고' },
-  { type: 'success', color: '#10b981', bg: '#f0fdf4', border: '#a7f3d0', icon: 'v', title: '새 버전 배포 완료', body: 'v3.2.0이 성공적으로 배포되었습니다. 개선된 컴포넌트 성능과 17개의 버그 수정 사항을 확인하세요.', badge: '완료' },
+  {
+    type: 'info',
+    color: '#3b82f6',
+    bg: '#eff6ff',
+    border: '#bfdbfe',
+    icon: 'i',
+    title: '시스템 점검 안내',
+    body: '2026년 4월 15일 02:00~04:00 정기 점검이 예정되어 있습니다. 해당 시간 동안 서비스 이용이 제한됩니다.',
+    badge: '예정',
+  },
+  {
+    type: 'warning',
+    color: '#f59e0b',
+    bg: '#fffbeb',
+    border: '#fde68a',
+    icon: '!',
+    title: 'API 요청 한도 80% 도달',
+    body: '현재 월간 API 사용량이 80%에 도달했습니다. 한도 초과 방지를 위해 플랜 업그레이드를 권장합니다.',
+    badge: '경고',
+  },
+  {
+    type: 'success',
+    color: '#10b981',
+    bg: '#f0fdf4',
+    border: '#a7f3d0',
+    icon: 'v',
+    title: '새 버전 배포 완료',
+    body: 'v3.2.0이 성공적으로 배포되었습니다. 개선된 컴포넌트 성능과 17개의 버그 수정 사항을 확인하세요.',
+    badge: '완료',
+  },
 ]
 
 const AntNoticeBannerRender = () => {
@@ -1386,18 +2003,65 @@ const AntNoticeBannerRender = () => {
   }, [])
   const n = ANT_NOTICES[cur]
   return (
-    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 560 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+    <div
+      style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 560 }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 4,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>공지사항</span>
-        <span style={{ fontSize: 12, color: '#94a3b8' }}>{cur + 1} / {ANT_NOTICES.length}</span>
+        <span style={{ fontSize: 12, color: '#94a3b8' }}>
+          {cur + 1} / {ANT_NOTICES.length}
+        </span>
       </div>
-      <div style={{ padding: '20px', borderRadius: 12, background: n.bg, border: `1px solid ${n.border}`, transition: 'all 0.4s', minHeight: 100 }}>
+      <div
+        style={{
+          padding: '20px',
+          borderRadius: 12,
+          background: n.bg,
+          border: `1px solid ${n.border}`,
+          transition: 'all 0.4s',
+          minHeight: 100,
+        }}
+      >
         <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-          <span style={{ width: 28, height: 28, borderRadius: '50%', background: n.color, color: '#fff', fontSize: 14, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{n.icon}</span>
+          <span
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: '50%',
+              background: n.color,
+              color: '#fff',
+              fontSize: 14,
+              fontWeight: 800,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
+            {n.icon}
+          </span>
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
               <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{n.title}</span>
-              <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 99, background: n.color, color: '#fff' }}>{n.badge}</span>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: 99,
+                  background: n.color,
+                  color: '#fff',
+                }}
+              >
+                {n.badge}
+              </span>
             </div>
             <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.6, margin: 0 }}>{n.body}</p>
           </div>
@@ -1405,10 +2069,25 @@ const AntNoticeBannerRender = () => {
       </div>
       <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
         {ANT_NOTICES.map((_, i) => (
-          <button key={i} onClick={() => setCur(i)} style={{ width: 6, height: 6, borderRadius: '50%', background: i === cur ? '#0f172a' : '#e2e8f0', border: 'none', cursor: 'pointer', transition: 'background 0.3s', padding: 0 }} />
+          <button
+            key={i}
+            onClick={() => setCur(i)}
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: '50%',
+              background: i === cur ? '#0f172a' : '#e2e8f0',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'background 0.3s',
+              padding: 0,
+            }}
+          />
         ))}
       </div>
-      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>Ant Design 공지 배너 패턴 — 타입별 색상 코딩 + 배지 카운트</p>
+      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        Ant Design 공지 배너 패턴 — 타입별 색상 코딩 + 배지 카운트
+      </p>
     </div>
   )
 }
@@ -1430,10 +2109,34 @@ export const Ant_공지_배너_슬라이더: Story = {
    진행 단계 표시 + 완료 체크 패턴
 -------------------------------------------------------------------------- */
 const ONBOARDING_STEPS = [
-  { step: 1, title: '프로젝트 생성', desc: 'Orbit UI 프로젝트를 초기화하고 기본 설정을 완료합니다.', action: '프로젝트 만들기', done: true },
-  { step: 2, title: '팀원 초대', desc: '협업할 팀원의 이메일을 입력하여 프로젝트에 초대합니다.', action: '팀원 초대하기', done: true },
-  { step: 3, title: '컴포넌트 탐색', desc: 'Storybook에서 사용 가능한 모든 컴포넌트를 확인합니다.', action: '스토리북 열기', done: false },
-  { step: 4, title: '첫 배포', desc: '완성된 UI를 DeployPlatform에 배포하고 팀과 공유합니다.', action: '배포 시작', done: false },
+  {
+    step: 1,
+    title: '프로젝트 생성',
+    desc: 'Orbit UI 프로젝트를 초기화하고 기본 설정을 완료합니다.',
+    action: '프로젝트 만들기',
+    done: true,
+  },
+  {
+    step: 2,
+    title: '팀원 초대',
+    desc: '협업할 팀원의 이메일을 입력하여 프로젝트에 초대합니다.',
+    action: '팀원 초대하기',
+    done: true,
+  },
+  {
+    step: 3,
+    title: '컴포넌트 탐색',
+    desc: 'Storybook에서 사용 가능한 모든 컴포넌트를 확인합니다.',
+    action: '스토리북 열기',
+    done: false,
+  },
+  {
+    step: 4,
+    title: '첫 배포',
+    desc: '완성된 UI를 DeployPlatform에 배포하고 팀과 공유합니다.',
+    action: '배포 시작',
+    done: false,
+  },
 ]
 
 const EnterpriseUIOnboardingStepRender = () => {
@@ -1444,10 +2147,33 @@ const EnterpriseUIOnboardingStepRender = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         {ONBOARDING_STEPS.map((step, i) => (
           <React.Fragment key={step.step}>
-            <button onClick={() => setCur(i)} style={{ width: 28, height: 28, borderRadius: '50%', border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 700, background: i === cur ? '#6366f1' : step.done ? '#10b981' : '#e2e8f0', color: i === cur || step.done ? '#fff' : '#94a3b8', transition: 'all 0.2s' }}>
+            <button
+              onClick={() => setCur(i)}
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: '50%',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: 12,
+                fontWeight: 700,
+                background: i === cur ? '#6366f1' : step.done ? '#10b981' : '#e2e8f0',
+                color: i === cur || step.done ? '#fff' : '#94a3b8',
+                transition: 'all 0.2s',
+              }}
+            >
               {step.done && i !== cur ? '✓' : step.step}
             </button>
-            {i < ONBOARDING_STEPS.length - 1 && <div style={{ flex: 1, height: 2, background: ONBOARDING_STEPS[i].done ? '#10b981' : '#e2e8f0', transition: 'background 0.3s' }} />}
+            {i < ONBOARDING_STEPS.length - 1 && (
+              <div
+                style={{
+                  flex: 1,
+                  height: 2,
+                  background: ONBOARDING_STEPS[i].done ? '#10b981' : '#e2e8f0',
+                  transition: 'background 0.3s',
+                }}
+              />
+            )}
           </React.Fragment>
         ))}
       </div>
@@ -1455,11 +2181,36 @@ const EnterpriseUIOnboardingStepRender = () => {
         <Carousel.Content style={{ marginLeft: 0 }}>
           {ONBOARDING_STEPS.map((step) => (
             <Carousel.Item key={step.step} style={{ paddingLeft: 0 }}>
-              <div style={{ padding: '24px', borderRadius: 12, background: '#f8fafc', border: '1px solid #e2e8f0', minHeight: 140 }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: '#6366f1', marginBottom: 8 }}>STEP {step.step} / {ONBOARDING_STEPS.length}</div>
-                <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>{step.title}</div>
-                <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6, margin: '0 0 16px' }}>{step.desc}</p>
-                <button style={{ padding: '8px 18px', borderRadius: 8, border: 'none', background: step.done ? '#10b981' : '#6366f1', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+              <div
+                style={{
+                  padding: '24px',
+                  borderRadius: 12,
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0',
+                  minHeight: 140,
+                }}
+              >
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#6366f1', marginBottom: 8 }}>
+                  STEP {step.step} / {ONBOARDING_STEPS.length}
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>
+                  {step.title}
+                </div>
+                <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6, margin: '0 0 16px' }}>
+                  {step.desc}
+                </p>
+                <button
+                  style={{
+                    padding: '8px 18px',
+                    borderRadius: 8,
+                    border: 'none',
+                    background: step.done ? '#10b981' : '#6366f1',
+                    color: '#fff',
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
                   {step.done ? '완료됨 ✓' : step.action}
                 </button>
               </div>
@@ -1467,9 +2218,13 @@ const EnterpriseUIOnboardingStepRender = () => {
           ))}
         </Carousel.Content>
         <Carousel.Previous onClick={() => setCur((c) => Math.max(0, c - 1))} />
-        <Carousel.Next onClick={() => setCur((c) => Math.min(ONBOARDING_STEPS.length - 1, c + 1))} />
+        <Carousel.Next
+          onClick={() => setCur((c) => Math.min(ONBOARDING_STEPS.length - 1, c + 1))}
+        />
       </Carousel>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>EnterpriseUI Stepper 패턴 — 진행 단계 표시 + 완료 체크</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>
+        EnterpriseUI Stepper 패턴 — 진행 단계 표시 + 완료 체크
+      </p>
     </div>
   )
 }
@@ -1478,7 +2233,8 @@ export const EnterpriseUI_온보딩_스텝_캐러셀: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI Stepper에서 영감을 받은 온보딩 캐러셀. 단계별 완료 상태를 색상으로 구분하고, 상단 스텝 인디케이터를 클릭하여 원하는 단계로 이동합니다.',
+        story:
+          'EnterpriseUI Stepper에서 영감을 받은 온보딩 캐러셀. 단계별 완료 상태를 색상으로 구분하고, 상단 스텝 인디케이터를 클릭하여 원하는 단계로 이동합니다.',
       },
     },
   },
@@ -1505,19 +2261,76 @@ const AccessibleGalleryViewerRender = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 420, padding: 20 }}>
       <div
         onClick={() => setZoom((z) => !z)}
-        style={{ height: zoom ? 280 : 200, borderRadius: 16, background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-in', transition: 'all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)', border: `2px solid ${item.accent}30`, position: 'relative', overflow: 'hidden' }}
+        style={{
+          height: zoom ? 280 : 200,
+          borderRadius: 16,
+          background: item.bg,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'zoom-in',
+          transition: 'all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          border: `2px solid ${item.accent}30`,
+          position: 'relative',
+          overflow: 'hidden',
+        }}
       >
-        <span style={{ fontSize: zoom ? 80 : 56, transition: 'font-size 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)' }}>{item.emoji}</span>
-        <span style={{ position: 'absolute', bottom: 10, right: 12, fontSize: 11, color: item.accent, fontWeight: 600 }}>{zoom ? '클릭하여 축소' : '클릭하여 확대'}</span>
-        <span style={{ position: 'absolute', top: 10, left: 12, fontSize: 13, fontWeight: 700, color: item.accent }}>{item.label}</span>
+        <span
+          style={{
+            fontSize: zoom ? 80 : 56,
+            transition: 'font-size 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          }}
+        >
+          {item.emoji}
+        </span>
+        <span
+          style={{
+            position: 'absolute',
+            bottom: 10,
+            right: 12,
+            fontSize: 11,
+            color: item.accent,
+            fontWeight: 600,
+          }}
+        >
+          {zoom ? '클릭하여 축소' : '클릭하여 확대'}
+        </span>
+        <span
+          style={{
+            position: 'absolute',
+            top: 10,
+            left: 12,
+            fontSize: 13,
+            fontWeight: 700,
+            color: item.accent,
+          }}
+        >
+          {item.label}
+        </span>
       </div>
       <Carousel className="w-full">
         <Carousel.Content style={{ marginLeft: 0 }}>
           {GALLERY_ITEMS.map((g, i) => (
             <Carousel.Item key={g.id} style={{ paddingLeft: 0, flex: '0 0 20%' }}>
               <button
-                onClick={() => { setSelected(i); setZoom(false) }}
-                style={{ width: '100%', aspectRatio: '1', borderRadius: 8, border: `2px solid ${i === selected ? g.accent : 'transparent'}`, background: g.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, cursor: 'pointer', transition: 'all 0.2s', transform: i === selected ? 'scale(1.05)' : 'scale(1)' }}
+                onClick={() => {
+                  setSelected(i)
+                  setZoom(false)
+                }}
+                style={{
+                  width: '100%',
+                  aspectRatio: '1',
+                  borderRadius: 8,
+                  border: `2px solid ${i === selected ? g.accent : 'transparent'}`,
+                  background: g.bg,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 22,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  transform: i === selected ? 'scale(1.05)' : 'scale(1)',
+                }}
               >
                 {g.emoji}
               </button>
@@ -1525,7 +2338,9 @@ const AccessibleGalleryViewerRender = () => {
           ))}
         </Carousel.Content>
       </Carousel>
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>AccessibleUI 갤러리 패턴 — 썸네일 스트립 + 줌 토글</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>
+        AccessibleUI 갤러리 패턴 — 썸네일 스트립 + 줌 토글
+      </p>
     </div>
   )
 }
@@ -1534,7 +2349,8 @@ export const Accessible_이미지_갤러리_줌_뷰어: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI 이미지 갤러리 뷰어 패턴. 하단 썸네일 Carousel로 이미지를 선택하고, 메인 뷰를 클릭하여 줌인/아웃합니다. spring 애니메이션으로 자연스러운 확대 효과를 연출합니다.',
+        story:
+          'AccessibleUI 이미지 갤러리 뷰어 패턴. 하단 썸네일 Carousel로 이미지를 선택하고, 메인 뷰를 클릭하여 줌인/아웃합니다. spring 애니메이션으로 자연스러운 확대 효과를 연출합니다.',
       },
     },
   },
@@ -1546,9 +2362,30 @@ export const Accessible_이미지_갤러리_줌_뷰어: Story = {
    플랜 카드 스와이프 + 인기 뱃지 패턴
 -------------------------------------------------------------------------- */
 const PRICING_PLANS = [
-  { name: 'Starter', price: '무료', priceNum: 0, color: '#64748b', badge: null, features: ['컴포넌트 10개', '스토리 50개', '팀원 1명', '커뮤니티 지원'] },
-  { name: 'Pro', price: '₩29,000', priceNum: 29000, color: '#6366f1', badge: '인기', features: ['컴포넌트 무제한', '스토리 무제한', '팀원 5명', '이메일 지원', '고급 테마'] },
-  { name: 'Enterprise', price: '문의', priceNum: -1, color: '#0f172a', badge: 'NEW', features: ['모든 Pro 기능', '팀원 무제한', '전담 지원', 'SLA 보장', '커스텀 통합'] },
+  {
+    name: 'Starter',
+    price: '무료',
+    priceNum: 0,
+    color: '#64748b',
+    badge: null,
+    features: ['컴포넌트 10개', '스토리 50개', '팀원 1명', '커뮤니티 지원'],
+  },
+  {
+    name: 'Pro',
+    price: '₩29,000',
+    priceNum: 29000,
+    color: '#6366f1',
+    badge: '인기',
+    features: ['컴포넌트 무제한', '스토리 무제한', '팀원 5명', '이메일 지원', '고급 테마'],
+  },
+  {
+    name: 'Enterprise',
+    price: '문의',
+    priceNum: -1,
+    color: '#0f172a',
+    badge: 'NEW',
+    features: ['모든 Pro 기능', '팀원 무제한', '전담 지원', 'SLA 보장', '커스텀 통합'],
+  },
 ]
 
 const EnterpriseUIAccessiblePricingSliderRender = () => {
@@ -1558,7 +2395,9 @@ const EnterpriseUIAccessiblePricingSliderRender = () => {
     <div style={{ maxWidth: 360, padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ textAlign: 'center' }}>
         <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>요금제 선택</div>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>좌우로 스와이프하여 비교하세요</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
+          좌우로 스와이프하여 비교하세요
+        </div>
       </div>
       <Carousel className="w-full">
         <Carousel.Content style={{ marginLeft: 0 }}>
@@ -1566,19 +2405,75 @@ const EnterpriseUIAccessiblePricingSliderRender = () => {
             <Carousel.Item key={p.name} style={{ paddingLeft: 0 }}>
               <div
                 onClick={() => setCur(i)}
-                style={{ padding: '24px 20px', borderRadius: 16, border: `2px solid ${i === cur ? p.color : '#e2e8f0'}`, background: i === cur ? `${p.color}08` : '#fff', cursor: 'pointer', position: 'relative', transition: 'all 0.2s', minHeight: 240 }}
+                style={{
+                  padding: '24px 20px',
+                  borderRadius: 16,
+                  border: `2px solid ${i === cur ? p.color : '#e2e8f0'}`,
+                  background: i === cur ? `${p.color}08` : '#fff',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  transition: 'all 0.2s',
+                  minHeight: 240,
+                }}
               >
-                {p.badge && <span style={{ position: 'absolute', top: -10, right: 16, fontSize: 10, fontWeight: 700, padding: '3px 10px', borderRadius: 99, background: p.color, color: '#fff' }}>{p.badge}</span>}
-                <div style={{ fontSize: 16, fontWeight: 700, color: p.color, marginBottom: 4 }}>{p.name}</div>
-                <div style={{ fontSize: 24, fontWeight: 800, color: '#0f172a', marginBottom: 16 }}>{p.price}<span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8' }}>{p.priceNum > 0 ? '/월' : ''}</span></div>
+                {p.badge && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: -10,
+                      right: 16,
+                      fontSize: 10,
+                      fontWeight: 700,
+                      padding: '3px 10px',
+                      borderRadius: 99,
+                      background: p.color,
+                      color: '#fff',
+                    }}
+                  >
+                    {p.badge}
+                  </span>
+                )}
+                <div style={{ fontSize: 16, fontWeight: 700, color: p.color, marginBottom: 4 }}>
+                  {p.name}
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: '#0f172a', marginBottom: 16 }}>
+                  {p.price}
+                  <span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8' }}>
+                    {p.priceNum > 0 ? '/월' : ''}
+                  </span>
+                </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {p.features.map((f) => (
-                    <div key={f} style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 12, color: '#475569' }}>
-                      <span style={{ color: p.color, fontWeight: 700 }}>✓</span>{f}
+                    <div
+                      key={f}
+                      style={{
+                        display: 'flex',
+                        gap: 8,
+                        alignItems: 'center',
+                        fontSize: 12,
+                        color: '#475569',
+                      }}
+                    >
+                      <span style={{ color: p.color, fontWeight: 700 }}>✓</span>
+                      {f}
                     </div>
                   ))}
                 </div>
-                <button style={{ width: '100%', marginTop: 20, padding: '10px', borderRadius: 8, border: 'none', background: i === cur ? p.color : '#f1f5f9', color: i === cur ? '#fff' : '#64748b', fontSize: 13, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' }}>
+                <button
+                  style={{
+                    width: '100%',
+                    marginTop: 20,
+                    padding: '10px',
+                    borderRadius: 8,
+                    border: 'none',
+                    background: i === cur ? p.color : '#f1f5f9',
+                    color: i === cur ? '#fff' : '#64748b',
+                    fontSize: 13,
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
                   {p.priceNum === -1 ? '영업팀 문의' : '시작하기'}
                 </button>
               </div>
@@ -1590,10 +2485,25 @@ const EnterpriseUIAccessiblePricingSliderRender = () => {
       </Carousel>
       <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
         {PRICING_PLANS.map((p, i) => (
-          <button key={p.name} onClick={() => setCur(i)} style={{ width: i === cur ? 20 : 6, height: 6, borderRadius: 3, border: 'none', cursor: 'pointer', background: i === cur ? plan.color : '#e2e8f0', transition: 'all 0.3s', padding: 0 }} />
+          <button
+            key={p.name}
+            onClick={() => setCur(i)}
+            style={{
+              width: i === cur ? 20 : 6,
+              height: 6,
+              borderRadius: 3,
+              border: 'none',
+              cursor: 'pointer',
+              background: i === cur ? plan.color : '#e2e8f0',
+              transition: 'all 0.3s',
+              padding: 0,
+            }}
+          />
         ))}
       </div>
-      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>EnterpriseUI + AccessibleUI 요금제 카드 패턴 — 인기 뱃지 + 클릭 선택</p>
+      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+        EnterpriseUI + AccessibleUI 요금제 카드 패턴 — 인기 뱃지 + 클릭 선택
+      </p>
     </div>
   )
 }
@@ -1602,13 +2512,13 @@ export const EnterpriseUI_Accessible_요금제_비교_슬라이더: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'EnterpriseUI Card + AccessibleUI Carousel을 결합한 요금제 비교 슬라이더. 카드 클릭으로 선택하고 Previous/Next로 탐색합니다. 인기 뱃지와 선택 테두리 강조로 시각적 계층을 표현합니다.',
+        story:
+          'EnterpriseUI Card + AccessibleUI Carousel을 결합한 요금제 비교 슬라이더. 카드 클릭으로 선택하고 Previous/Next로 탐색합니다. 인기 뱃지와 선택 테두리 강조로 시각적 계층을 표현합니다.',
       },
     },
   },
   render: () => <EnterpriseUIAccessiblePricingSliderRender />,
 }
-
 
 // ============================================================
 // Cycle 136 — UtilityUI + Enterprise UI 벤치마크 반영
@@ -1616,10 +2526,38 @@ export const EnterpriseUI_Accessible_요금제_비교_슬라이더: Story = {
 
 // UtilityUI 스타일 — 기능 소개 슬라이드쇼
 const FEATURE_SLIDES_136 = [
-  { id: 1, icon: '◈', title: '3-Tier Token System', desc: 'Reference → Semantic → Component 토큰 계층으로 일관된 스타일 관리', color: '#6366f1', bg: '#eef2ff' },
-  { id: 2, icon: '◉', title: 'UtilityCSS 토큰 테마', desc: '빌드 타임 CSS-in-JS로 런타임 오버헤드 없이 완전한 타입 안전성 확보', color: '#0ea5e9', bg: '#e0f2fe' },
-  { id: 3, icon: '◎', title: 'Compound Component', desc: 'Context 기반 서브 컴포넌트 패턴으로 유연한 조합 및 레이아웃 구성 지원', color: '#10b981', bg: '#ecfdf5' },
-  { id: 4, icon: '◆', title: 'Storybook 8.6', desc: 'autodocs + 인터랙티브 Controls로 컴포넌트 문서 자동 생성', color: '#f59e0b', bg: '#fffbeb' },
+  {
+    id: 1,
+    icon: '◈',
+    title: '3-Tier Token System',
+    desc: 'Reference → Semantic → Component 토큰 계층으로 일관된 스타일 관리',
+    color: '#6366f1',
+    bg: '#eef2ff',
+  },
+  {
+    id: 2,
+    icon: '◉',
+    title: 'UtilityCSS 토큰 테마',
+    desc: '빌드 타임 CSS-in-JS로 런타임 오버헤드 없이 완전한 타입 안전성 확보',
+    color: '#0ea5e9',
+    bg: '#e0f2fe',
+  },
+  {
+    id: 3,
+    icon: '◎',
+    title: 'Compound Component',
+    desc: 'Context 기반 서브 컴포넌트 패턴으로 유연한 조합 및 레이아웃 구성 지원',
+    color: '#10b981',
+    bg: '#ecfdf5',
+  },
+  {
+    id: 4,
+    icon: '◆',
+    title: 'Storybook 8.6',
+    desc: 'autodocs + 인터랙티브 Controls로 컴포넌트 문서 자동 생성',
+    color: '#f59e0b',
+    bg: '#fffbeb',
+  },
 ]
 
 type CarouselApi136 = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
@@ -1655,31 +2593,89 @@ function UtilityCSSFeatureSlideshowRender() {
         <Carousel.Content>
           {FEATURE_SLIDES_136.map((s) => (
             <Carousel.Item key={s.id}>
-              <div style={{ background: s.bg, padding: '40px 32px', minHeight: 220, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 16, borderRadius: 16 }}>
-                <div style={{ width: 52, height: 52, borderRadius: 14, background: s.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: '#fff' }}>
+              <div
+                style={{
+                  background: s.bg,
+                  padding: '40px 32px',
+                  minHeight: 220,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  gap: 16,
+                  borderRadius: 16,
+                }}
+              >
+                <div
+                  style={{
+                    width: 52,
+                    height: 52,
+                    borderRadius: 14,
+                    background: s.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 24,
+                    color: '#fff',
+                  }}
+                >
                   {s.icon}
                 </div>
                 <div>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', lineHeight: 1.3 }}>{s.title}</div>
-                  <div style={{ fontSize: 13, color: '#475569', marginTop: 6, lineHeight: 1.6 }}>{s.desc}</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', lineHeight: 1.3 }}>
+                    {s.title}
+                  </div>
+                  <div style={{ fontSize: 13, color: '#475569', marginTop: 6, lineHeight: 1.6 }}>
+                    {s.desc}
+                  </div>
                 </div>
               </div>
             </Carousel.Item>
           ))}
         </Carousel.Content>
       </Carousel>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 12, padding: '0 4px' }}>
-        <span style={{ fontSize: 12, color: '#94a3b8' }}>{cur + 1} / {FEATURE_SLIDES_136.length}</span>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 12,
+          padding: '0 4px',
+        }}
+      >
+        <span style={{ fontSize: 12, color: '#94a3b8' }}>
+          {cur + 1} / {FEATURE_SLIDES_136.length}
+        </span>
         <div style={{ display: 'flex', gap: 6 }}>
           {FEATURE_SLIDES_136.map((_, i) => (
             <button
               key={i}
               onClick={() => api?.scrollTo(i)}
-              style={{ width: i === cur ? 18 : 6, height: 6, borderRadius: 3, border: 'none', cursor: 'pointer', padding: 0, background: i === cur ? (slide?.color ?? '#6366f1') : '#e2e8f0', transition: 'all 250ms' }}
+              style={{
+                width: i === cur ? 18 : 6,
+                height: 6,
+                borderRadius: 3,
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
+                background: i === cur ? (slide?.color ?? '#6366f1') : '#e2e8f0',
+                transition: 'all 250ms',
+              }}
             />
           ))}
         </div>
-        <button onClick={() => api?.scrollNext()} style={{ fontSize: 12, color: slide?.color ?? '#6366f1', fontWeight: 600, border: 'none', background: 'none', cursor: 'pointer' }}>다음 →</button>
+        <button
+          onClick={() => api?.scrollNext()}
+          style={{
+            fontSize: 12,
+            color: slide?.color ?? '#6366f1',
+            fontWeight: 600,
+            border: 'none',
+            background: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          다음 →
+        </button>
       </div>
     </div>
   )
@@ -1701,9 +2697,30 @@ export const UtilityCSS_기능_소개_슬라이드쇼: Story = {
 
 // EnterpriseUI 스타일 — 미디어 플레이어 큐 캐러셀
 const MEDIA_QUEUE_136 = [
-  { id: 1, title: 'Orbit 디자인 시스템 소개', artist: '김희준', duration: '12:34', genre: 'Tech', color: '#6366f1' },
-  { id: 2, title: 'UtilityUI 컴포넌트 패턴', artist: '이재성', duration: '8:21', genre: 'Design', color: '#0ea5e9' },
-  { id: 3, title: 'UtilityCSS 심층 분석', artist: '박민주', duration: '15:07', genre: 'Dev', color: '#10b981' },
+  {
+    id: 1,
+    title: 'Orbit 디자인 시스템 소개',
+    artist: '김희준',
+    duration: '12:34',
+    genre: 'Tech',
+    color: '#6366f1',
+  },
+  {
+    id: 2,
+    title: 'UtilityUI 컴포넌트 패턴',
+    artist: '이재성',
+    duration: '8:21',
+    genre: 'Design',
+    color: '#0ea5e9',
+  },
+  {
+    id: 3,
+    title: 'UtilityCSS 심층 분석',
+    artist: '박민주',
+    duration: '15:07',
+    genre: 'Dev',
+    color: '#10b981',
+  },
 ]
 
 function EnterpriseUIMediaQueueRender() {
@@ -1734,34 +2751,124 @@ function EnterpriseUIMediaQueueRender() {
         <Carousel.Content>
           {MEDIA_QUEUE_136.map((t) => (
             <Carousel.Item key={t.id}>
-              <div style={{ background: t.color + '15', border: `1.5px solid ${t.color}30`, borderRadius: 14, padding: '28px 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 80, height: 80, borderRadius: 20, background: t.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32 }}>♪</div>
+              <div
+                style={{
+                  background: t.color + '15',
+                  border: `1.5px solid ${t.color}30`,
+                  borderRadius: 14,
+                  padding: '28px 24px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 12,
+                }}
+              >
+                <div
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 20,
+                    background: t.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 32,
+                  }}
+                >
+                  ♪
+                </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>{t.title}</div>
-                  <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>{t.artist} · {t.genre}</div>
+                  <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>
+                    {t.artist} · {t.genre}
+                  </div>
                 </div>
               </div>
             </Carousel.Item>
           ))}
         </Carousel.Content>
       </Carousel>
-      <div style={{ margin: '14px 0 4px', height: 4, background: '#f1f5f9', borderRadius: 99, cursor: 'pointer' }}
+      <div
+        style={{
+          margin: '14px 0 4px',
+          height: 4,
+          background: '#f1f5f9',
+          borderRadius: 99,
+          cursor: 'pointer',
+        }}
         onClick={(e) => {
           const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect()
           setProgress(Math.round(((e.clientX - rect.left) / rect.width) * 100))
-        }}>
-        <div style={{ height: '100%', width: `${progress}%`, background: track.color, borderRadius: 99, transition: 'width 300ms linear' }} />
+        }}
+      >
+        <div
+          style={{
+            height: '100%',
+            width: `${progress}%`,
+            background: track.color,
+            borderRadius: 99,
+            transition: 'width 300ms linear',
+          }}
+        />
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#94a3b8', marginBottom: 12 }}>
-        <span>{Math.floor(progress * 0.12)}:{String(Math.floor(progress * 0.34) % 60).padStart(2, '0')}</span>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          fontSize: 11,
+          color: '#94a3b8',
+          marginBottom: 12,
+        }}
+      >
+        <span>
+          {Math.floor(progress * 0.12)}:{String(Math.floor(progress * 0.34) % 60).padStart(2, '0')}
+        </span>
         <span>{track.duration}</span>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-        <button onClick={() => api?.scrollPrev()} style={{ width: 32, height: 32, borderRadius: '50%', border: '1px solid #e2e8f0', background: '#f8fafc', cursor: 'pointer', fontSize: 14 }}>◀</button>
-        <button onClick={() => setPlaying((p) => !p)} style={{ width: 44, height: 44, borderRadius: '50%', border: 'none', background: track.color, color: '#fff', cursor: 'pointer', fontSize: 18 }}>
+        <button
+          onClick={() => api?.scrollPrev()}
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: '50%',
+            border: '1px solid #e2e8f0',
+            background: '#f8fafc',
+            cursor: 'pointer',
+            fontSize: 14,
+          }}
+        >
+          ◀
+        </button>
+        <button
+          onClick={() => setPlaying((p) => !p)}
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: '50%',
+            border: 'none',
+            background: track.color,
+            color: '#fff',
+            cursor: 'pointer',
+            fontSize: 18,
+          }}
+        >
           {playing ? '⏸' : '▶'}
         </button>
-        <button onClick={() => api?.scrollNext()} style={{ width: 32, height: 32, borderRadius: '50%', border: '1px solid #e2e8f0', background: '#f8fafc', cursor: 'pointer', fontSize: 14 }}>▶</button>
+        <button
+          onClick={() => api?.scrollNext()}
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: '50%',
+            border: '1px solid #e2e8f0',
+            background: '#f8fafc',
+            cursor: 'pointer',
+            fontSize: 14,
+          }}
+        >
+          ▶
+        </button>
       </div>
     </div>
   )
@@ -1783,10 +2890,38 @@ export const EnterpriseUI_미디어_플레이어_큐: Story = {
 
 // UtilityUI + EnterpriseUI — 다크 컴포넌트 카탈로그 캐러셀
 const PRODUCT_CARDS_136 = [
-  { id: 1, name: 'SolidButton', tag: 'interaction', users: 1240, color: '#6366f1', desc: '클릭/호버/포커스/로딩 상태를 모두 지원하는 기본 CTA 버튼' },
-  { id: 2, name: 'DataTable', tag: 'data', users: 870, color: '#0ea5e9', desc: 'tanstack/table 기반 정렬/필터/페이지네이션 내장 데이터 테이블' },
-  { id: 3, name: 'Command', tag: 'navigation', users: 650, color: '#10b981', desc: 'CommandPalette/ComposableUI 스타일 명령 팔레트. 퍼지 검색 + 그룹 헤딩' },
-  { id: 4, name: 'Calendar', tag: 'input', users: 420, color: '#f59e0b', desc: '날짜 범위 선택 + 한국어 로케일 지원 인터랙티브 달력' },
+  {
+    id: 1,
+    name: 'SolidButton',
+    tag: 'interaction',
+    users: 1240,
+    color: '#6366f1',
+    desc: '클릭/호버/포커스/로딩 상태를 모두 지원하는 기본 CTA 버튼',
+  },
+  {
+    id: 2,
+    name: 'DataTable',
+    tag: 'data',
+    users: 870,
+    color: '#0ea5e9',
+    desc: 'tanstack/table 기반 정렬/필터/페이지네이션 내장 데이터 테이블',
+  },
+  {
+    id: 3,
+    name: 'Command',
+    tag: 'navigation',
+    users: 650,
+    color: '#10b981',
+    desc: 'CommandPalette/ComposableUI 스타일 명령 팔레트. 퍼지 검색 + 그룹 헤딩',
+  },
+  {
+    id: 4,
+    name: 'Calendar',
+    tag: 'input',
+    users: 420,
+    color: '#f59e0b',
+    desc: '날짜 범위 선택 + 한국어 로케일 지원 인터랙티브 달력',
+  },
 ]
 
 function UtilityCSSEnterpriseUIProductCarouselRender() {
@@ -1802,26 +2937,77 @@ function UtilityCSSEnterpriseUIProductCarouselRender() {
   }, [api])
 
   return (
-    <div style={{ width: 340, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 18, padding: '20px', color: '#fff' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <span style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', letterSpacing: 1 }}>인기 컴포넌트</span>
-        <span style={{ fontSize: 11, color: '#475569' }}>{cur + 1}/{PRODUCT_CARDS_136.length}</span>
+    <div
+      style={{
+        width: 340,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#0f172a',
+        borderRadius: 18,
+        padding: '20px',
+        color: '#fff',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
+        <span style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', letterSpacing: 1 }}>
+          인기 컴포넌트
+        </span>
+        <span style={{ fontSize: 11, color: '#475569' }}>
+          {cur + 1}/{PRODUCT_CARDS_136.length}
+        </span>
       </div>
       <Carousel setApi={setApi} className="w-full">
         <Carousel.Content>
           {PRODUCT_CARDS_136.map((p) => (
             <Carousel.Item key={p.id}>
-              <div style={{ background: '#1e293b', borderRadius: 14, padding: '20px', border: `1.5px solid ${p.color}40` }}>
+              <div
+                style={{
+                  background: '#1e293b',
+                  borderRadius: 14,
+                  padding: '20px',
+                  border: `1.5px solid ${p.color}40`,
+                }}
+              >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 10, background: p.color + '22', border: `1.5px solid ${p.color}60`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: p.color }}>◈</div>
+                  <div
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: 10,
+                      background: p.color + '22',
+                      border: `1.5px solid ${p.color}60`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 18,
+                      color: p.color,
+                    }}
+                  >
+                    ◈
+                  </div>
                   <div>
                     <div style={{ fontWeight: 700, fontSize: 15 }}>{p.name}</div>
                     <div style={{ fontSize: 11, color: p.color, marginTop: 2 }}>#{p.tag}</div>
                   </div>
                 </div>
                 <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.6 }}>{p.desc}</div>
-                <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: 11, color: '#475569' }}>사용: {p.users.toLocaleString()}개 프로젝트</span>
+                <div
+                  style={{
+                    marginTop: 12,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <span style={{ fontSize: 11, color: '#475569' }}>
+                    사용: {p.users.toLocaleString()}개 프로젝트
+                  </span>
                   <span style={{ fontSize: 11, color: p.color, fontWeight: 600 }}>문서 보기 →</span>
                 </div>
               </div>
@@ -1831,7 +3017,20 @@ function UtilityCSSEnterpriseUIProductCarouselRender() {
       </Carousel>
       <div style={{ display: 'flex', gap: 5, justifyContent: 'center', marginTop: 14 }}>
         {PRODUCT_CARDS_136.map((_, i) => (
-          <button key={i} onClick={() => api?.scrollTo(i)} style={{ width: 6, height: 6, borderRadius: '50%', border: 'none', cursor: 'pointer', padding: 0, background: i === cur ? (card?.color ?? '#6366f1') : '#334155', transition: 'background 200ms' }} />
+          <button
+            key={i}
+            onClick={() => api?.scrollTo(i)}
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: '50%',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+              background: i === cur ? (card?.color ?? '#6366f1') : '#334155',
+              transition: 'background 200ms',
+            }}
+          />
         ))}
       </div>
     </div>
@@ -1864,7 +3063,9 @@ const CHAKRA_THEMES = [
   { name: 'Rose', primary: '#f43f5e', secondary: '#fb7185', bg: '#fff1f2', text: '#881337' },
 ]
 
-type AccessibleCarouselApi = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
+type AccessibleCarouselApi = Parameters<
+  NonNullable<React.ComponentProps<typeof Carousel>['setApi']>
+>[0]
 
 function AccessibleThemePickerCarouselRender() {
   const [current, setCurrent] = useState(0)
@@ -1873,32 +3074,95 @@ function AccessibleThemePickerCarouselRender() {
 
   React.useEffect(() => {
     if (!api) return
-    api.on('select', () => { setCurrent(api.selectedScrollSnap()) })
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap())
+    })
   }, [api])
 
   return (
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>AccessibleUI — 테마 선택 캐러셀</p>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 12,
+        }}
+      >
+        AccessibleUI — 테마 선택 캐러셀
+      </p>
       <Carousel setApi={setApi} opts={{ loop: true }} className="w-full">
         {CHAKRA_THEMES.map((t) => (
           <Carousel.Item key={t.name} style={{ width: '100%' }}>
-            <div style={{ padding: '24px', borderRadius: 14, background: t.bg, border: `2px solid ${t.primary}`, minHeight: 140, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, textAlign: 'center' }}>
+            <div
+              style={{
+                padding: '24px',
+                borderRadius: 14,
+                background: t.bg,
+                border: `2px solid ${t.primary}`,
+                minHeight: 140,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 12,
+                textAlign: 'center',
+              }}
+            >
               <div style={{ display: 'flex', gap: 8 }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: t.primary }} />
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: t.secondary }} />
+                <div
+                  style={{ width: 40, height: 40, borderRadius: '50%', background: t.primary }}
+                />
+                <div
+                  style={{ width: 40, height: 40, borderRadius: '50%', background: t.secondary }}
+                />
               </div>
               <div>
-                <div style={{ fontSize: 16, fontWeight: 800, color: t.text, letterSpacing: '-0.02em' }}>{t.name}</div>
-                <div style={{ fontSize: 11, color: t.primary, fontFamily: 'monospace', marginTop: 2 }}>{t.primary}</div>
+                <div
+                  style={{ fontSize: 16, fontWeight: 800, color: t.text, letterSpacing: '-0.02em' }}
+                >
+                  {t.name}
+                </div>
+                <div
+                  style={{ fontSize: 11, color: t.primary, fontFamily: 'monospace', marginTop: 2 }}
+                >
+                  {t.primary}
+                </div>
               </div>
-              <div style={{ padding: '6px 16px', borderRadius: 999, background: t.primary, color: '#fff', fontSize: 11, fontWeight: 700 }}>이 테마 적용</div>
+              <div
+                style={{
+                  padding: '6px 16px',
+                  borderRadius: 999,
+                  background: t.primary,
+                  color: '#fff',
+                  fontSize: 11,
+                  fontWeight: 700,
+                }}
+              >
+                이 테마 적용
+              </div>
             </div>
           </Carousel.Item>
         ))}
       </Carousel>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginTop: 12 }}>
         {CHAKRA_THEMES.map((_, i) => (
-          <button key={i} onClick={() => api?.scrollTo(i)} style={{ width: i === current ? 20 : 6, height: 6, borderRadius: 3, border: 'none', background: i === current ? CHAKRA_THEMES[current].primary : '#e2e8f0', cursor: 'pointer', transition: 'all 0.2s', padding: 0 }} />
+          <button
+            key={i}
+            onClick={() => api?.scrollTo(i)}
+            style={{
+              width: i === current ? 20 : 6,
+              height: 6,
+              borderRadius: 3,
+              border: 'none',
+              background: i === current ? CHAKRA_THEMES[current].primary : '#e2e8f0',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+              padding: 0,
+            }}
+          />
         ))}
       </div>
       <div style={{ marginTop: 10, textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>
@@ -1913,7 +3177,8 @@ export const Accessible_테마_선택_캐러셀: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI의 Color Mode Picker 패턴. 5가지 색상 테마를 캐러셀로 탐색하고 선택할 수 있는 인터랙티브 데모입니다.',
+        story:
+          'AccessibleUI의 Color Mode Picker 패턴. 5가지 색상 테마를 캐러셀로 탐색하고 선택할 수 있는 인터랙티브 데모입니다.',
       },
     },
   },
@@ -1925,10 +3190,38 @@ export const Accessible_테마_선택_캐러셀: Story = {
 -------------------------------------------------------------------------- */
 const ARCO_STATS = [
   { label: '총 이슈', value: 1284, change: +12.5, unit: '건', color: '#6366f1', period: '이번 달' },
-  { label: '해결된 이슈', value: 1072, change: +8.3, unit: '건', color: '#22c55e', period: '이번 달' },
-  { label: '평균 해결 시간', value: 2.4, change: -18.2, unit: '일', color: '#f59e0b', period: '이번 주' },
-  { label: '팀 속도', value: 87, change: +5.1, unit: 'pt', color: '#ec4899', period: '이번 스프린트' },
-  { label: '코드 커버리지', value: 78.4, change: +3.2, unit: '%', color: '#14b8a6', period: '전체' },
+  {
+    label: '해결된 이슈',
+    value: 1072,
+    change: +8.3,
+    unit: '건',
+    color: '#22c55e',
+    period: '이번 달',
+  },
+  {
+    label: '평균 해결 시간',
+    value: 2.4,
+    change: -18.2,
+    unit: '일',
+    color: '#f59e0b',
+    period: '이번 주',
+  },
+  {
+    label: '팀 속도',
+    value: 87,
+    change: +5.1,
+    unit: 'pt',
+    color: '#ec4899',
+    period: '이번 스프린트',
+  },
+  {
+    label: '코드 커버리지',
+    value: 78.4,
+    change: +3.2,
+    unit: '%',
+    color: '#14b8a6',
+    period: '전체',
+  },
   { label: '배포 성공률', value: 99.1, change: +0.8, unit: '%', color: '#8b5cf6', period: '30일' },
 ]
 
@@ -1941,19 +3234,50 @@ function DataProductStatCardCarouselRender() {
   return (
     <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', margin: 0 }}>DataProductUI — 통계 카드 캐러셀</p>
-        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{idx + 1}–{Math.min(idx + VISIBLE, ARCO_STATS.length)} / {ARCO_STATS.length}</span>
+        <p
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            margin: 0,
+          }}
+        >
+          DataProductUI — 통계 카드 캐러셀
+        </p>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>
+          {idx + 1}–{Math.min(idx + VISIBLE, ARCO_STATS.length)} / {ARCO_STATS.length}
+        </span>
       </div>
       <Carousel className="w-full">
         <Carousel.Item style={{ width: '100%' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
-            {visibleStats.map(stat => {
+            {visibleStats.map((stat) => {
               const isUp = stat.change >= 0
               return (
-                <div key={stat.label} style={{ padding: '14px 12px', borderRadius: 12, border: `1.5px solid ${stat.color}30`, background: `${stat.color}08` }}>
-                  <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>{stat.label}</div>
-                  <div style={{ fontSize: 20, fontWeight: 800, color: stat.color, letterSpacing: '-0.03em' }}>
-                    {stat.value}{stat.unit}
+                <div
+                  key={stat.label}
+                  style={{
+                    padding: '14px 12px',
+                    borderRadius: 12,
+                    border: `1.5px solid ${stat.color}30`,
+                    background: `${stat.color}08`,
+                  }}
+                >
+                  <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 6 }}>
+                    {stat.label}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 800,
+                      color: stat.color,
+                      letterSpacing: '-0.03em',
+                    }}
+                  >
+                    {stat.value}
+                    {stat.unit}
                   </div>
                   <div style={{ fontSize: 10, color: isUp ? '#22c55e' : '#ef4444', marginTop: 4 }}>
                     {isUp ? '▲' : '▼'} {Math.abs(stat.change)}%
@@ -1966,8 +3290,38 @@ function DataProductStatCardCarouselRender() {
         </Carousel.Item>
       </Carousel>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 12 }}>
-        <button onClick={() => setIdx(i => Math.max(0, i - VISIBLE))} disabled={idx === 0} style={{ padding: '5px 14px', fontSize: 11, borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: idx === 0 ? 'not-allowed' : 'pointer', opacity: idx === 0 ? 0.4 : 1 }}>이전</button>
-        <button onClick={() => setIdx(i => Math.min(ARCO_STATS.length - VISIBLE, i + VISIBLE))} disabled={idx + VISIBLE >= ARCO_STATS.length} style={{ padding: '5px 14px', fontSize: 11, borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: idx + VISIBLE >= ARCO_STATS.length ? 'not-allowed' : 'pointer', opacity: idx + VISIBLE >= ARCO_STATS.length ? 0.4 : 1 }}>다음</button>
+        <button
+          onClick={() => setIdx((i) => Math.max(0, i - VISIBLE))}
+          disabled={idx === 0}
+          style={{
+            padding: '5px 14px',
+            fontSize: 11,
+            borderRadius: 7,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#475569',
+            cursor: idx === 0 ? 'not-allowed' : 'pointer',
+            opacity: idx === 0 ? 0.4 : 1,
+          }}
+        >
+          이전
+        </button>
+        <button
+          onClick={() => setIdx((i) => Math.min(ARCO_STATS.length - VISIBLE, i + VISIBLE))}
+          disabled={idx + VISIBLE >= ARCO_STATS.length}
+          style={{
+            padding: '5px 14px',
+            fontSize: 11,
+            borderRadius: 7,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#475569',
+            cursor: idx + VISIBLE >= ARCO_STATS.length ? 'not-allowed' : 'pointer',
+            opacity: idx + VISIBLE >= ARCO_STATS.length ? 0.4 : 1,
+          }}
+        >
+          다음
+        </button>
       </div>
     </div>
   )
@@ -1978,7 +3332,8 @@ export const DataProduct_통계_카드_캐러셀: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI의 Statistic Card 패턴. 팀 성과 지표를 3개씩 그룹화해 캐러셀로 탐색합니다. 이전/다음 버튼으로 페이지 단위 전환.',
+        story:
+          'DataProductUI의 Statistic Card 패턴. 팀 성과 지표를 3개씩 그룹화해 캐러셀로 탐색합니다. 이전/다음 버튼으로 페이지 단위 전환.',
       },
     },
   },
@@ -2023,7 +3378,9 @@ const ONBOARDING_GUIDE_STEPS = [
   },
 ]
 
-type OnboardingCarouselApi = Parameters<NonNullable<React.ComponentProps<typeof Carousel>['setApi']>>[0]
+type OnboardingCarouselApi = Parameters<
+  NonNullable<React.ComponentProps<typeof Carousel>['setApi']>
+>[0]
 
 function AccessibleDataProductOnboardingCarouselRender() {
   const [step, setStep] = useState(0)
@@ -2032,42 +3389,140 @@ function AccessibleDataProductOnboardingCarouselRender() {
 
   React.useEffect(() => {
     if (!api) return
-    api.on('select', () => { setStep(api.selectedScrollSnap()) })
+    api.on('select', () => {
+      setStep(api.selectedScrollSnap())
+    })
   }, [api])
 
   return (
-    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 16, overflow: 'hidden', background: '#fff' }}>
-      <div style={{ padding: '14px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div
+      style={{
+        width: 380,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 16,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
+      <div
+        style={{
+          padding: '14px 18px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>Orbit UI 시작하기</span>
-        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{step + 1}/{ONBOARDING_GUIDE_STEPS.length}</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>
+          {step + 1}/{ONBOARDING_GUIDE_STEPS.length}
+        </span>
       </div>
       <Carousel setApi={setApi} className="w-full">
         {ONBOARDING_GUIDE_STEPS.map((s) => (
           <Carousel.Item key={s.step} style={{ width: '100%' }}>
             <div style={{ padding: '24px 20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 12, background: `${s.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>{s.icon}</div>
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 12,
+                    background: `${s.color}15`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 20,
+                  }}
+                >
+                  {s.icon}
+                </div>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>Step {s.step}: {s.title}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+                    Step {s.step}: {s.title}
+                  </div>
                 </div>
               </div>
-              <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6, margin: '0 0 14px' }}>{s.desc}</p>
+              <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6, margin: '0 0 14px' }}>
+                {s.desc}
+              </p>
               <div style={{ background: '#0f172a', borderRadius: 10, padding: '12px 14px' }}>
-                <pre style={{ margin: 0, fontSize: 11, color: '#e2e8f0', fontFamily: 'monospace', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{s.code}</pre>
+                <pre
+                  style={{
+                    margin: 0,
+                    fontSize: 11,
+                    color: '#e2e8f0',
+                    fontFamily: 'monospace',
+                    lineHeight: 1.6,
+                    whiteSpace: 'pre-wrap',
+                  }}
+                >
+                  {s.code}
+                </pre>
               </div>
             </div>
           </Carousel.Item>
         ))}
       </Carousel>
-      <div style={{ padding: '12px 18px', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div
+        style={{
+          padding: '12px 18px',
+          borderTop: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <div style={{ display: 'flex', gap: 5, flex: 1 }}>
           {ONBOARDING_GUIDE_STEPS.map((_, i) => (
-            <button key={i} onClick={() => api?.scrollTo(i)} style={{ flex: 1, height: 4, borderRadius: 2, border: 'none', background: i <= step ? current.color : '#e2e8f0', cursor: 'pointer', transition: 'background 0.2s', padding: 0 }} />
+            <button
+              key={i}
+              onClick={() => api?.scrollTo(i)}
+              style={{
+                flex: 1,
+                height: 4,
+                borderRadius: 2,
+                border: 'none',
+                background: i <= step ? current.color : '#e2e8f0',
+                cursor: 'pointer',
+                transition: 'background 0.2s',
+                padding: 0,
+              }}
+            />
           ))}
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
-          <button onClick={() => api?.scrollTo(Math.max(0, step - 1))} disabled={step === 0} style={{ padding: '6px 12px', fontSize: 11, borderRadius: 7, border: '1px solid #e2e8f0', background: '#fff', color: '#475569', cursor: step === 0 ? 'not-allowed' : 'pointer', opacity: step === 0 ? 0.4 : 1 }}>이전</button>
-          <button onClick={() => api?.scrollTo(Math.min(ONBOARDING_GUIDE_STEPS.length - 1, step + 1))} style={{ padding: '6px 12px', fontSize: 11, borderRadius: 7, border: 'none', background: step === ONBOARDING_GUIDE_STEPS.length - 1 ? '#22c55e' : current.color, color: '#fff', cursor: 'pointer', fontWeight: 600 }}>
+          <button
+            onClick={() => api?.scrollTo(Math.max(0, step - 1))}
+            disabled={step === 0}
+            style={{
+              padding: '6px 12px',
+              fontSize: 11,
+              borderRadius: 7,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              color: '#475569',
+              cursor: step === 0 ? 'not-allowed' : 'pointer',
+              opacity: step === 0 ? 0.4 : 1,
+            }}
+          >
+            이전
+          </button>
+          <button
+            onClick={() => api?.scrollTo(Math.min(ONBOARDING_GUIDE_STEPS.length - 1, step + 1))}
+            style={{
+              padding: '6px 12px',
+              fontSize: 11,
+              borderRadius: 7,
+              border: 'none',
+              background: step === ONBOARDING_GUIDE_STEPS.length - 1 ? '#22c55e' : current.color,
+              color: '#fff',
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
             {step === ONBOARDING_GUIDE_STEPS.length - 1 ? '완료' : '다음'}
           </button>
         </div>
@@ -2081,7 +3536,8 @@ export const Accessible_DataProduct_온보딩_투어_캐러셀: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI + DataProductUI 복합 패턴. Orbit UI 설치/설정/사용 4단계 온보딩을 캐러셀로 가이드합니다. 진행 바 + 이전/다음 네비게이션.',
+        story:
+          'AccessibleUI + DataProductUI 복합 패턴. Orbit UI 설치/설정/사용 4단계 온보딩을 캐러셀로 가이드합니다. 진행 바 + 이전/다음 네비게이션.',
       },
     },
   },

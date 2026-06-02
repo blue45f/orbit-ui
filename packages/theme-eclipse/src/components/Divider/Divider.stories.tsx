@@ -186,7 +186,9 @@ export const 텍스트_섹션_구분 = {
         <div key={section}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
             <Divider length="20px" />
-            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', whiteSpace: 'nowrap' }}>
+            <span
+              style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', whiteSpace: 'nowrap' }}
+            >
               {section}
             </span>
             <Divider />
@@ -212,7 +214,17 @@ export const 텍스트_섹션_구분 = {
 -------------------------------------------------------------------------- */
 export const ComposableUI_OR_구분선 = {
   render: () => (
-    <Flex flexDirection="column" rowGap="24px" style={{ width: '360px', padding: '24px', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+    <Flex
+      flexDirection="column"
+      rowGap="24px"
+      style={{
+        width: '360px',
+        padding: '24px',
+        background: '#fff',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+      }}
+    >
       <Typography textStyle="subheadingSmall" style={{ textAlign: 'center', color: '#1e293b' }}>
         로그인
       </Typography>
@@ -220,14 +232,25 @@ export const ComposableUI_OR_구분선 = {
       <Flex flexDirection="column" rowGap="8px">
         {[
           { label: 'CodeHost으로 계속하기', bg: '#24292f', color: '#fff' },
-          { label: 'Reference로 계속하기', bg: '#fff', color: '#374151', border: '1px solid #e2e8f0' },
+          {
+            label: 'Reference로 계속하기',
+            bg: '#fff',
+            color: '#374151',
+            border: '1px solid #e2e8f0',
+          },
         ].map((btn) => (
           <button
             key={btn.label}
             style={{
-              width: '100%', padding: '10px 16px', borderRadius: '8px',
-              border: btn.border ?? 'none', background: btn.bg, color: btn.color,
-              fontSize: '14px', fontWeight: 500, cursor: 'pointer',
+              width: '100%',
+              padding: '10px 16px',
+              borderRadius: '8px',
+              border: btn.border ?? 'none',
+              background: btn.bg,
+              color: btn.color,
+              fontSize: '14px',
+              fontWeight: 500,
+              cursor: 'pointer',
             }}
           >
             {btn.label}
@@ -238,7 +261,15 @@ export const ComposableUI_OR_구분선 = {
       {/* ComposableUI OR 구분선 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <Divider />
-        <span style={{ fontSize: '12px', fontWeight: 500, color: '#94a3b8', whiteSpace: 'nowrap', letterSpacing: '0.05em' }}>
+        <span
+          style={{
+            fontSize: '12px',
+            fontWeight: 500,
+            color: '#94a3b8',
+            whiteSpace: 'nowrap',
+            letterSpacing: '0.05em',
+          }}
+        >
           또는
         </span>
         <Divider />
@@ -250,8 +281,12 @@ export const ComposableUI_OR_구분선 = {
           type="email"
           placeholder="이메일"
           style={{
-            width: '100%', padding: '9px 12px', borderRadius: '8px',
-            border: '1px solid #e2e8f0', fontSize: '14px', boxSizing: 'border-box',
+            width: '100%',
+            padding: '9px 12px',
+            borderRadius: '8px',
+            border: '1px solid #e2e8f0',
+            fontSize: '14px',
+            boxSizing: 'border-box',
             outline: 'none',
           }}
         />
@@ -259,16 +294,26 @@ export const ComposableUI_OR_구분선 = {
           type="password"
           placeholder="비밀번호"
           style={{
-            width: '100%', padding: '9px 12px', borderRadius: '8px',
-            border: '1px solid #e2e8f0', fontSize: '14px', boxSizing: 'border-box',
+            width: '100%',
+            padding: '9px 12px',
+            borderRadius: '8px',
+            border: '1px solid #e2e8f0',
+            fontSize: '14px',
+            boxSizing: 'border-box',
             outline: 'none',
           }}
         />
         <button
           style={{
-            width: '100%', padding: '10px', borderRadius: '8px',
-            background: '#1e293b', color: '#fff', border: 'none',
-            fontSize: '14px', fontWeight: 600, cursor: 'pointer',
+            width: '100%',
+            padding: '10px',
+            borderRadius: '8px',
+            background: '#1e293b',
+            color: '#fff',
+            border: 'none',
+            fontSize: '14px',
+            fontWeight: 600,
+            cursor: 'pointer',
           }}
         >
           이메일로 로그인
@@ -288,7 +333,9 @@ export const ComposableUI_OR_구분선 = {
 function ContextMenuDividerDemo() {
   const [selected, setSelected] = useState<string | null>(null)
 
-  const menuGroups: Array<Array<{ key: string; label: string; shortcut: string; danger?: boolean }>> = [
+  const menuGroups: Array<
+    Array<{ key: string; label: string; shortcut: string; danger?: boolean }>
+  > = [
     [
       { key: 'copy', label: '복사', shortcut: '⌘C' },
       { key: 'cut', label: '잘라내기', shortcut: '⌘X' },
@@ -298,21 +345,27 @@ function ContextMenuDividerDemo() {
       { key: 'duplicate', label: '복제', shortcut: '⌘D' },
       { key: 'rename', label: '이름 바꾸기', shortcut: 'F2' },
     ],
-    [
-      { key: 'delete', label: '삭제', shortcut: '⌫', danger: true },
-    ],
+    [{ key: 'delete', label: '삭제', shortcut: '⌫', danger: true }],
   ]
 
   return (
-    <Flex flexDirection="column" rowGap="16px" style={{ alignItems: 'flex-start', padding: '20px' }}>
+    <Flex
+      flexDirection="column"
+      rowGap="16px"
+      style={{ alignItems: 'flex-start', padding: '20px' }}
+    >
       <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
         항목을 선택하면 아래에 표시됩니다.
       </Typography>
       <div
         style={{
-          width: 220, background: '#fff', borderRadius: '10px',
-          border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          overflow: 'hidden', padding: '4px 0',
+          width: 220,
+          background: '#fff',
+          borderRadius: '10px',
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          overflow: 'hidden',
+          padding: '4px 0',
         }}
       >
         {menuGroups.map((group, gi) => (
@@ -327,18 +380,30 @@ function ContextMenuDividerDemo() {
                 key={item.key}
                 onClick={() => setSelected(item.label)}
                 style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  width: '100%', padding: '7px 14px', border: 'none', background: 'none',
-                  cursor: 'pointer', fontSize: '13px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  padding: '7px 14px',
+                  border: 'none',
+                  background: 'none',
+                  cursor: 'pointer',
+                  fontSize: '13px',
                   color: item.danger ? '#ef4444' : '#1e293b',
                   textAlign: 'left',
                 }}
               >
                 <span>{item.label}</span>
-                <kbd style={{
-                  fontSize: '11px', color: '#94a3b8', background: '#f1f5f9',
-                  padding: '1px 5px', borderRadius: '4px', fontFamily: 'monospace',
-                }}>
+                <kbd
+                  style={{
+                    fontSize: '11px',
+                    color: '#94a3b8',
+                    background: '#f1f5f9',
+                    padding: '1px 5px',
+                    borderRadius: '4px',
+                    fontFamily: 'monospace',
+                  }}
+                >
                   {item.shortcut}
                 </kbd>
               </button>
@@ -378,22 +443,37 @@ export const ComposableUI_프로필_카드_구분선 = {
   render: () => (
     <div
       style={{
-        width: 300, background: '#fff', borderRadius: '14px',
-        border: '1px solid #e2e8f0', overflow: 'hidden',
+        width: 300,
+        background: '#fff',
+        borderRadius: '14px',
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
         boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
       }}
     >
       {/* 프로필 헤더 */}
       <div style={{ padding: '20px', textAlign: 'center' }}>
-        <div style={{
-          width: 56, height: 56, borderRadius: '50%', margin: '0 auto 10px',
-          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#fff', fontWeight: 700, fontSize: '22px',
-        }}>
+        <div
+          style={{
+            width: 56,
+            height: 56,
+            borderRadius: '50%',
+            margin: '0 auto 10px',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: '22px',
+          }}
+        >
           K
         </div>
-        <Typography textStyle="subheadingSmall" style={{ color: '#1e293b', display: 'block', marginBottom: '2px' }}>
+        <Typography
+          textStyle="subheadingSmall"
+          style={{ color: '#1e293b', display: 'block', marginBottom: '2px' }}
+        >
           김민준
         </Typography>
         <Typography textStyle="descriptionSmall" style={{ color: '#64748b' }}>
@@ -411,13 +491,19 @@ export const ComposableUI_프로필_카드_구분선 = {
           { label: '커밋', value: '1.2k' },
           { label: '팔로워', value: '318' },
         ].map((stat, i) => (
-          <div key={stat.label} style={{ flex: 1, textAlign: 'center', display: 'flex', alignItems: 'stretch' }}>
+          <div
+            key={stat.label}
+            style={{ flex: 1, textAlign: 'center', display: 'flex', alignItems: 'stretch' }}
+          >
             {i > 0 && <Divider orientation="vertical" length="100%" />}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '2px' }}>
               <Typography textStyle="subheadingSmall" style={{ color: '#1e293b', fontWeight: 700 }}>
                 {stat.value}
               </Typography>
-              <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8', fontSize: '11px' }}>
+              <Typography
+                textStyle="descriptionSmall"
+                style={{ color: '#94a3b8', fontSize: '11px' }}
+              >
                 {stat.label}
               </Typography>
             </div>
@@ -430,16 +516,34 @@ export const ComposableUI_프로필_카드_구분선 = {
 
       {/* 액션 */}
       <div style={{ padding: '12px 16px', display: 'flex', gap: '8px' }}>
-        <button style={{
-          flex: 1, padding: '8px', borderRadius: '7px', border: '1px solid #e2e8f0',
-          background: '#fff', color: '#374151', fontSize: '13px', fontWeight: 500, cursor: 'pointer',
-        }}>
+        <button
+          style={{
+            flex: 1,
+            padding: '8px',
+            borderRadius: '7px',
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#374151',
+            fontSize: '13px',
+            fontWeight: 500,
+            cursor: 'pointer',
+          }}
+        >
           팔로우
         </button>
-        <button style={{
-          flex: 1, padding: '8px', borderRadius: '7px', border: 'none',
-          background: '#1e293b', color: '#fff', fontSize: '13px', fontWeight: 500, cursor: 'pointer',
-        }}>
+        <button
+          style={{
+            flex: 1,
+            padding: '8px',
+            borderRadius: '7px',
+            border: 'none',
+            background: '#1e293b',
+            color: '#fff',
+            fontSize: '13px',
+            fontWeight: 500,
+            cursor: 'pointer',
+          }}
+        >
           메시지
         </button>
       </div>
@@ -449,7 +553,11 @@ export const ComposableUI_프로필_카드_구분선 = {
 
 export const 대시보드_섹션 = {
   render: () => (
-    <Flex flexDirection="column" rowGap="0" style={{ width: '520px', padding: '20px', background: '#f1f5f9', borderRadius: '12px' }}>
+    <Flex
+      flexDirection="column"
+      rowGap="0"
+      style={{ width: '520px', padding: '20px', background: '#f1f5f9', borderRadius: '12px' }}
+    >
       {/* 첫 번째 섹션 */}
       <div style={{ marginBottom: '16px' }}>
         <Typography textStyle="subheadingSmall" style={{ marginBottom: '12px', display: 'block' }}>
@@ -461,8 +569,14 @@ export const 대시보드_섹션 = {
             { label: '주문 수', value: '3,421건' },
             { label: '신규 회원', value: '187명' },
           ].map((item) => (
-            <div key={item.label} style={{ background: 'white', padding: '14px', borderRadius: '8px' }}>
-              <Typography textStyle="descriptionLarge" style={{ color: '#64748b', fontSize: '11px' }}>
+            <div
+              key={item.label}
+              style={{ background: 'white', padding: '14px', borderRadius: '8px' }}
+            >
+              <Typography
+                textStyle="descriptionLarge"
+                style={{ color: '#64748b', fontSize: '11px' }}
+              >
                 {item.label}
               </Typography>
               <Typography textStyle="subheadingSmall">{item.value}</Typography>
@@ -487,12 +601,18 @@ export const 대시보드_섹션 = {
             { action: '배송 시작', time: '1시간 전', status: '진행' },
           ].map((item, idx) => (
             <div key={idx}>
-              <Flex justifyContent="space-between" alignItems="center" style={{ padding: '10px 12px', background: 'white', borderRadius: '6px' }}>
+              <Flex
+                justifyContent="space-between"
+                alignItems="center"
+                style={{ padding: '10px 12px', background: 'white', borderRadius: '6px' }}
+              >
                 <Typography textStyle="descriptionLarge">{item.action}</Typography>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontSize: '11px', color: '#94a3b8' }}>{item.time}</span>
                   <Divider orientation="vertical" length="12px" />
-                  <span style={{ fontSize: '11px', color: '#6366f1', fontWeight: 600 }}>{item.status}</span>
+                  <span style={{ fontSize: '11px', color: '#6366f1', fontWeight: 600 }}>
+                    {item.status}
+                  </span>
                 </div>
               </Flex>
             </div>
@@ -516,7 +636,8 @@ export const IssueTracker_미니멀_섹션_구분선 = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 앱 사이드바 섹션 분리 패턴. 구분선 위 소문자 섹션 헤더(9-10px, 회색, 자간 넓음)와 함께 사용. 최소한의 시각적 노이즈로 계층 구분.',
+        story:
+          'IssueTracker 앱 사이드바 섹션 분리 패턴. 구분선 위 소문자 섹션 헤더(9-10px, 회색, 자간 넓음)와 함께 사용. 최소한의 시각적 노이즈로 계층 구분.',
       },
     },
   },
@@ -542,7 +663,14 @@ export const IssueTracker_미니멀_섹션_구분선 = {
     }
 
     return (
-      <div style={{ width: 220, background: '#fff', padding: '8px 0', fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          width: 220,
+          background: '#fff',
+          padding: '8px 0',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {/* 섹션 1 */}
         <div style={{ padding: '0 12px' }}>
           <div style={sectionStyle}>내 팀</div>
@@ -598,34 +726,96 @@ export const Material3_인셋_Divider = {
   parameters: {
     docs: {
       description: {
-        story: 'Material Design 3 Inset Divider 패턴. 아이콘/아바타 좌측 영역을 건너뛰고 텍스트 시작점부터 구분선을 시작. 리스트 연속성을 유지하면서 항목 분리.',
+        story:
+          'Material Design 3 Inset Divider 패턴. 아이콘/아바타 좌측 영역을 건너뛰고 텍스트 시작점부터 구분선을 시작. 리스트 연속성을 유지하면서 항목 분리.',
       },
     },
   },
   render: () => {
     const CONTACTS = [
       { initial: 'AK', name: 'Alice Kim', status: '온라인', statusColor: '#22c55e', bg: '#6366f1' },
-      { initial: 'BL', name: 'Bob Lee', status: '자리 비움', statusColor: '#f59e0b', bg: '#0ea5e9' },
-      { initial: 'CP', name: 'Carol Park', status: '오프라인', statusColor: '#94a3b8', bg: '#10b981' },
-      { initial: 'DO', name: 'David Oh', status: '방해 금지', statusColor: '#ef4444', bg: '#f59e0b' },
+      {
+        initial: 'BL',
+        name: 'Bob Lee',
+        status: '자리 비움',
+        statusColor: '#f59e0b',
+        bg: '#0ea5e9',
+      },
+      {
+        initial: 'CP',
+        name: 'Carol Park',
+        status: '오프라인',
+        statusColor: '#94a3b8',
+        bg: '#10b981',
+      },
+      {
+        initial: 'DO',
+        name: 'David Oh',
+        status: '방해 금지',
+        statusColor: '#ef4444',
+        bg: '#f59e0b',
+      },
     ]
 
     return (
-      <div style={{ width: 300, background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ padding: '12px 16px', fontSize: 13, fontWeight: 700, color: '#374151', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+      <div
+        style={{
+          width: 300,
+          background: '#fff',
+          borderRadius: 12,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
+        <div
+          style={{
+            padding: '12px 16px',
+            fontSize: 13,
+            fontWeight: 700,
+            color: '#374151',
+            borderBottom: '1px solid #f1f5f9',
+            background: '#f8fafc',
+          }}
+        >
           연락처 목록 (M3 Inset Divider)
         </div>
         {CONTACTS.map((contact, i) => (
           <div key={contact.name}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px' }}>
               {/* 아바타 */}
-              <div style={{ width: 40, height: 40, borderRadius: '50%', background: contact.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: '50%',
+                  background: contact.bg,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: '#fff',
+                  flexShrink: 0,
+                }}
+              >
                 {contact.initial}
               </div>
               {/* 텍스트 */}
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{contact.name}</div>
-                <div style={{ fontSize: 11, color: contact.statusColor, fontWeight: 500, marginTop: 2 }}>{contact.status}</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
+                  {contact.name}
+                </div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: contact.statusColor,
+                    fontWeight: 500,
+                    marginTop: 2,
+                  }}
+                >
+                  {contact.status}
+                </div>
               </div>
             </div>
             {/* 인셋 Divider: 아바타(40px) + gap(12px) + padding(16px) = 68px offset */}
@@ -650,27 +840,38 @@ export const IssueTracker_Material3_타임라인_날짜_구분선 = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 타임라인 날짜 구분 + RoleToken Design 텍스트 Divider 조합. 날짜 레이블을 가운데 배치하고 양쪽에 구분선을 늘여 시각적 타임라인 구성. 이슈 로그, 채팅, 활동 피드에 적합.',
+        story:
+          'IssueTracker 타임라인 날짜 구분 + RoleToken Design 텍스트 Divider 조합. 날짜 레이블을 가운데 배치하고 양쪽에 구분선을 늘여 시각적 타임라인 구성. 이슈 로그, 채팅, 활동 피드에 적합.',
       },
     },
   },
   render: () => {
     const TIMELINE_EVENTS = [
-      { date: '오늘', events: [
-        { time: '14:32', text: 'Alice Kim이 이슈를 완료로 변경했습니다', type: 'success' },
-        { time: '11:15', text: '코드 리뷰 댓글 3개 추가됨', type: 'info' },
-      ]},
-      { date: '어제', events: [
-        { time: '18:42', text: 'PR #89가 main에 병합됐습니다', type: 'success' },
-        { time: '09:00', text: '스프린트 계획 회의 시작', type: 'neutral' },
-      ]},
-      { date: '4월 8일', events: [
-        { time: '16:20', text: '버그 #142 생성됨 — 우선순위: 높음', type: 'warning' },
-      ]},
+      {
+        date: '오늘',
+        events: [
+          { time: '14:32', text: 'Alice Kim이 이슈를 완료로 변경했습니다', type: 'success' },
+          { time: '11:15', text: '코드 리뷰 댓글 3개 추가됨', type: 'info' },
+        ],
+      },
+      {
+        date: '어제',
+        events: [
+          { time: '18:42', text: 'PR #89가 main에 병합됐습니다', type: 'success' },
+          { time: '09:00', text: '스프린트 계획 회의 시작', type: 'neutral' },
+        ],
+      },
+      {
+        date: '4월 8일',
+        events: [{ time: '16:20', text: '버그 #142 생성됨 — 우선순위: 높음', type: 'warning' }],
+      },
     ]
 
     const typeColor: Record<string, string> = {
-      success: '#22c55e', info: '#6366f1', neutral: '#94a3b8', warning: '#f59e0b',
+      success: '#22c55e',
+      info: '#6366f1',
+      neutral: '#94a3b8',
+      warning: '#f59e0b',
     }
 
     return (
@@ -680,16 +881,39 @@ export const IssueTracker_Material3_타임라인_날짜_구분선 = {
             {/* 날짜 레이블 구분선 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
               <Divider />
-              <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', whiteSpace: 'nowrap', letterSpacing: '0.04em', textTransform: 'uppercase' as const }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#94a3b8',
+                  whiteSpace: 'nowrap',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase' as const,
+                }}
+              >
                 {group.date}
               </span>
               <Divider />
             </div>
             {/* 이벤트 목록 */}
             {group.events.map((ev, i) => (
-              <div key={i} style={{ display: 'flex', gap: 10, padding: '6px 0', alignItems: 'flex-start' }}>
-                <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0, minWidth: 40 }}>{ev.time}</span>
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: typeColor[ev.type], marginTop: 4, flexShrink: 0 }} />
+              <div
+                key={i}
+                style={{ display: 'flex', gap: 10, padding: '6px 0', alignItems: 'flex-start' }}
+              >
+                <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0, minWidth: 40 }}>
+                  {ev.time}
+                </span>
+                <div
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: typeColor[ev.type],
+                    marginTop: 4,
+                    flexShrink: 0,
+                  }}
+                />
                 <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.5 }}>{ev.text}</span>
               </div>
             ))}
@@ -709,7 +933,8 @@ export const UtilityCSS_폼_섹션_구분선: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI Form 패턴. "기본 정보", "보안 설정" 등 섹션 제목을 Divider와 인라인으로 배치하여 시각적 계층을 표현합니다. 레이블 좌측/우측 Divider 조합.',
+        story:
+          'UtilityUI Form 패턴. "기본 정보", "보안 설정" 등 섹션 제목을 Divider와 인라인으로 배치하여 시각적 계층을 표현합니다. 레이블 좌측/우측 Divider 조합.',
       },
     },
   },
@@ -720,24 +945,55 @@ export const UtilityCSS_폼_섹션_구분선: Story = {
       { label: '알림 설정', fields: ['이메일 알림', '푸시 알림'] },
     ]
     return (
-      <div style={{ width: 360, display: 'flex', flexDirection: 'column', gap: 20, fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          width: 360,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 20,
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {SECTIONS.map((section) => (
           <div key={section.label} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {/* 인라인 Divider + 섹션 제목 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', whiteSpace: 'nowrap', textTransform: 'uppercase' as const, letterSpacing: '0.06em' }}>{section.label}</span>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#6366f1',
+                  whiteSpace: 'nowrap',
+                  textTransform: 'uppercase' as const,
+                  letterSpacing: '0.06em',
+                }}
+              >
+                {section.label}
+              </span>
               <Divider />
             </div>
             {/* 필드 목록 */}
             {section.fields.map((field) => (
               <div key={field} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={{ width: 100, fontSize: 12, color: '#64748b', flexShrink: 0 }}>{field}</span>
-                <div style={{ flex: 1, height: 32, borderRadius: 6, border: '1px solid #e2e8f0', background: '#f8fafc' }} />
+                <span style={{ width: 100, fontSize: 12, color: '#64748b', flexShrink: 0 }}>
+                  {field}
+                </span>
+                <div
+                  style={{
+                    flex: 1,
+                    height: 32,
+                    borderRadius: 6,
+                    border: '1px solid #e2e8f0',
+                    background: '#f8fafc',
+                  }}
+                />
               </div>
             ))}
           </div>
         ))}
-        <p style={{ fontSize: 11, color: '#94a3b8', margin: '4px 0 0' }}>UtilityUI 폼 섹션 구분 패턴 — 레이블 + Divider 인라인</p>
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '4px 0 0' }}>
+          UtilityUI 폼 섹션 구분 패턴 — 레이블 + Divider 인라인
+        </p>
       </div>
     )
   },
@@ -752,7 +1008,8 @@ export const Ant_OR_구분선_로그인: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design Divider with text 패턴. 소셜 로그인과 이메일 로그인 사이의 OR 텍스트 구분선. 양쪽 Divider + 중앙 텍스트 배치로 시각적 흐름을 자연스럽게 분리.',
+        story:
+          'Ant Design Divider with text 패턴. 소셜 로그인과 이메일 로그인 사이의 OR 텍스트 구분선. 양쪽 Divider + 중앙 텍스트 배치로 시각적 흐름을 자연스럽게 분리.',
       },
     },
   },
@@ -762,28 +1019,123 @@ export const Ant_OR_구분선_로그인: Story = {
       { name: 'Reference', color: '#ef4444', icon: 'G+' },
     ]
     return (
-      <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 12, fontFamily: 'system-ui, sans-serif', padding: '24px 0' }}>
-        <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', textAlign: 'center', marginBottom: 4 }}>로그인</div>
+      <div
+        style={{
+          width: 320,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 12,
+          fontFamily: 'system-ui, sans-serif',
+          padding: '24px 0',
+        }}
+      >
+        <div
+          style={{
+            fontSize: 18,
+            fontWeight: 800,
+            color: '#0f172a',
+            textAlign: 'center',
+            marginBottom: 4,
+          }}
+        >
+          로그인
+        </div>
         {/* 소셜 로그인 버튼 */}
         {SOCIAL.map((s) => (
-          <button key={s.name} style={{ width: '100%', padding: '10px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: s.color, cursor: 'pointer' }}>
-            <span style={{ width: 20, height: 20, borderRadius: '50%', background: s.color, color: '#fff', fontSize: 10, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{s.icon}</span>
+          <button
+            key={s.name}
+            style={{
+              width: '100%',
+              padding: '10px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              fontSize: 13,
+              fontWeight: 600,
+              color: s.color,
+              cursor: 'pointer',
+            }}
+          >
+            <span
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: '50%',
+                background: s.color,
+                color: '#fff',
+                fontSize: 10,
+                fontWeight: 800,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {s.icon}
+            </span>
             {s.name}로 계속하기
           </button>
         ))}
         {/* OR 구분선 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '4px 0' }}>
           <Divider />
-          <span style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', whiteSpace: 'nowrap', padding: '0 4px' }}>OR</span>
+          <span
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: '#94a3b8',
+              whiteSpace: 'nowrap',
+              padding: '0 4px',
+            }}
+          >
+            OR
+          </span>
           <Divider />
         </div>
         {/* 이메일 입력 */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <input placeholder="이메일" style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
-          <input placeholder="비밀번호" type="password" style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, outline: 'none' }} />
-          <button style={{ padding: '10px', borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>로그인</button>
+          <input
+            placeholder="이메일"
+            style={{
+              padding: '10px 12px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              fontSize: 13,
+              outline: 'none',
+            }}
+          />
+          <input
+            placeholder="비밀번호"
+            type="password"
+            style={{
+              padding: '10px 12px',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              fontSize: 13,
+              outline: 'none',
+            }}
+          />
+          <button
+            style={{
+              padding: '10px',
+              borderRadius: 8,
+              border: 'none',
+              background: '#0f172a',
+              color: '#fff',
+              fontSize: 13,
+              fontWeight: 700,
+              cursor: 'pointer',
+            }}
+          >
+            로그인
+          </button>
         </div>
-        <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center', marginTop: 4 }}>Ant Design OR 텍스트 구분선 패턴</p>
+        <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center', marginTop: 4 }}>
+          Ant Design OR 텍스트 구분선 패턴
+        </p>
       </div>
     )
   },
@@ -798,7 +1150,8 @@ export const UtilityCSS_Ant_메뉴_그룹_구분: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI Dropdown + Ant Design Menu 패턴. 메뉴 아이템을 기능별 그룹으로 나누고 Divider로 시각적으로 구분. 마지막 그룹(위험 액션)은 빨간색으로 강조.',
+        story:
+          'UtilityUI Dropdown + Ant Design Menu 패턴. 메뉴 아이템을 기능별 그룹으로 나누고 Divider로 시각적으로 구분. 마지막 그룹(위험 액션)은 빨간색으로 강조.',
       },
     },
   },
@@ -818,25 +1171,65 @@ export const UtilityCSS_Ant_메뉴_그룹_구분: Story = {
         ],
       },
       {
-        items: [
-          { icon: '⊘', label: '로그아웃', danger: true },
-        ],
+        items: [{ icon: '⊘', label: '로그아웃', danger: true }],
       },
     ]
     return (
-      <div style={{ width: 200, borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff', padding: '6px 0', boxShadow: '0 4px 16px rgba(0,0,0,0.1)', fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          width: 200,
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          background: '#fff',
+          padding: '6px 0',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {MENU_GROUPS.map((group, gi) => (
           <div key={gi}>
-            {gi > 0 && <div style={{ margin: '4px 0' }}><Divider /></div>}
+            {gi > 0 && (
+              <div style={{ margin: '4px 0' }}>
+                <Divider />
+              </div>
+            )}
             {group.items.map((item) => (
-              <div key={item.label} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '8px 14px', cursor: 'pointer', fontSize: 13, color: (item as { danger?: boolean }).danger ? '#ef4444' : '#0f172a', fontWeight: (item as { danger?: boolean }).danger ? 600 : 400, transition: 'background 0.1s' }} onMouseEnter={(e) => (e.currentTarget.style.background = (item as { danger?: boolean }).danger ? '#fef2f2' : '#f8fafc')} onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}>
-                <span style={{ fontSize: 14, color: (item as { danger?: boolean }).danger ? '#ef4444' : '#94a3b8' }}>{item.icon}</span>
+              <div
+                key={item.label}
+                style={{
+                  display: 'flex',
+                  gap: 10,
+                  alignItems: 'center',
+                  padding: '8px 14px',
+                  cursor: 'pointer',
+                  fontSize: 13,
+                  color: (item as { danger?: boolean }).danger ? '#ef4444' : '#0f172a',
+                  fontWeight: (item as { danger?: boolean }).danger ? 600 : 400,
+                  transition: 'background 0.1s',
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = (item as { danger?: boolean }).danger
+                    ? '#fef2f2'
+                    : '#f8fafc')
+                }
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              >
+                <span
+                  style={{
+                    fontSize: 14,
+                    color: (item as { danger?: boolean }).danger ? '#ef4444' : '#94a3b8',
+                  }}
+                >
+                  {item.icon}
+                </span>
                 {item.label}
               </div>
             ))}
           </div>
         ))}
-        <p style={{ fontSize: 11, color: '#94a3b8', margin: '8px 14px 4px', textAlign: 'center' }}>UtilityCSS + Ant Design 메뉴 그룹 Divider 패턴</p>
+        <p style={{ fontSize: 11, color: '#94a3b8', margin: '8px 14px 4px', textAlign: 'center' }}>
+          UtilityCSS + Ant Design 메뉴 그룹 Divider 패턴
+        </p>
       </div>
     )
   },
@@ -879,20 +1272,57 @@ function EnterpriseUISettingsListRender() {
     EnterpriseUI_SETTINGS.map((g) => ({ ...g, items: g.items.map((i) => ({ ...i })) }))
   )
   const toggle = (gi: number, ii: number) => {
-    setSettings((prev) => prev.map((g, gi2) =>
-      gi2 !== gi ? g : { ...g, items: g.items.map((item, ii2) => ii2 !== ii ? item : { ...item, active: !item.active }) }
-    ))
+    setSettings((prev) =>
+      prev.map((g, gi2) =>
+        gi2 !== gi
+          ? g
+          : {
+              ...g,
+              items: g.items.map((item, ii2) =>
+                ii2 !== ii ? item : { ...item, active: !item.active }
+              ),
+            }
+      )
+    )
   }
   return (
-    <div style={{ width: 360, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden', fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        width: 360,
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        overflow: 'hidden',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       {settings.map((group, gi) => (
         <div key={group.group}>
           {gi > 0 && <Divider />}
-          <div style={{ padding: '6px 16px 2px', fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', background: '#f8fafc' }}>
+          <div
+            style={{
+              padding: '6px 16px 2px',
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              background: '#f8fafc',
+            }}
+          >
             {group.group}
           </div>
           {group.items.map((item, ii) => (
-            <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: '#fff', borderTop: '1px solid #f1f5f9' }}>
+            <div
+              key={item.label}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 16px',
+                background: '#fff',
+                borderTop: '1px solid #f1f5f9',
+              }}
+            >
               <span style={{ fontSize: 18, width: 28, textAlign: 'center' }}>{item.icon}</span>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{item.label}</div>
@@ -901,15 +1331,29 @@ function EnterpriseUISettingsListRender() {
               <button
                 onClick={() => toggle(gi, ii)}
                 style={{
-                  width: 40, height: 22, borderRadius: 99, border: 'none', cursor: 'pointer',
+                  width: 40,
+                  height: 22,
+                  borderRadius: 99,
+                  border: 'none',
+                  cursor: 'pointer',
                   background: item.active ? '#0f172a' : '#e2e8f0',
-                  position: 'relative', transition: 'background 200ms',
+                  position: 'relative',
+                  transition: 'background 200ms',
                 }}
               >
-                <span style={{
-                  position: 'absolute', top: 3, width: 16, height: 16, borderRadius: '50%', background: '#fff',
-                  left: item.active ? 21 : 3, transition: 'left 200ms', display: 'block',
-                }} />
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: 3,
+                    width: 16,
+                    height: 16,
+                    borderRadius: '50%',
+                    background: '#fff',
+                    left: item.active ? 21 : 3,
+                    transition: 'left 200ms',
+                    display: 'block',
+                  }}
+                />
               </button>
             </div>
           ))}
@@ -934,16 +1378,47 @@ export const EnterpriseUI_설정_목록_섹션_구분선: StoryObj = {
 }
 
 // AccessibleUI 스타일 — 카드 내부 Divider + 메타 정보 레이아웃
-type AccessiblePost = { title: string; author: string; date: string; category: string; readTime: string; summary: string }
+type AccessiblePost = {
+  title: string
+  author: string
+  date: string
+  category: string
+  readTime: string
+  summary: string
+}
 
 const CHAKRA_POSTS: AccessiblePost[] = [
-  { title: 'UtilityCSS로 동적 테마 구현하기', author: '김희준', date: '2026-04-10', category: '기술', readTime: '8분', summary: 'UtilityCSS의 createTheme API를 활용해 런타임 테마 전환을 구현하는 방법을 설명합니다.' },
-  { title: '접근성 우선 컴포넌트 설계 원칙', author: '박지수', date: '2026-04-09', category: '접근성', readTime: '5분', summary: 'WAI-ARIA 패턴을 Orbit UI에 적용하면서 배운 실용적인 접근성 설계 원칙을 공유합니다.' },
-  { title: 'Storybook 8의 새로운 기능 총정리', author: '이민준', date: '2026-04-08', category: '도구', readTime: '6분', summary: 'Storybook 8에서 추가된 autodocs, play function 개선, 퍼포먼스 향상 포인트를 정리했습니다.' },
+  {
+    title: 'UtilityCSS로 동적 테마 구현하기',
+    author: '김희준',
+    date: '2026-04-10',
+    category: '기술',
+    readTime: '8분',
+    summary: 'UtilityCSS의 createTheme API를 활용해 런타임 테마 전환을 구현하는 방법을 설명합니다.',
+  },
+  {
+    title: '접근성 우선 컴포넌트 설계 원칙',
+    author: '박지수',
+    date: '2026-04-09',
+    category: '접근성',
+    readTime: '5분',
+    summary: 'WAI-ARIA 패턴을 Orbit UI에 적용하면서 배운 실용적인 접근성 설계 원칙을 공유합니다.',
+  },
+  {
+    title: 'Storybook 8의 새로운 기능 총정리',
+    author: '이민준',
+    date: '2026-04-08',
+    category: '도구',
+    readTime: '6분',
+    summary:
+      'Storybook 8에서 추가된 autodocs, play function 개선, 퍼포먼스 향상 포인트를 정리했습니다.',
+  },
 ]
 
 const CATEGORY_COLOR: Record<string, string> = {
-  '기술': '#3b82f6', '접근성': '#22c55e', '도구': '#f59e0b',
+  기술: '#3b82f6',
+  접근성: '#22c55e',
+  도구: '#f59e0b',
 }
 
 export const Accessible_블로그_카드_내부_구분선: StoryObj = {
@@ -958,25 +1433,62 @@ export const Accessible_블로그_카드_내부_구분선: StoryObj = {
     },
   },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 400, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        width: 400,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       {CHAKRA_POSTS.map((post) => (
-        <div key={post.title} style={{ borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff', overflow: 'hidden' }}>
+        <div
+          key={post.title}
+          style={{
+            borderRadius: 10,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            overflow: 'hidden',
+          }}
+        >
           {/* 헤더 */}
           <div style={{ padding: '14px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-              <span style={{ fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 99, background: CATEGORY_COLOR[post.category] + '18', color: CATEGORY_COLOR[post.category] }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  padding: '2px 8px',
+                  borderRadius: 99,
+                  background: CATEGORY_COLOR[post.category] + '18',
+                  color: CATEGORY_COLOR[post.category],
+                }}
+              >
                 {post.category}
               </span>
               <span style={{ fontSize: 11, color: '#94a3b8' }}>{post.readTime} 읽기</span>
             </div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', lineHeight: 1.4 }}>{post.title}</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', lineHeight: 1.4 }}>
+              {post.title}
+            </div>
           </div>
           <Divider />
           {/* 본문 */}
-          <div style={{ padding: '12px 16px', fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>{post.summary}</div>
+          <div style={{ padding: '12px 16px', fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>
+            {post.summary}
+          </div>
           <Divider />
           {/* 푸터 */}
-          <div style={{ padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f8fafc' }}>
+          <div
+            style={{
+              padding: '10px 16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              background: '#f8fafc',
+            }}
+          >
             <span style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>{post.author}</span>
             <span style={{ fontSize: 11, color: '#94a3b8' }}>{post.date}</span>
           </div>
@@ -995,7 +1507,20 @@ const STAT_ROWS = [
 ]
 
 const CHART_BARS = [42, 58, 73, 61, 87, 92, 79, 95, 88, 102, 98, 112]
-const MONTHS = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+const MONTHS = [
+  '1월',
+  '2월',
+  '3월',
+  '4월',
+  '5월',
+  '6월',
+  '7월',
+  '8월',
+  '9월',
+  '10월',
+  '11월',
+  '12월',
+]
 
 export const EnterpriseUI_Accessible_대시보드_복합_구분선: StoryObj = {
   name: 'EnterpriseUI + Accessible - 통계 대시보드 복합 Divider',
@@ -1009,7 +1534,15 @@ export const EnterpriseUI_Accessible_대시보드_복합_구분선: StoryObj = {
     },
   },
   render: () => (
-    <div style={{ width: 480, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
+    <div
+      style={{
+        width: 480,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+      }}
+    >
       {/* KPI 행 */}
       <div style={{ display: 'flex' }}>
         {STAT_ROWS.map((stat, i) => (
@@ -1022,7 +1555,15 @@ export const EnterpriseUI_Accessible_대시보드_복합_구분선: StoryObj = {
             <div style={{ flex: 1, padding: '16px 14px' }}>
               <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>{stat.label}</div>
               <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>{stat.value}</div>
-              <div style={{ fontSize: 10, color: stat.trend === 'up' ? '#22c55e' : '#64748b', marginTop: 2 }}>{stat.sub}</div>
+              <div
+                style={{
+                  fontSize: 10,
+                  color: stat.trend === 'up' ? '#22c55e' : '#64748b',
+                  marginTop: 2,
+                }}
+              >
+                {stat.sub}
+              </div>
             </div>
           </div>
         ))}
@@ -1030,11 +1571,31 @@ export const EnterpriseUI_Accessible_대시보드_복합_구분선: StoryObj = {
       <Divider />
       {/* 바 차트 섹션 */}
       <div style={{ padding: '16px' }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 12 }}>월별 스토리 추가 수</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#475569', marginBottom: 12 }}>
+          월별 스토리 추가 수
+        </div>
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 80 }}>
           {CHART_BARS.map((h, i) => (
-            <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-              <div style={{ width: '100%', height: (h / 112) * 64, background: '#0f172a', borderRadius: '3px 3px 0 0', minHeight: 4, transition: 'height 300ms' }} />
+            <div
+              key={i}
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              <div
+                style={{
+                  width: '100%',
+                  height: (h / 112) * 64,
+                  background: '#0f172a',
+                  borderRadius: '3px 3px 0 0',
+                  minHeight: 4,
+                  transition: 'height 300ms',
+                }}
+              />
               <span style={{ fontSize: 8, color: '#94a3b8' }}>{MONTHS[i]}</span>
             </div>
           ))}
@@ -1061,9 +1622,29 @@ export const DeployPlatform_배포_로그_타임라인_구분선: StoryObj = {
   },
   render: function DeployPlatformDeployLogRender() {
     const stages = [
-      { label: 'Build', status: 'done', time: '00:12', logs: ['Installing dependencies...', 'pnpm install done (1.2s)', 'Running build...', 'Build complete (38.4s)'] },
-      { label: 'Deploy', status: 'done', time: '00:05', logs: ['Uploading artifacts...', 'CDN propagation...', 'Edge functions deployed'] },
-      { label: 'Ready', status: 'active', time: '00:01', logs: ['Health check passed', 'Deployment URL assigned'] },
+      {
+        label: 'Build',
+        status: 'done',
+        time: '00:12',
+        logs: [
+          'Installing dependencies...',
+          'pnpm install done (1.2s)',
+          'Running build...',
+          'Build complete (38.4s)',
+        ],
+      },
+      {
+        label: 'Deploy',
+        status: 'done',
+        time: '00:05',
+        logs: ['Uploading artifacts...', 'CDN propagation...', 'Edge functions deployed'],
+      },
+      {
+        label: 'Ready',
+        status: 'active',
+        time: '00:01',
+        logs: ['Health check passed', 'Deployment URL assigned'],
+      },
     ]
 
     const statusColor: Record<string, string> = {
@@ -1073,12 +1654,39 @@ export const DeployPlatform_배포_로그_타임라인_구분선: StoryObj = {
     }
 
     return (
-      <div style={{ width: 440, fontFamily: 'monospace, system-ui', background: '#09090b', borderRadius: 14, padding: 20, border: '1px solid #27272a' }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#71717a', letterSpacing: 1, marginBottom: 16 }}>DEPLOYMENT LOG</div>
+      <div
+        style={{
+          width: 440,
+          fontFamily: 'monospace, system-ui',
+          background: '#09090b',
+          borderRadius: 14,
+          padding: 20,
+          border: '1px solid #27272a',
+        }}
+      >
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#71717a',
+            letterSpacing: 1,
+            marginBottom: 16,
+          }}
+        >
+          DEPLOYMENT LOG
+        </div>
         {stages.map((stage, idx) => (
           <div key={stage.label}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: statusColor[stage.status], flexShrink: 0 }} />
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: statusColor[stage.status],
+                  flexShrink: 0,
+                }}
+              />
               <span style={{ fontSize: 12, fontWeight: 700, color: '#e4e4e7' }}>{stage.label}</span>
               <div style={{ flex: 1 }}>
                 <Divider orientation="horizontal" length="100%" />
@@ -1088,7 +1696,8 @@ export const DeployPlatform_배포_로그_타임라인_구분선: StoryObj = {
             <div style={{ paddingLeft: 18, marginBottom: 6 }}>
               {stage.logs.map((log) => (
                 <div key={log} style={{ fontSize: 11, color: '#71717a', lineHeight: 1.8 }}>
-                  <span style={{ color: '#3b82f6', marginRight: 6 }}>›</span>{log}
+                  <span style={{ color: '#3b82f6', marginRight: 6 }}>›</span>
+                  {log}
                 </div>
               ))}
             </div>
@@ -1139,17 +1748,39 @@ export const ComposableUI_설정_패널_섹션_구분: StoryObj = {
         {sections.map((section, idx) => (
           <div key={section.title}>
             <div style={{ marginBottom: 14 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>{section.title}</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>
+                {section.title}
+              </div>
               <div style={{ fontSize: 12, color: '#6b7280' }}>{section.desc}</div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 16 }}>
               {section.fields.map((field, fi) => (
                 <div key={field}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '10px 0',
+                    }}
+                  >
                     <span style={{ fontSize: 13, color: '#374151' }}>{field}</span>
-                    <button style={{ fontSize: 12, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>편집</button>
+                    <button
+                      style={{
+                        fontSize: 12,
+                        color: '#3b82f6',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: 0,
+                      }}
+                    >
+                      편집
+                    </button>
                   </div>
-                  {fi < section.fields.length - 1 && <Divider orientation="horizontal" length="100%" />}
+                  {fi < section.fields.length - 1 && (
+                    <Divider orientation="horizontal" length="100%" />
+                  )}
                 </div>
               ))}
             </div>
@@ -1184,30 +1815,67 @@ export const DeployPlatform_ComposableUI_프로필_카드_구분선: StoryObj = 
     ]
 
     return (
-      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 16, overflow: 'hidden' }}>
+      <div
+        style={{
+          width: 360,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: 16,
+          overflow: 'hidden',
+        }}
+      >
         {/* Header */}
-        <div style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)', padding: '20px 20px 12px', display: 'flex', alignItems: 'center', gap: 14 }}>
-          <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, fontWeight: 800, color: '#fff' }}>
+        <div
+          style={{
+            background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)',
+            padding: '20px 20px 12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 14,
+          }}
+        >
+          <div
+            style={{
+              width: 52,
+              height: 52,
+              borderRadius: '50%',
+              background: '#3b82f6',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 20,
+              fontWeight: 800,
+              color: '#fff',
+            }}
+          >
             KM
           </div>
           <div>
             <div style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc' }}>김민준</div>
-            <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>Frontend Engineer @ Orbit</div>
+            <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+              Frontend Engineer @ Orbit
+            </div>
           </div>
         </div>
         <Divider orientation="horizontal" length="100%" />
 
         {/* Stats */}
-        <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+        <div
+          style={{
+            padding: '14px 20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+          }}
+        >
           {stats.map((stat, idx) => (
             <div key={stat.label} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a' }}>{stat.value}</div>
                 <div style={{ fontSize: 11, color: '#6b7280' }}>{stat.label}</div>
               </div>
-              {idx < stats.length - 1 && (
-                <Divider orientation="vertical" length="32px" />
-              )}
+              {idx < stats.length - 1 && <Divider orientation="vertical" length="32px" />}
             </div>
           ))}
         </div>
@@ -1215,10 +1883,34 @@ export const DeployPlatform_ComposableUI_프로필_카드_구분선: StoryObj = 
 
         {/* Footer */}
         <div style={{ padding: '12px 20px', display: 'flex', gap: 8 }}>
-          <button style={{ flex: 1, padding: '8px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', fontSize: 12, fontWeight: 600, color: '#374151', cursor: 'pointer' }}>
+          <button
+            style={{
+              flex: 1,
+              padding: '8px',
+              borderRadius: 8,
+              border: '1px solid #e5e7eb',
+              background: '#fff',
+              fontSize: 12,
+              fontWeight: 600,
+              color: '#374151',
+              cursor: 'pointer',
+            }}
+          >
             팔로우
           </button>
-          <button style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: '#0f172a', fontSize: 12, fontWeight: 600, color: '#fff', cursor: 'pointer' }}>
+          <button
+            style={{
+              flex: 1,
+              padding: '8px',
+              borderRadius: 8,
+              border: 'none',
+              background: '#0f172a',
+              fontSize: 12,
+              fontWeight: 600,
+              color: '#fff',
+              cursor: 'pointer',
+            }}
+          >
             메시지
           </button>
         </div>

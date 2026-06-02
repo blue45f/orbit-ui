@@ -13,7 +13,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "LabelBadge는 카테고리, 상태, 태그를 표시하는 인라인 배지입니다. sale/benefit/gray 색상 variant를 지원합니다.",
+        component:
+          'LabelBadge는 카테고리, 상태, 태그를 표시하는 인라인 배지입니다. sale/benefit/gray 색상 variant를 지원합니다.',
       },
     },
   },
@@ -83,7 +84,6 @@ export const 디자인_QA = {
     },
   },
 
-
   render: ({ visual, label, text, ...rest }: any) => {
     return (
       <LabelBadge {...rest}>
@@ -114,7 +114,15 @@ export const DeployPlatform_배포_상태_배지: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {/* Header */}
-      <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', borderBottom: '1px solid #f1f5f9', paddingBottom: 8 }}>
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 600,
+          color: '#64748b',
+          borderBottom: '1px solid #f1f5f9',
+          paddingBottom: 8,
+        }}
+      >
         Deployment Status Badges
       </div>
 
@@ -124,13 +132,15 @@ export const DeployPlatform_배포_상태_배지: Story = {
           <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             {/* Compact dot + badge combo (DeployPlatform monochrome style) */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <div style={{
-                width: 6,
-                height: 6,
-                borderRadius: '50%',
-                background: s.dot,
-                boxShadow: `0 0 0 2px ${s.dot}33`,
-              }} />
+              <div
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: s.dot,
+                  boxShadow: `0 0 0 2px ${s.dot}33`,
+                }}
+              />
               <LabelBadge color={s.color}>
                 <LabelBadge.Label>{s.label}</LabelBadge.Label>
               </LabelBadge>
@@ -147,13 +157,30 @@ export const DeployPlatform_배포_상태_배지: Story = {
 export const DeployPlatform_컬러_배리언트_비교: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-      <div style={{ fontSize: 12, fontWeight: 600, color: '#64748b', borderBottom: '1px solid #f1f5f9', paddingBottom: 8 }}>
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 600,
+          color: '#64748b',
+          borderBottom: '1px solid #f1f5f9',
+          paddingBottom: 8,
+        }}
+      >
         All Color Variants — Side-by-Side
       </div>
 
       {/* Grid comparison: each row shows same label in all colors */}
       <div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        <div
+          style={{
+            fontSize: 11,
+            color: '#94a3b8',
+            marginBottom: 8,
+            fontWeight: 500,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
           All color variants
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
@@ -170,19 +197,32 @@ export const DeployPlatform_컬러_배리언트_비교: Story = {
 
       {/* Icon-only variants */}
       <div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        <div
+          style={{
+            fontSize: 11,
+            color: '#94a3b8',
+            marginBottom: 8,
+            fontWeight: 500,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
           Icon + label combinations
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
           <LabelBadge color="benefit">
-            <LabelBadge.Visual><CheckIcon /></LabelBadge.Visual>
+            <LabelBadge.Visual>
+              <CheckIcon />
+            </LabelBadge.Visual>
             <LabelBadge.Label>Verified</LabelBadge.Label>
           </LabelBadge>
           <LabelBadge color="sale">
             <LabelBadge.Label>Urgent</LabelBadge.Label>
           </LabelBadge>
           <LabelBadge color="gray">
-            <LabelBadge.Visual><StarFillIcon /></LabelBadge.Visual>
+            <LabelBadge.Visual>
+              <StarFillIcon />
+            </LabelBadge.Visual>
             <LabelBadge.Label>Featured</LabelBadge.Label>
           </LabelBadge>
           <LabelBadge color="benefit">
@@ -201,14 +241,43 @@ export const DeployPlatform_컬러_배리언트_비교: Story = {
 export const DeployPlatform_환경_배지_조합: Story = {
   render: () => {
     const envs = [
-      { name: 'Production', branch: 'main', color: 'benefit' as const, dot: '#10b981', url: 'orbit-ui.deploy.example.com' },
-      { name: 'Preview', branch: 'feat/kanban', color: 'gray' as const, dot: '#6366f1', url: 'orbit-ui-preview.deploy.example.com' },
-      { name: 'Development', branch: 'local', color: 'gray' as const, dot: '#f59e0b', url: 'localhost:6006' },
+      {
+        name: 'Production',
+        branch: 'main',
+        color: 'benefit' as const,
+        dot: '#10b981',
+        url: 'orbit-ui.deploy.example.com',
+      },
+      {
+        name: 'Preview',
+        branch: 'feat/kanban',
+        color: 'gray' as const,
+        dot: '#6366f1',
+        url: 'orbit-ui-preview.deploy.example.com',
+      },
+      {
+        name: 'Development',
+        branch: 'local',
+        color: 'gray' as const,
+        dot: '#f59e0b',
+        url: 'localhost:6006',
+      },
     ]
 
     return (
-      <div style={{ width: 480, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
-        <div style={{ padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 12, fontWeight: 600, color: '#475569' }}>
+      <div
+        style={{ width: 480, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}
+      >
+        <div
+          style={{
+            padding: '10px 16px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+            fontSize: 12,
+            fontWeight: 600,
+            color: '#475569',
+          }}
+        >
           Deployments
         </div>
         {envs.map((env, i) => (
@@ -224,13 +293,23 @@ export const DeployPlatform_환경_배지_조합: Story = {
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{env.name}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>{env.branch}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>
+                {env.branch}
+              </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
+            <div
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}
+            >
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: env.dot }} />
                 <LabelBadge color={env.color}>
-                  <LabelBadge.Label>{env.name === 'Production' ? 'Ready' : env.name === 'Preview' ? 'Building' : 'Local'}</LabelBadge.Label>
+                  <LabelBadge.Label>
+                    {env.name === 'Production'
+                      ? 'Ready'
+                      : env.name === 'Preview'
+                        ? 'Building'
+                        : 'Local'}
+                  </LabelBadge.Label>
                 </LabelBadge>
               </div>
               <span style={{ fontSize: 11, color: '#94a3b8' }}>{env.url}</span>
@@ -249,10 +328,15 @@ export const DeployPlatform_환경_배지_조합: Story = {
 -------------------------------------------------------------------------- */
 const PlatformHIGSegmentFilterRender = () => {
   const segments = ['전체', '진행 중', '완료', '보류'] as const
-  type Segment = typeof segments[number]
+  type Segment = (typeof segments)[number]
   const [active, setActive] = useState<Segment>('전체')
 
-  const items: Array<{ title: string; status: Segment; color: 'gray' | 'benefit' | 'sale'; tag: string }> = [
+  const items: Array<{
+    title: string
+    status: Segment
+    color: 'gray' | 'benefit' | 'sale'
+    tag: string
+  }> = [
     { title: 'Orbit UI 디자인 시스템 v2', status: '진행 중', color: 'benefit', tag: '진행 중' },
     { title: 'AccessibilityGuide 문서 작성', status: '완료', color: 'benefit', tag: '완료' },
     { title: '다크모드 토큰 정의', status: '보류', color: 'gray', tag: '보류' },
@@ -266,13 +350,15 @@ const PlatformHIGSegmentFilterRender = () => {
   return (
     <div style={{ maxWidth: '480px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {/* Segmented Control (Platform HIG 스타일) */}
-      <div style={{
-        display: 'inline-flex',
-        background: '#f1f5f9',
-        borderRadius: '10px',
-        padding: '3px',
-        gap: '2px',
-      }}>
+      <div
+        style={{
+          display: 'inline-flex',
+          background: '#f1f5f9',
+          borderRadius: '10px',
+          padding: '3px',
+          gap: '2px',
+        }}
+      >
         {segments.map((seg) => (
           <button
             key={seg}
@@ -313,7 +399,9 @@ const PlatformHIGSegmentFilterRender = () => {
                 borderBottom: i < filtered.length - 1 ? '1px solid #f1f5f9' : 'none',
               }}
             >
-              <span style={{ fontSize: '13px', color: '#1e293b', fontWeight: 500 }}>{item.title}</span>
+              <span style={{ fontSize: '13px', color: '#1e293b', fontWeight: 500 }}>
+                {item.title}
+              </span>
               <LabelBadge color={item.color}>
                 <LabelBadge.Label>{item.tag}</LabelBadge.Label>
               </LabelBadge>
@@ -345,36 +433,87 @@ const CommandPaletteActionListRender = () => {
     tag: string
     icon: string
   }> = [
-    { label: '새 컴포넌트 생성', desc: 'pnpm gen 실행', shortcut: 'N', color: 'benefit', tag: 'Action', icon: '+' },
-    { label: '스토리북 시작', desc: 'pnpm dev', shortcut: 'D', color: 'benefit', tag: 'Dev', icon: '>' },
-    { label: '타입체크 실행', desc: 'pnpm typecheck', shortcut: 'T', color: 'gray', tag: 'QA', icon: 'T' },
-    { label: '린트 수정', desc: 'pnpm lint:fix', shortcut: 'L', color: 'gray', tag: 'QA', icon: 'L' },
-    { label: '빌드 실행', desc: 'pnpm build', shortcut: 'B', color: 'gray', tag: 'Build', icon: 'B' },
-    { label: '변경셋 생성', desc: 'pnpm changeset', shortcut: 'C', color: 'sale', tag: 'Release', icon: 'R' },
+    {
+      label: '새 컴포넌트 생성',
+      desc: 'pnpm gen 실행',
+      shortcut: 'N',
+      color: 'benefit',
+      tag: 'Action',
+      icon: '+',
+    },
+    {
+      label: '스토리북 시작',
+      desc: 'pnpm dev',
+      shortcut: 'D',
+      color: 'benefit',
+      tag: 'Dev',
+      icon: '>',
+    },
+    {
+      label: '타입체크 실행',
+      desc: 'pnpm typecheck',
+      shortcut: 'T',
+      color: 'gray',
+      tag: 'QA',
+      icon: 'T',
+    },
+    {
+      label: '린트 수정',
+      desc: 'pnpm lint:fix',
+      shortcut: 'L',
+      color: 'gray',
+      tag: 'QA',
+      icon: 'L',
+    },
+    {
+      label: '빌드 실행',
+      desc: 'pnpm build',
+      shortcut: 'B',
+      color: 'gray',
+      tag: 'Build',
+      icon: 'B',
+    },
+    {
+      label: '변경셋 생성',
+      desc: 'pnpm changeset',
+      shortcut: 'C',
+      color: 'sale',
+      tag: 'Release',
+      icon: 'R',
+    },
   ]
 
   return (
-    <div style={{
-      width: '480px',
-      borderRadius: '14px',
-      border: '1px solid #e2e8f0',
-      background: '#ffffff',
-      boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
-      overflow: 'hidden',
-    }}>
+    <div
+      style={{
+        width: '480px',
+        borderRadius: '14px',
+        border: '1px solid #e2e8f0',
+        background: '#ffffff',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+        overflow: 'hidden',
+      }}
+    >
       {/* CommandPalette 헤더 */}
-      <div style={{
-        padding: '14px 16px',
-        borderBottom: '1px solid #f1f5f9',
-        background: '#f8fafc',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-      }}>
-        <div style={{
-          width: '8px', height: '8px', borderRadius: '50%',
-          background: '#6366f1', boxShadow: '0 0 0 3px rgba(99,102,241,0.15)',
-        }} />
+      <div
+        style={{
+          padding: '14px 16px',
+          borderBottom: '1px solid #f1f5f9',
+          background: '#f8fafc',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}
+      >
+        <div
+          style={{
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            background: '#6366f1',
+            boxShadow: '0 0 0 3px rgba(99,102,241,0.15)',
+          }}
+        />
         <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>Quick Actions</span>
         <span style={{ fontSize: '11px', color: '#94a3b8', marginLeft: 'auto' }}>
           {selectedIdx + 1} / {actions.length}
@@ -401,22 +540,33 @@ const CommandPaletteActionListRender = () => {
               }}
             >
               {/* 아이콘 */}
-              <div style={{
-                width: '32px', height: '32px', borderRadius: '8px',
-                background: isSelected ? '#6366f1' : '#f1f5f9',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '13px', fontWeight: 700,
-                color: isSelected ? '#fff' : '#64748b',
-                flexShrink: 0,
-                transition: 'all 0.15s',
-              }}>
+              <div
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '8px',
+                  background: isSelected ? '#6366f1' : '#f1f5f9',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  color: isSelected ? '#fff' : '#64748b',
+                  flexShrink: 0,
+                  transition: 'all 0.15s',
+                }}
+              >
                 {action.icon}
               </div>
 
               {/* 텍스트 */}
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b' }}>{action.label}</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>{action.desc}</div>
+                <div style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b' }}>
+                  {action.label}
+                </div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>
+                  {action.desc}
+                </div>
               </div>
 
               {/* 태그 + 단축키 */}
@@ -425,21 +575,23 @@ const CommandPaletteActionListRender = () => {
                   <LabelBadge.Label>{action.tag}</LabelBadge.Label>
                 </LabelBadge>
                 {action.shortcut && (
-                  <kbd style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minWidth: '20px',
-                    height: '20px',
-                    padding: '0 5px',
-                    borderRadius: '4px',
-                    border: '1px solid #e2e8f0',
-                    background: '#f8fafc',
-                    fontSize: '10px',
-                    fontWeight: 700,
-                    color: '#64748b',
-                    fontFamily: 'monospace',
-                  }}>
+                  <kbd
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minWidth: '20px',
+                      height: '20px',
+                      padding: '0 5px',
+                      borderRadius: '4px',
+                      border: '1px solid #e2e8f0',
+                      background: '#f8fafc',
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      color: '#64748b',
+                      fontFamily: 'monospace',
+                    }}
+                  >
                     {action.shortcut}
                   </kbd>
                 )}
@@ -450,23 +602,34 @@ const CommandPaletteActionListRender = () => {
       </div>
 
       {/* 하단 힌트 */}
-      <div style={{
-        padding: '8px 16px',
-        background: '#f8fafc',
-        borderTop: '1px solid #f1f5f9',
-        display: 'flex',
-        gap: '16px',
-      }}>
+      <div
+        style={{
+          padding: '8px 16px',
+          background: '#f8fafc',
+          borderTop: '1px solid #f1f5f9',
+          display: 'flex',
+          gap: '16px',
+        }}
+      >
         {[
           { key: 'Enter', label: '실행' },
           { key: 'Esc', label: '닫기' },
         ].map(({ key, label }) => (
           <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <kbd style={{
-              padding: '2px 6px', borderRadius: '4px',
-              border: '1px solid #e2e8f0', background: '#fff',
-              fontSize: '10px', fontWeight: 700, color: '#64748b', fontFamily: 'monospace',
-            }}>{key}</kbd>
+            <kbd
+              style={{
+                padding: '2px 6px',
+                borderRadius: '4px',
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                fontSize: '10px',
+                fontWeight: 700,
+                color: '#64748b',
+                fontFamily: 'monospace',
+              }}
+            >
+              {key}
+            </kbd>
             <span style={{ fontSize: '11px', color: '#94a3b8' }}>{label}</span>
           </div>
         ))}
@@ -496,25 +659,92 @@ export const Platform_HIG_이슈_우선순위_목록: Story = {
       labelColor: 'gray' | 'benefit' | 'sale'
       dot: string
     }> = [
-      { id: 'ORB-101', title: 'DataTable 정렬 버그 수정', priority: 'Urgent', status: 'sale', statusLabel: 'In Progress', label: 'Bug', labelColor: 'sale', dot: '#ef4444' },
-      { id: 'ORB-102', title: 'Dark mode 토큰 보완', priority: 'High', status: 'benefit', statusLabel: 'In Review', label: 'Enhancement', labelColor: 'benefit', dot: '#f59e0b' },
-      { id: 'ORB-103', title: 'LabelBadge 접근성 개선', priority: 'Medium', status: 'gray', statusLabel: 'Todo', label: 'A11y', labelColor: 'gray', dot: '#6366f1' },
-      { id: 'ORB-104', title: 'CommandPalette 키보드 내비게이션', priority: 'Medium', status: 'gray', statusLabel: 'Todo', label: 'Feature', labelColor: 'gray', dot: '#6366f1' },
-      { id: 'ORB-105', title: 'Progress 애니메이션 성능 최적화', priority: 'Low', status: 'benefit', statusLabel: 'Done', label: 'Perf', labelColor: 'benefit', dot: '#10b981' },
+      {
+        id: 'ORB-101',
+        title: 'DataTable 정렬 버그 수정',
+        priority: 'Urgent',
+        status: 'sale',
+        statusLabel: 'In Progress',
+        label: 'Bug',
+        labelColor: 'sale',
+        dot: '#ef4444',
+      },
+      {
+        id: 'ORB-102',
+        title: 'Dark mode 토큰 보완',
+        priority: 'High',
+        status: 'benefit',
+        statusLabel: 'In Review',
+        label: 'Enhancement',
+        labelColor: 'benefit',
+        dot: '#f59e0b',
+      },
+      {
+        id: 'ORB-103',
+        title: 'LabelBadge 접근성 개선',
+        priority: 'Medium',
+        status: 'gray',
+        statusLabel: 'Todo',
+        label: 'A11y',
+        labelColor: 'gray',
+        dot: '#6366f1',
+      },
+      {
+        id: 'ORB-104',
+        title: 'CommandPalette 키보드 내비게이션',
+        priority: 'Medium',
+        status: 'gray',
+        statusLabel: 'Todo',
+        label: 'Feature',
+        labelColor: 'gray',
+        dot: '#6366f1',
+      },
+      {
+        id: 'ORB-105',
+        title: 'Progress 애니메이션 성능 최적화',
+        priority: 'Low',
+        status: 'benefit',
+        statusLabel: 'Done',
+        label: 'Perf',
+        labelColor: 'benefit',
+        dot: '#10b981',
+      },
     ]
 
     return (
-      <div style={{ maxWidth: '560px', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{
-          padding: '10px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0',
-          display: 'flex', alignItems: 'center', gap: '8px',
-        }}>
+      <div
+        style={{
+          maxWidth: '560px',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            padding: '10px 16px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+        >
           <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>Issues</span>
-          <span style={{
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            width: '18px', height: '18px', borderRadius: '50%',
-            background: '#6366f1', color: '#fff', fontSize: '10px', fontWeight: 700,
-          }}>
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '18px',
+              height: '18px',
+              borderRadius: '50%',
+              background: '#6366f1',
+              color: '#fff',
+              fontSize: '10px',
+              fontWeight: 700,
+            }}
+          >
             {issues.length}
           </span>
         </div>
@@ -530,16 +760,42 @@ export const Platform_HIG_이슈_우선순위_목록: Story = {
             }}
           >
             {/* 우선순위 dot */}
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: issue.dot, flexShrink: 0 }} />
+            <div
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                background: issue.dot,
+                flexShrink: 0,
+              }}
+            />
 
             {/* ID + Title */}
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', fontFamily: 'monospace' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}
+              >
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    color: '#94a3b8',
+                    fontFamily: 'monospace',
+                  }}
+                >
                   {issue.id}
                 </span>
               </div>
-              <div style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <div
+                style={{
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  color: '#1e293b',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 {issue.title}
               </div>
             </div>
@@ -566,11 +822,35 @@ export const Platform_HIG_이슈_우선순위_목록: Story = {
 -------------------------------------------------------------------------- */
 
 const EnterpriseUI_SERVICES = [
-  { name: 'API Gateway', status: 'benefit' as const, uptime: '99.98%', latency: '12ms', region: 'ap-northeast-2' },
-  { name: 'Database (RDS)', status: 'benefit' as const, uptime: '99.95%', latency: '4ms', region: 'ap-northeast-2' },
+  {
+    name: 'API Gateway',
+    status: 'benefit' as const,
+    uptime: '99.98%',
+    latency: '12ms',
+    region: 'ap-northeast-2',
+  },
+  {
+    name: 'Database (RDS)',
+    status: 'benefit' as const,
+    uptime: '99.95%',
+    latency: '4ms',
+    region: 'ap-northeast-2',
+  },
   { name: 'CDN', status: 'sale' as const, uptime: '97.20%', latency: '89ms', region: 'global' },
-  { name: 'Auth Service', status: 'benefit' as const, uptime: '99.99%', latency: '8ms', region: 'ap-northeast-2' },
-  { name: 'Cache (Redis)', status: 'gray' as const, uptime: 'N/A', latency: 'N/A', region: 'ap-northeast-2' },
+  {
+    name: 'Auth Service',
+    status: 'benefit' as const,
+    uptime: '99.99%',
+    latency: '8ms',
+    region: 'ap-northeast-2',
+  },
+  {
+    name: 'Cache (Redis)',
+    status: 'gray' as const,
+    uptime: 'N/A',
+    latency: 'N/A',
+    region: 'ap-northeast-2',
+  },
 ]
 
 const STATUS_LABEL: Record<'benefit' | 'sale' | 'gray', string> = {
@@ -592,11 +872,26 @@ export const EnterpriseUI_서비스_상태_대시보드: Story = {
   },
   render: () => (
     <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>서비스 상태 (EnterpriseUI Badge 패턴)</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+        서비스 상태 (EnterpriseUI Badge 패턴)
+      </div>
       {EnterpriseUI_SERVICES.map((svc) => (
-        <div key={svc.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
+        <div
+          key={svc.name}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            padding: '12px 16px',
+            borderRadius: 10,
+            border: '1px solid #f1f5f9',
+            background: '#fff',
+          }}
+        >
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>{svc.name}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>
+              {svc.name}
+            </div>
             <div style={{ fontSize: 11, color: '#94a3b8' }}>{svc.region}</div>
           </div>
           <div style={{ textAlign: 'right', marginRight: 12 }}>
@@ -619,25 +914,72 @@ export const EnterpriseUI_서비스_상태_대시보드: Story = {
    AccessibleUI 벤치마크: 알림 유형 분류 배지
    Accessible Badge colorScheme 패턴 — 알림 종류별 LabelBadge + 읽음 상태 관리
 -------------------------------------------------------------------------- */
-type NotifItem = { id: number; title: string; desc: string; type: 'benefit' | 'sale' | 'gray'; time: string; read: boolean }
+type NotifItem = {
+  id: number
+  title: string
+  desc: string
+  type: 'benefit' | 'sale' | 'gray'
+  time: string
+  read: boolean
+}
 
 function AccessibleNotifBadgeRender() {
   const [notifs, setNotifs] = useState<NotifItem[]>([
-    { id: 1, title: '배포 완료', desc: 'production 브랜치 배포가 성공적으로 완료되었습니다.', type: 'benefit', time: '5분 전', read: false },
-    { id: 2, title: '빌드 실패', desc: 'main 브랜치 PR #143 빌드가 실패했습니다.', type: 'sale', time: '23분 전', read: false },
-    { id: 3, title: '정기 점검', desc: '2026-04-15 02:00 ~ 04:00 서버 점검이 예정되어 있습니다.', type: 'gray', time: '2시간 전', read: true },
-    { id: 4, title: '보안 업데이트', desc: '중요 보안 패치가 적용되었습니다. 즉시 재시작이 필요합니다.', type: 'benefit', time: '3시간 전', read: false },
+    {
+      id: 1,
+      title: '배포 완료',
+      desc: 'production 브랜치 배포가 성공적으로 완료되었습니다.',
+      type: 'benefit',
+      time: '5분 전',
+      read: false,
+    },
+    {
+      id: 2,
+      title: '빌드 실패',
+      desc: 'main 브랜치 PR #143 빌드가 실패했습니다.',
+      type: 'sale',
+      time: '23분 전',
+      read: false,
+    },
+    {
+      id: 3,
+      title: '정기 점검',
+      desc: '2026-04-15 02:00 ~ 04:00 서버 점검이 예정되어 있습니다.',
+      type: 'gray',
+      time: '2시간 전',
+      read: true,
+    },
+    {
+      id: 4,
+      title: '보안 업데이트',
+      desc: '중요 보안 패치가 적용되었습니다. 즉시 재시작이 필요합니다.',
+      type: 'benefit',
+      time: '3시간 전',
+      read: false,
+    },
   ])
 
-  const markRead = (id: number) => setNotifs((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)))
+  const markRead = (id: number) =>
+    setNotifs((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)))
   const markAllRead = () => setNotifs((prev) => prev.map((n) => ({ ...n, read: true })))
 
   const unreadCount = notifs.filter((n) => !n.read).length
-  const TYPE_LABEL: Record<NotifItem['type'], string> = { benefit: '성공', sale: '오류', gray: '정보' }
+  const TYPE_LABEL: Record<NotifItem['type'], string> = {
+    benefit: '성공',
+    sale: '오류',
+    gray: '정보',
+  }
 
   return (
     <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 4,
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>알림</span>
           {unreadCount > 0 && (
@@ -647,7 +989,19 @@ function AccessibleNotifBadgeRender() {
           )}
         </div>
         {unreadCount > 0 && (
-          <button onClick={markAllRead} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>모두 읽음</button>
+          <button
+            onClick={markAllRead}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 12,
+              color: '#6366f1',
+              fontWeight: 600,
+            }}
+          >
+            모두 읽음
+          </button>
         )}
       </div>
       {notifs.map((notif) => (
@@ -663,17 +1017,48 @@ function AccessibleNotifBadgeRender() {
             transition: 'all 0.15s',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4 }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              marginBottom: 4,
+            }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              {!notif.read && <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', flexShrink: 0 }} />}
-              <span style={{ fontSize: 13, fontWeight: notif.read ? 500 : 700, color: '#1e293b' }}>{notif.title}</span>
+              {!notif.read && (
+                <div
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: '#6366f1',
+                    flexShrink: 0,
+                  }}
+                />
+              )}
+              <span style={{ fontSize: 13, fontWeight: notif.read ? 500 : 700, color: '#1e293b' }}>
+                {notif.title}
+              </span>
             </div>
             <LabelBadge color={notif.type}>
               <LabelBadge.Label>{TYPE_LABEL[notif.type]}</LabelBadge.Label>
             </LabelBadge>
           </div>
-          <div style={{ fontSize: 12, color: '#64748b', lineHeight: 1.5, marginBottom: 4, paddingLeft: notif.read ? 0 : 14 }}>{notif.desc}</div>
-          <div style={{ fontSize: 11, color: '#94a3b8', paddingLeft: notif.read ? 0 : 14 }}>{notif.time}</div>
+          <div
+            style={{
+              fontSize: 12,
+              color: '#64748b',
+              lineHeight: 1.5,
+              marginBottom: 4,
+              paddingLeft: notif.read ? 0 : 14,
+            }}
+          >
+            {notif.desc}
+          </div>
+          <div style={{ fontSize: 11, color: '#94a3b8', paddingLeft: notif.read ? 0 : 14 }}>
+            {notif.time}
+          </div>
         </div>
       ))}
     </div>
@@ -729,13 +1114,16 @@ function AccessibleCategoryBadgeFilterRender() {
       return next
     })
 
-  const filtered = selected.size === 0
-    ? CHAKRA_ARTICLES
-    : CHAKRA_ARTICLES.filter((a) => a.cats.some((c) => selected.has(c)))
+  const filtered =
+    selected.size === 0
+      ? CHAKRA_ARTICLES
+      : CHAKRA_ARTICLES.filter((a) => a.cats.some((c) => selected.has(c)))
 
   return (
     <div style={{ width: 440, display: 'flex', flexDirection: 'column', gap: 14 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>카테고리 배지 필터 (Accessible Wrap + Badge)</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+        카테고리 배지 필터 (Accessible Wrap + Badge)
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
         {CHAKRA_CATEGORIES.map((cat) => {
           const isOn = selected.has(cat.id)
@@ -743,7 +1131,12 @@ function AccessibleCategoryBadgeFilterRender() {
             <div
               key={cat.id}
               onClick={() => toggle(cat.id)}
-              style={{ cursor: 'pointer', opacity: !isOn && selected.size > 0 ? 0.5 : 1, transform: isOn ? 'scale(1.05)' : 'scale(1)', transition: 'all 0.15s' }}
+              style={{
+                cursor: 'pointer',
+                opacity: !isOn && selected.size > 0 ? 0.5 : 1,
+                transform: isOn ? 'scale(1.05)' : 'scale(1)',
+                transition: 'all 0.15s',
+              }}
             >
               <LabelBadge color={isOn ? cat.color : 'gray'}>
                 {isOn && (
@@ -759,7 +1152,18 @@ function AccessibleCategoryBadgeFilterRender() {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {filtered.map((article) => (
-          <div key={article.title} style={{ padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            key={article.title}
+            style={{
+              padding: '10px 14px',
+              borderRadius: 8,
+              background: '#f8fafc',
+              border: '1px solid #f1f5f9',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <span style={{ fontSize: 13, fontWeight: 500, color: '#1e293b' }}>{article.title}</span>
             <div style={{ display: 'flex', gap: 4 }}>
               {article.cats.map((c) => {
@@ -818,35 +1222,81 @@ const PRIORITY_META: Record<string, { label: string; color: 'sale' | 'benefit' |
 const IssueTrackerIssueStatusBadgeRender = () => {
   const [filterStatus, setFilterStatus] = useState<string | null>(null)
 
-  const filtered = TRACKER_ISSUES_DATA.filter(i => filterStatus === null || i.status === filterStatus)
+  const filtered = TRACKER_ISSUES_DATA.filter(
+    (i) => filterStatus === null || i.status === filterStatus
+  )
 
   return (
     <div style={{ width: 440, fontFamily: 'Inter, system-ui, sans-serif' }}>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
         <button
           onClick={() => setFilterStatus(null)}
-          style={{ fontSize: 11, padding: '3px 10px', borderRadius: 6, border: '1px solid #e5e7eb', background: filterStatus === null ? '#111' : '#fff', color: filterStatus === null ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: 600 }}
+          style={{
+            fontSize: 11,
+            padding: '3px 10px',
+            borderRadius: 6,
+            border: '1px solid #e5e7eb',
+            background: filterStatus === null ? '#111' : '#fff',
+            color: filterStatus === null ? '#fff' : '#6b7280',
+            cursor: 'pointer',
+            fontWeight: 600,
+          }}
         >
           전체
         </button>
-        {TRACKER_ISSUE_STATUS.map(s => (
+        {TRACKER_ISSUE_STATUS.map((s) => (
           <button
             key={s.id}
             onClick={() => setFilterStatus(filterStatus === s.id ? null : s.id)}
-            style={{ fontSize: 11, padding: '3px 10px', borderRadius: 6, border: '1px solid #e5e7eb', background: filterStatus === s.id ? '#111' : '#fff', color: filterStatus === s.id ? '#fff' : '#6b7280', cursor: 'pointer' }}
+            style={{
+              fontSize: 11,
+              padding: '3px 10px',
+              borderRadius: 6,
+              border: '1px solid #e5e7eb',
+              background: filterStatus === s.id ? '#111' : '#fff',
+              color: filterStatus === s.id ? '#fff' : '#6b7280',
+              cursor: 'pointer',
+            }}
           >
             {s.label}
           </button>
         ))}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        {filtered.map(issue => {
-          const statusMeta = TRACKER_ISSUE_STATUS.find(s => s.id === issue.status)
+        {filtered.map((issue) => {
+          const statusMeta = TRACKER_ISSUE_STATUS.find((s) => s.id === issue.status)
           const priorityMeta = PRIORITY_META[issue.priority]
           return (
-            <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, background: '#f9fafb', border: '1px solid #f0f0f0' }}>
-              <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#9ca3af', flexShrink: 0 }}>{issue.id}</span>
-              <span style={{ flex: 1, fontSize: 13, color: '#111', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{issue.title}</span>
+            <div
+              key={issue.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 10px',
+                borderRadius: 8,
+                background: '#f9fafb',
+                border: '1px solid #f0f0f0',
+              }}
+            >
+              <span
+                style={{ fontSize: 10, fontFamily: 'monospace', color: '#9ca3af', flexShrink: 0 }}
+              >
+                {issue.id}
+              </span>
+              <span
+                style={{
+                  flex: 1,
+                  fontSize: 13,
+                  color: '#111',
+                  fontWeight: 500,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {issue.title}
+              </span>
               <LabelBadge color={priorityMeta.color}>
                 <LabelBadge.Label>{priorityMeta.label}</LabelBadge.Label>
               </LabelBadge>
@@ -857,7 +1307,9 @@ const IssueTrackerIssueStatusBadgeRender = () => {
           )
         })}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>IssueTracker 이슈 상태 + 우선순위 배지 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>
+        IssueTracker 이슈 상태 + 우선순위 배지 패턴
+      </div>
     </div>
   )
 }
@@ -867,7 +1319,8 @@ export const IssueTracker_이슈_상태_우선순위_배지: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 이슈 목록의 상태(Backlog/Todo/In Progress/Done)와 우선순위(Urgent/High/Medium/Low) 배지 패턴. 필터 버튼으로 상태별 이슈를 필터링하며 LabelBadge 색상으로 중요도를 시각화합니다.',
+        story:
+          'IssueTracker 이슈 목록의 상태(Backlog/Todo/In Progress/Done)와 우선순위(Urgent/High/Medium/Low) 배지 패턴. 필터 버튼으로 상태별 이슈를 필터링하며 LabelBadge 색상으로 중요도를 시각화합니다.',
       },
     },
   },
@@ -895,7 +1348,7 @@ const DataProductTagGroupRender = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set(['react', 'node']))
 
   const toggle = (id: string) => {
-    setSelected(prev => {
+    setSelected((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -906,17 +1359,45 @@ const DataProductTagGroupRender = () => {
   const groups = ['frontend', 'backend', 'database']
 
   return (
-    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, padding: '14px', background: '#fff' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 12 }}>기술 스택 선택</div>
-      {groups.map(group => (
+    <div
+      style={{
+        width: 380,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        border: '1px solid #e5e7eb',
+        borderRadius: 10,
+        padding: '14px',
+        background: '#fff',
+      }}
+    >
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111', marginBottom: 12 }}>
+        기술 스택 선택
+      </div>
+      {groups.map((group) => (
         <div key={group} style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>{group}</div>
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              color: '#9ca3af',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 6,
+            }}
+          >
+            {group}
+          </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
-            {ARCO_TECH_TAGS.filter(t => t.group === group).map(tag => (
+            {ARCO_TECH_TAGS.filter((t) => t.group === group).map((tag) => (
               <div
                 key={tag.id}
                 onClick={() => toggle(tag.id)}
-                style={{ cursor: 'pointer', opacity: selected.has(tag.id) ? 1 : 0.4, transition: 'opacity 0.15s', transform: selected.has(tag.id) ? 'scale(1.05)' : 'scale(1)', display: 'inline-block' }}
+                style={{
+                  cursor: 'pointer',
+                  opacity: selected.has(tag.id) ? 1 : 0.4,
+                  transition: 'opacity 0.15s',
+                  transform: selected.has(tag.id) ? 'scale(1.05)' : 'scale(1)',
+                  display: 'inline-block',
+                }}
               >
                 <LabelBadge color={ARCO_GROUP_COLOR[group]}>
                   <LabelBadge.Label>{tag.label}</LabelBadge.Label>
@@ -938,7 +1419,8 @@ export const DataProduct_기술스택_태그_그룹: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI Tag Group 패턴. Frontend/Backend/Database 카테고리별로 기술 스택 LabelBadge를 그룹핑하고 클릭 선택/해제를 지원합니다. 선택 상태는 opacity와 scale 트랜지션으로 시각화합니다.',
+        story:
+          'DataProductUI Tag Group 패턴. Frontend/Backend/Database 카테고리별로 기술 스택 LabelBadge를 그룹핑하고 클릭 선택/해제를 지원합니다. 선택 상태는 opacity와 scale 트랜지션으로 시각화합니다.',
       },
     },
   },
@@ -946,10 +1428,38 @@ export const DataProduct_기술스택_태그_그룹: Story = {
 }
 
 const TRACKER_PROJECT_HEALTH = [
-  { id: 'p1', name: 'Eclipse Theme v2', health: 'on_track', progress: 72, lead: 'HJ', color: '#7c3aed' },
-  { id: 'p2', name: 'Core Components', health: 'at_risk', progress: 43, lead: 'SJ', color: '#ef4444' },
-  { id: 'p3', name: 'Storybook 고도화', health: 'on_track', progress: 91, lead: 'MJ', color: '#10b981' },
-  { id: 'p4', name: 'Design Token 정리', health: 'off_track', progress: 18, lead: 'YH', color: '#f59e0b' },
+  {
+    id: 'p1',
+    name: 'Eclipse Theme v2',
+    health: 'on_track',
+    progress: 72,
+    lead: 'HJ',
+    color: '#7c3aed',
+  },
+  {
+    id: 'p2',
+    name: 'Core Components',
+    health: 'at_risk',
+    progress: 43,
+    lead: 'SJ',
+    color: '#ef4444',
+  },
+  {
+    id: 'p3',
+    name: 'Storybook 고도화',
+    health: 'on_track',
+    progress: 91,
+    lead: 'MJ',
+    color: '#10b981',
+  },
+  {
+    id: 'p4',
+    name: 'Design Token 정리',
+    health: 'off_track',
+    progress: 18,
+    lead: 'YH',
+    color: '#f59e0b',
+  },
 ]
 
 const HEALTH_BADGE: Record<string, { label: string; color: 'sale' | 'benefit' | 'gray' }> = {
@@ -959,28 +1469,98 @@ const HEALTH_BADGE: Record<string, { label: string; color: 'sale' | 'benefit' | 
 }
 
 const IssueTrackerProjectHealthRender = () => (
-  <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 6 }}>
-    <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>프로젝트 헬스</div>
-    {TRACKER_PROJECT_HEALTH.map(proj => {
+  <div
+    style={{
+      width: 400,
+      fontFamily: 'Inter, system-ui, sans-serif',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 6,
+    }}
+  >
+    <div
+      style={{
+        fontSize: 12,
+        fontWeight: 700,
+        color: '#6b7280',
+        textTransform: 'uppercase',
+        letterSpacing: '0.06em',
+        marginBottom: 4,
+      }}
+    >
+      프로젝트 헬스
+    </div>
+    {TRACKER_PROJECT_HEALTH.map((proj) => {
       const health = HEALTH_BADGE[proj.health]
       return (
-        <div key={proj.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #f0f0f0', background: '#fff' }}>
-          <div style={{ width: 8, height: 8, borderRadius: '50%', background: proj.color, flexShrink: 0 }} />
+        <div
+          key={proj.id}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '10px 12px',
+            borderRadius: 8,
+            border: '1px solid #f0f0f0',
+            background: '#fff',
+          }}
+        >
+          <div
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: proj.color,
+              flexShrink: 0,
+            }}
+          />
           <span style={{ flex: 1, fontSize: 13, color: '#111', fontWeight: 500 }}>{proj.name}</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <div style={{ width: 60, height: 4, borderRadius: 2, background: '#f0f0f0', overflow: 'hidden' }}>
-              <div style={{ width: `${proj.progress}%`, height: '100%', background: proj.color, transition: 'width 0.3s' }} />
+            <div
+              style={{
+                width: 60,
+                height: 4,
+                borderRadius: 2,
+                background: '#f0f0f0',
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{
+                  width: `${proj.progress}%`,
+                  height: '100%',
+                  background: proj.color,
+                  transition: 'width 0.3s',
+                }}
+              />
             </div>
             <span style={{ fontSize: 10, color: '#9ca3af', minWidth: 28 }}>{proj.progress}%</span>
           </div>
           <LabelBadge color={health.color}>
             <LabelBadge.Label>{health.label}</LabelBadge.Label>
           </LabelBadge>
-          <div style={{ width: 22, height: 22, borderRadius: '50%', background: proj.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: proj.color }}>{proj.lead}</div>
+          <div
+            style={{
+              width: 22,
+              height: 22,
+              borderRadius: '50%',
+              background: proj.color + '20',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 10,
+              fontWeight: 700,
+              color: proj.color,
+            }}
+          >
+            {proj.lead}
+          </div>
         </div>
       )
     })}
-    <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>IssueTracker 프로젝트 헬스 배지 패턴</div>
+    <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>
+      IssueTracker 프로젝트 헬스 배지 패턴
+    </div>
   </div>
 )
 
@@ -989,7 +1569,8 @@ export const IssueTracker_프로젝트_헬스_대시보드: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 프로젝트 상태 대시보드 패턴. On Track/At Risk/Off Track 헬스를 LabelBadge로 표시하고, 진행률 바와 담당자 아바타를 함께 배치합니다. 각 프로젝트의 건강 상태를 한눈에 파악할 수 있는 복합 UI입니다.',
+        story:
+          'IssueTracker 프로젝트 상태 대시보드 패턴. On Track/At Risk/Off Track 헬스를 LabelBadge로 표시하고, 진행률 바와 담당자 아바타를 함께 배치합니다. 각 프로젝트의 건강 상태를 한눈에 파악할 수 있는 복합 UI입니다.',
       },
     },
   },
@@ -1026,20 +1607,66 @@ export const IssueTracker_스프린트_사이클_배지: Story = {
     },
   },
   render: () => (
-    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+    <div
+      style={{
+        width: 380,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 6,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#6b7280',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+          marginBottom: 4,
+        }}
+      >
         스프린트 사이클
       </div>
-      {SPRINT_CYCLES.map(cycle => {
+      {SPRINT_CYCLES.map((cycle) => {
         const badge = CYCLE_BADGE[cycle.status]
         const pct = cycle.items > 0 ? Math.round((cycle.done / cycle.items) * 100) : 0
         return (
-          <div key={cycle.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: '1px solid #f0f0f0', background: '#fff' }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: '#111', flex: 1 }}>{cycle.name}</span>
-            <span style={{ fontSize: 11, color: '#9ca3af' }}>{cycle.done}/{cycle.items}</span>
+          <div
+            key={cycle.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: '1px solid #f0f0f0',
+              background: '#fff',
+            }}
+          >
+            <span style={{ fontSize: 13, fontWeight: 600, color: '#111', flex: 1 }}>
+              {cycle.name}
+            </span>
+            <span style={{ fontSize: 11, color: '#9ca3af' }}>
+              {cycle.done}/{cycle.items}
+            </span>
             {cycle.items > 0 && (
-              <div style={{ width: 48, height: 4, borderRadius: 2, background: '#f0f0f0', overflow: 'hidden' }}>
-                <div style={{ width: `${pct}%`, height: '100%', background: cycle.status === 'completed' ? '#22c55e' : '#3b82f6' }} />
+              <div
+                style={{
+                  width: 48,
+                  height: 4,
+                  borderRadius: 2,
+                  background: '#f0f0f0',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    width: `${pct}%`,
+                    height: '100%',
+                    background: cycle.status === 'completed' ? '#22c55e' : '#3b82f6',
+                  }}
+                />
               </div>
             )}
             <LabelBadge color={badge.color}>
@@ -1083,18 +1710,44 @@ export const DeployPlatform_CI_체크_상태_배지_목록: Story = {
     },
   },
   render: () => (
-    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
-      <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 12, fontWeight: 700, color: '#475569' }}>
+    <div
+      style={{
+        width: 340,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '10px 14px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#475569',
+        }}
+      >
         배포 체크
       </div>
       {DEPLOY_CHECKS.map((check, i) => {
         const badge = CHECK_BADGE[check.status]
         return (
-          <div key={check.name} style={{
-            display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
-            borderBottom: i < DEPLOY_CHECKS.length - 1 ? '1px solid #f8fafc' : 'none',
-            background: check.status === 'fail' ? '#fef2f2' : '#fff',
-          }}>
+          <div
+            key={check.name}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 14px',
+              borderBottom: i < DEPLOY_CHECKS.length - 1 ? '1px solid #f8fafc' : 'none',
+              background: check.status === 'fail' ? '#fef2f2' : '#fff',
+            }}
+          >
             <span style={{ fontSize: 13, color: '#1e293b', flex: 1 }}>{check.name}</span>
             <span style={{ fontSize: 11, color: '#94a3b8', minWidth: 28 }}>{check.duration}</span>
             <LabelBadge color={badge.color}>
@@ -1144,18 +1797,53 @@ export const IssueTracker_DeployPlatform_릴리즈_노트_배지: Story = {
     },
   },
   render: () => (
-    <div style={{ width: 420, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
-      <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: 12, fontWeight: 700, color: '#475569' }}>
+    <div
+      style={{
+        width: 420,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '10px 14px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#475569',
+        }}
+      >
         릴리즈 노트 — v2.0.1
       </div>
       {RELEASE_ITEMS.map((item, i) => {
         const tb = TYPE_BADGE[item.type]
         const ib = IMPACT_BADGE[item.impact]
         return (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 14px', borderBottom: i < RELEASE_ITEMS.length - 1 ? '1px solid #f8fafc' : 'none' }}>
-            <LabelBadge color={tb.color}><LabelBadge.Label>{tb.label}</LabelBadge.Label></LabelBadge>
-            <span style={{ flex: 1, fontSize: 12, color: '#1e293b', fontFamily: 'monospace' }}>{item.commit}</span>
-            <LabelBadge color={ib.color}><LabelBadge.Label>{ib.label}</LabelBadge.Label></LabelBadge>
+          <div
+            key={i}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '9px 14px',
+              borderBottom: i < RELEASE_ITEMS.length - 1 ? '1px solid #f8fafc' : 'none',
+            }}
+          >
+            <LabelBadge color={tb.color}>
+              <LabelBadge.Label>{tb.label}</LabelBadge.Label>
+            </LabelBadge>
+            <span style={{ flex: 1, fontSize: 12, color: '#1e293b', fontFamily: 'monospace' }}>
+              {item.commit}
+            </span>
+            <LabelBadge color={ib.color}>
+              <LabelBadge.Label>{ib.label}</LabelBadge.Label>
+            </LabelBadge>
           </div>
         )
       })}
@@ -1179,12 +1867,49 @@ const RADIX_CONTENT_ITEMS = [
 function PrimitiveContentStatusRender() {
   return (
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>PrimitiveUI — 컴포넌트 상태 배지</p>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 12,
+        }}
+      >
+        PrimitiveUI — 컴포넌트 상태 배지
+      </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {RADIX_CONTENT_ITEMS.map(item => (
-          <div key={item.title} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: item.status === 'sale' ? '#ef4444' : item.status === 'benefit' ? '#6366f1' : '#94a3b8', flexShrink: 0 }} />
-            <span style={{ flex: 1, fontSize: 13, color: '#1e293b', fontWeight: 500 }}>{item.title}</span>
+        {RADIX_CONTENT_ITEMS.map((item) => (
+          <div
+            key={item.title}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '8px 12px',
+              borderRadius: 8,
+              border: '1px solid #f1f5f9',
+              background: '#fff',
+            }}
+          >
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background:
+                  item.status === 'sale'
+                    ? '#ef4444'
+                    : item.status === 'benefit'
+                      ? '#6366f1'
+                      : '#94a3b8',
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ flex: 1, fontSize: 13, color: '#1e293b', fontWeight: 500 }}>
+              {item.title}
+            </span>
             <LabelBadge color={item.status}>
               <LabelBadge.Label>{item.label}</LabelBadge.Label>
             </LabelBadge>
@@ -1200,7 +1925,8 @@ export const Primitive_컴포넌트_상태_배지: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI 컴포넌트 목록 스타일. LabelBadge로 NEW/PRO/STABLE/UPDATED/BETA 상태를 색상 코딩하여 표시합니다.',
+        story:
+          'PrimitiveUI 컴포넌트 목록 스타일. LabelBadge로 NEW/PRO/STABLE/UPDATED/BETA 상태를 색상 코딩하여 표시합니다.',
       },
     },
   },
@@ -1211,9 +1937,27 @@ export const Primitive_컴포넌트_상태_배지: Story = {
    UtilityUI: 제품 카드 프로모션 배지 패턴
 -------------------------------------------------------------------------- */
 const TAILWIND_PRODUCTS = [
-  { name: 'Starter Kit', price: '무료', badge: 'FREE', color: 'gray' as const, desc: '개인 프로젝트용 기본 스타터' },
-  { name: 'Pro Bundle', price: '₩29,000/월', badge: 'SALE', color: 'sale' as const, desc: '팀 전용 Pro 컴포넌트 포함' },
-  { name: 'Enterprise', price: '문의', badge: '혜택', color: 'benefit' as const, desc: '무제한 라이선스 + 전용 지원' },
+  {
+    name: 'Starter Kit',
+    price: '무료',
+    badge: 'FREE',
+    color: 'gray' as const,
+    desc: '개인 프로젝트용 기본 스타터',
+  },
+  {
+    name: 'Pro Bundle',
+    price: '₩29,000/월',
+    badge: 'SALE',
+    color: 'sale' as const,
+    desc: '팀 전용 Pro 컴포넌트 포함',
+  },
+  {
+    name: 'Enterprise',
+    price: '문의',
+    badge: '혜택',
+    color: 'benefit' as const,
+    desc: '무제한 라이선스 + 전용 지원',
+  },
 ]
 
 function UtilityCSSProductBadgeRender() {
@@ -1221,9 +1965,20 @@ function UtilityCSSProductBadgeRender() {
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>UtilityUI 제품 카드 배지</p>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 12,
+        }}
+      >
+        UtilityUI 제품 카드 배지
+      </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {TAILWIND_PRODUCTS.map(product => (
+        {TAILWIND_PRODUCTS.map((product) => (
           <div
             key={product.name}
             onClick={() => setSelected(product.name === selected ? null : product.name)}
@@ -1237,18 +1992,32 @@ function UtilityCSSProductBadgeRender() {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{product.name}</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+                {product.name}
+              </span>
               <LabelBadge color={product.color}>
                 <LabelBadge.Label>{product.badge}</LabelBadge.Label>
               </LabelBadge>
-              <span style={{ marginLeft: 'auto', fontSize: 12, fontWeight: 600, color: '#6366f1' }}>{product.price}</span>
+              <span style={{ marginLeft: 'auto', fontSize: 12, fontWeight: 600, color: '#6366f1' }}>
+                {product.price}
+              </span>
             </div>
             <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>{product.desc}</p>
           </div>
         ))}
       </div>
       {selected && (
-        <div style={{ marginTop: 12, padding: '8px 14px', borderRadius: 8, background: '#f0eeff', fontSize: 11, color: '#6366f1', fontWeight: 600 }}>
+        <div
+          style={{
+            marginTop: 12,
+            padding: '8px 14px',
+            borderRadius: 8,
+            background: '#f0eeff',
+            fontSize: 11,
+            color: '#6366f1',
+            fontWeight: 600,
+          }}
+        >
           선택: {selected}
         </div>
       )}
@@ -1261,7 +2030,8 @@ export const UtilityCSS_제품_프로모션_배지: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI의 Pricing Card 패턴. LabelBadge로 FREE/SALE/혜택 뱃지를 카드 헤더에 배치해 프로모션 정보를 강조합니다.',
+        story:
+          'UtilityUI의 Pricing Card 패턴. LabelBadge로 FREE/SALE/혜택 뱃지를 카드 헤더에 배치해 프로모션 정보를 강조합니다.',
       },
     },
   },
@@ -1272,38 +2042,104 @@ export const UtilityCSS_제품_프로모션_배지: Story = {
    Primitive + UtilityCSS: PR 리뷰 상태 배지 대시보드 패턴
 -------------------------------------------------------------------------- */
 const PR_REVIEWS = [
-  { pr: '#1241', title: 'BoxedCheckbox 접근성', reviewer: 'AK', status: 'APPROVED', color: 'benefit' as const, time: '5분 전' },
-  { pr: '#1242', title: 'SpeechBadge 다크모드', reviewer: 'SJ', status: 'REVIEW', color: 'sale' as const, time: '12분 전' },
-  { pr: '#1243', title: 'Tooltip 애니메이션', reviewer: 'MH', status: 'WIP', color: 'gray' as const, time: '1시간 전' },
-  { pr: '#1244', title: 'Token 정리', reviewer: 'AK', status: 'MERGED', color: 'benefit' as const, time: '2시간 전' },
+  {
+    pr: '#1241',
+    title: 'BoxedCheckbox 접근성',
+    reviewer: 'AK',
+    status: 'APPROVED',
+    color: 'benefit' as const,
+    time: '5분 전',
+  },
+  {
+    pr: '#1242',
+    title: 'SpeechBadge 다크모드',
+    reviewer: 'SJ',
+    status: 'REVIEW',
+    color: 'sale' as const,
+    time: '12분 전',
+  },
+  {
+    pr: '#1243',
+    title: 'Tooltip 애니메이션',
+    reviewer: 'MH',
+    status: 'WIP',
+    color: 'gray' as const,
+    time: '1시간 전',
+  },
+  {
+    pr: '#1244',
+    title: 'Token 정리',
+    reviewer: 'AK',
+    status: 'MERGED',
+    color: 'benefit' as const,
+    time: '2시간 전',
+  },
 ]
 
 function PrimitiveUtilityCSSPRDashboardRender() {
   const [filter, setFilter] = useState<string | null>(null)
-  const filtered = filter ? PR_REVIEWS.filter(p => p.status === filter) : PR_REVIEWS
+  const filtered = filter ? PR_REVIEWS.filter((p) => p.status === filter) : PR_REVIEWS
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>PR 리뷰 현황</span>
-        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{PR_REVIEWS.length}개</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>
+          {PR_REVIEWS.length}개
+        </span>
       </div>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
-        {['APPROVED', 'REVIEW', 'WIP', 'MERGED'].map(s => (
+        {['APPROVED', 'REVIEW', 'WIP', 'MERGED'].map((s) => (
           <button
             key={s}
             onClick={() => setFilter(filter === s ? null : s)}
-            style={{ padding: '4px 8px', borderRadius: 6, border: `1px solid ${filter === s ? '#6366f1' : '#e2e8f0'}`, background: filter === s ? '#f0eeff' : '#fff', fontSize: 11, fontWeight: filter === s ? 700 : 400, color: filter === s ? '#6366f1' : '#64748b', cursor: 'pointer' }}
+            style={{
+              padding: '4px 8px',
+              borderRadius: 6,
+              border: `1px solid ${filter === s ? '#6366f1' : '#e2e8f0'}`,
+              background: filter === s ? '#f0eeff' : '#fff',
+              fontSize: 11,
+              fontWeight: filter === s ? 700 : 400,
+              color: filter === s ? '#6366f1' : '#64748b',
+              cursor: 'pointer',
+            }}
           >
             {s}
           </button>
         ))}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {filtered.map(pr => (
-          <div key={pr.pr} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
-            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{pr.pr}</span>
-            <span style={{ flex: 1, fontSize: 12, color: '#1e293b', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pr.title}</span>
+        {filtered.map((pr) => (
+          <div
+            key={pr.pr}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '9px 12px',
+              borderRadius: 8,
+              border: '1px solid #f1f5f9',
+              background: '#fff',
+            }}
+          >
+            <span
+              style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}
+            >
+              {pr.pr}
+            </span>
+            <span
+              style={{
+                flex: 1,
+                fontSize: 12,
+                color: '#1e293b',
+                fontWeight: 500,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {pr.title}
+            </span>
             <LabelBadge color={pr.color}>
               <LabelBadge.Label>{pr.status}</LabelBadge.Label>
             </LabelBadge>
@@ -1311,7 +2147,19 @@ function PrimitiveUtilityCSSPRDashboardRender() {
           </div>
         ))}
         {filtered.length === 0 && (
-          <div style={{ padding: 14, textAlign: 'center', fontSize: 11, color: '#94a3b8', background: '#f8fafc', borderRadius: 8, border: '1px dashed #e2e8f0' }}>해당 상태 없음</div>
+          <div
+            style={{
+              padding: 14,
+              textAlign: 'center',
+              fontSize: 11,
+              color: '#94a3b8',
+              background: '#f8fafc',
+              borderRadius: 8,
+              border: '1px dashed #e2e8f0',
+            }}
+          >
+            해당 상태 없음
+          </div>
         )}
       </div>
     </div>
@@ -1323,7 +2171,8 @@ export const Primitive_UtilityCSS_PR_리뷰_배지_대시보드: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Primitive + UtilityUI 복합 패턴. LabelBadge로 PR 리뷰 상태(APPROVED/REVIEW/WIP/MERGED)를 시각화하고 상태별 필터링을 제공합니다.',
+        story:
+          'Primitive + UtilityUI 복합 패턴. LabelBadge로 PR 리뷰 상태(APPROVED/REVIEW/WIP/MERGED)를 시각화하고 상태별 필터링을 제공합니다.',
       },
     },
   },
@@ -1350,9 +2199,26 @@ const STATUS_DOT: Record<string, string> = { Ready: '#0f0', Building: '#fbbf24',
 
 function DeployPlatformDeployEnvBadgeRender() {
   return (
-    <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif", background: '#000', borderRadius: 12, border: '1px solid #222', overflow: 'hidden' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #222', display: 'flex', gap: 12, alignItems: 'center' }}>
-        {DEPLOY_ENVS.map(env => (
+    <div
+      style={{
+        width: 380,
+        fontFamily: "'Inter', system-ui, sans-serif",
+        background: '#000',
+        borderRadius: 12,
+        border: '1px solid #222',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #222',
+          display: 'flex',
+          gap: 12,
+          alignItems: 'center',
+        }}
+      >
+        {DEPLOY_ENVS.map((env) => (
           <div key={env.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <LabelBadge color={env.color}>
               <LabelBadge.Label>{env.label}</LabelBadge.Label>
@@ -1361,15 +2227,30 @@ function DeployPlatformDeployEnvBadgeRender() {
         ))}
       </div>
       <div style={{ padding: '8px 0' }}>
-        {DEPLOY_DEPLOYS.map(d => (
-          <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px' }}>
-            <div style={{ width: 7, height: 7, borderRadius: '50%', background: STATUS_DOT[d.status], flexShrink: 0 }} />
-            <span style={{ fontSize: 11, color: '#888', fontFamily: 'monospace', minWidth: 80 }}>{d.id}</span>
+        {DEPLOY_DEPLOYS.map((d) => (
+          <div
+            key={d.id}
+            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px' }}
+          >
+            <div
+              style={{
+                width: 7,
+                height: 7,
+                borderRadius: '50%',
+                background: STATUS_DOT[d.status],
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ fontSize: 11, color: '#888', fontFamily: 'monospace', minWidth: 80 }}>
+              {d.id}
+            </span>
             <span style={{ fontSize: 12, color: '#ccc', flex: 1 }}>{d.branch}</span>
-            <LabelBadge color={DEPLOY_ENVS.find(e => e.label === d.env)?.color ?? 'gray'}>
+            <LabelBadge color={DEPLOY_ENVS.find((e) => e.label === d.env)?.color ?? 'gray'}>
               <LabelBadge.Label>{d.env}</LabelBadge.Label>
             </LabelBadge>
-            <span style={{ fontSize: 10, color: '#555', minWidth: 44, textAlign: 'right' }}>{d.age}</span>
+            <span style={{ fontSize: 10, color: '#555', minWidth: 44, textAlign: 'right' }}>
+              {d.age}
+            </span>
           </div>
         ))}
       </div>
@@ -1406,15 +2287,29 @@ function AppUIDateStateBadgeRender() {
   const [highlight, setHighlight] = useState<string | null>(null)
   return (
     <div style={{ width: 340, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>릴리즈 일정 캘린더</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>
+        릴리즈 일정 캘린더
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {ACCESSIBLEKIT_DATE_EVENTS.map(ev => (
+        {ACCESSIBLEKIT_DATE_EVENTS.map((ev) => (
           <div
             key={ev.date}
             onClick={() => setHighlight(highlight === ev.date ? null : ev.date)}
-            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', borderRadius: 8, background: highlight === ev.date ? '#f8fafc' : '#fff', border: `1px solid ${highlight === ev.date ? '#e2e8f0' : '#f1f5f9'}`, cursor: 'pointer', transition: 'all 0.12s' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '9px 12px',
+              borderRadius: 8,
+              background: highlight === ev.date ? '#f8fafc' : '#fff',
+              border: `1px solid ${highlight === ev.date ? '#e2e8f0' : '#f1f5f9'}`,
+              cursor: 'pointer',
+              transition: 'all 0.12s',
+            }}
           >
-            <div style={{ minWidth: 70, fontSize: 11, color: '#64748b', fontWeight: 500 }}>{ev.date}</div>
+            <div style={{ minWidth: 70, fontSize: 11, color: '#64748b', fontWeight: 500 }}>
+              {ev.date}
+            </div>
             <LabelBadge color={ev.badge}>
               <LabelBadge.Label>{ev.label}</LabelBadge.Label>
             </LabelBadge>
@@ -1423,8 +2318,19 @@ function AppUIDateStateBadgeRender() {
         ))}
       </div>
       {highlight && (
-        <div style={{ marginTop: 10, padding: '10px 12px', borderRadius: 8, background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: 12, color: '#0369a1' }}>
-          {ACCESSIBLEKIT_DATE_EVENTS.find(e => e.date === highlight)?.date} — {ACCESSIBLEKIT_DATE_EVENTS.find(e => e.date === highlight)?.note}
+        <div
+          style={{
+            marginTop: 10,
+            padding: '10px 12px',
+            borderRadius: 8,
+            background: '#f0f9ff',
+            border: '1px solid #bae6fd',
+            fontSize: 12,
+            color: '#0369a1',
+          }}
+        >
+          {ACCESSIBLEKIT_DATE_EVENTS.find((e) => e.date === highlight)?.date} —{' '}
+          {ACCESSIBLEKIT_DATE_EVENTS.find((e) => e.date === highlight)?.note}
         </div>
       )}
     </div>
@@ -1450,7 +2356,14 @@ export const AppUI_날짜_컴포넌트_일정_배지: Story = {
 -------------------------------------------------------------------------- */
 const RELEASE_NOTES = [
   { version: 'v2.5.0', date: '2026-04-22', type: 'sale', features: 3, fixes: 5, breaking: false },
-  { version: 'v2.4.1', date: '2026-03-18', type: 'benefit', features: 1, fixes: 8, breaking: false },
+  {
+    version: 'v2.4.1',
+    date: '2026-03-18',
+    type: 'benefit',
+    features: 1,
+    fixes: 8,
+    breaking: false,
+  },
   { version: 'v2.4.0', date: '2026-02-14', type: 'sale', features: 7, fixes: 3, breaking: true },
   { version: 'v2.3.2', date: '2026-01-29', type: 'gray', features: 0, fixes: 4, breaking: false },
 ]
@@ -1459,17 +2372,41 @@ function DeployPlatformAppUIReleaseNoteRender() {
   const [expanded, setExpanded] = useState<string | null>('v2.5.0')
   return (
     <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>릴리즈 노트</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>
+        릴리즈 노트
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {RELEASE_NOTES.map(rel => (
-          <div key={rel.version} style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        {RELEASE_NOTES.map((rel) => (
+          <div
+            key={rel.version}
+            style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}
+          >
             <div
               onClick={() => setExpanded(expanded === rel.version ? null : rel.version)}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: expanded === rel.version ? '#f8fafc' : '#fff', cursor: 'pointer' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 14px',
+                background: expanded === rel.version ? '#f8fafc' : '#fff',
+                cursor: 'pointer',
+              }}
             >
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', minWidth: 60, fontFamily: 'monospace' }}>{rel.version}</span>
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: '#1e293b',
+                  minWidth: 60,
+                  fontFamily: 'monospace',
+                }}
+              >
+                {rel.version}
+              </span>
               <LabelBadge color={rel.type as 'sale' | 'benefit' | 'gray'}>
-                <LabelBadge.Label>{rel.type === 'sale' ? 'Major' : rel.type === 'benefit' ? 'Minor' : 'Patch'}</LabelBadge.Label>
+                <LabelBadge.Label>
+                  {rel.type === 'sale' ? 'Major' : rel.type === 'benefit' ? 'Minor' : 'Patch'}
+                </LabelBadge.Label>
               </LabelBadge>
               {rel.breaking && (
                 <LabelBadge color="sale">
@@ -1479,9 +2416,19 @@ function DeployPlatformAppUIReleaseNoteRender() {
               <span style={{ marginLeft: 'auto', fontSize: 10, color: '#94a3b8' }}>{rel.date}</span>
             </div>
             {expanded === rel.version && (
-              <div style={{ padding: '10px 14px', borderTop: '1px solid #f1f5f9', background: '#fff', display: 'flex', gap: 12 }}>
+              <div
+                style={{
+                  padding: '10px 14px',
+                  borderTop: '1px solid #f1f5f9',
+                  background: '#fff',
+                  display: 'flex',
+                  gap: 12,
+                }}
+              >
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: '#6366f1' }}>{rel.features}</div>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: '#6366f1' }}>
+                    {rel.features}
+                  </div>
                   <div style={{ fontSize: 10, color: '#94a3b8' }}>신기능</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>

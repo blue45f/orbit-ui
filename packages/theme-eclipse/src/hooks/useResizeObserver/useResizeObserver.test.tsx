@@ -30,7 +30,15 @@ class MockResizeObserver {
 
   trigger(size: { width: number; height: number }) {
     const entry = {
-      contentRect: { ...size, x: 0, y: 0, top: 0, left: 0, right: size.width, bottom: size.height } as DOMRectReadOnly,
+      contentRect: {
+        ...size,
+        x: 0,
+        y: 0,
+        top: 0,
+        left: 0,
+        right: size.width,
+        bottom: size.height,
+      } as DOMRectReadOnly,
       target: this.observed[0],
       borderBoxSize: [],
       contentBoxSize: [],

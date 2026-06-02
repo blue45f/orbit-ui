@@ -16,10 +16,7 @@ export type DialogProps = Omit<DialogContentPrimitiveProps, 'children'> & {
   theme?: unknown
 }
 
-const hasComponent = (
-  children: React.ReactNode,
-  components: React.ElementType[]
-): boolean =>
+const hasComponent = (children: React.ReactNode, components: React.ElementType[]): boolean =>
   Children.toArray(children).some((child) => {
     if (!React.isValidElement(child)) return false
     if (components.includes(child.type as React.ElementType)) return true

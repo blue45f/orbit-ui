@@ -34,10 +34,12 @@ export function useEventListener<T extends Target | null>(
   type: string,
   handler: (event: EventMapOf<T>[keyof EventMapOf<T>] & Event) => void,
   target?: RefObject<T> | undefined,
-  options?: boolean | AddEventListenerOptions,
+  options?: boolean | AddEventListenerOptions
 ): void {
   const handlerRef = useRef(handler)
-  useLayoutEffect(() => { handlerRef.current = handler })
+  useLayoutEffect(() => {
+    handlerRef.current = handler
+  })
 
   useEffect(() => {
     const node: Target | null =

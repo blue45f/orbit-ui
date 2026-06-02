@@ -7,19 +7,14 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import {
-  forwardRef,
-  HTMLAttributes,
-  KeyboardEvent,
-  ReactNode,
-  Ref,
-  useState,
-} from 'react'
+import { forwardRef, HTMLAttributes, KeyboardEvent, ReactNode, Ref, useState } from 'react'
 
 import { cn } from '../../styles'
 
-export interface DataTableProps<TData, TValue>
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+export interface DataTableProps<TData, TValue> extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'children'
+> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   /** 로딩 상태 */

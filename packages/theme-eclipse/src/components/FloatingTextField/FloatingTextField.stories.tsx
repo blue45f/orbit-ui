@@ -304,8 +304,31 @@ const FormControlExample = ({
       style={{ width: '100%' }}
     />
     {isError && errorText ? (
-      <span style={{ fontSize: '12px', color: '#ef4444', display: 'flex', alignItems: 'center', gap: '4px' }}>
-        <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ef4444', color: '#fff', fontSize: '9px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>!</span>
+      <span
+        style={{
+          fontSize: '12px',
+          color: '#ef4444',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+        }}
+      >
+        <span
+          style={{
+            width: '12px',
+            height: '12px',
+            borderRadius: '50%',
+            background: '#ef4444',
+            color: '#fff',
+            fontSize: '9px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          !
+        </span>
         {errorText}
       </span>
     ) : helperText ? (
@@ -329,10 +352,25 @@ const ValidationDemoRender = () => {
   const isPasswordError = passwordError || passwordEmpty
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '400px', padding: '32px', background: '#fff', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
+        width: '400px',
+        padding: '32px',
+        background: '#fff',
+        borderRadius: '16px',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+      }}
+    >
       <div>
-        <h3 style={{ margin: '0 0 4px', fontSize: '20px', fontWeight: '700', color: '#0f172a' }}>실시간 유효성 검사</h3>
-        <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>AccessibleUI FormControl 패턴 적용</p>
+        <h3 style={{ margin: '0 0 4px', fontSize: '20px', fontWeight: '700', color: '#0f172a' }}>
+          실시간 유효성 검사
+        </h3>
+        <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
+          AccessibleUI FormControl 패턴 적용
+        </p>
       </div>
       <FormControlExample
         label="이메일 주소"
@@ -356,16 +394,23 @@ const ValidationDemoRender = () => {
           setTouched((prev) => ({ ...prev, password: true }))
         }}
       />
-      <div style={{
-        padding: '10px 14px',
-        borderRadius: '8px',
-        background: isEmailError || isPasswordError ? 'rgba(239,68,68,0.05)' : 'rgba(16,185,129,0.05)',
-        border: `1px solid ${isEmailError || isPasswordError ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.2)'}`,
-        fontSize: '12px',
-        color: isEmailError || isPasswordError ? '#ef4444' : '#10b981',
-        fontWeight: 500,
-      }}>
-        {isEmailError || isPasswordError ? '입력값을 다시 확인하세요' : email && password ? '입력이 유효합니다' : '모든 필드를 입력해주세요'}
+      <div
+        style={{
+          padding: '10px 14px',
+          borderRadius: '8px',
+          background:
+            isEmailError || isPasswordError ? 'rgba(239,68,68,0.05)' : 'rgba(16,185,129,0.05)',
+          border: `1px solid ${isEmailError || isPasswordError ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.2)'}`,
+          fontSize: '12px',
+          color: isEmailError || isPasswordError ? '#ef4444' : '#10b981',
+          fontWeight: 500,
+        }}
+      >
+        {isEmailError || isPasswordError
+          ? '입력값을 다시 확인하세요'
+          : email && password
+            ? '입력이 유효합니다'
+            : '모든 필드를 입력해주세요'}
       </div>
     </div>
   )
@@ -381,21 +426,51 @@ const LoginFormRender = () => {
   const [password, setPassword] = useState('')
 
   return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', gap: '20px',
-      width: '420px', padding: '40px', background: '#fff',
-      borderRadius: '20px', boxShadow: '0 8px 40px rgba(0,0,0,0.12)',
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        width: '420px',
+        padding: '40px',
+        background: '#fff',
+        borderRadius: '20px',
+        boxShadow: '0 8px 40px rgba(0,0,0,0.12)',
+      }}
+    >
       {/* Logo */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '8px' }}>
-        <div style={{
-          width: '40px', height: '40px', borderRadius: '12px',
-          background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#fff', fontSize: '18px', fontWeight: '800', marginBottom: '12px',
-        }}>O</div>
-        <h2 style={{ margin: 0, fontSize: '24px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.02em' }}>로그인</h2>
-        <p style={{ margin: 0, fontSize: '14px', color: '#64748b' }}>계정에 로그인하여 계속하세요</p>
+        <div
+          style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            fontSize: '18px',
+            fontWeight: '800',
+            marginBottom: '12px',
+          }}
+        >
+          O
+        </div>
+        <h2
+          style={{
+            margin: 0,
+            fontSize: '24px',
+            fontWeight: '800',
+            color: '#0f172a',
+            letterSpacing: '-0.02em',
+          }}
+        >
+          로그인
+        </h2>
+        <p style={{ margin: 0, fontSize: '14px', color: '#64748b' }}>
+          계정에 로그인하여 계속하세요
+        </p>
       </div>
 
       {/* Email field */}
@@ -406,7 +481,9 @@ const LoginFormRender = () => {
           onChange={(e) => setEmail(e.target.value)}
           style={{ width: '100%' }}
         />
-        <span style={{ fontSize: '11px', color: '#94a3b8' }}>가입 시 사용한 이메일을 입력하세요</span>
+        <span style={{ fontSize: '11px', color: '#94a3b8' }}>
+          가입 시 사용한 이메일을 입력하세요
+        </span>
       </div>
 
       {/* Password field */}
@@ -420,24 +497,38 @@ const LoginFormRender = () => {
         />
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: '11px', color: '#94a3b8' }}>8자 이상</span>
-          <a href="#" style={{ fontSize: '12px', color: '#6366f1', textDecoration: 'none', fontWeight: 500 }}>비밀번호 찾기</a>
+          <a
+            href="#"
+            style={{ fontSize: '12px', color: '#6366f1', textDecoration: 'none', fontWeight: 500 }}
+          >
+            비밀번호 찾기
+          </a>
         </div>
       </div>
 
       {/* Submit */}
-      <button style={{
-        padding: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer',
-        background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-        color: '#fff', fontSize: '15px', fontWeight: '700',
-        boxShadow: '0 4px 14px rgba(99,102,241,0.4)',
-        transition: 'opacity 0.2s',
-      }}>
+      <button
+        style={{
+          padding: '14px',
+          borderRadius: '12px',
+          border: 'none',
+          cursor: 'pointer',
+          background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+          color: '#fff',
+          fontSize: '15px',
+          fontWeight: '700',
+          boxShadow: '0 4px 14px rgba(99,102,241,0.4)',
+          transition: 'opacity 0.2s',
+        }}
+      >
         로그인
       </button>
 
       <p style={{ margin: 0, textAlign: 'center', fontSize: '13px', color: '#64748b' }}>
         계정이 없으신가요?{' '}
-        <a href="#" style={{ color: '#6366f1', textDecoration: 'none', fontWeight: 600 }}>회원가입</a>
+        <a href="#" style={{ color: '#6366f1', textDecoration: 'none', fontWeight: 600 }}>
+          회원가입
+        </a>
       </p>
     </div>
   )
@@ -458,7 +549,11 @@ function PaymentFormRender() {
   const [name, setName] = useState('')
 
   const formatCard = (val: string) =>
-    val.replace(/\D/g, '').slice(0, 16).replace(/(.{4})/g, '$1 ').trim()
+    val
+      .replace(/\D/g, '')
+      .slice(0, 16)
+      .replace(/(.{4})/g, '$1 ')
+      .trim()
 
   const formatExpiry = (val: string) => {
     const digits = val.replace(/\D/g, '').slice(0, 4)
@@ -473,8 +568,22 @@ function PaymentFormRender() {
   const canSubmit = isCardValid && isExpiryValid && isCvvValid && isNameValid
 
   return (
-    <div style={{ width: 360, padding: '28px', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
-      <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>결제 정보</div>
+    <div
+      style={{
+        width: 360,
+        padding: '28px',
+        background: '#fff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+      }}
+    >
+      <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+        결제 정보
+      </div>
 
       <FloatingTextField
         placeholder="카드 소유자 이름"
@@ -508,10 +617,14 @@ function PaymentFormRender() {
       <button
         disabled={!canSubmit}
         style={{
-          padding: '13px', borderRadius: '10px', border: 'none',
+          padding: '13px',
+          borderRadius: '10px',
+          border: 'none',
           background: canSubmit ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : '#e2e8f0',
           color: canSubmit ? '#fff' : '#94a3b8',
-          fontSize: '14px', fontWeight: '700', cursor: canSubmit ? 'pointer' : 'not-allowed',
+          fontSize: '14px',
+          fontWeight: '700',
+          cursor: canSubmit ? 'pointer' : 'not-allowed',
           transition: 'all 0.2s',
         }}
       >
@@ -553,7 +666,18 @@ function CharCounterRender() {
   const websiteValid = website.length === 0 || website.startsWith('https://')
 
   return (
-    <div style={{ width: 380, padding: '24px', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: 20 }}>
+    <div
+      style={{
+        width: 380,
+        padding: '24px',
+        background: '#fff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+      }}
+    >
       <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>프로필 편집</div>
 
       {/* Username with counter */}
@@ -568,7 +692,9 @@ function CharCounterRender() {
           <span style={{ fontSize: 11, color: usernameValid ? '#94a3b8' : '#ef4444' }}>
             {!usernameValid ? '3~20자, 영문/숫자/_ 만 허용' : '고유한 URL로 사용됩니다'}
           </span>
-          <span style={{ fontSize: 11, color: username.length >= MAX_USERNAME ? '#ef4444' : '#94a3b8' }}>
+          <span
+            style={{ fontSize: 11, color: username.length >= MAX_USERNAME ? '#ef4444' : '#94a3b8' }}
+          >
             {username.length}/{MAX_USERNAME}
           </span>
         </div>
@@ -596,16 +722,29 @@ function CharCounterRender() {
             onChange={(e) => setBio(e.target.value.slice(0, MAX_BIO))}
             rows={3}
             style={{
-              width: '100%', padding: '14px 16px', borderRadius: '10px', resize: 'none',
+              width: '100%',
+              padding: '14px 16px',
+              borderRadius: '10px',
+              resize: 'none',
               border: `1.5px solid ${bioRemaining < 0 ? '#ef4444' : '#e2e8f0'}`,
-              fontSize: '14px', color: '#1e293b', boxSizing: 'border-box', outline: 'none',
-              fontFamily: 'inherit', lineHeight: 1.5,
+              fontSize: '14px',
+              color: '#1e293b',
+              boxSizing: 'border-box',
+              outline: 'none',
+              fontFamily: 'inherit',
+              lineHeight: 1.5,
             }}
           />
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontSize: 11, color: '#94a3b8' }}>검색 프로필에 노출됩니다</span>
-          <span style={{ fontSize: 11, color: bioRemaining <= 20 ? (bioRemaining < 0 ? '#ef4444' : '#f59e0b') : '#94a3b8', fontWeight: bioRemaining <= 20 ? 700 : 400 }}>
+          <span
+            style={{
+              fontSize: 11,
+              color: bioRemaining <= 20 ? (bioRemaining < 0 ? '#ef4444' : '#f59e0b') : '#94a3b8',
+              fontWeight: bioRemaining <= 20 ? 700 : 400,
+            }}
+          >
             {bioRemaining}자 남음
           </span>
         </div>
@@ -641,15 +780,50 @@ function AddressFormRender() {
     setAddr((prev) => ({ ...prev, [field]: e.target.value }))
 
   const STEPS = [
-    { label: '우편번호', field: 'zipcode' as const, placeholder: '우편번호 (5자리)', hint: '우편번호 검색 후 자동 입력됩니다', type: 'text' },
-    { label: '도시 / 구', field: 'city' as const, placeholder: '서울시 강남구', hint: '광역시 및 구/군 단위 입력', type: 'text' },
-    { label: '도로명 주소', field: 'street' as const, placeholder: '테헤란로 152', hint: '건물명 또는 번지 포함', type: 'text' },
+    {
+      label: '우편번호',
+      field: 'zipcode' as const,
+      placeholder: '우편번호 (5자리)',
+      hint: '우편번호 검색 후 자동 입력됩니다',
+      type: 'text',
+    },
+    {
+      label: '도시 / 구',
+      field: 'city' as const,
+      placeholder: '서울시 강남구',
+      hint: '광역시 및 구/군 단위 입력',
+      type: 'text',
+    },
+    {
+      label: '도로명 주소',
+      field: 'street' as const,
+      placeholder: '테헤란로 152',
+      hint: '건물명 또는 번지 포함',
+      type: 'text',
+    },
   ]
 
-  const canNext = step === 0 ? /^\d{5}$/.test(addr.zipcode) : step === 1 ? addr.city.length >= 2 : addr.street.length >= 2
+  const canNext =
+    step === 0
+      ? /^\d{5}$/.test(addr.zipcode)
+      : step === 1
+        ? addr.city.length >= 2
+        : addr.street.length >= 2
 
   return (
-    <div style={{ width: 360, padding: '24px', background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: 20, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+    <div
+      style={{
+        width: 360,
+        padding: '24px',
+        background: '#fff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+      }}
+    >
       <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>주소 입력</div>
 
       {/* Progress */}
@@ -658,7 +832,9 @@ function AddressFormRender() {
           <div
             key={i}
             style={{
-              flex: 1, height: 4, borderRadius: 2,
+              flex: 1,
+              height: 4,
+              borderRadius: 2,
               background: i <= step ? '#6366f1' : '#e2e8f0',
               transition: 'background 0.2s',
             }}
@@ -683,19 +859,36 @@ function AddressFormRender() {
             {step > 0 && (
               <button
                 onClick={() => setStep((s) => (s - 1) as 0 | 1 | 2)}
-                style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#fff', color: '#374151', fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}
+                style={{
+                  flex: 1,
+                  padding: '10px',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  background: '#fff',
+                  color: '#374151',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                }}
               >
                 이전
               </button>
             )}
             <button
               disabled={!canNext}
-              onClick={() => { if (canNext) setStep((s) => (s + 1) as 0 | 1 | 2) }}
+              onClick={() => {
+                if (canNext) setStep((s) => (s + 1) as 0 | 1 | 2)
+              }}
               style={{
-                flex: 2, padding: '10px', borderRadius: '8px', border: 'none',
+                flex: 2,
+                padding: '10px',
+                borderRadius: '8px',
+                border: 'none',
                 background: canNext ? '#6366f1' : '#e2e8f0',
                 color: canNext ? '#fff' : '#94a3b8',
-                fontSize: '13px', fontWeight: 600, cursor: canNext ? 'pointer' : 'not-allowed',
+                fontSize: '13px',
+                fontWeight: 600,
+                cursor: canNext ? 'pointer' : 'not-allowed',
                 transition: 'all 0.15s',
               }}
             >
@@ -710,13 +903,32 @@ function AddressFormRender() {
             value={addr.detail}
             onChange={update('detail')}
           />
-          <div style={{ padding: '12px 14px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#374151', lineHeight: 1.7 }}>
+          <div
+            style={{
+              padding: '12px 14px',
+              borderRadius: '8px',
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              fontSize: 12,
+              color: '#374151',
+              lineHeight: 1.7,
+            }}
+          >
             <div style={{ color: '#94a3b8', marginBottom: 4, fontSize: 11 }}>입력된 주소</div>
             <strong>{addr.zipcode}</strong> {addr.city} {addr.street} {addr.detail}
           </div>
           <button
             onClick={() => setStep(0)}
-            style={{ padding: '10px', borderRadius: '8px', border: '1px solid #6366f1', background: '#fff', color: '#6366f1', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+            style={{
+              padding: '10px',
+              borderRadius: '8px',
+              border: '1px solid #6366f1',
+              background: '#fff',
+              color: '#6366f1',
+              fontSize: '13px',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
           >
             다시 입력
           </button>
@@ -745,7 +957,18 @@ export const UtilityCSS_AppUI_주소_멀티스텝: Story = {
    PrimitiveUI — 접근성 강화 검색 필드
    aria-label, autocomplete, 실시간 결과 카운트
 -------------------------------------------------------------------------- */
-const SEARCH_ITEMS = ['Button', 'TextField', 'Modal', 'Dropdown', 'Carousel', 'Avatar', 'Checkbox', 'Switch', 'Slider', 'Tooltip']
+const SEARCH_ITEMS = [
+  'Button',
+  'TextField',
+  'Modal',
+  'Dropdown',
+  'Carousel',
+  'Avatar',
+  'Checkbox',
+  'Switch',
+  'Slider',
+  'Tooltip',
+]
 
 const PrimitiveSearchFieldDemo = () => {
   const [query, setQuery] = useState('')
@@ -761,15 +984,30 @@ const PrimitiveSearchFieldDemo = () => {
           aria-autocomplete="list"
         />
       </div>
-      {query && (
-        <div style={{ fontSize: 12, color: '#64748b' }}>
-          {results.length}개 결과
-        </div>
-      )}
+      {query && <div style={{ fontSize: 12, color: '#64748b' }}>{results.length}개 결과</div>}
       {query && results.length > 0 && (
-        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <ul
+          style={{
+            listStyle: 'none',
+            margin: 0,
+            padding: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
           {results.map((r) => (
-            <li key={r} style={{ padding: '8px 12px', borderRadius: 6, background: '#f8fafc', fontSize: 14, color: '#0f172a', cursor: 'pointer' }}>
+            <li
+              key={r}
+              style={{
+                padding: '8px 12px',
+                borderRadius: 6,
+                background: '#f8fafc',
+                fontSize: 14,
+                color: '#0f172a',
+                cursor: 'pointer',
+              }}
+            >
               {r}
             </li>
           ))}
@@ -780,7 +1018,9 @@ const PrimitiveSearchFieldDemo = () => {
           검색 결과가 없습니다
         </div>
       )}
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>PrimitiveUI 접근성 패턴 — role, aria-* 속성 활용</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>
+        PrimitiveUI 접근성 패턴 — role, aria-* 속성 활용
+      </p>
     </div>
   )
 }
@@ -830,7 +1070,16 @@ const AccessiblePasswordStrengthDemo = () => {
       />
       <div style={{ display: 'flex', gap: 4 }}>
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} style={{ flex: 1, height: 4, borderRadius: 2, background: i <= strength.score ? strength.color : '#e2e8f0', transition: 'background 0.3s' }} />
+          <div
+            key={i}
+            style={{
+              flex: 1,
+              height: 4,
+              borderRadius: 2,
+              background: i <= strength.score ? strength.color : '#e2e8f0',
+              transition: 'background 0.3s',
+            }}
+          />
         ))}
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
@@ -882,9 +1131,19 @@ const OtpInputDemo = () => {
   }
   const isComplete = otp.every((d) => d !== '')
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', width: 320 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        alignItems: 'center',
+        width: 320,
+      }}
+    >
       <p style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', margin: 0 }}>인증 코드 입력</p>
-      <p style={{ fontSize: 13, color: '#64748b', margin: 0, textAlign: 'center' }}>이메일로 전송된 6자리 코드를 입력하세요</p>
+      <p style={{ fontSize: 13, color: '#64748b', margin: 0, textAlign: 'center' }}>
+        이메일로 전송된 6자리 코드를 입력하세요
+      </p>
       <div style={{ display: 'flex', gap: 8 }}>
         {otp.map((val, i) => (
           <input
@@ -895,16 +1154,38 @@ const OtpInputDemo = () => {
             onKeyDown={(e) => handleKeyDown(i, e)}
             maxLength={1}
             inputMode="numeric"
-            style={{ width: 40, height: 48, borderRadius: 8, border: `2px solid ${val ? '#6366f1' : '#e2e8f0'}`, textAlign: 'center', fontSize: 20, fontWeight: 700, color: '#0f172a', outline: 'none', transition: 'border-color 0.2s' }}
+            style={{
+              width: 40,
+              height: 48,
+              borderRadius: 8,
+              border: `2px solid ${val ? '#6366f1' : '#e2e8f0'}`,
+              textAlign: 'center',
+              fontSize: 20,
+              fontWeight: 700,
+              color: '#0f172a',
+              outline: 'none',
+              transition: 'border-color 0.2s',
+            }}
           />
         ))}
       </div>
       {isComplete && (
-        <div style={{ padding: '8px 20px', borderRadius: 8, background: '#dcfce7', color: '#15803d', fontSize: 13, fontWeight: 600 }}>
+        <div
+          style={{
+            padding: '8px 20px',
+            borderRadius: 8,
+            background: '#dcfce7',
+            color: '#15803d',
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
           인증 코드: {otp.join('')}
         </div>
       )}
-      <p style={{ fontSize: 11, color: '#94a3b8' }}>Primitive 포커스 관리 + Accessible 단순 Props — 자동 포커스 이동 OTP 입력</p>
+      <p style={{ fontSize: 11, color: '#94a3b8' }}>
+        Primitive 포커스 관리 + Accessible 단순 Props — 자동 포커스 이동 OTP 입력
+      </p>
     </div>
   )
 }
@@ -953,7 +1234,18 @@ function ComposableUIInlineEditRender() {
       <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>프로젝트 설정</div>
       {UTILITYUI_FIELDS.map((field) => (
         <div key={field.key}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{field.label}</div>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: '#64748b',
+              marginBottom: 4,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+          >
+            {field.label}
+          </div>
           {editing === field.key ? (
             <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
               <FloatingTextField
@@ -965,24 +1257,73 @@ function ComposableUIInlineEditRender() {
                 autoFocus
               />
               <div style={{ display: 'flex', gap: 4, flexShrink: 0 }}>
-                <button onClick={() => save(field.key)} style={{ padding: '6px 12px', borderRadius: 6, border: 'none', background: '#6366f1', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>저장</button>
-                <button onClick={cancel} style={{ padding: '6px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, color: '#64748b', cursor: 'pointer' }}>취소</button>
+                <button
+                  onClick={() => save(field.key)}
+                  style={{
+                    padding: '6px 12px',
+                    borderRadius: 6,
+                    border: 'none',
+                    background: '#6366f1',
+                    color: '#fff',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
+                  저장
+                </button>
+                <button
+                  onClick={cancel}
+                  style={{
+                    padding: '6px 10px',
+                    borderRadius: 6,
+                    border: '1px solid #e2e8f0',
+                    background: '#fff',
+                    fontSize: 12,
+                    color: '#64748b',
+                    cursor: 'pointer',
+                  }}
+                >
+                  취소
+                </button>
               </div>
             </div>
           ) : (
             <div
               onClick={() => startEdit(field.key)}
-              style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid transparent', fontSize: 13, color: '#0f172a', cursor: 'text', transition: 'border-color 0.15s', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = '#e2e8f0'; (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = 'transparent'; (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
+              style={{
+                padding: '8px 12px',
+                borderRadius: 6,
+                border: '1px solid transparent',
+                fontSize: 13,
+                color: '#0f172a',
+                cursor: 'text',
+                transition: 'border-color 0.15s',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 8,
+              }}
+              onMouseEnter={(e) => {
+                ;(e.currentTarget as HTMLDivElement).style.borderColor = '#e2e8f0'
+                ;(e.currentTarget as HTMLDivElement).style.background = '#f8fafc'
+              }}
+              onMouseLeave={(e) => {
+                ;(e.currentTarget as HTMLDivElement).style.borderColor = 'transparent'
+                ;(e.currentTarget as HTMLDivElement).style.background = 'transparent'
+              }}
             >
               <span>{values[field.key]}</span>
-              <span style={{ fontSize: 11, color: '#94a3b8', opacity: 0 }} className="edit-hint">수정</span>
+              <span style={{ fontSize: 11, color: '#94a3b8', opacity: 0 }} className="edit-hint">
+                수정
+              </span>
             </div>
           )}
         </div>
       ))}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>ComposableUI 인라인 편집 패턴 — 클릭하여 FloatingTextField로 전환</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        ComposableUI 인라인 편집 패턴 — 클릭하여 FloatingTextField로 전환
+      </div>
     </div>
   )
 }
@@ -992,7 +1333,8 @@ export const ComposableUI_인라인_편집_필드: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI의 Editable 컴포넌트 패턴. 정적 텍스트를 클릭하면 FloatingTextField로 전환되고, 저장/취소로 확정합니다. WorkspaceEditor/IssueTracker 인라인 편집 UX와 동일한 패턴.',
+        story:
+          'ComposableUI의 Editable 컴포넌트 패턴. 정적 텍스트를 클릭하면 FloatingTextField로 전환되고, 저장/취소로 확정합니다. WorkspaceEditor/IssueTracker 인라인 편집 UX와 동일한 패턴.',
       },
     },
   },
@@ -1031,17 +1373,41 @@ function IssueTrackerIssueFormRender() {
   return (
     <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-        <div style={{ width: 20, height: 20, borderRadius: '50%', border: `2px solid ${pr.color}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <div
+          style={{
+            width: 20,
+            height: 20,
+            borderRadius: '50%',
+            border: `2px solid ${pr.color}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
           <div style={{ width: 8, height: 8, borderRadius: '50%', background: pr.color }} />
         </div>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>새 이슈</span>
         <select
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
-          style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 600, color: pr.color, border: `1px solid ${pr.color}30`, background: `${pr.color}10`, borderRadius: 6, padding: '3px 8px', cursor: 'pointer', outline: 'none' }}
+          style={{
+            marginLeft: 'auto',
+            fontSize: 11,
+            fontWeight: 600,
+            color: pr.color,
+            border: `1px solid ${pr.color}30`,
+            background: `${pr.color}10`,
+            borderRadius: 6,
+            padding: '3px 8px',
+            cursor: 'pointer',
+            outline: 'none',
+          }}
         >
           {TRACKER_PRIORITIES.map((p) => (
-            <option key={p.value} value={p.value}>{p.label}</option>
+            <option key={p.value} value={p.value}>
+              {p.label}
+            </option>
           ))}
         </select>
       </div>
@@ -1049,7 +1415,9 @@ function IssueTrackerIssueFormRender() {
         placeholder="이슈 제목..."
         value={title}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
-        onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter') submit() }}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === 'Enter') submit()
+        }}
       />
       <FloatingTextField
         placeholder="설명 (선택 사항)..."
@@ -1060,13 +1428,25 @@ function IssueTrackerIssueFormRender() {
         <button
           onClick={submit}
           disabled={!title.trim() || submitted}
-          style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: title.trim() ? '#0f172a' : '#e2e8f0', color: title.trim() ? '#fff' : '#94a3b8', fontSize: 13, fontWeight: 600, cursor: title.trim() ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}
+          style={{
+            padding: '8px 16px',
+            borderRadius: 8,
+            border: 'none',
+            background: title.trim() ? '#0f172a' : '#e2e8f0',
+            color: title.trim() ? '#fff' : '#94a3b8',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: title.trim() ? 'pointer' : 'not-allowed',
+            transition: 'all 0.15s',
+          }}
         >
           {submitted ? '저장 중...' : '이슈 생성'}
         </button>
         <span style={{ fontSize: 11, color: '#94a3b8' }}>Enter로 빠른 저장</span>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>IssueTracker 이슈 입력 패턴 — 우선순위 선택 + 제목/설명 FloatingTextField</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        IssueTracker 이슈 입력 패턴 — 우선순위 선택 + 제목/설명 FloatingTextField
+      </div>
     </div>
   )
 }
@@ -1076,7 +1456,8 @@ export const IssueTracker_이슈_생성_폼: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 이슈 생성 UI 패턴. 우선순위 컬러 선택기 + 제목 FloatingTextField + 설명 FloatingTextField + Enter 단축키 제출. IssueTracker의 미니멀 컴팩트 입력 패턴 구현.',
+        story:
+          'IssueTracker 이슈 생성 UI 패턴. 우선순위 컬러 선택기 + 제목 FloatingTextField + 설명 FloatingTextField + Enter 단축키 제출. IssueTracker의 미니멀 컴팩트 입력 패턴 구현.',
       },
     },
   },
@@ -1088,14 +1469,23 @@ export const IssueTracker_이슈_생성_폼: Story = {
    커맨드 팔레트 스타일 입력 패턴
 -------------------------------------------------------------------------- */
 const CMD_ITEMS = [
-  { id: 1, type: 'issue', label: 'ORB-241 Toggle onCheckedChange 타입 수정', status: 'in-progress' },
+  {
+    id: 1,
+    type: 'issue',
+    label: 'ORB-241 Toggle onCheckedChange 타입 수정',
+    status: 'in-progress',
+  },
   { id: 2, type: 'component', label: 'FloatingTextField 스토리 추가', status: 'done' },
   { id: 3, type: 'issue', label: 'ORB-238 DataTable 정렬 로직 개선', status: 'todo' },
   { id: 4, type: 'doc', label: 'BenchmarkComparison.mdx Cycle 112 반영', status: 'done' },
   { id: 5, type: 'component', label: 'PageIndicator 신규 스토리 3종', status: 'in-progress' },
 ]
 
-const STATUS_COLORS: Record<string, string> = { 'todo': '#94a3b8', 'in-progress': '#6366f1', 'done': '#10b981' }
+const STATUS_COLORS: Record<string, string> = {
+  todo: '#94a3b8',
+  'in-progress': '#6366f1',
+  done: '#10b981',
+}
 const TYPE_ICONS: Record<string, string> = { issue: '#', component: '◻', doc: '▤' }
 
 function ComposableUIIssueTrackerSearchRender() {
@@ -1116,24 +1506,92 @@ function ComposableUIIssueTrackerSearchRender() {
         onBlur={() => setTimeout(() => setFocused(false), 150)}
       />
       {focused && query.trim() && (
-        <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 4, borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff', boxShadow: '0 4px 20px rgba(0,0,0,0.12)', zIndex: 10, overflow: 'hidden' }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            right: 0,
+            marginTop: 4,
+            borderRadius: 10,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+            zIndex: 10,
+            overflow: 'hidden',
+          }}
+        >
           {results.length === 0 ? (
-            <div style={{ padding: '16px', fontSize: 13, color: '#94a3b8', textAlign: 'center' }}>결과 없음</div>
+            <div style={{ padding: '16px', fontSize: 13, color: '#94a3b8', textAlign: 'center' }}>
+              결과 없음
+            </div>
           ) : (
             results.map((item) => (
-              <div key={item.id} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '10px 14px', cursor: 'pointer', borderBottom: '1px solid #f1f5f9', transition: 'background 0.1s' }} onMouseEnter={(e) => (e.currentTarget.style.background = '#f8fafc')} onMouseLeave={(e) => (e.currentTarget.style.background = '#fff')}>
-                <span style={{ fontSize: 14, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}>{TYPE_ICONS[item.type]}</span>
-                <span style={{ flex: 1, fontSize: 13, color: '#0f172a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.label}</span>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: STATUS_COLORS[item.status], flexShrink: 0 }} />
+              <div
+                key={item.id}
+                style={{
+                  display: 'flex',
+                  gap: 10,
+                  alignItems: 'center',
+                  padding: '10px 14px',
+                  cursor: 'pointer',
+                  borderBottom: '1px solid #f1f5f9',
+                  transition: 'background 0.1s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = '#f8fafc')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = '#fff')}
+              >
+                <span
+                  style={{ fontSize: 14, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0 }}
+                >
+                  {TYPE_ICONS[item.type]}
+                </span>
+                <span
+                  style={{
+                    flex: 1,
+                    fontSize: 13,
+                    color: '#0f172a',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {item.label}
+                </span>
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: STATUS_COLORS[item.status],
+                    flexShrink: 0,
+                  }}
+                />
               </div>
             ))
           )}
-          <div style={{ padding: '6px 14px', fontSize: 11, color: '#94a3b8', background: '#f8fafc', borderTop: '1px solid #f1f5f9' }}>
+          <div
+            style={{
+              padding: '6px 14px',
+              fontSize: 11,
+              color: '#94a3b8',
+              background: '#f8fafc',
+              borderTop: '1px solid #f1f5f9',
+            }}
+          >
             {results.length}개 결과 · ↑↓ 탐색 · Enter 선택
           </div>
         </div>
       )}
-      <div style={{ marginTop: results.length > 0 && focused ? 8 : 48, fontSize: 11, color: '#94a3b8' }}>ComposableUI + IssueTracker — 커맨드 팔레트 스타일 검색 FloatingTextField</div>
+      <div
+        style={{
+          marginTop: results.length > 0 && focused ? 8 : 48,
+          fontSize: 11,
+          color: '#94a3b8',
+        }}
+      >
+        ComposableUI + IssueTracker — 커맨드 팔레트 스타일 검색 FloatingTextField
+      </div>
     </div>
   )
 }
@@ -1143,7 +1601,8 @@ export const ComposableUI_IssueTracker_커맨드_팔레트_검색: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI Command + IssueTracker 검색바 패턴 조합. FloatingTextField에 포커스 시 드롭다운 결과가 노출되고, 타입 아이콘과 상태 도트로 결과를 구분합니다. 커맨드 팔레트 UX.',
+        story:
+          'ComposableUI Command + IssueTracker 검색바 패턴 조합. FloatingTextField에 포커스 시 드롭다운 결과가 노출되고, 타입 아이콘과 상태 도트로 결과를 구분합니다. 커맨드 팔레트 UX.',
       },
     },
   },
@@ -1188,8 +1647,27 @@ function AccessibleKitInlineEdit140Render() {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {fields.map((field) => (
-          <div key={field.key} style={{ padding: '10px 12px', border: `1px solid ${editing === field.key ? '#3b82f6' : '#e2e8f0'}`, borderRadius: 8, background: editing === field.key ? '#fafeff' : '#fff', transition: 'border-color 0.15s' }}>
-            <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>{field.label}</div>
+          <div
+            key={field.key}
+            style={{
+              padding: '10px 12px',
+              border: `1px solid ${editing === field.key ? '#3b82f6' : '#e2e8f0'}`,
+              borderRadius: 8,
+              background: editing === field.key ? '#fafeff' : '#fff',
+              transition: 'border-color 0.15s',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 10,
+                color: '#94a3b8',
+                marginBottom: 4,
+                textTransform: 'uppercase',
+                letterSpacing: 0.5,
+              }}
+            >
+              {field.label}
+            </div>
             {editing === field.key ? (
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                 <FloatingTextField
@@ -1198,15 +1676,59 @@ function AccessibleKitInlineEdit140Render() {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDraft(e.target.value)}
                   autoFocus
                 />
-                <button onClick={() => save(field.key)} style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 11, cursor: 'pointer', flexShrink: 0 }}>저장</button>
-                <button onClick={cancel} style={{ padding: '4px 10px', borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', fontSize: 11, cursor: 'pointer', flexShrink: 0 }}>취소</button>
+                <button
+                  onClick={() => save(field.key)}
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: 6,
+                    border: 'none',
+                    background: '#3b82f6',
+                    color: '#fff',
+                    fontSize: 11,
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                  }}
+                >
+                  저장
+                </button>
+                <button
+                  onClick={cancel}
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: 6,
+                    border: '1px solid #e2e8f0',
+                    background: '#fff',
+                    fontSize: 11,
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                  }}
+                >
+                  취소
+                </button>
               </div>
             ) : (
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              >
                 <span style={{ fontSize: 13, color: '#1e293b' }}>{values[field.key]}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  {saved === field.key && <span style={{ fontSize: 10, color: '#10b981', fontWeight: 600 }}>저장됨</span>}
-                  <button onClick={() => startEdit(field.key)} style={{ padding: '3px 8px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#f8fafc', fontSize: 10, cursor: 'pointer', color: '#64748b' }}>편집</button>
+                  {saved === field.key && (
+                    <span style={{ fontSize: 10, color: '#10b981', fontWeight: 600 }}>저장됨</span>
+                  )}
+                  <button
+                    onClick={() => startEdit(field.key)}
+                    style={{
+                      padding: '3px 8px',
+                      borderRadius: 5,
+                      border: '1px solid #e2e8f0',
+                      background: '#f8fafc',
+                      fontSize: 10,
+                      cursor: 'pointer',
+                      color: '#64748b',
+                    }}
+                  >
+                    편집
+                  </button>
                 </div>
               </div>
             )}
@@ -1222,7 +1744,8 @@ export const AppUI_인라인_프로필_편집: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI InlineEdit 패턴. 각 필드를 클릭하면 FloatingTextField로 전환되어 즉시 편집. 저장/취소 버튼으로 확정.',
+        story:
+          'AppUI InlineEdit 패턴. 각 필드를 클릭하면 FloatingTextField로 전환되어 즉시 편집. 저장/취소 버튼으로 확정.',
       },
     },
   },
@@ -1235,15 +1758,19 @@ function DataProductFormValidation140Render() {
   const [submitted, setSubmitted] = useState(false)
 
   const validate = (key: string, val: string) => {
-    if (key === 'username') return val.length < 2 ? '2자 이상 입력하세요' : val.length > 20 ? '20자 이하로 입력하세요' : ''
+    if (key === 'username')
+      return val.length < 2
+        ? '2자 이상 입력하세요'
+        : val.length > 20
+          ? '20자 이하로 입력하세요'
+          : ''
     if (key === 'email') return !val.includes('@') ? '유효한 이메일을 입력하세요' : ''
-    if (key === 'website') return val && !val.startsWith('http') ? 'http:// 또는 https://로 시작해야 합니다' : ''
+    if (key === 'website')
+      return val && !val.startsWith('http') ? 'http:// 또는 https://로 시작해야 합니다' : ''
     return ''
   }
 
-  const errors = Object.fromEntries(
-    Object.entries(form).map(([k, v]) => [k, validate(k, v)])
-  )
+  const errors = Object.fromEntries(Object.entries(form).map(([k, v]) => [k, validate(k, v)]))
 
   const hasError = (key: string) => !!(touched[key] || submitted) && !!errors[key]
 
@@ -1258,13 +1785,25 @@ function DataProductFormValidation140Render() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>계정 설정</div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>DataProductUI Form Validation 패턴</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+          DataProductUI Form Validation 패턴
+        </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {[
-          { key: 'username', label: '사용자명', placeholder: '사용자명 입력 (2~20자)', required: true },
+          {
+            key: 'username',
+            label: '사용자명',
+            placeholder: '사용자명 입력 (2~20자)',
+            required: true,
+          },
           { key: 'email', label: '이메일', placeholder: '이메일 주소', required: true },
-          { key: 'website', label: '웹사이트', placeholder: 'https://example.com', required: false },
+          {
+            key: 'website',
+            label: '웹사이트',
+            placeholder: 'https://example.com',
+            required: false,
+          },
         ].map((field) => (
           <div key={field.key}>
             <div style={{ display: 'flex', gap: 4, marginBottom: 6, alignItems: 'center' }}>
@@ -1281,13 +1820,25 @@ function DataProductFormValidation140Render() {
               error={hasError(field.key)}
             />
             {hasError(field.key) && (
-              <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>{errors[field.key]}</div>
+              <div style={{ fontSize: 10, color: '#ef4444', marginTop: 4 }}>
+                {errors[field.key]}
+              </div>
             )}
           </div>
         ))}
         <button
           onClick={handleSubmit}
-          style={{ padding: '10px 0', borderRadius: 8, border: 'none', background: isAllValid ? '#3b82f6' : '#94a3b8', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', transition: 'background 0.2s' }}
+          style={{
+            padding: '10px 0',
+            borderRadius: 8,
+            border: 'none',
+            background: isAllValid ? '#3b82f6' : '#94a3b8',
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'background 0.2s',
+          }}
         >
           {submitted && isAllValid ? '저장됨 ✓' : '저장'}
         </button>
@@ -1301,7 +1852,8 @@ export const DataProduct_폼_실시간_유효성_검사: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI Form Validation 패턴. blur 시 실시간 검증, 오류 메시지 즉시 표시. 모든 필드 유효 시 제출 버튼 활성화.',
+        story:
+          'DataProductUI Form Validation 패턴. blur 시 실시간 검증, 오류 메시지 즉시 표시. 모든 필드 유효 시 제출 버튼 활성화.',
       },
     },
   },
@@ -1335,16 +1887,45 @@ function AccessibleKitDataProductMultiStep140Render() {
     return Object.keys(errs).length === 0
   }
 
-  const next = () => { if (validate()) setStep((s) => Math.min(s + 1, steps.length - 1)) }
-  const back = () => { setStep((s) => Math.max(s - 1, 0)); setErrors({}) }
+  const next = () => {
+    if (validate()) setStep((s) => Math.min(s + 1, steps.length - 1))
+  }
+  const back = () => {
+    setStep((s) => Math.max(s - 1, 0))
+    setErrors({})
+  }
 
   return (
-    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 10, padding: 20 }}>
+    <div
+      style={{
+        width: 360,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 10,
+        padding: 20,
+      }}
+    >
       <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
         {steps.map((s, i) => (
           <div key={s.title} style={{ flex: 1 }}>
-            <div style={{ height: 3, borderRadius: 2, background: i <= step ? '#3b82f6' : '#e2e8f0', marginBottom: 4, transition: 'background 0.3s' }} />
-            <div style={{ fontSize: 10, color: i === step ? '#3b82f6' : '#94a3b8', fontWeight: i === step ? 600 : 400 }}>{s.title}</div>
+            <div
+              style={{
+                height: 3,
+                borderRadius: 2,
+                background: i <= step ? '#3b82f6' : '#e2e8f0',
+                marginBottom: 4,
+                transition: 'background 0.3s',
+              }}
+            />
+            <div
+              style={{
+                fontSize: 10,
+                color: i === step ? '#3b82f6' : '#94a3b8',
+                fontWeight: i === step ? 600 : 400,
+              }}
+            >
+              {s.title}
+            </div>
           </div>
         ))}
       </div>
@@ -1362,32 +1943,78 @@ function AccessibleKitDataProductMultiStep140Render() {
                 }}
                 error={!!errors[field]}
               />
-              {errors[field] && <div style={{ fontSize: 10, color: '#ef4444', marginTop: 3 }}>{errors[field]}</div>}
+              {errors[field] && (
+                <div style={{ fontSize: 10, color: '#ef4444', marginTop: 3 }}>{errors[field]}</div>
+              )}
             </div>
           ))}
         </div>
       ) : (
         <div style={{ textAlign: 'center', padding: '20px 0' }}>
           <div style={{ fontSize: 28, marginBottom: 8 }}>✓</div>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>등록 완료</div>
-          <div style={{ fontSize: 11, color: '#94a3b8' }}>{data.fullName} ({data.email})</div>
-          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{data.company} · {data.role}</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+            등록 완료
+          </div>
+          <div style={{ fontSize: 11, color: '#94a3b8' }}>
+            {data.fullName} ({data.email})
+          </div>
+          <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+            {data.company} · {data.role}
+          </div>
         </div>
       )}
 
       <div style={{ display: 'flex', gap: 8, marginTop: 20 }}>
         {step > 0 && step < steps.length - 1 && (
-          <button onClick={back} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#475569' }}>
+          <button
+            onClick={back}
+            style={{
+              flex: 1,
+              padding: '9px 0',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              fontSize: 12,
+              cursor: 'pointer',
+              color: '#475569',
+            }}
+          >
             이전
           </button>
         )}
         {step < steps.length - 1 ? (
-          <button onClick={next} style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+          <button
+            onClick={next}
+            style={{
+              flex: 1,
+              padding: '9px 0',
+              borderRadius: 8,
+              border: 'none',
+              background: '#3b82f6',
+              color: '#fff',
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
             {step === steps.length - 2 ? '완료' : '다음'}
           </button>
         ) : (
-          <button onClick={() => { setStep(0); setData({ fullName: '', email: '', company: '', role: '' }) }}
-            style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 12, cursor: 'pointer', color: '#475569' }}
+          <button
+            onClick={() => {
+              setStep(0)
+              setData({ fullName: '', email: '', company: '', role: '' })
+            }}
+            style={{
+              flex: 1,
+              padding: '9px 0',
+              borderRadius: 8,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              fontSize: 12,
+              cursor: 'pointer',
+              color: '#475569',
+            }}
           >
             다시 시작
           </button>
@@ -1402,7 +2029,8 @@ export const AppUI_DataProduct_멀티스텝_가입_폼: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI Stepper + DataProductUI Form 패턴 조합. 3단계 가입 폼, 각 단계별 실시간 유효성 검사, 진행 표시 바 애니메이션.',
+        story:
+          'AppUI Stepper + DataProductUI Form 패턴 조합. 3단계 가입 폼, 각 단계별 실시간 유효성 검사, 진행 표시 바 애니메이션.',
       },
     },
   },
@@ -1426,19 +2054,42 @@ function CommandPaletteQuickSearchRender() {
   const [query, setQuery] = useState('')
   const [focused, setFocused] = useState(false)
 
-  const filtered = query.length > 0
-    ? LAUNCHER_COMMANDS.filter(c => c.title.includes(query) || c.category.includes(query))
-    : LAUNCHER_COMMANDS
+  const filtered =
+    query.length > 0
+      ? LAUNCHER_COMMANDS.filter((c) => c.title.includes(query) || c.category.includes(query))
+      : LAUNCHER_COMMANDS
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>CommandPalette — 빠른 명령 검색</p>
-      <div style={{ borderRadius: 12, overflow: 'hidden', border: `1.5px solid ${focused ? '#6366f1' : '#e2e8f0'}`, background: '#fff', boxShadow: focused ? '0 0 0 3px #6366f115' : '0 2px 8px rgba(0,0,0,0.05)', transition: 'all 150ms' }}>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 10,
+        }}
+      >
+        CommandPalette — 빠른 명령 검색
+      </p>
+      <div
+        style={{
+          borderRadius: 12,
+          overflow: 'hidden',
+          border: `1.5px solid ${focused ? '#6366f1' : '#e2e8f0'}`,
+          background: '#fff',
+          boxShadow: focused ? '0 0 0 3px #6366f115' : '0 2px 8px rgba(0,0,0,0.05)',
+          transition: 'all 150ms',
+        }}
+      >
         <div style={{ padding: '4px 12px' }}>
           <FloatingTextField
             placeholder="명령어 검색... (⌘ Space)"
             value={query}
-            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+              setQuery(e.target.value)
+            }
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
           />
@@ -1446,26 +2097,62 @@ function CommandPaletteQuickSearchRender() {
         {filtered.length > 0 && (
           <div style={{ borderTop: '1px solid #f1f5f9', maxHeight: 220, overflowY: 'auto' }}>
             {filtered.map((cmd, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px', cursor: 'pointer', background: i === 0 && query ? '#f5f3ff' : 'transparent' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
-                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = i === 0 && query ? '#f5f3ff' : 'transparent' }}>
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '9px 14px',
+                  cursor: 'pointer',
+                  background: i === 0 && query ? '#f5f3ff' : 'transparent',
+                }}
+                onMouseEnter={(e) => {
+                  ;(e.currentTarget as HTMLDivElement).style.background = '#f8fafc'
+                }}
+                onMouseLeave={(e) => {
+                  ;(e.currentTarget as HTMLDivElement).style.background =
+                    i === 0 && query ? '#f5f3ff' : 'transparent'
+                }}
+              >
                 <span style={{ fontSize: 16 }}>{cmd.icon}</span>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{cmd.title}</div>
                   <div style={{ fontSize: 10, color: '#94a3b8' }}>{cmd.category}</div>
                 </div>
-                <div style={{ fontSize: 10, padding: '2px 7px', borderRadius: 5, background: '#f1f5f9', color: '#64748b', fontFamily: 'monospace' }}>{cmd.shortcut}</div>
+                <div
+                  style={{
+                    fontSize: 10,
+                    padding: '2px 7px',
+                    borderRadius: 5,
+                    background: '#f1f5f9',
+                    color: '#64748b',
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  {cmd.shortcut}
+                </div>
               </div>
             ))}
           </div>
         )}
         {filtered.length === 0 && query && (
-          <div style={{ padding: '16px 14px', textAlign: 'center', fontSize: 12, color: '#94a3b8', borderTop: '1px solid #f1f5f9' }}>
+          <div
+            style={{
+              padding: '16px 14px',
+              textAlign: 'center',
+              fontSize: 12,
+              color: '#94a3b8',
+              borderTop: '1px solid #f1f5f9',
+            }}
+          >
             &apos;{query}&apos;에 해당하는 명령어가 없습니다
           </div>
         )}
       </div>
-      <div style={{ marginTop: 8, fontSize: 10, color: '#cbd5e1', textAlign: 'center' }}>ESC로 닫기 · Enter로 실행 · ↑↓ 탐색</div>
+      <div style={{ marginTop: 8, fontSize: 10, color: '#cbd5e1', textAlign: 'center' }}>
+        ESC로 닫기 · Enter로 실행 · ↑↓ 탐색
+      </div>
     </div>
   )
 }
@@ -1475,7 +2162,8 @@ export const CommandPalette_빠른_명령_검색_입력: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette Quick Search 패턴. FloatingTextField로 명령 검색, 실시간 필터링, 카테고리+단축키 표시. 포커스 시 글로우 효과로 활성 상태 강조.',
+        story:
+          'CommandPalette Quick Search 패턴. FloatingTextField로 명령 검색, 실시간 필터링, 카테고리+단축키 표시. 포커스 시 글로우 효과로 활성 상태 강조.',
       },
     },
   },
@@ -1491,54 +2179,142 @@ function WorkspaceEditorInlineTitleEditRender() {
   const [titleSaved, setTitleSaved] = useState(false)
 
   const handleSave = () => {
-    if (!title.trim()) { return }
+    if (!title.trim()) {
+      return
+    }
     setTitleSaved(true)
     setTimeout(() => setTitleSaved(false), 2000)
   }
 
   return (
     <div style={{ width: 440, fontFamily: '"Segoe UI", sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>WorkspaceEditor Design — 인라인 페이지 제목 편집</p>
-      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', padding: '24px 28px', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 12,
+        }}
+      >
+        WorkspaceEditor Design — 인라인 페이지 제목 편집
+      </p>
+      <div
+        style={{
+          background: '#fff',
+          borderRadius: 12,
+          border: '1px solid #e5e7eb',
+          padding: '24px 28px',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+        }}
+      >
         {/* Page icon area */}
         <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f0f4ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, cursor: 'pointer' }}>📄</div>
+          <div
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 8,
+              background: '#f0f4ff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 20,
+              cursor: 'pointer',
+            }}
+          >
+            📄
+          </div>
           <div style={{ fontSize: 11, color: '#94a3b8' }}>아이콘 클릭으로 변경</div>
         </div>
 
         {/* Title field — WorkspaceEditor 스타일: 큰 플레이스홀더 */}
         <div style={{ marginBottom: 12 }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>페이지 제목</div>
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 600,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.07em',
+              marginBottom: 6,
+            }}
+          >
+            페이지 제목
+          </div>
           <FloatingTextField
             placeholder="새 페이지"
             value={title}
-            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setTitle(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+              setTitle(e.target.value)
+            }
           />
         </div>
 
         {/* Subtext field */}
         <div style={{ marginBottom: 20 }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>부제목 (선택)</div>
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 600,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.07em',
+              marginBottom: 6,
+            }}
+          >
+            부제목 (선택)
+          </div>
           <FloatingTextField
             placeholder="내용 추가..."
             value={subtext}
-            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSubtext(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+              setSubtext(e.target.value)
+            }
           />
         </div>
 
         {/* Preview */}
         {title && (
-          <div style={{ padding: '12px 16px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e5e7eb', marginBottom: 16 }}>
+          <div
+            style={{
+              padding: '12px 16px',
+              borderRadius: 8,
+              background: '#f8fafc',
+              border: '1px solid #e5e7eb',
+              marginBottom: 16,
+            }}
+          >
             <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>미리보기</div>
-            <div style={{ fontSize: 18, fontWeight: 700, color: '#1e293b', letterSpacing: '-0.02em' }}>{title}</div>
-            {subtext && <div style={{ fontSize: 12, color: '#64748b', marginTop: 4, lineHeight: 1.5 }}>{subtext}</div>}
+            <div
+              style={{ fontSize: 18, fontWeight: 700, color: '#1e293b', letterSpacing: '-0.02em' }}
+            >
+              {title}
+            </div>
+            {subtext && (
+              <div style={{ fontSize: 12, color: '#64748b', marginTop: 4, lineHeight: 1.5 }}>
+                {subtext}
+              </div>
+            )}
           </div>
         )}
 
         <button
           onClick={handleSave}
           disabled={!title.trim()}
-          style={{ width: '100%', padding: '9px', fontSize: 12, borderRadius: 8, border: 'none', background: titleSaved ? '#22c55e' : title.trim() ? '#2563eb' : '#e2e8f0', color: title.trim() ? '#fff' : '#94a3b8', cursor: title.trim() ? 'pointer' : 'not-allowed', fontWeight: 600, transition: 'all 200ms' }}
+          style={{
+            width: '100%',
+            padding: '9px',
+            fontSize: 12,
+            borderRadius: 8,
+            border: 'none',
+            background: titleSaved ? '#22c55e' : title.trim() ? '#2563eb' : '#e2e8f0',
+            color: title.trim() ? '#fff' : '#94a3b8',
+            cursor: title.trim() ? 'pointer' : 'not-allowed',
+            fontWeight: 600,
+            transition: 'all 200ms',
+          }}
         >
           {titleSaved ? '저장 완료!' : '페이지 생성'}
         </button>
@@ -1552,7 +2328,8 @@ export const WorkspaceEditor_인라인_페이지_제목_편집: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'WorkspaceEditor의 빈 페이지 제목 편집 UX. 큰 플레이스홀더("새 페이지"), 부제목 필드, 실시간 미리보기, 생성 버튼. FloatingTextField 2개 조합 패턴.',
+        story:
+          'WorkspaceEditor의 빈 페이지 제목 편집 UX. 큰 플레이스홀더("새 페이지"), 부제목 필드, 실시간 미리보기, 생성 버튼. FloatingTextField 2개 조합 패턴.',
       },
     },
   },
@@ -1575,11 +2352,13 @@ function CommandPaletteWorkspaceEditorDocSearchRender() {
   const [created, setCreated] = useState(false)
 
   const filtered = query
-    ? RECENT_DOCS.filter(d => d.title.includes(query) || d.tag.includes(query))
+    ? RECENT_DOCS.filter((d) => d.title.includes(query) || d.tag.includes(query))
     : RECENT_DOCS
 
   const handleCreate = () => {
-    if (!newDocTitle.trim()) { return }
+    if (!newDocTitle.trim()) {
+      return
+    }
     setCreated(true)
     setNewDocTitle('')
     setTimeout(() => setCreated(false), 2500)
@@ -1587,50 +2366,127 @@ function CommandPaletteWorkspaceEditorDocSearchRender() {
 
   return (
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 10 }}>CommandPalette + WorkspaceEditor — 문서 검색 & 생성</p>
-      <div style={{ background: '#fff', borderRadius: 14, border: '1px solid #e5e7eb', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
+      <p
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          marginBottom: 10,
+        }}
+      >
+        CommandPalette + WorkspaceEditor — 문서 검색 & 생성
+      </p>
+      <div
+        style={{
+          background: '#fff',
+          borderRadius: 14,
+          border: '1px solid #e5e7eb',
+          overflow: 'hidden',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+        }}
+      >
         {/* Search */}
         <div style={{ padding: '12px 16px', borderBottom: '1px solid #f1f5f9' }}>
           <FloatingTextField
             placeholder="문서 검색 (CommandPalette 패턴)"
             value={query}
-            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+              setQuery(e.target.value)
+            }
           />
         </div>
 
         {/* Recent docs list */}
         <div style={{ maxHeight: 180, overflowY: 'auto' }}>
-          {filtered.length > 0 ? filtered.map((doc, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', cursor: 'pointer', borderBottom: '1px solid #f8fafc' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
-              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = '' }}>
-              <span style={{ fontSize: 16 }}>{doc.icon}</span>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{doc.title}</div>
-                <div style={{ fontSize: 10, color: '#94a3b8' }}>{doc.date}</div>
+          {filtered.length > 0 ? (
+            filtered.map((doc, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '10px 16px',
+                  cursor: 'pointer',
+                  borderBottom: '1px solid #f8fafc',
+                }}
+                onMouseEnter={(e) => {
+                  ;(e.currentTarget as HTMLDivElement).style.background = '#f8fafc'
+                }}
+                onMouseLeave={(e) => {
+                  ;(e.currentTarget as HTMLDivElement).style.background = ''
+                }}
+              >
+                <span style={{ fontSize: 16 }}>{doc.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{doc.title}</div>
+                  <div style={{ fontSize: 10, color: '#94a3b8' }}>{doc.date}</div>
+                </div>
+                <div
+                  style={{
+                    fontSize: 10,
+                    padding: '2px 7px',
+                    borderRadius: 5,
+                    background: '#f0f4ff',
+                    color: '#6366f1',
+                  }}
+                >
+                  {doc.tag}
+                </div>
               </div>
-              <div style={{ fontSize: 10, padding: '2px 7px', borderRadius: 5, background: '#f0f4ff', color: '#6366f1' }}>{doc.tag}</div>
+            ))
+          ) : (
+            <div
+              style={{ padding: '20px 16px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}
+            >
+              검색 결과 없음
             </div>
-          )) : (
-            <div style={{ padding: '20px 16px', textAlign: 'center', fontSize: 12, color: '#94a3b8' }}>검색 결과 없음</div>
           )}
         </div>
 
         {/* Create new doc — WorkspaceEditor 패턴 */}
-        <div style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9', background: '#fafafa' }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>새 문서 생성 (WorkspaceEditor 패턴)</div>
+        <div
+          style={{ padding: '12px 16px', borderTop: '1px solid #f1f5f9', background: '#fafafa' }}
+        >
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.07em',
+              marginBottom: 8,
+            }}
+          >
+            새 문서 생성 (WorkspaceEditor 패턴)
+          </div>
           <div style={{ display: 'flex', gap: 8 }}>
             <div style={{ flex: 1 }}>
               <FloatingTextField
                 placeholder="제목 입력..."
                 value={newDocTitle}
-                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewDocTitle(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                  setNewDocTitle(e.target.value)
+                }
               />
             </div>
             <button
               onClick={handleCreate}
               disabled={!newDocTitle.trim()}
-              style={{ padding: '0 14px', fontSize: 11, borderRadius: 8, border: 'none', background: created ? '#22c55e' : newDocTitle.trim() ? '#6366f1' : '#e2e8f0', color: newDocTitle.trim() ? '#fff' : '#94a3b8', cursor: newDocTitle.trim() ? 'pointer' : 'not-allowed', fontWeight: 600, whiteSpace: 'nowrap', transition: 'all 150ms' }}
+              style={{
+                padding: '0 14px',
+                fontSize: 11,
+                borderRadius: 8,
+                border: 'none',
+                background: created ? '#22c55e' : newDocTitle.trim() ? '#6366f1' : '#e2e8f0',
+                color: newDocTitle.trim() ? '#fff' : '#94a3b8',
+                cursor: newDocTitle.trim() ? 'pointer' : 'not-allowed',
+                fontWeight: 600,
+                whiteSpace: 'nowrap',
+                transition: 'all 150ms',
+              }}
             >
               {created ? '생성!' : '+ 생성'}
             </button>
@@ -1646,7 +2502,8 @@ export const CommandPalette_WorkspaceEditor_문서_검색_생성_패널: Story =
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette 검색 목록 + WorkspaceEditor 인라인 생성 패턴 조합. FloatingTextField 2개를 각각 검색/생성 용도로 활용. 실시간 필터링, 빠른 문서 생성 UX.',
+        story:
+          'CommandPalette 검색 목록 + WorkspaceEditor 인라인 생성 패턴 조합. FloatingTextField 2개를 각각 검색/생성 용도로 활용. 실시간 필터링, 빠른 문서 생성 UX.',
       },
     },
   },
@@ -1665,7 +2522,7 @@ function DeployPlatformApiKeyFieldRender() {
   const [apiKey, setApiKey] = useState('vrk_1234567890abcdef1234567890abcdef')
   const [show, setShow] = useState(false)
   const [copied, setCopied] = useState(false)
-  const masked = show ? apiKey : apiKey.replace(/./g, (c, i) => i < 4 ? c : '•')
+  const masked = show ? apiKey : apiKey.replace(/./g, (c, i) => (i < 4 ? c : '•'))
 
   function handleCopy() {
     setCopied(true)
@@ -1674,8 +2531,26 @@ function DeployPlatformApiKeyFieldRender() {
 
   return (
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ padding: '20px 24px 0', display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-        <div style={{ width: 28, height: 28, background: '#000', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div
+        style={{
+          padding: '20px 24px 0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          marginBottom: 16,
+        }}
+      >
+        <div
+          style={{
+            width: 28,
+            height: 28,
+            background: '#000',
+            borderRadius: 6,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <span style={{ color: '#fff', fontSize: 12, fontWeight: 800 }}>▲</span>
         </div>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>API Keys</span>
@@ -1689,20 +2564,63 @@ function DeployPlatformApiKeyFieldRender() {
           <FloatingTextField
             placeholder="API 키"
             value={masked}
-            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setApiKey(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+              setApiKey(e.target.value)
+            }
             style={{ width: '100%', paddingRight: 80 }}
           />
-          <div style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', display: 'flex', gap: 4 }}>
-            <button onClick={() => setShow(v => !v)} style={{ fontSize: 10, padding: '3px 8px', borderRadius: 5, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer', color: '#475569' }}>
+          <div
+            style={{
+              position: 'absolute',
+              right: 10,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              display: 'flex',
+              gap: 4,
+            }}
+          >
+            <button
+              onClick={() => setShow((v) => !v)}
+              style={{
+                fontSize: 10,
+                padding: '3px 8px',
+                borderRadius: 5,
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                cursor: 'pointer',
+                color: '#475569',
+              }}
+            >
               {show ? '숨김' : '표시'}
             </button>
-            <button onClick={handleCopy} style={{ fontSize: 10, padding: '3px 8px', borderRadius: 5, border: '1px solid #e2e8f0', background: copied ? '#f0fdf4' : '#fff', cursor: 'pointer', color: copied ? '#16a34a' : '#475569' }}>
+            <button
+              onClick={handleCopy}
+              style={{
+                fontSize: 10,
+                padding: '3px 8px',
+                borderRadius: 5,
+                border: '1px solid #e2e8f0',
+                background: copied ? '#f0fdf4' : '#fff',
+                cursor: 'pointer',
+                color: copied ? '#16a34a' : '#475569',
+              }}
+            >
               {copied ? '복사됨' : '복사'}
             </button>
           </div>
         </div>
         {/* Env var list */}
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em' }}>환경 변수</div>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.07em',
+          }}
+        >
+          환경 변수
+        </div>
         {DEPLOY_ENV_VARS_190.map((ev, i) => (
           <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
             <div style={{ flex: 1 }}>
@@ -1713,7 +2631,18 @@ function DeployPlatformApiKeyFieldRender() {
                 style={{ width: '100%' }}
               />
             </div>
-            <div style={{ fontSize: 10, padding: '3px 8px', borderRadius: 5, background: '#f1f5f9', color: '#64748b', whiteSpace: 'nowrap' }}>{ev.env}</div>
+            <div
+              style={{
+                fontSize: 10,
+                padding: '3px 8px',
+                borderRadius: 5,
+                background: '#f1f5f9',
+                color: '#64748b',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {ev.env}
+            </div>
           </div>
         ))}
       </div>
@@ -1745,22 +2674,44 @@ const WORKSPACE_DB_PROPS_190 = [
 ]
 
 function WorkspaceEditorPropertyFieldRender() {
-  const [vals, setVals] = useState(WORKSPACE_DB_PROPS_190.map(p => p.value))
+  const [vals, setVals] = useState(WORKSPACE_DB_PROPS_190.map((p) => p.value))
   const [editing, setEditing] = useState<number | null>(null)
 
   return (
-    <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+    <div
+      style={{
+        width: 380,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 12,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
       {/* WorkspaceEditor-style DB header */}
-      <div style={{ padding: '14px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div
+        style={{
+          padding: '14px 20px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <span style={{ fontSize: 18 }}>📋</span>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>데이터베이스 속성</span>
-        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor 패턴</span>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>
+          WorkspaceEditor 패턴
+        </span>
       </div>
       {/* Property rows */}
       <div style={{ padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 10 }}>
         {WORKSPACE_DB_PROPS_190.map((prop, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ width: 72, fontSize: 11, color: '#64748b', fontWeight: 500, flexShrink: 0 }}>
+            <div
+              style={{ width: 72, fontSize: 11, color: '#64748b', fontWeight: 500, flexShrink: 0 }}
+            >
               <div>{prop.label}</div>
               <div style={{ fontSize: 9, color: '#cbd5e1', marginTop: 1 }}>{prop.type}</div>
             </div>
@@ -1780,9 +2731,25 @@ function WorkspaceEditorPropertyFieldRender() {
               ) : (
                 <div
                   onClick={() => setEditing(i)}
-                  style={{ fontSize: 12, color: '#0f172a', padding: '8px 10px', borderRadius: 7, border: '1px solid transparent', cursor: 'text', minHeight: 36, display: 'flex', alignItems: 'center' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#e2e8f0'; (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'transparent'; (e.currentTarget as HTMLDivElement).style.background = '' }}
+                  style={{
+                    fontSize: 12,
+                    color: '#0f172a',
+                    padding: '8px 10px',
+                    borderRadius: 7,
+                    border: '1px solid transparent',
+                    cursor: 'text',
+                    minHeight: 36,
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                  onMouseEnter={(e) => {
+                    ;(e.currentTarget as HTMLDivElement).style.borderColor = '#e2e8f0'
+                    ;(e.currentTarget as HTMLDivElement).style.background = '#f8fafc'
+                  }}
+                  onMouseLeave={(e) => {
+                    ;(e.currentTarget as HTMLDivElement).style.borderColor = 'transparent'
+                    ;(e.currentTarget as HTMLDivElement).style.background = ''
+                  }}
                 >
                   {vals[i] || <span style={{ color: '#cbd5e1' }}>비어 있음</span>}
                 </div>
@@ -1791,7 +2758,14 @@ function WorkspaceEditorPropertyFieldRender() {
           </div>
         ))}
       </div>
-      <div style={{ padding: '10px 20px', borderTop: '1px solid #f1f5f9', fontSize: 10, color: '#94a3b8' }}>
+      <div
+        style={{
+          padding: '10px 20px',
+          borderTop: '1px solid #f1f5f9',
+          fontSize: 10,
+          color: '#94a3b8',
+        }}
+      >
         셀을 클릭하면 FloatingTextField 인라인 편집 모드로 전환됩니다.
       </div>
     </div>
@@ -1831,50 +2805,130 @@ function DeployPlatformWorkspaceEditorMultiFieldRender() {
   }
 
   return (
-    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff', boxShadow: '0 4px 24px rgba(0,0,0,0.07)' }}>
+    <div
+      style={{
+        width: 420,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 14,
+        overflow: 'hidden',
+        background: '#fff',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.07)',
+      }}
+    >
       {/* Header */}
-      <div style={{ padding: '18px 24px 14px', background: '#000', color: '#fff', display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div style={{ width: 26, height: 26, background: '#fff', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div
+        style={{
+          padding: '18px 24px 14px',
+          background: '#000',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
+        <div
+          style={{
+            width: 26,
+            height: 26,
+            background: '#fff',
+            borderRadius: 6,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <span style={{ fontSize: 11, fontWeight: 900, color: '#000' }}>▲</span>
         </div>
         <span style={{ fontSize: 14, fontWeight: 700 }}>새 프로젝트 생성</span>
-        <span style={{ marginLeft: 'auto', fontSize: 10, background: '#222', padding: '3px 8px', borderRadius: 5, color: '#a3a3a3' }}>DeployPlatform + WorkspaceEditor</span>
+        <span
+          style={{
+            marginLeft: 'auto',
+            fontSize: 10,
+            background: '#222',
+            padding: '3px 8px',
+            borderRadius: 5,
+            color: '#a3a3a3',
+          }}
+        >
+          DeployPlatform + WorkspaceEditor
+        </span>
       </div>
       {/* Form body */}
       <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
         {/* Section: DeployPlatform fields */}
-        <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em' }}>DeployPlatform 설정</div>
+        <div
+          style={{
+            fontSize: 10,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.07em',
+          }}
+        >
+          DeployPlatform 설정
+        </div>
         <FloatingTextField
           placeholder="프로젝트 이름"
           value={projectName}
-          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setProjectName(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+            setProjectName(e.target.value)
+          }
           style={{ width: '100%' }}
         />
         <FloatingTextField
           placeholder="커스텀 도메인 (예: my-app.com)"
           value={domain}
-          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setDomain(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+            setDomain(e.target.value)
+          }
           style={{ width: '100%' }}
         />
         {/* Section: WorkspaceEditor fields */}
-        <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginTop: 4 }}>WorkspaceEditor 연동 (선택)</div>
+        <div
+          style={{
+            fontSize: 10,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.07em',
+            marginTop: 4,
+          }}
+        >
+          WorkspaceEditor 연동 (선택)
+        </div>
         <FloatingTextField
           placeholder="WorkspaceEditor 페이지 설명"
           value={description}
-          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setDescription(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+            setDescription(e.target.value)
+          }
           style={{ width: '100%' }}
         />
         <FloatingTextField
           placeholder="WorkspaceEditor 통합 토큰"
           value={token}
-          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setToken(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+            setToken(e.target.value)
+          }
           style={{ width: '100%' }}
         />
         {/* Submit */}
         <button
           onClick={handleSubmit}
           disabled={!isValid}
-          style={{ width: '100%', padding: '12px 0', borderRadius: 9, border: 'none', background: submitted ? '#22c55e' : isValid ? '#000' : '#e2e8f0', color: isValid ? '#fff' : '#94a3b8', fontWeight: 700, fontSize: 13, cursor: isValid ? 'pointer' : 'not-allowed', transition: 'all 200ms' }}
+          style={{
+            width: '100%',
+            padding: '12px 0',
+            borderRadius: 9,
+            border: 'none',
+            background: submitted ? '#22c55e' : isValid ? '#000' : '#e2e8f0',
+            color: isValid ? '#fff' : '#94a3b8',
+            fontWeight: 700,
+            fontSize: 13,
+            cursor: isValid ? 'pointer' : 'not-allowed',
+            transition: 'all 200ms',
+          }}
         >
           {submitted ? '✓ 프로젝트 생성 완료' : '프로젝트 생성'}
         </button>

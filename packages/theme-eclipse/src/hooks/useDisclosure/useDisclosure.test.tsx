@@ -66,7 +66,7 @@ describe('useDisclosure', () => {
     const onOpenChange = vi.fn()
     const { result, rerender } = renderHook(
       ({ isOpen }: { isOpen: boolean }) => useDisclosure({ isOpen, onOpenChange }),
-      { initialProps: { isOpen: false } },
+      { initialProps: { isOpen: false } }
     )
 
     expect(result.current.isOpen).toBe(false)

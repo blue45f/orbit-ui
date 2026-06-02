@@ -12,7 +12,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "BoxedCheckbox는 카드 스타일의 체크박스 컴포넌트입니다. 선택 시 전체 카드가 강조되어 시각적 피드백이 명확합니다.",
+        component:
+          'BoxedCheckbox는 카드 스타일의 체크박스 컴포넌트입니다. 선택 시 전체 카드가 강조되어 시각적 피드백이 명확합니다.',
       },
     },
   },
@@ -138,7 +139,9 @@ function PermissionMatrixRender() {
             borderBottom: '1px solid #e2e8f0',
           }}
         >
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase' }}>
+          <div
+            style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase' }}
+          >
             역할
           </div>
           {PERMISSIONS.map((p) => (
@@ -261,7 +264,15 @@ function TermsAgreementRender() {
           gap: 12,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingBottom: 12, borderBottom: '1px solid #f1f5f9' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            paddingBottom: 12,
+            borderBottom: '1px solid #f1f5f9',
+          }}
+        >
           <BoxedCheckbox
             checked={allChecked}
             iconName={someChecked ? 'minus' : 'check'}
@@ -274,9 +285,7 @@ function TermsAgreementRender() {
             <BoxedCheckbox checked={checked[term.id]} onChange={() => toggle(term.id)} />
             <span style={{ fontSize: 13, color: checked[term.id] ? '#1e293b' : '#64748b' }}>
               {term.label}
-              {term.required && (
-                <span style={{ color: '#ef4444', marginLeft: 2 }}>*</span>
-              )}
+              {term.required && <span style={{ color: '#ef4444', marginLeft: 2 }}>*</span>}
             </span>
           </div>
         ))}
@@ -453,7 +462,11 @@ const NOTIFICATION_GROUPS = [
   {
     category: '이메일 알림',
     items: [
-      { id: 'email_deploy', label: '배포 성공/실패', desc: '배포가 완료되거나 실패할 때 이메일을 받습니다.' },
+      {
+        id: 'email_deploy',
+        label: '배포 성공/실패',
+        desc: '배포가 완료되거나 실패할 때 이메일을 받습니다.',
+      },
       { id: 'email_pr', label: 'PR 리뷰 요청', desc: '코드 리뷰가 요청되었을 때 알림을 받습니다.' },
       { id: 'email_mention', label: '멘션', desc: '댓글에서 멘션되면 알림을 받습니다.' },
     ],
@@ -481,7 +494,9 @@ function NotificationSettingsRender() {
 
   return (
     <div style={{ maxWidth: 480, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>알림 설정</div>
+      <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>
+        알림 설정
+      </div>
       <div style={{ fontSize: 13, color: '#64748b', marginBottom: 20 }}>
         수신할 알림 종류를 선택하세요.
       </div>
@@ -489,10 +504,28 @@ function NotificationSettingsRender() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {NOTIFICATION_GROUPS.map((group) => (
           <div key={group.category}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 12 }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.07em',
+                marginBottom: 12,
+              }}
+            >
               {group.category}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 0,
+                borderRadius: 12,
+                border: '1px solid #e2e8f0',
+                overflow: 'hidden',
+              }}
+            >
               {group.items.map((item, idx) => (
                 <label
                   key={item.id}
@@ -514,7 +547,9 @@ function NotificationSettingsRender() {
                     />
                   </div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}>
+                    <div
+                      style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 2 }}
+                    >
                       {item.label}
                     </div>
                     <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.5 }}>
@@ -530,12 +565,30 @@ function NotificationSettingsRender() {
 
       <div style={{ marginTop: 20, display: 'flex', gap: 8 }}>
         <button
-          style={{ flex: 1, padding: '10px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+          style={{
+            flex: 1,
+            padding: '10px',
+            borderRadius: 8,
+            border: 'none',
+            background: '#6366f1',
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
         >
           저장
         </button>
         <button
-          style={{ padding: '10px 16px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', fontSize: 13, cursor: 'pointer' }}
+          style={{
+            padding: '10px 16px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#64748b',
+            fontSize: 13,
+            cursor: 'pointer',
+          }}
           onClick={() => setEnabled(new Set())}
         >
           전체 해제
@@ -549,7 +602,8 @@ export const UtilityCSS_알림_설정 = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI Form 패턴 — 카테고리별 알림 설정 체크박스 그룹. 선택 시 배경 강조로 상태를 명확히 표현합니다.',
+        story:
+          'UtilityUI Form 패턴 — 카테고리별 알림 설정 체크박스 그룹. 선택 시 배경 강조로 상태를 명확히 표현합니다.',
       },
     },
   },
@@ -592,8 +646,12 @@ function PlanCardGroupRender() {
 
   return (
     <div style={{ maxWidth: 560, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>플랜 선택</div>
-      <div style={{ fontSize: 13, color: '#64748b', marginBottom: 20 }}>필요한 플랜을 복수 선택할 수 있습니다.</div>
+      <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>
+        플랜 선택
+      </div>
+      <div style={{ fontSize: 13, color: '#64748b', marginBottom: 20 }}>
+        필요한 플랜을 복수 선택할 수 있습니다.
+      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {PLAN_CARDS.map((plan) => {
@@ -628,7 +686,13 @@ function PlanCardGroupRender() {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: isSelected ? plan.color : '#1e293b' }}>
+                  <span
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: isSelected ? plan.color : '#1e293b',
+                    }}
+                  >
                     {plan.name}
                   </span>
                   <span style={{ fontSize: 13, color: '#64748b' }}>{plan.price}</span>
@@ -657,7 +721,8 @@ function PlanCardGroupRender() {
       </div>
 
       <div style={{ marginTop: 16, fontSize: 12, color: '#94a3b8' }}>
-        AccessibleUI checkbox-inside-card 패턴 — {selected.size > 0 ? `${selected.size}개 플랜 선택됨` : '선택 없음'}
+        AccessibleUI checkbox-inside-card 패턴 —{' '}
+        {selected.size > 0 ? `${selected.size}개 플랜 선택됨` : '선택 없음'}
       </div>
     </div>
   )
@@ -667,7 +732,8 @@ export const Accessible_선택_카드_그룹 = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI의 checkbox-inside-card 패턴. 카드 전체를 클릭 영역으로 사용하며, 선택 시 테두리·배경·배지 색상이 연동 변경됩니다.',
+        story:
+          'AccessibleUI의 checkbox-inside-card 패턴. 카드 전체를 클릭 영역으로 사용하며, 선택 시 테두리·배경·배지 색상이 연동 변경됩니다.',
       },
     },
   },
@@ -708,25 +774,58 @@ function TableRowSelectionRender() {
   return (
     <div style={{ maxWidth: 620, fontFamily: 'system-ui, sans-serif' }}>
       {selected.size > 0 && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12,
-          padding: '10px 16px',
-          borderRadius: 10,
-          background: '#eef2ff',
-          border: '1px solid #c7d2fe',
-          marginBottom: 12,
-        }}>
-          <span style={{ fontSize: 13, fontWeight: 600, color: '#6366f1' }}>{selected.size}개 선택됨</span>
-          <button style={{ padding: '4px 12px', borderRadius: 6, border: '1px solid #6366f1', background: '#fff', color: '#6366f1', fontSize: 12, cursor: 'pointer', fontWeight: 600 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            padding: '10px 16px',
+            borderRadius: 10,
+            background: '#eef2ff',
+            border: '1px solid #c7d2fe',
+            marginBottom: 12,
+          }}
+        >
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#6366f1' }}>
+            {selected.size}개 선택됨
+          </span>
+          <button
+            style={{
+              padding: '4px 12px',
+              borderRadius: 6,
+              border: '1px solid #6366f1',
+              background: '#fff',
+              color: '#6366f1',
+              fontSize: 12,
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
             내보내기
           </button>
-          <button style={{ padding: '4px 12px', borderRadius: 6, border: '1px solid #ef4444', background: '#fff', color: '#ef4444', fontSize: 12, cursor: 'pointer', fontWeight: 600 }}>
+          <button
+            style={{
+              padding: '4px 12px',
+              borderRadius: 6,
+              border: '1px solid #ef4444',
+              background: '#fff',
+              color: '#ef4444',
+              fontSize: 12,
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
             삭제
           </button>
           <button
-            style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer' }}
+            style={{
+              marginLeft: 'auto',
+              fontSize: 11,
+              color: '#94a3b8',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+            }}
             onClick={() => setSelected(new Set())}
           >
             선택 해제
@@ -746,7 +845,18 @@ function TableRowSelectionRender() {
                 />
               </th>
               {['컴포넌트', '카테고리', '상태', '버전'].map((h) => (
-                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 700, color: '#94a3b8', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                <th
+                  key={h}
+                  style={{
+                    padding: '10px 14px',
+                    textAlign: 'left',
+                    fontWeight: 700,
+                    color: '#94a3b8',
+                    fontSize: 11,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                  }}
+                >
                   {h}
                 </th>
               ))}
@@ -769,18 +879,40 @@ function TableRowSelectionRender() {
                   <td style={{ padding: '10px 14px' }}>
                     <BoxedCheckbox checked={isSelected} onChange={() => toggleRow(row.id)} />
                   </td>
-                  <td style={{ padding: '10px 14px', fontWeight: isSelected ? 600 : 400, color: '#0f172a' }}>{row.name}</td>
+                  <td
+                    style={{
+                      padding: '10px 14px',
+                      fontWeight: isSelected ? 600 : 400,
+                      color: '#0f172a',
+                    }}
+                  >
+                    {row.name}
+                  </td>
                   <td style={{ padding: '10px 14px', color: '#64748b' }}>{row.category}</td>
                   <td style={{ padding: '10px 14px' }}>
-                    <span style={{
-                      fontSize: 11, padding: '2px 8px', borderRadius: 99, fontWeight: 600,
-                      background: row.status === 'stable' ? '#dcfce7' : '#fef9c3',
-                      color: row.status === 'stable' ? '#15803d' : '#a16207',
-                    }}>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        padding: '2px 8px',
+                        borderRadius: 99,
+                        fontWeight: 600,
+                        background: row.status === 'stable' ? '#dcfce7' : '#fef9c3',
+                        color: row.status === 'stable' ? '#15803d' : '#a16207',
+                      }}
+                    >
                       {row.status}
                     </span>
                   </td>
-                  <td style={{ padding: '10px 14px', color: '#94a3b8', fontFamily: 'monospace', fontSize: 12 }}>{row.version}</td>
+                  <td
+                    style={{
+                      padding: '10px 14px',
+                      color: '#94a3b8',
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                    }}
+                  >
+                    {row.version}
+                  </td>
                 </tr>
               )
             })}
@@ -798,7 +930,8 @@ export const UtilityCSS_테이블_행_선택 = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI + AccessibleUI 테이블 행 선택 패턴. 전체 선택 체크박스는 indeterminate 상태를 지원하고, 선택 시 일괄 작업 액션 바가 표시됩니다.',
+        story:
+          'UtilityUI + AccessibleUI 테이블 행 선택 패턴. 전체 선택 체크박스는 indeterminate 상태를 지원하고, 선택 시 일괄 작업 액션 바가 표시됩니다.',
       },
     },
   },
@@ -808,10 +941,20 @@ export const UtilityCSS_테이블_행_선택 = {
 // ─── Cycle 63: AccessibleUI + RoleToken Design ───────────────────────────────
 
 const CHAKRA_PLAN_FEATURES = [
-  { id: 'components', label: '무제한 컴포넌트', desc: '모든 Orbit UI 컴포넌트 접근', included: true },
+  {
+    id: 'components',
+    label: '무제한 컴포넌트',
+    desc: '모든 Orbit UI 컴포넌트 접근',
+    included: true,
+  },
   { id: 'themes', label: '커스텀 테마', desc: '브랜드 토큰 시스템 커스터마이즈', included: true },
   { id: 'icons', label: 'Icon 라이브러리', desc: '500+ SVG 아이콘 제공', included: false },
-  { id: 'design', label: 'DesignTool 파일', desc: '컴포넌트 원본 DesignTool 소스', included: false },
+  {
+    id: 'design',
+    label: 'DesignTool 파일',
+    desc: '컴포넌트 원본 DesignTool 소스',
+    included: false,
+  },
   { id: 'priority', label: '우선 지원', desc: '24시간 내 응답 보장', included: false },
 ]
 
@@ -820,7 +963,7 @@ const AccessiblePlanFeatureRender = () => {
   const total = selected.size
 
   const toggle = (id: string) => {
-    setSelected(prev => {
+    setSelected((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -830,8 +973,12 @@ const AccessiblePlanFeatureRender = () => {
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>플랜 기능 선택</div>
-      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>필요한 기능만 골라 플랜을 구성하세요.</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+        플랜 기능 선택
+      </div>
+      <div style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>
+        필요한 기능만 골라 플랜을 구성하세요.
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {CHAKRA_PLAN_FEATURES.map((feat) => {
           const checked = selected.has(feat.id)
@@ -839,13 +986,45 @@ const AccessiblePlanFeatureRender = () => {
             <div
               key={feat.id}
               onClick={() => toggle(feat.id)}
-              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 10, border: `1.5px solid ${checked ? '#6366f1' : '#e2e8f0'}`, background: checked ? '#fafaff' : '#fff', cursor: 'pointer', transition: 'border-color 0.15s, background 0.15s' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 14px',
+                borderRadius: 10,
+                border: `1.5px solid ${checked ? '#6366f1' : '#e2e8f0'}`,
+                background: checked ? '#fafaff' : '#fff',
+                cursor: 'pointer',
+                transition: 'border-color 0.15s, background 0.15s',
+              }}
             >
               <BoxedCheckbox checked={checked} onChange={() => toggle(feat.id)} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: '#0f172a',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                  }}
+                >
                   {feat.label}
-                  {feat.included && <span style={{ fontSize: 10, background: '#dcfce7', color: '#15803d', padding: '1px 6px', borderRadius: 100, fontWeight: 700 }}>기본 포함</span>}
+                  {feat.included && (
+                    <span
+                      style={{
+                        fontSize: 10,
+                        background: '#dcfce7',
+                        color: '#15803d',
+                        padding: '1px 6px',
+                        borderRadius: 100,
+                        fontWeight: 700,
+                      }}
+                    >
+                      기본 포함
+                    </span>
+                  )}
                 </div>
                 <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{feat.desc}</div>
               </div>
@@ -853,11 +1032,24 @@ const AccessiblePlanFeatureRender = () => {
           )
         })}
       </div>
-      <div style={{ marginTop: 14, padding: '12px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          marginTop: 14,
+          padding: '12px 14px',
+          borderRadius: 10,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <span style={{ fontSize: 13, color: '#64748b' }}>선택된 기능</span>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#6366f1' }}>{total}개</span>
       </div>
-      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>AccessibleUI Checkbox 카드 선택 패턴</div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
+        AccessibleUI Checkbox 카드 선택 패턴
+      </div>
     </div>
   )
 }
@@ -866,7 +1058,8 @@ export const Accessible_플랜_기능_선택 = {
   parameters: {
     docs: {
       description: {
-        story: 'AccessibleUI의 CheckboxGroup 카드 패턴. 각 항목이 체크박스 + 설명 카드로 표현되며, 선택 시 보더와 배경이 즉시 변경됩니다. SaaS 플랜 기능 선택, 옵션 구성 화면에 활용됩니다.',
+        story:
+          'AccessibleUI의 CheckboxGroup 카드 패턴. 각 항목이 체크박스 + 설명 카드로 표현되며, 선택 시 보더와 배경이 즉시 변경됩니다. SaaS 플랜 기능 선택, 옵션 구성 화면에 활용됩니다.',
       },
     },
   },
@@ -881,7 +1074,12 @@ const M3_CONSENT_ITEMS = [
 ]
 
 const Material3ConsentRender = () => {
-  const [checked, setChecked] = useState<Record<string, boolean>>({ service: false, privacy: false, marketing: false, thirdparty: false })
+  const [checked, setChecked] = useState<Record<string, boolean>>({
+    service: false,
+    privacy: false,
+    marketing: false,
+    thirdparty: false,
+  })
   const allChecked = Object.values(checked).every(Boolean)
   const someChecked = Object.values(checked).some(Boolean)
   const allRequiredChecked = checked.service && checked.privacy
@@ -892,17 +1090,39 @@ const Material3ConsentRender = () => {
   }
 
   const toggle = (id: string) => {
-    setChecked(prev => ({ ...prev, [id]: !prev[id] }))
+    setChecked((prev) => ({ ...prev, [id]: !prev[id] }))
   }
 
   return (
-    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#fffbfe', borderRadius: 16, padding: 20, border: '1px solid #e7e0ec' }}>
-      <div style={{ fontSize: 16, fontWeight: 500, color: '#1c1b1f', marginBottom: 4 }}>약관 동의</div>
-      <div style={{ fontSize: 13, color: '#49454f', marginBottom: 16 }}>서비스 이용을 위해 아래 약관에 동의해 주세요.</div>
+    <div
+      style={{
+        width: 360,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fffbfe',
+        borderRadius: 16,
+        padding: 20,
+        border: '1px solid #e7e0ec',
+      }}
+    >
+      <div style={{ fontSize: 16, fontWeight: 500, color: '#1c1b1f', marginBottom: 4 }}>
+        약관 동의
+      </div>
+      <div style={{ fontSize: 13, color: '#49454f', marginBottom: 16 }}>
+        서비스 이용을 위해 아래 약관에 동의해 주세요.
+      </div>
       {/* 전체 동의 */}
       <div
         onClick={toggleAll}
-        style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 12, background: '#f4eff4', marginBottom: 12, cursor: 'pointer' }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          padding: '12px 14px',
+          borderRadius: 12,
+          background: '#f4eff4',
+          marginBottom: 12,
+          cursor: 'pointer',
+        }}
       >
         <BoxedCheckbox
           checked={allChecked}
@@ -916,20 +1136,41 @@ const Material3ConsentRender = () => {
           <div
             key={item.id}
             onClick={() => toggle(item.id)}
-            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', cursor: 'pointer' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 14px',
+              cursor: 'pointer',
+            }}
           >
             <BoxedCheckbox checked={checked[item.id]} onChange={() => toggle(item.id)} />
-            <span style={{ fontSize: 13, color: item.required ? '#1c1b1f' : '#49454f' }}>{item.label}</span>
+            <span style={{ fontSize: 13, color: item.required ? '#1c1b1f' : '#49454f' }}>
+              {item.label}
+            </span>
           </div>
         ))}
       </div>
       <button
         disabled={!allRequiredChecked}
-        style={{ width: '100%', padding: '12px', borderRadius: 100, border: 'none', background: allRequiredChecked ? '#6750a4' : '#e7e0ec', color: allRequiredChecked ? '#fff' : '#79747e', fontSize: 14, fontWeight: 600, cursor: allRequiredChecked ? 'pointer' : 'not-allowed', transition: 'all 0.2s' }}
+        style={{
+          width: '100%',
+          padding: '12px',
+          borderRadius: 100,
+          border: 'none',
+          background: allRequiredChecked ? '#6750a4' : '#e7e0ec',
+          color: allRequiredChecked ? '#fff' : '#79747e',
+          fontSize: 14,
+          fontWeight: 600,
+          cursor: allRequiredChecked ? 'pointer' : 'not-allowed',
+          transition: 'all 0.2s',
+        }}
       >
         동의하고 시작하기
       </button>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#79747e', textAlign: 'center' }}>RoleToken Design Checkbox + 전체 동의 패턴</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#79747e', textAlign: 'center' }}>
+        RoleToken Design Checkbox + 전체 동의 패턴
+      </div>
     </div>
   )
 }
@@ -938,7 +1179,8 @@ export const Material3_약관_동의_체크박스 = {
   parameters: {
     docs: {
       description: {
-        story: 'RoleToken Design 디자인의 약관 동의 체크박스 패턴. 전체 동의 체크박스는 indeterminate(minus) 상태를 지원하고, 필수 항목이 모두 선택되어야 확인 버튼이 활성화됩니다.',
+        story:
+          'RoleToken Design 디자인의 약관 동의 체크박스 패턴. 전체 동의 체크박스는 indeterminate(minus) 상태를 지원하고, 필수 항목이 모두 선택되어야 확인 버튼이 활성화됩니다.',
       },
     },
   },
@@ -958,7 +1200,7 @@ const Material3FilterChipRender = () => {
   const [active, setActive] = useState<Set<string>>(new Set(['react', 'typescript']))
 
   const toggle = (id: string) => {
-    setActive(prev => {
+    setActive((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -968,7 +1210,9 @@ const Material3FilterChipRender = () => {
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: '#49454f', marginBottom: 12 }}>기술 스택 필터</div>
+      <div style={{ fontSize: 13, fontWeight: 600, color: '#49454f', marginBottom: 12 }}>
+        기술 스택 필터
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {M3_FILTER_TAGS.map((tag) => {
           const isOn = active.has(tag.id)
@@ -976,12 +1220,52 @@ const Material3FilterChipRender = () => {
             <div
               key={tag.id}
               onClick={() => toggle(tag.id)}
-              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, background: isOn ? '#f4f0ff' : '#fafafa', border: `1px solid ${isOn ? '#6750a4' : '#e7e0ec'}`, cursor: 'pointer', transition: 'all 0.15s' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '10px 14px',
+                borderRadius: 10,
+                background: isOn ? '#f4f0ff' : '#fafafa',
+                border: `1px solid ${isOn ? '#6750a4' : '#e7e0ec'}`,
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
             >
               <BoxedCheckbox checked={isOn} onChange={() => toggle(tag.id)} />
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: tag.color, flexShrink: 0 }} />
-              <span style={{ fontSize: 13, fontWeight: isOn ? 600 : 400, color: isOn ? '#4a3f9f' : '#1c1b1f', flex: 1 }}>{tag.label}</span>
-              {isOn && <span style={{ fontSize: 10, background: '#6750a4', color: '#fff', borderRadius: 100, padding: '1px 7px', fontWeight: 700 }}>ON</span>}
+              <div
+                style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  background: tag.color,
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: isOn ? 600 : 400,
+                  color: isOn ? '#4a3f9f' : '#1c1b1f',
+                  flex: 1,
+                }}
+              >
+                {tag.label}
+              </span>
+              {isOn && (
+                <span
+                  style={{
+                    fontSize: 10,
+                    background: '#6750a4',
+                    color: '#fff',
+                    borderRadius: 100,
+                    padding: '1px 7px',
+                    fontWeight: 700,
+                  }}
+                >
+                  ON
+                </span>
+              )}
             </div>
           )
         })}
@@ -989,7 +1273,9 @@ const Material3FilterChipRender = () => {
       <div style={{ marginTop: 12, fontSize: 12, color: '#49454f', textAlign: 'right' }}>
         {active.size}개 선택됨
       </div>
-      <div style={{ marginTop: 4, fontSize: 11, color: '#79747e' }}>RoleToken Design Filter Chip 패턴 — BoxedCheckbox 조합</div>
+      <div style={{ marginTop: 4, fontSize: 11, color: '#79747e' }}>
+        RoleToken Design Filter Chip 패턴 — BoxedCheckbox 조합
+      </div>
     </div>
   )
 }
@@ -998,7 +1284,8 @@ export const Material3_기술스택_필터_칩 = {
   parameters: {
     docs: {
       description: {
-        story: 'RoleToken Design의 Filter Chip 패턴을 BoxedCheckbox로 구현. 기술 스택 색상 도트와 ON/OFF 배지로 선택 상태를 시각화합니다. M3 팔레트(#6750a4 primary, #fffbfe surface)를 적용합니다.',
+        story:
+          'RoleToken Design의 Filter Chip 패턴을 BoxedCheckbox로 구현. 기술 스택 색상 도트와 ON/OFF 배지로 선택 상태를 시각화합니다. M3 팔레트(#6750a4 primary, #fffbfe surface)를 적용합니다.',
       },
     },
   },
@@ -1023,10 +1310,10 @@ const DESIGN_TYPE_ICON: Record<string, string> = {
 }
 
 const DesignToolLayerVisibilityRender = () => {
-  const [visible, setVisible] = useState<Set<string>>(new Set(DESIGN_LAYERS.map(l => l.id)))
+  const [visible, setVisible] = useState<Set<string>>(new Set(DESIGN_LAYERS.map((l) => l.id)))
 
   const toggle = (id: string) => {
-    setVisible(prev => {
+    setVisible((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -1035,10 +1322,38 @@ const DesignToolLayerVisibilityRender = () => {
   }
 
   return (
-    <div style={{ width: 260, fontFamily: 'Inter, system-ui, sans-serif', background: '#2c2c2c', borderRadius: 8, overflow: 'hidden' }}>
-      <div style={{ padding: '8px 12px', borderBottom: '1px solid #3d3d3d', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 11, fontWeight: 600, color: '#999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Layers</span>
-        <span style={{ fontSize: 10, color: '#666' }}>{visible.size}/{DESIGN_LAYERS.length} visible</span>
+    <div
+      style={{
+        width: 260,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        background: '#2c2c2c',
+        borderRadius: 8,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '8px 12px',
+          borderBottom: '1px solid #3d3d3d',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#999',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+          }}
+        >
+          Layers
+        </span>
+        <span style={{ fontSize: 10, color: '#666' }}>
+          {visible.size}/{DESIGN_LAYERS.length} visible
+        </span>
       </div>
       <div style={{ padding: '4px 0' }}>
         {DESIGN_LAYERS.map((layer) => {
@@ -1046,18 +1361,41 @@ const DesignToolLayerVisibilityRender = () => {
           return (
             <div
               key={layer.id}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: `6px 12px 6px ${12 + layer.depth * 16}px`, cursor: 'pointer', background: 'transparent', opacity: isVisible ? 1 : 0.4, transition: 'opacity 0.15s' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: `6px 12px 6px ${12 + layer.depth * 16}px`,
+                cursor: 'pointer',
+                background: 'transparent',
+                opacity: isVisible ? 1 : 0.4,
+                transition: 'opacity 0.15s',
+              }}
               onClick={() => toggle(layer.id)}
             >
               <BoxedCheckbox checked={isVisible} onChange={() => toggle(layer.id)} />
-              <span style={{ fontSize: 11, color: '#a78bfa', minWidth: 14, textAlign: 'center' }}>{DESIGN_TYPE_ICON[layer.type]}</span>
-              <span style={{ fontSize: 12, color: isVisible ? '#e5e5e5' : '#888', flex: 1 }}>{layer.name}</span>
-              {!isVisible && <span style={{ fontSize: 9, color: '#555', fontStyle: 'italic' }}>hidden</span>}
+              <span style={{ fontSize: 11, color: '#a78bfa', minWidth: 14, textAlign: 'center' }}>
+                {DESIGN_TYPE_ICON[layer.type]}
+              </span>
+              <span style={{ fontSize: 12, color: isVisible ? '#e5e5e5' : '#888', flex: 1 }}>
+                {layer.name}
+              </span>
+              {!isVisible && (
+                <span style={{ fontSize: 9, color: '#555', fontStyle: 'italic' }}>hidden</span>
+              )}
             </div>
           )
         })}
       </div>
-      <div style={{ padding: '8px 12px', borderTop: '1px solid #3d3d3d', fontSize: 11, color: '#666', textAlign: 'center' }}>
+      <div
+        style={{
+          padding: '8px 12px',
+          borderTop: '1px solid #3d3d3d',
+          fontSize: 11,
+          color: '#666',
+          textAlign: 'center',
+        }}
+      >
         DesignTool Layers Panel 패턴
       </div>
     </div>
@@ -1068,7 +1406,8 @@ export const DesignTool_레이어_가시성_패널 = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool 레이어 패널의 가시성 토글 패턴. 다크 테마 UI에서 레이어별 BoxedCheckbox로 표시/숨김을 제어합니다. 중첩 depth에 따른 들여쓰기와 레이어 타입 아이콘을 포함합니다.',
+        story:
+          'DesignTool 레이어 패널의 가시성 토글 패턴. 다크 테마 UI에서 레이어별 BoxedCheckbox로 표시/숨김을 제어합니다. 중첩 depth에 따른 들여쓰기와 레이어 타입 아이콘을 포함합니다.',
       },
     },
   },
@@ -1089,46 +1428,102 @@ const DesignToolExportSettingsRender = () => {
   const [trimWhitespace, setTrimWhitespace] = useState(true)
 
   const toggleFormat = (id: string) => {
-    setFormats(prev => prev.map(f => f.id === id ? { ...f, selected: !f.selected } : f))
+    setFormats((prev) => prev.map((f) => (f.id === id ? { ...f, selected: !f.selected } : f)))
   }
 
-  const selectedCount = formats.filter(f => f.selected).length
+  const selectedCount = formats.filter((f) => f.selected).length
 
   return (
-    <div style={{ width: 300, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}>
+    <div
+      style={{
+        width: 300,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        border: '1px solid #e5e7eb',
+        borderRadius: 10,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
+      <div
+        style={{ padding: '12px 16px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}
+      >
         <div style={{ fontSize: 13, fontWeight: 700, color: '#111' }}>내보내기 설정</div>
-        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>포맷을 선택하세요 ({selectedCount}개 선택됨)</div>
+        <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>
+          포맷을 선택하세요 ({selectedCount}개 선택됨)
+        </div>
       </div>
       <div style={{ padding: '8px 0' }}>
         {formats.map((fmt) => (
           <div
             key={fmt.id}
             onClick={() => toggleFormat(fmt.id)}
-            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 16px', cursor: 'pointer', background: fmt.selected ? '#f5f3ff' : 'transparent', transition: 'background 0.1s' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '8px 16px',
+              cursor: 'pointer',
+              background: fmt.selected ? '#f5f3ff' : 'transparent',
+              transition: 'background 0.1s',
+            }}
           >
             <BoxedCheckbox checked={fmt.selected} onChange={() => toggleFormat(fmt.id)} />
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: fmt.selected ? '#7c3aed' : '#374151' }}>{fmt.label}</div>
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: fmt.selected ? '#7c3aed' : '#374151',
+                }}
+              >
+                {fmt.label}
+              </div>
               <div style={{ fontSize: 10, color: '#9ca3af' }}>{fmt.desc}</div>
             </div>
           </div>
         ))}
       </div>
-      <div style={{ padding: '10px 16px', borderTop: '1px solid #f0f0f0', display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div onClick={() => setIncludeBackground(p => !p)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-          <BoxedCheckbox checked={includeBackground} onChange={() => setIncludeBackground(p => !p)} />
+      <div
+        style={{
+          padding: '10px 16px',
+          borderTop: '1px solid #f0f0f0',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+        }}
+      >
+        <div
+          onClick={() => setIncludeBackground((p) => !p)}
+          style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+        >
+          <BoxedCheckbox
+            checked={includeBackground}
+            onChange={() => setIncludeBackground((p) => !p)}
+          />
           <span style={{ fontSize: 12, color: '#374151' }}>배경 포함</span>
         </div>
-        <div onClick={() => setTrimWhitespace(p => !p)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-          <BoxedCheckbox checked={trimWhitespace} onChange={() => setTrimWhitespace(p => !p)} />
+        <div
+          onClick={() => setTrimWhitespace((p) => !p)}
+          style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+        >
+          <BoxedCheckbox checked={trimWhitespace} onChange={() => setTrimWhitespace((p) => !p)} />
           <span style={{ fontSize: 12, color: '#374151' }}>여백 자르기</span>
         </div>
       </div>
       <div style={{ padding: '10px 16px', background: '#f9fafb', borderTop: '1px solid #f0f0f0' }}>
         <button
           disabled={selectedCount === 0}
-          style={{ width: '100%', padding: '8px', borderRadius: 6, border: 'none', background: selectedCount > 0 ? '#7c3aed' : '#e5e7eb', color: selectedCount > 0 ? '#fff' : '#9ca3af', fontSize: 12, fontWeight: 600, cursor: selectedCount > 0 ? 'pointer' : 'not-allowed' }}
+          style={{
+            width: '100%',
+            padding: '8px',
+            borderRadius: 6,
+            border: 'none',
+            background: selectedCount > 0 ? '#7c3aed' : '#e5e7eb',
+            color: selectedCount > 0 ? '#fff' : '#9ca3af',
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: selectedCount > 0 ? 'pointer' : 'not-allowed',
+          }}
         >
           {selectedCount > 0 ? `${selectedCount}개 포맷 내보내기` : '포맷을 선택하세요'}
         </button>
@@ -1141,7 +1536,8 @@ export const DesignTool_내보내기_설정 = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool 내보내기 패널 패턴. 다양한 이미지 포맷(PNG 1x/2x, SVG, PDF, WebP)을 BoxedCheckbox로 다중 선택하고, 배경 포함/여백 자르기 옵션을 추가로 설정합니다.',
+        story:
+          'DesignTool 내보내기 패널 패턴. 다양한 이미지 포맷(PNG 1x/2x, SVG, PDF, WebP)을 BoxedCheckbox로 다중 선택하고, 배경 포함/여백 자르기 옵션을 추가로 설정합니다.',
       },
     },
   },
@@ -1162,22 +1558,47 @@ const DesignToolComponentPropertiesRender = () => {
   const [viewMode, setViewMode] = useState<'all' | 'active'>('all')
 
   const toggleProp = (id: string) => {
-    setProps(prev => prev.map(p => p.id === id ? { ...p, active: !p.active } : p))
+    setProps((prev) => prev.map((p) => (p.id === id ? { ...p, active: !p.active } : p)))
   }
 
-  const displayed = viewMode === 'all' ? props : props.filter(p => p.active)
-  const categories = [...new Set(displayed.map(p => p.category))]
+  const displayed = viewMode === 'all' ? props : props.filter((p) => p.active)
+  const categories = [...new Set(displayed.map((p) => p.category))]
 
   return (
-    <div style={{ width: 280, fontFamily: 'Inter, system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
-      <div style={{ padding: '10px 14px', background: '#1e1e1e', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div
+      style={{
+        width: 280,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        border: '1px solid #e5e7eb',
+        borderRadius: 10,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
+      <div
+        style={{
+          padding: '10px 14px',
+          background: '#1e1e1e',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <span style={{ fontSize: 12, fontWeight: 600, color: '#fff' }}>Component Properties</span>
         <div style={{ display: 'flex', gap: 4 }}>
-          {(['all', 'active'] as const).map(mode => (
+          {(['all', 'active'] as const).map((mode) => (
             <button
               key={mode}
               onClick={() => setViewMode(mode)}
-              style={{ fontSize: 10, padding: '2px 8px', borderRadius: 4, border: 'none', background: viewMode === mode ? '#7c3aed' : '#3d3d3d', color: viewMode === mode ? '#fff' : '#aaa', cursor: 'pointer' }}
+              style={{
+                fontSize: 10,
+                padding: '2px 8px',
+                borderRadius: 4,
+                border: 'none',
+                background: viewMode === mode ? '#7c3aed' : '#3d3d3d',
+                color: viewMode === mode ? '#fff' : '#aaa',
+                cursor: 'pointer',
+              }}
             >
               {mode === 'all' ? '전체' : '활성'}
             </button>
@@ -1185,24 +1606,59 @@ const DesignToolComponentPropertiesRender = () => {
         </div>
       </div>
       <div style={{ padding: '6px 0' }}>
-        {categories.map(cat => (
+        {categories.map((cat) => (
           <div key={cat}>
-            <div style={{ padding: '4px 14px 2px', fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{cat}</div>
-            {displayed.filter(p => p.category === cat).map(prop => (
-              <div
-                key={prop.id}
-                onClick={() => toggleProp(prop.id)}
-                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 14px', cursor: 'pointer', background: prop.active ? '#f5f3ff' : 'transparent' }}
-              >
-                <BoxedCheckbox checked={prop.active} onChange={() => toggleProp(prop.id)} />
-                <span style={{ fontSize: 12, color: prop.active ? '#7c3aed' : '#374151', fontWeight: prop.active ? 600 : 400 }}>{prop.label}</span>
-              </div>
-            ))}
+            <div
+              style={{
+                padding: '4px 14px 2px',
+                fontSize: 10,
+                fontWeight: 700,
+                color: '#9ca3af',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+              }}
+            >
+              {cat}
+            </div>
+            {displayed
+              .filter((p) => p.category === cat)
+              .map((prop) => (
+                <div
+                  key={prop.id}
+                  onClick={() => toggleProp(prop.id)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '6px 14px',
+                    cursor: 'pointer',
+                    background: prop.active ? '#f5f3ff' : 'transparent',
+                  }}
+                >
+                  <BoxedCheckbox checked={prop.active} onChange={() => toggleProp(prop.id)} />
+                  <span
+                    style={{
+                      fontSize: 12,
+                      color: prop.active ? '#7c3aed' : '#374151',
+                      fontWeight: prop.active ? 600 : 400,
+                    }}
+                  >
+                    {prop.label}
+                  </span>
+                </div>
+              ))}
           </div>
         ))}
       </div>
-      <div style={{ padding: '8px 14px', borderTop: '1px solid #f0f0f0', fontSize: 11, color: '#9ca3af' }}>
-        {props.filter(p => p.active).length}개 속성 활성화됨
+      <div
+        style={{
+          padding: '8px 14px',
+          borderTop: '1px solid #f0f0f0',
+          fontSize: 11,
+          color: '#9ca3af',
+        }}
+      >
+        {props.filter((p) => p.active).length}개 속성 활성화됨
       </div>
     </div>
   )
@@ -1212,7 +1668,8 @@ export const DesignTool_컴포넌트_속성_설정 = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool 컴포넌트 속성 패널 패턴. Layout/Design/Prototype 카테고리별로 속성을 BoxedCheckbox로 활성화/비활성화하고, 전체/활성 뷰 전환을 지원합니다.',
+        story:
+          'DesignTool 컴포넌트 속성 패널 패턴. Layout/Design/Prototype 카테고리별로 속성을 BoxedCheckbox로 활성화/비활성화하고, 전체/활성 뷰 전환을 지원합니다.',
       },
     },
   },
@@ -1250,7 +1707,11 @@ export const DeployPlatform_배포_알림_설정 = {
     }
 
     const CHANNELS: Channel[] = ['email', 'slack', 'webhook']
-    const CHANNEL_LABELS: Record<Channel, string> = { email: 'Email', slack: 'Slack', webhook: 'Webhook' }
+    const CHANNEL_LABELS: Record<Channel, string> = {
+      email: 'Email',
+      slack: 'Slack',
+      webhook: 'Webhook',
+    }
 
     const [settings, setSettings] = useState<Record<EventKey, Set<Channel>>>({
       deploy_success: new Set(['email']),
@@ -1270,30 +1731,78 @@ export const DeployPlatform_배포_알림_설정 = {
 
     return (
       <div style={{ width: 500, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>알림 설정</div>
-        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>이벤트별 알림 채널을 선택하세요.</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          알림 설정
+        </div>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
+          이벤트별 알림 채널을 선택하세요.
+        </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr repeat(3, 80px)', gap: 8, padding: '8px 12px', borderRadius: 8, background: '#f8fafc', marginBottom: 6 }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>이벤트</span>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr repeat(3, 80px)',
+            gap: 8,
+            padding: '8px 12px',
+            borderRadius: 8,
+            background: '#f8fafc',
+            marginBottom: 6,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: '#64748b',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+          >
+            이벤트
+          </span>
           {CHANNELS.map((ch) => (
-            <span key={ch} style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center' }}>
+            <span
+              key={ch}
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: '#64748b',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                textAlign: 'center',
+              }}
+            >
               {CHANNEL_LABELS[ch]}
             </span>
           ))}
         </div>
 
         {(Object.keys(EVENT_LABELS) as EventKey[]).map((ev) => (
-          <div key={ev} style={{ display: 'grid', gridTemplateColumns: '1fr repeat(3, 80px)', gap: 8, padding: '12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff', marginBottom: 6, alignItems: 'center' }}>
+          <div
+            key={ev}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr repeat(3, 80px)',
+              gap: 8,
+              padding: '12px',
+              borderRadius: 8,
+              border: '1px solid #f1f5f9',
+              background: '#fff',
+              marginBottom: 6,
+              alignItems: 'center',
+            }}
+          >
             <div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{EVENT_LABELS[ev].label}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{EVENT_LABELS[ev].desc}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                {EVENT_LABELS[ev].label}
+              </div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+                {EVENT_LABELS[ev].desc}
+              </div>
             </div>
             {CHANNELS.map((ch) => (
               <div key={ch} style={{ display: 'flex', justifyContent: 'center' }}>
-                <BoxedCheckbox
-                  checked={settings[ev].has(ch)}
-                  onChange={() => toggle(ev, ch)}
-                />
+                <BoxedCheckbox checked={settings[ev].has(ch)} onChange={() => toggle(ev, ch)} />
               </div>
             ))}
           </div>
@@ -1321,15 +1830,18 @@ export const Primitive_폼_권한_그룹_체크박스 = {
   render: function Render() {
     const PERMISSION_GROUPS = [
       {
-        id: 'read', label: '읽기 권한',
+        id: 'read',
+        label: '읽기 권한',
         items: ['프로젝트 조회', '이슈 조회', '댓글 조회', '대시보드 조회'],
       },
       {
-        id: 'write', label: '쓰기 권한',
+        id: 'write',
+        label: '쓰기 권한',
         items: ['이슈 생성', '댓글 작성', '라벨 추가', '마일스톤 설정'],
       },
       {
-        id: 'admin', label: '관리자 권한',
+        id: 'admin',
+        label: '관리자 권한',
         items: ['멤버 초대', '권한 변경', '프로젝트 삭제', 'API 키 발급'],
       },
     ]
@@ -1359,8 +1871,12 @@ export const Primitive_폼_권한_그룹_체크박스 = {
 
     return (
       <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }} role="form">
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>역할 권한 설정</div>
-        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>이 역할에 부여할 권한을 선택하세요.</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          역할 권한 설정
+        </div>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
+          이 역할에 부여할 권한을 선택하세요.
+        </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {PERMISSION_GROUPS.map((group) => {
@@ -1374,7 +1890,10 @@ export const Primitive_폼_권한_그룹_체크박스 = {
                     iconName={someChecked ? 'minus' : 'check'}
                     onChange={() => toggleGroup(group.items)}
                   />
-                  <span id={`group-${group.id}`} style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+                  <span
+                    id={`group-${group.id}`}
+                    style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}
+                  >
                     {group.label}
                   </span>
                   <span style={{ fontSize: 11, color: '#94a3b8', marginLeft: 'auto' }}>
@@ -1384,7 +1903,10 @@ export const Primitive_폼_권한_그룹_체크박스 = {
                 <div style={{ paddingLeft: 30, display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {group.items.map((item) => (
                     <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <BoxedCheckbox checked={checked.has(item)} onChange={() => toggleItem(item)} />
+                      <BoxedCheckbox
+                        checked={checked.has(item)}
+                        onChange={() => toggleItem(item)}
+                      />
                       <span style={{ fontSize: 13, color: '#475569' }}>{item}</span>
                     </div>
                   ))}
@@ -1394,7 +1916,17 @@ export const Primitive_폼_권한_그룹_체크박스 = {
           })}
         </div>
 
-        <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 10, background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: 12, color: '#0369a1' }}>
+        <div
+          style={{
+            marginTop: 16,
+            padding: '10px 14px',
+            borderRadius: 10,
+            background: '#f0f9ff',
+            border: '1px solid #bae6fd',
+            fontSize: 12,
+            color: '#0369a1',
+          }}
+        >
           {checked.size}개 권한 선택됨
         </div>
       </div>
@@ -1419,18 +1951,41 @@ export const DeployPlatform_Primitive_파이프라인_단계_설정 = {
   },
   render: function Render() {
     type StepId = 'lint' | 'test' | 'type_check' | 'build' | 'e2e' | 'deploy'
-    const STEPS: { id: StepId; label: string; desc: string; deps: StepId[]; required: boolean }[] = [
-      { id: 'lint', label: 'ESLint', desc: '코드 스타일 및 오류 검사', deps: [], required: true },
-      { id: 'type_check', label: 'TypeScript', desc: '타입 오류 검사', deps: [], required: true },
-      { id: 'test', label: 'Unit Test', desc: 'Vitest 단위 테스트', deps: ['lint', 'type_check'], required: false },
-      { id: 'build', label: 'Build', desc: 'Vite 프로덕션 빌드', deps: ['lint', 'type_check'], required: true },
-      { id: 'e2e', label: 'E2E Test', desc: 'Playwright 통합 테스트', deps: ['build'], required: false },
-      { id: 'deploy', label: 'Deploy', desc: 'DeployPlatform 프리뷰 배포', deps: ['build'], required: false },
-    ]
+    const STEPS: { id: StepId; label: string; desc: string; deps: StepId[]; required: boolean }[] =
+      [
+        { id: 'lint', label: 'ESLint', desc: '코드 스타일 및 오류 검사', deps: [], required: true },
+        { id: 'type_check', label: 'TypeScript', desc: '타입 오류 검사', deps: [], required: true },
+        {
+          id: 'test',
+          label: 'Unit Test',
+          desc: 'Vitest 단위 테스트',
+          deps: ['lint', 'type_check'],
+          required: false,
+        },
+        {
+          id: 'build',
+          label: 'Build',
+          desc: 'Vite 프로덕션 빌드',
+          deps: ['lint', 'type_check'],
+          required: true,
+        },
+        {
+          id: 'e2e',
+          label: 'E2E Test',
+          desc: 'Playwright 통합 테스트',
+          deps: ['build'],
+          required: false,
+        },
+        {
+          id: 'deploy',
+          label: 'Deploy',
+          desc: 'DeployPlatform 프리뷰 배포',
+          deps: ['build'],
+          required: false,
+        },
+      ]
 
-    const [enabled, setEnabled] = useState<Set<StepId>>(
-      new Set(['lint', 'type_check', 'build'])
-    )
+    const [enabled, setEnabled] = useState<Set<StepId>>(new Set(['lint', 'type_check', 'build']))
 
     const toggle = (id: StepId, required: boolean) => {
       if (required) return
@@ -1444,8 +1999,12 @@ export const DeployPlatform_Primitive_파이프라인_단계_설정 = {
 
     return (
       <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>파이프라인 단계 설정</div>
-        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>각 단계를 활성화하여 CI/CD 워크플로를 구성하세요.</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          파이프라인 단계 설정
+        </div>
+        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
+          각 단계를 활성화하여 CI/CD 워크플로를 구성하세요.
+        </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {STEPS.map((step) => {
@@ -1457,8 +2016,12 @@ export const DeployPlatform_Primitive_파이프라인_단계_설정 = {
                 key={step.id}
                 onClick={() => !step.required && depsOk && toggle(step.id, step.required)}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px',
-                  borderRadius: 10, cursor: step.required || !depsOk ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '12px 14px',
+                  borderRadius: 10,
+                  cursor: step.required || !depsOk ? 'not-allowed' : 'pointer',
                   border: `1.5px solid ${isActive ? '#6366f1' : '#e2e8f0'}`,
                   background: isActive ? '#f0f0ff' : '#fff',
                   opacity: !depsOk && !step.required ? 0.5 : 1,
@@ -1472,9 +2035,22 @@ export const DeployPlatform_Primitive_파이프라인_단계_설정 = {
                 />
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{step.label}</span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                      {step.label}
+                    </span>
                     {step.required && (
-                      <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#f1f5f9', color: '#64748b', fontWeight: 700 }}>필수</span>
+                      <span
+                        style={{
+                          fontSize: 10,
+                          padding: '1px 6px',
+                          borderRadius: 4,
+                          background: '#f1f5f9',
+                          color: '#64748b',
+                          fontWeight: 700,
+                        }}
+                      >
+                        필수
+                      </span>
                     )}
                     {!depsOk && !step.required && (
                       <span style={{ fontSize: 10, color: '#f59e0b' }}>의존성 미충족</span>
@@ -1482,7 +2058,9 @@ export const DeployPlatform_Primitive_파이프라인_단계_설정 = {
                   </div>
                   <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{step.desc}</div>
                 </div>
-                <span style={{ fontSize: 11, fontWeight: 700, color: isActive ? '#6366f1' : '#cbd5e1' }}>
+                <span
+                  style={{ fontSize: 11, fontWeight: 700, color: isActive ? '#6366f1' : '#cbd5e1' }}
+                >
                   {isActive ? '활성' : '비활성'}
                 </span>
               </div>
@@ -1490,7 +2068,17 @@ export const DeployPlatform_Primitive_파이프라인_단계_설정 = {
           })}
         </div>
 
-        <div style={{ marginTop: 14, padding: '10px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b' }}>
+        <div
+          style={{
+            marginTop: 14,
+            padding: '10px 14px',
+            borderRadius: 10,
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            fontSize: 12,
+            color: '#64748b',
+          }}
+        >
           {enabled.size}개 단계 활성화 · 예상 소요: {enabled.size * 90}초
         </div>
       </div>
@@ -1503,9 +2091,19 @@ export const DeployPlatform_Primitive_파이프라인_단계_설정 = {
    ComposableUI: 설정 항목 카드 선택 패턴 (Settings Card Selection)
 -------------------------------------------------------------------------- */
 const UTILITYUI_SETTINGS = [
-  { id: 'analytics', label: '사용량 분석', desc: '앱 사용 데이터를 수집해 개선에 활용합니다', icon: '📊' },
+  {
+    id: 'analytics',
+    label: '사용량 분석',
+    desc: '앱 사용 데이터를 수집해 개선에 활용합니다',
+    icon: '📊',
+  },
   { id: 'crash', label: '충돌 보고', desc: '앱 충돌 시 자동으로 보고서를 전송합니다', icon: '🛡️' },
-  { id: 'updates', label: '자동 업데이트', desc: '새 버전이 출시되면 자동으로 업데이트합니다', icon: '🔄' },
+  {
+    id: 'updates',
+    label: '자동 업데이트',
+    desc: '새 버전이 출시되면 자동으로 업데이트합니다',
+    icon: '🔄',
+  },
   { id: 'beta', label: '베타 기능', desc: '아직 개발 중인 실험적 기능을 사용합니다', icon: '🧪' },
 ]
 
@@ -1513,9 +2111,13 @@ function ComposableUISettingsCardRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set(['analytics', 'crash']))
 
   const toggle = (id: string) => {
-    setSelected(prev => {
+    setSelected((prev) => {
       const next = new Set(prev)
-      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
       return next
     })
   }
@@ -1524,10 +2126,12 @@ function ComposableUISettingsCardRender() {
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <p style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', margin: 0 }}>앱 환경 설정</p>
-        <p style={{ fontSize: 12, color: '#64748b', margin: '3px 0 0' }}>활성화할 기능을 선택하세요</p>
+        <p style={{ fontSize: 12, color: '#64748b', margin: '3px 0 0' }}>
+          활성화할 기능을 선택하세요
+        </p>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {UTILITYUI_SETTINGS.map(item => {
+        {UTILITYUI_SETTINGS.map((item) => {
           const isOn = selected.has(item.id)
           return (
             <div
@@ -1548,7 +2152,7 @@ function ComposableUISettingsCardRender() {
               <BoxedCheckbox
                 checked={isOn}
                 onChange={() => toggle(item.id)}
-                onClick={e => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
               />
               <span style={{ fontSize: 20 }}>{item.icon}</span>
               <div style={{ flex: 1 }}>
@@ -1559,12 +2163,34 @@ function ComposableUISettingsCardRender() {
           )
         })}
       </div>
-      <div style={{ marginTop: 14, padding: '9px 14px', borderRadius: 8, background: '#f8fafc', fontSize: 12, color: '#475569', display: 'flex', justifyContent: 'space-between' }}>
-        <span>{selected.size}/{UTILITYUI_SETTINGS.length}개 활성화</span>
+      <div
+        style={{
+          marginTop: 14,
+          padding: '9px 14px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          fontSize: 12,
+          color: '#475569',
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
+        <span>
+          {selected.size}/{UTILITYUI_SETTINGS.length}개 활성화
+        </span>
         <button
-          onClick={() => setSelected(new Set(UTILITYUI_SETTINGS.map(s => s.id)))}
-          style={{ background: 'none', border: 'none', fontSize: 11, color: '#6366f1', cursor: 'pointer', fontWeight: 600 }}
-        >모두 선택</button>
+          onClick={() => setSelected(new Set(UTILITYUI_SETTINGS.map((s) => s.id)))}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontSize: 11,
+            color: '#6366f1',
+            cursor: 'pointer',
+            fontWeight: 600,
+          }}
+        >
+          모두 선택
+        </button>
       </div>
     </div>
   )
@@ -1575,7 +2201,8 @@ export const ComposableUI_설정_카드_선택: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI의 Settings Card Selection 패턴. 아이콘+설명이 있는 카드형 체크박스로 앱 환경설정을 제공합니다.',
+        story:
+          'ComposableUI의 Settings Card Selection 패턴. 아이콘+설명이 있는 카드형 체크박스로 앱 환경설정을 제공합니다.',
       },
     },
   },
@@ -1597,39 +2224,111 @@ function IssueTrackerIssueFilterRender() {
   const [checked, setChecked] = useState<Set<string>>(new Set(['todo', 'progress']))
 
   const toggle = (id: string) => {
-    setChecked(prev => {
+    setChecked((prev) => {
       const next = new Set(prev)
-      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
       return next
     })
   }
 
   return (
-    <div style={{ width: 240, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', padding: '12px 0', boxShadow: '0 4px 24px #0001' }}>
+    <div
+      style={{
+        width: 240,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+        padding: '12px 0',
+        boxShadow: '0 4px 24px #0001',
+      }}
+    >
       <div style={{ padding: '0 14px 10px', borderBottom: '1px solid #f1f5f9' }}>
-        <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.07em', textTransform: 'uppercase', margin: 0 }}>상태별 필터</p>
+        <p
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            letterSpacing: '0.07em',
+            textTransform: 'uppercase',
+            margin: 0,
+          }}
+        >
+          상태별 필터
+        </p>
       </div>
       <div style={{ padding: '8px 0' }}>
-        {TRACKER_STATUSES.map(s => {
+        {TRACKER_STATUSES.map((s) => {
           const isOn = checked.has(s.id)
           return (
             <div
               key={s.id}
               onClick={() => toggle(s.id)}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 14px', cursor: 'pointer', background: isOn ? '#f5f3ff' : 'transparent', transition: 'background 0.1s' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '7px 14px',
+                cursor: 'pointer',
+                background: isOn ? '#f5f3ff' : 'transparent',
+                transition: 'background 0.1s',
+              }}
             >
-              <BoxedCheckbox checked={isOn} onChange={() => toggle(s.id)} onClick={e => e.stopPropagation()} />
+              <BoxedCheckbox
+                checked={isOn}
+                onChange={() => toggle(s.id)}
+                onClick={(e) => e.stopPropagation()}
+              />
               <span style={{ fontSize: 14, color: s.color }}>{s.dot}</span>
-              <span style={{ fontSize: 13, color: '#1e293b', fontWeight: isOn ? 600 : 400 }}>{s.label}</span>
-              {/* eslint-disable-next-line react-hooks/purity */}
-              <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>{Math.floor(Math.random() * 20 + 1)}</span>
+              <span style={{ fontSize: 13, color: '#1e293b', fontWeight: isOn ? 600 : 400 }}>
+                {s.label}
+              </span>
+              <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>
+                {/* eslint-disable-next-line react-hooks/purity */}
+                {Math.floor(Math.random() * 20 + 1)}
+              </span>
             </div>
           )
         })}
       </div>
-      <div style={{ padding: '8px 14px 0', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 8 }}>
-        <button onClick={() => setChecked(new Set())} style={{ flex: 1, padding: '6px', fontSize: 11, borderRadius: 6, border: '1px solid #e2e8f0', background: '#fff', color: '#64748b', cursor: 'pointer' }}>초기화</button>
-        <button onClick={() => setChecked(new Set(TRACKER_STATUSES.map(s => s.id)))} style={{ flex: 1, padding: '6px', fontSize: 11, borderRadius: 6, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>전체 선택</button>
+      <div
+        style={{ padding: '8px 14px 0', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 8 }}
+      >
+        <button
+          onClick={() => setChecked(new Set())}
+          style={{
+            flex: 1,
+            padding: '6px',
+            fontSize: 11,
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            color: '#64748b',
+            cursor: 'pointer',
+          }}
+        >
+          초기화
+        </button>
+        <button
+          onClick={() => setChecked(new Set(TRACKER_STATUSES.map((s) => s.id)))}
+          style={{
+            flex: 1,
+            padding: '6px',
+            fontSize: 11,
+            borderRadius: 6,
+            border: 'none',
+            background: '#6366f1',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: 600,
+          }}
+        >
+          전체 선택
+        </button>
       </div>
     </div>
   )
@@ -1640,7 +2339,8 @@ export const IssueTracker_이슈_필터_멀티_선택: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker의 Issue Filter 패턴. 상태 컬러 닷과 함께 체크박스로 이슈 필터를 멀티 선택합니다.',
+        story:
+          'IssueTracker의 Issue Filter 패턴. 상태 컬러 닷과 함께 체크박스로 이슈 필터를 멀티 선택합니다.',
       },
     },
   },
@@ -1668,22 +2368,46 @@ function ComposableUIIssueTrackerTeamFeatureRender() {
   const isAccessible = (tier: string) => tierOrder.indexOf(tier) <= tierOrder.indexOf(currentTier)
 
   const toggle = (id: string, tier: string) => {
-    if (!isAccessible(tier)) { return }
-    setEnabled(prev => {
+    if (!isAccessible(tier)) {
+      return
+    }
+    setEnabled((prev) => {
       const next = new Set(prev)
-      if (next.has(id)) { next.delete(id) } else { next.add(id) }
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
       return next
     })
   }
 
   return (
     <div style={{ width: 340, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 12,
+        }}
+      >
         <p style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', margin: 0 }}>팀 기능 설정</p>
-        <span style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, background: '#f0eeff', color: '#6366f1', fontWeight: 700 }}>{currentTier} 플랜</span>
+        <span
+          style={{
+            fontSize: 11,
+            padding: '3px 8px',
+            borderRadius: 6,
+            background: '#f0eeff',
+            color: '#6366f1',
+            fontWeight: 700,
+          }}
+        >
+          {currentTier} 플랜
+        </span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {TEAM_FEATURES.map(feat => {
+        {TEAM_FEATURES.map((feat) => {
           const accessible = isAccessible(feat.tier)
           const isOn = enabled.has(feat.id)
           return (
@@ -1707,18 +2431,38 @@ function ComposableUIIssueTrackerTeamFeatureRender() {
                 checked={isOn}
                 disabled={!accessible}
                 onChange={() => toggle(feat.id, feat.tier)}
-                onClick={e => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
               />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{feat.label}</div>
                 <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{feat.desc}</div>
               </div>
-              <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: `${TIER_COLOR[feat.tier]}20`, color: TIER_COLOR[feat.tier], fontWeight: 700 }}>{feat.tier}</span>
+              <span
+                style={{
+                  fontSize: 10,
+                  padding: '2px 6px',
+                  borderRadius: 4,
+                  background: `${TIER_COLOR[feat.tier]}20`,
+                  color: TIER_COLOR[feat.tier],
+                  fontWeight: 700,
+                }}
+              >
+                {feat.tier}
+              </span>
             </div>
           )
         })}
       </div>
-      <div style={{ marginTop: 12, padding: '9px 12px', borderRadius: 8, background: '#f8fafc', fontSize: 11, color: '#64748b' }}>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '9px 12px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          fontSize: 11,
+          color: '#64748b',
+        }}
+      >
         {enabled.size}개 기능 활성화 · 비즈니스 플랜 업그레이드 시 4개 추가 기능 사용 가능
       </div>
     </div>
@@ -1730,7 +2474,8 @@ export const ComposableUI_IssueTracker_팀_기능_설정: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI + IssueTracker 복합 패턴. 플랜 티어별 접근 가능 여부를 시각화하며 BoxedCheckbox로 팀 기능을 ON/OFF합니다.',
+        story:
+          'ComposableUI + IssueTracker 복합 패턴. 플랜 티어별 접근 가능 여부를 시각화하며 BoxedCheckbox로 팀 기능을 ON/OFF합니다.',
       },
     },
   },
@@ -1741,11 +2486,41 @@ export const ComposableUI_IssueTracker_팀_기능_설정: Story = {
    ComposableUI — 기능 플래그 토글 대시보드
 -------------------------------------------------------------------------- */
 const UTILITYUI_FLAGS = [
-  { id: 'dark-mode', label: '다크 모드', desc: '시스템 설정 또는 수동 전환 지원', tag: 'UI', stable: true },
-  { id: 'ai-suggestions', label: 'AI 제안', desc: '코드 자동 완성 및 개선 제안', tag: 'AI', stable: false },
-  { id: 'analytics', label: '사용 분석', desc: '컴포넌트 사용 통계 수집', tag: 'Data', stable: true },
-  { id: 'collaboration', label: '협업 커서', desc: '실시간 멀티 유저 커서 표시', tag: 'Beta', stable: false },
-  { id: 'shortcuts', label: '키보드 단축키', desc: '커맨드 팔레트 및 단축키 레지스트리', tag: 'UI', stable: true },
+  {
+    id: 'dark-mode',
+    label: '다크 모드',
+    desc: '시스템 설정 또는 수동 전환 지원',
+    tag: 'UI',
+    stable: true,
+  },
+  {
+    id: 'ai-suggestions',
+    label: 'AI 제안',
+    desc: '코드 자동 완성 및 개선 제안',
+    tag: 'AI',
+    stable: false,
+  },
+  {
+    id: 'analytics',
+    label: '사용 분석',
+    desc: '컴포넌트 사용 통계 수집',
+    tag: 'Data',
+    stable: true,
+  },
+  {
+    id: 'collaboration',
+    label: '협업 커서',
+    desc: '실시간 멀티 유저 커서 표시',
+    tag: 'Beta',
+    stable: false,
+  },
+  {
+    id: 'shortcuts',
+    label: '키보드 단축키',
+    desc: '커맨드 팔레트 및 단축키 레지스트리',
+    tag: 'UI',
+    stable: true,
+  },
 ]
 
 const FLAG_TAG_COLOR: Record<string, { bg: string; color: string }> = {
@@ -1759,7 +2534,7 @@ function ComposableUIFeatureFlagDashboardRender() {
   const [enabled, setEnabled] = useState<Set<string>>(new Set(['dark-mode', 'shortcuts']))
 
   const toggle = (id: string) => {
-    setEnabled(prev => {
+    setEnabled((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -1771,10 +2546,12 @@ function ComposableUIFeatureFlagDashboardRender() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>기능 플래그</div>
-        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>ComposableUI 스타일 피처 플래그 토글 대시보드</div>
+        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>
+          ComposableUI 스타일 피처 플래그 토글 대시보드
+        </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {UTILITYUI_FLAGS.map(flag => {
+        {UTILITYUI_FLAGS.map((flag) => {
           const isOn = enabled.has(flag.id)
           const tagStyle = FLAG_TAG_COLOR[flag.tag] ?? { bg: '#f1f5f9', color: '#475569' }
           return (
@@ -1797,24 +2574,70 @@ function ComposableUIFeatureFlagDashboardRender() {
               <BoxedCheckbox
                 checked={isOn}
                 onChange={() => toggle(flag.id)}
-                onClick={e => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
               />
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{flag.label}</span>
-                  <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, fontWeight: 600, ...tagStyle }}>{flag.tag}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
+                    {flag.label}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      padding: '1px 6px',
+                      borderRadius: 4,
+                      fontWeight: 600,
+                      ...tagStyle,
+                    }}
+                  >
+                    {flag.tag}
+                  </span>
                   {!flag.stable && <span style={{ fontSize: 10, color: '#f59e0b' }}>실험적</span>}
                 </div>
                 <div style={{ fontSize: 11, color: '#64748b' }}>{flag.desc}</div>
               </div>
-              <div style={{ width: 32, height: 18, borderRadius: 9, background: isOn ? '#6366f1' : '#e2e8f0', position: 'relative', flexShrink: 0, transition: 'background 0.2s' }}>
-                <div style={{ position: 'absolute', top: 2, left: isOn ? 14 : 2, width: 14, height: 14, borderRadius: '50%', background: '#fff', transition: 'left 0.2s', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
+              <div
+                style={{
+                  width: 32,
+                  height: 18,
+                  borderRadius: 9,
+                  background: isOn ? '#6366f1' : '#e2e8f0',
+                  position: 'relative',
+                  flexShrink: 0,
+                  transition: 'background 0.2s',
+                }}
+              >
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 2,
+                    left: isOn ? 14 : 2,
+                    width: 14,
+                    height: 14,
+                    borderRadius: '50%',
+                    background: '#fff',
+                    transition: 'left 0.2s',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                  }}
+                />
               </div>
             </div>
           )
         })}
       </div>
-      <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b' }}>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          fontSize: 11,
+          color: '#64748b',
+        }}
+      >
         <span>{enabled.size}개 활성화</span>
         <span>{UTILITYUI_FLAGS.length - enabled.size}개 비활성화</span>
       </div>
@@ -1852,7 +2675,7 @@ function IssueTrackerIssueLabelGridRender() {
   const [selected, setSelected] = useState<Set<string>>(new Set(['bug']))
 
   const toggle = (id: string) => {
-    setSelected(prev => {
+    setSelected((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -1862,12 +2685,19 @@ function IssueTrackerIssueLabelGridRender() {
 
   return (
     <div style={{ width: 320, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 12,
+        }}
+      >
         <span style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>라벨 선택</span>
         <span style={{ fontSize: 11, color: '#64748b' }}>{selected.size}개 선택됨</span>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
-        {TRACKER_LABELS.map(lbl => {
+        {TRACKER_LABELS.map((lbl) => {
           const isOn = selected.has(lbl.id)
           return (
             <div
@@ -1888,21 +2718,48 @@ function IssueTrackerIssueLabelGridRender() {
               <BoxedCheckbox
                 checked={isOn}
                 onChange={() => toggle(lbl.id)}
-                onClick={e => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
               />
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: lbl.color, flexShrink: 0 }} />
-              <span style={{ fontSize: 12, color: isOn ? '#1e293b' : '#64748b', fontWeight: isOn ? 600 : 400 }}>{lbl.label}</span>
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: lbl.color,
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 12,
+                  color: isOn ? '#1e293b' : '#64748b',
+                  fontWeight: isOn ? 600 : 400,
+                }}
+              >
+                {lbl.label}
+              </span>
             </div>
           )
         })}
       </div>
       {selected.size > 0 && (
         <div style={{ marginTop: 10, display: 'flex', gap: 5, flexWrap: 'wrap' }}>
-          {Array.from(selected).map(id => {
-            const lbl = TRACKER_LABELS.find(l => l.id === id)
+          {Array.from(selected).map((id) => {
+            const lbl = TRACKER_LABELS.find((l) => l.id === id)
             if (!lbl) return null
             return (
-              <span key={id} style={{ fontSize: 10, padding: '2px 8px', borderRadius: 10, background: lbl.color + '15', color: lbl.color, fontWeight: 600, border: `1px solid ${lbl.color}30` }}>
+              <span
+                key={id}
+                style={{
+                  fontSize: 10,
+                  padding: '2px 8px',
+                  borderRadius: 10,
+                  background: lbl.color + '15',
+                  color: lbl.color,
+                  fontWeight: 600,
+                  border: `1px solid ${lbl.color}30`,
+                }}
+              >
                 {lbl.label}
               </span>
             )
@@ -1941,11 +2798,11 @@ const PERM_LIST = [
 
 function ComposableUIIssueTrackerPermissionMatrixRender() {
   const [matrix, setMatrix] = useState<Record<string, boolean[]>>(
-    Object.fromEntries(PERM_LIST.map(p => [p.id, [...p.defaults]]))
+    Object.fromEntries(PERM_LIST.map((p) => [p.id, [...p.defaults]]))
   )
 
   const toggle = (permId: string, roleIdx: number) => {
-    setMatrix(prev => ({
+    setMatrix((prev) => ({
       ...prev,
       [permId]: prev[permId].map((v, i) => (i === roleIdx ? !v : v)),
     }))
@@ -1955,14 +2812,39 @@ function ComposableUIIssueTrackerPermissionMatrixRender() {
     <div style={{ fontFamily: "'Inter', system-ui, sans-serif", width: 400 }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>권한 관리</div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>역할별 권한을 개별 설정합니다.</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>
+          역할별 권한을 개별 설정합니다.
+        </div>
       </div>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th style={{ textAlign: 'left', padding: '8px 10px', fontSize: 11, color: '#94a3b8', fontWeight: 600, borderBottom: '1px solid #e2e8f0' }}>권한</th>
-            {PERM_ROLES.map(r => (
-              <th key={r} style={{ textAlign: 'center', padding: '8px 10px', fontSize: 11, color: '#94a3b8', fontWeight: 600, borderBottom: '1px solid #e2e8f0' }}>{r}</th>
+            <th
+              style={{
+                textAlign: 'left',
+                padding: '8px 10px',
+                fontSize: 11,
+                color: '#94a3b8',
+                fontWeight: 600,
+                borderBottom: '1px solid #e2e8f0',
+              }}
+            >
+              권한
+            </th>
+            {PERM_ROLES.map((r) => (
+              <th
+                key={r}
+                style={{
+                  textAlign: 'center',
+                  padding: '8px 10px',
+                  fontSize: 11,
+                  color: '#94a3b8',
+                  fontWeight: 600,
+                  borderBottom: '1px solid #e2e8f0',
+                }}
+              >
+                {r}
+              </th>
             ))}
           </tr>
         </thead>
@@ -1974,7 +2856,14 @@ function ComposableUIIssueTrackerPermissionMatrixRender() {
                 <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 1 }}>{perm.desc}</div>
               </td>
               {PERM_ROLES.map((_r, ri) => (
-                <td key={ri} style={{ textAlign: 'center', padding: '10px 10px', borderBottom: '1px solid #f1f5f9' }}>
+                <td
+                  key={ri}
+                  style={{
+                    textAlign: 'center',
+                    padding: '10px 10px',
+                    borderBottom: '1px solid #f1f5f9',
+                  }}
+                >
                   <BoxedCheckbox
                     checked={matrix[perm.id][ri]}
                     onChange={() => toggle(perm.id, ri)}
@@ -1985,10 +2874,22 @@ function ComposableUIIssueTrackerPermissionMatrixRender() {
           ))}
         </tbody>
       </table>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#64748b', display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          marginTop: 12,
+          fontSize: 11,
+          color: '#64748b',
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
         {PERM_ROLES.map((role, ri) => {
-          const count = PERM_LIST.filter(p => matrix[p.id][ri]).length
-          return <span key={role}>{role}: {count}/{PERM_LIST.length}</span>
+          const count = PERM_LIST.filter((p) => matrix[p.id][ri]).length
+          return (
+            <span key={role}>
+              {role}: {count}/{PERM_LIST.length}
+            </span>
+          )
         })}
       </div>
     </div>

@@ -16,7 +16,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "Text는 Material Design 3 타입 스케일 기반 타이포그래피 컴포넌트입니다. displayLarge부터 labelSmall까지 13가지 textStyle을 지원합니다.",
+        component:
+          'Text는 Material Design 3 타입 스케일 기반 타이포그래피 컴포넌트입니다. displayLarge부터 labelSmall까지 13가지 textStyle을 지원합니다.',
       },
     },
   },
@@ -178,10 +179,7 @@ export const WorkspaceEditor_타이포그래피_계층 = {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {WORKSPACE_SECTIONS.map((section) => (
           <React.Fragment key={section.style}>
-            <Text
-              textStyle={section.style as string}
-              style={{ lineHeight: 1.75 }}
-            >
+            <Text textStyle={section.style as string} style={{ lineHeight: 1.75 }}>
               {section.text}
             </Text>
             <div
@@ -273,7 +271,11 @@ export const DesignTool_컴팩트_속성_패널 = {
    RoleToken Design TypeScale — Display, Headline, Body, Label 롤 비교
 -------------------------------------------------------------------------- */
 const M3_TYPE_ROLES = [
-  { m3Role: 'Display Large', orbitStyle: 'subheadingLarge', desc: 'Hero, 랜딩 페이지 메인 헤드라인' },
+  {
+    m3Role: 'Display Large',
+    orbitStyle: 'subheadingLarge',
+    desc: 'Hero, 랜딩 페이지 메인 헤드라인',
+  },
   { m3Role: 'Headline Medium', orbitStyle: 'subheadingSmall', desc: '섹션 제목, 카드 타이틀' },
   { m3Role: 'Body Large', orbitStyle: 'bodyLarge', desc: '본문, 설명 텍스트' },
   { m3Role: 'Label Medium', orbitStyle: 'descriptionLarge', desc: '버튼 레이블, 입력 필드 레이블' },
@@ -285,13 +287,50 @@ const M3_TYPE_ROLES = [
 // 모든 정보가 한 줄에 담기는 고밀도 패턴이 특징입니다.
 
 const TRACKER_ISSUES = [
-  { id: 'ORB-341', title: 'CounterBadge max 처리 로직 추가', status: '진행중', priority: 'High', assignee: 'HK', date: '오늘', statusColor: '#6366f1' },
-  { id: 'ORB-340', title: 'Text 컴포넌트 lineClamp prop 지원', status: 'Todo', priority: 'Medium', assignee: 'SL', date: '어제', statusColor: '#94a3b8' },
-  { id: 'ORB-339', title: 'EclipseProvider 다크모드 초기값 버그', status: '검토', priority: 'Urgent', assignee: 'JP', date: '3일 전', statusColor: '#f59e0b' },
-  { id: 'ORB-338', title: 'Slider 접근성 개선 — aria-valuetext', status: '완료', priority: 'Low', assignee: 'HK', date: '5일 전', statusColor: '#10b981' },
+  {
+    id: 'ORB-341',
+    title: 'CounterBadge max 처리 로직 추가',
+    status: '진행중',
+    priority: 'High',
+    assignee: 'HK',
+    date: '오늘',
+    statusColor: '#6366f1',
+  },
+  {
+    id: 'ORB-340',
+    title: 'Text 컴포넌트 lineClamp prop 지원',
+    status: 'Todo',
+    priority: 'Medium',
+    assignee: 'SL',
+    date: '어제',
+    statusColor: '#94a3b8',
+  },
+  {
+    id: 'ORB-339',
+    title: 'EclipseProvider 다크모드 초기값 버그',
+    status: '검토',
+    priority: 'Urgent',
+    assignee: 'JP',
+    date: '3일 전',
+    statusColor: '#f59e0b',
+  },
+  {
+    id: 'ORB-338',
+    title: 'Slider 접근성 개선 — aria-valuetext',
+    status: '완료',
+    priority: 'Low',
+    assignee: 'HK',
+    date: '5일 전',
+    statusColor: '#10b981',
+  },
 ] as const
 
-const PRIORITY_COLOR = { Urgent: '#ef4444', High: '#f59e0b', Medium: '#6366f1', Low: '#94a3b8' } as const
+const PRIORITY_COLOR = {
+  Urgent: '#ef4444',
+  High: '#f59e0b',
+  Medium: '#6366f1',
+  Low: '#94a3b8',
+} as const
 
 export const IssueTracker_이슈_리스트_타이포: Story = {
   name: 'IssueTracker Design - 이슈 리스트 타이포그래피 패턴',
@@ -317,8 +356,12 @@ export const IssueTracker_이슈_리스트_타이포: Story = {
             borderBottom: i < TRACKER_ISSUES.length - 1 ? '1px solid #f8fafc' : 'none',
             cursor: 'pointer',
           }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#fff' }}
+          onMouseEnter={(e) => {
+            ;(e.currentTarget as HTMLDivElement).style.background = '#f8fafc'
+          }}
+          onMouseLeave={(e) => {
+            ;(e.currentTarget as HTMLDivElement).style.background = '#fff'
+          }}
         >
           <div
             style={{
@@ -329,10 +372,23 @@ export const IssueTracker_이슈_리스트_타이포: Story = {
               flexShrink: 0,
             }}
           />
-          <Text textStyle="descriptionSmall" style={{ color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0, width: 54 }}>
+          <Text
+            textStyle="descriptionSmall"
+            style={{ color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0, width: 54 }}
+          >
             {issue.id}
           </Text>
-          <Text textStyle="descriptionLarge" style={{ flex: 1, color: '#0f172a', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <Text
+            textStyle="descriptionLarge"
+            style={{
+              flex: 1,
+              color: '#0f172a',
+              fontWeight: 500,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
             {issue.title}
           </Text>
           <span
@@ -348,10 +404,16 @@ export const IssueTracker_이슈_리스트_타이포: Story = {
           >
             {issue.priority}
           </span>
-          <Text textStyle="descriptionSmall" style={{ color: '#94a3b8', flexShrink: 0, width: 32, textAlign: 'center' }}>
+          <Text
+            textStyle="descriptionSmall"
+            style={{ color: '#94a3b8', flexShrink: 0, width: 32, textAlign: 'center' }}
+          >
             {issue.assignee}
           </Text>
-          <Text textStyle="descriptionSmall" style={{ color: '#94a3b8', flexShrink: 0, width: 48, textAlign: 'right' }}>
+          <Text
+            textStyle="descriptionSmall"
+            style={{ color: '#94a3b8', flexShrink: 0, width: 48, textAlign: 'right' }}
+          >
             {issue.date}
           </Text>
         </div>
@@ -423,7 +485,9 @@ export const DataProduct_정보_밀도_레이아웃: Story = {
               style={{
                 color: 'highlight' in item ? item.highlight : '#0f172a',
                 fontWeight: 'highlight' in item ? 700 : 500,
-                fontFamily: ['버전', '빌드', '브랜치'].includes(item.label) ? 'monospace' : 'inherit',
+                fontFamily: ['버전', '빌드', '브랜치'].includes(item.label)
+                  ? 'monospace'
+                  : 'inherit',
                 fontSize: 13,
               }}
             >
@@ -479,7 +543,10 @@ export const IssueTracker_변경_이력_타이포: Story = {
       {TRACKER_CHANGELOG.map((release) => (
         <div key={release.version}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 12 }}>
-            <Text textStyle="subheadingSmall" style={{ fontWeight: 800, letterSpacing: '-0.02em', color: '#0f172a' }}>
+            <Text
+              textStyle="subheadingSmall"
+              style={{ fontWeight: 800, letterSpacing: '-0.02em', color: '#0f172a' }}
+            >
               {release.version}
             </Text>
             <Text textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
@@ -530,7 +597,9 @@ export const Material3_타입_스케일_비교 = {
   render: () => (
     <div style={{ maxWidth: 520 }}>
       <div style={{ marginBottom: 16 }}>
-        <Text textStyle="subheadingSmall">RoleToken Design TypeScale → Orbit UI TextStyle 매핑</Text>
+        <Text textStyle="subheadingSmall">
+          RoleToken Design TypeScale → Orbit UI TextStyle 매핑
+        </Text>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
         {M3_TYPE_ROLES.map((role, i) => (
@@ -545,12 +614,12 @@ export const Material3_타입_스케일_비교 = {
             }}
           >
             <div style={{ width: 140, flexShrink: 0 }}>
-              <Text textStyle={role.orbitStyle as string}>
-                {role.m3Role}
-              </Text>
+              <Text textStyle={role.orbitStyle as string}>{role.m3Role}</Text>
             </div>
             <div>
-              <div style={{ fontSize: 10, fontFamily: 'monospace', color: '#6366f1', marginBottom: 2 }}>
+              <div
+                style={{ fontSize: 10, fontFamily: 'monospace', color: '#6366f1', marginBottom: 2 }}
+              >
                 {role.orbitStyle}
               </div>
               <div style={{ fontSize: 11, color: '#94a3b8' }}>{role.desc}</div>
@@ -583,10 +652,20 @@ const DataProductDataTableTextRender = () => {
         </div>
       </div>
       <div style={{ borderRadius: 8, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 0.8fr 1fr', background: '#f8fafc', padding: '8px 14px', borderBottom: '1px solid #e2e8f0' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1.5fr 1fr 1fr 0.8fr 1fr',
+            background: '#f8fafc',
+            padding: '8px 14px',
+            borderBottom: '1px solid #e2e8f0',
+          }}
+        >
           {['이름', '역할', '팀', '상태', '입사일'].map((h) => (
             <div key={h}>
-              <Text textStyle="labelSmall" color="onSurfaceVariant">{h}</Text>
+              <Text textStyle="labelSmall" color="onSurfaceVariant">
+                {h}
+              </Text>
             </div>
           ))}
         </div>
@@ -594,25 +673,37 @@ const DataProductDataTableTextRender = () => {
           <div
             key={row.name}
             style={{
-              display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 0.8fr 1fr',
+              display: 'grid',
+              gridTemplateColumns: '1.5fr 1fr 1fr 0.8fr 1fr',
               padding: '10px 14px',
               borderBottom: i < ROWS.length - 1 ? '1px solid #f8fafc' : 'none',
               alignItems: 'center',
             }}
           >
             <Text textStyle="bodyMedium">{row.name}</Text>
-            <Text textStyle="bodySmall" color="onSurfaceVariant">{row.role}</Text>
-            <Text textStyle="bodySmall" color="onSurfaceVariant">{row.team}</Text>
+            <Text textStyle="bodySmall" color="onSurfaceVariant">
+              {row.role}
+            </Text>
+            <Text textStyle="bodySmall" color="onSurfaceVariant">
+              {row.team}
+            </Text>
             <div>
-              <span style={{
-                fontSize: 10, padding: '2px 7px', borderRadius: 10, fontWeight: 600,
-                background: row.status === 'active' ? '#dcfce7' : '#f1f5f9',
-                color: row.status === 'active' ? '#16a34a' : '#94a3b8',
-              }}>
+              <span
+                style={{
+                  fontSize: 10,
+                  padding: '2px 7px',
+                  borderRadius: 10,
+                  fontWeight: 600,
+                  background: row.status === 'active' ? '#dcfce7' : '#f1f5f9',
+                  color: row.status === 'active' ? '#16a34a' : '#94a3b8',
+                }}
+              >
                 {row.status === 'active' ? '활성' : '비활성'}
               </span>
             </div>
-            <Text textStyle="labelSmall" color="onSurfaceVariant">{row.joined}</Text>
+            <Text textStyle="labelSmall" color="onSurfaceVariant">
+              {row.joined}
+            </Text>
           </div>
         ))}
       </div>
@@ -638,13 +729,36 @@ const IssueTrackerIssueDetailTextRender = () => {
     <div style={{ width: 520, fontFamily: 'system-ui, sans-serif', padding: '0 2px' }}>
       <div style={{ marginBottom: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-          <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#94a3b8', background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>ORB-142</span>
-          <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: '#fef3c7', color: '#d97706', fontWeight: 600 }}>진행 중</span>
+          <span
+            style={{
+              fontSize: 10,
+              fontFamily: 'monospace',
+              color: '#94a3b8',
+              background: '#f1f5f9',
+              padding: '2px 6px',
+              borderRadius: 4,
+            }}
+          >
+            ORB-142
+          </span>
+          <span
+            style={{
+              fontSize: 10,
+              padding: '2px 6px',
+              borderRadius: 4,
+              background: '#fef3c7',
+              color: '#d97706',
+              fontWeight: 600,
+            }}
+          >
+            진행 중
+          </span>
         </div>
         <Text textStyle="headlineSmall">Button hover 색상 대비 수정</Text>
         <div style={{ marginTop: 6 }}>
           <Text textStyle="bodyMedium" color="onSurfaceVariant">
-            현재 GhostButton hover 상태의 배경색이 WCAG AA 기준(4.5:1)을 충족하지 않아 저시력 사용자가 상태 변화를 인지하기 어렵습니다.
+            현재 GhostButton hover 상태의 배경색이 WCAG AA 기준(4.5:1)을 충족하지 않아 저시력
+            사용자가 상태 변화를 인지하기 어렵습니다.
           </Text>
         </div>
       </div>
@@ -657,7 +771,9 @@ const IssueTrackerIssueDetailTextRender = () => {
           { label: '마감일', value: '2026-04-15' },
         ].map((item) => (
           <div key={item.label}>
-            <Text textStyle="labelSmall" color="onSurfaceVariant">{item.label}</Text>
+            <Text textStyle="labelSmall" color="onSurfaceVariant">
+              {item.label}
+            </Text>
             <div style={{ marginTop: 2 }}>
               <Text textStyle="bodySmall">{item.value}</Text>
             </div>
@@ -674,16 +790,39 @@ const IssueTrackerIssueDetailTextRender = () => {
             '3. 배경색 변화 대비비 측정 (현재 2.8:1)',
             '4. WCAG AA 기준: 최소 4.5:1 필요',
           ].map((step) => (
-            <Text key={step} textStyle="bodySmall" color="onSurfaceVariant">{step}</Text>
+            <Text key={step} textStyle="bodySmall" color="onSurfaceVariant">
+              {step}
+            </Text>
           ))}
         </div>
       </div>
 
-      <div style={{ marginTop: 16, padding: '10px 12px', borderRadius: 8, background: '#f8fafc', border: '1px solid #f1f5f9' }}>
-        <Text textStyle="labelSmall" color="onSurfaceVariant">수정 제안</Text>
+      <div
+        style={{
+          marginTop: 16,
+          padding: '10px 12px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #f1f5f9',
+        }}
+      >
+        <Text textStyle="labelSmall" color="onSurfaceVariant">
+          수정 제안
+        </Text>
         <div style={{ marginTop: 4 }}>
           <Text textStyle="bodySmall">
-            hover 배경을 <code style={{ fontFamily: 'monospace', background: '#e2e8f0', padding: '0 4px', borderRadius: 3 }}>#e2e8f0</code> 으로 변경 시 대비비 5.2:1 달성 가능.
+            hover 배경을{' '}
+            <code
+              style={{
+                fontFamily: 'monospace',
+                background: '#e2e8f0',
+                padding: '0 4px',
+                borderRadius: 3,
+              }}
+            >
+              #e2e8f0
+            </code>{' '}
+            으로 변경 시 대비비 5.2:1 달성 가능.
           </Text>
         </div>
       </div>
@@ -743,12 +882,22 @@ const DataProductIssueTrackerReadmeTextRender = () => {
           <div key={item.pkg} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
             <div style={{ width: 220, flexShrink: 0 }}>
               <Text textStyle="labelMedium">
-                <code style={{ fontFamily: 'monospace', background: '#f1f5f9', padding: '1px 6px', borderRadius: 4, fontSize: 12 }}>
+                <code
+                  style={{
+                    fontFamily: 'monospace',
+                    background: '#f1f5f9',
+                    padding: '1px 6px',
+                    borderRadius: 4,
+                    fontSize: 12,
+                  }}
+                >
                   {item.pkg}
                 </code>
               </Text>
             </div>
-            <Text textStyle="bodySmall" color="onSurfaceVariant">{item.desc}</Text>
+            <Text textStyle="bodySmall" color="onSurfaceVariant">
+              {item.desc}
+            </Text>
           </div>
         ))}
       </div>
@@ -757,19 +906,25 @@ const DataProductIssueTrackerReadmeTextRender = () => {
 
       <div style={{ display: 'flex', gap: 16 }}>
         <div>
-          <Text textStyle="labelSmall" color="onSurfaceVariant">라이선스</Text>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">
+            라이선스
+          </Text>
           <div style={{ marginTop: 2 }}>
             <Text textStyle="bodySmall">MIT</Text>
           </div>
         </div>
         <div>
-          <Text textStyle="labelSmall" color="onSurfaceVariant">버전</Text>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">
+            버전
+          </Text>
           <div style={{ marginTop: 2 }}>
             <Text textStyle="bodySmall">0.1.0</Text>
           </div>
         </div>
         <div>
-          <Text textStyle="labelSmall" color="onSurfaceVariant">React</Text>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">
+            React
+          </Text>
           <div style={{ marginTop: 2 }}>
             <Text textStyle="bodySmall">18 / 19</Text>
           </div>
@@ -797,7 +952,12 @@ export const DataProduct_IssueTracker_README_타이포: StoryObj<typeof meta> = 
    PropTable + 설명 계층 패턴
 -------------------------------------------------------------------------- */
 const RADIX_PROPS = [
-  { name: 'textStyle', type: 'TextStyle', default: 'bodyMedium', desc: 'Material Design 3 타입 스케일 키' },
+  {
+    name: 'textStyle',
+    type: 'TextStyle',
+    default: 'bodyMedium',
+    desc: 'Material Design 3 타입 스케일 키',
+  },
   { name: 'color', type: 'ColorToken', default: 'onSurface', desc: '시맨틱 색상 토큰 이름' },
   { name: 'as', type: 'ElementType', default: 'span', desc: '렌더링할 HTML 태그 (polymorphic)' },
   { name: 'truncate', type: 'boolean', default: 'false', desc: '텍스트 말줄임 적용 여부' },
@@ -807,31 +967,92 @@ function PrimitiveApiDocRender() {
   return (
     <div style={{ maxWidth: 600, display: 'flex', flexDirection: 'column', gap: 20 }}>
       {/* 컴포넌트 헤더 */}
-      <div style={{ borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', paddingBottom: 16 }}>
+      <div
+        style={{
+          borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          paddingBottom: 16,
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 6 }}>
           <Text textStyle="headlineMedium">Text</Text>
-          <code style={{ fontSize: 12, padding: '2px 8px', borderRadius: 4, background: '#f1f5f9', color: '#6366f1', fontFamily: 'monospace' }}>@heejun-com/theme-eclipse</code>
+          <code
+            style={{
+              fontSize: 12,
+              padding: '2px 8px',
+              borderRadius: 4,
+              background: '#f1f5f9',
+              color: '#6366f1',
+              fontFamily: 'monospace',
+            }}
+          >
+            @heejun-com/theme-eclipse
+          </code>
         </div>
         <Text textStyle="bodyMedium" color="onSurfaceVariant">
-          Material Design 3 타입 스케일을 기반으로 한 타이포그래피 컴포넌트. displayLarge부터 labelSmall까지 13가지 스타일을 지원합니다.
+          Material Design 3 타입 스케일을 기반으로 한 타이포그래피 컴포넌트. displayLarge부터
+          labelSmall까지 13가지 스타일을 지원합니다.
         </Text>
       </div>
 
       {/* Props 테이블 */}
       <div>
         <Text textStyle="titleSmall">Props</Text>
-        <div style={{ marginTop: 10, borderRadius: 8, overflow: 'hidden', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 80px 1fr', background: 'var(--sem-eclipse-color-backgroundSecondary)', padding: '8px 12px', gap: 8 }}>
+        <div
+          style={{
+            marginTop: 10,
+            borderRadius: 8,
+            overflow: 'hidden',
+            border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          }}
+        >
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr 80px 1fr',
+              background: 'var(--sem-eclipse-color-backgroundSecondary)',
+              padding: '8px 12px',
+              gap: 8,
+            }}
+          >
             {['이름', '타입', '기본값', '설명'].map((h) => (
-              <Text key={h} textStyle="labelSmall" color="onSurfaceVariant">{h}</Text>
+              <Text key={h} textStyle="labelSmall" color="onSurfaceVariant">
+                {h}
+              </Text>
             ))}
           </div>
           {RADIX_PROPS.map((p, i) => (
-            <div key={p.name} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 80px 1fr', padding: '10px 12px', gap: 8, background: i % 2 === 0 ? 'var(--sem-eclipse-color-backgroundPrimary)' : 'var(--sem-eclipse-color-backgroundSecondary)', alignItems: 'start' }}>
-              <code style={{ fontFamily: 'monospace', fontSize: 12, color: '#6366f1' }}>{p.name}</code>
-              <code style={{ fontFamily: 'monospace', fontSize: 11, color: '#10b981' }}>{p.type}</code>
-              <code style={{ fontFamily: 'monospace', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{p.default}</code>
-              <Text textStyle="bodySmall" color="onSurfaceVariant">{p.desc}</Text>
+            <div
+              key={p.name}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr 80px 1fr',
+                padding: '10px 12px',
+                gap: 8,
+                background:
+                  i % 2 === 0
+                    ? 'var(--sem-eclipse-color-backgroundPrimary)'
+                    : 'var(--sem-eclipse-color-backgroundSecondary)',
+                alignItems: 'start',
+              }}
+            >
+              <code style={{ fontFamily: 'monospace', fontSize: 12, color: '#6366f1' }}>
+                {p.name}
+              </code>
+              <code style={{ fontFamily: 'monospace', fontSize: 11, color: '#10b981' }}>
+                {p.type}
+              </code>
+              <code
+                style={{
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                }}
+              >
+                {p.default}
+              </code>
+              <Text textStyle="bodySmall" color="onSurfaceVariant">
+                {p.desc}
+              </Text>
             </div>
           ))}
         </div>
@@ -840,10 +1061,29 @@ function PrimitiveApiDocRender() {
       {/* 사용 예시 */}
       <div>
         <Text textStyle="titleSmall">사용 예시</Text>
-        <div style={{ marginTop: 8, padding: '12px 16px', borderRadius: 8, background: '#0f172a', fontFamily: 'monospace', fontSize: 12, color: '#e2e8f0', lineHeight: 1.8 }}>
-          <span style={{ color: '#94a3b8' }}>{'// 기본 사용'}</span><br />
-          <span style={{ color: '#f472b6' }}>{'<Text'}</span> <span style={{ color: '#34d399' }}>textStyle</span><span style={{ color: '#e2e8f0' }}>{'="headlineMedium"'}</span> <span style={{ color: '#34d399' }}>color</span><span style={{ color: '#e2e8f0' }}>{'="onSurface"'}</span><span style={{ color: '#f472b6' }}>{'>'}</span><br />
-          <span style={{ color: '#e2e8f0', paddingLeft: 16 }}>{'Orbit UI 타이포그래피'}</span><br />
+        <div
+          style={{
+            marginTop: 8,
+            padding: '12px 16px',
+            borderRadius: 8,
+            background: '#0f172a',
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: '#e2e8f0',
+            lineHeight: 1.8,
+          }}
+        >
+          <span style={{ color: '#94a3b8' }}>{'// 기본 사용'}</span>
+          <br />
+          <span style={{ color: '#f472b6' }}>{'<Text'}</span>{' '}
+          <span style={{ color: '#34d399' }}>textStyle</span>
+          <span style={{ color: '#e2e8f0' }}>{'="headlineMedium"'}</span>{' '}
+          <span style={{ color: '#34d399' }}>color</span>
+          <span style={{ color: '#e2e8f0' }}>{'="onSurface"'}</span>
+          <span style={{ color: '#f472b6' }}>{'>'}</span>
+          <br />
+          <span style={{ color: '#e2e8f0', paddingLeft: 16 }}>{'Orbit UI 타이포그래피'}</span>
+          <br />
           <span style={{ color: '#f472b6' }}>{'</Text>'}</span>
         </div>
       </div>
@@ -856,7 +1096,8 @@ export const Primitive_API_문서_타이포그래피: StoryObj<typeof meta> = {
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI 공식 문서 스타일의 PropTable + 헤더 계층 패턴. headlineMedium 컴포넌트 타이틀, bodyMedium 설명, titleSmall 섹션 구분, bodySmall + labelSmall 테이블 내용 계층 실전 적용.',
+        story:
+          'PrimitiveUI 공식 문서 스타일의 PropTable + 헤더 계층 패턴. headlineMedium 컴포넌트 타이틀, bodyMedium 설명, titleSmall 섹션 구분, bodySmall + labelSmall 테이블 내용 계층 실전 적용.',
       },
     },
   },
@@ -868,10 +1109,42 @@ export const Primitive_API_문서_타이포그래피: StoryObj<typeof meta> = {
    상태 뱃지 + 메시지 계층 + 타임스탬프 패턴
 -------------------------------------------------------------------------- */
 const DEPLOY_EVENTS = [
-  { type: 'success', icon: '●', color: '#10b981', title: '배포 성공', message: 'orbit-ui feat/cycle-112 → production 8분 전에 완료되었습니다.', meta: 'a9fa67f · by hjunkim', time: '8m ago' },
-  { type: 'building', icon: '○', color: '#f59e0b', title: '빌드 진행 중', message: 'orbit-ui main → preview 빌드 중입니다. 평균 소요 시간 약 2분.', meta: 'cb60c3e · by hjunkim', time: '2m ago' },
-  { type: 'error', icon: '✕', color: '#ef4444', title: '빌드 실패', message: 'orbit-ui feat/fix-toggle → preview TypeScript 오류 1건이 발생했습니다.', meta: 'd5fd051 · by hjunkim', time: '23m ago' },
-  { type: 'queued', icon: '◌', color: '#94a3b8', title: '대기 중', message: 'orbit-ui chore/deps-update → preview 빌드 대기열에서 처리를 기다리고 있습니다.', meta: '0bcdcd1 · by hjunkim', time: '1h ago' },
+  {
+    type: 'success',
+    icon: '●',
+    color: '#10b981',
+    title: '배포 성공',
+    message: 'orbit-ui feat/cycle-112 → production 8분 전에 완료되었습니다.',
+    meta: 'a9fa67f · by hjunkim',
+    time: '8m ago',
+  },
+  {
+    type: 'building',
+    icon: '○',
+    color: '#f59e0b',
+    title: '빌드 진행 중',
+    message: 'orbit-ui main → preview 빌드 중입니다. 평균 소요 시간 약 2분.',
+    meta: 'cb60c3e · by hjunkim',
+    time: '2m ago',
+  },
+  {
+    type: 'error',
+    icon: '✕',
+    color: '#ef4444',
+    title: '빌드 실패',
+    message: 'orbit-ui feat/fix-toggle → preview TypeScript 오류 1건이 발생했습니다.',
+    meta: 'd5fd051 · by hjunkim',
+    time: '23m ago',
+  },
+  {
+    type: 'queued',
+    icon: '◌',
+    color: '#94a3b8',
+    title: '대기 중',
+    message: 'orbit-ui chore/deps-update → preview 빌드 대기열에서 처리를 기다리고 있습니다.',
+    meta: '0bcdcd1 · by hjunkim',
+    time: '1h ago',
+  },
 ]
 
 function DeployPlatformDeployNotifyRender() {
@@ -880,24 +1153,60 @@ function DeployPlatformDeployNotifyRender() {
       <div style={{ marginBottom: 4 }}>
         <Text textStyle="titleMedium">배포 알림 센터</Text>
         <div style={{ marginTop: 2 }}>
-          <Text textStyle="bodySmall" color="onSurfaceVariant">최근 배포 이벤트 4건</Text>
+          <Text textStyle="bodySmall" color="onSurfaceVariant">
+            최근 배포 이벤트 4건
+          </Text>
         </div>
       </div>
       {DEPLOY_EVENTS.map((event, i) => (
-        <div key={i} style={{ display: 'flex', gap: 14, padding: '14px 16px', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)' }}>
+        <div
+          key={i}
+          style={{
+            display: 'flex',
+            gap: 14,
+            padding: '14px 16px',
+            borderRadius: 10,
+            border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+            background: 'var(--sem-eclipse-color-backgroundPrimary)',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'flex-start', paddingTop: 2 }}>
-            <span style={{ fontSize: 18, color: event.color, lineHeight: 1, fontWeight: 700 }}>{event.icon}</span>
+            <span style={{ fontSize: 18, color: event.color, lineHeight: 1, fontWeight: 700 }}>
+              {event.icon}
+            </span>
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, justifyContent: 'space-between' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                gap: 8,
+                justifyContent: 'space-between',
+              }}
+            >
               <Text textStyle="labelMedium">{event.title}</Text>
-              <Text textStyle="labelSmall" color="onSurfaceVariant">{event.time}</Text>
+              <Text textStyle="labelSmall" color="onSurfaceVariant">
+                {event.time}
+              </Text>
             </div>
             <div style={{ marginTop: 3 }}>
-              <Text textStyle="bodySmall" color="onSurfaceVariant">{event.message}</Text>
+              <Text textStyle="bodySmall" color="onSurfaceVariant">
+                {event.message}
+              </Text>
             </div>
             <div style={{ marginTop: 6 }}>
-              <code style={{ fontFamily: 'monospace', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', background: 'var(--sem-eclipse-color-backgroundSecondary)', padding: '2px 6px', borderRadius: 4 }}>{event.meta}</code>
+              <code
+                style={{
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                  padding: '2px 6px',
+                  borderRadius: 4,
+                }}
+              >
+                {event.meta}
+              </code>
             </div>
           </div>
         </div>
@@ -911,7 +1220,8 @@ export const DeployPlatform_배포_상태_알림_타이포: StoryObj<typeof meta
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 대시보드 배포 알림 UI 타이포그래피 패턴. titleMedium 섹션 제목, labelMedium 이벤트 타입, bodySmall 메시지, labelSmall 타임스탬프, monospace 커밋 해시 계층 구현.',
+        story:
+          'DeployPlatform 대시보드 배포 알림 UI 타이포그래피 패턴. titleMedium 섹션 제목, labelMedium 이벤트 타입, bodySmall 메시지, labelSmall 타임스탬프, monospace 커밋 해시 계층 구현.',
       },
     },
   },
@@ -924,11 +1234,38 @@ export const DeployPlatform_배포_상태_알림_타이포: StoryObj<typeof meta
 -------------------------------------------------------------------------- */
 type EmptyState = 'empty' | 'error' | 'forbidden' | 'notfound'
 
-const EMPTY_STATES: Record<EmptyState, { icon: string; title: string; body: string; action: string; color: string }> = {
-  empty: { icon: '○', title: '아직 데이터가 없습니다', body: '첫 번째 컴포넌트 스토리를 추가하면 여기에 표시됩니다.', action: '스토리 추가하기', color: '#94a3b8' },
-  error: { icon: '⚠', title: '오류가 발생했습니다', body: '서버에서 데이터를 불러오는 중 예기치 않은 오류가 발생했습니다. 잠시 후 다시 시도하세요.', action: '다시 시도', color: '#ef4444' },
-  forbidden: { icon: '⊘', title: '접근 권한이 없습니다', body: '이 리소스에 접근하려면 관리자 권한이 필요합니다.', action: '권한 요청', color: '#f59e0b' },
-  notfound: { icon: '∅', title: '페이지를 찾을 수 없습니다', body: 'URL을 확인하거나 돌아가기 버튼으로 이전 페이지로 이동하세요.', action: '홈으로 돌아가기', color: '#6366f1' },
+const EMPTY_STATES: Record<
+  EmptyState,
+  { icon: string; title: string; body: string; action: string; color: string }
+> = {
+  empty: {
+    icon: '○',
+    title: '아직 데이터가 없습니다',
+    body: '첫 번째 컴포넌트 스토리를 추가하면 여기에 표시됩니다.',
+    action: '스토리 추가하기',
+    color: '#94a3b8',
+  },
+  error: {
+    icon: '⚠',
+    title: '오류가 발생했습니다',
+    body: '서버에서 데이터를 불러오는 중 예기치 않은 오류가 발생했습니다. 잠시 후 다시 시도하세요.',
+    action: '다시 시도',
+    color: '#ef4444',
+  },
+  forbidden: {
+    icon: '⊘',
+    title: '접근 권한이 없습니다',
+    body: '이 리소스에 접근하려면 관리자 권한이 필요합니다.',
+    action: '권한 요청',
+    color: '#f59e0b',
+  },
+  notfound: {
+    icon: '∅',
+    title: '페이지를 찾을 수 없습니다',
+    body: 'URL을 확인하거나 돌아가기 버튼으로 이전 페이지로 이동하세요.',
+    action: '홈으로 돌아가기',
+    color: '#6366f1',
+  },
 }
 
 function PrimitiveDeployPlatformEmptyStateRender() {
@@ -939,25 +1276,69 @@ function PrimitiveDeployPlatformEmptyStateRender() {
       {/* 상태 선택 탭 */}
       <div style={{ display: 'flex', gap: 6 }}>
         {(Object.keys(EMPTY_STATES) as EmptyState[]).map((key) => (
-          <button key={key} onClick={() => setState(key)} style={{ padding: '4px 12px', borderRadius: 20, border: `1px solid ${state === key ? EMPTY_STATES[key].color : 'var(--sem-eclipse-color-borderSubtle)'}`, background: state === key ? `${EMPTY_STATES[key].color}12` : 'transparent', color: state === key ? EMPTY_STATES[key].color : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 11, fontWeight: 600, cursor: 'pointer', transition: 'all 0.15s' }}>
+          <button
+            key={key}
+            onClick={() => setState(key)}
+            style={{
+              padding: '4px 12px',
+              borderRadius: 20,
+              border: `1px solid ${state === key ? EMPTY_STATES[key].color : 'var(--sem-eclipse-color-borderSubtle)'}`,
+              background: state === key ? `${EMPTY_STATES[key].color}12` : 'transparent',
+              color:
+                state === key
+                  ? EMPTY_STATES[key].color
+                  : 'var(--sem-eclipse-color-foregroundTertiary)',
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
             {key}
           </button>
         ))}
       </div>
       {/* 빈 상태 카드 */}
-      <div style={{ padding: '48px 32px', borderRadius: 16, border: '1px dashed var(--sem-eclipse-color-borderDefault)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
+      <div
+        style={{
+          padding: '48px 32px',
+          borderRadius: 16,
+          border: '1px dashed var(--sem-eclipse-color-borderDefault)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 12,
+          textAlign: 'center',
+        }}
+      >
         <span style={{ fontSize: 48, color: s.color, lineHeight: 1 }}>{s.icon}</span>
         <div>
           <Text textStyle="titleMedium">{s.title}</Text>
         </div>
         <div style={{ maxWidth: 300 }}>
-          <Text textStyle="bodySmall" color="onSurfaceVariant">{s.body}</Text>
+          <Text textStyle="bodySmall" color="onSurfaceVariant">
+            {s.body}
+          </Text>
         </div>
-        <button style={{ marginTop: 8, padding: '8px 20px', borderRadius: 8, border: `1px solid ${s.color}`, background: `${s.color}10`, color: s.color, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+        <button
+          style={{
+            marginTop: 8,
+            padding: '8px 20px',
+            borderRadius: 8,
+            border: `1px solid ${s.color}`,
+            background: `${s.color}10`,
+            color: s.color,
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+        >
           {s.action}
         </button>
       </div>
-      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>PrimitiveUI + DeployPlatform — 빈 상태 / 에러 / 권한없음 메시지 타이포</div>
+      <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+        PrimitiveUI + DeployPlatform — 빈 상태 / 에러 / 권한없음 메시지 타이포
+      </div>
     </div>
   )
 }
@@ -967,7 +1348,8 @@ export const Primitive_DeployPlatform_빈상태_에러_타이포: StoryObj<typeo
   parameters: {
     docs: {
       description: {
-        story: 'PrimitiveUI + DeployPlatform의 Empty State / Error 메시지 UI 타이포그래피 패턴. titleMedium 제목, bodySmall 설명 텍스트, 상태별 색상 코딩, 4가지 상태(empty/error/forbidden/notfound) 전환.',
+        story:
+          'PrimitiveUI + DeployPlatform의 Empty State / Error 메시지 UI 타이포그래피 패턴. titleMedium 제목, bodySmall 설명 텍스트, 상태별 색상 코딩, 4가지 상태(empty/error/forbidden/notfound) 전환.',
       },
     },
   },
@@ -979,10 +1361,34 @@ function CommandPaletteResultItem141Render() {
   const [selected, setSelected] = React.useState(1)
 
   const results = [
-    { id: 1, category: 'Storybook', title: 'Progress Component', desc: 'Cycle 140에 추가된 업로드 진행률 컴포넌트', shortcut: '⌘1' },
-    { id: 2, category: 'Issue', title: 'ORB-241 TextField focus ring', desc: 'a11y: focus visible 개선', shortcut: '⌘2' },
-    { id: 3, category: 'Doc', title: 'BenchmarkComparison.mdx', desc: 'Cycle 141 CommandPalette 섹션 추가', shortcut: '⌘3' },
-    { id: 4, category: 'Component', title: 'OutlineButton', desc: '16종 스토리 포함 — 액션 패널, 필터 바', shortcut: '⌘4' },
+    {
+      id: 1,
+      category: 'Storybook',
+      title: 'Progress Component',
+      desc: 'Cycle 140에 추가된 업로드 진행률 컴포넌트',
+      shortcut: '⌘1',
+    },
+    {
+      id: 2,
+      category: 'Issue',
+      title: 'ORB-241 TextField focus ring',
+      desc: 'a11y: focus visible 개선',
+      shortcut: '⌘2',
+    },
+    {
+      id: 3,
+      category: 'Doc',
+      title: 'BenchmarkComparison.mdx',
+      desc: 'Cycle 141 CommandPalette 섹션 추가',
+      shortcut: '⌘3',
+    },
+    {
+      id: 4,
+      category: 'Component',
+      title: 'OutlineButton',
+      desc: '16종 스토리 포함 — 액션 패널, 필터 바',
+      shortcut: '⌘4',
+    },
   ]
 
   const categoryColor: Record<string, string> = {
@@ -994,24 +1400,66 @@ function CommandPaletteResultItem141Render() {
 
   return (
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>CommandPalette — 검색 결과 타이포그래피 패턴</div>
-      <div style={{ border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
+      <div style={{ marginBottom: 10, fontSize: 11, color: '#64748b' }}>
+        CommandPalette — 검색 결과 타이포그래피 패턴
+      </div>
+      <div
+        style={{
+          border: '1px solid #e2e8f0',
+          borderRadius: 12,
+          overflow: 'hidden',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+        }}
+      >
         {results.map((r) => (
           <div
             key={r.id}
             onClick={() => setSelected(r.id)}
-            style={{ padding: '10px 16px', background: selected === r.id ? '#f0f9ff' : '#fff', borderBottom: '1px solid #f1f5f9', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}
+            style={{
+              padding: '10px 16px',
+              background: selected === r.id ? '#f0f9ff' : '#fff',
+              borderBottom: '1px solid #f1f5f9',
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+            }}
           >
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 3 }}>
-                <span style={{ fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.6, color: categoryColor[r.category], background: `${categoryColor[r.category]}12`, padding: '1px 5px', borderRadius: 3 }}>
+                <span
+                  style={{
+                    fontSize: 9,
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: 0.6,
+                    color: categoryColor[r.category],
+                    background: `${categoryColor[r.category]}12`,
+                    padding: '1px 5px',
+                    borderRadius: 3,
+                  }}
+                >
                   {r.category}
                 </span>
                 <Text textStyle="labelMedium">{r.title}</Text>
               </div>
-              <Text textStyle="bodySmall" color="onSurfaceVariant">{r.desc}</Text>
+              <Text textStyle="bodySmall" color="onSurfaceVariant">
+                {r.desc}
+              </Text>
             </div>
-            <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'monospace', flexShrink: 0, marginLeft: 12, background: '#f8fafc', padding: '2px 5px', borderRadius: 4, border: '1px solid #e2e8f0' }}>
+            <span
+              style={{
+                fontSize: 10,
+                color: '#94a3b8',
+                fontFamily: 'monospace',
+                flexShrink: 0,
+                marginLeft: 12,
+                background: '#f8fafc',
+                padding: '2px 5px',
+                borderRadius: 4,
+                border: '1px solid #e2e8f0',
+              }}
+            >
               {r.shortcut}
             </span>
           </div>
@@ -1031,7 +1479,8 @@ export const CommandPalette_검색결과_타이포: StoryObj<typeof meta> = {
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette 검색 결과 패턴. 카테고리 뱃지 + labelMedium 제목 + bodySmall 설명. 선택 상태 배경 변화, 단축키 키캡.',
+        story:
+          'CommandPalette 검색 결과 패턴. 카테고리 뱃지 + labelMedium 제목 + bodySmall 설명. 선택 상태 배경 변화, 단축키 키캡.',
       },
     },
   },
@@ -1050,21 +1499,52 @@ function DesignToolPropertyPanel141Render() {
   ]
 
   return (
-    <div style={{ width: 280, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
-      <div style={{ padding: '8px 12px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+    <div
+      style={{
+        width: 280,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        border: '1px solid #e2e8f0',
+        borderRadius: 8,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{ padding: '8px 12px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}
+      >
         <Text textStyle="labelMedium">속성 패널</Text>
         <div style={{ marginTop: 1 }}>
-          <Text textStyle="labelSmall" color="onSurfaceVariant">DesignTool Plugin UI 타이포그래피</Text>
+          <Text textStyle="labelSmall" color="onSurfaceVariant">
+            DesignTool Plugin UI 타이포그래피
+          </Text>
         </div>
       </div>
       <div style={{ padding: 4 }}>
         {props.map((p) => (
-          <div key={p.label} style={{ padding: '7px 10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, alignItems: 'start', borderBottom: '1px solid #f8fafc' }}>
-            <Text textStyle="labelSmall" color="onSurfaceVariant">{p.label}</Text>
+          <div
+            key={p.label}
+            style={{
+              padding: '7px 10px',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 4,
+              alignItems: 'start',
+              borderBottom: '1px solid #f8fafc',
+            }}
+          >
+            <Text textStyle="labelSmall" color="onSurfaceVariant">
+              {p.label}
+            </Text>
             <div>
               <Text textStyle="labelSmall">{p.value}</Text>
               <div style={{ marginTop: 1 }}>
-                <Text textStyle="labelSmall" color="onSurfaceVariant" style={{ fontFamily: 'monospace', fontSize: 9 }}>{p.token}</Text>
+                <Text
+                  textStyle="labelSmall"
+                  color="onSurfaceVariant"
+                  style={{ fontFamily: 'monospace', fontSize: 9 }}
+                >
+                  {p.token}
+                </Text>
               </div>
             </div>
           </div>
@@ -1079,7 +1559,8 @@ export const DesignTool_속성_패널_타이포: StoryObj<typeof meta> = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool 속성 패널 UI 타이포그래피. labelMedium 헤더, labelSmall 키/값 쌍, monospace 토큰 레퍼런스. 컴팩트 밀도.',
+        story:
+          'DesignTool 속성 패널 UI 타이포그래피. labelMedium 헤더, labelSmall 키/값 쌍, monospace 토큰 레퍼런스. 컴팩트 밀도.',
       },
     },
   },
@@ -1088,9 +1569,32 @@ export const DesignTool_속성_패널_타이포: StoryObj<typeof meta> = {
 
 function CommandPaletteDesignToolChangeLog141Render() {
   const changes = [
-    { version: 'v2.1.0', date: '2026-04-10', tag: 'minor', items: ['Cycle 141: OutlineButton 액션 패널 스토리', 'Text 속성 패널 타이포 패턴', 'Templates: CalendarApp 추가'] },
-    { version: 'v2.0.9', date: '2026-04-09', tag: 'patch', items: ['Cycle 140: Progress 업로드 진행률', 'FloatingTextField 멀티스텝 폼', 'AppUI + DataProduct 분석 대시보드'] },
-    { version: 'v2.0.8', date: '2026-04-08', tag: 'patch', items: ['Toggle 서식 도구바', 'SearchBar 전역 검색', 'AI 글쓰기 스튜디오 템플릿'] },
+    {
+      version: 'v2.1.0',
+      date: '2026-04-10',
+      tag: 'minor',
+      items: [
+        'Cycle 141: OutlineButton 액션 패널 스토리',
+        'Text 속성 패널 타이포 패턴',
+        'Templates: CalendarApp 추가',
+      ],
+    },
+    {
+      version: 'v2.0.9',
+      date: '2026-04-09',
+      tag: 'patch',
+      items: [
+        'Cycle 140: Progress 업로드 진행률',
+        'FloatingTextField 멀티스텝 폼',
+        'AppUI + DataProduct 분석 대시보드',
+      ],
+    },
+    {
+      version: 'v2.0.8',
+      date: '2026-04-08',
+      tag: 'patch',
+      items: ['Toggle 서식 도구바', 'SearchBar 전역 검색', 'AI 글쓰기 스튜디오 템플릿'],
+    },
   ]
 
   const tagColor: Record<string, string> = { minor: '#7c3aed', patch: '#0284c7', major: '#dc2626' }
@@ -1100,7 +1604,9 @@ function CommandPaletteDesignToolChangeLog141Render() {
       <div style={{ marginBottom: 12 }}>
         <Text textStyle="titleMedium">변경 이력</Text>
         <div style={{ marginTop: 2 }}>
-          <Text textStyle="bodySmall" color="onSurfaceVariant">CommandPalette + DesignTool — 릴리스 노트 타이포 패턴</Text>
+          <Text textStyle="bodySmall" color="onSurfaceVariant">
+            CommandPalette + DesignTool — 릴리스 노트 타이포 패턴
+          </Text>
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -1108,10 +1614,23 @@ function CommandPaletteDesignToolChangeLog141Render() {
           <div key={ch.version} style={{ borderLeft: '2px solid #e2e8f0', paddingLeft: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
               <Text textStyle="labelLarge">{ch.version}</Text>
-              <span style={{ fontSize: 10, fontWeight: 700, color: tagColor[ch.tag], background: `${tagColor[ch.tag]}12`, padding: '1px 7px', borderRadius: 10, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  color: tagColor[ch.tag],
+                  background: `${tagColor[ch.tag]}12`,
+                  padding: '1px 7px',
+                  borderRadius: 10,
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.5,
+                }}
+              >
                 {ch.tag}
               </span>
-              <Text textStyle="labelSmall" color="onSurfaceVariant">{ch.date}</Text>
+              <Text textStyle="labelSmall" color="onSurfaceVariant">
+                {ch.date}
+              </Text>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               {ch.items.map((item) => (
@@ -1133,7 +1652,8 @@ export const CommandPalette_DesignTool_변경이력_타이포: StoryObj<typeof m
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette 릴리스 노트 + DesignTool UI 타이포. titleMedium 헤더, labelLarge 버전, labelSmall 날짜/태그, bodySmall 항목. 수직 타임라인 레이아웃.',
+        story:
+          'CommandPalette 릴리스 노트 + DesignTool UI 타이포. titleMedium 헤더, labelLarge 버전, labelSmall 날짜/태그, bodySmall 항목. 수직 타임라인 레이아웃.',
       },
     },
   },
@@ -1158,29 +1678,68 @@ export const Accessible_아티클_타이포그래피_계층: StoryObj<typeof met
   render: function AccessibleArticleTypoRender() {
     return (
       <div style={{ width: 560, fontFamily: 'system-ui, sans-serif', padding: '20px 0' }}>
-        <Text textStyle="labelSmall" style={{ color: '#3b82f6', fontWeight: 700, letterSpacing: 2, marginBottom: 8, display: 'block' }}>
+        <Text
+          textStyle="labelSmall"
+          style={{
+            color: '#3b82f6',
+            fontWeight: 700,
+            letterSpacing: 2,
+            marginBottom: 8,
+            display: 'block',
+          }}
+        >
           ORBIT UI 3.0 릴리즈
         </Text>
-        <Text textStyle="headlineLarge" style={{ color: '#0f172a', lineHeight: 1.2, marginBottom: 12, display: 'block' }}>
+        <Text
+          textStyle="headlineLarge"
+          style={{ color: '#0f172a', lineHeight: 1.2, marginBottom: 12, display: 'block' }}
+        >
           3-Tier 토큰 시스템으로 재설계된 디자인 기반
         </Text>
-        <Text textStyle="bodyLarge" style={{ color: '#475569', lineHeight: 1.7, marginBottom: 20, display: 'block' }}>
-          이번 릴리즈에서는 Reference → Semantic → Component 토큰 구조를 전면 재설계했습니다. 이를 통해 브랜드 색상 변경 시 전체 컴포넌트에 자동으로 반영되는 일관성 있는 디자인 시스템을 구축했습니다.
+        <Text
+          textStyle="bodyLarge"
+          style={{ color: '#475569', lineHeight: 1.7, marginBottom: 20, display: 'block' }}
+        >
+          이번 릴리즈에서는 Reference → Semantic → Component 토큰 구조를 전면 재설계했습니다. 이를
+          통해 브랜드 색상 변경 시 전체 컴포넌트에 자동으로 반영되는 일관성 있는 디자인 시스템을
+          구축했습니다.
         </Text>
         <div style={{ borderLeft: '3px solid #3b82f6', paddingLeft: 16, marginBottom: 20 }}>
-          <Text textStyle="titleMedium" style={{ color: '#1e40af', fontStyle: 'italic', display: 'block' }}>
+          <Text
+            textStyle="titleMedium"
+            style={{ color: '#1e40af', fontStyle: 'italic', display: 'block' }}
+          >
             &ldquo;좋은 디자인 시스템은 컴포넌트가 아니라 결정의 체계다.&rdquo;
           </Text>
         </div>
-        <Text textStyle="headlineMedium" style={{ color: '#0f172a', marginBottom: 10, display: 'block' }}>
+        <Text
+          textStyle="headlineMedium"
+          style={{ color: '#0f172a', marginBottom: 10, display: 'block' }}
+        >
           주요 변경사항
         </Text>
-        <Text textStyle="bodyMedium" style={{ color: '#374151', lineHeight: 1.7, display: 'block' }}>
-          UtilityCSS 기반 zero-runtime CSS 통합, Storybook 8 업그레이드, 650개 이상의 인터랙티브 스토리 추가. 모든 컴포넌트는 WAI-ARIA 패턴을 준수하며 키보드 탐색을 완전히 지원합니다.
+        <Text
+          textStyle="bodyMedium"
+          style={{ color: '#374151', lineHeight: 1.7, display: 'block' }}
+        >
+          UtilityCSS 기반 zero-runtime CSS 통합, Storybook 8 업그레이드, 650개 이상의 인터랙티브
+          스토리 추가. 모든 컴포넌트는 WAI-ARIA 패턴을 준수하며 키보드 탐색을 완전히 지원합니다.
         </Text>
-        <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid #e5e7eb', display: 'flex', gap: 16 }}>
-          <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>2025년 4월 11일</Text>
-          <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>읽는 시간: 5분</Text>
+        <div
+          style={{
+            marginTop: 16,
+            paddingTop: 16,
+            borderTop: '1px solid #e5e7eb',
+            display: 'flex',
+            gap: 16,
+          }}
+        >
+          <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>
+            2025년 4월 11일
+          </Text>
+          <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>
+            읽는 시간: 5분
+          </Text>
         </div>
       </div>
     )
@@ -1219,27 +1778,79 @@ export const DataProduct_데이터_테이블_셀_타이포: StoryObj<typeof meta
 
     return (
       <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
-        <Text textStyle="titleMedium" style={{ display: 'block', marginBottom: 12, color: '#0f172a' }}>
+        <Text
+          textStyle="titleMedium"
+          style={{ display: 'block', marginBottom: 12, color: '#0f172a' }}
+        >
           팀 멤버 현황
         </Text>
         <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#f9fafb', padding: '8px 14px', borderBottom: '1px solid #e5e7eb' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '2fr 1fr 1fr 1fr',
+              background: '#f9fafb',
+              padding: '8px 14px',
+              borderBottom: '1px solid #e5e7eb',
+            }}
+          >
             {['멤버', '커밋', '상태', '합류일'].map((col) => (
-              <Text key={col} textStyle="labelSmall" style={{ color: '#6b7280', fontWeight: 700, display: 'block' }}>{col}</Text>
+              <Text
+                key={col}
+                textStyle="labelSmall"
+                style={{ color: '#6b7280', fontWeight: 700, display: 'block' }}
+              >
+                {col}
+              </Text>
             ))}
           </div>
           {rows.map((row, idx) => (
-            <div key={row.name} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 14px', borderBottom: idx < rows.length - 1 ? '1px solid #f3f4f6' : 'none', alignItems: 'center' }}>
+            <div
+              key={row.name}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '2fr 1fr 1fr 1fr',
+                padding: '12px 14px',
+                borderBottom: idx < rows.length - 1 ? '1px solid #f3f4f6' : 'none',
+                alignItems: 'center',
+              }}
+            >
               <div>
-                <Text textStyle="bodyMedium" style={{ fontWeight: 600, color: '#111827', display: 'block' }}>{row.name}</Text>
-                <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>{row.role}</Text>
+                <Text
+                  textStyle="bodyMedium"
+                  style={{ fontWeight: 600, color: '#111827', display: 'block' }}
+                >
+                  {row.name}
+                </Text>
+                <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>
+                  {row.role}
+                </Text>
               </div>
-              <Text textStyle="titleSmall" style={{ color: '#374151', fontVariantNumeric: 'tabular-nums', display: 'block' }}>{row.commits.toLocaleString()}</Text>
+              <Text
+                textStyle="titleSmall"
+                style={{ color: '#374151', fontVariantNumeric: 'tabular-nums', display: 'block' }}
+              >
+                {row.commits.toLocaleString()}
+              </Text>
               <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: statusColor[row.status] }} />
-                <Text textStyle="labelSmall" style={{ color: statusColor[row.status], fontWeight: 600, display: 'block' }}>{statusLabel[row.status]}</Text>
+                <div
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: statusColor[row.status],
+                  }}
+                />
+                <Text
+                  textStyle="labelSmall"
+                  style={{ color: statusColor[row.status], fontWeight: 600, display: 'block' }}
+                >
+                  {statusLabel[row.status]}
+                </Text>
               </div>
-              <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>{row.joinDate}</Text>
+              <Text textStyle="labelSmall" style={{ color: '#9ca3af', display: 'block' }}>
+                {row.joinDate}
+              </Text>
             </div>
           ))}
         </div>
@@ -1262,7 +1873,15 @@ export const Accessible_DataProduct_에러_빈상태_타이포: StoryObj<typeof 
   render: function AccessibleDataProductEmptyStateRender() {
     const [variant, setVariant] = React.useState<'empty' | 'error' | 'loading'>('empty')
 
-    const states: { key: 'empty' | 'error' | 'loading'; icon: string; title: string; desc: string; action: string; titleStyle: string; descColor: string }[] = [
+    const states: {
+      key: 'empty' | 'error' | 'loading'
+      icon: string
+      title: string
+      desc: string
+      action: string
+      titleStyle: string
+      descColor: string
+    }[] = [
       {
         key: 'empty',
         icon: '📭',
@@ -1301,21 +1920,59 @@ export const Accessible_DataProduct_에러_빈상태_타이포: StoryObj<typeof 
             <button
               key={s.key}
               onClick={() => setVariant(s.key)}
-              style={{ padding: '4px 12px', borderRadius: 20, border: `1.5px solid ${variant === s.key ? '#3b82f6' : '#e5e7eb'}`, background: variant === s.key ? '#eff6ff' : '#fff', color: variant === s.key ? '#1d4ed8' : '#6b7280', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}
+              style={{
+                padding: '4px 12px',
+                borderRadius: 20,
+                border: `1.5px solid ${variant === s.key ? '#3b82f6' : '#e5e7eb'}`,
+                background: variant === s.key ? '#eff6ff' : '#fff',
+                color: variant === s.key ? '#1d4ed8' : '#6b7280',
+                fontSize: 11,
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
             >
               {s.key}
             </button>
           ))}
         </div>
-        <div style={{ textAlign: 'center', padding: '40px 24px', border: '2px dashed #e5e7eb', borderRadius: 14 }}>
+        <div
+          style={{
+            textAlign: 'center',
+            padding: '40px 24px',
+            border: '2px dashed #e5e7eb',
+            borderRadius: 14,
+          }}
+        >
           <div style={{ fontSize: 48, marginBottom: 16 }}>{current.icon}</div>
-          <Text textStyle="titleLarge" style={{ display: 'block', color: '#111827', marginBottom: 10 }}>
+          <Text
+            textStyle="titleLarge"
+            style={{ display: 'block', color: '#111827', marginBottom: 10 }}
+          >
             {current.title}
           </Text>
-          <Text textStyle="bodyMedium" style={{ display: 'block', color: current.descColor, lineHeight: 1.6, marginBottom: 20 }}>
+          <Text
+            textStyle="bodyMedium"
+            style={{
+              display: 'block',
+              color: current.descColor,
+              lineHeight: 1.6,
+              marginBottom: 20,
+            }}
+          >
             {current.desc}
           </Text>
-          <button style={{ padding: '10px 24px', borderRadius: 8, border: 'none', background: '#3b82f6', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+          <button
+            style={{
+              padding: '10px 24px',
+              borderRadius: 8,
+              border: 'none',
+              background: '#3b82f6',
+              color: '#fff',
+              fontSize: 13,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
             {current.action}
           </button>
         </div>

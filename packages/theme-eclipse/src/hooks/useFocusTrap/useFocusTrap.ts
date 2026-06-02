@@ -72,7 +72,7 @@ const getFocusable = (container: HTMLElement): HTMLElement[] => {
  */
 export function useFocusTrap<T extends HTMLElement>(
   containerRef: RefObject<T | null>,
-  options: UseFocusTrapOptions = {},
+  options: UseFocusTrapOptions = {}
 ): void {
   const { enabled = true, autoFocus = true, restoreFocus = true } = options
 

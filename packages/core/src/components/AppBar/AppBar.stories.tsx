@@ -1,4 +1,3 @@
-
 import { ForwardIcon, MenuIcon } from '@heejun-com/icons'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
@@ -14,7 +13,6 @@ const meta: Meta<typeof AppBar> = {
     layout: 'fullscreen',
   },
   decorators: [
-
     (Story) => {
       return (
         <div style={{ background: '#f6f6f6', margin: '-1rem', height: '100vh' }}>

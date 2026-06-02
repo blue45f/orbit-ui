@@ -60,9 +60,7 @@ const AnimatedBadgeRoot = polymorphic<'span', 'span' | 'div', AnimatedBadgeProps
           }}
           {...rest}
         >
-          {leading && (
-            <Badge.Leading className={slotLeading({ size })}>{leading}</Badge.Leading>
-          )}
+          {leading && <Badge.Leading className={slotLeading({ size })}>{leading}</Badge.Leading>}
           {label && <Badge.Trailing>{label}</Badge.Trailing>}
         </Badge>
       </AnimatedBadgeProvider>

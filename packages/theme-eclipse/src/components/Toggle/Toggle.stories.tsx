@@ -30,22 +30,46 @@ export const 기본: Story = {
 export const 디자인_QA: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <label htmlFor="toggle-basic" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
+      <label
+        htmlFor="toggle-basic"
+        style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+      >
         <Toggle id="toggle-basic" />
         <span style={{ fontSize: '14px' }}>기본</span>
       </label>
 
-      <label htmlFor="toggle-checked" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
+      <label
+        htmlFor="toggle-checked"
+        style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+      >
         <Toggle id="toggle-checked" defaultChecked />
         <span style={{ fontSize: '14px' }}>기본 체크됨</span>
       </label>
 
-      <label htmlFor="toggle-disabled" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', opacity: 0.5 }}>
+      <label
+        htmlFor="toggle-disabled"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          cursor: 'pointer',
+          opacity: 0.5,
+        }}
+      >
         <Toggle id="toggle-disabled" disabled />
         <span style={{ fontSize: '14px' }}>비활성화</span>
       </label>
 
-      <label htmlFor="toggle-disabled-checked" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', opacity: 0.5 }}>
+      <label
+        htmlFor="toggle-disabled-checked"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          cursor: 'pointer',
+          opacity: 0.5,
+        }}
+      >
         <Toggle id="toggle-disabled-checked" disabled defaultChecked />
         <span style={{ fontSize: '14px' }}>비활성화 (체크됨)</span>
       </label>
@@ -74,15 +98,30 @@ const SettingsPanelRender = () => {
     { key: 'notifications', label: '푸시 알림', desc: '앱 내 이벤트 알림을 받습니다.' },
     { key: 'darkMode', label: '다크 모드', desc: '어두운 테마를 적용합니다.' },
     { key: 'autoSave', label: '자동 저장', desc: '편집 내용을 자동으로 저장합니다.' },
-    { key: 'analytics', label: '사용 통계 수집', desc: '서비스 개선을 위한 익명 데이터를 전송합니다.' },
+    {
+      key: 'analytics',
+      label: '사용 통계 수집',
+      desc: '서비스 개선을 위한 익명 데이터를 전송합니다.',
+    },
     { key: 'emailDigest', label: '이메일 다이제스트', desc: '주간 요약 이메일을 받습니다.' },
   ]
 
   return (
-    <div style={{ maxWidth: '440px', borderRadius: '16px', border: '1.5px solid #e2e8f0', overflow: 'hidden' }}>
-      <div style={{ padding: '20px 24px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+    <div
+      style={{
+        maxWidth: '440px',
+        borderRadius: '16px',
+        border: '1.5px solid #e2e8f0',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{ padding: '20px 24px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}
+      >
         <div style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b' }}>알림 및 개인정보</div>
-        <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>설정을 변경하면 즉시 반영됩니다.</div>
+        <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>
+          설정을 변경하면 즉시 반영됩니다.
+        </div>
       </div>
       {items.map(({ key, label, desc }, i) => (
         <div
@@ -99,10 +138,7 @@ const SettingsPanelRender = () => {
             <div style={{ fontSize: '14px', fontWeight: 500, color: '#1e293b' }}>{label}</div>
             <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>{desc}</div>
           </div>
-          <Toggle
-            checked={settings[key]}
-            onCheckedChange={() => toggle(key)}
-          />
+          <Toggle checked={settings[key]} onCheckedChange={() => toggle(key)} />
         </div>
       ))}
     </div>
@@ -124,9 +160,7 @@ const ControlledRender = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '320px' }}>
       <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
         <Toggle checked={enabled} onCheckedChange={setEnabled} />
-        <span style={{ fontSize: '14px', fontWeight: 500 }}>
-          알림 활성화
-        </span>
+        <span style={{ fontSize: '14px', fontWeight: 500 }}>알림 활성화</span>
       </label>
       <div
         style={{
@@ -242,10 +276,7 @@ const CompactViewOptionsRender = () => {
               onClick={() => toggle(key)}
             >
               <span style={{ fontSize: '12px', color: '#1e293b', fontWeight: 400 }}>{label}</span>
-              <Toggle
-                checked={options[key]}
-                onCheckedChange={() => toggle(key)}
-              />
+              <Toggle checked={options[key]} onCheckedChange={() => toggle(key)} />
             </div>
           ))}
           {gi < groups.length - 1 && (
@@ -289,7 +320,12 @@ const FeatureFlagsRender = () => {
     { key: 'modules', label: 'Modules', desc: '이슈를 모듈별로 그룹화합니다.' },
     { key: 'codehostSync', label: 'CodeHost Sync', desc: 'PR과 이슈를 자동으로 연결합니다.' },
     { key: 'slackNotify', label: 'Slack Notifications', desc: 'Slack 채널에 알림을 전송합니다.' },
-    { key: 'aiSummary', label: 'AI Summary', desc: '이슈 내용을 AI가 자동 요약합니다.', badge: 'Beta' },
+    {
+      key: 'aiSummary',
+      label: 'AI Summary',
+      desc: '이슈 내용을 AI가 자동 요약합니다.',
+      badge: 'Beta',
+    },
     { key: 'roadmap', label: 'Roadmap', desc: '타임라인 뷰에서 로드맵을 확인합니다.' },
   ]
 
@@ -297,7 +333,14 @@ const FeatureFlagsRender = () => {
 
   return (
     <div style={{ maxWidth: '480px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '16px',
+        }}
+      >
         <div>
           <div style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a' }}>기능 설정</div>
           <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
@@ -320,7 +363,9 @@ const FeatureFlagsRender = () => {
             }}
           >
             <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}
+              >
                 <span style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b' }}>{label}</span>
                 {badge && (
                   <span
@@ -339,10 +384,7 @@ const FeatureFlagsRender = () => {
               </div>
               <div style={{ fontSize: '11px', color: '#94a3b8' }}>{desc}</div>
             </div>
-            <Toggle
-              checked={flags[key]}
-              onCheckedChange={() => toggle(key)}
-            />
+            <Toggle checked={flags[key]} onCheckedChange={() => toggle(key)} />
           </div>
         ))}
       </div>
@@ -437,8 +479,19 @@ const ColorModeToggleRender = () => {
         <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ fontSize: '13px', fontWeight: 600, color: fg }}>Orbit UI Eclipse Theme</div>
           <div style={{ fontSize: '12px', color: fgSub, lineHeight: '1.6' }}>
-            AccessibleUI의 <code style={{ background: surface, padding: '1px 5px', borderRadius: '4px', fontFamily: 'monospace', color: accent }}>useColorMode</code> 패턴에 대응하여
-            Toggle 컴포넌트로 테마 전환 UI를 구현한 예시입니다.
+            AccessibleUI의{' '}
+            <code
+              style={{
+                background: surface,
+                padding: '1px 5px',
+                borderRadius: '4px',
+                fontFamily: 'monospace',
+                color: accent,
+              }}
+            >
+              useColorMode
+            </code>{' '}
+            패턴에 대응하여 Toggle 컴포넌트로 테마 전환 UI를 구현한 예시입니다.
           </div>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '4px' }}>
             {['Primary', 'Secondary', 'Muted'].map((label, _i) => (
@@ -518,9 +571,24 @@ const M3_SETTINGS = [
   {
     group: '개인정보 보호',
     items: [
-      { key: 'location', label: '위치 서비스', desc: '앱이 위치 정보에 접근하도록 허용', defaultOn: true },
-      { key: 'analytics', label: '사용 데이터 공유', desc: '제품 개선을 위해 익명 데이터 전송', defaultOn: false },
-      { key: 'crashReport', label: '충돌 보고서', desc: '오류 발생 시 자동으로 보고서 제출', defaultOn: true },
+      {
+        key: 'location',
+        label: '위치 서비스',
+        desc: '앱이 위치 정보에 접근하도록 허용',
+        defaultOn: true,
+      },
+      {
+        key: 'analytics',
+        label: '사용 데이터 공유',
+        desc: '제품 개선을 위해 익명 데이터 전송',
+        defaultOn: false,
+      },
+      {
+        key: 'crashReport',
+        label: '충돌 보고서',
+        desc: '오류 발생 시 자동으로 보고서 제출',
+        defaultOn: true,
+      },
     ],
   },
   {
@@ -535,7 +603,11 @@ const M3_SETTINGS = [
 function Material3SwitchListRender() {
   const [states, setStates] = useState<Record<string, boolean>>(() => {
     const init: Record<string, boolean> = {}
-    M3_SETTINGS.forEach((g) => g.items.forEach((i) => { init[i.key] = i.defaultOn }))
+    M3_SETTINGS.forEach((g) =>
+      g.items.forEach((i) => {
+        init[i.key] = i.defaultOn
+      })
+    )
     return init
   })
 
@@ -545,34 +617,51 @@ function Material3SwitchListRender() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       {M3_SETTINGS.map((group) => (
         <div key={group.group} style={{ marginBottom: 24 }}>
-          <div style={{
-            fontSize: 11, fontWeight: 700, color: '#6366f1',
-            textTransform: 'uppercase', letterSpacing: '0.08em',
-            padding: '0 16px', marginBottom: 4,
-          }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#6366f1',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              padding: '0 16px',
+              marginBottom: 4,
+            }}
+          >
             {group.group}
           </div>
-          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: 12,
+              border: '1px solid #e2e8f0',
+              overflow: 'hidden',
+            }}
+          >
             {group.items.map((item, i) => (
               <div
                 key={item.key}
                 onClick={() => toggle(item.key)}
                 style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '14px 16px', cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '14px 16px',
+                  cursor: 'pointer',
                   borderBottom: i < group.items.length - 1 ? '1px solid #f1f5f9' : 'none',
                   background: states[item.key] ? 'rgba(99,102,241,0.02)' : '#fff',
                   transition: 'background 0.15s',
                 }}
               >
                 <div style={{ flex: 1, marginRight: 12 }}>
-                  <div style={{ fontSize: 14, fontWeight: 500, color: '#1e293b' }}>{item.label}</div>
-                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2, lineHeight: 1.4 }}>{item.desc}</div>
+                  <div style={{ fontSize: 14, fontWeight: 500, color: '#1e293b' }}>
+                    {item.label}
+                  </div>
+                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2, lineHeight: 1.4 }}>
+                    {item.desc}
+                  </div>
                 </div>
-                <Toggle
-                  checked={states[item.key]}
-                  onCheckedChange={() => toggle(item.key)}
-                />
+                <Toggle checked={states[item.key]} onCheckedChange={() => toggle(item.key)} />
               </div>
             ))}
           </div>
@@ -608,11 +697,17 @@ const ROLES: Role[] = ['viewer', 'editor', 'manager', 'owner']
 const PERMISSIONS: Permission[] = ['view', 'edit', 'delete', 'admin']
 
 const ROLE_LABELS: Record<Role, string> = {
-  viewer: '뷰어', editor: '편집자', manager: '매니저', owner: '소유자',
+  viewer: '뷰어',
+  editor: '편집자',
+  manager: '매니저',
+  owner: '소유자',
 }
 
 const PERM_LABELS: Record<Permission, string> = {
-  view: '보기', edit: '편집', delete: '삭제', admin: '관리',
+  view: '보기',
+  edit: '편집',
+  delete: '삭제',
+  admin: '관리',
 }
 
 const INITIAL_PERMS: Record<Role, Record<Permission, boolean>> = {
@@ -635,13 +730,35 @@ function AccessiblePermissionMatrixRender() {
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', padding: '20px' }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 14 }}>역할별 권한 설정</div>
-      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 14 }}>
+        역할별 권한 설정
+      </div>
+      <div
+        style={{
+          background: '#fff',
+          borderRadius: 12,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
         {/* Header */}
-        <div style={{ display: 'grid', gridTemplateColumns: '120px repeat(4, 1fr)', background: '#f8fafc', padding: '10px 16px', borderBottom: '2px solid #e2e8f0' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '120px repeat(4, 1fr)',
+            background: '#f8fafc',
+            padding: '10px 16px',
+            borderBottom: '2px solid #e2e8f0',
+          }}
+        >
           <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>역할</div>
           {PERMISSIONS.map((p) => (
-            <div key={p} style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textAlign: 'center' }}>{PERM_LABELS[p]}</div>
+            <div
+              key={p}
+              style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textAlign: 'center' }}
+            >
+              {PERM_LABELS[p]}
+            </div>
           ))}
         </div>
         {/* Rows */}
@@ -649,15 +766,19 @@ function AccessiblePermissionMatrixRender() {
           <div
             key={role}
             style={{
-              display: 'grid', gridTemplateColumns: '120px repeat(4, 1fr)',
-              padding: '12px 16px', alignItems: 'center',
+              display: 'grid',
+              gridTemplateColumns: '120px repeat(4, 1fr)',
+              padding: '12px 16px',
+              alignItems: 'center',
               background: ri % 2 === 0 ? '#fff' : '#fafafa',
               borderBottom: ri < ROLES.length - 1 ? '1px solid #f1f5f9' : 'none',
               opacity: role === 'owner' ? 0.75 : 1,
             }}
           >
             <div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{ROLE_LABELS[role]}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                {ROLE_LABELS[role]}
+              </div>
               {role === 'owner' && <div style={{ fontSize: 10, color: '#94a3b8' }}>변경 불가</div>}
             </div>
             {PERMISSIONS.map((perm) => (
@@ -696,15 +817,42 @@ export const Accessible_권한_토글_매트릭스: Story = {
    M3의 Feature highlight + Switch 패턴 — 앱 기능 활성화 선택
 -------------------------------------------------------------------------- */
 const M3_FEATURES = [
-  { key: 'darkMode', icon: '◑', title: '다크 모드 자동 전환', desc: '시스템 설정에 따라 자동으로 테마를 변경합니다', color: '#8b5cf6' },
-  { key: 'haptic', icon: '◈', title: '햅틱 피드백', desc: '버튼 클릭 시 진동으로 응답합니다', color: '#6366f1' },
-  { key: 'biometric', icon: '◉', title: '생체 인증', desc: '지문/Face ID로 빠르게 로그인합니다', color: '#06b6d4' },
-  { key: 'sync', icon: '⟳', title: '백그라운드 동기화', desc: '앱이 닫혀있을 때도 데이터를 업데이트합니다', color: '#10b981' },
+  {
+    key: 'darkMode',
+    icon: '◑',
+    title: '다크 모드 자동 전환',
+    desc: '시스템 설정에 따라 자동으로 테마를 변경합니다',
+    color: '#8b5cf6',
+  },
+  {
+    key: 'haptic',
+    icon: '◈',
+    title: '햅틱 피드백',
+    desc: '버튼 클릭 시 진동으로 응답합니다',
+    color: '#6366f1',
+  },
+  {
+    key: 'biometric',
+    icon: '◉',
+    title: '생체 인증',
+    desc: '지문/Face ID로 빠르게 로그인합니다',
+    color: '#06b6d4',
+  },
+  {
+    key: 'sync',
+    icon: '⟳',
+    title: '백그라운드 동기화',
+    desc: '앱이 닫혀있을 때도 데이터를 업데이트합니다',
+    color: '#10b981',
+  },
 ]
 
 function M3OnboardingFeaturesRender() {
   const [enabled, setEnabled] = useState<Record<string, boolean>>({
-    darkMode: true, haptic: true, biometric: false, sync: false,
+    darkMode: true,
+    haptic: true,
+    biometric: false,
+    sync: false,
   })
 
   const toggle = (key: string) => setEnabled((prev) => ({ ...prev, [key]: !prev[key] }))
@@ -712,7 +860,9 @@ function M3OnboardingFeaturesRender() {
 
   return (
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', padding: '20px' }}>
-      <div style={{ fontSize: 16, fontWeight: 800, color: '#1e293b', marginBottom: 4 }}>기능 설정</div>
+      <div style={{ fontSize: 16, fontWeight: 800, color: '#1e293b', marginBottom: 4 }}>
+        기능 설정
+      </div>
       <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 20, lineHeight: 1.5 }}>
         원하는 기능을 활성화하세요. 언제든지 설정에서 변경할 수 있습니다.
       </div>
@@ -722,34 +872,57 @@ function M3OnboardingFeaturesRender() {
             key={feat.key}
             onClick={() => toggle(feat.key)}
             style={{
-              display: 'flex', alignItems: 'center', gap: 14,
-              padding: '14px 16px', borderRadius: 12, cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              padding: '14px 16px',
+              borderRadius: 12,
+              cursor: 'pointer',
               border: `1.5px solid ${enabled[feat.key] ? feat.color + '60' : '#e2e8f0'}`,
               background: enabled[feat.key] ? feat.color + '08' : '#fff',
               transition: 'all 0.2s',
             }}
           >
-            <div style={{
-              width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-              background: enabled[feat.key] ? feat.color : '#e2e8f0',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 18, color: '#fff', fontWeight: 700,
-              transition: 'background 0.2s',
-            }}>
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 10,
+                flexShrink: 0,
+                background: enabled[feat.key] ? feat.color : '#e2e8f0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 18,
+                color: '#fff',
+                fontWeight: 700,
+                transition: 'background 0.2s',
+              }}
+            >
               {feat.icon}
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{feat.title}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2, lineHeight: 1.4 }}>{feat.desc}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2, lineHeight: 1.4 }}>
+                {feat.desc}
+              </div>
             </div>
-            <Toggle
-              checked={enabled[feat.key]}
-              onCheckedChange={() => toggle(feat.key)}
-            />
+            <Toggle checked={enabled[feat.key]} onCheckedChange={() => toggle(feat.key)} />
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b', textAlign: 'center' }}>
+      <div
+        style={{
+          marginTop: 16,
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          fontSize: 12,
+          color: '#64748b',
+          textAlign: 'center',
+        }}
+      >
         {enabledCount}개 기능 활성화됨
       </div>
     </div>
@@ -793,9 +966,7 @@ const AppUISettingsGroupRender = () => {
     {
       title: '자동화',
       desc: '워크플로우 자동화 설정',
-      items: [
-        { id: 'auto_archive', label: '자동 보관', desc: '30일 미사용 항목 자동 보관' },
-      ],
+      items: [{ id: 'auto_archive', label: '자동 보관', desc: '30일 미사용 항목 자동 보관' }],
     },
     {
       title: '보안',
@@ -812,21 +983,53 @@ const AppUISettingsGroupRender = () => {
 
   return (
     <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          marginBottom: 14,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <div>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>환경설정</div>
-          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{activeCount}개 활성화됨</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+            {activeCount}개 활성화됨
+          </div>
         </div>
         <button
           onClick={() => setVals(Object.fromEntries(Object.keys(vals).map((k) => [k, false])))}
-          style={{ fontSize: 11, color: '#64748b', background: 'none', border: '1px solid #e2e8f0', borderRadius: 6, padding: '4px 10px', cursor: 'pointer' }}
+          style={{
+            fontSize: 11,
+            color: '#64748b',
+            background: 'none',
+            border: '1px solid #e2e8f0',
+            borderRadius: 6,
+            padding: '4px 10px',
+            cursor: 'pointer',
+          }}
         >
           모두 끄기
         </button>
       </div>
       {GROUPS.map((g) => (
-        <div key={g.title} style={{ marginBottom: 16, background: '#fff', borderRadius: 10, border: '1px solid #f1f5f9', overflow: 'hidden' }}>
-          <div style={{ padding: '10px 14px', borderBottom: '1px solid #f8fafc', background: '#f8fafc' }}>
+        <div
+          key={g.title}
+          style={{
+            marginBottom: 16,
+            background: '#fff',
+            borderRadius: 10,
+            border: '1px solid #f1f5f9',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              padding: '10px 14px',
+              borderBottom: '1px solid #f8fafc',
+              background: '#f8fafc',
+            }}
+          >
             <div style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>{g.title}</div>
             <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{g.desc}</div>
           </div>
@@ -835,7 +1038,9 @@ const AppUISettingsGroupRender = () => {
               key={item.id}
               style={{
                 padding: '12px 14px',
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
                 borderBottom: idx < g.items.length - 1 ? '1px solid #f8fafc' : 'none',
               }}
             >
@@ -876,22 +1081,64 @@ const CommandPaletteExtensionTogglesRender = () => {
   })
 
   const EXTENSIONS = [
-    { id: 'clipboard', name: '클립보드 히스토리', author: 'CommandPalette', category: '생산성', color: '#f59e0b' },
-    { id: 'window_mgr', name: '창 관리', author: 'CommandPalette', category: '유틸리티', color: '#6366f1' },
-    { id: 'browser_hist', name: '브라우저 히스토리', author: 'Community', category: '브라우저', color: '#0ea5e9' },
-    { id: 'calculator', name: '계산기', author: 'CommandPalette', category: '유틸리티', color: '#22c55e' },
-    { id: 'file_search', name: '파일 검색', author: 'Community', category: '파일', color: '#ec4899' },
-    { id: 'snippets', name: '텍스트 스니펫', author: 'CommandPalette', category: '생산성', color: '#8b5cf6' },
+    {
+      id: 'clipboard',
+      name: '클립보드 히스토리',
+      author: 'CommandPalette',
+      category: '생산성',
+      color: '#f59e0b',
+    },
+    {
+      id: 'window_mgr',
+      name: '창 관리',
+      author: 'CommandPalette',
+      category: '유틸리티',
+      color: '#6366f1',
+    },
+    {
+      id: 'browser_hist',
+      name: '브라우저 히스토리',
+      author: 'Community',
+      category: '브라우저',
+      color: '#0ea5e9',
+    },
+    {
+      id: 'calculator',
+      name: '계산기',
+      author: 'CommandPalette',
+      category: '유틸리티',
+      color: '#22c55e',
+    },
+    {
+      id: 'file_search',
+      name: '파일 검색',
+      author: 'Community',
+      category: '파일',
+      color: '#ec4899',
+    },
+    {
+      id: 'snippets',
+      name: '텍스트 스니펫',
+      author: 'CommandPalette',
+      category: '생산성',
+      color: '#8b5cf6',
+    },
   ]
 
   const toggle = (id: string) => setExtensions((prev) => ({ ...prev, [id]: !prev[id] }))
 
   return (
-    <div style={{
-      width: 400, fontFamily: 'system-ui, sans-serif',
-      background: '#1c1c1e', borderRadius: 12, overflow: 'hidden',
-      border: '1px solid #2c2c2e', padding: '0 0 8px',
-    }}>
+    <div
+      style={{
+        width: 400,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#1c1c1e',
+        borderRadius: 12,
+        overflow: 'hidden',
+        border: '1px solid #2c2c2e',
+        padding: '0 0 8px',
+      }}
+    >
       <div style={{ padding: '14px 16px 10px', borderBottom: '1px solid #2c2c2e' }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#f5f5f7' }}>확장 프로그램</div>
         <div style={{ fontSize: 11, color: '#636366', marginTop: 2 }}>
@@ -903,18 +1150,28 @@ const CommandPaletteExtensionTogglesRender = () => {
           key={ext.id}
           style={{
             padding: '10px 16px',
-            display: 'flex', alignItems: 'center', gap: 12,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
             borderBottom: '1px solid #2c2c2e',
             opacity: extensions[ext.id] ? 1 : 0.5,
             transition: 'opacity 0.2s',
           }}
         >
-          <div style={{
-            width: 32, height: 32, borderRadius: 8, flexShrink: 0,
-            background: extensions[ext.id] ? ext.color : '#3a3a3c',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 14, transition: 'background 0.2s',
-          }}>
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: 8,
+              flexShrink: 0,
+              background: extensions[ext.id] ? ext.color : '#3a3a3c',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 14,
+              transition: 'background 0.2s',
+            }}
+          >
             {ext.name[0]}
           </div>
           <div style={{ flex: 1 }}>
@@ -955,12 +1212,42 @@ const AppUIFeatureFlagsDashRender = () => {
   const [filter, setFilter] = useState<'all' | 'on' | 'off'>('all')
 
   const FLAG_DEFS = [
-    { id: 'new_dashboard', label: '새 대시보드', env: 'production', risk: 'low' as const, rollout: 100 },
+    {
+      id: 'new_dashboard',
+      label: '새 대시보드',
+      env: 'production',
+      risk: 'low' as const,
+      rollout: 100,
+    },
     { id: 'beta_editor', label: '베타 에디터', env: 'staging', risk: 'high' as const, rollout: 10 },
-    { id: 'ai_suggestions', label: 'AI 제안', env: 'production', risk: 'medium' as const, rollout: 50 },
-    { id: 'bulk_actions', label: '일괄 작업', env: 'staging', risk: 'medium' as const, rollout: 25 },
-    { id: 'dark_mode_v2', label: '다크모드 v2', env: 'production', risk: 'low' as const, rollout: 80 },
-    { id: 'analytics_v3', label: '애널리틱스 v3', env: 'development', risk: 'high' as const, rollout: 5 },
+    {
+      id: 'ai_suggestions',
+      label: 'AI 제안',
+      env: 'production',
+      risk: 'medium' as const,
+      rollout: 50,
+    },
+    {
+      id: 'bulk_actions',
+      label: '일괄 작업',
+      env: 'staging',
+      risk: 'medium' as const,
+      rollout: 25,
+    },
+    {
+      id: 'dark_mode_v2',
+      label: '다크모드 v2',
+      env: 'production',
+      risk: 'low' as const,
+      rollout: 80,
+    },
+    {
+      id: 'analytics_v3',
+      label: '애널리틱스 v3',
+      env: 'development',
+      risk: 'high' as const,
+      rollout: 5,
+    },
   ]
 
   const RISK_COLOR = { low: '#22c55e', medium: '#f59e0b', high: '#ef4444' } as const
@@ -972,7 +1259,14 @@ const AppUIFeatureFlagsDashRender = () => {
 
   return (
     <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          marginBottom: 12,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>기능 플래그</div>
         <div style={{ display: 'flex', gap: 4 }}>
           {(['all', 'on', 'off'] as const).map((f) => (
@@ -980,10 +1274,14 @@ const AppUIFeatureFlagsDashRender = () => {
               key={f}
               onClick={() => setFilter(f)}
               style={{
-                padding: '3px 10px', borderRadius: 6, border: '1px solid #e2e8f0',
+                padding: '3px 10px',
+                borderRadius: 6,
+                border: '1px solid #e2e8f0',
                 background: filter === f ? '#0f172a' : '#fff',
                 color: filter === f ? '#fff' : '#64748b',
-                fontSize: 11, cursor: 'pointer', fontWeight: filter === f ? 600 : 400,
+                fontSize: 11,
+                cursor: 'pointer',
+                fontWeight: filter === f ? 600 : 400,
               }}
             >
               {f === 'all' ? '전체' : f === 'on' ? '활성' : '비활성'}
@@ -997,22 +1295,35 @@ const AppUIFeatureFlagsDashRender = () => {
             key={f.id}
             style={{
               padding: '11px 14px',
-              display: 'flex', alignItems: 'center', gap: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
               borderBottom: idx < filtered.length - 1 ? '1px solid #f1f5f9' : 'none',
               background: flags[f.id] ? '#fff' : '#fafafa',
             }}
           >
-            <div style={{
-              width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
-              background: flags[f.id] ? '#22c55e' : '#e2e8f0',
-            }} />
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                flexShrink: 0,
+                background: flags[f.id] ? '#22c55e' : '#e2e8f0',
+              }}
+            />
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span style={{ fontSize: 13, fontWeight: 500, color: '#1e293b' }}>{f.label}</span>
-                <span style={{
-                  fontSize: 9, padding: '1px 5px', borderRadius: 3,
-                  background: RISK_COLOR[f.risk] + '20', color: RISK_COLOR[f.risk], fontWeight: 600,
-                }}>
+                <span
+                  style={{
+                    fontSize: 9,
+                    padding: '1px 5px',
+                    borderRadius: 3,
+                    background: RISK_COLOR[f.risk] + '20',
+                    color: RISK_COLOR[f.risk],
+                    fontWeight: 600,
+                  }}
+                >
                   {f.risk}
                 </span>
               </div>
@@ -1050,12 +1361,30 @@ export const AppUI_기능_플래그_대시보드: Story = {
    사용자가 직접 Toggle로 켜고 끄는 설정 패널 패턴.
 -------------------------------------------------------------------------- */
 const WIDGET_DEFS = [
-  { id: 'w1', label: '방문자 통계', desc: '실시간 방문자 수 및 세션 데이터', icon: '📈', category: '애널리틱스' },
-  { id: 'w2', label: '매출 현황', desc: '일/주/월별 매출 차트', icon: '💰', category: '애널리틱스' },
+  {
+    id: 'w1',
+    label: '방문자 통계',
+    desc: '실시간 방문자 수 및 세션 데이터',
+    icon: '📈',
+    category: '애널리틱스',
+  },
+  {
+    id: 'w2',
+    label: '매출 현황',
+    desc: '일/주/월별 매출 차트',
+    icon: '💰',
+    category: '애널리틱스',
+  },
   { id: 'w3', label: '최근 주문', desc: '최신 주문 목록 및 상태', icon: '📦', category: '운영' },
   { id: 'w4', label: '지원 티켓', desc: '미해결 고객 지원 요청', icon: '🎧', category: '운영' },
   { id: 'w5', label: '팀 활동', desc: '팀원 최근 커밋 및 활동', icon: '👥', category: '팀' },
-  { id: 'w6', label: '시스템 상태', desc: 'API 및 서비스 헬스 체크', icon: '🖥', category: '시스템' },
+  {
+    id: 'w6',
+    label: '시스템 상태',
+    desc: 'API 및 서비스 헬스 체크',
+    icon: '🖥',
+    category: '시스템',
+  },
 ]
 
 const UtilityCSSWidgetControlRender = () => {
@@ -1072,22 +1401,46 @@ const UtilityCSSWidgetControlRender = () => {
 
   return (
     <div style={{ maxWidth: 420 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
         <div>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>대시보드 위젯</div>
-          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>표시할 위젯을 선택하세요</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+            표시할 위젯을 선택하세요
+          </div>
         </div>
-        <div style={{
-          padding: '3px 10px', borderRadius: 20,
-          background: '#eff6ff', fontSize: 12, fontWeight: 700, color: '#6366f1',
-        }}>
+        <div
+          style={{
+            padding: '3px 10px',
+            borderRadius: 20,
+            background: '#eff6ff',
+            fontSize: 12,
+            fontWeight: 700,
+            color: '#6366f1',
+          }}
+        >
           {activeCount}/{WIDGET_DEFS.length}
         </div>
       </div>
 
       {categories.map((cat) => (
         <div key={cat} style={{ marginBottom: 16 }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 8,
+            }}
+          >
             {cat}
           </div>
           <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
@@ -1095,7 +1448,9 @@ const UtilityCSSWidgetControlRender = () => {
               <div
                 key={widget.id}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 12,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
                   padding: '12px 14px',
                   borderBottom: i < arr.length - 1 ? '1px solid #f1f5f9' : 'none',
                   background: widgets[widget.id] ? '#fafafa' : '#fff',
@@ -1104,11 +1459,14 @@ const UtilityCSSWidgetControlRender = () => {
               >
                 <span style={{ fontSize: 18, flexShrink: 0 }}>{widget.icon}</span>
                 <div style={{ flex: 1 }}>
-                  <div style={{
-                    fontSize: 13, fontWeight: 600,
-                    color: widgets[widget.id] ? '#1e293b' : '#94a3b8',
-                    transition: 'color 0.15s',
-                  }}>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: widgets[widget.id] ? '#1e293b' : '#94a3b8',
+                      transition: 'color 0.15s',
+                    }}
+                  >
                     {widget.label}
                   </div>
                   <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{widget.desc}</div>
@@ -1120,7 +1478,16 @@ const UtilityCSSWidgetControlRender = () => {
         </div>
       ))}
 
-      <div style={{ padding: '10px 14px', borderRadius: 10, background: '#f8fafc', border: '1px solid #e2e8f0', fontSize: 12, color: '#64748b' }}>
+      <div
+        style={{
+          padding: '10px 14px',
+          borderRadius: 10,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          fontSize: 12,
+          color: '#64748b',
+        }}
+      >
         변경 사항은 대시보드에 즉시 반영됩니다.
       </div>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
@@ -1168,9 +1535,9 @@ const AppUINotifChannelRender = () => {
   type SettingsState = Record<NotifCategory, Record<NotifChannel, boolean>>
   const [settings, setSettings] = useState<SettingsState>({
     security: { email: true, push: true, sms: true },
-    billing:  { email: true, push: true, sms: false },
-    updates:  { email: true, push: false, sms: false },
-    team:     { email: false, push: true, sms: false },
+    billing: { email: true, push: true, sms: false },
+    updates: { email: true, push: false, sms: false },
+    team: { email: false, push: true, sms: false },
   })
 
   const toggleNotif = (cat: NotifCategory, ch: NotifChannel) => {
@@ -1184,14 +1551,26 @@ const AppUINotifChannelRender = () => {
     <div style={{ maxWidth: 480 }}>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 설정</div>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>채널별로 수신할 알림을 선택하세요</div>
+        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+          채널별로 수신할 알림을 선택하세요
+        </div>
       </div>
 
       {/* 테이블 헤더 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr repeat(3, 64px)', gap: 0, marginBottom: 4 }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr repeat(3, 64px)',
+          gap: 0,
+          marginBottom: 4,
+        }}
+      >
         <div />
         {NOTIF_CHANNELS.map((ch) => (
-          <div key={ch.id} style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#64748b' }}>
+          <div
+            key={ch.id}
+            style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#64748b' }}
+          >
             <div>{ch.icon}</div>
             <div>{ch.label}</div>
           </div>
@@ -1203,8 +1582,10 @@ const AppUINotifChannelRender = () => {
           <div
             key={cat.id}
             style={{
-              display: 'grid', gridTemplateColumns: '1fr repeat(3, 64px)',
-              padding: '12px 16px', alignItems: 'center',
+              display: 'grid',
+              gridTemplateColumns: '1fr repeat(3, 64px)',
+              padding: '12px 16px',
+              alignItems: 'center',
               borderBottom: i < NOTIF_CATEGORIES.length - 1 ? '1px solid #f1f5f9' : 'none',
               background: cat.id === 'security' ? '#fffbeb' : '#fff',
             }}
@@ -1214,12 +1595,23 @@ const AppUINotifChannelRender = () => {
                 <span style={{ fontSize: 14 }}>{cat.icon}</span>
                 <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{cat.label}</span>
                 {cat.id === 'security' && (
-                  <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 3, background: '#fef3c7', color: '#92400e' }}>
+                  <span
+                    style={{
+                      fontSize: 9,
+                      fontWeight: 700,
+                      padding: '1px 5px',
+                      borderRadius: 3,
+                      background: '#fef3c7',
+                      color: '#92400e',
+                    }}
+                  >
                     필수
                   </span>
                 )}
               </div>
-              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2, paddingLeft: 20 }}>{cat.desc}</div>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2, paddingLeft: 20 }}>
+                {cat.desc}
+              </div>
             </div>
             {NOTIF_CHANNELS.map((ch) => (
               <div key={ch.id} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -1307,26 +1699,51 @@ const UtilityCSSApiScopeRender = () => {
 
   return (
     <div style={{ maxWidth: 520 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
         <div>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>API 키 권한</div>
-          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>이 키에 부여할 접근 범위를 선택하세요</div>
+          <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>
+            이 키에 부여할 접근 범위를 선택하세요
+          </div>
         </div>
         <div style={{ fontSize: 12, color: '#64748b' }}>
           <span style={{ fontWeight: 700, color: '#6366f1' }}>{totalPermissions}</span>개 권한 활성
         </div>
       </div>
 
-      <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden', marginBottom: 12 }}>
+      <div
+        style={{
+          borderRadius: 12,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+          marginBottom: 12,
+        }}
+      >
         {/* 헤더 */}
-        <div style={{
-          display: 'grid', gridTemplateColumns: '1fr repeat(3, 80px)',
-          padding: '8px 16px', background: '#f8fafc',
-          borderBottom: '1px solid #e2e8f0',
-        }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr repeat(3, 80px)',
+            padding: '8px 16px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+          }}
+        >
           <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8' }}>리소스</span>
           {['읽기', '쓰기', '삭제'].map((perm) => (
-            <span key={perm} style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textAlign: 'center' }}>{perm}</span>
+            <span
+              key={perm}
+              style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textAlign: 'center' }}
+            >
+              {perm}
+            </span>
           ))}
         </div>
 
@@ -1334,18 +1751,27 @@ const UtilityCSSApiScopeRender = () => {
           <div
             key={scope.id}
             style={{
-              display: 'grid', gridTemplateColumns: '1fr repeat(3, 80px)',
-              padding: '12px 16px', alignItems: 'center',
+              display: 'grid',
+              gridTemplateColumns: '1fr repeat(3, 80px)',
+              padding: '12px 16px',
+              alignItems: 'center',
               borderBottom: i < scopes.length - 1 ? '1px solid #f1f5f9' : 'none',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{scope.resource}</span>
-              <span style={{
-                fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 3,
-                background: SCOPE_RISK_COLOR[scope.risk] + '14',
-                color: SCOPE_RISK_COLOR[scope.risk],
-              }}>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                {scope.resource}
+              </span>
+              <span
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  padding: '1px 5px',
+                  borderRadius: 3,
+                  background: SCOPE_RISK_COLOR[scope.risk] + '14',
+                  color: SCOPE_RISK_COLOR[scope.risk],
+                }}
+              >
                 {scope.risk}
               </span>
             </div>
@@ -1362,8 +1788,18 @@ const UtilityCSSApiScopeRender = () => {
         ))}
       </div>
 
-      <div style={{ padding: '10px 14px', borderRadius: 10, background: '#fef3c7', border: '1px solid #fde68a', fontSize: 12, color: '#92400e' }}>
-        쓰기/삭제 권한 활성화 시 읽기 권한이 자동으로 활성화됩니다. Billing 리소스는 읽기만 허용됩니다.
+      <div
+        style={{
+          padding: '10px 14px',
+          borderRadius: 10,
+          background: '#fef3c7',
+          border: '1px solid #fde68a',
+          fontSize: 12,
+          color: '#92400e',
+        }}
+      >
+        쓰기/삭제 권한 활성화 시 읽기 권한이 자동으로 활성화됩니다. Billing 리소스는 읽기만
+        허용됩니다.
       </div>
       <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
         UtilityUI API Key Permissions 패턴 — 리소스 × 권한 레벨 Toggle
@@ -1405,9 +1841,15 @@ export const ComposableUI_텍스트_서식_도구바: Story = {
   },
   render: function ComposableUIFormatToolbarRender() {
     const [formats, setFormats] = useState<Record<FormatKey139, boolean>>({
-      bold: false, italic: false, underline: false, strike: false, code: false,
+      bold: false,
+      italic: false,
+      underline: false,
+      strike: false,
+      code: false,
     })
-    const [text, setText] = useState('Orbit UI 디자인 시스템 — 3-tier 토큰 아키텍처로 완전한 커스터마이징 지원')
+    const [text, setText] = useState(
+      'Orbit UI 디자인 시스템 — 3-tier 토큰 아키텍처로 완전한 커스터마이징 지원'
+    )
 
     function toggleFormat(key: FormatKey139) {
       setFormats((prev) => ({ ...prev, [key]: !prev[key] }))
@@ -1424,7 +1866,10 @@ export const ComposableUI_텍스트_서식_도구바: Story = {
     const previewStyle: React.CSSProperties = {
       fontWeight: formats.bold ? 700 : 400,
       fontStyle: formats.italic ? 'italic' : 'normal',
-      textDecoration: [formats.underline ? 'underline' : '', formats.strike ? 'line-through' : ''].filter(Boolean).join(' ') || 'none',
+      textDecoration:
+        [formats.underline ? 'underline' : '', formats.strike ? 'line-through' : '']
+          .filter(Boolean)
+          .join(' ') || 'none',
       fontFamily: formats.code ? 'monospace' : 'system-ui, sans-serif',
       fontSize: formats.code ? 13 : 15,
       background: formats.code ? '#f1f5f9' : 'transparent',
@@ -1435,14 +1880,34 @@ export const ComposableUI_텍스트_서식_도구바: Story = {
     return (
       <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
         {/* 도구바 */}
-        <div style={{ display: 'flex', gap: 2, padding: '6px 8px', background: '#f8fafc', borderRadius: '10px 10px 0 0', border: '1px solid #e2e8f0', borderBottom: 'none' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: 2,
+            padding: '6px 8px',
+            background: '#f8fafc',
+            borderRadius: '10px 10px 0 0',
+            border: '1px solid #e2e8f0',
+            borderBottom: 'none',
+          }}
+        >
           {TOOLS.map((t) => (
             <Toggle
               key={t.key}
               checked={formats[t.key]}
               onCheckedChange={() => toggleFormat(t.key)}
             >
-              <span style={{ fontWeight: t.key === 'bold' ? 800 : 400, fontStyle: t.key === 'italic' ? 'italic' : 'normal', fontSize: 13, color: '#0f172a', minWidth: 24, textAlign: 'center' }} title={t.title}>
+              <span
+                style={{
+                  fontWeight: t.key === 'bold' ? 800 : 400,
+                  fontStyle: t.key === 'italic' ? 'italic' : 'normal',
+                  fontSize: 13,
+                  color: '#0f172a',
+                  minWidth: 24,
+                  textAlign: 'center',
+                }}
+                title={t.title}
+              >
                 {t.label}
               </span>
             </Toggle>
@@ -1450,18 +1915,38 @@ export const ComposableUI_텍스트_서식_도구바: Story = {
           <div style={{ width: 1, background: '#e2e8f0', margin: '4px 4px' }} />
           <span style={{ fontSize: 11, color: '#94a3b8', alignSelf: 'center', marginLeft: 2 }}>
             {Object.values(formats).filter(Boolean).length > 0
-              ? `${Object.entries(formats).filter(([, v]) => v).map(([k]) => k).join(', ')} 활성`
-              : '서식 없음'
-            }
+              ? `${Object.entries(formats)
+                  .filter(([, v]) => v)
+                  .map(([k]) => k)
+                  .join(', ')} 활성`
+              : '서식 없음'}
           </span>
         </div>
         {/* 에디터 영역 */}
-        <div style={{ padding: '16px', border: '1px solid #e2e8f0', borderRadius: '0 0 10px 10px', minHeight: 80 }}>
+        <div
+          style={{
+            padding: '16px',
+            border: '1px solid #e2e8f0',
+            borderRadius: '0 0 10px 10px',
+            minHeight: 80,
+          }}
+        >
           <span style={previewStyle}>{text}</span>
           <input
             value={text}
             onChange={(e) => setText(e.target.value)}
-            style={{ display: 'block', width: '100%', marginTop: 12, padding: '6px 8px', border: '1px solid #f1f5f9', borderRadius: 6, fontSize: 12, color: '#94a3b8', outline: 'none', boxSizing: 'border-box' }}
+            style={{
+              display: 'block',
+              width: '100%',
+              marginTop: 12,
+              padding: '6px 8px',
+              border: '1px solid #f1f5f9',
+              borderRadius: 6,
+              fontSize: 12,
+              color: '#94a3b8',
+              outline: 'none',
+              boxSizing: 'border-box',
+            }}
             placeholder="미리보기 텍스트를 수정하세요..."
           />
         </div>
@@ -1506,12 +1991,15 @@ export const WorkspaceEditor_데이터베이스_뷰_전환: Story = {
         {/* 뷰 탭 */}
         <div style={{ display: 'flex', gap: 4, marginBottom: 14, padding: '0 2px' }}>
           {WORKSPACE_VIEWS_139.map((v) => (
-            <Toggle
-              key={v.key}
-              checked={view === v.key}
-              onCheckedChange={() => setView(v.key)}
-            >
-              <span style={{ fontSize: 12, fontWeight: view === v.key ? 700 : 400, padding: '2px 8px', color: view === v.key ? '#0f172a' : '#64748b' }}>
+            <Toggle key={v.key} checked={view === v.key} onCheckedChange={() => setView(v.key)}>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: view === v.key ? 700 : 400,
+                  padding: '2px 8px',
+                  color: view === v.key ? '#0f172a' : '#64748b',
+                }}
+              >
                 {v.label}
               </span>
             </Toggle>
@@ -1529,7 +2017,18 @@ export const WorkspaceEditor_데이터베이스_뷰_전환: Story = {
             <thead>
               <tr style={{ background: '#f8fafc' }}>
                 {['제목', '상태', '우선순위'].map((h) => (
-                  <th key={h} style={{ padding: '8px 12px', textAlign: 'left', fontWeight: 600, color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>{h}</th>
+                  <th
+                    key={h}
+                    style={{
+                      padding: '8px 12px',
+                      textAlign: 'left',
+                      fontWeight: 600,
+                      color: '#64748b',
+                      borderBottom: '1px solid #e2e8f0',
+                    }}
+                  >
+                    {h}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -1547,8 +2046,18 @@ export const WorkspaceEditor_데이터베이스_뷰_전환: Story = {
         {view === 'board' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
             {WORKSPACE_ITEMS_139.map((item) => (
-              <div key={item.id} style={{ padding: '10px 12px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a', marginBottom: 4 }}>{item.title}</div>
+              <div
+                key={item.id}
+                style={{
+                  padding: '10px 12px',
+                  borderRadius: 10,
+                  border: '1px solid #e2e8f0',
+                  background: '#fff',
+                }}
+              >
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#0f172a', marginBottom: 4 }}>
+                  {item.title}
+                </div>
                 <div style={{ display: 'flex', gap: 6, fontSize: 11 }}>
                   <span style={{ color: '#64748b' }}>{item.status}</span>
                   <span style={{ color: '#94a3b8' }}>·</span>
@@ -1561,11 +2070,27 @@ export const WorkspaceEditor_데이터베이스_뷰_전환: Story = {
         {view === 'gallery' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
             {WORKSPACE_ITEMS_139.map((item) => (
-              <div key={item.id} style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-                <div style={{ height: 64, background: `hsl(${item.id * 70}, 60%, 92%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>
+              <div
+                key={item.id}
+                style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}
+              >
+                <div
+                  style={{
+                    height: 64,
+                    background: `hsl(${item.id * 70}, 60%, 92%)`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 20,
+                  }}
+                >
                   {item.id === 1 ? '◈' : item.id === 2 ? '◉' : item.id === 3 ? '◎' : '◆'}
                 </div>
-                <div style={{ padding: '8px 10px', fontSize: 12, fontWeight: 600, color: '#0f172a' }}>{item.title}</div>
+                <div
+                  style={{ padding: '8px 10px', fontSize: 12, fontWeight: 600, color: '#0f172a' }}
+                >
+                  {item.title}
+                </div>
               </div>
             ))}
           </div>
@@ -1573,9 +2098,31 @@ export const WorkspaceEditor_데이터베이스_뷰_전환: Story = {
         {view === 'list' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {WORKSPACE_ITEMS_139.map((item) => (
-              <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 10px', borderRadius: 6, background: '#f8fafc' }}>
-                <span style={{ fontSize: 11, color: '#94a3b8', width: 16, textAlign: 'right', flexShrink: 0 }}>{item.id}.</span>
-                <span style={{ fontSize: 12, fontWeight: 500, color: '#0f172a', flex: 1 }}>{item.title}</span>
+              <div
+                key={item.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  background: '#f8fafc',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 11,
+                    color: '#94a3b8',
+                    width: 16,
+                    textAlign: 'right',
+                    flexShrink: 0,
+                  }}
+                >
+                  {item.id}.
+                </span>
+                <span style={{ fontSize: 12, fontWeight: 500, color: '#0f172a', flex: 1 }}>
+                  {item.title}
+                </span>
                 <span style={{ fontSize: 11, color: '#64748b' }}>{item.status}</span>
                 <span style={{ fontSize: 11, color: '#94a3b8' }}>{item.priority}</span>
               </div>
@@ -1610,48 +2157,138 @@ export const ComposableUI_WorkspaceEditor_에디터_패널_토글: Story = {
     return (
       <div style={{ fontFamily: 'system-ui, sans-serif', width: 520 }}>
         {/* 툴바 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: '#f8fafc', borderRadius: '10px 10px 0 0', border: '1px solid #e2e8f0', borderBottom: 'none' }}>
-          <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginRight: 4 }}>패널:</span>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 12px',
+            background: '#f8fafc',
+            borderRadius: '10px 10px 0 0',
+            border: '1px solid #e2e8f0',
+            borderBottom: 'none',
+          }}
+        >
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b', marginRight: 4 }}>
+            패널:
+          </span>
           {[
             { label: '사이드바', value: sidebar, set: setSidebar },
             { label: '아웃라인', value: outline, set: setOutline },
             { label: '미리보기', value: preview, set: setPreview },
           ].map((p) => (
             <Toggle key={p.label} checked={p.value} onCheckedChange={() => p.set((v) => !v)}>
-              <span style={{ fontSize: 11, fontWeight: p.value ? 700 : 400, padding: '2px 8px', color: p.value ? '#0f172a' : '#94a3b8' }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: p.value ? 700 : 400,
+                  padding: '2px 8px',
+                  color: p.value ? '#0f172a' : '#94a3b8',
+                }}
+              >
                 {p.label}
               </span>
             </Toggle>
           ))}
-          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>에디터 {editorWidth}</span>
+          <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>
+            에디터 {editorWidth}
+          </span>
         </div>
 
         {/* 에디터 레이아웃 시뮬레이션 */}
-        <div style={{ display: 'flex', border: '1px solid #e2e8f0', borderRadius: '0 0 10px 10px', overflow: 'hidden', height: 180 }}>
+        <div
+          style={{
+            display: 'flex',
+            border: '1px solid #e2e8f0',
+            borderRadius: '0 0 10px 10px',
+            overflow: 'hidden',
+            height: 180,
+          }}
+        >
           {sidebar && (
-            <div style={{ width: '20%', background: '#f1f5f9', borderRight: '1px solid #e2e8f0', padding: '10px 8px', fontSize: 11, color: '#64748b' }}>
+            <div
+              style={{
+                width: '20%',
+                background: '#f1f5f9',
+                borderRight: '1px solid #e2e8f0',
+                padding: '10px 8px',
+                fontSize: 11,
+                color: '#64748b',
+              }}
+            >
               <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>사이드바</div>
               {['소개', '설치', '컴포넌트', '토큰', 'MDX 문서'].map((item) => (
-                <div key={item} style={{ padding: '4px 6px', borderRadius: 4, marginBottom: 2, cursor: 'pointer' }}>{item}</div>
+                <div
+                  key={item}
+                  style={{
+                    padding: '4px 6px',
+                    borderRadius: 4,
+                    marginBottom: 2,
+                    cursor: 'pointer',
+                  }}
+                >
+                  {item}
+                </div>
               ))}
             </div>
           )}
-          <div style={{ flex: 1, padding: '12px', background: '#fff', fontSize: 12, color: '#0f172a', lineHeight: 1.7 }}>
+          <div
+            style={{
+              flex: 1,
+              padding: '12px',
+              background: '#fff',
+              fontSize: 12,
+              color: '#0f172a',
+              lineHeight: 1.7,
+            }}
+          >
             <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6 }}>Orbit UI 문서</div>
-            <div style={{ color: '#475569', fontSize: 12 }}>이 영역에서 마크다운 콘텐츠를 편집합니다. 좌측 패널은 문서 탐색, 우측은 아웃라인과 미리보기를 제공합니다.</div>
+            <div style={{ color: '#475569', fontSize: 12 }}>
+              이 영역에서 마크다운 콘텐츠를 편집합니다. 좌측 패널은 문서 탐색, 우측은 아웃라인과
+              미리보기를 제공합니다.
+            </div>
           </div>
           {outline && (
-            <div style={{ width: '18%', background: '#f8fafc', borderLeft: '1px solid #e2e8f0', padding: '10px 8px', fontSize: 11, color: '#64748b' }}>
+            <div
+              style={{
+                width: '18%',
+                background: '#f8fafc',
+                borderLeft: '1px solid #e2e8f0',
+                padding: '10px 8px',
+                fontSize: 11,
+                color: '#64748b',
+              }}
+            >
               <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>아웃라인</div>
               {['# 소개', '## 설치', '### pnpm', '## 사용법'].map((h) => (
-                <div key={h} style={{ padding: '2px 4px', paddingLeft: h.startsWith('###') ? 16 : h.startsWith('##') ? 8 : 0, color: '#64748b', cursor: 'pointer' }}>{h}</div>
+                <div
+                  key={h}
+                  style={{
+                    padding: '2px 4px',
+                    paddingLeft: h.startsWith('###') ? 16 : h.startsWith('##') ? 8 : 0,
+                    color: '#64748b',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {h}
+                </div>
               ))}
             </div>
           )}
           {preview && (
-            <div style={{ width: '28%', background: '#fff7ed', borderLeft: '1px solid #fed7aa', padding: '10px 8px', fontSize: 11 }}>
+            <div
+              style={{
+                width: '28%',
+                background: '#fff7ed',
+                borderLeft: '1px solid #fed7aa',
+                padding: '10px 8px',
+                fontSize: 11,
+              }}
+            >
               <div style={{ fontWeight: 700, color: '#c2410c', marginBottom: 8 }}>미리보기</div>
-              <div style={{ color: '#9a3412', lineHeight: 1.6 }}>렌더링된 결과가 이 영역에 표시됩니다.</div>
+              <div style={{ color: '#9a3412', lineHeight: 1.6 }}>
+                렌더링된 결과가 이 영역에 표시됩니다.
+              </div>
             </div>
           )}
         </div>
@@ -1696,33 +2333,75 @@ export const EnterpriseUI_테이블_컬럼_가시성_토글: Story = {
     const visibleCount = Object.values(visible).filter(Boolean).length
 
     return (
-      <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderBottom: '1px solid #f3f4f6', background: '#f9fafb' }}>
+      <div
+        style={{
+          width: 320,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: 12,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '12px 16px',
+            borderBottom: '1px solid #f3f4f6',
+            background: '#f9fafb',
+          }}
+        >
           <span style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>컬럼 표시</span>
-          <span style={{ fontSize: 11, color: '#6b7280' }}>{visibleCount}/{columns.length}</span>
+          <span style={{ fontSize: 11, color: '#6b7280' }}>
+            {visibleCount}/{columns.length}
+          </span>
         </div>
         {groups.map((group) => (
           <div key={group}>
-            <div style={{ padding: '8px 16px 4px', fontSize: 10, fontWeight: 700, color: '#9ca3af', letterSpacing: 1 }}>{group.toUpperCase()}</div>
-            {columns.filter((c) => c.group === group).map((col) => (
-              <div
-                key={col.id}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 16px', borderBottom: '1px solid #f9fafb' }}
-              >
-                <div>
-                  <span style={{ fontSize: 13, color: '#374151' }}>{col.label}</span>
-                  {col.required && <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 6 }}>필수</span>}
+            <div
+              style={{
+                padding: '8px 16px 4px',
+                fontSize: 10,
+                fontWeight: 700,
+                color: '#9ca3af',
+                letterSpacing: 1,
+              }}
+            >
+              {group.toUpperCase()}
+            </div>
+            {columns
+              .filter((c) => c.group === group)
+              .map((col) => (
+                <div
+                  key={col.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '8px 16px',
+                    borderBottom: '1px solid #f9fafb',
+                  }}
+                >
+                  <div>
+                    <span style={{ fontSize: 13, color: '#374151' }}>{col.label}</span>
+                    {col.required && (
+                      <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 6 }}>필수</span>
+                    )}
+                  </div>
+                  <Toggle
+                    checked={visible[col.id]}
+                    onCheckedChange={() => !col.required && toggleCol(col.id)}
+                    disabled={col.required}
+                  />
                 </div>
-                <Toggle
-                  checked={visible[col.id]}
-                  onCheckedChange={() => !col.required && toggleCol(col.id)}
-                  disabled={col.required}
-                />
-              </div>
-            ))}
+              ))}
           </div>
         ))}
-        <div style={{ padding: '10px 16px', background: '#f9fafb', fontSize: 11, color: '#6b7280' }}>
+        <div
+          style={{ padding: '10px 16px', background: '#f9fafb', fontSize: 11, color: '#6b7280' }}
+        >
           {visibleCount}개 컬럼 표시됨
         </div>
       </div>
@@ -1761,32 +2440,91 @@ export const AppUI_대시보드_위젯_토글_패널: Story = {
     const activeCount = Object.values(enabled).filter(Boolean).length
 
     return (
-      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#f8fafc', borderRadius: 14, overflow: 'hidden', border: '1px solid #e2e8f0' }}>
-        <div style={{ padding: '14px 18px', background: 'linear-gradient(135deg, #1d4ed8, #4f46e5)', color: '#fff' }}>
+      <div
+        style={{
+          width: 360,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#f8fafc',
+          borderRadius: 14,
+          overflow: 'hidden',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <div
+          style={{
+            padding: '14px 18px',
+            background: 'linear-gradient(135deg, #1d4ed8, #4f46e5)',
+            color: '#fff',
+          }}
+        >
           <div style={{ fontSize: 14, fontWeight: 700 }}>위젯 관리</div>
-          <div style={{ fontSize: 12, opacity: 0.8, marginTop: 2 }}>{activeCount}/{widgets.length}개 활성화</div>
+          <div style={{ fontSize: 12, opacity: 0.8, marginTop: 2 }}>
+            {activeCount}/{widgets.length}개 활성화
+          </div>
         </div>
         <div style={{ padding: '8px 0' }}>
           {categories.map((cat) => (
             <div key={cat}>
-              <div style={{ padding: '10px 18px 4px', fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: 1 }}>{cat.toUpperCase()}</div>
-              {widgets.filter((w) => w.category === cat).map((widget) => (
-                <div
-                  key={widget.id}
-                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 18px', borderBottom: '1px solid #f1f5f9', background: enabled[widget.id] ? '#fff' : '#f9fafb' }}
-                >
-                  <span style={{ fontSize: 14, color: '#d1d5db', cursor: 'grab', userSelect: 'none' }}>⠿</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: enabled[widget.id] ? '#111827' : '#9ca3af' }}>{widget.label}</div>
-                    <div style={{ fontSize: 11, color: '#9ca3af' }}>{widget.desc}</div>
+              <div
+                style={{
+                  padding: '10px 18px 4px',
+                  fontSize: 10,
+                  fontWeight: 700,
+                  color: '#94a3b8',
+                  letterSpacing: 1,
+                }}
+              >
+                {cat.toUpperCase()}
+              </div>
+              {widgets
+                .filter((w) => w.category === cat)
+                .map((widget) => (
+                  <div
+                    key={widget.id}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: '10px 18px',
+                      borderBottom: '1px solid #f1f5f9',
+                      background: enabled[widget.id] ? '#fff' : '#f9fafb',
+                    }}
+                  >
+                    <span
+                      style={{ fontSize: 14, color: '#d1d5db', cursor: 'grab', userSelect: 'none' }}
+                    >
+                      ⠿
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: enabled[widget.id] ? '#111827' : '#9ca3af',
+                        }}
+                      >
+                        {widget.label}
+                      </div>
+                      <div style={{ fontSize: 11, color: '#9ca3af' }}>{widget.desc}</div>
+                    </div>
+                    <Toggle
+                      checked={enabled[widget.id]}
+                      onCheckedChange={() => toggle(widget.id)}
+                    />
                   </div>
-                  <Toggle checked={enabled[widget.id]} onCheckedChange={() => toggle(widget.id)} />
-                </div>
-              ))}
+                ))}
             </div>
           ))}
         </div>
-        <div style={{ padding: '10px 18px', fontSize: 11, color: '#6b7280', borderTop: '1px solid #e2e8f0', background: '#fff' }}>
+        <div
+          style={{
+            padding: '10px 18px',
+            fontSize: 11,
+            color: '#6b7280',
+            borderTop: '1px solid #e2e8f0',
+            background: '#fff',
+          }}
+        >
           대시보드에 {activeCount}개 위젯이 표시됩니다
         </div>
       </div>
@@ -1808,12 +2546,51 @@ export const EnterpriseUI_AppUI_실험실_기능_플래그: Story = {
   render: function EnterpriseUIAppUILabsFlagsRender() {
     type Stage = 'alpha' | 'beta' | 'rc'
 
-    const features: { id: string; label: string; desc: string; stage: Stage; risky: boolean; deps?: string[] }[] = [
-      { id: 'concurrent', label: 'Concurrent Mode', desc: 'React 18 동시성 렌더링', stage: 'rc', risky: false },
-      { id: 'virtual', label: 'Virtual Scroll', desc: '대용량 리스트 가상화', stage: 'beta', risky: false, deps: ['concurrent'] },
-      { id: 'ai-suggest', label: 'AI 자동 완성', desc: '입력 필드 AI 제안 기능', stage: 'alpha', risky: true },
-      { id: 'canvas', label: 'Canvas 렌더러', desc: '실험적 Canvas 기반 렌더링', stage: 'alpha', risky: true, deps: ['concurrent'] },
-      { id: 'fluid', label: 'Fluid Typography', desc: '반응형 폰트 크기 자동 조정', stage: 'beta', risky: false },
+    const features: {
+      id: string
+      label: string
+      desc: string
+      stage: Stage
+      risky: boolean
+      deps?: string[]
+    }[] = [
+      {
+        id: 'concurrent',
+        label: 'Concurrent Mode',
+        desc: 'React 18 동시성 렌더링',
+        stage: 'rc',
+        risky: false,
+      },
+      {
+        id: 'virtual',
+        label: 'Virtual Scroll',
+        desc: '대용량 리스트 가상화',
+        stage: 'beta',
+        risky: false,
+        deps: ['concurrent'],
+      },
+      {
+        id: 'ai-suggest',
+        label: 'AI 자동 완성',
+        desc: '입력 필드 AI 제안 기능',
+        stage: 'alpha',
+        risky: true,
+      },
+      {
+        id: 'canvas',
+        label: 'Canvas 렌더러',
+        desc: '실험적 Canvas 기반 렌더링',
+        stage: 'alpha',
+        risky: true,
+        deps: ['concurrent'],
+      },
+      {
+        id: 'fluid',
+        label: 'Fluid Typography',
+        desc: '반응형 폰트 크기 자동 조정',
+        stage: 'beta',
+        risky: false,
+      },
     ]
 
     const [flags, setFlags] = useState<Record<string, boolean>>(
@@ -1832,17 +2609,38 @@ export const EnterpriseUI_AppUI_실험실_기능_플래그: Story = {
       setFlags((prev) => {
         const next = { ...prev, [id]: !prev[id] }
         if (next[id] && feature.deps) {
-          feature.deps.forEach((dep) => { next[dep] = true })
+          feature.deps.forEach((dep) => {
+            next[dep] = true
+          })
         }
         return next
       })
     }
 
     return (
-      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', background: '#0f172a', borderRadius: 14, overflow: 'hidden', border: '1px solid #1e293b' }}>
-        <div style={{ padding: '14px 18px', borderBottom: '1px solid #1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          width: 400,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#0f172a',
+          borderRadius: 14,
+          overflow: 'hidden',
+          border: '1px solid #1e293b',
+        }}
+      >
+        <div
+          style={{
+            padding: '14px 18px',
+            borderBottom: '1px solid #1e293b',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>실험 기능 Labs</span>
-          <span style={{ fontSize: 11, color: '#475569' }}>{Object.values(flags).filter(Boolean).length} 활성</span>
+          <span style={{ fontSize: 11, color: '#475569' }}>
+            {Object.values(flags).filter(Boolean).length} 활성
+          </span>
         </div>
         {features.map((f) => {
           const ss = stageStyle[f.stage]
@@ -1850,12 +2648,45 @@ export const EnterpriseUI_AppUI_실험실_기능_플래그: Story = {
           const hasDeps = f.deps && f.deps.some((d) => !flags[d]) && isOn
           return (
             <div key={f.id} style={{ padding: '12px 18px', borderBottom: '1px solid #1e293b' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 10,
+                }}
+              >
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: '#e2e8f0' }}>{f.label}</span>
-                    <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: ss.bg, color: ss.color }}>{f.stage.toUpperCase()}</span>
-                    {f.risky && <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: '#fee2e2', color: '#dc2626' }}>위험</span>}
+                    <span style={{ fontSize: 13, fontWeight: 600, color: '#e2e8f0' }}>
+                      {f.label}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 9,
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: ss.bg,
+                        color: ss.color,
+                      }}
+                    >
+                      {f.stage.toUpperCase()}
+                    </span>
+                    {f.risky && (
+                      <span
+                        style={{
+                          fontSize: 9,
+                          fontWeight: 700,
+                          padding: '1px 6px',
+                          borderRadius: 4,
+                          background: '#fee2e2',
+                          color: '#dc2626',
+                        }}
+                      >
+                        위험
+                      </span>
+                    )}
                   </div>
                   <div style={{ fontSize: 11, color: '#64748b' }}>{f.desc}</div>
                   {hasDeps && (

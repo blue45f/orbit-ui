@@ -34,7 +34,7 @@ type SetValue<T> = T | ((prev: T) => T)
 export function useSessionStorage<T>(
   key: string,
   initialValue: T,
-  options: UseSessionStorageOptions<T> = {},
+  options: UseSessionStorageOptions<T> = {}
 ): [T, (value: SetValue<T>) => void, () => void] {
   const { serialize = JSON.stringify, deserialize = JSON.parse as (raw: string) => T } = options
 
@@ -69,7 +69,7 @@ export function useSessionStorage<T>(
         return next
       })
     },
-    [key],
+    [key]
   )
 
   const remove = useCallback(() => {

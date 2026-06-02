@@ -1,4 +1,4 @@
-import { ref , TextStyleBaseSize } from '@heejun-com/core'
+import { ref, TextStyleBaseSize } from '@heejun-com/core'
 
 import { com } from './component-token'
 import { semanticColorVars } from './semantic-token'

@@ -38,10 +38,9 @@ describe('useInterval', () => {
   test('delay null로 토글하면 일시정지된다', () => {
     vi.useFakeTimers()
     const callback = vi.fn()
-    const { rerender } = renderHook(
-      ({ d }: { d: number | null }) => useInterval(callback, d),
-      { initialProps: { d: 100 as number | null } },
-    )
+    const { rerender } = renderHook(({ d }: { d: number | null }) => useInterval(callback, d), {
+      initialProps: { d: 100 as number | null },
+    })
 
     act(() => {
       vi.advanceTimersByTime(250)
@@ -90,7 +89,7 @@ describe('useInterval', () => {
           counter += mult
         }, 100)
       },
-      { initialProps: { mult: 1 } },
+      { initialProps: { mult: 1 } }
     )
 
     act(() => {

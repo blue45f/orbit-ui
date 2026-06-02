@@ -31,7 +31,7 @@ export function useEclipseTheme(): EclipseThemeContextValue {
   if (ctx === null) {
     throw new Error(
       'useEclipseTheme must be called inside an <EclipseProvider>. ' +
-        'Make sure the provider wraps your component tree.',
+        'Make sure the provider wraps your component tree.'
     )
   }
   return ctx

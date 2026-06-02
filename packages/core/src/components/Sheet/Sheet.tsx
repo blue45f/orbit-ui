@@ -197,7 +197,11 @@ export const SheetRoot = forwardRef<HTMLDivElement, SheetProps>(
 
 const SheetHeader = forwardRef<HTMLDivElement, PropsWithChildren<HTMLAttributes<HTMLDivElement>>>(
   ({ children, className, ...rest }, ref) => (
-    <div ref={ref} {...rest} className={cn('p-4 border-b border-[var(--sem-eclipse-color-borderTertiary)]', className)}>
+    <div
+      ref={ref}
+      {...rest}
+      className={cn('p-4 border-b border-[var(--sem-eclipse-color-borderTertiary)]', className)}
+    >
       {children}
     </div>
   )
@@ -213,7 +217,11 @@ const SheetContent = forwardRef<HTMLDivElement, PropsWithChildren<HTMLAttributes
 
 const SheetFooter = forwardRef<HTMLDivElement, PropsWithChildren<HTMLAttributes<HTMLDivElement>>>(
   ({ children, className, ...rest }, ref) => (
-    <div ref={ref} {...rest} className={cn('p-4 border-t border-[var(--sem-eclipse-color-borderTertiary)]', className)}>
+    <div
+      ref={ref}
+      {...rest}
+      className={cn('p-4 border-t border-[var(--sem-eclipse-color-borderTertiary)]', className)}
+    >
       {children}
     </div>
   )

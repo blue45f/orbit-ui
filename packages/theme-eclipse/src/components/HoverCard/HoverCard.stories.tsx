@@ -29,7 +29,13 @@ export const 기본: Story = {
         <HoverCard.Trigger asChild>
           <a
             href="#"
-            style={{ fontSize: '14px', fontWeight: 600, color: '#6366f1', textDecoration: 'underline', textUnderlineOffset: '4px' }}
+            style={{
+              fontSize: '14px',
+              fontWeight: 600,
+              color: '#6366f1',
+              textDecoration: 'underline',
+              textUnderlineOffset: '4px',
+            }}
           >
             @orbit-ui
           </a>
@@ -60,21 +66,52 @@ export const 기본: Story = {
    AppUI HoverCard 패턴: 아바타 호버 시 상세 프로필 카드 표시
 -------------------------------------------------------------------------- */
 const UserAvatarSvg = ({ color = '#6366f1', size = 40 }: { color?: string; size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 40 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <rect width="40" height="40" rx="20" fill={color} fillOpacity="0.15" />
     <circle cx="20" cy="16" r="6" fill={color} fillOpacity="0.8" />
-    <path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke={color} strokeWidth="2" strokeLinecap="round" />
+    <path
+      d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
   </svg>
 )
 
 const UserProfileCardRender = () => (
   <div style={{ display: 'flex', justifyContent: 'center', padding: '80px 40px' }}>
     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-      <Typography textStyle="descriptionLarge" color="foregroundSecondary">담당자:</Typography>
+      <Typography textStyle="descriptionLarge" color="foregroundSecondary">
+        담당자:
+      </Typography>
       {[
-        { name: 'Kim Jihye', role: 'Product Designer', color: '#6366f1', followers: 128, following: 64 },
-        { name: 'Park Minjun', role: 'Frontend Engineer', color: '#8b5cf6', followers: 256, following: 32 },
-        { name: 'Lee Soyeon', role: 'Backend Engineer', color: '#10b981', followers: 89, following: 45 },
+        {
+          name: 'Kim Jihye',
+          role: 'Product Designer',
+          color: '#6366f1',
+          followers: 128,
+          following: 64,
+        },
+        {
+          name: 'Park Minjun',
+          role: 'Frontend Engineer',
+          color: '#8b5cf6',
+          followers: 256,
+          following: 32,
+        },
+        {
+          name: 'Lee Soyeon',
+          role: 'Backend Engineer',
+          color: '#10b981',
+          followers: 89,
+          following: 45,
+        },
       ].map((user) => (
         <HoverCard key={user.name} openDelay={200}>
           <HoverCard.Trigger asChild>
@@ -179,8 +216,19 @@ const LinkPreviewRender = () => (
             }}
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M5.5 8.5l5-5M8 3.5h3v3" stroke={link.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M11 8.5V11a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1h2.5" stroke={link.color} strokeWidth="1.5" strokeLinecap="round" />
+              <path
+                d="M5.5 8.5l5-5M8 3.5h3v3"
+                stroke={link.color}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M11 8.5V11a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1h2.5"
+                stroke={link.color}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
             </svg>
             {link.label}
           </a>
@@ -221,26 +269,99 @@ const ThumbnailSvg = ({
   size?: number
   label: string
 }) => (
-  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <rect width="48" height="48" rx="8" fill={color} fillOpacity="0.15" />
     <circle cx="18" cy="18" r="5" fill={color} fillOpacity="0.5" />
-    <path d="M4 36l10-12 8 10 6-7 12 9" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <text x="24" y="44" textAnchor="middle" fontSize="7" fill={color} fontFamily="sans-serif" fontWeight="600">{label}</text>
+    <path
+      d="M4 36l10-12 8 10 6-7 12 9"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <text
+      x="24"
+      y="44"
+      textAnchor="middle"
+      fontSize="7"
+      fill={color}
+      fontFamily="sans-serif"
+      fontWeight="600"
+    >
+      {label}
+    </text>
   </svg>
 )
 
-const LargePreviewSvg = ({ color, width = 240, height = 160, label }: { color: string; width?: number; height?: number; label: string }) => (
-  <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} fill="none" xmlns="http://www.w3.org/2000/svg">
+const LargePreviewSvg = ({
+  color,
+  width = 240,
+  height = 160,
+  label,
+}: {
+  color: string
+  width?: number
+  height?: number
+  label: string
+}) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <rect width={width} height={height} rx="8" fill={color} fillOpacity="0.12" />
-    <rect x="8" y="8" width={width - 16} height={height - 16} rx="6" fill={color} fillOpacity="0.08" stroke={color} strokeOpacity="0.2" strokeWidth="1" />
+    <rect
+      x="8"
+      y="8"
+      width={width - 16}
+      height={height - 16}
+      rx="6"
+      fill={color}
+      fillOpacity="0.08"
+      stroke={color}
+      strokeOpacity="0.2"
+      strokeWidth="1"
+    />
     <circle cx="70" cy="70" r="24" fill={color} fillOpacity="0.35" />
-    <path d={`M20 ${height - 20} l40-50 32 40 24-28 ${width - 60} 38`} stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    <text x={width / 2} y={height - 8} textAnchor="middle" fontSize="11" fill={color} fontFamily="sans-serif" fontWeight="600">{label}</text>
+    <path
+      d={`M20 ${height - 20} l40-50 32 40 24-28 ${width - 60} 38`}
+      stroke={color}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <text
+      x={width / 2}
+      y={height - 8}
+      textAnchor="middle"
+      fontSize="11"
+      fill={color}
+      fontFamily="sans-serif"
+      fontWeight="600"
+    >
+      {label}
+    </text>
   </svg>
 )
 
 const ImagePreviewRender = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', padding: '80px 40px' }}>
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: '16px',
+      padding: '80px 40px',
+    }}
+  >
     {[
       { color: '#6366f1', label: 'Banner A' },
       { color: '#10b981', label: 'Banner B' },
@@ -249,7 +370,13 @@ const ImagePreviewRender = () => (
       <HoverCard key={item.label} openDelay={100}>
         <HoverCard.Trigger asChild>
           <button
-            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', borderRadius: '8px' }}
+            style={{
+              background: 'none',
+              border: 'none',
+              padding: 0,
+              cursor: 'pointer',
+              borderRadius: '8px',
+            }}
             aria-label={`${item.label} 미리보기`}
           >
             <ThumbnailSvg color={item.color} size={64} label={item.label} />
@@ -335,9 +462,22 @@ const StatPreviewRender = () => (
               textAlign: 'left',
             }}
           >
-            <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600, marginBottom: '4px' }}>{stat.label}</div>
+            <div
+              style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600, marginBottom: '4px' }}
+            >
+              {stat.label}
+            </div>
             <div style={{ fontSize: '20px', fontWeight: 700, color: '#1e293b' }}>{stat.value}</div>
-            <div style={{ fontSize: '12px', color: stat.trendColor, fontWeight: 600, marginTop: '2px' }}>{stat.trend}</div>
+            <div
+              style={{
+                fontSize: '12px',
+                color: stat.trendColor,
+                fontWeight: 600,
+                marginTop: '2px',
+              }}
+            >
+              {stat.trend}
+            </div>
           </button>
         </HoverCard.Trigger>
         <HoverCard.Content style={{ width: 260 }}>
@@ -351,12 +491,19 @@ const StatPreviewRender = () => (
             <Divider />
             <MiniBarSvg values={stat.chartValues} color={stat.color} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography textStyle="descriptionLarge" color="foregroundSecondary">현재 값</Typography>
+              <Typography textStyle="descriptionLarge" color="foregroundSecondary">
+                현재 값
+              </Typography>
               <Typography textStyle="subheadingSmall">{stat.value}</Typography>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography textStyle="descriptionLarge" color="foregroundSecondary">전주 대비</Typography>
-              <Typography textStyle="descriptionLarge" style={{ color: stat.trendColor, fontWeight: 600 }}>
+              <Typography textStyle="descriptionLarge" color="foregroundSecondary">
+                전주 대비
+              </Typography>
+              <Typography
+                textStyle="descriptionLarge"
+                style={{ color: stat.trendColor, fontWeight: 600 }}
+              >
                 {stat.trend}
               </Typography>
             </div>
@@ -376,9 +523,30 @@ export const 통계_데이터_미리보기: Story = {
    UtilityUI Contact card — 아바타 + 상세 정보 팝업 패턴
 -------------------------------------------------------------------------- */
 const TEAM = [
-  { name: 'Heejun Kim', role: 'Frontend Lead', dept: 'Engineering', joined: '2024-03', projects: 12, color: '#6366f1' },
-  { name: 'Sumin Lee', role: 'Product Designer', dept: 'Design', joined: '2024-06', projects: 8, color: '#f59e0b' },
-  { name: 'Jinho Park', role: 'Backend Engineer', dept: 'Engineering', joined: '2023-11', projects: 15, color: '#10b981' },
+  {
+    name: 'Heejun Kim',
+    role: 'Frontend Lead',
+    dept: 'Engineering',
+    joined: '2024-03',
+    projects: 12,
+    color: '#6366f1',
+  },
+  {
+    name: 'Sumin Lee',
+    role: 'Product Designer',
+    dept: 'Design',
+    joined: '2024-06',
+    projects: 8,
+    color: '#f59e0b',
+  },
+  {
+    name: 'Jinho Park',
+    role: 'Backend Engineer',
+    dept: 'Engineering',
+    joined: '2023-11',
+    projects: 15,
+    color: '#10b981',
+  },
 ]
 
 export const UtilityCSS_팀_멤버_카드: Story = {
@@ -388,9 +556,37 @@ export const UtilityCSS_팀_멤버_카드: Story = {
       {TEAM.map((member) => (
         <HoverCard key={member.name} openDelay={200}>
           <HoverCard.Trigger asChild>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 8, border: '1px solid #e2e8f0', cursor: 'pointer', background: '#fff' }}>
-              <div style={{ width: 32, height: 32, borderRadius: '50%', background: member.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>
-                {member.name.split(' ').map((n) => n[0]).join('')}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 12px',
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                cursor: 'pointer',
+                background: '#fff',
+              }}
+            >
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  background: member.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  flexShrink: 0,
+                }}
+              >
+                {member.name
+                  .split(' ')
+                  .map((n) => n[0])
+                  .join('')}
               </div>
               <div>
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{member.name}</div>
@@ -401,21 +597,49 @@ export const UtilityCSS_팀_멤버_카드: Story = {
           <HoverCard.Content side="bottom" align="start" style={{ width: 260 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                <div style={{ width: 48, height: 48, borderRadius: '50%', background: member.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 16, fontWeight: 800, flexShrink: 0 }}>
-                  {member.name.split(' ').map((n) => n[0]).join('')}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: '50%',
+                    background: member.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontSize: 16,
+                    fontWeight: 800,
+                    flexShrink: 0,
+                  }}
+                >
+                  {member.name
+                    .split(' ')
+                    .map((n) => n[0])
+                    .join('')}
                 </div>
                 <div>
                   <Typography textStyle="subheadingSmall">{member.name}</Typography>
-                  <Typography textStyle="descriptionLarge" color="foregroundSecondary">{member.role}</Typography>
-                  <Typography textStyle="descriptionSmall" color="foregroundSecondary">{member.dept}</Typography>
+                  <Typography textStyle="descriptionLarge" color="foregroundSecondary">
+                    {member.role}
+                  </Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                    {member.dept}
+                  </Typography>
                 </div>
               </div>
               <Divider />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                {[{ label: '합류일', value: member.joined }, { label: '프로젝트', value: `${member.projects}개` }].map((item) => (
+                {[
+                  { label: '합류일', value: member.joined },
+                  { label: '프로젝트', value: `${member.projects}개` },
+                ].map((item) => (
                   <div key={item.label}>
-                    <Typography textStyle="descriptionSmall" color="foregroundSecondary">{item.label}</Typography>
-                    <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>{item.value}</Typography>
+                    <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                      {item.label}
+                    </Typography>
+                    <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>
+                      {item.value}
+                    </Typography>
                   </div>
                 ))}
               </div>
@@ -435,34 +659,103 @@ export const UtilityCSS_팀_멤버_카드: Story = {
    Primitive HoverCard primitive — URL 미리보기 + 메타데이터 표시 패턴
 -------------------------------------------------------------------------- */
 const LINKS = [
-  { text: 'Orbit UI 시작하기', url: 'docs/getting-started', desc: '설치 방법, 첫 컴포넌트 사용법, EclipseProvider 설정', tag: '문서', color: '#6366f1' },
-  { text: '디자인 토큰 가이드', url: 'docs/design-tokens', desc: '3-tier 토큰 아키텍처, Reference→Semantic→Component 흐름', tag: '가이드', color: '#10b981' },
-  { text: 'BenchmarkComparison', url: 'docs/benchmark', desc: 'ComposableUI, EnterpriseUI, AppUI 대비 Orbit UI 장단점 비교 분석', tag: '분석', color: '#f59e0b' },
+  {
+    text: 'Orbit UI 시작하기',
+    url: 'docs/getting-started',
+    desc: '설치 방법, 첫 컴포넌트 사용법, EclipseProvider 설정',
+    tag: '문서',
+    color: '#6366f1',
+  },
+  {
+    text: '디자인 토큰 가이드',
+    url: 'docs/design-tokens',
+    desc: '3-tier 토큰 아키텍처, Reference→Semantic→Component 흐름',
+    tag: '가이드',
+    color: '#10b981',
+  },
+  {
+    text: 'BenchmarkComparison',
+    url: 'docs/benchmark',
+    desc: 'ComposableUI, EnterpriseUI, AppUI 대비 Orbit UI 장단점 비교 분석',
+    tag: '분석',
+    color: '#f59e0b',
+  },
 ]
 
 export const Primitive_링크_미리보기: Story = {
   name: 'PrimitiveUI - 링크 미리보기 패턴',
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 360, padding: 24, background: '#f8fafc', borderRadius: 12 }}>
-      <Typography textStyle="subheadingSmall" style={{ marginBottom: 8 }}>관련 문서</Typography>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+        maxWidth: 360,
+        padding: 24,
+        background: '#f8fafc',
+        borderRadius: 12,
+      }}
+    >
+      <Typography textStyle="subheadingSmall" style={{ marginBottom: 8 }}>
+        관련 문서
+      </Typography>
       {LINKS.map((link) => (
         <HoverCard key={link.url} openDelay={300}>
           <HoverCard.Trigger asChild>
-            <a style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: link.color, fontSize: 13, fontWeight: 600, textDecoration: 'none', cursor: 'pointer', padding: '4px 0' }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: link.color, flexShrink: 0 }} />
+            <a
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                color: link.color,
+                fontSize: 13,
+                fontWeight: 600,
+                textDecoration: 'none',
+                cursor: 'pointer',
+                padding: '4px 0',
+              }}
+            >
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: link.color,
+                  flexShrink: 0,
+                }}
+              />
               {link.text}
             </a>
           </HoverCard.Trigger>
           <HoverCard.Content side="right" align="start" style={{ width: 280 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 12, background: link.color + '15', color: link.color }}>{link.tag}</span>
-                <Typography textStyle="descriptionSmall" color="foregroundSecondary" style={{ fontFamily: 'monospace' }}>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: '2px 8px',
+                    borderRadius: 12,
+                    background: link.color + '15',
+                    color: link.color,
+                  }}
+                >
+                  {link.tag}
+                </span>
+                <Typography
+                  textStyle="descriptionSmall"
+                  color="foregroundSecondary"
+                  style={{ fontFamily: 'monospace' }}
+                >
                   /{link.url}
                 </Typography>
               </div>
               <Typography textStyle="subheadingSmall">{link.text}</Typography>
-              <Typography textStyle="descriptionLarge" color="foregroundSecondary" style={{ lineHeight: 1.6 }}>
+              <Typography
+                textStyle="descriptionLarge"
+                color="foregroundSecondary"
+                style={{ lineHeight: 1.6 }}
+              >
                 {link.desc}
               </Typography>
             </div>
@@ -478,41 +771,121 @@ export const Primitive_링크_미리보기: Story = {
    ComposableUI Hover Card — 이슈 번호 위에 호버 시 상세 정보 팝업 패턴
 -------------------------------------------------------------------------- */
 const ISSUES = [
-  { id: 'ORB-142', title: 'Avatar 컴포넌트 size prop 추가', status: '완료', priority: '보통', assignee: 'HK', color: '#10b981' },
-  { id: 'ORB-178', title: 'SegmentedControl 다크모드 지원', status: '진행 중', priority: '높음', assignee: 'SL', color: '#6366f1' },
-  { id: 'ORB-203', title: 'DataTable 가상 스크롤 성능 개선', status: '검토 중', priority: '긴급', assignee: 'JP', color: '#f59e0b' },
+  {
+    id: 'ORB-142',
+    title: 'Avatar 컴포넌트 size prop 추가',
+    status: '완료',
+    priority: '보통',
+    assignee: 'HK',
+    color: '#10b981',
+  },
+  {
+    id: 'ORB-178',
+    title: 'SegmentedControl 다크모드 지원',
+    status: '진행 중',
+    priority: '높음',
+    assignee: 'SL',
+    color: '#6366f1',
+  },
+  {
+    id: 'ORB-203',
+    title: 'DataTable 가상 스크롤 성능 개선',
+    status: '검토 중',
+    priority: '긴급',
+    assignee: 'JP',
+    color: '#f59e0b',
+  },
 ]
 
 export const ComposableUI_이슈_미리보기: Story = {
   name: 'ComposableUI - 이슈 미리보기 호버 카드 패턴',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 420 }}>
-      <Typography textStyle="subheadingSmall" style={{ marginBottom: 4 }}>연관 이슈</Typography>
+      <Typography textStyle="subheadingSmall" style={{ marginBottom: 4 }}>
+        연관 이슈
+      </Typography>
       {ISSUES.map((issue) => (
-        <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: issue.color, flexShrink: 0 }} />
+        <div
+          key={issue.id}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '10px 12px',
+            borderRadius: 8,
+            border: '1px solid #f1f5f9',
+            background: '#fff',
+          }}
+        >
+          <span
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: issue.color,
+              flexShrink: 0,
+            }}
+          />
           <HoverCard openDelay={200}>
             <HoverCard.Trigger asChild>
-              <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#6366f1', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', textDecorationStyle: 'dotted', textUnderlineOffset: 3 }}>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: '#6366f1',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                  textDecorationStyle: 'dotted',
+                  textUnderlineOffset: 3,
+                }}
+              >
                 {issue.id}
               </span>
             </HoverCard.Trigger>
             <HoverCard.Content side="top" align="start" style={{ width: 280 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <Typography textStyle="bodyLarge" style={{ fontWeight: 700 }}>{issue.title}</Typography>
+                <Typography textStyle="bodyLarge" style={{ fontWeight: 700 }}>
+                  {issue.title}
+                </Typography>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
-                  {[{ label: '상태', value: issue.status, color: issue.color }, { label: '우선순위', value: issue.priority, color: '#475569' }, { label: '담당자', value: issue.assignee, color: '#475569' }, { label: '이슈 ID', value: issue.id, color: '#94a3b8' }].map((f) => (
+                  {[
+                    { label: '상태', value: issue.status, color: issue.color },
+                    { label: '우선순위', value: issue.priority, color: '#475569' },
+                    { label: '담당자', value: issue.assignee, color: '#475569' },
+                    { label: '이슈 ID', value: issue.id, color: '#94a3b8' },
+                  ].map((f) => (
                     <div key={f.label}>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">{f.label}</Typography>
-                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600, color: f.color }}>{f.value}</Typography>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        {f.label}
+                      </Typography>
+                      <Typography
+                        textStyle="descriptionLarge"
+                        style={{ fontWeight: 600, color: f.color }}
+                      >
+                        {f.value}
+                      </Typography>
                     </div>
                   ))}
                 </div>
               </div>
             </HoverCard.Content>
           </HoverCard>
-          <Typography textStyle="descriptionLarge" style={{ flex: 1, color: '#1e293b' }}>{issue.title}</Typography>
-          <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 10, background: issue.color + '15', color: issue.color }}>{issue.status}</span>
+          <Typography textStyle="descriptionLarge" style={{ flex: 1, color: '#1e293b' }}>
+            {issue.title}
+          </Typography>
+          <span
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 10,
+              background: issue.color + '15',
+              color: issue.color,
+            }}
+          >
+            {issue.status}
+          </span>
         </div>
       ))}
     </div>
@@ -534,7 +907,7 @@ function ContribGraphDemo() {
     Array.from({ length: 7 }, (_, di) => {
       const base = Math.sin((wi * 7 + di) * 0.7) * 0.5 + 0.5
       return Math.floor(base * 4)
-    }),
+    })
   )
 
   const levelColor = (lv: number) => {
@@ -546,11 +919,31 @@ function ContribGraphDemo() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 460 }}>
       <Typography textStyle="subheadingSmall">기여자 목록</Typography>
       {CONTRIB_USERS.map((user) => (
-        <div key={user.name} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
+        <div
+          key={user.name}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '10px 14px',
+            borderRadius: 10,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+          }}
+        >
           <Avatar />
           <HoverCard openDelay={150} closeDelay={100}>
             <HoverCard.Trigger asChild>
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#6366f1', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: '#6366f1',
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: 3,
+                }}
+              >
                 @{user.name}
               </span>
             </HoverCard.Trigger>
@@ -559,28 +952,70 @@ function ContribGraphDemo() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <Avatar />
                   <div>
-                    <Typography textStyle="bodyLarge" style={{ fontWeight: 700 }}>@{user.name}</Typography>
-                    <Typography textStyle="descriptionSmall" color="foregroundSecondary">{user.streak}일 연속 기여 중</Typography>
+                    <Typography textStyle="bodyLarge" style={{ fontWeight: 700 }}>
+                      @{user.name}
+                    </Typography>
+                    <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                      {user.streak}일 연속 기여 중
+                    </Typography>
                   </div>
-                  <span style={{ marginLeft: 'auto', padding: '2px 10px', borderRadius: 20, fontSize: 11, fontWeight: 700, background: '#eef2ff', color: '#6366f1' }}>
+                  <span
+                    style={{
+                      marginLeft: 'auto',
+                      padding: '2px 10px',
+                      borderRadius: 20,
+                      fontSize: 11,
+                      fontWeight: 700,
+                      background: '#eef2ff',
+                      color: '#6366f1',
+                    }}
+                  >
                     {user.level}
                   </span>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
-                  {[{ label: '커밋', value: user.commits }, { label: 'PR', value: user.prs }, { label: '리뷰', value: user.reviews }].map((s) => (
-                    <div key={s.label} style={{ textAlign: 'center', padding: '8px', background: '#f8fafc', borderRadius: 8 }}>
-                      <div style={{ fontSize: 18, fontWeight: 800, color: '#1e293b' }}>{s.value}</div>
+                  {[
+                    { label: '커밋', value: user.commits },
+                    { label: 'PR', value: user.prs },
+                    { label: '리뷰', value: user.reviews },
+                  ].map((s) => (
+                    <div
+                      key={s.label}
+                      style={{
+                        textAlign: 'center',
+                        padding: '8px',
+                        background: '#f8fafc',
+                        borderRadius: 8,
+                      }}
+                    >
+                      <div style={{ fontSize: 18, fontWeight: 800, color: '#1e293b' }}>
+                        {s.value}
+                      </div>
                       <div style={{ fontSize: 11, color: '#64748b' }}>{s.label}</div>
                     </div>
                   ))}
                 </div>
                 <div>
-                  <Typography textStyle="descriptionSmall" color="foregroundSecondary" style={{ marginBottom: 6 }}>최근 12주 기여도</Typography>
+                  <Typography
+                    textStyle="descriptionSmall"
+                    color="foregroundSecondary"
+                    style={{ marginBottom: 6 }}
+                  >
+                    최근 12주 기여도
+                  </Typography>
                   <div style={{ display: 'flex', gap: 2 }}>
                     {weeks.map((week, wi) => (
                       <div key={wi} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         {week.map((lv, di) => (
-                          <div key={di} style={{ width: 10, height: 10, borderRadius: 2, background: levelColor(lv) }} />
+                          <div
+                            key={di}
+                            style={{
+                              width: 10,
+                              height: 10,
+                              borderRadius: 2,
+                              background: levelColor(lv),
+                            }}
+                          />
                         ))}
                       </div>
                     ))}
@@ -590,8 +1025,12 @@ function ContribGraphDemo() {
             </HoverCard.Content>
           </HoverCard>
           <div style={{ marginLeft: 'auto', display: 'flex', gap: 12 }}>
-            <Typography textStyle="descriptionSmall" color="foregroundSecondary">{user.commits}커밋</Typography>
-            <Typography textStyle="descriptionSmall" color="foregroundSecondary">{user.prs}PR</Typography>
+            <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+              {user.commits}커밋
+            </Typography>
+            <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+              {user.prs}PR
+            </Typography>
           </div>
         </div>
       ))}
@@ -628,7 +1067,10 @@ type IssueTrackerTask = {
   dueDate: string
 }
 
-const TRACKER_STATUS_CFG: Record<IssueTrackerTask['status'], { label: string; color: string; symbol: string }> = {
+const TRACKER_STATUS_CFG: Record<
+  IssueTrackerTask['status'],
+  { label: string; color: string; symbol: string }
+> = {
   backlog: { label: '백로그', color: '#94a3b8', symbol: '○' },
   todo: { label: '예정', color: '#64748b', symbol: '◎' },
   in_progress: { label: '진행 중', color: '#6366f1', symbol: '◑' },
@@ -636,18 +1078,46 @@ const TRACKER_STATUS_CFG: Record<IssueTrackerTask['status'], { label: string; co
   cancelled: { label: '취소', color: '#ef4444', symbol: '✕' },
 }
 
-const TRACKER_PRIORITY_CFG: Record<IssueTrackerTask['priority'], { label: string; color: string }> = {
-  urgent: { label: '긴급', color: '#ef4444' },
-  high: { label: '높음', color: '#f97316' },
-  medium: { label: '보통', color: '#f59e0b' },
-  low: { label: '낮음', color: '#94a3b8' },
-  none: { label: '없음', color: '#cbd5e1' },
-}
+const TRACKER_PRIORITY_CFG: Record<IssueTrackerTask['priority'], { label: string; color: string }> =
+  {
+    urgent: { label: '긴급', color: '#ef4444' },
+    high: { label: '높음', color: '#f97316' },
+    medium: { label: '보통', color: '#f59e0b' },
+    low: { label: '낮음', color: '#94a3b8' },
+    none: { label: '없음', color: '#cbd5e1' },
+  }
 
 const TRACKER_TASKS: IssueTrackerTask[] = [
-  { id: 'ENG-451', title: 'DataTable 가상 스크롤 성능 50% 향상', status: 'in_progress', priority: 'high', assignee: 'HJ', estimate: 5, progress: 60, dueDate: '2026-04-18' },
-  { id: 'ENG-389', title: 'TextField 접근성 개선 (ARIA 레이블)', status: 'todo', priority: 'medium', assignee: 'SY', estimate: 3, progress: 0, dueDate: '2026-04-25' },
-  { id: 'ENG-312', title: 'EclipseProvider 다크모드 전환 애니메이션', status: 'done', priority: 'low', assignee: 'JH', estimate: 2, progress: 100, dueDate: '2026-04-10' },
+  {
+    id: 'ENG-451',
+    title: 'DataTable 가상 스크롤 성능 50% 향상',
+    status: 'in_progress',
+    priority: 'high',
+    assignee: 'HJ',
+    estimate: 5,
+    progress: 60,
+    dueDate: '2026-04-18',
+  },
+  {
+    id: 'ENG-389',
+    title: 'TextField 접근성 개선 (ARIA 레이블)',
+    status: 'todo',
+    priority: 'medium',
+    assignee: 'SY',
+    estimate: 3,
+    progress: 0,
+    dueDate: '2026-04-25',
+  },
+  {
+    id: 'ENG-312',
+    title: 'EclipseProvider 다크모드 전환 애니메이션',
+    status: 'done',
+    priority: 'low',
+    assignee: 'JH',
+    estimate: 2,
+    progress: 100,
+    dueDate: '2026-04-10',
+  },
 ]
 
 export const IssueTracker_태스크_상세_미리보기: Story = {
@@ -663,53 +1133,127 @@ export const IssueTracker_태스크_상세_미리보기: Story = {
   },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 480 }}>
-      <Typography textStyle="subheadingSmall" style={{ marginBottom: 4 }}>스프린트 이슈</Typography>
+      <Typography textStyle="subheadingSmall" style={{ marginBottom: 4 }}>
+        스프린트 이슈
+      </Typography>
       {TRACKER_TASKS.map((task) => {
         const st = TRACKER_STATUS_CFG[task.status]
         const pr = TRACKER_PRIORITY_CFG[task.priority]
         return (
-          <div key={task.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff' }}>
+          <div
+            key={task.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 14px',
+              borderRadius: 8,
+              border: '1px solid #f1f5f9',
+              background: '#fff',
+            }}
+          >
             <span style={{ fontSize: 16, color: st.color, flexShrink: 0 }}>{st.symbol}</span>
             <HoverCard openDelay={200} closeDelay={150}>
               <HoverCard.Trigger asChild>
-                <span style={{ fontSize: 11, fontFamily: 'monospace', fontWeight: 700, color: '#6366f1', cursor: 'pointer', textDecoration: 'underline', textDecorationStyle: 'dotted', textUnderlineOffset: 3, flexShrink: 0 }}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    color: '#6366f1',
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                    textDecorationStyle: 'dotted',
+                    textUnderlineOffset: 3,
+                    flexShrink: 0,
+                  }}
+                >
                   {task.id}
                 </span>
               </HoverCard.Trigger>
               <HoverCard.Content side="top" align="start" style={{ width: 300 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <Typography textStyle="bodyLarge" style={{ fontWeight: 700, lineHeight: 1.4 }}>{task.title}</Typography>
+                  <Typography textStyle="bodyLarge" style={{ fontWeight: 700, lineHeight: 1.4 }}>
+                    {task.title}
+                  </Typography>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                     <div>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">상태</Typography>
-                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600, color: st.color }}>{st.symbol} {st.label}</Typography>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        상태
+                      </Typography>
+                      <Typography
+                        textStyle="descriptionLarge"
+                        style={{ fontWeight: 600, color: st.color }}
+                      >
+                        {st.symbol} {st.label}
+                      </Typography>
                     </div>
                     <div>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">우선순위</Typography>
-                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600, color: pr.color }}>{pr.label}</Typography>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        우선순위
+                      </Typography>
+                      <Typography
+                        textStyle="descriptionLarge"
+                        style={{ fontWeight: 600, color: pr.color }}
+                      >
+                        {pr.label}
+                      </Typography>
                     </div>
                     <div>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">담당자</Typography>
-                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>{task.assignee}</Typography>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        담당자
+                      </Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>
+                        {task.assignee}
+                      </Typography>
                     </div>
                     <div>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">추정치</Typography>
-                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>{task.estimate}pt</Typography>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        추정치
+                      </Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>
+                        {task.estimate}pt
+                      </Typography>
                     </div>
                   </div>
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">진도</Typography>
-                      <Typography textStyle="descriptionSmall" style={{ fontWeight: 700, color: '#6366f1' }}>{task.progress}%</Typography>
+                    <div
+                      style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}
+                    >
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        진도
+                      </Typography>
+                      <Typography
+                        textStyle="descriptionSmall"
+                        style={{ fontWeight: 700, color: '#6366f1' }}
+                      >
+                        {task.progress}%
+                      </Typography>
                     </div>
                     <Progress value={task.progress} />
                   </div>
-                  <Typography textStyle="descriptionSmall" color="foregroundSecondary">마감: {task.dueDate}</Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                    마감: {task.dueDate}
+                  </Typography>
                 </div>
               </HoverCard.Content>
             </HoverCard>
-            <Typography textStyle="descriptionLarge" style={{ flex: 1, color: '#1e293b' }}>{task.title}</Typography>
-            <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 10, background: pr.color + '18', color: pr.color, flexShrink: 0 }}>{pr.label}</span>
+            <Typography textStyle="descriptionLarge" style={{ flex: 1, color: '#1e293b' }}>
+              {task.title}
+            </Typography>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                padding: '2px 8px',
+                borderRadius: 10,
+                background: pr.color + '18',
+                color: pr.color,
+                flexShrink: 0,
+              }}
+            >
+              {pr.label}
+            </span>
           </div>
         )
       })}
@@ -721,7 +1265,13 @@ export const IssueTracker_태스크_상세_미리보기: Story = {
    IssueTracker Design 벤치마크: 멤버 역할 관리 호버 카드
    팀 멤버 칩에 호버 시 역할/권한/마지막 활동 팝업 표시
 -------------------------------------------------------------------------- */
-type TeamMember = { name: string; role: 'owner' | 'admin' | 'member' | 'guest'; email: string; lastActive: string; projects: number }
+type TeamMember = {
+  name: string
+  role: 'owner' | 'admin' | 'member' | 'guest'
+  email: string
+  lastActive: string
+  projects: number
+}
 
 const TEAM_MEMBERS: TeamMember[] = [
   { name: '김희준', role: 'owner', email: 'heejun@orbit.dev', lastActive: '방금 전', projects: 12 },
@@ -730,10 +1280,28 @@ const TEAM_MEMBERS: TeamMember[] = [
   { name: '최은아', role: 'guest', email: 'euna@partner.com', lastActive: '3일 전', projects: 2 },
 ]
 
-const ROLE_CFG: Record<TeamMember['role'], { label: string; color: string; bg: string; perms: string[] }> = {
-  owner: { label: 'Owner', color: '#7c3aed', bg: '#f3e8ff', perms: ['팀 설정 관리', '결제 관리', '멤버 초대/제거', '모든 프로젝트 접근'] },
-  admin: { label: 'Admin', color: '#2563eb', bg: '#dbeafe', perms: ['멤버 초대/제거', '모든 프로젝트 접근', '프로젝트 생성'] },
-  member: { label: 'Member', color: '#059669', bg: '#d1fae5', perms: ['할당된 프로젝트 접근', '이슈 생성/편집'] },
+const ROLE_CFG: Record<
+  TeamMember['role'],
+  { label: string; color: string; bg: string; perms: string[] }
+> = {
+  owner: {
+    label: 'Owner',
+    color: '#7c3aed',
+    bg: '#f3e8ff',
+    perms: ['팀 설정 관리', '결제 관리', '멤버 초대/제거', '모든 프로젝트 접근'],
+  },
+  admin: {
+    label: 'Admin',
+    color: '#2563eb',
+    bg: '#dbeafe',
+    perms: ['멤버 초대/제거', '모든 프로젝트 접근', '프로젝트 생성'],
+  },
+  member: {
+    label: 'Member',
+    color: '#059669',
+    bg: '#d1fae5',
+    perms: ['할당된 프로젝트 접근', '이슈 생성/편집'],
+  },
   guest: { label: 'Guest', color: '#d97706', bg: '#fef3c7', perms: ['읽기 전용 접근'] },
 }
 
@@ -765,8 +1333,24 @@ function TeamRoleHoverDemo() {
                   }}
                 >
                   <Avatar />
-                  <Typography textStyle="descriptionLarge" style={{ fontWeight: 600, color: '#1e293b' }}>{member.name}</Typography>
-                  <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 7px', borderRadius: 10, background: rc.bg, color: rc.color }}>{rc.label}</span>
+                  <Typography
+                    textStyle="descriptionLarge"
+                    style={{ fontWeight: 600, color: '#1e293b' }}
+                  >
+                    {member.name}
+                  </Typography>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      padding: '1px 7px',
+                      borderRadius: 10,
+                      background: rc.bg,
+                      color: rc.color,
+                    }}
+                  >
+                    {rc.label}
+                  </span>
                 </div>
               </HoverCard.Trigger>
               <HoverCard.Content side="bottom" align="start" style={{ width: 280 }}>
@@ -774,30 +1358,72 @@ function TeamRoleHoverDemo() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <Avatar />
                     <div>
-                      <Typography textStyle="bodyLarge" style={{ fontWeight: 700 }}>{member.name}</Typography>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">{member.email}</Typography>
+                      <Typography textStyle="bodyLarge" style={{ fontWeight: 700 }}>
+                        {member.name}
+                      </Typography>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        {member.email}
+                      </Typography>
                     </div>
                   </div>
                   <Divider />
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                     <div>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">역할</Typography>
-                      <span style={{ display: 'inline-block', marginTop: 2, padding: '1px 8px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: rc.bg, color: rc.color }}>{rc.label}</span>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        역할
+                      </Typography>
+                      <span
+                        style={{
+                          display: 'inline-block',
+                          marginTop: 2,
+                          padding: '1px 8px',
+                          borderRadius: 10,
+                          fontSize: 11,
+                          fontWeight: 700,
+                          background: rc.bg,
+                          color: rc.color,
+                        }}
+                      >
+                        {rc.label}
+                      </span>
                     </div>
                     <div>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">참여 프로젝트</Typography>
-                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 700 }}>{member.projects}개</Typography>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        참여 프로젝트
+                      </Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 700 }}>
+                        {member.projects}개
+                      </Typography>
                     </div>
                     <div style={{ gridColumn: '1 / -1' }}>
-                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">마지막 활동</Typography>
-                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>{member.lastActive}</Typography>
+                      <Typography textStyle="descriptionSmall" color="foregroundSecondary">
+                        마지막 활동
+                      </Typography>
+                      <Typography textStyle="descriptionLarge" style={{ fontWeight: 600 }}>
+                        {member.lastActive}
+                      </Typography>
                     </div>
                   </div>
                   <div>
-                    <Typography textStyle="descriptionSmall" color="foregroundSecondary" style={{ marginBottom: 6 }}>권한</Typography>
+                    <Typography
+                      textStyle="descriptionSmall"
+                      color="foregroundSecondary"
+                      style={{ marginBottom: 6 }}
+                    >
+                      권한
+                    </Typography>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                       {rc.perms.map((perm) => (
-                        <div key={perm} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#374151' }}>
+                        <div
+                          key={perm}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 6,
+                            fontSize: 12,
+                            color: '#374151',
+                          }}
+                        >
                           <span style={{ color: rc.color, fontWeight: 700 }}>✓</span> {perm}
                         </div>
                       ))}
@@ -809,7 +1435,9 @@ function TeamRoleHoverDemo() {
           )
         })}
       </div>
-      <LabelBadge color="gray"><LabelBadge.Label>멤버 칩에 마우스를 올려보세요</LabelBadge.Label></LabelBadge>
+      <LabelBadge color="gray">
+        <LabelBadge.Label>멤버 칩에 마우스를 올려보세요</LabelBadge.Label>
+      </LabelBadge>
     </div>
   )
 }
@@ -831,31 +1459,112 @@ export const IssueTracker_팀_멤버_역할_호버: Story = {
 /* ── DeployPlatform Design: 배포 상태 호버 카드 ── */
 const DeployStatusHoverDemo = () => {
   const deploys = [
-    { id: 'd1', branch: 'main', status: 'ready', hash: 'a3f9c12', time: '2분 전', duration: '48s', env: 'Production' },
-    { id: 'd2', branch: 'feat/button', status: 'building', hash: 'b8e2d54', time: '진행 중', duration: '-', env: 'Preview' },
-    { id: 'd3', branch: 'fix/types', status: 'error', hash: 'c1d7e89', time: '1시간 전', duration: '23s', env: 'Preview' },
+    {
+      id: 'd1',
+      branch: 'main',
+      status: 'ready',
+      hash: 'a3f9c12',
+      time: '2분 전',
+      duration: '48s',
+      env: 'Production',
+    },
+    {
+      id: 'd2',
+      branch: 'feat/button',
+      status: 'building',
+      hash: 'b8e2d54',
+      time: '진행 중',
+      duration: '-',
+      env: 'Preview',
+    },
+    {
+      id: 'd3',
+      branch: 'fix/types',
+      status: 'error',
+      hash: 'c1d7e89',
+      time: '1시간 전',
+      duration: '23s',
+      env: 'Preview',
+    },
   ]
 
-  const statusColor: Record<string, string> = { ready: '#16a34a', building: '#6366f1', error: '#ef4444' }
-  const statusLabel: Record<string, string> = { ready: '배포 완료', building: '빌드 중', error: '빌드 실패' }
+  const statusColor: Record<string, string> = {
+    ready: '#16a34a',
+    building: '#6366f1',
+    error: '#ef4444',
+  }
+  const statusLabel: Record<string, string> = {
+    ready: '배포 완료',
+    building: '빌드 중',
+    error: '빌드 실패',
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 380 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>최근 배포 — 호버로 상세 확인</div>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
+        최근 배포 — 호버로 상세 확인
+      </div>
       {deploys.map((d) => (
         <HoverCard key={d.id}>
           <HoverCard.Trigger>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default' }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: statusColor[d.status], flexShrink: 0, ...(d.status === 'building' ? { animation: 'pulse 1.5s infinite' } : {}) }} />
-              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', flex: 1 }}>{d.branch}</span>
-              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{d.time}</span>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '9px 12px',
+                borderRadius: 8,
+                border: '1px solid var(--sem-eclipse-color-borderDefault)',
+                background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'default',
+              }}
+            >
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: statusColor[d.status],
+                  flexShrink: 0,
+                  ...(d.status === 'building' ? { animation: 'pulse 1.5s infinite' } : {}),
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  flex: 1,
+                }}
+              >
+                {d.branch}
+              </span>
+              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                {d.time}
+              </span>
             </div>
           </HoverCard.Trigger>
           <HoverCard.Content>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: statusColor[d.status] }} />
-                <span style={{ fontSize: 13, fontWeight: 700, color: statusColor[d.status] }}>{statusLabel[d.status]}</span>
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: statusColor[d.status],
+                  }}
+                />
+                <span style={{ fontSize: 13, fontWeight: 700, color: statusColor[d.status] }}>
+                  {statusLabel[d.status]}
+                </span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 16px' }}>
                 {[
@@ -865,8 +1574,27 @@ const DeployStatusHoverDemo = () => {
                   ['빌드 시간', d.duration],
                 ].map(([k, v]) => (
                   <div key={k}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{k}</div>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginTop: 1 }}>{v}</div>
+                    <div
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 600,
+                        color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                      }}
+                    >
+                      {k}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                        marginTop: 1,
+                      }}
+                    >
+                      {v}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -887,8 +1615,20 @@ export const DeployPlatform_배포_상태_호버: Story = {
 const DnsHoverDemo = () => {
   const records = [
     { type: 'A', name: '@', value: '76.76.21.21', ttl: '3600', status: 'verified' },
-    { type: 'CNAME', name: 'www', value: 'cname.deploy-dns.example.com', ttl: '3600', status: 'pending' },
-    { type: 'TXT', name: '_deploy', value: 'vc-domain-verify=...abc123', ttl: '60', status: 'verified' },
+    {
+      type: 'CNAME',
+      name: 'www',
+      value: 'cname.deploy-dns.example.com',
+      ttl: '3600',
+      status: 'pending',
+    },
+    {
+      type: 'TXT',
+      name: '_deploy',
+      value: 'vc-domain-verify=...abc123',
+      ttl: '60',
+      status: 'verified',
+    },
   ]
 
   const statusInfo: Record<string, { color: string; label: string }> = {
@@ -898,30 +1638,143 @@ const DnsHoverDemo = () => {
 
   return (
     <div style={{ maxWidth: 440 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>DNS 레코드 — 호버로 상세 확인</div>
-      <div style={{ border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '60px 80px 1fr 60px', padding: '8px 14px', background: 'var(--sem-eclipse-color-backgroundSecondary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 12,
+        }}
+      >
+        DNS 레코드 — 호버로 상세 확인
+      </div>
+      <div
+        style={{
+          border: '1px solid var(--sem-eclipse-color-borderDefault)',
+          borderRadius: 8,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '60px 80px 1fr 60px',
+            padding: '8px 14px',
+            background: 'var(--sem-eclipse-color-backgroundSecondary)',
+            borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          }}
+        >
           {['타입', '이름', '값', '상태'].map((h) => (
-            <div key={h} style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</div>
+            <div
+              key={h}
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+              }}
+            >
+              {h}
+            </div>
           ))}
         </div>
         {records.map((r, i) => (
           <HoverCard key={r.type + r.name}>
             <HoverCard.Trigger>
-              <div style={{ display: 'grid', gridTemplateColumns: '60px 80px 1fr 60px', padding: '10px 14px', borderBottom: i < records.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default', alignItems: 'center' }}>
-                <span style={{ fontSize: 12, fontWeight: 700, padding: '2px 6px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', display: 'inline-block', width: 'fit-content' }}>{r.type}</span>
-                <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontFamily: 'monospace' }}>{r.name}</span>
-                <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.value}</span>
-                <span style={{ fontSize: 11, fontWeight: 600, color: statusInfo[r.status].color }}>{statusInfo[r.status].label}</span>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '60px 80px 1fr 60px',
+                  padding: '10px 14px',
+                  borderBottom:
+                    i < records.length - 1
+                      ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                      : 'none',
+                  background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                  cursor: 'default',
+                  alignItems: 'center',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    padding: '2px 6px',
+                    borderRadius: 4,
+                    background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                    color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                    display: 'inline-block',
+                    width: 'fit-content',
+                  }}
+                >
+                  {r.type}
+                </span>
+                <span
+                  style={{
+                    fontSize: 12,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  {r.name}
+                </span>
+                <span
+                  style={{
+                    fontSize: 12,
+                    color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                    fontFamily: 'monospace',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {r.value}
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 600, color: statusInfo[r.status].color }}>
+                  {statusInfo[r.status].label}
+                </span>
               </div>
             </HoverCard.Trigger>
             <HoverCard.Content>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 2 }}>{r.type} 레코드 상세</div>
-                {[['이름', r.name], ['값', r.value], ['TTL', `${r.ttl}초`], ['상태', statusInfo[r.status].label]].map(([k, v]) => (
+                <div
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    marginBottom: 2,
+                  }}
+                >
+                  {r.type} 레코드 상세
+                </div>
+                {[
+                  ['이름', r.name],
+                  ['값', r.value],
+                  ['TTL', `${r.ttl}초`],
+                  ['상태', statusInfo[r.status].label],
+                ].map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                    <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', minWidth: 40 }}>{k}</span>
-                    <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontFamily: 'monospace', wordBreak: 'break-all' }}>{v}</span>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                        minWidth: 40,
+                      }}
+                    >
+                      {k}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                        fontFamily: 'monospace',
+                        wordBreak: 'break-all',
+                      }}
+                    >
+                      {v}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -941,36 +1794,161 @@ export const DeployPlatform_DNS_레코드_호버: Story = {
 /* ── DeployPlatform Design: 팀 멤버 권한 호버 ── */
 const MemberPermissionHoverDemo = () => {
   const members = [
-    { name: '김준희', email: 'junhee@orbit.io', avatar: 'KJ', color: '#6366f1', role: 'Owner', repos: 12, lastActive: '방금 전' },
-    { name: '박서연', email: 'seoyeon@orbit.io', avatar: 'PS', color: '#0ea5e9', role: 'Member', repos: 7, lastActive: '3시간 전' },
-    { name: '이민준', email: 'minjun@orbit.io', avatar: 'LM', color: '#10b981', role: 'Viewer', repos: 3, lastActive: '2일 전' },
+    {
+      name: '김준희',
+      email: 'junhee@orbit.io',
+      avatar: 'KJ',
+      color: '#6366f1',
+      role: 'Owner',
+      repos: 12,
+      lastActive: '방금 전',
+    },
+    {
+      name: '박서연',
+      email: 'seoyeon@orbit.io',
+      avatar: 'PS',
+      color: '#0ea5e9',
+      role: 'Member',
+      repos: 7,
+      lastActive: '3시간 전',
+    },
+    {
+      name: '이민준',
+      email: 'minjun@orbit.io',
+      avatar: 'LM',
+      color: '#10b981',
+      role: 'Viewer',
+      repos: 3,
+      lastActive: '2일 전',
+    },
   ]
 
-  const roleColor: Record<string, string> = { Owner: '#6366f1', Member: '#0ea5e9', Viewer: '#94a3b8' }
+  const roleColor: Record<string, string> = {
+    Owner: '#6366f1',
+    Member: '#0ea5e9',
+    Viewer: '#94a3b8',
+  }
 
   return (
     <div style={{ maxWidth: 400 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>팀 멤버 — 호버로 권한 확인</div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 12,
+        }}
+      >
+        팀 멤버 — 호버로 권한 확인
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0,
+          border: '1px solid var(--sem-eclipse-color-borderDefault)',
+          borderRadius: 8,
+          overflow: 'hidden',
+        }}
+      >
         {members.map((m, i) => (
           <HoverCard key={m.email}>
             <HoverCard.Trigger>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderBottom: i < members.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default' }}>
-                <div style={{ width: 32, height: 32, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff', flexShrink: 0 }}>{m.avatar}</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.name}</div>
-                  <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{m.email}</div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '12px 14px',
+                  borderBottom:
+                    i < members.length - 1
+                      ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                      : 'none',
+                  background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                  cursor: 'default',
+                }}
+              >
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    background: m.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: '#fff',
+                    flexShrink: 0,
+                  }}
+                >
+                  {m.avatar}
                 </div>
-                <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 6, background: `${roleColor[m.role]}15`, color: roleColor[m.role] }}>{m.role}</span>
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {m.name}
+                  </div>
+                  <div
+                    style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                  >
+                    {m.email}
+                  </div>
+                </div>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: '2px 8px',
+                    borderRadius: 6,
+                    background: `${roleColor[m.role]}15`,
+                    color: roleColor[m.role],
+                  }}
+                >
+                  {m.role}
+                </span>
               </div>
             </HoverCard.Trigger>
             <HoverCard.Content>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 36, height: 36, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, color: '#fff' }}>{m.avatar}</div>
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: '50%',
+                      background: m.color,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: '#fff',
+                    }}
+                  >
+                    {m.avatar}
+                  </div>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{m.name}</div>
-                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{m.email}</div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                      }}
+                    >
+                      {m.name}
+                    </div>
+                    <div
+                      style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                    >
+                      {m.email}
+                    </div>
                   </div>
                 </div>
                 <div style={{ height: 1, background: 'var(--sem-eclipse-color-borderSubtle)' }} />
@@ -980,8 +1958,20 @@ const MemberPermissionHoverDemo = () => {
                   ['마지막 활동', m.lastActive],
                 ].map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{k}</span>
-                    <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{v}</span>
+                    <span
+                      style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                    >
+                      {k}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                      }}
+                    >
+                      {v}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -1010,26 +2000,72 @@ function CommandPaletteShortcutHoverRender() {
   ]
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 360, padding: 20 }}>
-      <Typography textStyle="subheadingSmall" color="foregroundPrimary">단축키 목록</Typography>
+      <Typography textStyle="subheadingSmall" color="foregroundPrimary">
+        단축키 목록
+      </Typography>
       {shortcuts.map((s) => (
         <HoverCard key={s.label} openDelay={150} closeDelay={100}>
           <HoverCard.Trigger asChild>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default' }}>
-              <Typography textStyle="labelSmall" color="foregroundPrimary">{s.label}</Typography>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '10px 14px',
+                borderRadius: 8,
+                border: '1px solid var(--sem-eclipse-color-borderDefault)',
+                background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'default',
+              }}
+            >
+              <Typography textStyle="labelSmall" color="foregroundPrimary">
+                {s.label}
+              </Typography>
               <div style={{ display: 'flex', gap: 3 }}>
                 {s.keys.map((k) => (
-                  <kbd key={k} style={{ fontSize: 12, padding: '2px 6px', borderRadius: 4, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', fontFamily: 'monospace', color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{k}</kbd>
+                  <kbd
+                    key={k}
+                    style={{
+                      fontSize: 12,
+                      padding: '2px 6px',
+                      borderRadius: 4,
+                      border: '1px solid var(--sem-eclipse-color-borderDefault)',
+                      background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                      fontFamily: 'monospace',
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {k}
+                  </kbd>
                 ))}
               </div>
             </div>
           </HoverCard.Trigger>
           <HoverCard.Content style={{ width: 280 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <Typography textStyle="labelMedium" color="foregroundPrimary">{s.label}</Typography>
-              <Typography textStyle="descriptionLarge" color="foregroundSecondary">{s.desc}</Typography>
+              <Typography textStyle="labelMedium" color="foregroundPrimary">
+                {s.label}
+              </Typography>
+              <Typography textStyle="descriptionLarge" color="foregroundSecondary">
+                {s.desc}
+              </Typography>
               <div style={{ display: 'flex', gap: 3, marginTop: 4 }}>
                 {s.keys.map((k) => (
-                  <kbd key={k} style={{ fontSize: 14, padding: '4px 8px', borderRadius: 6, border: '1.5px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundSecondary)', fontFamily: 'monospace', color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 600 }}>{k}</kbd>
+                  <kbd
+                    key={k}
+                    style={{
+                      fontSize: 14,
+                      padding: '4px 8px',
+                      borderRadius: 6,
+                      border: '1.5px solid var(--sem-eclipse-color-borderDefault)',
+                      background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                      fontFamily: 'monospace',
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {k}
+                  </kbd>
                 ))}
               </div>
             </div>
@@ -1051,32 +2087,103 @@ export const CommandPalette_커맨드_단축키_호버: Story = {
 -------------------------------------------------------------------------- */
 function DesignToolLayerInfoHoverRender() {
   const layers = [
-    { name: 'Button/Primary', type: 'COMPONENT', w: 120, h: 40, x: 0, y: 0, fill: '#6366f1', opacity: 100 },
-    { name: 'Icon/Search', type: 'VECTOR', w: 24, h: 24, x: 48, y: 8, fill: '#ffffff', opacity: 80 },
+    {
+      name: 'Button/Primary',
+      type: 'COMPONENT',
+      w: 120,
+      h: 40,
+      x: 0,
+      y: 0,
+      fill: '#6366f1',
+      opacity: 100,
+    },
+    {
+      name: 'Icon/Search',
+      type: 'VECTOR',
+      w: 24,
+      h: 24,
+      x: 48,
+      y: 8,
+      fill: '#ffffff',
+      opacity: 80,
+    },
     { name: 'Label/Text', type: 'TEXT', w: 60, h: 20, x: 30, y: 10, fill: '#ffffff', opacity: 100 },
-    { name: 'Background', type: 'RECTANGLE', w: 320, h: 200, x: 0, y: 0, fill: '#f8fafc', opacity: 100 },
+    {
+      name: 'Background',
+      type: 'RECTANGLE',
+      w: 320,
+      h: 200,
+      x: 0,
+      y: 0,
+      fill: '#f8fafc',
+      opacity: 100,
+    },
   ]
   const typeColor: Record<string, string> = {
-    COMPONENT: '#8b5cf6', VECTOR: '#10b981', TEXT: '#f59e0b', RECTANGLE: '#6366f1',
+    COMPONENT: '#8b5cf6',
+    VECTOR: '#10b981',
+    TEXT: '#f59e0b',
+    RECTANGLE: '#6366f1',
   }
   return (
     <div style={{ padding: 24, width: 380 }}>
-      <Typography textStyle="subheadingSmall" color="foregroundPrimary">레이어 패널</Typography>
+      <Typography textStyle="subheadingSmall" color="foregroundPrimary">
+        레이어 패널
+      </Typography>
       <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 2 }}>
         {layers.map((layer) => (
           <HoverCard key={layer.name} openDelay={200} closeDelay={150}>
             <HoverCard.Trigger asChild>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 6, cursor: 'default', background: 'var(--sem-eclipse-color-backgroundPrimary)', border: '1px solid transparent' }}>
-                <div style={{ width: 10, height: 10, borderRadius: 2, background: typeColor[layer.type], flexShrink: 0 }} />
-                <Typography textStyle="labelSmall" color="foregroundPrimary">{layer.name}</Typography>
-                <span style={{ marginLeft: 'auto', fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600 }}>{layer.type}</span>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  cursor: 'default',
+                  background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                  border: '1px solid transparent',
+                }}
+              >
+                <div
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 2,
+                    background: typeColor[layer.type],
+                    flexShrink: 0,
+                  }}
+                />
+                <Typography textStyle="labelSmall" color="foregroundPrimary">
+                  {layer.name}
+                </Typography>
+                <span
+                  style={{
+                    marginLeft: 'auto',
+                    fontSize: 10,
+                    color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                    fontWeight: 600,
+                  }}
+                >
+                  {layer.type}
+                </span>
               </div>
             </HoverCard.Trigger>
             <HoverCard.Content style={{ width: 240 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div style={{ width: 16, height: 16, borderRadius: 3, background: typeColor[layer.type] }} />
-                  <Typography textStyle="labelMedium" color="foregroundPrimary">{layer.name}</Typography>
+                  <div
+                    style={{
+                      width: 16,
+                      height: 16,
+                      borderRadius: 3,
+                      background: typeColor[layer.type],
+                    }}
+                  />
+                  <Typography textStyle="labelMedium" color="foregroundPrimary">
+                    {layer.name}
+                  </Typography>
                 </div>
                 <Divider />
                 {[
@@ -1086,14 +2193,37 @@ function DesignToolLayerInfoHoverRender() {
                   ['불투명도', `${layer.opacity}%`],
                 ].map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography textStyle="descriptionSmall" color="foregroundTertiary">{k}</Typography>
-                    <Typography textStyle="descriptionSmall" color="foregroundPrimary">{v}</Typography>
+                    <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                      {k}
+                    </Typography>
+                    <Typography textStyle="descriptionSmall" color="foregroundPrimary">
+                      {v}
+                    </Typography>
                   </div>
                 ))}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <div style={{ width: 16, height: 16, borderRadius: 3, background: layer.fill, border: '1px solid var(--sem-eclipse-color-borderDefault)' }} />
-                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">Fill</Typography>
-                  <code style={{ fontSize: 11, marginLeft: 'auto', fontFamily: 'monospace', color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{layer.fill}</code>
+                  <div
+                    style={{
+                      width: 16,
+                      height: 16,
+                      borderRadius: 3,
+                      background: layer.fill,
+                      border: '1px solid var(--sem-eclipse-color-borderDefault)',
+                    }}
+                  />
+                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                    Fill
+                  </Typography>
+                  <code
+                    style={{
+                      fontSize: 11,
+                      marginLeft: 'auto',
+                      fontFamily: 'monospace',
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {layer.fill}
+                  </code>
                 </div>
               </div>
             </HoverCard.Content>
@@ -1115,43 +2245,108 @@ export const DesignTool_레이어_속성_호버: Story = {
 -------------------------------------------------------------------------- */
 function ComponentPropertyHoverRender() {
   const components = [
-    { name: 'SolidButton', variant: 'primary', size: 'medium', states: ['default', 'hover', 'pressed', 'disabled'], props: 4 },
-    { name: 'TextField', variant: 'default', size: 'large', states: ['empty', 'focus', 'filled', 'error'], props: 6 },
-    { name: 'Toggle', variant: 'default', size: 'medium', states: ['off', 'on', 'disabled'], props: 3 },
-    { name: 'CounterBadge', variant: 'primary', size: 'small', states: ['default', 'max'], props: 2 },
+    {
+      name: 'SolidButton',
+      variant: 'primary',
+      size: 'medium',
+      states: ['default', 'hover', 'pressed', 'disabled'],
+      props: 4,
+    },
+    {
+      name: 'TextField',
+      variant: 'default',
+      size: 'large',
+      states: ['empty', 'focus', 'filled', 'error'],
+      props: 6,
+    },
+    {
+      name: 'Toggle',
+      variant: 'default',
+      size: 'medium',
+      states: ['off', 'on', 'disabled'],
+      props: 3,
+    },
+    {
+      name: 'CounterBadge',
+      variant: 'primary',
+      size: 'small',
+      states: ['default', 'max'],
+      props: 2,
+    },
   ]
   return (
     <div style={{ padding: 24, width: 400 }}>
-      <Typography textStyle="subheadingSmall" color="foregroundPrimary">컴포넌트 라이브러리</Typography>
+      <Typography textStyle="subheadingSmall" color="foregroundPrimary">
+        컴포넌트 라이브러리
+      </Typography>
       <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 4 }}>
         {components.map((comp) => (
           <HoverCard key={comp.name} openDelay={100} closeDelay={200}>
             <HoverCard.Trigger asChild>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'default' }}>
-                <Typography textStyle="labelSmall" color="foregroundPrimary">{comp.name}</Typography>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '10px 14px',
+                  borderRadius: 8,
+                  border: '1px solid var(--sem-eclipse-color-borderDefault)',
+                  background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                  cursor: 'default',
+                }}
+              >
+                <Typography textStyle="labelSmall" color="foregroundPrimary">
+                  {comp.name}
+                </Typography>
                 <div style={{ marginLeft: 'auto', display: 'flex', gap: 6, alignItems: 'center' }}>
                   <CounterBadge>{comp.props}</CounterBadge>
-                  <LabelBadge color="gray"><LabelBadge.Label>{comp.variant}</LabelBadge.Label></LabelBadge>
+                  <LabelBadge color="gray">
+                    <LabelBadge.Label>{comp.variant}</LabelBadge.Label>
+                  </LabelBadge>
                 </div>
               </div>
             </HoverCard.Trigger>
             <HoverCard.Content style={{ width: 280 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <Typography textStyle="labelMedium" color="foregroundPrimary">{comp.name}</Typography>
+                <Typography textStyle="labelMedium" color="foregroundPrimary">
+                  {comp.name}
+                </Typography>
                 <Divider />
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">기본 변형</Typography>
-                  <Typography textStyle="descriptionSmall" color="foregroundPrimary">{comp.variant}</Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                    기본 변형
+                  </Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundPrimary">
+                    {comp.variant}
+                  </Typography>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">크기</Typography>
-                  <Typography textStyle="descriptionSmall" color="foregroundPrimary">{comp.size}</Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                    크기
+                  </Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundPrimary">
+                    {comp.size}
+                  </Typography>
                 </div>
                 <div>
-                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">상태 ({comp.states.length}개)</Typography>
+                  <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                    상태 ({comp.states.length}개)
+                  </Typography>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginTop: 4 }}>
                     {comp.states.map((s) => (
-                      <span key={s} style={{ fontSize: 11, padding: '1px 6px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>{s}</span>
+                      <span
+                        key={s}
+                        style={{
+                          fontSize: 11,
+                          padding: '1px 6px',
+                          borderRadius: 4,
+                          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                          color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+                        }}
+                      >
+                        {s}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -1173,35 +2368,115 @@ export const CommandPalette_DesignTool_컴포넌트_속성_프리뷰: Story = {
 
 function ComposableUIUserProfile143Render() {
   const users = [
-    { handle: '@hjunkim', name: '김희준', initials: 'HJ', color: '#3b82f6', bio: 'Design Systems Engineer. Orbit UI 메인테이너. ComposableUI 팬.', followers: 284, following: 112, repos: 47 },
-    { handle: '@orbit_ui', name: 'Orbit UI', initials: 'OU', color: '#10b981', bio: '3-tier 컴포넌트 라이브러리. React + TS + UtilityCSS.', followers: 1203, following: 42, repos: 18 },
-    { handle: '@design_bot', name: 'DesignBot', initials: 'DB', color: '#8b5cf6', bio: '디자인 시스템 자동화 봇. Cycle 143 진행 중.', followers: 89, following: 203, repos: 6 },
+    {
+      handle: '@hjunkim',
+      name: '김희준',
+      initials: 'HJ',
+      color: '#3b82f6',
+      bio: 'Design Systems Engineer. Orbit UI 메인테이너. ComposableUI 팬.',
+      followers: 284,
+      following: 112,
+      repos: 47,
+    },
+    {
+      handle: '@orbit_ui',
+      name: 'Orbit UI',
+      initials: 'OU',
+      color: '#10b981',
+      bio: '3-tier 컴포넌트 라이브러리. React + TS + UtilityCSS.',
+      followers: 1203,
+      following: 42,
+      repos: 18,
+    },
+    {
+      handle: '@design_bot',
+      name: 'DesignBot',
+      initials: 'DB',
+      color: '#8b5cf6',
+      bio: '디자인 시스템 자동화 봇. Cycle 143 진행 중.',
+      followers: 89,
+      following: 203,
+      repos: 6,
+    },
   ]
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{ display: 'flex', flexWrap: 'wrap', gap: 12, fontFamily: 'system-ui, sans-serif' }}
+    >
       {users.map((user) => (
         <HoverCard key={user.handle}>
           <HoverCard.Trigger>
-            <span style={{ fontSize: 13, color: '#3b82f6', textDecoration: 'underline', cursor: 'pointer', fontWeight: 500 }}>{user.handle}</span>
+            <span
+              style={{
+                fontSize: 13,
+                color: '#3b82f6',
+                textDecoration: 'underline',
+                cursor: 'pointer',
+                fontWeight: 500,
+              }}
+            >
+              {user.handle}
+            </span>
           </HoverCard.Trigger>
           <HoverCard.Content>
             <div style={{ width: 260 }}>
               <div style={{ display: 'flex', gap: 10, marginBottom: 10, alignItems: 'flex-start' }}>
                 <Avatar style={{ width: 48, height: 48 }}>
-                  <Avatar.Fallback style={{ background: user.color, color: '#fff', fontWeight: 700 }}>{user.initials}</Avatar.Fallback>
+                  <Avatar.Fallback
+                    style={{ background: user.color, color: '#fff', fontWeight: 700 }}
+                  >
+                    {user.initials}
+                  </Avatar.Fallback>
                 </Avatar>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{user.name}</div>
-                  <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{user.handle}</div>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {user.name}
+                  </div>
+                  <div
+                    style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                  >
+                    {user.handle}
+                  </div>
                 </div>
               </div>
-              <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.6, marginBottom: 10 }}>{user.bio}</div>
+              <div
+                style={{
+                  fontSize: 12,
+                  color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                  lineHeight: 1.6,
+                  marginBottom: 10,
+                }}
+              >
+                {user.bio}
+              </div>
               <div style={{ display: 'flex', gap: 16 }}>
-                {[{ label: '팔로워', val: user.followers }, { label: '팔로잉', val: user.following }, { label: '저장소', val: user.repos }].map((stat) => (
+                {[
+                  { label: '팔로워', val: user.followers },
+                  { label: '팔로잉', val: user.following },
+                  { label: '저장소', val: user.repos },
+                ].map((stat) => (
                   <div key={stat.label} style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{stat.val}</div>
-                    <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{stat.label}</div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                      }}
+                    >
+                      {stat.val}
+                    </div>
+                    <div
+                      style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                    >
+                      {stat.label}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -1218,7 +2493,8 @@ export const ComposableUI_사용자_프로필_호버: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI HoverCard 패턴. 핸들 텍스트 hover 시 Avatar + 이름/바이오 + 팔로워/저장소 통계 표시. CodeHost 프로필 호버 UX.',
+        story:
+          'ComposableUI HoverCard 패턴. 핸들 텍스트 hover 시 Avatar + 이름/바이오 + 팔로워/저장소 통계 표시. CodeHost 프로필 호버 UX.',
       },
     },
   },
@@ -1246,7 +2522,14 @@ function UtilityCSSPricingHover143Render() {
       price: '문의',
       desc: '대규모 조직, SLA 보장',
       color: '#8b5cf6',
-      features: ['무제한 모든 기능', '무제한 팀원', '전담 지원', '무제한 스토리지', 'SSO/SAML', 'SLA 99.99%'],
+      features: [
+        '무제한 모든 기능',
+        '무제한 팀원',
+        '전담 지원',
+        '무제한 스토리지',
+        'SSO/SAML',
+        'SLA 99.99%',
+      ],
     },
   ]
 
@@ -1255,9 +2538,27 @@ function UtilityCSSPricingHover143Render() {
       {plans.map((plan) => (
         <HoverCard key={plan.name}>
           <HoverCard.Trigger>
-            <div style={{ padding: '10px 16px', borderRadius: 8, border: `1px solid ${plan.color}40`, background: `${plan.color}08`, cursor: 'pointer', minWidth: 100, textAlign: 'center' }}>
+            <div
+              style={{
+                padding: '10px 16px',
+                borderRadius: 8,
+                border: `1px solid ${plan.color}40`,
+                background: `${plan.color}08`,
+                cursor: 'pointer',
+                minWidth: 100,
+                textAlign: 'center',
+              }}
+            >
               <div style={{ fontSize: 12, fontWeight: 700, color: plan.color }}>{plan.name}</div>
-              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{plan.price}</div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  marginTop: 2,
+                }}
+              >
+                {plan.price}
+              </div>
             </div>
           </HoverCard.Trigger>
           <HoverCard.Content>
@@ -1265,7 +2566,9 @@ function UtilityCSSPricingHover143Render() {
               <div style={{ marginBottom: 10 }}>
                 <Typography textStyle="labelLarge">{plan.name}</Typography>
                 <div style={{ marginTop: 2 }}>
-                  <Typography textStyle="bodySmall" color="foregroundTertiary">{plan.desc}</Typography>
+                  <Typography textStyle="bodySmall" color="foregroundTertiary">
+                    {plan.desc}
+                  </Typography>
                 </div>
               </div>
               <Divider />
@@ -1278,7 +2581,9 @@ function UtilityCSSPricingHover143Render() {
                 ))}
               </div>
               <div style={{ marginTop: 12 }}>
-                <SolidButton color="black" size="small" style={{ width: '100%' }}>선택</SolidButton>
+                <SolidButton color="black" size="small" style={{ width: '100%' }}>
+                  선택
+                </SolidButton>
               </div>
             </div>
           </HoverCard.Content>
@@ -1293,7 +2598,8 @@ export const UtilityCSS_플랜_비교_호버: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI Pricing Card + HoverCard 조합. 플랜 카드 hover 시 기능 목록 전체 표시. Typography 계층, Divider, SolidButton 포함.',
+        story:
+          'UtilityUI Pricing Card + HoverCard 조합. 플랜 카드 hover 시 기능 목록 전체 표시. Typography 계층, Divider, SolidButton 포함.',
       },
     },
   },
@@ -1302,22 +2608,88 @@ export const UtilityCSS_플랜_비교_호버: Story = {
 
 function ComposableUIUtilityCSSCommit143Render() {
   const commits = [
-    { sha: '3aa9cbe', msg: 'feat: Cycle 142 Platform HIG + M3', author: 'HJ', color: '#3b82f6', date: '2시간 전', additions: 590, deletions: 0 },
-    { sha: '03c1a69', msg: 'feat: Cycle 141 CommandPalette + DesignTool', author: 'DS', color: '#8b5cf6', date: '5시간 전', additions: 550, deletions: 12 },
-    { sha: '7347e9d', msg: 'feat: Cycle 140 AppUI + DataProduct', author: 'HJ', color: '#3b82f6', date: '어제', additions: 596, deletions: 0 },
+    {
+      sha: '3aa9cbe',
+      msg: 'feat: Cycle 142 Platform HIG + M3',
+      author: 'HJ',
+      color: '#3b82f6',
+      date: '2시간 전',
+      additions: 590,
+      deletions: 0,
+    },
+    {
+      sha: '03c1a69',
+      msg: 'feat: Cycle 141 CommandPalette + DesignTool',
+      author: 'DS',
+      color: '#8b5cf6',
+      date: '5시간 전',
+      additions: 550,
+      deletions: 12,
+    },
+    {
+      sha: '7347e9d',
+      msg: 'feat: Cycle 140 AppUI + DataProduct',
+      author: 'HJ',
+      color: '#3b82f6',
+      date: '어제',
+      additions: 596,
+      deletions: 0,
+    },
   ]
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 420, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>ComposableUI + UtilityCSS — 커밋 히스토리 호버</div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+        width: 420,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>
+        ComposableUI + UtilityCSS — 커밋 히스토리 호버
+      </div>
       {commits.map((commit) => (
         <HoverCard key={commit.sha}>
           <HoverCard.Trigger>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', border: '1px solid #e2e8f0', borderRadius: 8, background: '#fff', cursor: 'pointer' }}>
-              <code style={{ fontSize: 11, color: '#3b82f6', fontFamily: 'monospace', background: '#eff6ff', padding: '2px 6px', borderRadius: 4, flexShrink: 0 }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '9px 12px',
+                border: '1px solid #e2e8f0',
+                borderRadius: 8,
+                background: '#fff',
+                cursor: 'pointer',
+              }}
+            >
+              <code
+                style={{
+                  fontSize: 11,
+                  color: '#3b82f6',
+                  fontFamily: 'monospace',
+                  background: '#eff6ff',
+                  padding: '2px 6px',
+                  borderRadius: 4,
+                  flexShrink: 0,
+                }}
+              >
                 {commit.sha}
               </code>
-              <span style={{ fontSize: 12, color: '#334155', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{commit.msg}</span>
+              <span
+                style={{
+                  fontSize: 12,
+                  color: '#334155',
+                  flex: 1,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {commit.msg}
+              </span>
               <span style={{ fontSize: 11, color: '#94a3b8', flexShrink: 0 }}>{commit.date}</span>
             </div>
           </HoverCard.Trigger>
@@ -1325,29 +2697,45 @@ function ComposableUIUtilityCSSCommit143Render() {
             <div style={{ width: 260 }}>
               <div style={{ display: 'flex', gap: 8, marginBottom: 10, alignItems: 'center' }}>
                 <Avatar style={{ width: 28, height: 28 }}>
-                  <Avatar.Fallback style={{ background: commit.color, color: '#fff', fontWeight: 700 }}>{commit.author}</Avatar.Fallback>
+                  <Avatar.Fallback
+                    style={{ background: commit.color, color: '#fff', fontWeight: 700 }}
+                  >
+                    {commit.author}
+                  </Avatar.Fallback>
                 </Avatar>
                 <div>
                   <Typography textStyle="labelSmall">{commit.msg}</Typography>
-                  <Typography textStyle="labelSmall" color="foregroundTertiary">{commit.date}</Typography>
+                  <Typography textStyle="labelSmall" color="foregroundTertiary">
+                    {commit.date}
+                  </Typography>
                 </div>
               </div>
               <Divider />
               <div style={{ marginTop: 8, display: 'flex', gap: 16 }}>
                 <div>
-                  <span style={{ fontSize: 11, color: '#10b981', fontWeight: 700 }}>+{commit.additions}</span>
+                  <span style={{ fontSize: 11, color: '#10b981', fontWeight: 700 }}>
+                    +{commit.additions}
+                  </span>
                   <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 3 }}>추가</span>
                 </div>
                 <div>
-                  <span style={{ fontSize: 11, color: '#ef4444', fontWeight: 700 }}>-{commit.deletions}</span>
+                  <span style={{ fontSize: 11, color: '#ef4444', fontWeight: 700 }}>
+                    -{commit.deletions}
+                  </span>
                   <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 3 }}>삭제</span>
                 </div>
                 <div style={{ marginLeft: 'auto' }}>
-                  <LabelBadge color="gray"><LabelBadge.Label>{commit.sha.slice(0, 7)}</LabelBadge.Label></LabelBadge>
+                  <LabelBadge color="gray">
+                    <LabelBadge.Label>{commit.sha.slice(0, 7)}</LabelBadge.Label>
+                  </LabelBadge>
                 </div>
               </div>
               <div style={{ marginTop: 10 }}>
-                <Progress value={Math.round((commit.additions / 600) * 100)} size="small" color="success" />
+                <Progress
+                  value={Math.round((commit.additions / 600) * 100)}
+                  size="small"
+                  color="success"
+                />
               </div>
             </div>
           </HoverCard.Content>
@@ -1362,7 +2750,8 @@ export const ComposableUI_UtilityCSS_커밋_히스토리_호버: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI + UtilityUI 커밋 목록 + HoverCard. 커밋 hover 시 Author Avatar + 추가/삭제 통계 + Progress 바. Avatar, LabelBadge, Progress, Divider 조합.',
+        story:
+          'ComposableUI + UtilityUI 커밋 목록 + HoverCard. 커밋 hover 시 Author Avatar + 추가/삭제 통계 + Progress 바. Avatar, LabelBadge, Progress, Divider 조합.',
       },
     },
   },
@@ -1375,20 +2764,59 @@ export const ComposableUI_UtilityCSS_커밋_히스토리_호버: Story = {
 
 function WorkspaceEditorPagePreviewHoverRender() {
   const pages = [
-    { title: 'Orbit UI Architecture', icon: '◉', updated: '3시간 전', author: 'HJ', content: '3계층 아키텍처: Core → Theme → Custom. UtilityCSS + CSS 변수 기반 토큰 시스템.' },
-    { title: 'Component Roadmap', icon: '📋', updated: '1일 전', author: 'SW', content: 'Cycle 175까지 완성 목표. 60+ 컴포넌트, 900+ 스토리 달성 계획.' },
-    { title: 'Design Token Guide', icon: '🎨', updated: '2일 전', author: 'JW', content: 'Reference → Semantic → Component 3단계 토큰 체계. CSS 변수 기반 런타임 전환.' },
+    {
+      title: 'Orbit UI Architecture',
+      icon: '◉',
+      updated: '3시간 전',
+      author: 'HJ',
+      content: '3계층 아키텍처: Core → Theme → Custom. UtilityCSS + CSS 변수 기반 토큰 시스템.',
+    },
+    {
+      title: 'Component Roadmap',
+      icon: '📋',
+      updated: '1일 전',
+      author: 'SW',
+      content: 'Cycle 175까지 완성 목표. 60+ 컴포넌트, 900+ 스토리 달성 계획.',
+    },
+    {
+      title: 'Design Token Guide',
+      icon: '🎨',
+      updated: '2일 전',
+      author: 'JW',
+      content: 'Reference → Semantic → Component 3단계 토큰 체계. CSS 변수 기반 런타임 전환.',
+    },
   ]
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 4, width: 360 }}>
-      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, fontWeight: 600 }}>최근 페이지</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, fontWeight: 600 }}>
+        최근 페이지
+      </div>
       {pages.map((page) => (
         <HoverCard key={page.title} openDelay={200} closeDelay={100}>
           <HoverCard.Trigger asChild>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 6, cursor: 'pointer', background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', border: '1px solid transparent' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 10px',
+                borderRadius: 6,
+                cursor: 'pointer',
+                background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+                border: '1px solid transparent',
+              }}
+            >
               <span style={{ fontSize: 14 }}>{page.icon}</span>
-              <span style={{ flex: 1, fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)' }}>{page.title}</span>
+              <span
+                style={{
+                  flex: 1,
+                  fontSize: 13,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary, #0f172a)',
+                }}
+              >
+                {page.title}
+              </span>
               <span style={{ fontSize: 10, color: '#94a3b8' }}>{page.updated}</span>
             </div>
           </HoverCard.Trigger>
@@ -1397,12 +2825,18 @@ function WorkspaceEditorPagePreviewHoverRender() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                 <span style={{ fontSize: 18 }}>{page.icon}</span>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>{page.title}</div>
-                  <div style={{ fontSize: 11, color: '#94a3b8' }}>작성자: {page.author} · {page.updated}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+                    {page.title}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                    작성자: {page.author} · {page.updated}
+                  </div>
                 </div>
               </div>
               <Divider />
-              <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6, marginTop: 8 }}>{page.content}</p>
+              <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6, marginTop: 8 }}>
+                {page.content}
+              </p>
               <div style={{ marginTop: 10, display: 'flex', gap: 6 }}>
                 <SolidButton color="primary" size="small">
                   <SolidButton.Center>열기</SolidButton.Center>
@@ -1424,7 +2858,8 @@ export const WorkspaceEditor_페이지_미리보기_호버: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'WorkspaceEditor 사이드바 페이지 목록 hover preview 패턴. 아이콘 + 제목 + 수정 시간 표시, 호버 시 콘텐츠 미리보기 + 작성자 + 빠른 액션 버튼.',
+        story:
+          'WorkspaceEditor 사이드바 페이지 목록 hover preview 패턴. 아이콘 + 제목 + 수정 시간 표시, 호버 시 콘텐츠 미리보기 + 작성자 + 빠른 액션 버튼.',
       },
     },
   },
@@ -1433,30 +2868,82 @@ export const WorkspaceEditor_페이지_미리보기_호버: Story = {
 
 function DesignToolComponentInspectHoverRender() {
   const components = [
-    { name: 'SolidButton', type: 'Component', props: ['color', 'size', 'disabled'], instances: 142, variant: 'primary/medium' },
-    { name: 'TextField', type: 'Component Set', props: ['label', 'placeholder', 'error'], instances: 87, variant: 'filled/default' },
-    { name: 'Avatar.Image', type: 'Instance', props: ['src', 'alt', 'fallback'], instances: 56, variant: 'circle/medium' },
+    {
+      name: 'SolidButton',
+      type: 'Component',
+      props: ['color', 'size', 'disabled'],
+      instances: 142,
+      variant: 'primary/medium',
+    },
+    {
+      name: 'TextField',
+      type: 'Component Set',
+      props: ['label', 'placeholder', 'error'],
+      instances: 87,
+      variant: 'filled/default',
+    },
+    {
+      name: 'Avatar.Image',
+      type: 'Instance',
+      props: ['src', 'alt', 'fallback'],
+      instances: 56,
+      variant: 'circle/medium',
+    },
   ]
 
   return (
     <div style={{ background: '#1e1e1e', borderRadius: 10, padding: 16, width: 360 }}>
-      <div style={{ fontSize: 11, color: '#8e8e93', marginBottom: 10, fontWeight: 600 }}>LAYERS — Components</div>
+      <div style={{ fontSize: 11, color: '#8e8e93', marginBottom: 10, fontWeight: 600 }}>
+        LAYERS — Components
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
         {components.map((comp) => (
           <HoverCard key={comp.name} openDelay={150}>
             <HoverCard.Trigger asChild>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', borderRadius: 6, cursor: 'pointer', background: '#2c2c2c' }}>
-                <span style={{ fontSize: 10, color: comp.type === 'Component Set' ? '#22c55e' : comp.type === 'Instance' ? '#8b5cf6' : '#3b82f6' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  background: '#2c2c2c',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 10,
+                    color:
+                      comp.type === 'Component Set'
+                        ? '#22c55e'
+                        : comp.type === 'Instance'
+                          ? '#8b5cf6'
+                          : '#3b82f6',
+                  }}
+                >
                   {comp.type === 'Component Set' ? '◈' : comp.type === 'Instance' ? '◇' : '●'}
                 </span>
-                <span style={{ flex: 1, fontSize: 12, color: '#f2f2f2', fontFamily: 'monospace' }}>{comp.name}</span>
+                <span style={{ flex: 1, fontSize: 12, color: '#f2f2f2', fontFamily: 'monospace' }}>
+                  {comp.name}
+                </span>
                 <span style={{ fontSize: 9, color: '#8e8e93' }}>{comp.instances}</span>
               </div>
             </HoverCard.Trigger>
             <HoverCard.Content style={{ width: 260 }}>
               <div style={{ padding: 14 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-                  <span style={{ fontSize: 16, color: comp.type === 'Component Set' ? '#22c55e' : comp.type === 'Instance' ? '#8b5cf6' : '#3b82f6' }}>
+                  <span
+                    style={{
+                      fontSize: 16,
+                      color:
+                        comp.type === 'Component Set'
+                          ? '#22c55e'
+                          : comp.type === 'Instance'
+                            ? '#8b5cf6'
+                            : '#3b82f6',
+                    }}
+                  >
                     {comp.type === 'Component Set' ? '◈' : comp.type === 'Instance' ? '◇' : '●'}
                   </span>
                   <div>
@@ -1464,17 +2951,37 @@ function DesignToolComponentInspectHoverRender() {
                     <div style={{ fontSize: 10, color: '#64748b' }}>{comp.type}</div>
                   </div>
                 </div>
-                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>Variant: <span style={{ color: '#0f172a', fontFamily: 'monospace' }}>{comp.variant}</span></div>
-                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 8 }}>인스턴스: <span style={{ color: '#6366f1', fontWeight: 600 }}>{comp.instances}개</span></div>
+                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>
+                  Variant:{' '}
+                  <span style={{ color: '#0f172a', fontFamily: 'monospace' }}>{comp.variant}</span>
+                </div>
+                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 8 }}>
+                  인스턴스:{' '}
+                  <span style={{ color: '#6366f1', fontWeight: 600 }}>{comp.instances}개</span>
+                </div>
                 <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>Props:</div>
                 <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
                   {comp.props.map((p) => (
-                    <span key={p} style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: '#f1f5f9', color: '#475569', fontFamily: 'monospace' }}>{p}</span>
+                    <span
+                      key={p}
+                      style={{
+                        fontSize: 10,
+                        padding: '2px 7px',
+                        borderRadius: 99,
+                        background: '#f1f5f9',
+                        color: '#475569',
+                        fontFamily: 'monospace',
+                      }}
+                    >
+                      {p}
+                    </span>
                   ))}
                 </div>
                 <Divider style={{ margin: '10px 0' }} />
                 <Progress value={Math.round((comp.instances / 150) * 100)} color="primary" />
-                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4 }}>전체 사용률 {Math.round((comp.instances / 150) * 100)}%</div>
+                <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4 }}>
+                  전체 사용률 {Math.round((comp.instances / 150) * 100)}%
+                </div>
               </div>
             </HoverCard.Content>
           </HoverCard>
@@ -1489,7 +2996,8 @@ export const DesignTool_컴포넌트_인스펙트_호버: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool 플러그인 레이어 패널 컴포넌트 inspect 패턴. 다크 배경 레이어 목록, hover 시 type/variant/props/인스턴스 수/사용률 Progress 표시.',
+        story:
+          'DesignTool 플러그인 레이어 패널 컴포넌트 inspect 패턴. 다크 배경 레이어 목록, hover 시 type/variant/props/인스턴스 수/사용률 Progress 표시.',
       },
     },
   },
@@ -1498,26 +3006,92 @@ export const DesignTool_컴포넌트_인스펙트_호버: Story = {
 
 function WorkspaceEditorDesignToolReferenceHoverRender() {
   const tokens = [
-    { name: 'colorPrimary', value: '#6366f1', type: 'color', usedIn: ['SolidButton', 'Progress', 'Switch', 'CounterBadge'], semantic: 'fillPrimary' },
-    { name: 'spacing8', value: '8px', type: 'spacing', usedIn: ['Button padding', 'Card gap', 'Form margin'], semantic: 'paddingSmall' },
-    { name: 'fontSizeMd', value: '14px', type: 'typography', usedIn: ['Body text', 'Label', 'Input value'], semantic: 'textBodyMedium' },
+    {
+      name: 'colorPrimary',
+      value: '#6366f1',
+      type: 'color',
+      usedIn: ['SolidButton', 'Progress', 'Switch', 'CounterBadge'],
+      semantic: 'fillPrimary',
+    },
+    {
+      name: 'spacing8',
+      value: '8px',
+      type: 'spacing',
+      usedIn: ['Button padding', 'Card gap', 'Form margin'],
+      semantic: 'paddingSmall',
+    },
+    {
+      name: 'fontSizeMd',
+      value: '14px',
+      type: 'typography',
+      usedIn: ['Body text', 'Label', 'Input value'],
+      semantic: 'textBodyMedium',
+    },
   ]
 
   return (
-    <div style={{ width: 420, background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)', borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)', padding: 16 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>디자인 토큰 레퍼런스</div>
+    <div
+      style={{
+        width: 420,
+        background: 'var(--sem-eclipse-color-backgroundPrimary, #fff)',
+        borderRadius: 10,
+        border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+        padding: 16,
+      }}
+    >
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>
+        디자인 토큰 레퍼런스
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {tokens.map((token) => (
           <HoverCard key={token.name} openDelay={200}>
             <HoverCard.Trigger asChild>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 8, background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)', cursor: 'pointer', border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '8px 12px',
+                  borderRadius: 8,
+                  background: 'var(--sem-eclipse-color-surfaceContainer, #f8fafc)',
+                  cursor: 'pointer',
+                  border: '1px solid var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
+                }}
+              >
                 {token.type === 'color' ? (
-                  <div style={{ width: 20, height: 20, borderRadius: 4, background: token.value, flexShrink: 0 }} />
+                  <div
+                    style={{
+                      width: 20,
+                      height: 20,
+                      borderRadius: 4,
+                      background: token.value,
+                      flexShrink: 0,
+                    }}
+                  />
                 ) : (
-                  <div style={{ width: 20, height: 20, borderRadius: 4, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: '#64748b', fontWeight: 700 }}>{token.type === 'spacing' ? '↔' : 'T'}</div>
+                  <div
+                    style={{
+                      width: 20,
+                      height: 20,
+                      borderRadius: 4,
+                      background: '#f1f5f9',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 9,
+                      color: '#64748b',
+                      fontWeight: 700,
+                    }}
+                  >
+                    {token.type === 'spacing' ? '↔' : 'T'}
+                  </div>
                 )}
-                <span style={{ flex: 1, fontSize: 12, fontFamily: 'monospace', color: '#0f172a' }}>{token.name}</span>
-                <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>{token.value}</span>
+                <span style={{ flex: 1, fontSize: 12, fontFamily: 'monospace', color: '#0f172a' }}>
+                  {token.name}
+                </span>
+                <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace' }}>
+                  {token.value}
+                </span>
                 <LabelBadge color={token.type === 'color' ? undefined : undefined}>
                   <LabelBadge.Label>{token.type}</LabelBadge.Label>
                 </LabelBadge>
@@ -1526,21 +3100,60 @@ function WorkspaceEditorDesignToolReferenceHoverRender() {
             <HoverCard.Content style={{ width: 280 }}>
               <div style={{ padding: 14 }}>
                 <div style={{ marginBottom: 10 }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', fontFamily: 'monospace' }}>{token.name}</div>
-                  <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>시맨틱: <span style={{ fontFamily: 'monospace', color: '#6366f1' }}>{token.semantic}</span></div>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: '#0f172a',
+                      fontFamily: 'monospace',
+                    }}
+                  >
+                    {token.name}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>
+                    시맨틱:{' '}
+                    <span style={{ fontFamily: 'monospace', color: '#6366f1' }}>
+                      {token.semantic}
+                    </span>
+                  </div>
                 </div>
                 {token.type === 'color' && (
-                  <div style={{ width: '100%', height: 40, borderRadius: 8, background: token.value, marginBottom: 10 }} />
+                  <div
+                    style={{
+                      width: '100%',
+                      height: 40,
+                      borderRadius: 8,
+                      background: token.value,
+                      marginBottom: 10,
+                    }}
+                  />
                 )}
-                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6 }}>사용 컴포넌트:</div>
+                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6 }}>
+                  사용 컴포넌트:
+                </div>
                 <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 10 }}>
                   {token.usedIn.map((c) => (
-                    <span key={c} style={{ fontSize: 10, padding: '2px 7px', borderRadius: 99, background: '#eff6ff', color: '#3b82f6' }}>{c}</span>
+                    <span
+                      key={c}
+                      style={{
+                        fontSize: 10,
+                        padding: '2px 7px',
+                        borderRadius: 99,
+                        background: '#eff6ff',
+                        color: '#3b82f6',
+                      }}
+                    >
+                      {c}
+                    </span>
                   ))}
                 </div>
                 <Divider />
-                <div style={{ marginTop: 8, fontFamily: 'monospace', fontSize: 11, color: '#64748b' }}>
-                  <span style={{ color: '#94a3b8' }}>var(--</span>{token.semantic}<span style={{ color: '#94a3b8' }}>)</span>
+                <div
+                  style={{ marginTop: 8, fontFamily: 'monospace', fontSize: 11, color: '#64748b' }}
+                >
+                  <span style={{ color: '#94a3b8' }}>var(--</span>
+                  {token.semantic}
+                  <span style={{ color: '#94a3b8' }}>)</span>
                 </div>
               </div>
             </HoverCard.Content>
@@ -1556,7 +3169,8 @@ export const WorkspaceEditor_DesignTool_디자인_토큰_호버: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'WorkspaceEditor + DesignTool 토큰 레퍼런스 패턴. 토큰 목록 hover 시 시맨틱 이름 / 컬러 프리뷰 / 사용 컴포넌트 / CSS 변수명 표시. LabelBadge로 타입 구분.',
+        story:
+          'WorkspaceEditor + DesignTool 토큰 레퍼런스 패턴. 토큰 목록 hover 시 시맨틱 이름 / 컬러 프리뷰 / 사용 컴포넌트 / CSS 변수명 표시. LabelBadge로 타입 구분.',
       },
     },
   },

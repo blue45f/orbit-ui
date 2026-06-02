@@ -51,14 +51,16 @@ export const 기본: Story = {
 export const 위치변형: Story = {
   render: () => (
     <Tooltip.Provider>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, auto)',
-        gap: '16px',
-        padding: '80px 60px',
-        alignItems: 'center',
-        justifyItems: 'center',
-      }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, auto)',
+          gap: '16px',
+          padding: '80px 60px',
+          alignItems: 'center',
+          justifyItems: 'center',
+        }}
+      >
         {/* Top row */}
         <div />
         <Tooltip>
@@ -89,12 +91,20 @@ export const 위치변형: Story = {
           </Tooltip.Content>
         </Tooltip>
 
-        <div style={{
-          width: '80px', height: '80px', borderRadius: '12px',
-          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#fff', fontSize: '12px', fontWeight: 700,
-        }}>
+        <div
+          style={{
+            width: '80px',
+            height: '80px',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            fontSize: '12px',
+            fontWeight: 700,
+          }}
+        >
           Center
         </div>
 
@@ -135,17 +145,17 @@ export const 위치변형: Story = {
 export const 아이콘버튼조합: Story = {
   render: () => (
     <Tooltip.Provider>
-      <div style={{
-        display: 'flex', gap: '12px', padding: '60px 40px',
-        alignItems: 'center',
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '12px',
+          padding: '60px 40px',
+          alignItems: 'center',
+        }}
+      >
         <Tooltip>
           <Tooltip.Trigger asChild>
-            <SolidIconButton
-              size="medium"
-              color="black"
-              aria-label="정보 보기"
-            >
+            <SolidIconButton size="medium" color="black" aria-label="정보 보기">
               <CircleInfoLineIcon size={20} />
             </SolidIconButton>
           </Tooltip.Trigger>
@@ -158,11 +168,7 @@ export const 아이콘버튼조합: Story = {
 
         <Tooltip>
           <Tooltip.Trigger asChild>
-            <SolidIconButton
-              size="medium"
-              color="black"
-              aria-label="설정"
-            >
+            <SolidIconButton size="medium" color="black" aria-label="설정">
               <SettingLineIcon size={20} />
             </SolidIconButton>
           </Tooltip.Trigger>
@@ -175,11 +181,7 @@ export const 아이콘버튼조합: Story = {
 
         <Tooltip>
           <Tooltip.Trigger asChild>
-            <SolidIconButton
-              size="medium"
-              color="black"
-              aria-label="알림"
-            >
+            <SolidIconButton size="medium" color="black" aria-label="알림">
               <NotificationLineIcon size={20} />
             </SolidIconButton>
           </Tooltip.Trigger>
@@ -192,11 +194,7 @@ export const 아이콘버튼조합: Story = {
 
         <Tooltip>
           <Tooltip.Trigger asChild>
-            <SolidIconButton
-              size="medium"
-              color="black"
-              aria-label="즐겨찾기"
-            >
+            <SolidIconButton size="medium" color="black" aria-label="즐겨찾기">
               <StarLineIcon size={20} />
             </SolidIconButton>
           </Tooltip.Trigger>
@@ -209,11 +207,7 @@ export const 아이콘버튼조합: Story = {
 
         <Tooltip>
           <Tooltip.Trigger asChild>
-            <SolidIconButton
-              size="medium"
-              color="black"
-              aria-label="검색"
-            >
+            <SolidIconButton size="medium" color="black" aria-label="검색">
               <SearchIcon size={20} />
             </SolidIconButton>
           </Tooltip.Trigger>
@@ -240,7 +234,15 @@ const DelayDemoRender = () => {
   ]
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '40px', alignItems: 'center' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
+        padding: '40px',
+        alignItems: 'center',
+      }}
+    >
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
         {delayOptions.map((opt) => (
           <button
@@ -301,11 +303,18 @@ const KbdKey = ({ keys }: { keys: string[] }) => (
       <kbd
         key={i}
         style={{
-          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          minWidth: '18px', height: '18px', padding: '0 4px',
-          borderRadius: '4px', background: 'rgba(255,255,255,0.15)',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minWidth: '18px',
+          height: '18px',
+          padding: '0 4px',
+          borderRadius: '4px',
+          background: 'rgba(255,255,255,0.15)',
           border: '1px solid rgba(255,255,255,0.2)',
-          fontSize: '11px', fontWeight: '600', fontFamily: 'monospace',
+          fontSize: '11px',
+          fontWeight: '600',
+          fontFamily: 'monospace',
           color: 'rgba(255,255,255,0.9)',
           lineHeight: 1,
         }}
@@ -324,46 +333,124 @@ export const 키보드_단축키_툴팁: Story = {
     <Tooltip.Provider>
       <div style={{ display: 'flex', gap: '8px', padding: '80px 40px', alignItems: 'center' }}>
         {[
-          { label: '검색', keys: ['⌘', 'K'], icon: (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"/>
-              <path d="m21 21-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          )},
-          { label: '새 파일', keys: ['⌘', 'N'], icon: (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          )},
-          { label: '저장', keys: ['⌘', 'S'], icon: (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <polyline points="7 3 7 8 15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )},
-          { label: '되돌리기', keys: ['⌘', 'Z'], icon: (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M9 14L4 9l5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M4 9h10.5a5.5 5.5 0 010 11H11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )},
-          { label: '다시 실행', keys: ['⌘', '⇧', 'Z'], icon: (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M15 14l5-5-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M20 9H9.5a5.5 5.5 0 000 11H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )},
+          {
+            label: '검색',
+            keys: ['⌘', 'K'],
+            icon: (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
+                <path
+                  d="m21 21-4.35-4.35"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            ),
+          },
+          {
+            label: '새 파일',
+            keys: ['⌘', 'N'],
+            icon: (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 5v14M5 12h14"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            ),
+          },
+          {
+            label: '저장',
+            keys: ['⌘', 'S'],
+            icon: (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <polyline
+                  points="17 21 17 13 7 13 7 21"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <polyline
+                  points="7 3 7 8 15 8"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ),
+          },
+          {
+            label: '되돌리기',
+            keys: ['⌘', 'Z'],
+            icon: (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 14L4 9l5-5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M4 9h10.5a5.5 5.5 0 010 11H11"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ),
+          },
+          {
+            label: '다시 실행',
+            keys: ['⌘', '⇧', 'Z'],
+            icon: (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M15 14l5-5-5-5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M20 9H9.5a5.5 5.5 0 000 11H13"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ),
+          },
         ].map(({ label, keys, icon }) => (
           <Tooltip key={label}>
             <Tooltip.Trigger asChild>
               <button
                 aria-label={label}
                 style={{
-                  width: '40px', height: '40px', borderRadius: '8px',
-                  border: '1px solid #e2e8f0', background: '#fff',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#64748b', cursor: 'pointer',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  background: '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#64748b',
+                  cursor: 'pointer',
                 }}
               >
                 {icon}
@@ -394,9 +481,33 @@ export const 키보드_단축키_툴팁: Story = {
    tabular-nums 패턴으로 숫자 정렬, monospace 폰트로 기술 정보 표시
 -------------------------------------------------------------------------- */
 const deployments = [
-  { env: 'Production', status: 'ready', duration: '47s', time: '2분 전', url: 'orbit-ui.deploy.example.com', icon: '●', color: '#22c55e' },
-  { env: 'Preview', status: 'building', duration: '...', time: '진행중', url: 'orbit-ui-preview.deploy.example.com', icon: '◌', color: '#f59e0b' },
-  { env: 'Development', status: 'error', duration: '12s', time: '1시간 전', url: 'localhost:6007', icon: '✕', color: '#ef4444' },
+  {
+    env: 'Production',
+    status: 'ready',
+    duration: '47s',
+    time: '2분 전',
+    url: 'orbit-ui.deploy.example.com',
+    icon: '●',
+    color: '#22c55e',
+  },
+  {
+    env: 'Preview',
+    status: 'building',
+    duration: '...',
+    time: '진행중',
+    url: 'orbit-ui-preview.deploy.example.com',
+    icon: '◌',
+    color: '#f59e0b',
+  },
+  {
+    env: 'Development',
+    status: 'error',
+    duration: '12s',
+    time: '1시간 전',
+    url: 'localhost:6007',
+    icon: '✕',
+    color: '#ef4444',
+  },
 ]
 
 export const DeployPlatform_배포_파이프라인_툴팁: Story = {
@@ -404,25 +515,50 @@ export const DeployPlatform_배포_파이프라인_툴팁: Story = {
   parameters: { layout: 'centered' },
   render: () => (
     <Tooltip.Provider>
-      <div style={{ display: 'flex', gap: '8px', padding: '80px 40px', alignItems: 'center', fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '8px',
+          padding: '80px 40px',
+          alignItems: 'center',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {deployments.map((dep) => (
           <Tooltip key={dep.env}>
             <Tooltip.Trigger asChild>
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '8px',
-                padding: '8px 14px', borderRadius: '8px',
-                border: '1px solid #e2e8f0', background: '#fff',
-                cursor: 'pointer', transition: 'border-color 0.15s',
-              }}>
-                <span style={{ color: dep.color, fontSize: '14px', lineHeight: 1 }}>{dep.icon}</span>
-                <span style={{ fontSize: '12px', fontWeight: 600, color: '#1e293b' }}>{dep.env}</span>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  background: '#fff',
+                  cursor: 'pointer',
+                  transition: 'border-color 0.15s',
+                }}
+              >
+                <span style={{ color: dep.color, fontSize: '14px', lineHeight: 1 }}>
+                  {dep.icon}
+                </span>
+                <span style={{ fontSize: '12px', fontWeight: 600, color: '#1e293b' }}>
+                  {dep.env}
+                </span>
               </div>
             </Tooltip.Trigger>
             <Tooltip.Content side="bottom">
               <div style={{ padding: '2px 0', minWidth: '180px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+                <div
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}
+                >
                   <span style={{ color: dep.color, fontSize: '12px' }}>{dep.icon}</span>
-                  <Typography textStyle="descriptionLarge" style={{ fontWeight: 700 }} className="text-white">
+                  <Typography
+                    textStyle="descriptionLarge"
+                    style={{ fontWeight: 700 }}
+                    className="text-white"
+                  >
                     {dep.env}
                   </Typography>
                 </div>
@@ -432,9 +568,33 @@ export const DeployPlatform_배포_파이프라인_툴팁: Story = {
                   { label: '배포 일시', value: dep.time },
                   { label: 'URL', value: dep.url },
                 ].map(({ label, value }) => (
-                  <div key={label} style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginBottom: '3px' }}>
-                    <Typography textStyle="descriptionSmall" style={{ opacity: 0.6 }} className="text-white">{label}</Typography>
-                    <Typography textStyle="descriptionSmall" style={{ opacity: 0.9, fontFamily: label === 'URL' ? 'monospace' : 'inherit', fontVariantNumeric: 'tabular-nums' }} className="text-white">{value}</Typography>
+                  <div
+                    key={label}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      gap: '16px',
+                      marginBottom: '3px',
+                    }}
+                  >
+                    <Typography
+                      textStyle="descriptionSmall"
+                      style={{ opacity: 0.6 }}
+                      className="text-white"
+                    >
+                      {label}
+                    </Typography>
+                    <Typography
+                      textStyle="descriptionSmall"
+                      style={{
+                        opacity: 0.9,
+                        fontFamily: label === 'URL' ? 'monospace' : 'inherit',
+                        fontVariantNumeric: 'tabular-nums',
+                      }}
+                      className="text-white"
+                    >
+                      {value}
+                    </Typography>
                   </div>
                 ))}
               </div>
@@ -472,8 +632,19 @@ const FormHelpTooltipRender = () => {
 
   return (
     <Tooltip.Provider>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '32px', fontFamily: 'system-ui, sans-serif', maxWidth: '360px' }}>
-        <div style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>API 연동 설정</div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          padding: '32px',
+          fontFamily: 'system-ui, sans-serif',
+          maxWidth: '360px',
+        }}
+      >
+        <div style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>
+          API 연동 설정
+        </div>
         {fields.map(({ label, placeholder, help }) => (
           <div key={label}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
@@ -482,10 +653,18 @@ const FormHelpTooltipRender = () => {
                 <Tooltip.Trigger asChild>
                   <button
                     style={{
-                      width: '16px', height: '16px', borderRadius: '50%',
-                      border: '1.5px solid #94a3b8', background: 'none',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: '10px', color: '#94a3b8', cursor: 'pointer', fontWeight: 700,
+                      width: '16px',
+                      height: '16px',
+                      borderRadius: '50%',
+                      border: '1.5px solid #94a3b8',
+                      background: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '10px',
+                      color: '#94a3b8',
+                      cursor: 'pointer',
+                      fontWeight: 700,
                     }}
                     aria-label={`${label} 도움말`}
                   >
@@ -493,7 +672,11 @@ const FormHelpTooltipRender = () => {
                   </button>
                 </Tooltip.Trigger>
                 <Tooltip.Content side="right" style={{ maxWidth: '220px' }}>
-                  <Typography textStyle="descriptionSmall" style={{ lineHeight: 1.6 }} className="text-white">
+                  <Typography
+                    textStyle="descriptionSmall"
+                    style={{ lineHeight: 1.6 }}
+                    className="text-white"
+                  >
                     {help}
                   </Typography>
                 </Tooltip.Content>
@@ -503,9 +686,15 @@ const FormHelpTooltipRender = () => {
               type="text"
               placeholder={placeholder}
               style={{
-                width: '100%', padding: '8px 12px', borderRadius: '8px',
-                border: '1px solid #e2e8f0', fontSize: '13px', outline: 'none',
-                boxSizing: 'border-box', color: '#1e293b', background: '#fafafa',
+                width: '100%',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                border: '1px solid #e2e8f0',
+                fontSize: '13px',
+                outline: 'none',
+                boxSizing: 'border-box',
+                color: '#1e293b',
+                background: '#fafafa',
               }}
             />
           </div>
@@ -526,10 +715,34 @@ export const Ant_폼_도움말_툴팁: Story = {
    셀 텍스트가 잘릴 때 hover 시 전체 내용 표시
 -------------------------------------------------------------------------- */
 const tableData = [
-  { id: 'ORB-301', title: '디자인 토큰 시스템 Reference → Semantic → Component 3단계 구조 마이그레이션 완료', assignee: '김민준', status: 'Done', priority: 'Urgent' },
-  { id: 'ORB-298', title: 'Storybook 8.6 autodocs 설정 및 컴포넌트 JSDoc 일괄 업데이트', assignee: '이서연', status: 'In Progress', priority: 'High' },
-  { id: 'ORB-287', title: '다크모드 테마 토큰 정의 및 UtilityCSS 유틸 클래스 적용', assignee: '박지호', status: 'Backlog', priority: 'Medium' },
-  { id: 'ORB-271', title: 'TypeScript strict 모드 활성화 및 기존 타입 오류 수정', assignee: '최준혁', status: 'Done', priority: 'Low' },
+  {
+    id: 'ORB-301',
+    title: '디자인 토큰 시스템 Reference → Semantic → Component 3단계 구조 마이그레이션 완료',
+    assignee: '김민준',
+    status: 'Done',
+    priority: 'Urgent',
+  },
+  {
+    id: 'ORB-298',
+    title: 'Storybook 8.6 autodocs 설정 및 컴포넌트 JSDoc 일괄 업데이트',
+    assignee: '이서연',
+    status: 'In Progress',
+    priority: 'High',
+  },
+  {
+    id: 'ORB-287',
+    title: '다크모드 테마 토큰 정의 및 UtilityCSS 유틸 클래스 적용',
+    assignee: '박지호',
+    status: 'Backlog',
+    priority: 'Medium',
+  },
+  {
+    id: 'ORB-271',
+    title: 'TypeScript strict 모드 활성화 및 기존 타입 오류 수정',
+    assignee: '최준혁',
+    status: 'Done',
+    priority: 'Low',
+  },
 ]
 
 const statusColors: Record<string, { color: string; bg: string }> = {
@@ -543,41 +756,112 @@ export const Ant_테이블_잘린텍스트_툴팁: Story = {
   render: () => (
     <Tooltip.Provider>
       <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: '620px', padding: '24px' }}>
-        <div style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>이슈 목록</div>
+        <div style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>
+          이슈 목록
+        </div>
         <div style={{ borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr 80px 90px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '80px 1fr 80px 90px',
+              background: '#f8fafc',
+              borderBottom: '1px solid #e2e8f0',
+            }}
+          >
             {['ID', '제목', '담당자', '상태'].map((h) => (
-              <div key={h} style={{ padding: '10px 12px', fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</div>
+              <div
+                key={h}
+                style={{
+                  padding: '10px 12px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: '#94a3b8',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                {h}
+              </div>
             ))}
           </div>
           {tableData.map((row, i) => (
             <div
               key={row.id}
-              style={{ display: 'grid', gridTemplateColumns: '80px 1fr 80px 90px', borderBottom: i < tableData.length - 1 ? '1px solid #f1f5f9' : 'none', background: '#fff' }}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '80px 1fr 80px 90px',
+                borderBottom: i < tableData.length - 1 ? '1px solid #f1f5f9' : 'none',
+                background: '#fff',
+              }}
             >
-              <div style={{ padding: '10px 12px', fontSize: '11px', color: '#94a3b8', fontFamily: 'monospace', display: 'flex', alignItems: 'center' }}>{row.id}</div>
+              <div
+                style={{
+                  padding: '10px 12px',
+                  fontSize: '11px',
+                  color: '#94a3b8',
+                  fontFamily: 'monospace',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                {row.id}
+              </div>
               <Tooltip>
                 <Tooltip.Trigger asChild>
-                  <div style={{ padding: '10px 12px', fontSize: '12px', color: '#1e293b', display: 'flex', alignItems: 'center', cursor: 'default' }}>
-                    <span style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <div
+                    style={{
+                      padding: '10px 12px',
+                      fontSize: '12px',
+                      color: '#1e293b',
+                      display: 'flex',
+                      alignItems: 'center',
+                      cursor: 'default',
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: 'block',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
                       {row.title}
                     </span>
                   </div>
                 </Tooltip.Trigger>
                 <Tooltip.Content side="top" style={{ maxWidth: '300px' }}>
-                  <Typography textStyle="descriptionSmall" style={{ lineHeight: 1.6 }} className="text-white">
+                  <Typography
+                    textStyle="descriptionSmall"
+                    style={{ lineHeight: 1.6 }}
+                    className="text-white"
+                  >
                     {row.title}
                   </Typography>
                 </Tooltip.Content>
               </Tooltip>
-              <div style={{ padding: '10px 12px', fontSize: '12px', color: '#475569', display: 'flex', alignItems: 'center' }}>{row.assignee}</div>
+              <div
+                style={{
+                  padding: '10px 12px',
+                  fontSize: '12px',
+                  color: '#475569',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                {row.assignee}
+              </div>
               <div style={{ padding: '10px 12px', display: 'flex', alignItems: 'center' }}>
-                <span style={{
-                  fontSize: '10px', fontWeight: 700,
-                  color: (statusColors[row.status] ?? { color: '#94a3b8' }).color,
-                  background: (statusColors[row.status] ?? { bg: '#f8fafc' }).bg,
-                  padding: '2px 8px', borderRadius: '6px',
-                }}>
+                <span
+                  style={{
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    color: (statusColors[row.status] ?? { color: '#94a3b8' }).color,
+                    background: (statusColors[row.status] ?? { bg: '#f8fafc' }).bg,
+                    padding: '2px 8px',
+                    borderRadius: '6px',
+                  }}
+                >
                   {row.status}
                 </span>
               </div>
@@ -602,29 +886,65 @@ export const 리치_컨텐츠_툴팁: Story = {
         {/* 사용자 정보 툴팁 */}
         <Tooltip>
           <Tooltip.Trigger asChild>
-            <div style={{
-              width: '40px', height: '40px', borderRadius: '50%',
-              background: '#6366f1', display: 'flex', alignItems: 'center',
-              justifyContent: 'center', color: '#fff', fontWeight: '700',
-              fontSize: '14px', cursor: 'pointer',
-            }}>KJ</div>
+            <div
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                background: '#6366f1',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                fontWeight: '700',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}
+            >
+              KJ
+            </div>
           </Tooltip.Trigger>
           <Tooltip.Content side="top">
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '2px 0' }}>
-              <div style={{
-                width: '32px', height: '32px', borderRadius: '50%',
-                background: '#6366f1', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', color: '#fff', fontWeight: '700',
-                fontSize: '12px', flexShrink: 0,
-              }}>KJ</div>
+            <div
+              style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '2px 0' }}
+            >
+              <div
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: '#6366f1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontWeight: '700',
+                  fontSize: '12px',
+                  flexShrink: 0,
+                }}
+              >
+                KJ
+              </div>
               <div>
-                <Typography textStyle="descriptionLarge" style={{ display: 'block', fontWeight: '700' }} className="text-white">
+                <Typography
+                  textStyle="descriptionLarge"
+                  style={{ display: 'block', fontWeight: '700' }}
+                  className="text-white"
+                >
                   Kim Jihye
                 </Typography>
-                <Typography textStyle="descriptionSmall" style={{ display: 'block', opacity: 0.7 }} className="text-white">
+                <Typography
+                  textStyle="descriptionSmall"
+                  style={{ display: 'block', opacity: 0.7 }}
+                  className="text-white"
+                >
                   Senior Designer · 온라인
                 </Typography>
-                <Typography textStyle="descriptionSmall" style={{ display: 'block', opacity: 0.6, marginTop: '2px' }} className="text-white">
+                <Typography
+                  textStyle="descriptionSmall"
+                  style={{ display: 'block', opacity: 0.6, marginTop: '2px' }}
+                  className="text-white"
+                >
                   jihye@orbit-ui.com
                 </Typography>
               </div>
@@ -635,19 +955,34 @@ export const 리치_컨텐츠_툴팁: Story = {
         {/* 상태 정보 툴팁 */}
         <Tooltip>
           <Tooltip.Trigger asChild>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '6px',
-              padding: '6px 12px', borderRadius: '20px',
-              border: '1px solid #e2e8f0', background: '#f8fafc',
-              cursor: 'pointer', fontSize: '13px', color: '#22c55e', fontWeight: '600',
-            }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }} />
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '6px 12px',
+                borderRadius: '20px',
+                border: '1px solid #e2e8f0',
+                background: '#f8fafc',
+                cursor: 'pointer',
+                fontSize: '13px',
+                color: '#22c55e',
+                fontWeight: '600',
+              }}
+            >
+              <span
+                style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}
+              />
               배포 완료
             </div>
           </Tooltip.Trigger>
           <Tooltip.Content side="bottom">
             <div style={{ padding: '2px 0' }}>
-              <Typography textStyle="descriptionLarge" style={{ display: 'block', fontWeight: '700', marginBottom: '6px' }} className="text-white">
+              <Typography
+                textStyle="descriptionLarge"
+                style={{ display: 'block', fontWeight: '700', marginBottom: '6px' }}
+                className="text-white"
+              >
                 배포 상태 상세
               </Typography>
               {[
@@ -655,9 +990,29 @@ export const 리치_컨텐츠_툴팁: Story = {
                 { label: '배포 URL', value: 'orbit-ui.deploy.example.com' },
                 { label: '배포 일시', value: '2분 전' },
               ].map(({ label, value }) => (
-                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginBottom: '3px' }}>
-                  <Typography textStyle="descriptionSmall" style={{ opacity: 0.6 }} className="text-white">{label}</Typography>
-                  <Typography textStyle="descriptionSmall" style={{ opacity: 0.9 }} className="text-white">{value}</Typography>
+                <div
+                  key={label}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '16px',
+                    marginBottom: '3px',
+                  }}
+                >
+                  <Typography
+                    textStyle="descriptionSmall"
+                    style={{ opacity: 0.6 }}
+                    className="text-white"
+                  >
+                    {label}
+                  </Typography>
+                  <Typography
+                    textStyle="descriptionSmall"
+                    style={{ opacity: 0.9 }}
+                    className="text-white"
+                  >
+                    {value}
+                  </Typography>
                 </div>
               ))}
             </div>
@@ -667,22 +1022,40 @@ export const 리치_컨텐츠_툴팁: Story = {
         {/* 진행 상태 툴팁 */}
         <Tooltip>
           <Tooltip.Trigger asChild>
-            <div style={{
-              width: '120px', height: '8px', borderRadius: '100px',
-              background: '#e2e8f0', cursor: 'pointer', overflow: 'hidden',
-            }}>
-              <div style={{
-                width: '68%', height: '100%', borderRadius: '100px',
-                background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
-              }} />
+            <div
+              style={{
+                width: '120px',
+                height: '8px',
+                borderRadius: '100px',
+                background: '#e2e8f0',
+                cursor: 'pointer',
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{
+                  width: '68%',
+                  height: '100%',
+                  borderRadius: '100px',
+                  background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
+                }}
+              />
             </div>
           </Tooltip.Trigger>
           <Tooltip.Content side="top">
             <div style={{ textAlign: 'center', padding: '2px 4px' }}>
-              <Typography textStyle="descriptionLarge" style={{ display: 'block', fontWeight: '700' }} className="text-white">
+              <Typography
+                textStyle="descriptionLarge"
+                style={{ display: 'block', fontWeight: '700' }}
+                className="text-white"
+              >
                 완료율 68%
               </Typography>
-              <Typography textStyle="descriptionSmall" style={{ opacity: 0.7 }} className="text-white">
+              <Typography
+                textStyle="descriptionSmall"
+                style={{ opacity: 0.7 }}
+                className="text-white"
+              >
                 34 / 50 태스크 완료
               </Typography>
             </div>
@@ -724,53 +1097,118 @@ export const ComposableUI_데이터_시각화_레이블: Story = {
           <div style={{ fontSize: 14, fontWeight: 700, color: '#1e293b' }}>월별 활성 사용자</div>
           <div style={{ display: 'flex', gap: 14, fontSize: 11, color: '#94a3b8' }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              <span style={{ width: 8, height: 8, borderRadius: 2, background: '#6366f1', display: 'inline-block' }} />이번 달
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: 2,
+                  background: '#6366f1',
+                  display: 'inline-block',
+                }}
+              />
+              이번 달
             </span>
             <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              <span style={{ width: 8, height: 8, borderRadius: 2, background: '#e2e8f0', display: 'inline-block' }} />전월
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: 2,
+                  background: '#e2e8f0',
+                  display: 'inline-block',
+                }}
+              />
+              전월
             </span>
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 140, paddingBottom: 0 }}>
+        <div
+          style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 140, paddingBottom: 0 }}
+        >
           {CHART_DATA.map((d) => {
             const maxVal = Math.max(...CHART_DATA.map((x) => Math.max(x.value, x.prev)))
             const diff = d.value - d.prev
             return (
-              <div key={d.month} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, flex: 1 }}>
+              <div
+                key={d.month}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 4,
+                  flex: 1,
+                }}
+              >
                 <Tooltip>
                   <Tooltip.Trigger asChild>
-                    <div style={{ width: '100%', display: 'flex', gap: 3, alignItems: 'flex-end', cursor: 'pointer' }}>
-                      <div style={{
-                        flex: 1, borderRadius: '4px 4px 0 0',
-                        height: `${(d.prev / maxVal) * 100}px`,
-                        background: '#e2e8f0',
-                        transition: 'background 0.15s',
-                      }} />
-                      <div style={{
-                        flex: 1, borderRadius: '4px 4px 0 0',
-                        height: `${(d.value / maxVal) * 100}px`,
-                        background: '#6366f1',
-                        transition: 'background 0.15s',
-                      }} />
+                    <div
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        gap: 3,
+                        alignItems: 'flex-end',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <div
+                        style={{
+                          flex: 1,
+                          borderRadius: '4px 4px 0 0',
+                          height: `${(d.prev / maxVal) * 100}px`,
+                          background: '#e2e8f0',
+                          transition: 'background 0.15s',
+                        }}
+                      />
+                      <div
+                        style={{
+                          flex: 1,
+                          borderRadius: '4px 4px 0 0',
+                          height: `${(d.value / maxVal) * 100}px`,
+                          background: '#6366f1',
+                          transition: 'background 0.15s',
+                        }}
+                      />
                     </div>
                   </Tooltip.Trigger>
                   <Tooltip.Content side="top">
                     <div style={{ padding: '4px 2px', minWidth: 100 }}>
-                      <div style={{ fontWeight: 700, marginBottom: 6, fontSize: 12 }}>{d.month}</div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 2 }}>
+                      <div style={{ fontWeight: 700, marginBottom: 6, fontSize: 12 }}>
+                        {d.month}
+                      </div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          fontSize: 11,
+                          marginBottom: 2,
+                        }}
+                      >
                         <span style={{ opacity: 0.7 }}>이번 달</span>
                         <span style={{ fontWeight: 700 }}>{d.value}명</span>
                       </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 6 }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          fontSize: 11,
+                          marginBottom: 6,
+                        }}
+                      >
                         <span style={{ opacity: 0.7 }}>전월</span>
                         <span>{d.prev}명</span>
                       </div>
-                      <div style={{
-                        fontSize: 11, fontWeight: 700,
-                        color: diff >= 0 ? '#10b981' : '#ef4444',
-                        paddingTop: 4, borderTop: '1px solid rgba(255,255,255,0.2)',
-                      }}>
-                        {diff >= 0 ? '+' : ''}{diff}명 ({diff >= 0 ? '+' : ''}{Math.round((diff / d.prev) * 100)}%)
+                      <div
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: diff >= 0 ? '#10b981' : '#ef4444',
+                          paddingTop: 4,
+                          borderTop: '1px solid rgba(255,255,255,0.2)',
+                        }}
+                      >
+                        {diff >= 0 ? '+' : ''}
+                        {diff}명 ({diff >= 0 ? '+' : ''}
+                        {Math.round((diff / d.prev) * 100)}%)
                       </div>
                     </div>
                   </Tooltip.Content>
@@ -789,7 +1227,12 @@ export const ComposableUI_데이터_시각화_레이블: Story = {
    DeployPlatform 벤치마크: 컴팩트 액션 힌트 툴팁 패턴
    DeployPlatform Dashboard 아이콘 버튼 툴팁 — 단축키 포함 컴팩트 힌트
 -------------------------------------------------------------------------- */
-const DEPLOY_ACTIONS: { key: string; label: string; shortcut: string; Icon: React.FC<{ size?: number }> }[] = [
+const DEPLOY_ACTIONS: {
+  key: string
+  label: string
+  shortcut: string
+  Icon: React.FC<{ size?: number }>
+}[] = [
   { key: 'search', label: '검색', shortcut: '⌘K', Icon: SearchIcon },
   { key: 'notif', label: '알림', shortcut: '⌘N', Icon: NotificationLineIcon },
   { key: 'star', label: '즐겨찾기', shortcut: '⌘S', Icon: StarLineIcon },
@@ -812,11 +1255,17 @@ export const DeployPlatform_컴팩트_액션_힌트: Story = {
     <Tooltip.Provider delayDuration={300}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'center' }}>
         {/* Dark nav bar */}
-        <div style={{
-          display: 'flex', gap: 4, padding: '8px 12px', borderRadius: 12,
-          background: '#0f172a', border: '1px solid #1e293b',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: 4,
+            padding: '8px 12px',
+            borderRadius: 12,
+            background: '#0f172a',
+            border: '1px solid #1e293b',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+          }}
+        >
           {DEPLOY_ACTIONS.map(({ key, label, shortcut, Icon }) => (
             <Tooltip key={key}>
               <Tooltip.Trigger asChild>
@@ -835,12 +1284,16 @@ export const DeployPlatform_컴팩트_액션_힌트: Story = {
               <Tooltip.Content side="bottom">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 4px' }}>
                   <span style={{ fontWeight: 600 }}>{label}</span>
-                  <kbd style={{
-                    padding: '1px 5px', borderRadius: 4,
-                    background: 'rgba(255,255,255,0.15)',
-                    fontSize: 10, fontFamily: 'monospace',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                  }}>
+                  <kbd
+                    style={{
+                      padding: '1px 5px',
+                      borderRadius: 4,
+                      background: 'rgba(255,255,255,0.15)',
+                      fontSize: 10,
+                      fontFamily: 'monospace',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                    }}
+                  >
                     {shortcut}
                   </kbd>
                 </div>
@@ -850,10 +1303,16 @@ export const DeployPlatform_컴팩트_액션_힌트: Story = {
         </div>
 
         {/* Light version */}
-        <div style={{
-          display: 'flex', gap: 4, padding: '6px 10px', borderRadius: 10,
-          background: '#fff', border: '1px solid #e2e8f0',
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: 4,
+            padding: '6px 10px',
+            borderRadius: 10,
+            background: '#fff',
+            border: '1px solid #e2e8f0',
+          }}
+        >
           {DEPLOY_ACTIONS.slice(0, 3).map(({ key, label, shortcut, Icon }) => (
             <Tooltip key={key}>
               <Tooltip.Trigger asChild>
@@ -864,11 +1323,15 @@ export const DeployPlatform_컴팩트_액션_힌트: Story = {
               <Tooltip.Content side="top">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 4px' }}>
                   <span style={{ fontWeight: 600 }}>{label}</span>
-                  <kbd style={{
-                    padding: '1px 5px', borderRadius: 4,
-                    background: 'rgba(255,255,255,0.15)',
-                    fontSize: 10, fontFamily: 'monospace',
-                  }}>
+                  <kbd
+                    style={{
+                      padding: '1px 5px',
+                      borderRadius: 4,
+                      background: 'rgba(255,255,255,0.15)',
+                      fontSize: 10,
+                      fontFamily: 'monospace',
+                    }}
+                  >
                     {shortcut}
                   </kbd>
                 </div>
@@ -932,17 +1395,28 @@ export const IssueTracker_단축키_레퍼런스_툴팁: Story = {
             </Tooltip.Trigger>
             <Tooltip.Content side="top" style={{ padding: 0, overflow: 'hidden' }}>
               <div style={{ padding: '10px 14px', minWidth: 200 }}>
-                <div style={{
-                  fontSize: 10, fontWeight: 700, textTransform: 'uppercase',
-                  letterSpacing: '0.08em', opacity: 0.6, marginBottom: 10,
-                }}>
+                <div
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    opacity: 0.6,
+                    marginBottom: 10,
+                  }}
+                >
                   {group.group} 단축키
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {group.items.map((item) => (
                     <div
                       key={item.action}
-                      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        gap: 16,
+                      }}
                     >
                       <span style={{ fontSize: 12, opacity: 0.9 }}>{item.action}</span>
                       <div style={{ display: 'flex', gap: 3 }}>
@@ -950,10 +1424,13 @@ export const IssueTracker_단축키_레퍼런스_툴팁: Story = {
                           <kbd
                             key={key}
                             style={{
-                              padding: '2px 6px', borderRadius: 4, fontSize: 10,
+                              padding: '2px 6px',
+                              borderRadius: 4,
+                              fontSize: 10,
                               background: 'rgba(255,255,255,0.15)',
                               border: '1px solid rgba(255,255,255,0.25)',
-                              fontFamily: 'monospace', fontWeight: 600,
+                              fontFamily: 'monospace',
+                              fontWeight: 600,
                             }}
                           >
                             {key}
@@ -990,24 +1467,51 @@ export const EnterpriseUI_비활성_버튼_툴팁: Story = {
   },
   render: () => (
     <Tooltip.Provider delayDuration={200}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: '60px 40px', fontFamily: 'system-ui, sans-serif', maxWidth: 420 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: -8 }}>권한 / 상태 안내 툴팁</div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 24,
+          padding: '60px 40px',
+          fontFamily: 'system-ui, sans-serif',
+          maxWidth: 420,
+        }}
+      >
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: -8 }}>
+          권한 / 상태 안내 툴팁
+        </div>
         {[
-          { label: '배포하기', reason: 'CI 검사가 아직 완료되지 않았습니다. 모든 검사 통과 후 배포 가능합니다.', disabled: true },
-          { label: '삭제하기', reason: '이 리소스를 삭제하려면 Admin 권한이 필요합니다.', disabled: true },
-          { label: '내보내기', reason: '엑셀 파일로 내보냅니다. 최대 10,000행까지 지원합니다.', disabled: false },
+          {
+            label: '배포하기',
+            reason: 'CI 검사가 아직 완료되지 않았습니다. 모든 검사 통과 후 배포 가능합니다.',
+            disabled: true,
+          },
+          {
+            label: '삭제하기',
+            reason: '이 리소스를 삭제하려면 Admin 권한이 필요합니다.',
+            disabled: true,
+          },
+          {
+            label: '내보내기',
+            reason: '엑셀 파일로 내보냅니다. 최대 10,000행까지 지원합니다.',
+            disabled: false,
+          },
         ].map(({ label, reason, disabled }) => (
           <Tooltip key={label}>
             <Tooltip.Trigger asChild>
-              <span style={{ display: 'inline-block', cursor: disabled ? 'not-allowed' : 'default' }}>
+              <span
+                style={{ display: 'inline-block', cursor: disabled ? 'not-allowed' : 'default' }}
+              >
                 <button
                   disabled={disabled}
                   style={{
-                    padding: '8px 18px', borderRadius: 8,
+                    padding: '8px 18px',
+                    borderRadius: 8,
                     border: disabled ? '1px solid #e2e8f0' : '1px solid #6366f1',
                     background: disabled ? '#f8fafc' : '#6366f1',
                     color: disabled ? '#94a3b8' : '#fff',
-                    fontSize: 13, fontWeight: 600,
+                    fontSize: 13,
+                    fontWeight: 600,
                     cursor: disabled ? 'not-allowed' : 'pointer',
                     pointerEvents: 'none',
                   }}
@@ -1019,11 +1523,23 @@ export const EnterpriseUI_비활성_버튼_툴팁: Story = {
             <Tooltip.Content side="right" style={{ maxWidth: 220 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '2px 0' }}>
                 {disabled && (
-                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#fbbf24' }}>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
+                      color: '#fbbf24',
+                    }}
+                  >
                     비활성 이유
                   </span>
                 )}
-                <Typography textStyle="descriptionSmall" style={{ lineHeight: 1.6 }} className="text-white">
+                <Typography
+                  textStyle="descriptionSmall"
+                  style={{ lineHeight: 1.6 }}
+                  className="text-white"
+                >
                   {reason}
                 </Typography>
               </div>
@@ -1054,7 +1570,15 @@ const AccessibleColorSwatchRender = () => {
   const [selected, setSelected] = useState<string | null>(null)
   return (
     <Tooltip.Provider delayDuration={100}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '40px 32px', fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          padding: '40px 32px',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>테마 색상 선택</div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
           {CHAKRA_PALETTE.map(({ name, hex }) => (
@@ -1064,21 +1588,42 @@ const AccessibleColorSwatchRender = () => {
                   onClick={() => setSelected(hex)}
                   aria-label={name}
                   style={{
-                    width: 36, height: 36, borderRadius: '50%', background: hex,
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    background: hex,
                     border: selected === hex ? `3px solid ${hex}` : '3px solid transparent',
                     outline: selected === hex ? '2px solid #fff' : 'none',
                     outlineOffset: selected === hex ? 1 : 0,
-                    cursor: 'pointer', boxShadow: '0 1px 4px rgba(0,0,0,0.12)',
+                    cursor: 'pointer',
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.12)',
                   }}
                 />
               </Tooltip.Trigger>
               <Tooltip.Content side="top">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 0' }}>
-                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: hex, display: 'inline-block', flexShrink: 0 }} />
-                  <Typography textStyle="descriptionLarge" className="text-white" style={{ fontWeight: 700 }}>
+                  <span
+                    style={{
+                      width: 10,
+                      height: 10,
+                      borderRadius: '50%',
+                      background: hex,
+                      display: 'inline-block',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <Typography
+                    textStyle="descriptionLarge"
+                    className="text-white"
+                    style={{ fontWeight: 700 }}
+                  >
                     {name}
                   </Typography>
-                  <Typography textStyle="descriptionSmall" className="text-white" style={{ opacity: 0.6, fontFamily: 'monospace' }}>
+                  <Typography
+                    textStyle="descriptionSmall"
+                    className="text-white"
+                    style={{ opacity: 0.6, fontFamily: 'monospace' }}
+                  >
                     {hex}
                   </Typography>
                 </div>
@@ -1087,10 +1632,29 @@ const AccessibleColorSwatchRender = () => {
           ))}
         </div>
         {selected && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-            <span style={{ width: 20, height: 20, borderRadius: 4, background: selected, flexShrink: 0 }} />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 14px',
+              borderRadius: 8,
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+            }}
+          >
+            <span
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: 4,
+                background: selected,
+                flexShrink: 0,
+              }}
+            />
             <span style={{ fontSize: 12, color: '#475569' }}>
-              선택된 색상: <strong style={{ fontFamily: 'monospace', color: '#1e293b' }}>{selected}</strong>
+              선택된 색상:{' '}
+              <strong style={{ fontFamily: 'monospace', color: '#1e293b' }}>{selected}</strong>
             </span>
           </div>
         )}
@@ -1137,9 +1701,26 @@ export const EnterpriseUI_아바타_호버카드_툴팁: Story = {
   },
   render: () => (
     <Tooltip.Provider delayDuration={300}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28, padding: '40px 32px', fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 28,
+          padding: '40px 32px',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 14 }}>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 14,
+            }}
+          >
             팀 멤버
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -1148,36 +1729,92 @@ export const EnterpriseUI_아바타_호버카드_툴팁: Story = {
                 <Tooltip.Trigger asChild>
                   <div
                     style={{
-                      width: 40, height: 40, borderRadius: '50%',
-                      background: m.color, border: '2px solid #fff',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#fff', fontSize: 13, fontWeight: 700,
-                      cursor: 'pointer', zIndex: EnterpriseUI_MEMBERS.length - i,
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      background: m.color,
+                      border: '2px solid #fff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#fff',
+                      fontSize: 13,
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      zIndex: EnterpriseUI_MEMBERS.length - i,
                       marginLeft: i > 0 ? -10 : 0,
-                      position: 'relative', boxShadow: '0 0 0 2px #fff',
+                      position: 'relative',
+                      boxShadow: '0 0 0 2px #fff',
                     }}
                   >
                     {m.initials}
                     {m.online && (
-                      <span style={{ position: 'absolute', bottom: 1, right: 1, width: 10, height: 10, borderRadius: '50%', background: '#22c55e', border: '2px solid #fff' }} />
+                      <span
+                        style={{
+                          position: 'absolute',
+                          bottom: 1,
+                          right: 1,
+                          width: 10,
+                          height: 10,
+                          borderRadius: '50%',
+                          background: '#22c55e',
+                          border: '2px solid #fff',
+                        }}
+                      />
                     )}
                   </div>
                 </Tooltip.Trigger>
                 <Tooltip.Content side="top">
-                  <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '2px 0' }}>
-                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: m.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>
+                  <div
+                    style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '2px 0' }}
+                  >
+                    <div
+                      style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: '50%',
+                        background: m.color,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#fff',
+                        fontSize: 12,
+                        fontWeight: 700,
+                        flexShrink: 0,
+                      }}
+                    >
                       {m.initials}
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                      <Typography textStyle="descriptionLarge" className="text-white" style={{ fontWeight: 700 }}>
+                      <Typography
+                        textStyle="descriptionLarge"
+                        className="text-white"
+                        style={{ fontWeight: 700 }}
+                      >
                         {m.name}
                       </Typography>
-                      <Typography textStyle="descriptionSmall" className="text-white" style={{ opacity: 0.7 }}>
+                      <Typography
+                        textStyle="descriptionSmall"
+                        className="text-white"
+                        style={{ opacity: 0.7 }}
+                      >
                         {m.role}
                       </Typography>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 2 }}>
-                        <span style={{ width: 7, height: 7, borderRadius: '50%', background: m.online ? '#22c55e' : '#94a3b8', flexShrink: 0 }} />
-                        <Typography textStyle="descriptionSmall" className="text-white" style={{ opacity: 0.6 }}>
+                        <span
+                          style={{
+                            width: 7,
+                            height: 7,
+                            borderRadius: '50%',
+                            background: m.online ? '#22c55e' : '#94a3b8',
+                            flexShrink: 0,
+                          }}
+                        />
+                        <Typography
+                          textStyle="descriptionSmall"
+                          className="text-white"
+                          style={{ opacity: 0.6 }}
+                        >
                           {m.online ? '온라인' : '오프라인'}
                         </Typography>
                       </div>
@@ -1198,7 +1835,12 @@ export const EnterpriseUI_아바타_호버카드_툴팁: Story = {
 // ============================================================
 
 // CommandPalette 커맨드 팔레트 스타일 액션 힌트 툴팁
-const LAUNCHER_ACTIONS: { Icon: React.FC<{ size?: number }>; label: string; shortcut: string; desc: string }[] = [
+const LAUNCHER_ACTIONS: {
+  Icon: React.FC<{ size?: number }>
+  label: string
+  shortcut: string
+  desc: string
+}[] = [
   { Icon: SearchIcon, label: '검색', shortcut: '⌘K', desc: '전역 검색 열기' },
   { Icon: StarLineIcon, label: '즐겨찾기', shortcut: '⌘D', desc: '현재 항목 즐겨찾기' },
   { Icon: NotificationLineIcon, label: '알림', shortcut: '⌘N', desc: '알림 패널 열기' },
@@ -1208,22 +1850,40 @@ const LAUNCHER_ACTIONS: { Icon: React.FC<{ size?: number }>; label: string; shor
 export const CommandPalette_커맨드_팔레트_액션_힌트: Story = {
   render: () => (
     <Tooltip.Provider delayDuration={300}>
-      <div style={{
-        background: '#1c1c1e', borderRadius: 12, padding: '8px',
-        display: 'flex', gap: 4, boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-      }}>
+      <div
+        style={{
+          background: '#1c1c1e',
+          borderRadius: 12,
+          padding: '8px',
+          display: 'flex',
+          gap: 4,
+          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+        }}
+      >
         {LAUNCHER_ACTIONS.map(({ Icon, label, shortcut, desc }) => (
           <Tooltip key={label}>
             <Tooltip.Trigger asChild>
               <button
                 style={{
-                  background: 'transparent', border: 'none', cursor: 'pointer',
-                  borderRadius: 8, padding: '8px', display: 'flex', flexDirection: 'column',
-                  alignItems: 'center', gap: 4, color: '#e5e5e7', minWidth: 56,
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  borderRadius: 8,
+                  padding: '8px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 4,
+                  color: '#e5e5e7',
+                  minWidth: 56,
                   transition: 'background 150ms ease',
                 }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+                onMouseEnter={(e) => {
+                  ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)'
+                }}
+                onMouseLeave={(e) => {
+                  ;(e.currentTarget as HTMLElement).style.background = 'transparent'
+                }}
               >
                 <Icon size={18} />
                 <span style={{ fontSize: 10, color: '#98989d' }}>{label}</span>
@@ -1231,14 +1891,25 @@ export const CommandPalette_커맨드_팔레트_액션_힌트: Story = {
             </Tooltip.Trigger>
             <Tooltip.Content side="bottom" sideOffset={6}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 120 }}>
-                <Typography textStyle="descriptionLarge" className="text-white" style={{ fontWeight: 600 }}>
+                <Typography
+                  textStyle="descriptionLarge"
+                  className="text-white"
+                  style={{ fontWeight: 600 }}
+                >
                   {desc}
                 </Typography>
-                <span style={{
-                  display: 'inline-flex', alignSelf: 'flex-start',
-                  background: 'rgba(255,255,255,0.15)', borderRadius: 4,
-                  padding: '1px 6px', fontSize: 11, color: '#e5e5e7', fontFamily: 'monospace',
-                }}>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignSelf: 'flex-start',
+                    background: 'rgba(255,255,255,0.15)',
+                    borderRadius: 4,
+                    padding: '1px 6px',
+                    fontSize: 11,
+                    color: '#e5e5e7',
+                    fontFamily: 'monospace',
+                  }}
+                >
                   {shortcut}
                 </span>
               </div>
@@ -1265,14 +1936,22 @@ const PrimitiveControlledTooltipRender = () => {
         {STEPS.map((step, i) => (
           <div key={step.label} style={{ display: 'flex', alignItems: 'center' }}>
             <Tooltip.Provider>
-              <Tooltip open={openIndex === i} onOpenChange={(open) => setOpenIndex(open ? i : null)}>
+              <Tooltip
+                open={openIndex === i}
+                onOpenChange={(open) => setOpenIndex(open ? i : null)}
+              >
                 <Tooltip.Trigger asChild>
                   <button
                     style={{
-                      width: 36, height: 36, borderRadius: '50%', border: 'none', cursor: 'pointer',
+                      width: 36,
+                      height: 36,
+                      borderRadius: '50%',
+                      border: 'none',
+                      cursor: 'pointer',
                       background: step.done ? '#0f172a' : openIndex === i ? '#f1f5f9' : '#e2e8f0',
                       color: step.done ? '#fff' : '#64748b',
-                      fontWeight: 700, fontSize: 14,
+                      fontWeight: 700,
+                      fontSize: 14,
                       boxShadow: openIndex === i ? '0 0 0 3px #3b82f6' : 'none',
                       transition: 'all 150ms ease',
                     }}
@@ -1282,10 +1961,18 @@ const PrimitiveControlledTooltipRender = () => {
                 </Tooltip.Trigger>
                 <Tooltip.Content side="top" sideOffset={8}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <Typography textStyle="descriptionLarge" className="text-white" style={{ fontWeight: 600 }}>
+                    <Typography
+                      textStyle="descriptionLarge"
+                      className="text-white"
+                      style={{ fontWeight: 600 }}
+                    >
                       {step.label}
                     </Typography>
-                    <Typography textStyle="descriptionSmall" className="text-white" style={{ opacity: 0.7 }}>
+                    <Typography
+                      textStyle="descriptionSmall"
+                      className="text-white"
+                      style={{ opacity: 0.7 }}
+                    >
                       {step.done ? '완료됨' : '진행 예정'}
                     </Typography>
                   </div>
@@ -1293,16 +1980,23 @@ const PrimitiveControlledTooltipRender = () => {
               </Tooltip>
             </Tooltip.Provider>
             {i < STEPS.length - 1 && (
-              <div style={{
-                width: 60, height: 2,
-                background: i < STEPS.filter((s) => s.done).length - 1 ? '#0f172a' : '#e2e8f0',
-                margin: '0 4px', transition: 'background 300ms ease',
-              }} />
+              <div
+                style={{
+                  width: 60,
+                  height: 2,
+                  background: i < STEPS.filter((s) => s.done).length - 1 ? '#0f172a' : '#e2e8f0',
+                  margin: '0 4px',
+                  transition: 'background 300ms ease',
+                }}
+              />
             )}
           </div>
         ))}
       </div>
-      <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8', marginTop: 16, display: 'block', textAlign: 'center' }}>
+      <Typography
+        textStyle="descriptionSmall"
+        style={{ color: '#94a3b8', marginTop: 16, display: 'block', textAlign: 'center' }}
+      >
         각 단계 클릭 시 툴팁 표시 (Primitive 제어 패턴)
       </Typography>
     </div>
@@ -1317,7 +2011,12 @@ export const Primitive_제어_스텝퍼_툴팁: Story = {
 const TABLE_COLS: { key: string; label: string; info: string; align: 'left' | 'right' }[] = [
   { key: 'name', label: '프로젝트명', info: '배포된 DeployPlatform 프로젝트 이름', align: 'left' },
   { key: 'status', label: '상태', info: '현재 빌드 및 배포 상태', align: 'left' },
-  { key: 'p99', label: 'P99 응답 (ms)', info: '상위 1% 응답 시간. 낮을수록 성능 우수', align: 'right' },
+  {
+    key: 'p99',
+    label: 'P99 응답 (ms)',
+    info: '상위 1% 응답 시간. 낮을수록 성능 우수',
+    align: 'right',
+  },
   { key: 'errors', label: '에러율 (%)', info: '지난 24시간 기준 HTTP 5xx 비율', align: 'right' },
 ]
 const TABLE_ROWS = [
@@ -1329,17 +2028,36 @@ const TABLE_ROWS = [
 export const ComposableUI_테이블_컬럼_정보_툴팁: Story = {
   render: () => (
     <Tooltip.Provider delayDuration={200}>
-      <div style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden', minWidth: 480 }}>
+      <div
+        style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden', minWidth: 480 }}
+      >
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
             <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
               {TABLE_COLS.map((col) => (
-                <th key={col.key} style={{ padding: '10px 14px', textAlign: col.align, fontWeight: 600, color: '#475569' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 5, justifyContent: col.align === 'right' ? 'flex-end' : 'flex-start' }}>
+                <th
+                  key={col.key}
+                  style={{
+                    padding: '10px 14px',
+                    textAlign: col.align,
+                    fontWeight: 600,
+                    color: '#475569',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 5,
+                      justifyContent: col.align === 'right' ? 'flex-end' : 'flex-start',
+                    }}
+                  >
                     {col.label}
                     <Tooltip>
                       <Tooltip.Trigger asChild>
-                        <span style={{ cursor: 'pointer', color: '#94a3b8', display: 'inline-flex' }}>
+                        <span
+                          style={{ cursor: 'pointer', color: '#94a3b8', display: 'inline-flex' }}
+                        >
                           <CircleInfoLineIcon size={13} />
                         </span>
                       </Tooltip.Trigger>
@@ -1356,19 +2074,55 @@ export const ComposableUI_테이블_컬럼_정보_툴팁: Story = {
           </thead>
           <tbody>
             {TABLE_ROWS.map((row, i) => (
-              <tr key={row.name} style={{ borderBottom: i < TABLE_ROWS.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
-                <td style={{ padding: '10px 14px', color: '#1e293b', fontWeight: 500 }}>{row.name}</td>
+              <tr
+                key={row.name}
+                style={{ borderBottom: i < TABLE_ROWS.length - 1 ? '1px solid #f1f5f9' : 'none' }}
+              >
+                <td style={{ padding: '10px 14px', color: '#1e293b', fontWeight: 500 }}>
+                  {row.name}
+                </td>
                 <td style={{ padding: '10px 14px' }}>
-                  <span style={{
-                    padding: '2px 8px', borderRadius: 99, fontSize: 12, fontWeight: 500,
-                    background: row.status === '정상' ? '#dcfce7' : row.status === '빌드 중' ? '#fef9c3' : '#fee2e2',
-                    color: row.status === '정상' ? '#166534' : row.status === '빌드 중' ? '#92400e' : '#991b1b',
-                  }}>
+                  <span
+                    style={{
+                      padding: '2px 8px',
+                      borderRadius: 99,
+                      fontSize: 12,
+                      fontWeight: 500,
+                      background:
+                        row.status === '정상'
+                          ? '#dcfce7'
+                          : row.status === '빌드 중'
+                            ? '#fef9c3'
+                            : '#fee2e2',
+                      color:
+                        row.status === '정상'
+                          ? '#166534'
+                          : row.status === '빌드 중'
+                            ? '#92400e'
+                            : '#991b1b',
+                    }}
+                  >
                     {row.status}
                   </span>
                 </td>
-                <td style={{ padding: '10px 14px', textAlign: 'right', color: row.p99 > 500 ? '#dc2626' : '#0f172a' }}>{row.p99}</td>
-                <td style={{ padding: '10px 14px', textAlign: 'right', color: row.errors > 1 ? '#dc2626' : '#0f172a' }}>{row.errors.toFixed(1)}</td>
+                <td
+                  style={{
+                    padding: '10px 14px',
+                    textAlign: 'right',
+                    color: row.p99 > 500 ? '#dc2626' : '#0f172a',
+                  }}
+                >
+                  {row.p99}
+                </td>
+                <td
+                  style={{
+                    padding: '10px 14px',
+                    textAlign: 'right',
+                    color: row.errors > 1 ? '#dc2626' : '#0f172a',
+                  }}
+                >
+                  {row.errors.toFixed(1)}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -1384,29 +2138,58 @@ function EnterpriseUIInfoTooltipRender() {
   const fields = [
     { label: '프로젝트 이름', hint: '영문, 숫자, 하이픈만 사용 가능합니다. 최대 32자.' },
     { label: '공개 범위', hint: '팀 공개: 팀원만 접근 / 전체 공개: 링크 보유자 누구나 접근' },
-    { label: '기본 브랜치', hint: 'PR이 머지되는 기본 브랜치입니다. 일반적으로 main을 사용합니다.' },
+    {
+      label: '기본 브랜치',
+      hint: 'PR이 머지되는 기본 브랜치입니다. 일반적으로 main을 사용합니다.',
+    },
   ]
   return (
     <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>EnterpriseUI 정보 툴팁 패턴</div>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>
+        EnterpriseUI 정보 툴팁 패턴
+      </div>
       <Tooltip.Provider delayDuration={200}>
-        {fields.map(field => (
-          <div key={field.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #f1f5f9' }}>
+        {fields.map((field) => (
+          <div
+            key={field.label}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 0',
+              borderBottom: '1px solid #f1f5f9',
+            }}
+          >
             <span style={{ fontSize: 13, color: '#374151' }}>{field.label}</span>
             <Tooltip>
               <Tooltip.Trigger asChild>
-                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, borderRadius: '50%', background: '#e0f2fe', cursor: 'pointer' }}>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 18,
+                    height: 18,
+                    borderRadius: '50%',
+                    background: '#e0f2fe',
+                    cursor: 'pointer',
+                  }}
+                >
                   <CircleInfoLineIcon size={12} style={{ color: '#0284c7' }} />
                 </span>
               </Tooltip.Trigger>
               <Tooltip.Content side="right" sideOffset={6}>
-                <span style={{ fontSize: 11, maxWidth: 200, lineHeight: 1.5, display: 'block' }}>{field.hint}</span>
+                <span style={{ fontSize: 11, maxWidth: 200, lineHeight: 1.5, display: 'block' }}>
+                  {field.hint}
+                </span>
               </Tooltip.Content>
             </Tooltip>
           </div>
         ))}
       </Tooltip.Provider>
-      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>{'EnterpriseUI Tooltip placement="right" + info 아이콘 패턴'}</div>
+      <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+        {'EnterpriseUI Tooltip placement="right" + info 아이콘 패턴'}
+      </div>
     </div>
   )
 }
@@ -1429,18 +2212,37 @@ export const EnterpriseUI_정보_툴팁_시스템: Story = {
 function AccessibleFormHelpRender() {
   const [focusedField, setFocusedField] = useState<string | null>(null)
   const formFields = [
-    { id: 'username', label: '사용자명', placeholder: 'orbit_user', tip: '3-20자, 영문/숫자/밑줄만 허용' },
-    { id: 'email', label: '이메일', placeholder: 'user@example.com', tip: '인증 메일이 이 주소로 발송됩니다' },
-    { id: 'password', label: '비밀번호', placeholder: '••••••••', tip: '최소 8자, 대소문자+숫자 포함 권장' },
+    {
+      id: 'username',
+      label: '사용자명',
+      placeholder: 'orbit_user',
+      tip: '3-20자, 영문/숫자/밑줄만 허용',
+    },
+    {
+      id: 'email',
+      label: '이메일',
+      placeholder: 'user@example.com',
+      tip: '인증 메일이 이 주소로 발송됩니다',
+    },
+    {
+      id: 'password',
+      label: '비밀번호',
+      placeholder: '••••••••',
+      tip: '최소 8자, 대소문자+숫자 포함 권장',
+    },
   ]
   return (
     <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>AccessibleUI 폼 도움말 툴팁</div>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>
+        AccessibleUI 폼 도움말 툴팁
+      </div>
       <Tooltip.Provider delayDuration={300}>
-        {formFields.map(field => (
+        {formFields.map((field) => (
           <div key={field.id} style={{ marginBottom: 14 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 4 }}>
-              <label style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>{field.label}</label>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>
+                {field.label}
+              </label>
               <Tooltip>
                 <Tooltip.Trigger asChild>
                   <span style={{ cursor: 'help', color: '#94a3b8' }}>
@@ -1458,15 +2260,22 @@ function AccessibleFormHelpRender() {
               onFocus={() => setFocusedField(field.id)}
               onBlur={() => setFocusedField(null)}
               style={{
-                width: '100%', padding: '7px 10px', fontSize: 13, boxSizing: 'border-box',
+                width: '100%',
+                padding: '7px 10px',
+                fontSize: 13,
+                boxSizing: 'border-box',
                 border: `1.5px solid ${focusedField === field.id ? '#0284c7' : '#e2e8f0'}`,
-                borderRadius: 6, outline: 'none', transition: 'border-color 0.15s',
+                borderRadius: 6,
+                outline: 'none',
+                transition: 'border-color 0.15s',
               }}
             />
           </div>
         ))}
       </Tooltip.Provider>
-      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>AccessibleUI FormHelperText + Tooltip 결합 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>
+        AccessibleUI FormHelperText + Tooltip 결합 패턴
+      </div>
     </div>
   )
 }
@@ -1488,25 +2297,66 @@ export const Accessible_폼_도움말_툴팁: Story = {
 
 function EnterpriseUIAccessibleDashboardTooltipRender() {
   const stats = [
-    { label: '배포 수', value: '52', icon: <StarLineIcon size={14} />, tip: '이번 달 총 배포 횟수. 무료 플랜 한도: 100회/일' },
-    { label: '빌드 시간', value: '34s', icon: <SettingLineIcon size={14} />, tip: '평균 Storybook 빌드 소요 시간' },
-    { label: '알림', value: '3', icon: <NotificationLineIcon size={14} />, tip: '미확인 시스템 알림 3건' },
-    { label: '검색 횟수', value: '128', icon: <SearchIcon size={14} />, tip: '이번 주 컴포넌트 검색 쿼리 수' },
+    {
+      label: '배포 수',
+      value: '52',
+      icon: <StarLineIcon size={14} />,
+      tip: '이번 달 총 배포 횟수. 무료 플랜 한도: 100회/일',
+    },
+    {
+      label: '빌드 시간',
+      value: '34s',
+      icon: <SettingLineIcon size={14} />,
+      tip: '평균 Storybook 빌드 소요 시간',
+    },
+    {
+      label: '알림',
+      value: '3',
+      icon: <NotificationLineIcon size={14} />,
+      tip: '미확인 시스템 알림 3건',
+    },
+    {
+      label: '검색 횟수',
+      value: '128',
+      icon: <SearchIcon size={14} />,
+      tip: '이번 주 컴포넌트 검색 쿼리 수',
+    },
   ]
   return (
     <div style={{ fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12 }}>EnterpriseUI + Accessible 대시보드 툴팁</div>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12 }}>
+        EnterpriseUI + Accessible 대시보드 툴팁
+      </div>
       <Tooltip.Provider delayDuration={150}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-          {stats.map(stat => (
+          {stats.map((stat) => (
             <Tooltip key={stat.label}>
               <Tooltip.Trigger asChild>
-                <div style={{ padding: '14px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', cursor: 'default', transition: 'background 0.15s' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, color: '#6b7280' }}>
+                <div
+                  style={{
+                    padding: '14px 16px',
+                    background: '#f8fafc',
+                    borderRadius: 8,
+                    border: '1px solid #e2e8f0',
+                    cursor: 'default',
+                    transition: 'background 0.15s',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      marginBottom: 6,
+                      color: '#6b7280',
+                    }}
+                  >
                     {stat.icon}
                     <span style={{ fontSize: 11, fontWeight: 500 }}>{stat.label}</span>
                   </div>
-                  <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a' }}>{stat.value}</div>
+                  <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a' }}>
+                    {stat.value}
+                  </div>
                 </div>
               </Tooltip.Trigger>
               <Tooltip.Content sideOffset={6}>
@@ -1516,7 +2366,9 @@ function EnterpriseUIAccessibleDashboardTooltipRender() {
           ))}
         </div>
       </Tooltip.Provider>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>EnterpriseUI + Accessible — 카드 호버 툴팁 대시보드 패턴</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        EnterpriseUI + Accessible — 카드 호버 툴팁 대시보드 패턴
+      </div>
     </div>
   )
 }
@@ -1585,8 +2437,12 @@ function ComposableUIRichContentTooltipRender() {
               </Tooltip.Trigger>
               <Tooltip.Content sideOffset={8} style={{ maxWidth: 220 }}>
                 <div style={{ padding: '2px 0' }}>
-                  <div style={{ fontWeight: 700, fontSize: 12, marginBottom: 4, color: '#fff' }}>{action.title}</div>
-                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.75)', lineHeight: 1.5 }}>{action.desc}</div>
+                  <div style={{ fontWeight: 700, fontSize: 12, marginBottom: 4, color: '#fff' }}>
+                    {action.title}
+                  </div>
+                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.75)', lineHeight: 1.5 }}>
+                    {action.desc}
+                  </div>
                 </div>
               </Tooltip.Content>
             </Tooltip>
@@ -1603,7 +2459,8 @@ export const ComposableUI_구조화된_콘텐츠_툴팁: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'ComposableUI 툴팁의 rich content 패턴. Tooltip.Content 내부에 제목(bold)+설명(muted) 2단 구조 배치. Platform HIG "기능을 설명하는 툴팁" 원칙에 따라 레이블만 보여주는 대신 구체적인 동작 설명 포함.',
+        story:
+          'ComposableUI 툴팁의 rich content 패턴. Tooltip.Content 내부에 제목(bold)+설명(muted) 2단 구조 배치. Platform HIG "기능을 설명하는 툴팁" 원칙에 따라 레이블만 보여주는 대신 구체적인 동작 설명 포함.',
       },
     },
   },
@@ -1637,15 +2494,36 @@ function PlatformContextualHintTooltipRender() {
   return (
     <div style={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
       <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#111827', marginBottom: 16 }}>프로젝트 설정</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#111827', marginBottom: 16 }}>
+          프로젝트 설정
+        </div>
         <Tooltip.Provider>
           {fields.map((field) => (
-            <div key={field.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #f3f4f6' }}>
+            <div
+              key={field.label}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '10px 0',
+                borderBottom: '1px solid #f3f4f6',
+              }}
+            >
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span style={{ fontSize: 12, color: '#374151' }}>{field.label}</span>
                 <Tooltip>
                   <Tooltip.Trigger asChild>
-                    <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', color: '#9ca3af' }}>
+                    <button
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        color: '#9ca3af',
+                      }}
+                    >
                       <CircleInfoLineIcon size={14} />
                     </button>
                   </Tooltip.Trigger>
@@ -1662,22 +2540,57 @@ function PlatformContextualHintTooltipRender() {
               <span style={{ fontSize: 12, color: '#374151' }}>빌드 진행률</span>
               <Tooltip>
                 <Tooltip.Trigger asChild>
-                  <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: '#9ca3af' }}>
+                  <button
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: 0,
+                      color: '#9ca3af',
+                    }}
+                  >
                     <CircleInfoLineIcon size={14} />
                   </button>
                 </Tooltip.Trigger>
                 <Tooltip.Content sideOffset={6} style={{ maxWidth: 200 }}>
-                  <span style={{ fontSize: 11 }}>현재 빌드 사이클의 완료율입니다. 100%에 도달하면 배포가 시작됩니다.</span>
+                  <span style={{ fontSize: 11 }}>
+                    현재 빌드 사이클의 완료율입니다. 100%에 도달하면 배포가 시작됩니다.
+                  </span>
                 </Tooltip.Content>
               </Tooltip>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <div style={{ flex: 1, height: 6, borderRadius: 3, background: '#f3f4f6', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${progress}%`, background: '#6366f1', borderRadius: 3, transition: 'width 0.3s' }} />
+              <div
+                style={{
+                  flex: 1,
+                  height: 6,
+                  borderRadius: 3,
+                  background: '#f3f4f6',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    height: '100%',
+                    width: `${progress}%`,
+                    background: '#6366f1',
+                    borderRadius: 3,
+                    transition: 'width 0.3s',
+                  }}
+                />
               </div>
-              <span style={{ fontSize: 12, fontWeight: 600, color: '#374151', flexShrink: 0 }}>{progress}%</span>
+              <span style={{ fontSize: 12, fontWeight: 600, color: '#374151', flexShrink: 0 }}>
+                {progress}%
+              </span>
             </div>
-            <input type="range" min={0} max={100} value={progress} onChange={(e) => setProgress(Number(e.target.value))} style={{ width: '100%', marginTop: 6 }} />
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={progress}
+              onChange={(e) => setProgress(Number(e.target.value))}
+              style={{ width: '100%', marginTop: 6 }}
+            />
           </div>
         </Tooltip.Provider>
       </div>
@@ -1691,7 +2604,8 @@ export const Platform_HIG_컨텍스트_힌트_툴팁: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'Platform HIG 컨텍스트 힌트 원칙 적용. 설정 폼 각 필드 옆 정보(i) 아이콘에 툴팁으로 제약 조건/동작 설명을 제공. 단순 레이블 대신 "왜 이 설정이 있는지"를 설명하는 Platform 스타일 UX.',
+        story:
+          'Platform HIG 컨텍스트 힌트 원칙 적용. 설정 폼 각 필드 옆 정보(i) 아이콘에 툴팁으로 제약 조건/동작 설명을 제공. 단순 레이블 대신 "왜 이 설정이 있는지"를 설명하는 Platform 스타일 UX.',
       },
     },
   },
@@ -1710,11 +2624,32 @@ function ComposableUIPlatformShortcutTooltipRender() {
   return (
     <div style={{ padding: '80px 40px', display: 'flex', justifyContent: 'center' }}>
       <Tooltip.Provider>
-        <div style={{ display: 'flex', gap: 4, padding: '6px 8px', background: '#111827', borderRadius: 10 }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: 4,
+            padding: '6px 8px',
+            background: '#111827',
+            borderRadius: 10,
+          }}
+        >
           {toolbarItems.map((item) => (
             <Tooltip key={item.label}>
               <Tooltip.Trigger asChild>
-                <button style={{ width: 34, height: 34, borderRadius: 7, background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <button
+                  style={{
+                    width: 34,
+                    height: 34,
+                    borderRadius: 7,
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: '#9ca3af',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
                   {item.icon}
                 </button>
               </Tooltip.Trigger>
@@ -1723,7 +2658,19 @@ function ComposableUIPlatformShortcutTooltipRender() {
                   <span style={{ fontSize: 12, color: '#fff' }}>{item.label}</span>
                   <div style={{ display: 'flex', gap: 2 }}>
                     {item.keys.map((key) => (
-                      <span key={key} style={{ fontSize: 10, padding: '1px 5px', borderRadius: 4, background: 'rgba(255,255,255,0.15)', color: '#e5e7eb', fontFamily: 'monospace', fontWeight: 600, border: '1px solid rgba(255,255,255,0.2)' }}>
+                      <span
+                        key={key}
+                        style={{
+                          fontSize: 10,
+                          padding: '1px 5px',
+                          borderRadius: 4,
+                          background: 'rgba(255,255,255,0.15)',
+                          color: '#e5e7eb',
+                          fontFamily: 'monospace',
+                          fontWeight: 600,
+                          border: '1px solid rgba(255,255,255,0.2)',
+                        }}
+                      >
                         {key}
                       </span>
                     ))}
@@ -1744,7 +2691,8 @@ export const ComposableUI_Platform_단축키_툴팁: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'ComposableUI 툴팁 + Platform HIG 단축키 힌트 패턴. 다크 툴바 아이콘에 hover 시 기능명 + kbd 스타일 단축키 조합 표시. WorkspaceEditor/IssueTracker/DesignTool의 툴바 단축키 힌트 UX를 Orbit UI Tooltip으로 구현.',
+        story:
+          'ComposableUI 툴팁 + Platform HIG 단축키 힌트 패턴. 다크 툴바 아이콘에 hover 시 기능명 + kbd 스타일 단축키 조합 표시. WorkspaceEditor/IssueTracker/DesignTool의 툴바 단축키 힌트 UX를 Orbit UI Tooltip으로 구현.',
       },
     },
   },

@@ -3,10 +3,7 @@ import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog'
 
 import { cn } from '../../styles'
 
-const hasComponent = (
-  children: React.ReactNode,
-  components: React.ElementType[]
-): boolean =>
+const hasComponent = (children: React.ReactNode, components: React.ElementType[]): boolean =>
   React.Children.toArray(children).some((child) => {
     if (!React.isValidElement(child)) return false
     if (components.includes(child.type as React.ElementType)) return true

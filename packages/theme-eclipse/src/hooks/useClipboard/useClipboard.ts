@@ -73,7 +73,7 @@ export function useClipboard(options: UseClipboardOptions = {}): UseClipboardRet
       }
       return succeeded
     },
-    [clearTimer, timeout],
+    [clearTimer, timeout]
   )
 
   useEffect(() => clearTimer, [clearTimer])

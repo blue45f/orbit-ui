@@ -17,7 +17,7 @@ import { useEffect, useMemo, useRef } from 'react'
  * ```
  */
 export function useCallbackRef<T extends (...args: unknown[]) => unknown>(
-  callback: T | undefined,
+  callback: T | undefined
 ): T {
   const callbackRef = useRef(callback)
 
@@ -30,6 +30,6 @@ export function useCallbackRef<T extends (...args: unknown[]) => unknown>(
       ((...args) => {
         return callbackRef.current?.(...args)
       }) as T,
-    [],
+    []
   )
 }

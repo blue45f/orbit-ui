@@ -124,9 +124,7 @@ function useCommandShortcut(
       if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
         event.preventDefault()
         // 함수형 업데이트가 가능하면 토글, 아니면 단순 true 처리(controlled setter 호환)
-        const setter = setOpenRef.current as (
-          value: boolean | ((prev: boolean) => boolean)
-        ) => void
+        const setter = setOpenRef.current as (value: boolean | ((prev: boolean) => boolean)) => void
         setter((prev) => !prev)
       }
     }
@@ -139,8 +137,9 @@ function useCommandShortcut(
   }, [enabled])
 }
 
-export interface CommandDialogProps
-  extends React.ComponentPropsWithoutRef<typeof CommandPrimitive> {
+export interface CommandDialogProps extends React.ComponentPropsWithoutRef<
+  typeof CommandPrimitive
+> {
   /** 다이얼로그 열림 상태 (controlled). */
   open?: boolean
   /** 열림 상태 변경 콜백. */

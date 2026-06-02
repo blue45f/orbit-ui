@@ -120,9 +120,7 @@ function IntersectionDemo() {
             marginTop: 30,
             padding: '14px 16px',
             borderRadius: 8,
-            background: isIntersecting
-              ? 'rgba(0, 132, 77, 0.12)'
-              : 'rgba(24, 26, 28, 0.04)',
+            background: isIntersecting ? 'rgba(0, 132, 77, 0.12)' : 'rgba(24, 26, 28, 0.04)',
             color: isIntersecting ? 'rgb(0, 132, 77)' : 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
             fontFamily: '"JetBrains Mono", monospace',
             fontSize: 12.5,
@@ -353,10 +351,7 @@ function InViewportDemo() {
   const isInViewport = useInViewport(sentinelRef, { threshold: 0.5 })
 
   return (
-    <Panel
-      title="useInViewport"
-      signature="const isInViewport = useInViewport(ref, { threshold })"
-    >
+    <Panel title="useInViewport" signature="const isInViewport = useInViewport(ref, { threshold })">
       <div
         style={{
           fontSize: 12,
@@ -397,15 +392,11 @@ function InViewportDemo() {
             marginTop: 20,
             padding: '16px 20px',
             borderRadius: 8,
-            background: isInViewport
-              ? 'rgba(0, 132, 77, 0.12)'
-              : 'rgba(24, 26, 28, 0.04)',
+            background: isInViewport ? 'rgba(0, 132, 77, 0.12)' : 'rgba(24, 26, 28, 0.04)',
             border: isInViewport
               ? '1px solid rgba(0, 132, 77, 0.3)'
               : '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
-            color: isInViewport
-              ? 'rgb(0, 132, 77)'
-              : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
+            color: isInViewport ? 'rgb(0, 132, 77)' : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
             fontFamily: '"JetBrains Mono", monospace',
             fontSize: 12.5,
             fontWeight: 600,
@@ -428,7 +419,7 @@ const MAX_ITEMS = 50
 
 function InfiniteScrollDemo() {
   const [items, setItems] = useState<number[]>(() =>
-    Array.from({ length: PAGE_SIZE }, (_, i) => i + 1),
+    Array.from({ length: PAGE_SIZE }, (_, i) => i + 1)
   )
   const [isLoadingMore, setIsLoadingMore] = useState(false)
   const hasMore = items.length < MAX_ITEMS
@@ -439,7 +430,7 @@ function InfiniteScrollDemo() {
       setItems((prev) => {
         const next = Array.from(
           { length: Math.min(PAGE_SIZE, MAX_ITEMS - prev.length) },
-          (_, i) => prev.length + i + 1,
+          (_, i) => prev.length + i + 1
         )
         return [...prev, ...next]
       })

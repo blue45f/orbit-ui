@@ -62,10 +62,9 @@ describe('useThrottle', () => {
 
   test('unmount 시 trailing timer가 정리된다', () => {
     vi.useFakeTimers()
-    const { rerender, unmount } = renderHook(
-      ({ v }: { v: string }) => useThrottle(v, 200),
-      { initialProps: { v: 'a' } },
-    )
+    const { rerender, unmount } = renderHook(({ v }: { v: string }) => useThrottle(v, 200), {
+      initialProps: { v: 'a' },
+    })
 
     rerender({ v: 'b' })
     unmount()

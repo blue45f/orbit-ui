@@ -43,17 +43,19 @@ export type UseUncontrolledOptions<T> = {
  * ```
  */
 export function useUncontrolled<T>(
-  options: UseUncontrolledOptions<T> = {},
+  options: UseUncontrolledOptions<T> = {}
 ): [T, (next: T) => void, boolean] {
   const { value, defaultValue, finalValue, onChange } = options
 
   const onChangeRef = useRef(onChange)
-  useLayoutEffect(() => { onChangeRef.current = onChange })
+  useLayoutEffect(() => {
+    onChangeRef.current = onChange
+  })
 
   const isControlled = value !== undefined
 
   const [internal, setInternal] = useState<T>(() =>
-    defaultValue !== undefined ? defaultValue : (finalValue as T),
+    defaultValue !== undefined ? defaultValue : (finalValue as T)
   )
 
   const set = useCallback(
@@ -61,7 +63,7 @@ export function useUncontrolled<T>(
       if (!isControlled) setInternal(next)
       onChangeRef.current?.(next)
     },
-    [isControlled],
+    [isControlled]
   )
 
   const current = isControlled ? (value as T) : internal

@@ -6,7 +6,6 @@
  * @param value 적용할 value 값
  */
 export function setNativeValue(element: HTMLElement, value: string | boolean): void {
-
   const { set: valueSetter } = Object.getOwnPropertyDescriptor(element, 'value') || {}
   const prototype = Object.getPrototypeOf(element)
 

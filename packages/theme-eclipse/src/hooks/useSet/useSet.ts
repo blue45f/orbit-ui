@@ -74,6 +74,6 @@ export function useSet<T>(initial: Iterable<T> = []): UseSetReturn<T> {
 
   return useMemo(
     () => ({ set, add, remove, toggle, has, clear, reset }),
-    [set, add, remove, toggle, has, clear, reset],
+    [set, add, remove, toggle, has, clear, reset]
   )
 }

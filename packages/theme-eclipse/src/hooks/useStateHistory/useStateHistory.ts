@@ -46,7 +46,7 @@ export type UseStateHistoryReturn<T> = {
  */
 export function useStateHistory<T>(
   initialValue: T,
-  options: UseStateHistoryOptions = {},
+  options: UseStateHistoryOptions = {}
 ): UseStateHistoryReturn<T> {
   const { capacity = 50 } = options
 
@@ -81,7 +81,7 @@ export function useStateHistory<T>(
         return capped
       })
     },
-    [capacity],
+    [capacity]
   )
 
   const undo = useCallback(() => {
@@ -116,6 +116,6 @@ export function useStateHistory<T>(
       canUndo: index > 0,
       canRedo: index < history.length - 1,
     }),
-    [history, index, set, undo, redo, reset],
+    [history, index, set, undo, redo, reset]
   )
 }

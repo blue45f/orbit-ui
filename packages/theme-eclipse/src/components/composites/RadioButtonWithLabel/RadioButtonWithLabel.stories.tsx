@@ -109,10 +109,25 @@ export const 디자인QA = {
 const DensityPickerDemo = () => {
   const [density, setDensity] = useState<'compact' | 'default' | 'comfortable'>('default')
 
-  const options: { value: 'compact' | 'default' | 'comfortable'; label: string; desc: string; rows: number }[] = [
-    { value: 'compact', label: 'Compact', desc: '더 많은 항목을 한 화면에 표시 (행 높이 32px)', rows: 8 },
+  const options: {
+    value: 'compact' | 'default' | 'comfortable'
+    label: string
+    desc: string
+    rows: number
+  }[] = [
+    {
+      value: 'compact',
+      label: 'Compact',
+      desc: '더 많은 항목을 한 화면에 표시 (행 높이 32px)',
+      rows: 8,
+    },
     { value: 'default', label: 'Default', desc: '균형 잡힌 기본 밀도 (행 높이 40px)', rows: 6 },
-    { value: 'comfortable', label: 'Comfortable', desc: '여유 있는 간격으로 읽기 편안 (행 높이 56px)', rows: 4 },
+    {
+      value: 'comfortable',
+      label: 'Comfortable',
+      desc: '여유 있는 간격으로 읽기 편안 (행 높이 56px)',
+      rows: 4,
+    },
   ]
 
   const rowH = density === 'compact' ? 32 : density === 'comfortable' ? 56 : 40
@@ -120,8 +135,21 @@ const DensityPickerDemo = () => {
   return (
     <div style={{ maxWidth: 480, display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div>
-        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>뷰 밀도</div>
-        <RadioGroup value={density} onChange={(e) => setDensity(e.target.value as typeof density)} name="density">
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            marginBottom: 12,
+          }}
+        >
+          뷰 밀도
+        </div>
+        <RadioGroup
+          value={density}
+          onChange={(e) => setDensity(e.target.value as typeof density)}
+          name="density"
+        >
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {options.map((opt) => (
               <div
@@ -133,7 +161,10 @@ const DensityPickerDemo = () => {
                   padding: '10px 14px',
                   borderRadius: 8,
                   border: `1px solid ${density === opt.value ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
-                  background: density === opt.value ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                  background:
+                    density === opt.value
+                      ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))'
+                      : 'var(--sem-eclipse-color-backgroundPrimary)',
                   cursor: 'pointer',
                   transition: 'border-color 0.15s, background 0.15s',
                 }}
@@ -143,8 +174,24 @@ const DensityPickerDemo = () => {
                   <RadioButtonWithLabel value={opt.value} alignItems="center" />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</div>
-                  <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{opt.desc}</div>
+                  <div
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {opt.label}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                      marginTop: 2,
+                    }}
+                  >
+                    {opt.desc}
+                  </div>
                 </div>
               </div>
             ))}
@@ -153,8 +200,23 @@ const DensityPickerDemo = () => {
       </div>
 
       {/* Preview */}
-      <div style={{ borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderDefault)', overflow: 'hidden' }}>
-        <div style={{ padding: '8px 12px', background: 'var(--sem-eclipse-color-backgroundSecondary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+      <div
+        style={{
+          borderRadius: 8,
+          border: '1px solid var(--sem-eclipse-color-borderDefault)',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            padding: '8px 12px',
+            background: 'var(--sem-eclipse-color-backgroundSecondary)',
+            borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+            fontSize: 12,
+            fontWeight: 600,
+            color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          }}
+        >
           미리보기 — {density} density
         </div>
         {['이슈 #101', '이슈 #102', '이슈 #103'].map((item, i) => (
@@ -188,18 +250,58 @@ export const IssueTracker_뷰_밀도_선택: Story = {
 const ThemePickerDemo = () => {
   const [theme, setTheme] = useState<'system' | 'light' | 'dark'>('system')
 
-  const options: { value: 'system' | 'light' | 'dark'; label: string; desc: string; icon: string }[] = [
-    { value: 'system', label: '시스템 설정 따름', desc: 'OS 다크모드/라이트모드를 자동으로 감지해요.', icon: '⬡' },
+  const options: {
+    value: 'system' | 'light' | 'dark'
+    label: string
+    desc: string
+    icon: string
+  }[] = [
+    {
+      value: 'system',
+      label: '시스템 설정 따름',
+      desc: 'OS 다크모드/라이트모드를 자동으로 감지해요.',
+      icon: '⬡',
+    },
     { value: 'light', label: '라이트 모드', desc: '밝은 배경으로 항상 고정해요.', icon: '○' },
     { value: 'dark', label: '다크 모드', desc: '어두운 배경으로 항상 고정해요.', icon: '●' },
   ]
 
   return (
     <div style={{ maxWidth: 420 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>테마</div>
-      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>인터페이스 색상 테마를 선택하세요.</div>
-      <RadioGroup value={theme} onChange={(e) => setTheme(e.target.value as typeof theme)} name="theme">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
+        테마
+      </div>
+      <div
+        style={{
+          fontSize: 13,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 16,
+        }}
+      >
+        인터페이스 색상 테마를 선택하세요.
+      </div>
+      <RadioGroup
+        value={theme}
+        onChange={(e) => setTheme(e.target.value as typeof theme)}
+        name="theme"
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 0,
+            border: '1px solid var(--sem-eclipse-color-borderDefault)',
+            borderRadius: 8,
+            overflow: 'hidden',
+          }}
+        >
           {options.map((opt, i) => (
             <div
               key={opt.value}
@@ -208,16 +310,41 @@ const ThemePickerDemo = () => {
                 alignItems: 'center',
                 gap: 12,
                 padding: '12px 16px',
-                borderBottom: i < options.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
-                background: theme === opt.value ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                borderBottom:
+                  i < options.length - 1
+                    ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                    : 'none',
+                background:
+                  theme === opt.value
+                    ? 'var(--sem-eclipse-color-backgroundSecondary)'
+                    : 'var(--sem-eclipse-color-backgroundPrimary)',
                 cursor: 'pointer',
               }}
               onClick={() => setTheme(opt.value)}
             >
-              <span style={{ fontSize: 18, width: 24, textAlign: 'center', color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{opt.icon}</span>
+              <span
+                style={{
+                  fontSize: 18,
+                  width: 24,
+                  textAlign: 'center',
+                  color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                }}
+              >
+                {opt.icon}
+              </span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</div>
-                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{opt.desc}</div>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  }}
+                >
+                  {opt.label}
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                  {opt.desc}
+                </div>
               </div>
               <RadioButtonWithLabel value={opt.value} alignItems="center" />
             </div>
@@ -238,17 +365,62 @@ const NotifPriorityDemo = () => {
   const [priority, setPriority] = useState<string>('important')
 
   const options: { value: string; label: string; desc: string; badge: string; color: string }[] = [
-    { value: 'all', label: '모든 알림', desc: '댓글, 멘션, 상태 변경 모두 수신', badge: '최대', color: '#64748b' },
-    { value: 'important', label: '중요 알림만', desc: '나를 멘션하거나 직접 관련된 이슈만 수신', badge: '권장', color: '#6366f1' },
-    { value: 'critical', label: '긴급 알림만', desc: '마감 임박, 차단 상태 이슈만 수신', badge: '최소', color: '#ef4444' },
-    { value: 'none', label: '알림 끄기', desc: '모든 알림을 비활성화 (이메일 포함)', badge: '없음', color: '#94a3b8' },
+    {
+      value: 'all',
+      label: '모든 알림',
+      desc: '댓글, 멘션, 상태 변경 모두 수신',
+      badge: '최대',
+      color: '#64748b',
+    },
+    {
+      value: 'important',
+      label: '중요 알림만',
+      desc: '나를 멘션하거나 직접 관련된 이슈만 수신',
+      badge: '권장',
+      color: '#6366f1',
+    },
+    {
+      value: 'critical',
+      label: '긴급 알림만',
+      desc: '마감 임박, 차단 상태 이슈만 수신',
+      badge: '최소',
+      color: '#ef4444',
+    },
+    {
+      value: 'none',
+      label: '알림 끄기',
+      desc: '모든 알림을 비활성화 (이메일 포함)',
+      badge: '없음',
+      color: '#94a3b8',
+    },
   ]
 
   return (
     <div style={{ maxWidth: 440 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>알림 빈도</div>
-      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>받을 알림의 범위와 우선순위를 설정하세요.</div>
-      <RadioGroup value={priority} onChange={(e) => setPriority(e.target.value)} name="notif-priority">
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
+        알림 빈도
+      </div>
+      <div
+        style={{
+          fontSize: 13,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 16,
+        }}
+      >
+        받을 알림의 범위와 우선순위를 설정하세요.
+      </div>
+      <RadioGroup
+        value={priority}
+        onChange={(e) => setPriority(e.target.value)}
+        name="notif-priority"
+      >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {options.map((opt) => (
             <div
@@ -260,7 +432,10 @@ const NotifPriorityDemo = () => {
                 padding: '10px 14px',
                 borderRadius: 8,
                 border: `1px solid ${priority === opt.value ? opt.color : 'var(--sem-eclipse-color-borderSubtle)'}`,
-                background: priority === opt.value ? `${opt.color}0D` : 'var(--sem-eclipse-color-backgroundPrimary)',
+                background:
+                  priority === opt.value
+                    ? `${opt.color}0D`
+                    : 'var(--sem-eclipse-color-backgroundPrimary)',
                 cursor: 'pointer',
                 transition: 'border-color 0.15s, background 0.15s',
               }}
@@ -269,10 +444,31 @@ const NotifPriorityDemo = () => {
               <RadioButtonWithLabel value={opt.value} alignItems="center" />
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</span>
-                  <span style={{ fontSize: 11, fontWeight: 600, padding: '1px 7px', borderRadius: 10, background: `${opt.color}20`, color: opt.color }}>{opt.badge}</span>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {opt.label}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 600,
+                      padding: '1px 7px',
+                      borderRadius: 10,
+                      background: `${opt.color}20`,
+                      color: opt.color,
+                    }}
+                  >
+                    {opt.badge}
+                  </span>
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{opt.desc}</div>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                  {opt.desc}
+                </div>
               </div>
             </div>
           ))}
@@ -291,7 +487,14 @@ export const IssueTracker_알림_우선순위: Story = {
 const PlanPickerDemo = () => {
   const [plan, setPlan] = useState<'free' | 'pro' | 'enterprise'>('pro')
 
-  const plans: { value: 'free' | 'pro' | 'enterprise'; label: string; price: string; desc: string; features: string[]; accent: string }[] = [
+  const plans: {
+    value: 'free' | 'pro' | 'enterprise'
+    label: string
+    price: string
+    desc: string
+    features: string[]
+    accent: string
+  }[] = [
     {
       value: 'free',
       label: 'Free',
@@ -320,8 +523,25 @@ const PlanPickerDemo = () => {
 
   return (
     <div style={{ maxWidth: 520 }}>
-      <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>플랜 선택</div>
-      <div style={{ fontSize: 14, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 20 }}>ComposableUI 카드형 라디오 패턴 — 풍부한 시각 피드백</div>
+      <div
+        style={{
+          fontSize: 18,
+          fontWeight: 800,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
+        플랜 선택
+      </div>
+      <div
+        style={{
+          fontSize: 14,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 20,
+        }}
+      >
+        ComposableUI 카드형 라디오 패턴 — 풍부한 시각 피드백
+      </div>
       <RadioGroup value={plan} onChange={(e) => setPlan(e.target.value as typeof plan)} name="plan">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {plans.map((p) => {
@@ -334,7 +554,9 @@ const PlanPickerDemo = () => {
                   padding: '16px 18px',
                   borderRadius: 10,
                   border: `2px solid ${selected ? p.accent : 'var(--sem-eclipse-color-borderSubtle)'}`,
-                  background: selected ? `${p.accent}08` : 'var(--sem-eclipse-color-backgroundPrimary)',
+                  background: selected
+                    ? `${p.accent}08`
+                    : 'var(--sem-eclipse-color-backgroundPrimary)',
                   cursor: 'pointer',
                   transition: 'border-color 0.15s, background 0.15s',
                   position: 'relative',
@@ -342,17 +564,68 @@ const PlanPickerDemo = () => {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
                   <RadioButtonWithLabel value={p.value} alignItems="center" />
-                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div
+                    style={{
+                      flex: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
                     <div>
-                      <span style={{ fontSize: 15, fontWeight: 700, color: selected ? p.accent : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.label}</span>
-                      <span style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>{p.desc}</span>
+                      <span
+                        style={{
+                          fontSize: 15,
+                          fontWeight: 700,
+                          color: selected ? p.accent : 'var(--sem-eclipse-color-foregroundPrimary)',
+                        }}
+                      >
+                        {p.label}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 12,
+                          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                          marginLeft: 8,
+                        }}
+                      >
+                        {p.desc}
+                      </span>
                     </div>
-                    <span style={{ fontSize: 15, fontWeight: 700, color: selected ? p.accent : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.price}<span style={{ fontSize: 11, fontWeight: 400, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{p.value !== 'enterprise' ? '/월' : ''}</span></span>
+                    <span
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 700,
+                        color: selected ? p.accent : 'var(--sem-eclipse-color-foregroundPrimary)',
+                      }}
+                    >
+                      {p.price}
+                      <span
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 400,
+                          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                        }}
+                      >
+                        {p.value !== 'enterprise' ? '/월' : ''}
+                      </span>
+                    </span>
                   </div>
                 </div>
-                <div style={{ paddingLeft: 26, display: 'flex', flexWrap: 'wrap', gap: '4px 12px' }}>
+                <div
+                  style={{ paddingLeft: 26, display: 'flex', flexWrap: 'wrap', gap: '4px 12px' }}
+                >
                   {p.features.map((f) => (
-                    <span key={f} style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span
+                      key={f}
+                      style={{
+                        fontSize: 12,
+                        color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 4,
+                      }}
+                    >
                       <span style={{ color: p.accent, fontWeight: 700 }}>✓</span> {f}
                     </span>
                   ))}
@@ -363,8 +636,21 @@ const PlanPickerDemo = () => {
         </div>
       </RadioGroup>
       <div style={{ marginTop: 16, textAlign: 'right' }}>
-        <button style={{ padding: '10px 24px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
-          {plan === 'enterprise' ? '영업팀 문의' : `${plans.find((p) => p.value === plan)?.label} 플랜 시작`}
+        <button
+          style={{
+            padding: '10px 24px',
+            borderRadius: 8,
+            border: 'none',
+            background: '#6366f1',
+            color: '#fff',
+            fontSize: 14,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+        >
+          {plan === 'enterprise'
+            ? '영업팀 문의'
+            : `${plans.find((p) => p.value === plan)?.label} 플랜 시작`}
         </button>
       </div>
     </div>
@@ -381,24 +667,73 @@ const BillingCycleDemo = () => {
   const [cycle, setCycle] = useState<'monthly' | 'yearly'>('yearly')
   const [submitted, setSubmitted] = useState(false)
 
-  const options: { value: 'monthly' | 'yearly'; label: string; sublabel: string; badge?: string }[] = [
+  const options: {
+    value: 'monthly' | 'yearly'
+    label: string
+    sublabel: string
+    badge?: string
+  }[] = [
     { value: 'monthly', label: '월간 결제', sublabel: '매달 자동 갱신' },
     { value: 'yearly', label: '연간 결제', sublabel: '한 번에 12개월 결제', badge: '2개월 무료' },
   ]
 
   return (
     <div style={{ maxWidth: 380 }}>
-      <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>결제 주기</div>
-      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>ComposableUI 폼 통합 + 유효성 표시 패턴</div>
+      <div
+        style={{
+          fontSize: 16,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
+        결제 주기
+      </div>
+      <div
+        style={{
+          fontSize: 13,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 16,
+        }}
+      >
+        ComposableUI 폼 통합 + 유효성 표시 패턴
+      </div>
       {submitted ? (
-        <div style={{ padding: '20px', textAlign: 'center', borderRadius: 10, background: '#f0fdf4', border: '1.5px solid #86efac' }}>
+        <div
+          style={{
+            padding: '20px',
+            textAlign: 'center',
+            borderRadius: 10,
+            background: '#f0fdf4',
+            border: '1.5px solid #86efac',
+          }}
+        >
           <div style={{ fontSize: 24, marginBottom: 8 }}>✓</div>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#16a34a' }}>{cycle === 'yearly' ? '연간' : '월간'} 결제 플랜이 선택되었어요</div>
-          <button onClick={() => setSubmitted(false)} style={{ marginTop: 12, fontSize: 12, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>다시 선택</button>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#16a34a' }}>
+            {cycle === 'yearly' ? '연간' : '월간'} 결제 플랜이 선택되었어요
+          </div>
+          <button
+            onClick={() => setSubmitted(false)}
+            style={{
+              marginTop: 12,
+              fontSize: 12,
+              color: '#6366f1',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+            }}
+          >
+            다시 선택
+          </button>
         </div>
       ) : (
         <>
-          <RadioGroup value={cycle} onChange={(e) => setCycle(e.target.value as typeof cycle)} name="billing-cycle">
+          <RadioGroup
+            value={cycle}
+            onChange={(e) => setCycle(e.target.value as typeof cycle)}
+            name="billing-cycle"
+          >
             <div style={{ display: 'flex', gap: 10 }}>
               {options.map((opt) => (
                 <div
@@ -409,25 +744,75 @@ const BillingCycleDemo = () => {
                     padding: '14px 12px',
                     borderRadius: 8,
                     border: `2px solid ${cycle === opt.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
-                    background: cycle === opt.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                    background:
+                      cycle === opt.value
+                        ? '#6366f108'
+                        : 'var(--sem-eclipse-color-backgroundPrimary)',
                     cursor: 'pointer',
                     transition: 'border-color 0.15s',
                     position: 'relative',
                   }}
                 >
                   {opt.badge && (
-                    <span style={{ position: 'absolute', top: -10, right: 10, fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 10, background: '#6366f1', color: '#fff' }}>{opt.badge}</span>
+                    <span
+                      style={{
+                        position: 'absolute',
+                        top: -10,
+                        right: 10,
+                        fontSize: 11,
+                        fontWeight: 700,
+                        padding: '2px 8px',
+                        borderRadius: 10,
+                        background: '#6366f1',
+                        color: '#fff',
+                      }}
+                    >
+                      {opt.badge}
+                    </span>
                   )}
                   <RadioButtonWithLabel value={opt.value} alignItems="center" />
                   <div style={{ marginTop: 8, paddingLeft: 4 }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: cycle === opt.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</div>
-                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{opt.sublabel}</div>
+                    <div
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 700,
+                        color:
+                          cycle === opt.value
+                            ? '#6366f1'
+                            : 'var(--sem-eclipse-color-foregroundPrimary)',
+                      }}
+                    >
+                      {opt.label}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 11,
+                        color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                        marginTop: 2,
+                      }}
+                    >
+                      {opt.sublabel}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </RadioGroup>
-          <button onClick={() => setSubmitted(true)} style={{ marginTop: 16, width: '100%', padding: '11px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+          <button
+            onClick={() => setSubmitted(true)}
+            style={{
+              marginTop: 16,
+              width: '100%',
+              padding: '11px',
+              borderRadius: 8,
+              border: 'none',
+              background: '#6366f1',
+              color: '#fff',
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
             선택 완료
           </button>
         </>
@@ -446,18 +831,56 @@ const DeployTargetDemo = () => {
   const [target, setTarget] = useState<string>('deploy')
 
   const targets: { value: string; label: string; icon: string; badge: string; desc: string }[] = [
-    { value: 'deploy', label: 'DeployPlatform', icon: '▲', badge: '권장', desc: 'Zero-config 배포 & Edge Network' },
+    {
+      value: 'deploy',
+      label: 'DeployPlatform',
+      icon: '▲',
+      badge: '권장',
+      desc: 'Zero-config 배포 & Edge Network',
+    },
     { value: 'netlify', label: 'Netlify', icon: '◆', badge: '', desc: 'JAMstack 특화 정적 배포' },
     { value: 'aws', label: 'AWS Amplify', icon: '⬡', badge: '', desc: '엔터프라이즈급 확장성' },
-    { value: 'cloudflare', label: 'Cloudflare Pages', icon: '☁', badge: '무료', desc: 'CDN 통합 글로벌 엣지' },
+    {
+      value: 'cloudflare',
+      label: 'Cloudflare Pages',
+      icon: '☁',
+      badge: '무료',
+      desc: 'CDN 통합 글로벌 엣지',
+    },
   ]
 
   return (
     <div style={{ maxWidth: 440 }}>
-      <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>배포 대상</div>
-      <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>ComposableUI 수평 아이콘 + 배지 결합 패턴</div>
+      <div
+        style={{
+          fontSize: 16,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
+        배포 대상
+      </div>
+      <div
+        style={{
+          fontSize: 13,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 16,
+        }}
+      >
+        ComposableUI 수평 아이콘 + 배지 결합 패턴
+      </div>
       <RadioGroup value={target} onChange={(e) => setTarget(e.target.value)} name="deploy-target">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 0,
+            border: '1px solid var(--sem-eclipse-color-borderDefault)',
+            borderRadius: 10,
+            overflow: 'hidden',
+          }}
+        >
           {targets.map((t, i) => (
             <div
               key={t.value}
@@ -467,29 +890,94 @@ const DeployTargetDemo = () => {
                 alignItems: 'center',
                 gap: 12,
                 padding: '13px 16px',
-                borderBottom: i < targets.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
-                background: target === t.value ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                borderBottom:
+                  i < targets.length - 1
+                    ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                    : 'none',
+                background:
+                  target === t.value
+                    ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))'
+                    : 'var(--sem-eclipse-color-backgroundPrimary)',
                 cursor: 'pointer',
                 transition: 'background 0.12s',
               }}
             >
-              <div style={{ width: 36, height: 36, borderRadius: 8, background: target === t.value ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, color: target === t.value ? '#fff' : 'var(--sem-eclipse-color-foregroundSecondary)', transition: 'background 0.12s, color 0.12s', flexShrink: 0 }}>
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 8,
+                  background:
+                    target === t.value
+                      ? 'var(--sem-eclipse-color-fillPrimary)'
+                      : 'var(--sem-eclipse-color-backgroundSecondary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 16,
+                  color:
+                    target === t.value ? '#fff' : 'var(--sem-eclipse-color-foregroundSecondary)',
+                  transition: 'background 0.12s, color 0.12s',
+                  flexShrink: 0,
+                }}
+              >
                 {t.icon}
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{t.label}</span>
-                  {t.badge && <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 6, background: 'var(--sem-eclipse-color-fillPrimary)', color: '#fff' }}>{t.badge}</span>}
+                  <span
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {t.label}
+                  </span>
+                  {t.badge && (
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: 6,
+                        background: 'var(--sem-eclipse-color-fillPrimary)',
+                        color: '#fff',
+                      }}
+                    >
+                      {t.badge}
+                    </span>
+                  )}
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{t.desc}</div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                    marginTop: 1,
+                  }}
+                >
+                  {t.desc}
+                </div>
               </div>
               <RadioButtonWithLabel value={t.value} alignItems="center" />
             </div>
           ))}
         </div>
       </RadioGroup>
-      <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
-        선택됨: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{targets.find((t) => t.value === target)?.label}</strong>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          fontSize: 13,
+          color: 'var(--sem-eclipse-color-foregroundSecondary)',
+        }}
+      >
+        선택됨:{' '}
+        <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+          {targets.find((t) => t.value === target)?.label}
+        </strong>
       </div>
     </div>
   )
@@ -512,41 +1000,88 @@ const AntFormRadioDemo = () => {
 
   return (
     <div style={{ maxWidth: 380 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 20 }}>프로필 설정 (Ant Design 폼 레이블 패턴)</div>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 20,
+        }}
+      >
+        프로필 설정 (Ant Design 폼 레이블 패턴)
+      </div>
 
       <div style={{ marginBottom: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
           <span style={{ color: '#ef4444', fontSize: 12 }}>*</span>
-          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>성별</span>
+          <span
+            style={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            }}
+          >
+            성별
+          </span>
         </div>
         <RadioGroup value={gender} onChange={(e) => setGender(e.target.value)} name="gender">
           <div style={{ display: 'flex', gap: 20 }}>
             {['남성', '여성', '선택 안함'].map((g) => (
-              <RadioButtonWithLabel key={g} value={g} alignItems="center">{g}</RadioButtonWithLabel>
+              <RadioButtonWithLabel key={g} value={g} alignItems="center">
+                {g}
+              </RadioButtonWithLabel>
             ))}
           </div>
         </RadioGroup>
-        {submitted && !genderValid && <div style={{ fontSize: 12, color: '#ef4444', marginTop: 4 }}>성별을 선택해주세요</div>}
+        {submitted && !genderValid && (
+          <div style={{ fontSize: 12, color: '#ef4444', marginTop: 4 }}>성별을 선택해주세요</div>
+        )}
       </div>
 
       <div style={{ marginBottom: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
           <span style={{ color: '#ef4444', fontSize: 12 }}>*</span>
-          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>개발 경력</span>
+          <span
+            style={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            }}
+          >
+            개발 경력
+          </span>
         </div>
-        <RadioGroup value={experience} onChange={(e) => setExperience(e.target.value)} name="experience">
+        <RadioGroup
+          value={experience}
+          onChange={(e) => setExperience(e.target.value)}
+          name="experience"
+        >
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {['1년 미만', '1~3년', '3~5년', '5년 이상'].map((exp) => (
-              <RadioButtonWithLabel key={exp} value={exp} alignItems="center">{exp}</RadioButtonWithLabel>
+              <RadioButtonWithLabel key={exp} value={exp} alignItems="center">
+                {exp}
+              </RadioButtonWithLabel>
             ))}
           </div>
         </RadioGroup>
-        {submitted && !expValid && <div style={{ fontSize: 12, color: '#ef4444', marginTop: 4 }}>경력을 선택해주세요</div>}
+        {submitted && !expValid && (
+          <div style={{ fontSize: 12, color: '#ef4444', marginTop: 4 }}>경력을 선택해주세요</div>
+        )}
       </div>
 
       <button
         onClick={() => setSubmitted(true)}
-        style={{ width: '100%', padding: '10px', borderRadius: 6, border: 'none', background: allValid ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)', color: allValid ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+        style={{
+          width: '100%',
+          padding: '10px',
+          borderRadius: 6,
+          border: 'none',
+          background: allValid ? '#6366f1' : 'var(--sem-eclipse-color-backgroundSecondary)',
+          color: allValid ? '#fff' : 'var(--sem-eclipse-color-foregroundTertiary)',
+          fontSize: 13,
+          fontWeight: 600,
+          cursor: 'pointer',
+        }}
       >
         {submitted && allValid ? '저장 완료!' : '저장'}
       </button>
@@ -580,35 +1115,126 @@ const AntHorizontalRadioDemo = () => {
 
   return (
     <div style={{ maxWidth: 480 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 16 }}>대시보드 설정 (Ant Design 수평 라디오 패턴)</div>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 16,
+        }}
+      >
+        대시보드 설정 (Ant Design 수평 라디오 패턴)
+      </div>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.04em' }}>기간</div>
-        <RadioGroup value={timeRange} onChange={(e) => setTimeRange(e.target.value)} name="time-range">
-          <div style={{ display: 'flex', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 6, overflow: 'hidden' }}>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 600,
+            color: 'var(--sem-eclipse-color-foregroundTertiary)',
+            marginBottom: 8,
+            textTransform: 'uppercase',
+            letterSpacing: '0.04em',
+          }}
+        >
+          기간
+        </div>
+        <RadioGroup
+          value={timeRange}
+          onChange={(e) => setTimeRange(e.target.value)}
+          name="time-range"
+        >
+          <div
+            style={{
+              display: 'flex',
+              gap: 0,
+              border: '1px solid var(--sem-eclipse-color-borderDefault)',
+              borderRadius: 6,
+              overflow: 'hidden',
+            }}
+          >
             {timeRanges.map((tr, i) => (
               <div
                 key={tr.value}
                 onClick={() => setTimeRange(tr.value)}
-                style={{ flex: 1, padding: '7px 0', textAlign: 'center', background: timeRange === tr.value ? '#6366f1' : 'var(--sem-eclipse-color-backgroundPrimary)', borderRight: i < timeRanges.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', cursor: 'pointer', transition: 'background 0.12s' }}
+                style={{
+                  flex: 1,
+                  padding: '7px 0',
+                  textAlign: 'center',
+                  background:
+                    timeRange === tr.value
+                      ? '#6366f1'
+                      : 'var(--sem-eclipse-color-backgroundPrimary)',
+                  borderRight:
+                    i < timeRanges.length - 1
+                      ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                      : 'none',
+                  cursor: 'pointer',
+                  transition: 'background 0.12s',
+                }}
               >
-                <span style={{ fontSize: 12, fontWeight: timeRange === tr.value ? 700 : 400, color: timeRange === tr.value ? '#fff' : 'var(--sem-eclipse-color-foregroundSecondary)' }}>{tr.label}</span>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: timeRange === tr.value ? 700 : 400,
+                    color:
+                      timeRange === tr.value
+                        ? '#fff'
+                        : 'var(--sem-eclipse-color-foregroundSecondary)',
+                  }}
+                >
+                  {tr.label}
+                </span>
               </div>
             ))}
           </div>
         </RadioGroup>
       </div>
       <div>
-        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.04em' }}>차트 유형</div>
-        <RadioGroup value={chartType} onChange={(e) => setChartType(e.target.value)} name="chart-type">
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 600,
+            color: 'var(--sem-eclipse-color-foregroundTertiary)',
+            marginBottom: 8,
+            textTransform: 'uppercase',
+            letterSpacing: '0.04em',
+          }}
+        >
+          차트 유형
+        </div>
+        <RadioGroup
+          value={chartType}
+          onChange={(e) => setChartType(e.target.value)}
+          name="chart-type"
+        >
           <div style={{ display: 'flex', gap: 10 }}>
             {chartTypes.map((ct) => (
-              <RadioButtonWithLabel key={ct.value} value={ct.value} alignItems="center">{ct.label}</RadioButtonWithLabel>
+              <RadioButtonWithLabel key={ct.value} value={ct.value} alignItems="center">
+                {ct.label}
+              </RadioButtonWithLabel>
             ))}
           </div>
         </RadioGroup>
       </div>
-      <div style={{ marginTop: 16, padding: '12px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
-        선택: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{timeRanges.find((t) => t.value === timeRange)?.label}</strong> / <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{chartTypes.find((c) => c.value === chartType)?.label}</strong> 차트
+      <div
+        style={{
+          marginTop: 16,
+          padding: '12px',
+          borderRadius: 8,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+        }}
+      >
+        선택:{' '}
+        <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+          {timeRanges.find((t) => t.value === timeRange)?.label}
+        </strong>{' '}
+        /{' '}
+        <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+          {chartTypes.find((c) => c.value === chartType)?.label}
+        </strong>{' '}
+        차트
       </div>
     </div>
   )
@@ -632,22 +1258,75 @@ const AntCardSelectDemo = () => {
 
   return (
     <div style={{ maxWidth: 400 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 14 }}>프레임워크 선택 (Ant Design 카드 라디오 그리드)</div>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 14,
+        }}
+      >
+        프레임워크 선택 (Ant Design 카드 라디오 그리드)
+      </div>
       <RadioGroup value={selected} onChange={(e) => setSelected(e.target.value)} name="framework">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
           {frameworks.map((fw) => (
             <div
               key={fw.value}
               onClick={() => setSelected(fw.value)}
-              style={{ padding: '14px', borderRadius: 8, border: `2px solid ${selected === fw.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: selected === fw.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'border-color 0.15s', display: 'flex', flexDirection: 'column', gap: 8 }}
+              style={{
+                padding: '14px',
+                borderRadius: 8,
+                border: `2px solid ${selected === fw.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                background:
+                  selected === fw.value
+                    ? '#6366f108'
+                    : 'var(--sem-eclipse-color-backgroundPrimary)',
+                cursor: 'pointer',
+                transition: 'border-color 0.15s',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 8,
+              }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: 20, color: selected === fw.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundSecondary)' }}>{fw.icon}</span>
+              <div
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              >
+                <span
+                  style={{
+                    fontSize: 20,
+                    color:
+                      selected === fw.value
+                        ? '#6366f1'
+                        : 'var(--sem-eclipse-color-foregroundSecondary)',
+                  }}
+                >
+                  {fw.icon}
+                </span>
                 <RadioButtonWithLabel value={fw.value} alignItems="center" />
               </div>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: selected === fw.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{fw.label}</div>
-                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{fw.desc}</div>
+                <div
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color:
+                      selected === fw.value
+                        ? '#6366f1'
+                        : 'var(--sem-eclipse-color-foregroundPrimary)',
+                  }}
+                >
+                  {fw.label}
+                </div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                    marginTop: 2,
+                  }}
+                >
+                  {fw.desc}
+                </div>
               </div>
             </div>
           ))}
@@ -666,14 +1345,50 @@ export const Ant_카드형_선택_그리드: Story = {
    DeployPlatform 벤치마크: 배포 리전 선택
    DeployPlatform Serverless Functions Region 설정 패턴
 -------------------------------------------------------------------------- */
-type DeployRegion95 = { value: string; label: string; location: string; latency: string; recommended: boolean }
+type DeployRegion95 = {
+  value: string
+  label: string
+  location: string
+  latency: string
+  recommended: boolean
+}
 
 const DEPLOY_REGIONS: DeployRegion95[] = [
-  { value: 'iad1',  label: 'Washington, D.C., USA',       location: 'US East',       latency: '35ms',  recommended: true  },
-  { value: 'sfo1',  label: 'San Francisco, USA',           location: 'US West',       latency: '180ms', recommended: false },
-  { value: 'cdg1',  label: 'Paris, France',                location: 'EU West',       latency: '210ms', recommended: false },
-  { value: 'sin1',  label: 'Singapore',                    location: 'Asia Pacific',  latency: '170ms', recommended: false },
-  { value: 'icn1',  label: 'Seoul, South Korea',           location: 'Asia Pacific',  latency: '25ms',  recommended: false },
+  {
+    value: 'iad1',
+    label: 'Washington, D.C., USA',
+    location: 'US East',
+    latency: '35ms',
+    recommended: true,
+  },
+  {
+    value: 'sfo1',
+    label: 'San Francisco, USA',
+    location: 'US West',
+    latency: '180ms',
+    recommended: false,
+  },
+  {
+    value: 'cdg1',
+    label: 'Paris, France',
+    location: 'EU West',
+    latency: '210ms',
+    recommended: false,
+  },
+  {
+    value: 'sin1',
+    label: 'Singapore',
+    location: 'Asia Pacific',
+    latency: '170ms',
+    recommended: false,
+  },
+  {
+    value: 'icn1',
+    label: 'Seoul, South Korea',
+    location: 'Asia Pacific',
+    latency: '25ms',
+    recommended: false,
+  },
 ]
 
 const DeployPlatformRegionSelectDemo = () => {
@@ -681,10 +1396,23 @@ const DeployPlatformRegionSelectDemo = () => {
 
   return (
     <div style={{ maxWidth: 460 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 6,
+        }}
+      >
         서버리스 함수 리전
       </div>
-      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 14 }}>
+      <div
+        style={{
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 14,
+        }}
+      >
         가장 가까운 리전을 선택하면 지연 시간을 최소화할 수 있습니다.
       </div>
       <RadioGroup value={region} onChange={(e) => setRegion(e.target.value)} name="deploy-region">
@@ -694,30 +1422,83 @@ const DeployPlatformRegionSelectDemo = () => {
               key={r.value}
               onClick={() => setRegion(r.value)}
               style={{
-                display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px',
-                borderRadius: 8, cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '11px 14px',
+                borderRadius: 8,
+                cursor: 'pointer',
                 border: `1.5px solid ${region === r.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
-                background: region === r.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                background:
+                  region === r.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
                 transition: 'border-color 0.15s',
               }}
             >
               <RadioButtonWithLabel value={r.value} alignItems="center" />
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{r.label}</span>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {r.label}
+                  </span>
                   {r.recommended && (
-                    <span style={{ padding: '1px 6px', borderRadius: 4, background: '#eef2ff', color: '#6366f1', fontSize: 10, fontWeight: 700 }}>권장</span>
+                    <span
+                      style={{
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: '#eef2ff',
+                        color: '#6366f1',
+                        fontSize: 10,
+                        fontWeight: 700,
+                      }}
+                    >
+                      권장
+                    </span>
                   )}
                 </div>
-                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{r.location}</div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                    marginTop: 1,
+                  }}
+                >
+                  {r.location}
+                </div>
               </div>
-              <span style={{ fontSize: 11, fontFamily: 'monospace', color: region === r.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600, flexShrink: 0 }}>{r.latency}</span>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color:
+                    region === r.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)',
+                  fontWeight: 600,
+                  flexShrink: 0,
+                }}
+              >
+                {r.latency}
+              </span>
             </div>
           ))}
         </div>
       </RadioGroup>
-      <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
-        선택된 리전: <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+        }}
+      >
+        선택된 리전:{' '}
+        <strong style={{ color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
           {DEPLOY_REGIONS.find((r) => r.value === region)?.label}
         </strong>
       </div>
@@ -743,12 +1524,36 @@ export const DeployPlatform_배포_리전_선택: Story = {
    DeployPlatform 벤치마크: 빌드 전략 선택
    DeployPlatform Build & Development Settings 패턴 — 빌드 방식 라디오 선택
 -------------------------------------------------------------------------- */
-type BuildStrategy95 = { value: string; label: string; desc: string; icon: string; recommended: boolean }
+type BuildStrategy95 = {
+  value: string
+  label: string
+  desc: string
+  icon: string
+  recommended: boolean
+}
 
 const BUILD_STRATEGIES: BuildStrategy95[] = [
-  { value: 'auto',     label: '자동 감지',       desc: '프레임워크를 자동으로 감지하고 최적 설정을 적용합니다.', icon: '⚡', recommended: true  },
-  { value: 'custom',   label: '커스텀 빌드',      desc: '직접 빌드 명령어와 출력 디렉토리를 지정합니다.',         icon: '⚙', recommended: false },
-  { value: 'skip',     label: '빌드 건너뛰기',    desc: '이미 빌드된 정적 파일을 직접 배포합니다.',              icon: '⏭', recommended: false },
+  {
+    value: 'auto',
+    label: '자동 감지',
+    desc: '프레임워크를 자동으로 감지하고 최적 설정을 적용합니다.',
+    icon: '⚡',
+    recommended: true,
+  },
+  {
+    value: 'custom',
+    label: '커스텀 빌드',
+    desc: '직접 빌드 명령어와 출력 디렉토리를 지정합니다.',
+    icon: '⚙',
+    recommended: false,
+  },
+  {
+    value: 'skip',
+    label: '빌드 건너뛰기',
+    desc: '이미 빌드된 정적 파일을 직접 배포합니다.',
+    icon: '⏭',
+    recommended: false,
+  },
 ]
 
 const DeployPlatformBuildStrategyDemo = () => {
@@ -756,20 +1561,36 @@ const DeployPlatformBuildStrategyDemo = () => {
 
   return (
     <div style={{ maxWidth: 440 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 6,
+        }}
+      >
         빌드 전략
       </div>
-      <RadioGroup value={strategy} onChange={(e) => setStrategy(e.target.value)} name="build-strategy">
+      <RadioGroup
+        value={strategy}
+        onChange={(e) => setStrategy(e.target.value)}
+        name="build-strategy"
+      >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {BUILD_STRATEGIES.map((s) => (
             <div
               key={s.value}
               onClick={() => setStrategy(s.value)}
               style={{
-                display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px',
-                borderRadius: 10, cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 12,
+                padding: '14px 16px',
+                borderRadius: 10,
+                cursor: 'pointer',
                 border: `1.5px solid ${strategy === s.value ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
-                background: strategy === s.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                background:
+                  strategy === s.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
                 transition: 'all 0.15s',
               }}
             >
@@ -779,12 +1600,42 @@ const DeployPlatformBuildStrategyDemo = () => {
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <span style={{ fontSize: 16 }}>{s.icon}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: strategy === s.value ? '#6366f1' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>{s.label}</span>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color:
+                        strategy === s.value
+                          ? '#6366f1'
+                          : 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {s.label}
+                  </span>
                   {s.recommended && (
-                    <span style={{ padding: '1px 6px', borderRadius: 4, background: '#f0fdf4', color: '#10b981', fontSize: 10, fontWeight: 700 }}>권장</span>
+                    <span
+                      style={{
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: '#f0fdf4',
+                        color: '#10b981',
+                        fontSize: 10,
+                        fontWeight: 700,
+                      }}
+                    >
+                      권장
+                    </span>
                   )}
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)', lineHeight: 1.5 }}>{s.desc}</div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {s.desc}
+                </div>
               </div>
             </div>
           ))}
@@ -812,18 +1663,27 @@ export const DeployPlatform_빌드_전략_선택: Story = {
    DeployPlatform 벤치마크: 노드 런타임 버전 선택
    DeployPlatform Node.js Version 설정 패턴 — 버전별 지원 기간 표시 라디오 선택
 -------------------------------------------------------------------------- */
-type NodeVersion95 = { value: string; label: string; lts: boolean; eol: string; status: 'recommended' | 'lts' | 'deprecated' }
+type NodeVersion95 = {
+  value: string
+  label: string
+  lts: boolean
+  eol: string
+  status: 'recommended' | 'lts' | 'deprecated'
+}
 
 const NODE_VERSIONS: NodeVersion95[] = [
-  { value: '20.x', label: 'Node.js 20.x', lts: true,  eol: '2026-04-30', status: 'recommended' },
-  { value: '18.x', label: 'Node.js 18.x', lts: true,  eol: '2025-04-30', status: 'lts'         },
-  { value: '16.x', label: 'Node.js 16.x', lts: false, eol: '2023-09-11', status: 'deprecated'  },
+  { value: '20.x', label: 'Node.js 20.x', lts: true, eol: '2026-04-30', status: 'recommended' },
+  { value: '18.x', label: 'Node.js 18.x', lts: true, eol: '2025-04-30', status: 'lts' },
+  { value: '16.x', label: 'Node.js 16.x', lts: false, eol: '2023-09-11', status: 'deprecated' },
 ]
 
-const STATUS_BADGE_STYLE: Record<NodeVersion95['status'], { label: string; color: string; bg: string }> = {
+const STATUS_BADGE_STYLE: Record<
+  NodeVersion95['status'],
+  { label: string; color: string; bg: string }
+> = {
   recommended: { label: 'Recommended', color: '#10b981', bg: '#f0fdf4' },
-  lts:         { label: 'LTS',         color: '#6366f1', bg: '#eef2ff' },
-  deprecated:  { label: 'Deprecated',  color: '#ef4444', bg: '#fef2f2' },
+  lts: { label: 'LTS', color: '#6366f1', bg: '#eef2ff' },
+  deprecated: { label: 'Deprecated', color: '#ef4444', bg: '#fef2f2' },
 }
 
 const DeployPlatformNodeVersionDemo = () => {
@@ -831,10 +1691,23 @@ const DeployPlatformNodeVersionDemo = () => {
 
   return (
     <div style={{ maxWidth: 420 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 6 }}>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 6,
+        }}
+      >
         Node.js 버전
       </div>
-      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 14 }}>
+      <div
+        style={{
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 14,
+        }}
+      >
         서버리스 함수 및 빌드에 사용할 Node.js 런타임 버전을 선택합니다.
       </div>
       <RadioGroup value={version} onChange={(e) => setVersion(e.target.value)} name="node-version">
@@ -847,32 +1720,75 @@ const DeployPlatformNodeVersionDemo = () => {
                 key={v.value}
                 onClick={() => !isDeprecated && setVersion(v.value)}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '11px 14px',
                   borderRadius: 8,
                   cursor: isDeprecated ? 'not-allowed' : 'pointer',
                   border: `1.5px solid ${version === v.value ? '#6366f1' : isDeprecated ? '#f1f5f9' : 'var(--sem-eclipse-color-borderSubtle)'}`,
-                  background: isDeprecated ? '#fafafa' : version === v.value ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                  background: isDeprecated
+                    ? '#fafafa'
+                    : version === v.value
+                      ? '#6366f108'
+                      : 'var(--sem-eclipse-color-backgroundPrimary)',
                   opacity: isDeprecated ? 0.6 : 1,
                   transition: 'all 0.15s',
                 }}
               >
                 <RadioButtonWithLabel value={v.value} alignItems="center" disabled={isDeprecated} />
                 <div style={{ flex: 1 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: isDeprecated ? 'var(--sem-eclipse-color-foregroundTertiary)' : 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: isDeprecated
+                        ? 'var(--sem-eclipse-color-foregroundTertiary)'
+                        : 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
                     {v.label}
                   </span>
-                  <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                      marginTop: 1,
+                    }}
+                  >
                     EOL: {v.eol}
                   </div>
                 </div>
-                <span style={{ padding: '2px 8px', borderRadius: 20, background: badge.bg, color: badge.color, fontSize: 10, fontWeight: 700, flexShrink: 0 }}>{badge.label}</span>
+                <span
+                  style={{
+                    padding: '2px 8px',
+                    borderRadius: 20,
+                    background: badge.bg,
+                    color: badge.color,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    flexShrink: 0,
+                  }}
+                >
+                  {badge.label}
+                </span>
               </div>
             )
           })}
         </div>
       </RadioGroup>
       {version === '18.x' && (
-        <div style={{ marginTop: 10, padding: '10px 14px', borderRadius: 8, background: '#fffbeb', border: '1px solid #fef3c7', fontSize: 12, color: '#92400e' }}>
+        <div
+          style={{
+            marginTop: 10,
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#fffbeb',
+            border: '1px solid #fef3c7',
+            fontSize: 12,
+            color: '#92400e',
+          }}
+        >
           Node.js 18.x는 2025년 4월에 EOL이 됩니다. 20.x로 업그레이드를 권장합니다.
         </div>
       )}
@@ -910,7 +1826,9 @@ function ComposableUIRoleSelectRender() {
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 12 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>멤버 역할 선택</div>
-        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>ComposableUI 카드형 라디오 선택 패턴</div>
+        <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>
+          ComposableUI 카드형 라디오 선택 패턴
+        </div>
       </div>
       <RadioGroup value={role} onChange={(e) => setRole(e.target.value)} name="member-role">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -919,28 +1837,61 @@ function ComposableUIRoleSelectRender() {
               key={r.value}
               onClick={() => setRole(r.value)}
               style={{
-                display: 'flex', alignItems: 'center', gap: 12,
-                padding: '12px 14px', borderRadius: 8,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '12px 14px',
+                borderRadius: 8,
                 border: `1.5px solid ${role === r.value ? '#0f172a' : '#e2e8f0'}`,
                 background: role === r.value ? '#f8fafc' : '#fff',
-                cursor: 'pointer', transition: 'all 0.12s',
+                cursor: 'pointer',
+                transition: 'all 0.12s',
               }}
             >
               <RadioButtonWithLabel value={r.value} alignItems="center" />
               <span style={{ fontSize: 18, flexShrink: 0 }}>{r.icon}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: role === r.value ? 700 : 500, color: '#0f172a' }}>{r.label}</div>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: role === r.value ? 700 : 500,
+                    color: '#0f172a',
+                  }}
+                >
+                  {r.label}
+                </div>
                 <div style={{ fontSize: 11, color: '#64748b', marginTop: 1 }}>{r.desc}</div>
               </div>
               {role === r.value && (
-                <span style={{ fontSize: 10, fontWeight: 600, color: '#0f172a', padding: '2px 8px', borderRadius: 12, background: '#e2e8f0' }}>선택됨</span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 600,
+                    color: '#0f172a',
+                    padding: '2px 8px',
+                    borderRadius: 12,
+                    background: '#e2e8f0',
+                  }}
+                >
+                  선택됨
+                </span>
               )}
             </div>
           ))}
         </div>
       </RadioGroup>
-      <div style={{ marginTop: 16, padding: '10px 14px', borderRadius: 8, background: '#f1f5f9', fontSize: 12, color: '#475569' }}>
-        현재 역할: <strong>{MEMBER_ROLES_187.find((r) => r.value === role)?.label}</strong> — {MEMBER_ROLES_187.find((r) => r.value === role)?.desc}
+      <div
+        style={{
+          marginTop: 16,
+          padding: '10px 14px',
+          borderRadius: 8,
+          background: '#f1f5f9',
+          fontSize: 12,
+          color: '#475569',
+        }}
+      >
+        현재 역할: <strong>{MEMBER_ROLES_187.find((r) => r.value === role)?.label}</strong> —{' '}
+        {MEMBER_ROLES_187.find((r) => r.value === role)?.desc}
       </div>
     </div>
   )
@@ -971,7 +1922,18 @@ function IssueTrackerIssueTypeRender() {
   const [type, setType] = useState('feature')
   return (
     <div style={{ width: 340, fontFamily: '"Inter", system-ui, sans-serif' }}>
-      <div style={{ fontSize: 11, fontWeight: 600, color: '#6b7280', letterSpacing: '0.05em', marginBottom: 10, textTransform: 'uppercase' }}>이슈 유형</div>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 600,
+          color: '#6b7280',
+          letterSpacing: '0.05em',
+          marginBottom: 10,
+          textTransform: 'uppercase',
+        }}
+      >
+        이슈 유형
+      </div>
       <RadioGroup value={type} onChange={(e) => setType(e.target.value)} name="issue-type">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
           {TRACKER_ISSUE_TYPES_187.map((t) => (
@@ -979,24 +1941,79 @@ function IssueTrackerIssueTypeRender() {
               key={t.value}
               onClick={() => setType(t.value)}
               style={{
-                display: 'flex', alignItems: 'center', gap: 8,
-                padding: '8px 10px', borderRadius: 6,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 10px',
+                borderRadius: 6,
                 border: `1px solid ${type === t.value ? t.color : '#e5e7eb'}`,
                 background: type === t.value ? `${t.color}10` : '#fff',
-                cursor: 'pointer', transition: 'all 0.1s',
+                cursor: 'pointer',
+                transition: 'all 0.1s',
               }}
             >
               <RadioButtonWithLabel value={t.value} alignItems="center" />
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: t.color, flexShrink: 0 }} />
-              <span style={{ fontSize: 12, fontWeight: type === t.value ? 600 : 400, color: type === t.value ? t.color : '#374151', flex: 1 }}>{t.label}</span>
-              <kbd style={{ fontSize: 9, padding: '1px 5px', borderRadius: 4, border: '1px solid #e5e7eb', background: '#f9fafb', color: '#6b7280', fontFamily: 'monospace' }}>{t.shortcut}</kbd>
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: t.color,
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: type === t.value ? 600 : 400,
+                  color: type === t.value ? t.color : '#374151',
+                  flex: 1,
+                }}
+              >
+                {t.label}
+              </span>
+              <kbd
+                style={{
+                  fontSize: 9,
+                  padding: '1px 5px',
+                  borderRadius: 4,
+                  border: '1px solid #e5e7eb',
+                  background: '#f9fafb',
+                  color: '#6b7280',
+                  fontFamily: 'monospace',
+                }}
+              >
+                {t.shortcut}
+              </kbd>
             </div>
           ))}
         </div>
       </RadioGroup>
-      <div style={{ marginTop: 12, padding: '7px 10px', borderRadius: 6, background: '#f9fafb', border: '1px solid #f3f4f6', fontSize: 11, color: '#374151', display: 'flex', alignItems: 'center', gap: 6 }}>
-        <div style={{ width: 6, height: 6, borderRadius: '50%', background: TRACKER_ISSUE_TYPES_187.find((t) => t.value === type)?.color }} />
-        <span>{TRACKER_ISSUE_TYPES_187.find((t) => t.value === type)?.label} 유형으로 생성됩니다</span>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '7px 10px',
+          borderRadius: 6,
+          background: '#f9fafb',
+          border: '1px solid #f3f4f6',
+          fontSize: 11,
+          color: '#374151',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+        }}
+      >
+        <div
+          style={{
+            width: 6,
+            height: 6,
+            borderRadius: '50%',
+            background: TRACKER_ISSUE_TYPES_187.find((t) => t.value === type)?.color,
+          }}
+        />
+        <span>
+          {TRACKER_ISSUE_TYPES_187.find((t) => t.value === type)?.label} 유형으로 생성됩니다
+        </span>
       </div>
     </div>
   )
@@ -1017,9 +2034,27 @@ export const IssueTracker_이슈_유형_선택: Story = {
 }
 
 const UTILITYUI_TRACKER_PLANS_187 = [
-  { value: 'hobby', label: 'Hobby', price: '무료', features: ['3개 프로젝트', '1명', '기본 스토리지'], highlight: false },
-  { value: 'pro', label: 'Pro', price: '₩15,000/월', features: ['무제한 프로젝트', '10명', '50GB 스토리지'], highlight: true },
-  { value: 'team', label: 'Team', price: '₩45,000/월', features: ['무제한 프로젝트', '무제한', '200GB 스토리지'], highlight: false },
+  {
+    value: 'hobby',
+    label: 'Hobby',
+    price: '무료',
+    features: ['3개 프로젝트', '1명', '기본 스토리지'],
+    highlight: false,
+  },
+  {
+    value: 'pro',
+    label: 'Pro',
+    price: '₩15,000/월',
+    features: ['무제한 프로젝트', '10명', '50GB 스토리지'],
+    highlight: true,
+  },
+  {
+    value: 'team',
+    label: 'Team',
+    price: '₩45,000/월',
+    features: ['무제한 프로젝트', '무제한', '200GB 스토리지'],
+    highlight: false,
+  },
 ]
 
 function ComposableUIIssueTrackerPricingRender() {
@@ -1027,24 +2062,52 @@ function ComposableUIIssueTrackerPricingRender() {
   const [billing, setBilling] = useState('yearly')
   return (
     <div style={{ width: 440, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', gap: 4, padding: 3, background: '#f1f5f9', borderRadius: 8, marginBottom: 16, width: 'fit-content' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 4,
+          padding: 3,
+          background: '#f1f5f9',
+          borderRadius: 8,
+          marginBottom: 16,
+          width: 'fit-content',
+        }}
+      >
         <RadioGroup value={billing} onChange={(e) => setBilling(e.target.value)} name="billing">
           {(['monthly', 'yearly'] as const).map((b) => (
             <div
               key={b}
               onClick={() => setBilling(b)}
               style={{
-                padding: '5px 14px', borderRadius: 6, cursor: 'pointer', fontSize: 12, fontWeight: 500,
+                padding: '5px 14px',
+                borderRadius: 6,
+                cursor: 'pointer',
+                fontSize: 12,
+                fontWeight: 500,
                 background: billing === b ? '#fff' : 'transparent',
                 color: billing === b ? '#0f172a' : '#64748b',
                 boxShadow: billing === b ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-                transition: 'all 0.15s', display: 'flex', alignItems: 'center', gap: 6,
+                transition: 'all 0.15s',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
               }}
             >
               <RadioButtonWithLabel value={b} alignItems="center" />
               {b === 'monthly' ? '월간' : '연간'}
               {b === 'yearly' && (
-                <span style={{ fontSize: 9, fontWeight: 700, color: '#10b981', background: '#d1fae5', padding: '1px 5px', borderRadius: 10 }}>20% 할인</span>
+                <span
+                  style={{
+                    fontSize: 9,
+                    fontWeight: 700,
+                    color: '#10b981',
+                    background: '#d1fae5',
+                    padding: '1px 5px',
+                    borderRadius: 10,
+                  }}
+                >
+                  20% 할인
+                </span>
               )}
             </div>
           ))}
@@ -1057,23 +2120,63 @@ function ComposableUIIssueTrackerPricingRender() {
               key={p.value}
               onClick={() => setPlan(p.value)}
               style={{
-                padding: '14px 16px', borderRadius: 10,
+                padding: '14px 16px',
+                borderRadius: 10,
                 border: `1.5px solid ${plan === p.value ? (p.highlight ? '#6366f1' : '#0f172a') : '#e2e8f0'}`,
                 background: plan === p.value ? (p.highlight ? '#eef2ff' : '#f8fafc') : '#fff',
-                cursor: 'pointer', transition: 'all 0.12s', position: 'relative',
+                cursor: 'pointer',
+                transition: 'all 0.12s',
+                position: 'relative',
               }}
             >
-              {p.highlight && <div style={{ position: 'absolute', top: -10, right: 14, fontSize: 10, fontWeight: 700, color: '#fff', background: '#6366f1', padding: '2px 10px', borderRadius: 10 }}>인기</div>}
+              {p.highlight && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: -10,
+                    right: 14,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    color: '#fff',
+                    background: '#6366f1',
+                    padding: '2px 10px',
+                    borderRadius: 10,
+                  }}
+                >
+                  인기
+                </div>
+              )}
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                 <RadioButtonWithLabel value={p.value} alignItems="center" />
-                <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', flex: 1 }}>{p.label}</span>
-                <span style={{ fontSize: 13, fontWeight: 600, color: p.highlight ? '#6366f1' : '#374151' }}>
-                  {billing === 'yearly' && p.price !== '무료' ? p.price.replace('월', '월 × 0.8') : p.price}
+                <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', flex: 1 }}>
+                  {p.label}
+                </span>
+                <span
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: p.highlight ? '#6366f1' : '#374151',
+                  }}
+                >
+                  {billing === 'yearly' && p.price !== '무료'
+                    ? p.price.replace('월', '월 × 0.8')
+                    : p.price}
                 </span>
               </div>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', paddingLeft: 24 }}>
                 {p.features.map((f, i) => (
-                  <span key={i} style={{ fontSize: 10, color: '#64748b', background: '#f1f5f9', padding: '2px 8px', borderRadius: 10 }}>{f}</span>
+                  <span
+                    key={i}
+                    style={{
+                      fontSize: 10,
+                      color: '#64748b',
+                      background: '#f1f5f9',
+                      padding: '2px 8px',
+                      borderRadius: 10,
+                    }}
+                  >
+                    {f}
+                  </span>
                 ))}
               </div>
             </div>

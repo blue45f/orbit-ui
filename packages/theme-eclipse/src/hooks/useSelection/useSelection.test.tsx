@@ -31,12 +31,23 @@ describe('useSelection', () => {
   })
 
   it('selectionchange 이벤트 시 선택 상태를 업데이트한다', () => {
-    const mockRect = { x: 0, y: 0, width: 100, height: 20, top: 0, left: 0, right: 100, bottom: 20 } as DOMRect
+    const mockRect = {
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 20,
+      top: 0,
+      left: 0,
+      right: 100,
+      bottom: 20,
+    } as DOMRect
     const mockRange = {
       getClientRects: () => ({
         length: 1,
         0: mockRect,
-        [Symbol.iterator]: function* () { yield mockRect },
+        [Symbol.iterator]: function* () {
+          yield mockRect
+        },
       }),
     }
 
@@ -59,12 +70,23 @@ describe('useSelection', () => {
   })
 
   it('선택이 해제되면 빈 상태로 초기화된다', () => {
-    const mockRect = { x: 0, y: 0, width: 100, height: 20, top: 0, left: 0, right: 100, bottom: 20 } as DOMRect
+    const mockRect = {
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 20,
+      top: 0,
+      left: 0,
+      right: 100,
+      bottom: 20,
+    } as DOMRect
     const mockRange = {
       getClientRects: () => ({
         length: 1,
         0: mockRect,
-        [Symbol.iterator]: function* () { yield mockRect },
+        [Symbol.iterator]: function* () {
+          yield mockRect
+        },
       }),
     }
 

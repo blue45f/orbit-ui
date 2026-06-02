@@ -55,7 +55,11 @@ export type SearchBarProps = Omit<
 export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>((props, ref) => {
   const { theme, children, placeholder, caption = '', onFocus, onBlur, onChange, ...rest } = props
 
-  const { isFocused, ref: selfRef, handlers } = useFocus({
+  const {
+    isFocused,
+    ref: selfRef,
+    handlers,
+  } = useFocus({
     onFocus,
     onBlur,
   })

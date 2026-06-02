@@ -7,7 +7,13 @@ import { useRafCallback } from './useRafCallback'
 
 describe('useRafCallback', () => {
   beforeEach(() => {
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => { cb(0); return 1 }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        cb(0)
+        return 1
+      })
+    )
     vi.stubGlobal('cancelAnimationFrame', vi.fn())
   })
 
@@ -31,11 +37,14 @@ describe('useRafCallback', () => {
   it('cancel을 호출하면 callback이 실행되지 않는다', () => {
     const pendingCbs: FrameRequestCallback[] = []
     let rafId = 0
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
-      pendingCbs.push(cb)
-      rafId += 1
-      return rafId
-    }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        pendingCbs.push(cb)
+        rafId += 1
+        return rafId
+      })
+    )
     const cancelMock = vi.fn()
     vi.stubGlobal('cancelAnimationFrame', cancelMock)
 
@@ -60,10 +69,9 @@ describe('useRafCallback', () => {
     const firstCallback = vi.fn()
     const secondCallback = vi.fn()
 
-    const { result, rerender } = renderHook(
-      ({ cb }: { cb: () => void }) => useRafCallback(cb),
-      { initialProps: { cb: firstCallback } },
-    )
+    const { result, rerender } = renderHook(({ cb }: { cb: () => void }) => useRafCallback(cb), {
+      initialProps: { cb: firstCallback },
+    })
 
     rerender({ cb: secondCallback })
 

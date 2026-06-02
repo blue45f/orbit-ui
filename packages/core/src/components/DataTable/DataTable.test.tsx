@@ -71,9 +71,7 @@ describe('DataTable', () => {
   })
 
   test('loading 상태에서 aria-busy=true 가 적용되고 스켈레톤 행이 렌더된다', () => {
-    render(
-      <DataTable columns={columns} data={[]} aria-label="users" loading skeletonCount={3} />
-    )
+    render(<DataTable columns={columns} data={[]} aria-label="users" loading skeletonCount={3} />)
     const table = screen.getByRole('table')
     expect(table).toHaveAttribute('aria-busy', 'true')
     // skeleton 행은 aria-hidden이라 role=row 카운트에서 빠짐 → header만 노출
@@ -82,14 +80,7 @@ describe('DataTable', () => {
   })
 
   test('빈 데이터일 때 emptyMessage 가 노출된다', () => {
-    render(
-      <DataTable
-        columns={columns}
-        data={[]}
-        aria-label="users"
-        emptyMessage="데이터 없음"
-      />
-    )
+    render(<DataTable columns={columns} data={[]} aria-label="users" emptyMessage="데이터 없음" />)
     expect(screen.getByText('데이터 없음')).toBeInTheDocument()
   })
 
@@ -108,9 +99,7 @@ describe('DataTable', () => {
   })
 
   test('error 가 켜져도 데이터 대신 에러 메시지가 우선 노출된다', () => {
-    render(
-      <DataTable columns={columns} data={data} aria-label="users" error errorMessage="에러" />
-    )
+    render(<DataTable columns={columns} data={data} aria-label="users" error errorMessage="에러" />)
     expect(screen.getByText('에러')).toBeInTheDocument()
     expect(screen.queryByText('김철수')).not.toBeInTheDocument()
   })
@@ -133,25 +122,14 @@ describe('DataTable', () => {
 
   test('caption 이 전달되면 테이블 caption 으로 렌더된다', () => {
     render(
-      <DataTable
-        columns={columns}
-        data={data}
-        aria-label="users"
-        caption="2026년 등록 사용자"
-      />
+      <DataTable columns={columns} data={data} aria-label="users" caption="2026년 등록 사용자" />
     )
     expect(screen.getByText('2026년 등록 사용자')).toBeInTheDocument()
   })
 
   test('페이지네이션이 켜지면 nav 와 이전/다음 버튼이 노출된다', () => {
     render(
-      <DataTable
-        columns={columns}
-        data={data}
-        aria-label="users"
-        enablePagination
-        pageSize={2}
-      />
+      <DataTable columns={columns} data={data} aria-label="users" enablePagination pageSize={2} />
     )
     expect(screen.getByRole('navigation', { name: '페이지네이션' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '이전 페이지' })).toBeDisabled()

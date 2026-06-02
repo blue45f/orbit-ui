@@ -57,11 +57,11 @@ export function useInfiniteScroll<T extends Element = HTMLDivElement>({
             callbackRef.current()
           }
         },
-        { rootMargin, threshold },
+        { rootMargin, threshold }
       )
       observerRef.current.observe(node)
     },
-    [rootMargin, threshold],
+    [rootMargin, threshold]
   )
 
   // hasMore가 변경되면(새 데이터 로드 후) isLoading을 초기화

@@ -13,7 +13,7 @@ export type UseWebSocketOptions = {
 
 export function useWebSocket(
   url: string,
-  options: UseWebSocketOptions = {},
+  options: UseWebSocketOptions = {}
 ): {
   status: WebSocketStatus
   send: (data: string | ArrayBuffer | Blob) => void

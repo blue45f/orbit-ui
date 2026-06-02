@@ -161,7 +161,8 @@ export const IssueTracker_이슈_액션_툴바 = {
         </div>
       </div>
       <div style={{ padding: '16px', fontSize: 13, color: '#475569', lineHeight: 1.7 }}>
-        BoxedCheckbox 권한 매트릭스 스토리 추가 및 SolidIconButton 에디터 툴바 패턴 구현. ComposableUI + PrimitiveUI 벤치마크 기반으로 인터랙티브 데모를 고도화합니다.
+        BoxedCheckbox 권한 매트릭스 스토리 추가 및 SolidIconButton 에디터 툴바 패턴 구현.
+        ComposableUI + PrimitiveUI 벤치마크 기반으로 인터랙티브 데모를 고도화합니다.
       </div>
     </div>
   ),
@@ -192,8 +193,25 @@ function DeployPlatformDeployActionsRender() {
   }
 
   return (
-    <div style={{ maxWidth: 480, background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
+    <div
+      style={{
+        maxWidth: 480,
+        background: '#fff',
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '12px 16px',
+          borderBottom: '1px solid #f1f5f9',
+          background: '#f8fafc',
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>배포 히스토리</span>
         <OutlineIconButton
           color="black"
@@ -228,7 +246,11 @@ function DeployPlatformDeployActionsRender() {
               }}
             />
             <div>
-              <div style={{ fontSize: 12, fontFamily: 'monospace', color: '#1e293b', fontWeight: 600 }}>{d.branch}</div>
+              <div
+                style={{ fontSize: 12, fontFamily: 'monospace', color: '#1e293b', fontWeight: 600 }}
+              >
+                {d.branch}
+              </div>
               <div style={{ fontSize: 11, color: '#94a3b8' }}>{d.time}</div>
             </div>
           </div>
@@ -243,14 +265,21 @@ function DeployPlatformDeployActionsRender() {
         </div>
       ))}
       {refreshing && (
-        <div style={{ padding: '8px 16px', fontSize: 11, color: '#6366f1', background: '#f0f0ff', textAlign: 'center' }}>
+        <div
+          style={{
+            padding: '8px 16px',
+            fontSize: 11,
+            color: '#6366f1',
+            background: '#f0f0ff',
+            textAlign: 'center',
+          }}
+        >
           새로고침 중...
         </div>
       )}
     </div>
   )
 }
-
 
 export const DeployPlatform_배포_히스토리_액션 = {
   parameters: {
@@ -280,7 +309,16 @@ function IssueTrackerFilterToolbarRender() {
 
   return (
     <div style={{ maxWidth: 560, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 0', borderBottom: '1px solid #f1f5f9', marginBottom: 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          padding: '10px 0',
+          borderBottom: '1px solid #f1f5f9',
+          marginBottom: 12,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', flex: 1 }}>
           이슈 <span style={{ color: '#94a3b8', fontWeight: 400 }}>({issueCount})</span>
         </span>
@@ -297,7 +335,18 @@ function IssueTrackerFilterToolbarRender() {
               <FilterIcon />
             </OutlineIconButton>
             {filterActive && (
-              <span style={{ position: 'absolute', top: -3, right: -3, width: 7, height: 7, borderRadius: '50%', background: '#6366f1', border: '1.5px solid #fff' }} />
+              <span
+                style={{
+                  position: 'absolute',
+                  top: -3,
+                  right: -3,
+                  width: 7,
+                  height: 7,
+                  borderRadius: '50%',
+                  background: '#6366f1',
+                  border: '1.5px solid #fff',
+                }}
+              />
             )}
           </div>
           <OutlineIconButton
@@ -313,7 +362,9 @@ function IssueTrackerFilterToolbarRender() {
 
         <div style={{ width: 1, height: 16, background: '#e2e8f0' }} />
 
-        <div style={{ display: 'flex', gap: 1, background: '#f1f5f9', borderRadius: 8, padding: 3 }}>
+        <div
+          style={{ display: 'flex', gap: 1, background: '#f1f5f9', borderRadius: 8, padding: 3 }}
+        >
           <OutlineIconButton
             color={view === 'list' ? 'black' : 'gray'}
             size="small"
@@ -335,19 +386,50 @@ function IssueTrackerFilterToolbarRender() {
 
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
         {filterActive && (
-          <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 99, background: '#eef2ff', color: '#6366f1', fontWeight: 600, border: '1px solid #c7d2fe' }}>
+          <span
+            style={{
+              fontSize: 11,
+              padding: '3px 10px',
+              borderRadius: 99,
+              background: '#eef2ff',
+              color: '#6366f1',
+              fontWeight: 600,
+              border: '1px solid #c7d2fe',
+            }}
+          >
             상태: In Progress
           </span>
         )}
         {sortActive && (
-          <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 99, background: '#fef9c3', color: '#a16207', fontWeight: 600, border: '1px solid #fde68a' }}>
+          <span
+            style={{
+              fontSize: 11,
+              padding: '3px 10px',
+              borderRadius: 99,
+              background: '#fef9c3',
+              color: '#a16207',
+              fontWeight: 600,
+              border: '1px solid #fde68a',
+            }}
+          >
             정렬: 우선순위순
           </span>
         )}
       </div>
 
-      <div style={{ display: 'flex', flexDirection: view === 'list' ? 'column' : 'row', gap: 8, flexWrap: 'wrap' }}>
-        {['ORB-101 버튼 컴포넌트 리팩토링', 'ORB-102 다크모드 토큰 추가', 'ORB-103 접근성 검수'].map((issue) => (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: view === 'list' ? 'column' : 'row',
+          gap: 8,
+          flexWrap: 'wrap',
+        }}
+      >
+        {[
+          'ORB-101 버튼 컴포넌트 리팩토링',
+          'ORB-102 다크모드 토큰 추가',
+          'ORB-103 접근성 검수',
+        ].map((issue) => (
           <div
             key={issue}
             style={{
@@ -365,18 +447,19 @@ function IssueTrackerFilterToolbarRender() {
         ))}
       </div>
       <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
-        IssueTracker 이슈 툴바 패턴 — 뷰: {view}, 필터: {filterActive ? '적용' : '없음'}, 정렬: {sortActive ? '적용' : '없음'}
+        IssueTracker 이슈 툴바 패턴 — 뷰: {view}, 필터: {filterActive ? '적용' : '없음'}, 정렬:{' '}
+        {sortActive ? '적용' : '없음'}
       </div>
     </div>
   )
 }
 
-
 export const IssueTracker_필터_정렬_툴바 = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker 이슈 목록 상단 툴바 패턴. 필터/정렬 버튼은 활성 시 blue dot으로 표시하고, 뷰 전환 버튼은 토글 그룹으로 구성됩니다.',
+        story:
+          'IssueTracker 이슈 목록 상단 툴바 패턴. 필터/정렬 버튼은 활성 시 blue dot으로 표시하고, 뷰 전환 버튼은 토글 그룹으로 구성됩니다.',
       },
     },
   },
@@ -389,7 +472,11 @@ export const IssueTracker_필터_정렬_툴바 = {
 -------------------------------------------------------------------------- */
 const WORKSPACE_BLOCKS = [
   { id: 'b1', type: 'heading', content: '디자인 시스템 아키텍처', level: 1 },
-  { id: 'b2', type: 'text', content: 'Orbit UI는 3-tier 토큰 기반으로 설계된 React 컴포넌트 라이브러리입니다.' },
+  {
+    id: 'b2',
+    type: 'text',
+    content: 'Orbit UI는 3-tier 토큰 기반으로 설계된 React 컴포넌트 라이브러리입니다.',
+  },
   { id: 'b3', type: 'text', content: 'UtilityCSS를 사용하여 빌드 타임에 CSS를 생성합니다.' },
   { id: 'b4', type: 'heading', content: '컴포넌트 구조', level: 2 },
 ]
@@ -406,13 +493,28 @@ function WorkspaceEditorBlockEditorRender() {
       {WORKSPACE_BLOCKS.map((block) => (
         <div
           key={block.id}
-          style={{ display: 'flex', alignItems: 'flex-start', gap: 4, padding: '2px 0', position: 'relative' }}
+          style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 4,
+            padding: '2px 0',
+            position: 'relative',
+          }}
           onMouseEnter={() => setHoveredBlock(block.id)}
           onMouseLeave={() => setHoveredBlock(null)}
           onClick={() => setSelectedBlock(block.id === selectedBlock ? null : block.id)}
         >
           {/* 드래그 핸들 + 추가 버튼 */}
-          <div style={{ display: 'flex', gap: 1, flexShrink: 0, opacity: hoveredBlock === block.id ? 1 : 0, transition: 'opacity 0.15s', marginTop: 2 }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: 1,
+              flexShrink: 0,
+              opacity: hoveredBlock === block.id ? 1 : 0,
+              transition: 'opacity 0.15s',
+              marginTop: 2,
+            }}
+          >
             <OutlineIconButton color="gray" size="small" aria-label="블록 추가">
               <PlusIcon />
             </OutlineIconButton>
@@ -426,13 +528,19 @@ function WorkspaceEditorBlockEditorRender() {
               style={{
                 padding: '4px 8px',
                 borderRadius: 6,
-                background: selectedBlock === block.id ? 'rgba(99,102,241,0.06)' : hoveredBlock === block.id ? '#f8fafc' : 'transparent',
+                background:
+                  selectedBlock === block.id
+                    ? 'rgba(99,102,241,0.06)'
+                    : hoveredBlock === block.id
+                      ? '#f8fafc'
+                      : 'transparent',
                 cursor: 'text',
                 fontSize: block.type === 'heading' ? (block.level === 1 ? 20 : 15) : 14,
                 fontWeight: block.type === 'heading' ? 700 : 400,
                 color: '#1e293b',
                 lineHeight: 1.6,
-                borderLeft: selectedBlock === block.id ? '2px solid #6366f1' : '2px solid transparent',
+                borderLeft:
+                  selectedBlock === block.id ? '2px solid #6366f1' : '2px solid transparent',
                 transition: 'all 0.1s',
               }}
             >
@@ -457,12 +565,12 @@ function WorkspaceEditorBlockEditorRender() {
   )
 }
 
-
 export const WorkspaceEditor_블록_편집_컨트롤 = {
   parameters: {
     docs: {
       description: {
-        story: 'WorkspaceEditor 블록 에디터 패턴. 각 블록에 hover 시 드래그 핸들, 블록 추가, 수정 버튼이 표시됩니다. 클릭 시 선택 상태가 표시됩니다.',
+        story:
+          'WorkspaceEditor 블록 에디터 패턴. 각 블록에 hover 시 드래그 핸들, 블록 추가, 수정 버튼이 표시됩니다. 클릭 시 선택 상태가 표시됩니다.',
       },
     },
   },
@@ -474,9 +582,33 @@ export const WorkspaceEditor_블록_편집_컨트롤 = {
    IssueTracker Sprint/Cycle 네비게이션 패턴 — 이전/다음 기간 이동, 현재 상태 표시
 -------------------------------------------------------------------------- */
 const CYCLES = [
-  { id: 1, name: 'Cycle 42', start: '3월 24일', end: '4월 6일', status: 'completed', issues: 18, done: 18 },
-  { id: 2, name: 'Cycle 43', start: '4월 7일', end: '4월 20일', status: 'active', issues: 24, done: 11 },
-  { id: 3, name: 'Cycle 44', start: '4월 21일', end: '5월 4일', status: 'upcoming', issues: 0, done: 0 },
+  {
+    id: 1,
+    name: 'Cycle 42',
+    start: '3월 24일',
+    end: '4월 6일',
+    status: 'completed',
+    issues: 18,
+    done: 18,
+  },
+  {
+    id: 2,
+    name: 'Cycle 43',
+    start: '4월 7일',
+    end: '4월 20일',
+    status: 'active',
+    issues: 24,
+    done: 11,
+  },
+  {
+    id: 3,
+    name: 'Cycle 44',
+    start: '4월 21일',
+    end: '5월 4일',
+    status: 'upcoming',
+    issues: 0,
+    done: 0,
+  },
 ]
 
 function CycleNavigationRender() {
@@ -495,7 +627,16 @@ function CycleNavigationRender() {
   return (
     <div style={{ maxWidth: 440, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', alignItems: 'center', padding: '12px 16px', borderBottom: '1px solid #f1f5f9', background: '#f8fafc', gap: 8 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '12px 16px',
+            borderBottom: '1px solid #f1f5f9',
+            background: '#f8fafc',
+            gap: 8,
+          }}
+        >
           <OutlineIconButton
             color="black"
             size="small"
@@ -508,7 +649,9 @@ function CycleNavigationRender() {
 
           <div style={{ flex: 1, textAlign: 'center' }}>
             <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a' }}>{cycle.name}</div>
-            <div style={{ fontSize: 11, color: '#94a3b8' }}>{cycle.start} → {cycle.end}</div>
+            <div style={{ fontSize: 11, color: '#94a3b8' }}>
+              {cycle.start} → {cycle.end}
+            </div>
           </div>
 
           <OutlineIconButton
@@ -523,8 +666,24 @@ function CycleNavigationRender() {
         </div>
 
         <div style={{ padding: '16px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 99, background: sc.bg, color: sc.color, fontWeight: 700 }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 12,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 12,
+                padding: '3px 10px',
+                borderRadius: 99,
+                background: sc.bg,
+                color: sc.color,
+                fontWeight: 700,
+              }}
+            >
               {sc.label}
             </span>
             <span style={{ fontSize: 12, color: '#94a3b8', fontVariantNumeric: 'tabular-nums' }}>
@@ -532,13 +691,38 @@ function CycleNavigationRender() {
             </span>
           </div>
 
-          <div style={{ height: 6, background: '#f1f5f9', borderRadius: 3, overflow: 'hidden', marginBottom: 8 }}>
-            <div style={{ height: '100%', width: `${progressPct}%`, background: sc.color, borderRadius: 3, transition: 'width 0.3s' }} />
+          <div
+            style={{
+              height: 6,
+              background: '#f1f5f9',
+              borderRadius: 3,
+              overflow: 'hidden',
+              marginBottom: 8,
+            }}
+          >
+            <div
+              style={{
+                height: '100%',
+                width: `${progressPct}%`,
+                background: sc.color,
+                borderRadius: 3,
+                transition: 'width 0.3s',
+              }}
+            />
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#94a3b8' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              fontSize: 11,
+              color: '#94a3b8',
+            }}
+          >
             <span>{progressPct}% 달성</span>
-            <span>{currentIdx + 1} / {CYCLES.length}</span>
+            <span>
+              {currentIdx + 1} / {CYCLES.length}
+            </span>
           </div>
         </div>
       </div>
@@ -549,18 +733,17 @@ function CycleNavigationRender() {
   )
 }
 
-
 export const IssueTracker_사이클_내비게이션 = {
   parameters: {
     docs: {
       description: {
-        story: 'IssueTracker Sprint/Cycle 네비게이션 패턴. 이전/다음 OutlineIconButton으로 사이클 기간을 이동하며 진행률과 상태를 확인합니다.',
+        story:
+          'IssueTracker Sprint/Cycle 네비게이션 패턴. 이전/다음 OutlineIconButton으로 사이클 기간을 이동하며 진행률과 상태를 확인합니다.',
       },
     },
   },
   render: () => <CycleNavigationRender />,
 }
-
 
 export const 비활성화_상태_비교 = {
   parameters: {
@@ -584,10 +767,18 @@ export const 비활성화_상태_비교 = {
         </Flex>
       </div>
       <div>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8 }}>비활성 상태 (disabled)</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8 }}>
+          비활성 상태 (disabled)
+        </div>
         <Flex columnGap="8px" alignItems="center">
           {(['small', 'medium', 'large'] as const).map((size) => (
-            <OutlineIconButton key={size} color="black" size={size} disabled aria-label={`${size} 비활성 버튼`}>
+            <OutlineIconButton
+              key={size}
+              color="black"
+              size={size}
+              disabled
+              aria-label={`${size} 비활성 버튼`}
+            >
               <PlusIcon />
             </OutlineIconButton>
           ))}
@@ -633,12 +824,17 @@ function M3TonalGroupRender() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'flex-start' }}>
       <div>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>Tonal (토글 가능 · M3 Filled Tonal 패턴)</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>
+          Tonal (토글 가능 · M3 Filled Tonal 패턴)
+        </div>
         <div style={{ display: 'flex', gap: 8 }}>
           {M3_ACTIONS.map(({ icon, label, key }) => {
             const isOn = active.has(key)
             return (
-              <div key={key} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+              <div
+                key={key}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+              >
                 <div
                   onClick={() => toggle(key)}
                   style={{
@@ -657,14 +853,24 @@ function M3TonalGroupRender() {
                 >
                   {icon}
                 </div>
-                <span style={{ fontSize: 11, color: isOn ? '#6366f1' : '#94a3b8', fontWeight: isOn ? 700 : 400 }}>{label}</span>
+                <span
+                  style={{
+                    fontSize: 11,
+                    color: isOn ? '#6366f1' : '#94a3b8',
+                    fontWeight: isOn ? 700 : 400,
+                  }}
+                >
+                  {label}
+                </span>
               </div>
             )
           })}
         </div>
       </div>
       <div>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>Outlined (기본 · M3 Outlined Icon Button)</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>
+          Outlined (기본 · M3 Outlined Icon Button)
+        </div>
         <Flex gap="md">
           {M3_ACTIONS.map(({ icon, key }) => (
             <OutlineIconButton key={key} color="black" size="medium">
@@ -674,7 +880,9 @@ function M3TonalGroupRender() {
         </Flex>
       </div>
       <div>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>Standard (최소 크기 · M3 Standard Icon Button)</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>
+          Standard (최소 크기 · M3 Standard Icon Button)
+        </div>
         <Flex gap="sm">
           {M3_ACTIONS.map(({ icon, key }) => (
             <OutlineIconButton key={key} color="gray" size="small">
@@ -705,9 +913,20 @@ export const M3_아이콘버튼_그룹_변형 = {
    DesignTool Plugin UI 벤치마크: 컴팩트 도구 팔레트
    DesignTool 플러그인 패널의 도구 팔레트 — 좁은 공간에 최대 밀도로 아이콘 버튼 배치
 -------------------------------------------------------------------------- */
-type DesignToolTool = 'select' | 'move' | 'grid' | 'list' | 'sort' | 'filter' | 'refresh' | 'setting'
+type DesignToolTool =
+  | 'select'
+  | 'move'
+  | 'grid'
+  | 'list'
+  | 'sort'
+  | 'filter'
+  | 'refresh'
+  | 'setting'
 
-const DESIGN_TOOL_GROUPS: { group: string; tools: { key: DesignToolTool; icon: React.ReactElement; label: string }[] }[] = [
+const DESIGN_TOOL_GROUPS: {
+  group: string
+  tools: { key: DesignToolTool; icon: React.ReactElement; label: string }[]
+}[] = [
   {
     group: '보기',
     tools: [
@@ -736,22 +955,61 @@ function DesignToolToolPaletteRender() {
   const [disabled, setDisabled] = useState(false)
 
   return (
-    <div style={{ width: 240, display: 'flex', flexDirection: 'column', gap: 16, padding: 16, background: '#1e1e1e', borderRadius: 12 }}>
+    <div
+      style={{
+        width: 240,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        padding: 16,
+        background: '#1e1e1e',
+        borderRadius: 12,
+      }}
+    >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: '#a1a1aa', textTransform: 'uppercase', letterSpacing: '0.06em' }}>도구 팔레트</span>
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#a1a1aa',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          도구 팔레트
+        </span>
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
-          <input type="checkbox" checked={disabled} onChange={(e) => setDisabled(e.target.checked)} style={{ margin: 0 }} />
+          <input
+            type="checkbox"
+            checked={disabled}
+            onChange={(e) => setDisabled(e.target.checked)}
+            style={{ margin: 0 }}
+          />
           <span style={{ fontSize: 11, color: '#71717a' }}>비활성화</span>
         </label>
       </div>
       {DESIGN_TOOL_GROUPS.map(({ group, tools }) => (
         <div key={group}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6 }}>{group}</div>
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              color: '#52525b',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              marginBottom: 6,
+            }}
+          >
+            {group}
+          </div>
           <div style={{ display: 'flex', gap: 4 }}>
             {tools.map(({ key, icon, label }) => {
               const isActive = activeTool === key
               return (
-                <div key={key} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                <div
+                  key={key}
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}
+                >
                   <OutlineIconButton
                     color={isActive ? 'black' : 'gray'}
                     size="small"
@@ -765,14 +1023,30 @@ function DesignToolToolPaletteRender() {
                   >
                     {icon}
                   </OutlineIconButton>
-                  <span style={{ fontSize: 9, color: isActive ? '#a5b4fc' : '#52525b', fontWeight: isActive ? 700 : 400 }}>{label}</span>
+                  <span
+                    style={{
+                      fontSize: 9,
+                      color: isActive ? '#a5b4fc' : '#52525b',
+                      fontWeight: isActive ? 700 : 400,
+                    }}
+                  >
+                    {label}
+                  </span>
                 </div>
               )
             })}
           </div>
         </div>
       ))}
-      <div style={{ padding: '8px 10px', background: '#27272a', borderRadius: 8, fontSize: 11, color: '#71717a' }}>
+      <div
+        style={{
+          padding: '8px 10px',
+          background: '#27272a',
+          borderRadius: 8,
+          fontSize: 11,
+          color: '#71717a',
+        }}
+      >
         활성 도구: <span style={{ color: '#a5b4fc', fontWeight: 700 }}>{activeTool}</span>
       </div>
     </div>
@@ -820,20 +1094,49 @@ function M3ExtendedFabRender() {
   }))
 
   return (
-    <div style={{ width: 360, height: 480, position: 'relative', borderRadius: 14, overflow: 'hidden', border: '1.5px solid #e2e8f0', background: '#f8fafc' }}>
-      <div
-        onScroll={handleScroll}
-        style={{ height: '100%', overflowY: 'auto', padding: '16px' }}
-      >
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>리스트 ({FAKE_ITEMS.length}개)</div>
+    <div
+      style={{
+        width: 360,
+        height: 480,
+        position: 'relative',
+        borderRadius: 14,
+        overflow: 'hidden',
+        border: '1.5px solid #e2e8f0',
+        background: '#f8fafc',
+      }}
+    >
+      <div onScroll={handleScroll} style={{ height: '100%', overflowY: 'auto', padding: '16px' }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>
+          리스트 ({FAKE_ITEMS.length}개)
+        </div>
         {FAKE_ITEMS.map((item) => (
-          <div key={item.id} style={{ padding: '10px 14px', marginBottom: 8, borderRadius: 8, background: '#fff', border: '1px solid #f1f5f9', fontSize: 13, color: '#334155' }}>
+          <div
+            key={item.id}
+            style={{
+              padding: '10px 14px',
+              marginBottom: 8,
+              borderRadius: 8,
+              background: '#fff',
+              border: '1px solid #f1f5f9',
+              fontSize: 13,
+              color: '#334155',
+            }}
+          >
             {item.text}
           </div>
         ))}
       </div>
 
-      <div style={{ position: 'absolute', bottom: 20, right: 20, display: 'flex', gap: 8, alignItems: 'center' }}>
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 20,
+          right: 20,
+          display: 'flex',
+          gap: 8,
+          alignItems: 'center',
+        }}
+      >
         <div
           style={{
             display: 'flex',
@@ -853,21 +1156,36 @@ function M3ExtendedFabRender() {
           onClick={() => setExtended((v) => !v)}
         >
           <PlusIcon style={{ flexShrink: 0 }} />
-          <span style={{
-            fontSize: 14,
-            fontWeight: 700,
-            whiteSpace: 'nowrap' as const,
-            opacity: extended ? 1 : 0,
-            maxWidth: extended ? 120 : 0,
-            overflow: 'hidden',
-            transition: 'opacity 0.2s, max-width 0.25s',
-          }}>
+          <span
+            style={{
+              fontSize: 14,
+              fontWeight: 700,
+              whiteSpace: 'nowrap' as const,
+              opacity: extended ? 1 : 0,
+              maxWidth: extended ? 120 : 0,
+              overflow: 'hidden',
+              transition: 'opacity 0.2s, max-width 0.25s',
+            }}
+          >
             항목 추가
           </span>
         </div>
       </div>
 
-      <div style={{ position: 'absolute', top: 12, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '4px 12px', borderRadius: 20, fontSize: 11, whiteSpace: 'nowrap' as const }}>
+      <div
+        style={{
+          position: 'absolute',
+          top: 12,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'rgba(0,0,0,0.6)',
+          color: '#fff',
+          padding: '4px 12px',
+          borderRadius: 20,
+          fontSize: 11,
+          whiteSpace: 'nowrap' as const,
+        }}
+      >
         스크롤 {scrollDir === 'down' ? '아래' : '위'} — FAB {extended ? '확장됨' : '축소됨'}
       </div>
     </div>
@@ -902,7 +1220,7 @@ const UtilityCSSEditorToolbarRender = () => {
   const [saved, setSaved] = useState(false)
 
   const toggle = (id: TwToolId) => {
-    setActive(prev => {
+    setActive((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -917,9 +1235,20 @@ const UtilityCSSEditorToolbarRender = () => {
 
   return (
     <div style={{ width: 420, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px', border: '1px solid #e5e7eb', borderBottom: 'none', borderRadius: '8px 8px 0 0', background: '#f9fafb' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '8px 10px',
+          border: '1px solid #e5e7eb',
+          borderBottom: 'none',
+          borderRadius: '8px 8px 0 0',
+          background: '#f9fafb',
+        }}
+      >
         <div style={{ display: 'flex', gap: 4 }}>
-          {TW_EDITOR_TOOLS.map(tool => {
+          {TW_EDITOR_TOOLS.map((tool) => {
             const Icon = tool.icon
             const isActive = active.has(tool.id as TwToolId)
             return (
@@ -945,12 +1274,27 @@ const UtilityCSSEditorToolbarRender = () => {
           </OutlineIconButton>
         </div>
       </div>
-      <div style={{ border: '1px solid #e5e7eb', borderRadius: '0 0 8px 8px', padding: '12px 14px', minHeight: 100, fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
+      <div
+        style={{
+          border: '1px solid #e5e7eb',
+          borderRadius: '0 0 8px 8px',
+          padding: '12px 14px',
+          minHeight: 100,
+          fontSize: 13,
+          color: '#374151',
+          lineHeight: 1.6,
+        }}
+      >
         <p style={{ margin: 0, fontWeight: active.has('bold') ? 700 : 400 }}>
-          UtilityUI Editor 툴바 패턴 — OutlineIconButton으로 서식 도구를 구현합니다. 활성 버튼은 배경색 반전으로 상태를 표시합니다.
+          UtilityUI Editor 툴바 패턴 — OutlineIconButton으로 서식 도구를 구현합니다. 활성 버튼은
+          배경색 반전으로 상태를 표시합니다.
         </p>
       </div>
-      {saved && <div style={{ marginTop: 8, fontSize: 11, color: '#10b981', fontWeight: 600 }}>저장 완료!</div>}
+      {saved && (
+        <div style={{ marginTop: 8, fontSize: 11, color: '#10b981', fontWeight: 600 }}>
+          저장 완료!
+        </div>
+      )}
     </div>
   )
 }
@@ -960,7 +1304,8 @@ export const UtilityCSS_에디터_서식_툴바 = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI 에디터 툴바 패턴. Bold/List/Link/More 서식 도구를 OutlineIconButton으로 배치하고, 저장/설정 액션을 우측에 배치합니다. 활성 포맷 버튼은 배경 반전으로 시각적 피드백을 제공합니다.',
+        story:
+          'UtilityUI 에디터 툴바 패턴. Bold/List/Link/More 서식 도구를 OutlineIconButton으로 배치하고, 저장/설정 액션을 우측에 배치합니다. 활성 포맷 버튼은 배경 반전으로 시각적 피드백을 제공합니다.',
       },
     },
   },
@@ -974,22 +1319,40 @@ const ComposableUIPaginationRender = () => {
   const totalPages = 5
 
   return (
-    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <div
+      style={{
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+      }}
+    >
       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
         <OutlineIconButton
           color="gray"
           size="small"
-          onClick={() => setPage(p => Math.max(1, p - 1))}
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={page === 1}
           aria-label="이전 페이지"
         >
           <ChevronRightLineIcon size={14} style={{ transform: 'rotate(180deg)' }} />
         </OutlineIconButton>
-        {UTILITYUI_PAGINATION_ITEMS.map(p => (
+        {UTILITYUI_PAGINATION_ITEMS.map((p) => (
           <button
             key={p}
             onClick={() => setPage(p)}
-            style={{ width: 32, height: 32, borderRadius: 6, border: `1px solid ${page === p ? '#111' : '#e5e7eb'}`, background: page === p ? '#111' : '#fff', color: page === p ? '#fff' : '#374151', fontSize: 13, fontWeight: page === p ? 700 : 400, cursor: 'pointer', transition: 'all 0.1s' }}
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: 6,
+              border: `1px solid ${page === p ? '#111' : '#e5e7eb'}`,
+              background: page === p ? '#111' : '#fff',
+              color: page === p ? '#fff' : '#374151',
+              fontSize: 13,
+              fontWeight: page === p ? 700 : 400,
+              cursor: 'pointer',
+              transition: 'all 0.1s',
+            }}
           >
             {p}
           </button>
@@ -997,7 +1360,7 @@ const ComposableUIPaginationRender = () => {
         <OutlineIconButton
           color="gray"
           size="small"
-          onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
           disabled={page === totalPages}
           aria-label="다음 페이지"
         >
@@ -1016,39 +1379,81 @@ export const ComposableUI_페이지네이션_컨트롤 = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI Pagination 컴포넌트 패턴. 이전/다음 방향 아이콘을 OutlineIconButton으로 구현하고, 페이지 번호 버튼과 함께 배치합니다. disabled 상태에서 자동 비활성화되며, 현재 페이지는 반전 스타일로 강조합니다.',
+        story:
+          'ComposableUI Pagination 컴포넌트 패턴. 이전/다음 방향 아이콘을 OutlineIconButton으로 구현하고, 페이지 번호 버튼과 함께 배치합니다. disabled 상태에서 자동 비활성화되며, 현재 페이지는 반전 스타일로 강조합니다.',
       },
     },
   },
   render: () => <ComposableUIPaginationRender />,
 }
 
-
 const TW_ARTICLE_CARDS = [
-  { id: 1, title: 'UtilityUI 컴포넌트 패턴 분석', category: '기술', date: '2026.04.10', starred: false },
-  { id: 2, title: 'ComposableUI와 Orbit UI 비교 연구', category: '디자인', date: '2026.04.08', starred: true },
-  { id: 3, title: 'Storybook 8.x 마이그레이션 가이드', category: '도구', date: '2026.04.05', starred: false },
+  {
+    id: 1,
+    title: 'UtilityUI 컴포넌트 패턴 분석',
+    category: '기술',
+    date: '2026.04.10',
+    starred: false,
+  },
+  {
+    id: 2,
+    title: 'ComposableUI와 Orbit UI 비교 연구',
+    category: '디자인',
+    date: '2026.04.08',
+    starred: true,
+  },
+  {
+    id: 3,
+    title: 'Storybook 8.x 마이그레이션 가이드',
+    category: '도구',
+    date: '2026.04.05',
+    starred: false,
+  },
 ]
 
 const UtilityCSSCardActionGroupRender = () => {
   const [cards, setCards] = useState(TW_ARTICLE_CARDS)
   const [refreshing, setRefreshing] = useState<number | null>(null)
 
-  const toggleStar = (id: number) => setCards(prev => prev.map(c => c.id === id ? { ...c, starred: !c.starred } : c))
+  const toggleStar = (id: number) =>
+    setCards((prev) => prev.map((c) => (c.id === id ? { ...c, starred: !c.starred } : c)))
 
   const handleRefresh = async (id: number) => {
     setRefreshing(id)
-    await new Promise(res => setTimeout(res, 1000))
+    await new Promise((res) => setTimeout(res, 1000))
     setRefreshing(null)
   }
 
   return (
-    <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 8 }}>
-      {cards.map(card => (
-        <div key={card.id} style={{ border: '1px solid #f0f0f0', borderRadius: 10, padding: '12px 14px', background: '#fff', display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+    <div
+      style={{
+        width: 380,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+      }}
+    >
+      {cards.map((card) => (
+        <div
+          key={card.id}
+          style={{
+            border: '1px solid #f0f0f0',
+            borderRadius: 10,
+            padding: '12px 14px',
+            background: '#fff',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 10,
+          }}
+        >
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 3 }}>{card.category} · {card.date}</div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: '#111', lineHeight: 1.4 }}>{card.title}</div>
+            <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 3 }}>
+              {card.category} · {card.date}
+            </div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#111', lineHeight: 1.4 }}>
+              {card.title}
+            </div>
           </div>
           <div style={{ display: 'flex', gap: 2, flexShrink: 0 }}>
             <OutlineIconButton
@@ -1056,14 +1461,19 @@ const UtilityCSSCardActionGroupRender = () => {
               size="small"
               onClick={() => toggleStar(card.id)}
               aria-label="즐겨찾기"
-              style={{ background: card.starred ? '#fef9c3' : 'transparent', borderColor: card.starred ? '#fbbf24' : undefined }}
+              style={{
+                background: card.starred ? '#fef9c3' : 'transparent',
+                borderColor: card.starred ? '#fbbf24' : undefined,
+              }}
             >
               <StarLineIcon size={14} />
             </OutlineIconButton>
             <OutlineIconButton
               color="gray"
               size="small"
-              onClick={() => { void handleRefresh(card.id) }}
+              onClick={() => {
+                void handleRefresh(card.id)
+              }}
               aria-label="새로고침"
               style={{ animation: refreshing === card.id ? 'spin 0.8s linear infinite' : 'none' }}
             >
@@ -1075,7 +1485,9 @@ const UtilityCSSCardActionGroupRender = () => {
           </div>
         </div>
       ))}
-      <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>UtilityUI Card Action Group 패턴</div>
+      <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>
+        UtilityUI Card Action Group 패턴
+      </div>
     </div>
   )
 }
@@ -1085,7 +1497,8 @@ export const UtilityCSS_카드_액션_그룹 = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI Card의 액션 버튼 그룹 패턴. 즐겨찾기(토글 상태)/새로고침(로딩 애니메이션)/더보기 OutlineIconButton을 카드 우측에 배치합니다. 즐겨찾기 활성 상태는 노란 배경으로 시각화합니다.',
+        story:
+          'UtilityUI Card의 액션 버튼 그룹 패턴. 즐겨찾기(토글 상태)/새로고침(로딩 애니메이션)/더보기 OutlineIconButton을 카드 우측에 배치합니다. 즐겨찾기 활성 상태는 노란 배경으로 시각화합니다.',
       },
     },
   },
@@ -1116,12 +1529,30 @@ export const UtilityCSS_반응형_아이콘_액션_그룹: Story = {
     },
   },
   render: (args: ComponentProps<typeof OutlineIconButton>) => (
-    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <div
+      style={{
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+      }}
+    >
       {/* 컴팩트 모드 (아이콘만) */}
       <div>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>컴팩트</div>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            marginBottom: 8,
+          }}
+        >
+          컴팩트
+        </div>
         <div style={{ display: 'flex', gap: 4 }}>
-          {TOOLBAR_ACTIONS.map(action => (
+          {TOOLBAR_ACTIONS.map((action) => (
             <OutlineIconButton
               key={action.label}
               {...args}
@@ -1136,11 +1567,27 @@ export const UtilityCSS_반응형_아이콘_액션_그룹: Story = {
       </div>
       {/* 넓은 모드 (아이콘 + 라벨) */}
       <div>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>확장</div>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            marginBottom: 8,
+          }}
+        >
+          확장
+        </div>
         <div style={{ display: 'flex', gap: 6 }}>
-          {TOOLBAR_ACTIONS.map(action => (
-            <div key={action.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-              <OutlineIconButton {...args} size="medium" color="black">{action.icon}</OutlineIconButton>
+          {TOOLBAR_ACTIONS.map((action) => (
+            <div
+              key={action.label}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}
+            >
+              <OutlineIconButton {...args} size="medium" color="black">
+                {action.icon}
+              </OutlineIconButton>
               <span style={{ fontSize: 10, color: '#64748b' }}>{action.label}</span>
             </div>
           ))}
@@ -1168,20 +1615,44 @@ export const M3_아이콘버튼_4변형_비교: Story = {
     },
   },
   render: () => (
-    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20 }}>
-      {(['small', 'medium', 'large'] as const).map(size => (
+    <div
+      style={{
+        fontFamily: 'Inter, system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+      }}
+    >
+      {(['small', 'medium', 'large'] as const).map((size) => (
         <div key={size}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: 8,
+            }}
+          >
             {size}
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <OutlineIconButton size={size} color="black"><StarLineIcon /></OutlineIconButton>
-            <OutlineIconButton size={size} color="gray"><StarLineIcon /></OutlineIconButton>
-            <OutlineIconButton size={size} color="black" disabled><StarLineIcon /></OutlineIconButton>
+            <OutlineIconButton size={size} color="black">
+              <StarLineIcon />
+            </OutlineIconButton>
+            <OutlineIconButton size={size} color="gray">
+              <StarLineIcon />
+            </OutlineIconButton>
+            <OutlineIconButton size={size} color="black" disabled>
+              <StarLineIcon />
+            </OutlineIconButton>
           </div>
         </div>
       ))}
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>M3 Icon Button — small/medium/large 크기 및 enabled/gray/disabled 상태</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        M3 Icon Button — small/medium/large 크기 및 enabled/gray/disabled 상태
+      </div>
     </div>
   ),
 }
@@ -1196,26 +1667,73 @@ function UtilityCSSM3PlayerControlRender(args: ComponentProps<typeof OutlineIcon
   const [progress, setProgress] = useState(34)
 
   return (
-    <div style={{ width: 400, fontFamily: 'Inter, system-ui, sans-serif', background: '#f8fafc', borderRadius: 14, padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div
+      style={{
+        width: 400,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        background: '#f8fafc',
+        borderRadius: 14,
+        padding: 16,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+      }}
+    >
       {/* 트랙 정보 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div style={{ width: 40, height: 40, borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', flexShrink: 0 }} />
+        <div
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 8,
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            flexShrink: 0,
+          }}
+        />
         <div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>Orbit UI Release Song</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+            Orbit UI Release Song
+          </div>
           <div style={{ fontSize: 11, color: '#94a3b8' }}>Cycle 130 Studio</div>
         </div>
       </div>
       {/* 프로그레스 바 */}
       <div>
-        <div style={{ height: 4, background: '#e2e8f0', borderRadius: 999, overflow: 'hidden', cursor: 'pointer' }}
+        <div
+          style={{
+            height: 4,
+            background: '#e2e8f0',
+            borderRadius: 999,
+            overflow: 'hidden',
+            cursor: 'pointer',
+          }}
           onClick={(e) => {
             const rect = e.currentTarget.getBoundingClientRect()
             setProgress(Math.round(((e.clientX - rect.left) / rect.width) * 100))
-          }}>
-          <div style={{ height: '100%', width: `${progress}%`, background: '#6366f1', transition: 'width 0.1s' }} />
+          }}
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${progress}%`,
+              background: '#6366f1',
+              transition: 'width 0.1s',
+            }}
+          />
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#94a3b8', marginTop: 4 }}>
-          <span>{Math.floor(progress * 2.34 / 60)}:{String(Math.floor((progress * 2.34) % 60)).padStart(2, '0')}</span>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            fontSize: 10,
+            color: '#94a3b8',
+            marginTop: 4,
+          }}
+        >
+          <span>
+            {Math.floor((progress * 2.34) / 60)}:
+            {String(Math.floor((progress * 2.34) % 60)).padStart(2, '0')}
+          </span>
           <span>3:54</span>
         </div>
       </div>
@@ -1229,7 +1747,12 @@ function UtilityCSSM3PlayerControlRender(args: ComponentProps<typeof OutlineIcon
         </div>
         {/* 주 재생 컨트롤 */}
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-          <OutlineIconButton {...args} size="small" color="black" onClick={() => setProgress(Math.max(0, progress - 10))}>
+          <OutlineIconButton
+            {...args}
+            size="small"
+            color="black"
+            onClick={() => setProgress(Math.max(0, progress - 10))}
+          >
             <ChevronLeftLineIcon />
           </OutlineIconButton>
           <OutlineIconButton
@@ -1241,7 +1764,12 @@ function UtilityCSSM3PlayerControlRender(args: ComponentProps<typeof OutlineIcon
           >
             {playing ? <ListLineIcon /> : <PlusIcon />}
           </OutlineIconButton>
-          <OutlineIconButton {...args} size="small" color="black" onClick={() => setProgress(Math.min(100, progress + 10))}>
+          <OutlineIconButton
+            {...args}
+            size="small"
+            color="black"
+            onClick={() => setProgress(Math.min(100, progress + 10))}
+          >
             <ChevronRightLineIcon />
           </OutlineIconButton>
         </div>
@@ -1252,7 +1780,9 @@ function UtilityCSSM3PlayerControlRender(args: ComponentProps<typeof OutlineIcon
           </OutlineIconButton>
         </div>
       </div>
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>UtilityUI + M3 미디어 플레이어 컨트롤 — 재생/정지/탐색 + 설정</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        UtilityUI + M3 미디어 플레이어 컨트롤 — 재생/정지/탐색 + 설정
+      </div>
     </div>
   )
 }
@@ -1270,7 +1800,9 @@ export const UtilityCSS_M3_미디어_플레이어_컨트롤: Story = {
       },
     },
   },
-  render: (args: ComponentProps<typeof OutlineIconButton>) => <UtilityCSSM3PlayerControlRender {...args} />,
+  render: (args: ComponentProps<typeof OutlineIconButton>) => (
+    <UtilityCSSM3PlayerControlRender {...args} />
+  ),
 }
 
 // ─── Cycle 156: Platform HIG + RoleToken Design ──────────────────────────────
@@ -1280,8 +1812,20 @@ function PlatformHigNavigationBarRender(args: ComponentProps<typeof OutlineIconB
   const [downloaded, setDownloaded] = useState(false)
   return (
     <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Platform HIG 내비게이션 바 아이콘 버튼</div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>
+        Platform HIG 내비게이션 바 아이콘 버튼
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '10px 16px',
+          background: '#f9fafb',
+          borderRadius: 12,
+          border: '1px solid #e5e7eb',
+        }}
+      >
         <div style={{ display: 'flex', gap: 8 }}>
           <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
             <ChevronLeftLineIcon size={18} />
@@ -1292,10 +1836,20 @@ function PlatformHigNavigationBarRender(args: ComponentProps<typeof OutlineIconB
         </div>
         <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>컴포넌트 문서</div>
         <div style={{ display: 'flex', gap: 6 }}>
-          <OutlineIconButton {...args} color={bookmarked ? 'black' : 'gray'} size="small" onClick={() => setBookmarked(b => !b)}>
+          <OutlineIconButton
+            {...args}
+            color={bookmarked ? 'black' : 'gray'}
+            size="small"
+            onClick={() => setBookmarked((b) => !b)}
+          >
             <StarLineIcon size={18} />
           </OutlineIconButton>
-          <OutlineIconButton {...args} color={downloaded ? 'black' : 'gray'} size="small" onClick={() => setDownloaded(d => !d)}>
+          <OutlineIconButton
+            {...args}
+            color={downloaded ? 'black' : 'gray'}
+            size="small"
+            onClick={() => setDownloaded((d) => !d)}
+          >
             <DownloadIcon size={18} />
           </OutlineIconButton>
           <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
@@ -1306,7 +1860,9 @@ function PlatformHigNavigationBarRender(args: ComponentProps<typeof OutlineIconB
       <div style={{ marginTop: 8, fontSize: 11, color: '#9ca3af' }}>
         북마크: {bookmarked ? '활성' : '비활성'} | 다운로드: {downloaded ? '완료' : '미완'}
       </div>
-      <div style={{ fontSize: 11, color: '#9ca3af' }}>Platform HIG UINavigationBar BarButtonItem 패턴</div>
+      <div style={{ fontSize: 11, color: '#9ca3af' }}>
+        Platform HIG UINavigationBar BarButtonItem 패턴
+      </div>
     </div>
   )
 }
@@ -1332,24 +1888,59 @@ function M3IconButtonVariantRender(args: ComponentProps<typeof OutlineIconButton
   const [sorted, setSorted] = useState(false)
   return (
     <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>RoleToken Design 아이콘 버튼 패턴</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 12 }}>
+        RoleToken Design 아이콘 버튼 패턴
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ padding: '14px 16px', background: '#fffbfe', borderRadius: 12, border: '1px solid #e8def8' }}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: '#49454f', marginBottom: 8 }}>Tonal — 상태 토글</div>
+        <div
+          style={{
+            padding: '14px 16px',
+            background: '#fffbfe',
+            borderRadius: 12,
+            border: '1px solid #e8def8',
+          }}
+        >
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#49454f', marginBottom: 8 }}>
+            Tonal — 상태 토글
+          </div>
           <div style={{ display: 'flex', gap: 8 }}>
-            <OutlineIconButton {...args} color={liked ? 'black' : 'gray'} size="medium" onClick={() => setLiked(l => !l)}>
+            <OutlineIconButton
+              {...args}
+              color={liked ? 'black' : 'gray'}
+              size="medium"
+              onClick={() => setLiked((l) => !l)}
+            >
               <StarLineIcon size={24} />
             </OutlineIconButton>
-            <OutlineIconButton {...args} color={filtered ? 'black' : 'gray'} size="medium" onClick={() => setFiltered(f => !f)}>
+            <OutlineIconButton
+              {...args}
+              color={filtered ? 'black' : 'gray'}
+              size="medium"
+              onClick={() => setFiltered((f) => !f)}
+            >
               <FilterIcon size={24} />
             </OutlineIconButton>
-            <OutlineIconButton {...args} color={sorted ? 'black' : 'gray'} size="medium" onClick={() => setSorted(s => !s)}>
+            <OutlineIconButton
+              {...args}
+              color={sorted ? 'black' : 'gray'}
+              size="medium"
+              onClick={() => setSorted((s) => !s)}
+            >
               <ArrowSortIcon size={24} />
             </OutlineIconButton>
           </div>
         </div>
-        <div style={{ padding: '14px 16px', background: '#fffbfe', borderRadius: 12, border: '1px solid #e8def8' }}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: '#49454f', marginBottom: 8 }}>Standard — 크기 계층</div>
+        <div
+          style={{
+            padding: '14px 16px',
+            background: '#fffbfe',
+            borderRadius: 12,
+            border: '1px solid #e8def8',
+          }}
+        >
+          <div style={{ fontSize: 11, fontWeight: 600, color: '#49454f', marginBottom: 8 }}>
+            Standard — 크기 계층
+          </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
               <GridViewLineIcon size={18} />
@@ -1363,7 +1954,9 @@ function M3IconButtonVariantRender(args: ComponentProps<typeof OutlineIconButton
           </div>
         </div>
       </div>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>M3 FilledTonal / Standard IconButton — 상태별 색상 + 크기 계층</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        M3 FilledTonal / Standard IconButton — 상태별 색상 + 크기 계층
+      </div>
     </div>
   )
 }
@@ -1389,13 +1982,36 @@ function PlatformM3ToolbarRender(args: ComponentProps<typeof OutlineIconButton>)
   const [filterOpen, setFilterOpen] = useState(false)
   return (
     <div style={{ width: 380, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>Platform HIG + M3 툴바 아이콘 패턴</div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>
+        Platform HIG + M3 툴바 아이콘 패턴
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '10px 14px',
+          background: '#fff',
+          borderRadius: 12,
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+        }}
+      >
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-          <OutlineIconButton {...args} color={filterOpen ? 'black' : 'gray'} size="small" onClick={() => setFilterOpen(f => !f)}>
+          <OutlineIconButton
+            {...args}
+            color={filterOpen ? 'black' : 'gray'}
+            size="small"
+            onClick={() => setFilterOpen((f) => !f)}
+          >
             <FilterIcon size={18} />
           </OutlineIconButton>
-          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setSortAsc(s => !s)}>
+          <OutlineIconButton
+            {...args}
+            color="gray"
+            size="small"
+            onClick={() => setSortAsc((s) => !s)}
+          >
             <ArrowSortIcon size={18} style={{ transform: sortAsc ? 'none' : 'scaleY(-1)' }} />
           </OutlineIconButton>
           <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}}>
@@ -1403,18 +2019,43 @@ function PlatformM3ToolbarRender(args: ComponentProps<typeof OutlineIconButton>)
           </OutlineIconButton>
         </div>
         <div style={{ display: 'flex', background: '#f3f4f6', borderRadius: 8, padding: 2 }}>
-          <OutlineIconButton {...args} color={viewMode === 'grid' ? 'black' : 'gray'} size="small" onClick={() => setViewMode('grid')} style={{ borderRadius: 6 }}>
+          <OutlineIconButton
+            {...args}
+            color={viewMode === 'grid' ? 'black' : 'gray'}
+            size="small"
+            onClick={() => setViewMode('grid')}
+            style={{ borderRadius: 6 }}
+          >
             <GridViewLineIcon size={18} />
           </OutlineIconButton>
-          <OutlineIconButton {...args} color={viewMode === 'list' ? 'black' : 'gray'} size="small" onClick={() => setViewMode('list')} style={{ borderRadius: 6 }}>
+          <OutlineIconButton
+            {...args}
+            color={viewMode === 'list' ? 'black' : 'gray'}
+            size="small"
+            onClick={() => setViewMode('list')}
+            style={{ borderRadius: 6 }}
+          >
             <ListLineIcon size={18} />
           </OutlineIconButton>
         </div>
       </div>
-      <div style={{ marginTop: 8, padding: '8px 14px', background: filterOpen ? '#eff6ff' : '#f8fafc', borderRadius: 8, fontSize: 12, color: '#475569', transition: 'background 0.2s' }}>
-        뷰: {viewMode === 'grid' ? '그리드' : '리스트'} | 정렬: {sortAsc ? '오름차순' : '내림차순'} | 필터: {filterOpen ? '열림' : '닫힘'}
+      <div
+        style={{
+          marginTop: 8,
+          padding: '8px 14px',
+          background: filterOpen ? '#eff6ff' : '#f8fafc',
+          borderRadius: 8,
+          fontSize: 12,
+          color: '#475569',
+          transition: 'background 0.2s',
+        }}
+      >
+        뷰: {viewMode === 'grid' ? '그리드' : '리스트'} | 정렬: {sortAsc ? '오름차순' : '내림차순'}{' '}
+        | 필터: {filterOpen ? '열림' : '닫힘'}
       </div>
-      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>Platform HIG + M3 — 뷰 전환 + 필터 + 정렬 툴바 패턴</div>
+      <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
+        Platform HIG + M3 — 뷰 전환 + 필터 + 정렬 툴바 패턴
+      </div>
     </div>
   )
 }
@@ -1447,23 +2088,75 @@ function DeployPlatformDeployControlRender(args: ComponentProps<typeof OutlineIc
   }
 
   return (
-    <div style={{ width: 360, fontFamily: "'Inter', system-ui, sans-serif", background: '#000', borderRadius: 12, border: '1px solid #333', overflow: 'hidden' }}>
-      <div style={{ padding: '14px 16px', borderBottom: '1px solid #222', display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div style={{ width: 32, height: 32, borderRadius: 8, background: '#111', border: '1px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div
+      style={{
+        width: 360,
+        fontFamily: "'Inter', system-ui, sans-serif",
+        background: '#000',
+        borderRadius: 12,
+        border: '1px solid #333',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '14px 16px',
+          borderBottom: '1px solid #222',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
+        <div
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: 8,
+            background: '#111',
+            border: '1px solid #333',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <span style={{ color: '#fff', fontSize: 16 }}>▲</span>
         </div>
         <div>
           <div style={{ fontSize: 13, fontWeight: 600, color: '#fff' }}>orbit-ui-storybook</div>
-          <div style={{ fontSize: 10, color: '#666' }}>main · {status === 'deploying' ? '배포 중...' : status === 'done' ? '배포 완료' : '준비됨'}</div>
+          <div style={{ fontSize: 10, color: '#666' }}>
+            main ·{' '}
+            {status === 'deploying' ? '배포 중...' : status === 'done' ? '배포 완료' : '준비됨'}
+          </div>
         </div>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
-          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setIsFav(f => !f)} style={{ borderColor: isFav ? '#fff' : '#333', background: isFav ? '#fff' : 'transparent' }}>
+          <OutlineIconButton
+            {...args}
+            color="gray"
+            size="small"
+            onClick={() => setIsFav((f) => !f)}
+            style={{
+              borderColor: isFav ? '#fff' : '#333',
+              background: isFav ? '#fff' : 'transparent',
+            }}
+          >
             <StarLineIcon size={16} color={isFav ? '#000' : '#666'} />
           </OutlineIconButton>
-          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}} style={{ borderColor: '#333', background: 'transparent' }}>
+          <OutlineIconButton
+            {...args}
+            color="gray"
+            size="small"
+            onClick={() => {}}
+            style={{ borderColor: '#333', background: 'transparent' }}
+          >
             <ShareIcon size={16} color="#666" />
           </OutlineIconButton>
-          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}} style={{ borderColor: '#333', background: 'transparent' }}>
+          <OutlineIconButton
+            {...args}
+            color="gray"
+            size="small"
+            onClick={() => {}}
+            style={{ borderColor: '#333', background: 'transparent' }}
+          >
             <MoreHorizontalIcon size={16} color="#666" />
           </OutlineIconButton>
         </div>
@@ -1472,17 +2165,48 @@ function DeployPlatformDeployControlRender(args: ComponentProps<typeof OutlineIc
         <button
           onClick={deploy}
           disabled={status === 'deploying'}
-          style={{ flex: 1, padding: '8px 0', borderRadius: 8, border: '1px solid #444', background: status === 'deploying' ? '#222' : '#fff', color: status === 'deploying' ? '#666' : '#000', fontSize: 12, fontWeight: 600, cursor: status === 'deploying' ? 'not-allowed' : 'pointer' }}
+          style={{
+            flex: 1,
+            padding: '8px 0',
+            borderRadius: 8,
+            border: '1px solid #444',
+            background: status === 'deploying' ? '#222' : '#fff',
+            color: status === 'deploying' ? '#666' : '#000',
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: status === 'deploying' ? 'not-allowed' : 'pointer',
+          }}
         >
-          {status === 'deploying' ? '배포 중...' : status === 'done' ? '다시 배포' : '프로덕션 배포'}
+          {status === 'deploying'
+            ? '배포 중...'
+            : status === 'done'
+              ? '다시 배포'
+              : '프로덕션 배포'}
         </button>
-        <OutlineIconButton {...args} color="gray" size="small" onClick={() => setStatus('idle')} style={{ borderColor: '#333', background: 'transparent' }}>
+        <OutlineIconButton
+          {...args}
+          color="gray"
+          size="small"
+          onClick={() => setStatus('idle')}
+          style={{ borderColor: '#333', background: 'transparent' }}
+        >
           <RefreshLineIcon size={16} color="#666" />
         </OutlineIconButton>
       </div>
-      <div style={{ padding: '10px 16px', borderTop: '1px solid #222', fontSize: 11, color: '#444', display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          padding: '10px 16px',
+          borderTop: '1px solid #222',
+          fontSize: 11,
+          color: '#444',
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
         <span>마지막 배포: 방금 전</span>
-        <span style={{ color: status === 'done' ? '#0f0' : '#666' }}>{status === 'done' ? '● Ready' : status === 'deploying' ? '● Building' : '● Idle'}</span>
+        <span style={{ color: status === 'done' ? '#0f0' : '#666' }}>
+          {status === 'done' ? '● Ready' : status === 'deploying' ? '● Building' : '● Idle'}
+        </span>
       </div>
     </div>
   )
@@ -1513,45 +2237,82 @@ function AppUIStatefulToolbarRender(args: ComponentProps<typeof OutlineIconButto
   const [downloaded, setDownloaded] = useState(false)
 
   const addAction = (label: string) => {
-    setHistory(h => [...h, label])
+    setHistory((h) => [...h, label])
     setFuture([])
   }
 
   const undo = () => {
     if (history.length === 0) return
     const last = history[history.length - 1]
-    setHistory(h => h.slice(0, -1))
-    setFuture(f => [last, ...f])
+    setHistory((h) => h.slice(0, -1))
+    setFuture((f) => [last, ...f])
   }
 
   const redo = () => {
     if (future.length === 0) return
     const next = future[0]
-    setFuture(f => f.slice(1))
-    setHistory(h => [...h, next])
+    setFuture((f) => f.slice(1))
+    setHistory((h) => [...h, next])
   }
 
   return (
     <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>AppUI 훅 기반 상태 툴바</div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 12px', background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>
+        AppUI 훅 기반 상태 툴바
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          padding: '10px 12px',
+          background: '#fff',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+        }}
+      >
         {/* Undo/Redo */}
         <div style={{ display: 'flex', gap: 4 }}>
-          <OutlineIconButton {...args} color={history.length > 0 ? 'black' : 'gray'} size="small" onClick={undo} disabled={history.length === 0}>
+          <OutlineIconButton
+            {...args}
+            color={history.length > 0 ? 'black' : 'gray'}
+            size="small"
+            onClick={undo}
+            disabled={history.length === 0}
+          >
             <ChevronLeftLineIcon size={16} />
           </OutlineIconButton>
-          <OutlineIconButton {...args} color={future.length > 0 ? 'black' : 'gray'} size="small" onClick={redo} disabled={future.length === 0}>
+          <OutlineIconButton
+            {...args}
+            color={future.length > 0 ? 'black' : 'gray'}
+            size="small"
+            onClick={redo}
+            disabled={future.length === 0}
+          >
             <ChevronRightLineIcon size={16} />
           </OutlineIconButton>
         </div>
         <div style={{ width: 1, height: 20, background: '#e2e8f0' }} />
         {/* Zoom */}
         <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setZoom(z => Math.max(50, z - 10))}>
+          <OutlineIconButton
+            {...args}
+            color="gray"
+            size="small"
+            onClick={() => setZoom((z) => Math.max(50, z - 10))}
+          >
             <span style={{ fontSize: 14, fontWeight: 700 }}>−</span>
           </OutlineIconButton>
-          <span style={{ fontSize: 11, color: '#64748b', minWidth: 36, textAlign: 'center' }}>{zoom}%</span>
-          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setZoom(z => Math.min(200, z + 10))}>
+          <span style={{ fontSize: 11, color: '#64748b', minWidth: 36, textAlign: 'center' }}>
+            {zoom}%
+          </span>
+          <OutlineIconButton
+            {...args}
+            color="gray"
+            size="small"
+            onClick={() => setZoom((z) => Math.min(200, z + 10))}
+          >
             <PlusIcon size={16} />
           </OutlineIconButton>
         </div>
@@ -1560,7 +2321,16 @@ function AppUIStatefulToolbarRender(args: ComponentProps<typeof OutlineIconButto
         <OutlineIconButton {...args} color="gray" size="small" onClick={() => addAction('편집')}>
           <WriteLineIcon size={16} />
         </OutlineIconButton>
-        <OutlineIconButton {...args} color="gray" size="small" onClick={() => { setDownloaded(true); addAction('다운로드'); setTimeout(() => setDownloaded(false), 1500) }}>
+        <OutlineIconButton
+          {...args}
+          color="gray"
+          size="small"
+          onClick={() => {
+            setDownloaded(true)
+            addAction('다운로드')
+            setTimeout(() => setDownloaded(false), 1500)
+          }}
+        >
           <DownloadIcon size={16} color={downloaded ? '#6366f1' : undefined} />
         </OutlineIconButton>
         <OutlineIconButton {...args} color="gray" size="small" onClick={() => addAction('설정')}>
@@ -1569,7 +2339,9 @@ function AppUIStatefulToolbarRender(args: ComponentProps<typeof OutlineIconButto
       </div>
       <div style={{ marginTop: 8, display: 'flex', gap: 6, fontSize: 11, color: '#94a3b8' }}>
         <span>실행 이력: {history.length > 0 ? history.slice(-3).join(' → ') : '없음'}</span>
-        {future.length > 0 && <span style={{ color: '#6366f1' }}>↩ {future.length}개 되돌리기 가능</span>}
+        {future.length > 0 && (
+          <span style={{ color: '#6366f1' }}>↩ {future.length}개 되돌리기 가능</span>
+        )}
       </div>
     </div>
   )
@@ -1606,7 +2378,7 @@ function DeployPlatformAppUIFileManagerRender(args: ComponentProps<typeof Outlin
   const [sortAsc, setSortAsc] = useState(true)
 
   const toggleSelect = (name: string) => {
-    setSelected(prev => {
+    setSelected((prev) => {
       const next = new Set(prev)
       if (next.has(name)) next.delete(name)
       else next.add(name)
@@ -1614,58 +2386,141 @@ function DeployPlatformAppUIFileManagerRender(args: ComponentProps<typeof Outlin
     })
   }
 
-  const sorted = [...FILE_ITEMS].sort((a, b) => sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
+  const sorted = [...FILE_ITEMS].sort((a, b) =>
+    sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+  )
 
   return (
-    <div style={{ width: 380, fontFamily: "'Inter', system-ui, sans-serif", background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-      <div style={{ padding: '10px 14px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b', flex: 1 }}>파일 관리자</span>
+    <div
+      style={{
+        width: 380,
+        fontFamily: "'Inter', system-ui, sans-serif",
+        background: '#fff',
+        borderRadius: 10,
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '10px 14px',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b', flex: 1 }}>
+          파일 관리자
+        </span>
         <div style={{ display: 'flex', gap: 4 }}>
-          <OutlineIconButton {...args} color="gray" size="small" onClick={() => setSortAsc(s => !s)}>
+          <OutlineIconButton
+            {...args}
+            color="gray"
+            size="small"
+            onClick={() => setSortAsc((s) => !s)}
+          >
             <ArrowSortIcon size={15} style={{ transform: sortAsc ? 'none' : 'scaleY(-1)' }} />
           </OutlineIconButton>
-          <OutlineIconButton {...args} color={view === 'grid' ? 'black' : 'gray'} size="small" onClick={() => setView('grid')}>
+          <OutlineIconButton
+            {...args}
+            color={view === 'grid' ? 'black' : 'gray'}
+            size="small"
+            onClick={() => setView('grid')}
+          >
             <GridViewLineIcon size={15} />
           </OutlineIconButton>
-          <OutlineIconButton {...args} color={view === 'list' ? 'black' : 'gray'} size="small" onClick={() => setView('list')}>
+          <OutlineIconButton
+            {...args}
+            color={view === 'list' ? 'black' : 'gray'}
+            size="small"
+            onClick={() => setView('list')}
+          >
             <ListLineIcon size={15} />
           </OutlineIconButton>
-          <OutlineIconButton {...args} color="gray" size="small" onClick={() => {}} disabled={selected.size === 0}>
+          <OutlineIconButton
+            {...args}
+            color="gray"
+            size="small"
+            onClick={() => {}}
+            disabled={selected.size === 0}
+          >
             <DownloadIcon size={15} color={selected.size > 0 ? undefined : '#cbd5e1'} />
           </OutlineIconButton>
         </div>
       </div>
       {view === 'list' ? (
         <div>
-          {sorted.map(f => (
+          {sorted.map((f) => (
             <div
               key={f.name}
               onClick={() => toggleSelect(f.name)}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px', borderBottom: '1px solid #f8fafc', background: selected.has(f.name) ? '#eff6ff' : '#fff', cursor: 'pointer' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '9px 14px',
+                borderBottom: '1px solid #f8fafc',
+                background: selected.has(f.name) ? '#eff6ff' : '#fff',
+                cursor: 'pointer',
+              }}
             >
               <span style={{ fontSize: 16 }}>{f.type === 'folder' ? '📁' : '📄'}</span>
               <span style={{ fontSize: 12, color: '#1e293b', flex: 1 }}>{f.name}</span>
-              <span style={{ fontSize: 11, color: '#94a3b8', minWidth: 48, textAlign: 'right' }}>{f.size}</span>
-              <span style={{ fontSize: 10, color: '#cbd5e1', minWidth: 44, textAlign: 'right' }}>{f.modified}</span>
+              <span style={{ fontSize: 11, color: '#94a3b8', minWidth: 48, textAlign: 'right' }}>
+                {f.size}
+              </span>
+              <span style={{ fontSize: 10, color: '#cbd5e1', minWidth: 44, textAlign: 'right' }}>
+                {f.modified}
+              </span>
             </div>
           ))}
         </div>
       ) : (
         <div style={{ padding: 10, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-          {sorted.map(f => (
+          {sorted.map((f) => (
             <div
               key={f.name}
               onClick={() => toggleSelect(f.name)}
-              style={{ padding: '12px 10px', borderRadius: 8, border: `1px solid ${selected.has(f.name) ? '#93c5fd' : '#e2e8f0'}`, background: selected.has(f.name) ? '#eff6ff' : '#fff', textAlign: 'center', cursor: 'pointer' }}
+              style={{
+                padding: '12px 10px',
+                borderRadius: 8,
+                border: `1px solid ${selected.has(f.name) ? '#93c5fd' : '#e2e8f0'}`,
+                background: selected.has(f.name) ? '#eff6ff' : '#fff',
+                textAlign: 'center',
+                cursor: 'pointer',
+              }}
             >
-              <div style={{ fontSize: 24, marginBottom: 6 }}>{f.type === 'folder' ? '📁' : '📄'}</div>
-              <div style={{ fontSize: 11, color: '#1e293b', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{f.name}</div>
+              <div style={{ fontSize: 24, marginBottom: 6 }}>
+                {f.type === 'folder' ? '📁' : '📄'}
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: '#1e293b',
+                  fontWeight: 500,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {f.name}
+              </div>
               <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>{f.size}</div>
             </div>
           ))}
         </div>
       )}
-      <div style={{ padding: '8px 14px', borderTop: '1px solid #f1f5f9', fontSize: 11, color: '#94a3b8', display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          padding: '8px 14px',
+          borderTop: '1px solid #f1f5f9',
+          fontSize: 11,
+          color: '#94a3b8',
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
         <span>{FILE_ITEMS.length}개 항목</span>
         {selected.size > 0 && <span style={{ color: '#6366f1' }}>{selected.size}개 선택됨</span>}
       </div>

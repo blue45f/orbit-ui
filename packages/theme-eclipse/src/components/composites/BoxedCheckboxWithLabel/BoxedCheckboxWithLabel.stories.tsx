@@ -114,14 +114,28 @@ const PlanFeatureDemo = () => {
   const toggle = (key: Feature) =>
     setSelected((prev) => {
       const next = new Set(prev)
-      if (next.has(key)) { next.delete(key) } else { next.add(key) }
+      if (next.has(key)) {
+        next.delete(key)
+      } else {
+        next.add(key)
+      }
       return next
     })
 
   const features: { key: Feature; label: string; desc: string; price: string }[] = [
-    { key: 'analytics', label: 'Advanced Analytics', desc: '상세 사용량 지표와 팀 리포트', price: '+₩9,900/월' },
+    {
+      key: 'analytics',
+      label: 'Advanced Analytics',
+      desc: '상세 사용량 지표와 팀 리포트',
+      price: '+₩9,900/월',
+    },
     { key: 'api', label: 'API Access', desc: 'REST API + Webhook 완전 지원', price: '+₩19,900/월' },
-    { key: 'sso', label: 'SSO 통합', desc: 'SAML 2.0, Reference Workspace 연동', price: '+₩29,900/월' },
+    {
+      key: 'sso',
+      label: 'SSO 통합',
+      desc: 'SAML 2.0, Reference Workspace 연동',
+      price: '+₩29,900/월',
+    },
     { key: 'audit', label: 'Audit Log', desc: '전체 활동 로그 90일 보관', price: '+₩9,900/월' },
     { key: 'support', label: '전담 지원', desc: '평일 4시간 이내 응답 SLA', price: '+₩49,900/월' },
   ]
@@ -131,8 +145,19 @@ const PlanFeatureDemo = () => {
   return (
     <div style={{ maxWidth: 440 }}>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>추가 기능 선택</div>
-        <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>필요한 기능만 선택해 비용을 최적화하세요.</div>
+        <div
+          style={{
+            fontSize: 15,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            marginBottom: 4,
+          }}
+        >
+          추가 기능 선택
+        </div>
+        <div style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          필요한 기능만 선택해 비용을 최적화하세요.
+        </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {features.map((feat) => {
@@ -148,7 +173,9 @@ const PlanFeatureDemo = () => {
                 padding: '12px 14px',
                 borderRadius: 8,
                 border: `1.5px solid ${isOn ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
-                background: isOn ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 6%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                background: isOn
+                  ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 6%, var(--sem-eclipse-color-backgroundPrimary))'
+                  : 'var(--sem-eclipse-color-backgroundPrimary)',
                 cursor: 'pointer',
                 transition: 'border-color 0.15s ease, background 0.15s ease',
               }}
@@ -160,17 +187,58 @@ const PlanFeatureDemo = () => {
                 alignItems="center"
               />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{feat.label}</div>
-                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{feat.desc}</div>
+                <div
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  }}
+                >
+                  {feat.label}
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                  {feat.desc}
+                </div>
               </div>
-              <span style={{ fontSize: 12, fontWeight: 600, color: isOn ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-foregroundQuaternary)', whiteSpace: 'nowrap' }}>{feat.price}</span>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: isOn
+                    ? 'var(--sem-eclipse-color-fillPrimary)'
+                    : 'var(--sem-eclipse-color-foregroundQuaternary)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {feat.price}
+              </span>
             </div>
           )
         })}
       </div>
-      <div style={{ marginTop: 16, padding: '12px 16px', borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>{selected.size}개 선택됨</span>
-        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>추가 {total.toLocaleString()}원/월</span>
+      <div
+        style={{
+          marginTop: 16,
+          padding: '12px 16px',
+          borderRadius: 8,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+          {selected.size}개 선택됨
+        </span>
+        <span
+          style={{
+            fontSize: 14,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          }}
+        >
+          추가 {total.toLocaleString()}원/월
+        </span>
       </div>
     </div>
   )
@@ -207,7 +275,11 @@ const PermissionsDemo = () => {
   const toggle = (key: Perm) =>
     setPerms((prev) => {
       const next = new Set(prev)
-      if (next.has(key)) { next.delete(key) } else { next.add(key) }
+      if (next.has(key)) {
+        next.delete(key)
+      } else {
+        next.add(key)
+      }
       setRole('커스텀')
       return next
     })
@@ -215,7 +287,16 @@ const PermissionsDemo = () => {
   return (
     <div style={{ maxWidth: 400 }}>
       <div style={{ marginBottom: 14 }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 10 }}>권한 설정</div>
+        <div
+          style={{
+            fontSize: 15,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            marginBottom: 10,
+          }}
+        >
+          권한 설정
+        </div>
         <div style={{ display: 'flex', gap: 6 }}>
           {ROLES.map((r) => (
             <button
@@ -225,8 +306,12 @@ const PermissionsDemo = () => {
                 padding: '5px 12px',
                 borderRadius: 6,
                 border: `1px solid ${role === r.label ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
-                background: role === r.label ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent',
-                color: role === r.label ? 'var(--sem-eclipse-color-backgroundPrimary)' : 'var(--sem-eclipse-color-foregroundSecondary)',
+                background:
+                  role === r.label ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent',
+                color:
+                  role === r.label
+                    ? 'var(--sem-eclipse-color-backgroundPrimary)'
+                    : 'var(--sem-eclipse-color-foregroundSecondary)',
                 fontSize: 12,
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -236,11 +321,32 @@ const PermissionsDemo = () => {
             </button>
           ))}
           {role === '커스텀' && (
-            <span style={{ padding: '5px 12px', borderRadius: 6, border: '1px solid var(--sem-eclipse-color-fillPrimary)', background: 'var(--sem-eclipse-color-fillPrimary)', color: 'var(--sem-eclipse-color-backgroundPrimary)', fontSize: 12, fontWeight: 600 }}>커스텀</span>
+            <span
+              style={{
+                padding: '5px 12px',
+                borderRadius: 6,
+                border: '1px solid var(--sem-eclipse-color-fillPrimary)',
+                background: 'var(--sem-eclipse-color-fillPrimary)',
+                color: 'var(--sem-eclipse-color-backgroundPrimary)',
+                fontSize: 12,
+                fontWeight: 600,
+              }}
+            >
+              커스텀
+            </span>
           )}
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderSubtle)', borderRadius: 8, overflow: 'hidden' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0,
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          borderRadius: 8,
+          overflow: 'hidden',
+        }}
+      >
         {PERMS.map((p, i) => (
           <div
             key={p.key}
@@ -249,13 +355,26 @@ const PermissionsDemo = () => {
               alignItems: 'center',
               justifyContent: 'space-between',
               padding: '10px 16px',
-              borderBottom: i < PERMS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
-              background: perms.has(p.key) ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'var(--sem-eclipse-color-backgroundPrimary)',
+              borderBottom:
+                i < PERMS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+              background: perms.has(p.key)
+                ? 'var(--sem-eclipse-color-backgroundSecondary)'
+                : 'var(--sem-eclipse-color-backgroundPrimary)',
             }}
           >
             <div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.label}</div>
-              <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{p.desc}</div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                }}
+              >
+                {p.label}
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+                {p.desc}
+              </div>
             </div>
             <BoxedCheckboxWithLabel
               value={p.key}
@@ -291,25 +410,65 @@ const PrimitiveDualApiDemo = () => {
 
   return (
     <div style={{ maxWidth: 560, display: 'flex', flexDirection: 'column', gap: 20 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
         Primitive 이중 API 패턴: 제어 vs 비제어
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         {/* 비제어 (Uncontrolled) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: 'var(--sem-eclipse-color-foregroundTertiary)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+            }}
+          >
             비제어 (defaultChecked)
           </div>
-          <div style={{ fontSize: 10, fontFamily: 'monospace', padding: '6px 8px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          <div
+            style={{
+              fontSize: 10,
+              fontFamily: 'monospace',
+              padding: '6px 8px',
+              borderRadius: 4,
+              background: 'var(--sem-eclipse-color-backgroundSecondary)',
+              color: 'var(--sem-eclipse-color-foregroundTertiary)',
+            }}
+          >
             {`<BoxedCheckbox defaultChecked />`}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {features.map((f) => (
-              <BoxedCheckboxWithLabel key={f.key} value={f.key} defaultChecked={f.key === 'design'} alignItems="center">
+              <BoxedCheckboxWithLabel
+                key={f.key}
+                value={f.key}
+                defaultChecked={f.key === 'design'}
+                alignItems="center"
+              >
                 <div>
-                  <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{f.label}</div>
-                  <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{f.desc}</div>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {f.label}
+                  </div>
+                  <div
+                    style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                  >
+                    {f.desc}
+                  </div>
                 </div>
               </BoxedCheckboxWithLabel>
             ))}
@@ -321,10 +480,27 @@ const PrimitiveDualApiDemo = () => {
 
         {/* 제어 (Controlled) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: 'var(--sem-eclipse-color-foregroundTertiary)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+            }}
+          >
             제어 (checked + onChange)
           </div>
-          <div style={{ fontSize: 10, fontFamily: 'monospace', padding: '6px 8px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          <div
+            style={{
+              fontSize: 10,
+              fontFamily: 'monospace',
+              padding: '6px 8px',
+              borderRadius: 4,
+              background: 'var(--sem-eclipse-color-backgroundSecondary)',
+              color: 'var(--sem-eclipse-color-foregroundTertiary)',
+            }}
+          >
             {`<BoxedCheckbox checked={state} onChange={...} />`}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -336,15 +512,31 @@ const PrimitiveDualApiDemo = () => {
                 onChange={() =>
                   setControlled((prev) => {
                     const next = new Set(prev)
-                    if (next.has(f.key)) { next.delete(f.key) } else { next.add(f.key) }
+                    if (next.has(f.key)) {
+                      next.delete(f.key)
+                    } else {
+                      next.add(f.key)
+                    }
                     return next
                   })
                 }
                 alignItems="center"
               >
                 <div>
-                  <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{f.label}</div>
-                  <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{f.desc}</div>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    }}
+                  >
+                    {f.label}
+                  </div>
+                  <div
+                    style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                  >
+                    {f.desc}
+                  </div>
                 </div>
               </BoxedCheckboxWithLabel>
             ))}
@@ -382,33 +574,72 @@ const PrimitiveDataStateDemo = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
   const ROLES: { key: string; label: string; scope: string; ariaDesc: string }[] = [
-    { key: 'admin', label: 'Admin', scope: '전체 접근', ariaDesc: '모든 리소스에 접근하고 수정할 수 있습니다' },
-    { key: 'editor', label: 'Editor', scope: '콘텐츠 편집', ariaDesc: '콘텐츠를 생성하고 편집할 수 있습니다' },
+    {
+      key: 'admin',
+      label: 'Admin',
+      scope: '전체 접근',
+      ariaDesc: '모든 리소스에 접근하고 수정할 수 있습니다',
+    },
+    {
+      key: 'editor',
+      label: 'Editor',
+      scope: '콘텐츠 편집',
+      ariaDesc: '콘텐츠를 생성하고 편집할 수 있습니다',
+    },
     { key: 'viewer', label: 'Viewer', scope: '읽기 전용', ariaDesc: '콘텐츠를 읽을 수만 있습니다' },
-    { key: 'billing', label: 'Billing', scope: '결제 관리', ariaDesc: '결제 정보를 관리할 수 있습니다' },
+    {
+      key: 'billing',
+      label: 'Billing',
+      scope: '결제 관리',
+      ariaDesc: '결제 정보를 관리할 수 있습니다',
+    },
   ]
 
   const toggle = (key: string) =>
     setSelected((prev) => {
       const next = new Set(prev)
-      if (next.has(key)) { next.delete(key) } else { next.add(key) }
+      if (next.has(key)) {
+        next.delete(key)
+      } else {
+        next.add(key)
+      }
       return next
     })
 
   return (
     <div style={{ maxWidth: 440, display: 'flex', flexDirection: 'column', gap: 14 }}>
       <div>
-        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>팀 멤버 역할 선택</div>
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            marginBottom: 4,
+          }}
+        >
+          팀 멤버 역할 선택
+        </div>
         <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
           {'Primitive data-state 기반 접근성 패턴 — aria-checked, role="checkbox"'}
         </div>
       </div>
 
       <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-        <legend style={{ fontSize: 11, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 8 }}>
+        <legend
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: 'var(--sem-eclipse-color-foregroundTertiary)',
+            marginBottom: 8,
+          }}
+        >
           {'역할 (role="group" aria-label="역할 선택")'}
         </legend>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }} role="group" aria-label="역할 선택">
+        <div
+          style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
+          role="group"
+          aria-label="역할 선택"
+        >
           {ROLES.map((role) => {
             const isChecked = selected.has(role.key)
             return (
@@ -419,7 +650,12 @@ const PrimitiveDataStateDemo = () => {
                 role="checkbox"
                 tabIndex={0}
                 onClick={() => toggle(role.key)}
-                onKeyDown={(e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(role.key) } }}
+                onKeyDown={(e) => {
+                  if (e.key === ' ' || e.key === 'Enter') {
+                    e.preventDefault()
+                    toggle(role.key)
+                  }
+                }}
                 style={{ cursor: 'pointer' }}
               >
                 <BoxedCheckboxWithLabel
@@ -429,12 +665,47 @@ const PrimitiveDataStateDemo = () => {
                   alignItems="center"
                   aria-describedby={`desc-${role.key}`}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      width: '100%',
+                    }}
+                  >
                     <div>
-                      <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{role.label}</span>
-                      <span id={`desc-${role.key}`} style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>{role.ariaDesc}</span>
+                      <span
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                        }}
+                      >
+                        {role.label}
+                      </span>
+                      <span
+                        id={`desc-${role.key}`}
+                        style={{
+                          fontSize: 11,
+                          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                          marginLeft: 8,
+                        }}
+                      >
+                        {role.ariaDesc}
+                      </span>
                     </div>
-                    <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: 600, marginLeft: 8, whiteSpace: 'nowrap' }}>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                        color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                        fontWeight: 600,
+                        marginLeft: 8,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
                       {role.scope}
                     </span>
                   </div>
@@ -445,14 +716,38 @@ const PrimitiveDataStateDemo = () => {
         </div>
       </fieldset>
 
-      <div style={{ padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 11, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+      <div
+        style={{
+          padding: '8px 12px',
+          borderRadius: 6,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          fontSize: 11,
+          color: 'var(--sem-eclipse-color-foregroundSecondary)',
+        }}
+      >
         <span style={{ fontWeight: 600 }}>선택된 역할:</span>{' '}
-        {selected.size > 0 ? ROLES.filter((r) => selected.has(r.key)).map((r) => r.label).join(', ') : '없음'}
+        {selected.size > 0
+          ? ROLES.filter((r) => selected.has(r.key))
+              .map((r) => r.label)
+              .join(', ')
+          : '없음'}
       </div>
 
-      <div style={{ fontSize: 10, fontFamily: 'monospace', padding: '8px 10px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundQuaternary)', lineHeight: 1.8 }}>
-        {`data-state="${selected.size > 0 ? 'checked' : 'unchecked'}" // Primitive 패턴`}<br />
-        {`aria-checked={${selected.size > 0}} // 스크린리더 지원`}<br />
+      <div
+        style={{
+          fontSize: 10,
+          fontFamily: 'monospace',
+          padding: '8px 10px',
+          borderRadius: 4,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          color: 'var(--sem-eclipse-color-foregroundQuaternary)',
+          lineHeight: 1.8,
+        }}
+      >
+        {`data-state="${selected.size > 0 ? 'checked' : 'unchecked'}" // Primitive 패턴`}
+        <br />
+        {`aria-checked={${selected.size > 0}} // 스크린리더 지원`}
+        <br />
         {`role="group" aria-label="역할 선택" // 그룹 접근성`}
       </div>
     </div>
@@ -507,15 +802,40 @@ const PrimitiveCompoundPricingDemo = () => {
     },
   ]
 
-  const ALL_FEATURES = ['컴포넌트 50개', '컴포넌트 전체', '프로젝트 1개', '프로젝트 무제한', '커뮤니티 지원', '우선 지원', '다크모드 토큰', '커스텀 토큰', 'SSO', '전담 지원', 'SLA 보장', '소스 접근']
+  const ALL_FEATURES = [
+    '컴포넌트 50개',
+    '컴포넌트 전체',
+    '프로젝트 1개',
+    '프로젝트 무제한',
+    '커뮤니티 지원',
+    '우선 지원',
+    '다크모드 토큰',
+    '커스텀 토큰',
+    'SSO',
+    '전담 지원',
+    'SLA 보장',
+    '소스 접근',
+  ]
   const selectedPlan = PLANS.find((p) => p.key === plan)!
 
   return (
     <div style={{ maxWidth: 540, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>요금제 선택</div>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+        }}
+      >
+        요금제 선택
+      </div>
 
       {/* 요금제 카드 그룹 — Primitive RadioGroup.Root 패턴 */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }} role="radiogroup" aria-label="요금제 선택">
+      <div
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}
+        role="radiogroup"
+        aria-label="요금제 선택"
+      >
         {PLANS.map((p) => (
           <div
             key={p.key}
@@ -525,17 +845,37 @@ const PrimitiveCompoundPricingDemo = () => {
               borderRadius: 10,
               border: `2px solid ${plan === p.key ? p.color : 'var(--sem-eclipse-color-borderSubtle)'}`,
               padding: '12px 12px 10px',
-              background: plan === p.key ? `${p.color}08` : 'var(--sem-eclipse-color-backgroundPrimary)',
+              background:
+                plan === p.key ? `${p.color}08` : 'var(--sem-eclipse-color-backgroundPrimary)',
               cursor: 'pointer',
               transition: 'border-color 0.15s, background 0.15s',
             }}
             role="radio"
             aria-checked={plan === p.key}
             tabIndex={0}
-            onKeyDown={(e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setPlan(p.key) } }}
+            onKeyDown={(e) => {
+              if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault()
+                setPlan(p.key)
+              }
+            }}
           >
             {p.recommended && (
-              <div style={{ position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)', fontSize: 10, fontWeight: 700, padding: '1px 8px', borderRadius: 10, background: p.color, color: '#fff', whiteSpace: 'nowrap' }}>
+              <div
+                style={{
+                  position: 'absolute',
+                  top: -10,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  fontSize: 10,
+                  fontWeight: 700,
+                  padding: '1px 8px',
+                  borderRadius: 10,
+                  background: p.color,
+                  color: '#fff',
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 권장
               </div>
             )}
@@ -546,25 +886,84 @@ const PrimitiveCompoundPricingDemo = () => {
               alignItems="center"
             />
             <div style={{ marginTop: 8 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.label}</div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: p.color, marginTop: 2 }}>{p.price}</div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                }}
+              >
+                {p.label}
+              </div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: p.color, marginTop: 2 }}>
+                {p.price}
+              </div>
             </div>
           </div>
         ))}
       </div>
 
       {/* 기능 매트릭스 */}
-      <div style={{ borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
-        <div style={{ padding: '8px 12px', background: 'var(--sem-eclipse-color-backgroundSecondary)', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+      <div
+        style={{
+          borderRadius: 8,
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            padding: '8px 12px',
+            background: 'var(--sem-eclipse-color-backgroundSecondary)',
+            borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+            fontSize: 11,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          }}
+        >
           {selectedPlan.label} 플랜 포함 기능
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {ALL_FEATURES.map((feat, i) => {
             const included = selectedPlan.features.includes(feat)
             return (
-              <div key={feat} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderBottom: i < ALL_FEATURES.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', background: included ? 'var(--sem-eclipse-color-backgroundPrimary)' : 'var(--sem-eclipse-color-backgroundSecondary)' }}>
-                <span style={{ fontSize: 12, color: included ? '#10b981' : 'var(--sem-eclipse-color-foregroundQuaternary)', fontWeight: 700, minWidth: 14 }}>{included ? '✓' : '—'}</span>
-                <span style={{ fontSize: 12, color: included ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundQuaternary)', textDecoration: included ? 'none' : 'line-through' }}>{feat}</span>
+              <div
+                key={feat}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '8px 12px',
+                  borderBottom:
+                    i < ALL_FEATURES.length - 1
+                      ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                      : 'none',
+                  background: included
+                    ? 'var(--sem-eclipse-color-backgroundPrimary)'
+                    : 'var(--sem-eclipse-color-backgroundSecondary)',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 12,
+                    color: included ? '#10b981' : 'var(--sem-eclipse-color-foregroundQuaternary)',
+                    fontWeight: 700,
+                    minWidth: 14,
+                  }}
+                >
+                  {included ? '✓' : '—'}
+                </span>
+                <span
+                  style={{
+                    fontSize: 12,
+                    color: included
+                      ? 'var(--sem-eclipse-color-foregroundPrimary)'
+                      : 'var(--sem-eclipse-color-foregroundQuaternary)',
+                    textDecoration: included ? 'none' : 'line-through',
+                  }}
+                >
+                  {feat}
+                </span>
               </div>
             )
           })}
@@ -596,7 +995,12 @@ const EnvVarScopeDemo = () => {
   const envScopes = [
     { value: 'production', label: 'Production', desc: 'prod 브랜치 배포에 적용', color: '#16a34a' },
     { value: 'preview', label: 'Preview', desc: '모든 브랜치 미리보기에 적용', color: '#6366f1' },
-    { value: 'development', label: 'Development', desc: '로컬 dev 환경에만 적용', color: '#f59e0b' },
+    {
+      value: 'development',
+      label: 'Development',
+      desc: '로컬 dev 환경에만 적용',
+      color: '#f59e0b',
+    },
   ]
 
   const toggle = (v: string) =>
@@ -609,9 +1013,35 @@ const EnvVarScopeDemo = () => {
 
   return (
     <div style={{ maxWidth: 380 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>환경 범위</div>
-      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 10 }}>이 환경 변수가 적용될 환경을 선택하세요.</div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
+        환경 범위
+      </div>
+      <div
+        style={{
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 10,
+        }}
+      >
+        이 환경 변수가 적용될 환경을 선택하세요.
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0,
+          border: '1px solid var(--sem-eclipse-color-borderDefault)',
+          borderRadius: 8,
+          overflow: 'hidden',
+        }}
+      >
         {envScopes.map((s, i) => (
           <div
             key={s.value}
@@ -621,24 +1051,60 @@ const EnvVarScopeDemo = () => {
               alignItems: 'center',
               gap: 10,
               padding: '10px 14px',
-              borderBottom: i < envScopes.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
-              background: scopes.has(s.value) ? `${s.color}08` : 'var(--sem-eclipse-color-backgroundPrimary)',
+              borderBottom:
+                i < envScopes.length - 1
+                  ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                  : 'none',
+              background: scopes.has(s.value)
+                ? `${s.color}08`
+                : 'var(--sem-eclipse-color-backgroundPrimary)',
               cursor: 'pointer',
               transition: 'background 0.12s',
             }}
           >
-            <BoxedCheckboxWithLabel value={s.value} checked={scopes.has(s.value)} onChange={() => toggle(s.value)} alignItems="center" />
+            <BoxedCheckboxWithLabel
+              value={s.value}
+              checked={scopes.has(s.value)}
+              onChange={() => toggle(s.value)}
+              alignItems="center"
+            />
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: s.color }} />
-                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{s.label}</span>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: s.color,
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  }}
+                >
+                  {s.label}
+                </span>
               </div>
-              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{s.desc}</div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  marginTop: 1,
+                }}
+              >
+                {s.desc}
+              </div>
             </div>
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 8, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+      <div
+        style={{ marginTop: 8, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+      >
         선택됨: {scopes.size === 0 ? '없음' : Array.from(scopes).join(', ')}
       </div>
     </div>
@@ -659,7 +1125,12 @@ const BuildOptimizeDemo = () => {
     { value: 'treeshake', label: 'Tree Shaking', desc: '미사용 코드 제거', impact: '~20%' },
     { value: 'compress', label: 'Gzip 압축', desc: '서버 전송 압축 활성화', impact: '~60%' },
     { value: 'cache', label: '빌드 캐시', desc: '이전 빌드 결과물 재사용', impact: '속도' },
-    { value: 'sourcemap', label: 'Source Map', desc: '디버깅용 소스맵 생성 (배포 크기 증가)', impact: '+맵' },
+    {
+      value: 'sourcemap',
+      label: 'Source Map',
+      desc: '디버깅용 소스맵 생성 (배포 크기 증가)',
+      impact: '+맵',
+    },
   ]
 
   const toggle = (v: string) =>
@@ -672,7 +1143,16 @@ const BuildOptimizeDemo = () => {
 
   return (
     <div style={{ maxWidth: 400 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>빌드 최적화 (DeployPlatform 컴팩트 체크 패턴)</div>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 12,
+        }}
+      >
+        빌드 최적화 (DeployPlatform 컴팩트 체크 패턴)
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {options.map((opt) => (
           <div
@@ -685,23 +1165,80 @@ const BuildOptimizeDemo = () => {
               padding: '9px 12px',
               borderRadius: 6,
               border: `1px solid ${opts.has(opt.value) ? 'var(--sem-eclipse-color-fillPrimary)' : 'var(--sem-eclipse-color-borderSubtle)'}`,
-              background: opts.has(opt.value) ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))' : 'var(--sem-eclipse-color-backgroundPrimary)',
+              background: opts.has(opt.value)
+                ? 'color-mix(in srgb, var(--sem-eclipse-color-fillPrimary) 5%, var(--sem-eclipse-color-backgroundPrimary))'
+                : 'var(--sem-eclipse-color-backgroundPrimary)',
               cursor: 'pointer',
               transition: 'border-color 0.12s, background 0.12s',
             }}
           >
-            <BoxedCheckboxWithLabel value={opt.value} checked={opts.has(opt.value)} onChange={() => toggle(opt.value)} alignItems="center" />
+            <BoxedCheckboxWithLabel
+              value={opt.value}
+              checked={opts.has(opt.value)}
+              onChange={() => toggle(opt.value)}
+              alignItems="center"
+            />
             <div style={{ flex: 1 }}>
-              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt.label}</span>
-              <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginLeft: 8 }}>{opt.desc}</span>
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                }}
+              >
+                {opt.label}
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  marginLeft: 8,
+                }}
+              >
+                {opt.desc}
+              </span>
             </div>
-            <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 6px', borderRadius: 4, background: 'var(--sem-eclipse-color-backgroundSecondary)', color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{opt.impact}</span>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                padding: '2px 6px',
+                borderRadius: 4,
+                background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                color: 'var(--sem-eclipse-color-foregroundTertiary)',
+              }}
+            >
+              {opt.impact}
+            </span>
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 12, padding: '8px 12px', borderRadius: 6, background: 'var(--sem-eclipse-color-backgroundSecondary)', fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '8px 12px',
+          borderRadius: 6,
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
         <span>활성화: {opts.size}개 옵션</span>
-        <button onClick={() => setOpts(new Set(['minify', 'treeshake', 'compress', 'cache']))} style={{ fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>권장 설정</button>
+        <button
+          onClick={() => setOpts(new Set(['minify', 'treeshake', 'compress', 'cache']))}
+          style={{
+            fontSize: 11,
+            color: '#6366f1',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontWeight: 600,
+          }}
+        >
+          권장 설정
+        </button>
       </div>
     </div>
   )
@@ -744,12 +1281,41 @@ const DeployChannelDemo = () => {
 
   return (
     <div style={{ maxWidth: 380 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 12 }}>배포 채널 (DeployPlatform 모노크롬 그룹 체크 패턴)</div>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 12,
+        }}
+      >
+        배포 채널 (DeployPlatform 모노크롬 그룹 체크 패턴)
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {channelGroups.map((grp) => (
           <div key={grp.group}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>{grp.group}</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 8, overflow: 'hidden' }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                marginBottom: 6,
+              }}
+            >
+              {grp.group}
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 0,
+                border: '1px solid var(--sem-eclipse-color-borderDefault)',
+                borderRadius: 8,
+                overflow: 'hidden',
+              }}
+            >
               {grp.items.map((item, i) => (
                 <div
                   key={item.value}
@@ -759,15 +1325,35 @@ const DeployChannelDemo = () => {
                     alignItems: 'center',
                     gap: 10,
                     padding: '9px 12px',
-                    borderBottom: i < grp.items.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+                    borderBottom:
+                      i < grp.items.length - 1
+                        ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                        : 'none',
                     background: 'var(--sem-eclipse-color-backgroundPrimary)',
                     cursor: 'pointer',
                   }}
                 >
-                  <BoxedCheckboxWithLabel value={item.value} checked={channels.has(item.value)} onChange={() => toggle(item.value)} alignItems="center" />
+                  <BoxedCheckboxWithLabel
+                    value={item.value}
+                    checked={channels.has(item.value)}
+                    onChange={() => toggle(item.value)}
+                    alignItems="center"
+                  />
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{item.label}</div>
-                    <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{item.desc}</div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                      }}
+                    >
+                      {item.label}
+                    </div>
+                    <div
+                      style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}
+                    >
+                      {item.desc}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -810,8 +1396,23 @@ function AppUIFeatureGridDemo() {
 
   return (
     <div style={{ maxWidth: 480 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>추가 기능 선택</div>
-      <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginBottom: 16 }}>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
+        추가 기능 선택
+      </div>
+      <div
+        style={{
+          fontSize: 12,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+          marginBottom: 16,
+        }}
+      >
         {selected.size > 0 ? `${selected.size}개 선택됨` : '기능을 선택하세요'}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
@@ -825,7 +1426,9 @@ function AppUIFeatureGridDemo() {
                 padding: '14px',
                 borderRadius: 10,
                 border: `2px solid ${isSelected ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`,
-                background: isSelected ? 'rgba(99,102,241,0.04)' : 'var(--sem-eclipse-color-backgroundPrimary)',
+                background: isSelected
+                  ? 'rgba(99,102,241,0.04)'
+                  : 'var(--sem-eclipse-color-backgroundPrimary)',
                 cursor: 'pointer',
                 transition: 'all 0.12s',
                 display: 'flex',
@@ -833,7 +1436,9 @@ function AppUIFeatureGridDemo() {
                 gap: 8,
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              >
                 <span style={{ fontSize: 18 }}>{f.icon}</span>
                 <BoxedCheckboxWithLabel
                   value={f.value}
@@ -843,16 +1448,46 @@ function AppUIFeatureGridDemo() {
                 />
               </div>
               <div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{f.label}</div>
-                <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>{f.desc}</div>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  }}
+                >
+                  {f.label}
+                </div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                    marginTop: 2,
+                  }}
+                >
+                  {f.desc}
+                </div>
               </div>
             </div>
           )
         })}
       </div>
       {selected.size > 0 && (
-        <div style={{ marginTop: 14, padding: '10px 14px', borderRadius: 8, background: 'rgba(99,102,241,0.08)', border: '1.5px solid rgba(99,102,241,0.2)', fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
-          선택: {Array.from(selected).map((v) => ACCESSIBLEKIT_FEATURES.find((f) => f.value === v)?.label).join(', ')}
+        <div
+          style={{
+            marginTop: 14,
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: 'rgba(99,102,241,0.08)',
+            border: '1.5px solid rgba(99,102,241,0.2)',
+            fontSize: 12,
+            color: '#6366f1',
+            fontWeight: 600,
+          }}
+        >
+          선택:{' '}
+          {Array.from(selected)
+            .map((v) => ACCESSIBLEKIT_FEATURES.find((f) => f.value === v)?.label)
+            .join(', ')}
         </div>
       )}
     </div>
@@ -892,26 +1527,94 @@ function AppUIConditionalOptionsDemo() {
 
   return (
     <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 4 }}>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 4,
+        }}
+      >
         고급 설정
       </div>
 
       {/* 백업 설정 */}
-      <div style={{ border: '1.5px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer' }} onClick={() => setBackupEnabled((v) => !v)}>
-          <BoxedCheckboxWithLabel value="backup" checked={backupEnabled} onChange={(c) => setBackupEnabled(c)} onClick={(e) => e.stopPropagation()} />
+      <div
+        style={{
+          border: '1.5px solid var(--sem-eclipse-color-borderDefault)',
+          borderRadius: 10,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '12px 14px',
+            background: 'var(--sem-eclipse-color-backgroundPrimary)',
+            cursor: 'pointer',
+          }}
+          onClick={() => setBackupEnabled((v) => !v)}
+        >
+          <BoxedCheckboxWithLabel
+            value="backup"
+            checked={backupEnabled}
+            onChange={(c) => setBackupEnabled(c)}
+            onClick={(e) => e.stopPropagation()}
+          />
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>자동 백업 활성화</div>
-            <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>활성화하면 백업 주기를 설정할 수 있습니다</div>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              }}
+            >
+              자동 백업 활성화
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+              활성화하면 백업 주기를 설정할 수 있습니다
+            </div>
           </div>
         </div>
         {backupEnabled && (
-          <div style={{ padding: '10px 14px 14px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>백업 주기</div>
+          <div
+            style={{
+              padding: '10px 14px 14px',
+              borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)',
+              background: 'var(--sem-eclipse-color-backgroundSecondary)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+            }}
+          >
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+              }}
+            >
+              백업 주기
+            </div>
             {['매일', '매주', '매월'].map((opt) => (
-              <div key={opt} onClick={() => toggleSet(backupOptions, setBackupOptions, opt)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-                <BoxedCheckboxWithLabel value={opt} checked={backupOptions.has(opt)} onChange={() => toggleSet(backupOptions, setBackupOptions, opt)} onClick={(e) => e.stopPropagation()} />
-                <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{opt}</span>
+              <div
+                key={opt}
+                onClick={() => toggleSet(backupOptions, setBackupOptions, opt)}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+              >
+                <BoxedCheckboxWithLabel
+                  value={opt}
+                  checked={backupOptions.has(opt)}
+                  onChange={() => toggleSet(backupOptions, setBackupOptions, opt)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+                  {opt}
+                </span>
               </div>
             ))}
           </div>
@@ -919,21 +1622,82 @@ function AppUIConditionalOptionsDemo() {
       </div>
 
       {/* 알림 설정 */}
-      <div style={{ border: '1.5px solid var(--sem-eclipse-color-borderDefault)', borderRadius: 10, overflow: 'hidden' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer' }} onClick={() => setNotifyEnabled((v) => !v)}>
-          <BoxedCheckboxWithLabel value="notify" checked={notifyEnabled} onChange={(c) => setNotifyEnabled(c)} onClick={(e) => e.stopPropagation()} />
+      <div
+        style={{
+          border: '1.5px solid var(--sem-eclipse-color-borderDefault)',
+          borderRadius: 10,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '12px 14px',
+            background: 'var(--sem-eclipse-color-backgroundPrimary)',
+            cursor: 'pointer',
+          }}
+          onClick={() => setNotifyEnabled((v) => !v)}
+        >
+          <BoxedCheckboxWithLabel
+            value="notify"
+            checked={notifyEnabled}
+            onChange={(c) => setNotifyEnabled(c)}
+            onClick={(e) => e.stopPropagation()}
+          />
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>알림 채널 설정</div>
-            <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>알림받을 채널을 선택합니다</div>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              }}
+            >
+              알림 채널 설정
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+              알림받을 채널을 선택합니다
+            </div>
           </div>
         </div>
         {notifyEnabled && (
-          <div style={{ padding: '10px 14px 14px', borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>채널</div>
+          <div
+            style={{
+              padding: '10px 14px 14px',
+              borderTop: '1px solid var(--sem-eclipse-color-borderSubtle)',
+              background: 'var(--sem-eclipse-color-backgroundSecondary)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+            }}
+          >
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+              }}
+            >
+              채널
+            </div>
             {['이메일', 'Slack', 'SMS'].map((ch) => (
-              <div key={ch} onClick={() => toggleSet(notifyChannels, setNotifyChannels, ch)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-                <BoxedCheckboxWithLabel value={ch} checked={notifyChannels.has(ch)} onChange={() => toggleSet(notifyChannels, setNotifyChannels, ch)} onClick={(e) => e.stopPropagation()} />
-                <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{ch}</span>
+              <div
+                key={ch}
+                onClick={() => toggleSet(notifyChannels, setNotifyChannels, ch)}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+              >
+                <BoxedCheckboxWithLabel
+                  value={ch}
+                  checked={notifyChannels.has(ch)}
+                  onChange={() => toggleSet(notifyChannels, setNotifyChannels, ch)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <span style={{ fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>
+                  {ch}
+                </span>
               </div>
             ))}
           </div>
@@ -970,12 +1734,12 @@ const ACCESSIBLEKIT_PERMS = [
   { id: 'manage', label: '권한 관리' },
 ]
 
-type AppUIRole = typeof ACCESSIBLEKIT_ROLES[number]
+type AppUIRole = (typeof ACCESSIBLEKIT_ROLES)[number]
 
 const DEFAULT_MATRIX: Record<AppUIRole, Set<string>> = {
-  '뷰어': new Set(['read']),
-  '편집자': new Set(['read', 'write', 'export']),
-  '관리자': new Set(['read', 'write', 'delete', 'export', 'manage']),
+  뷰어: new Set(['read']),
+  편집자: new Set(['read', 'write', 'export']),
+  관리자: new Set(['read', 'write', 'delete', 'export', 'manage']),
 }
 
 function AppUIPermissionMatrixDemo() {
@@ -992,21 +1756,76 @@ function AppUIPermissionMatrixDemo() {
 
   return (
     <div style={{ maxWidth: 460 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 16 }}>역할별 권한 설정</div>
-      <div style={{ borderRadius: 10, border: '1.5px solid var(--sem-eclipse-color-borderDefault)', overflow: 'hidden' }}>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          marginBottom: 16,
+        }}
+      >
+        역할별 권한 설정
+      </div>
+      <div
+        style={{
+          borderRadius: 10,
+          border: '1.5px solid var(--sem-eclipse-color-borderDefault)',
+          overflow: 'hidden',
+        }}
+      >
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>
-              <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundTertiary)', borderBottom: '1.5px solid var(--sem-eclipse-color-borderDefault)' }}>권한</th>
+              <th
+                style={{
+                  padding: '10px 14px',
+                  textAlign: 'left',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  borderBottom: '1.5px solid var(--sem-eclipse-color-borderDefault)',
+                }}
+              >
+                권한
+              </th>
               {ACCESSIBLEKIT_ROLES.map((role) => (
-                <th key={role} style={{ padding: '10px 14px', textAlign: 'center', fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundSecondary)', borderBottom: '1.5px solid var(--sem-eclipse-color-borderDefault)' }}>{role}</th>
+                <th
+                  key={role}
+                  style={{
+                    padding: '10px 14px',
+                    textAlign: 'center',
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: 'var(--sem-eclipse-color-foregroundSecondary)',
+                    borderBottom: '1.5px solid var(--sem-eclipse-color-borderDefault)',
+                  }}
+                >
+                  {role}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {ACCESSIBLEKIT_PERMS.map((perm, i) => (
-              <tr key={perm.id} style={{ borderBottom: i < ACCESSIBLEKIT_PERMS.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none' }}>
-                <td style={{ padding: '10px 14px', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundPrimary)', fontWeight: 500 }}>{perm.label}</td>
+              <tr
+                key={perm.id}
+                style={{
+                  borderBottom:
+                    i < ACCESSIBLEKIT_PERMS.length - 1
+                      ? '1px solid var(--sem-eclipse-color-borderSubtle)'
+                      : 'none',
+                }}
+              >
+                <td
+                  style={{
+                    padding: '10px 14px',
+                    fontSize: 13,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                    fontWeight: 500,
+                  }}
+                >
+                  {perm.label}
+                </td>
                 {ACCESSIBLEKIT_ROLES.map((role) => (
                   <td key={role} style={{ padding: '10px 14px', textAlign: 'center' }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -1023,8 +1842,15 @@ function AppUIPermissionMatrixDemo() {
           </tbody>
         </table>
       </div>
-      <div style={{ marginTop: 12, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
-        관리자: {matrix['관리자'].size}개 · 편집자: {matrix['편집자'].size}개 · 뷰어: {matrix['뷰어'].size}개 권한
+      <div
+        style={{
+          marginTop: 12,
+          fontSize: 11,
+          color: 'var(--sem-eclipse-color-foregroundTertiary)',
+        }}
+      >
+        관리자: {matrix['관리자'].size}개 · 편집자: {matrix['편집자'].size}개 · 뷰어:{' '}
+        {matrix['뷰어'].size}개 권한
       </div>
     </div>
   )
@@ -1063,12 +1889,13 @@ function ManNewsletterRender() {
   const [freq, setFreq] = useState('주간 다이제스트')
   const [saved, setSaved] = useState(false)
 
-  const toggle = (id: string) => setTopics((prev) => {
-    const next = new Set(prev)
-    if (next.has(id)) next.delete(id)
-    else next.add(id)
-    return next
-  })
+  const toggle = (id: string) =>
+    setTopics((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
 
   const save = async () => {
     setSaved(true)
@@ -1079,34 +1906,123 @@ function ManNewsletterRender() {
   return (
     <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div>
-        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', marginBottom: 2 }}>뉴스레터 설정</div>
-        <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>관심 있는 토픽을 선택하세요</div>
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            marginBottom: 2,
+          }}
+        >
+          뉴스레터 설정
+        </div>
+        <div style={{ fontSize: 12, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          관심 있는 토픽을 선택하세요
+        </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {ACCESSIBLEKIT_TOPICS.map((t) => (
-          <label key={t.id} onClick={() => toggle(t.id)} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '10px 12px', borderRadius: 8, border: `1.5px solid ${topics.has(t.id) ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: topics.has(t.id) ? '#6366f108' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'all 0.15s' }}>
+          <label
+            key={t.id}
+            onClick={() => toggle(t.id)}
+            style={{
+              display: 'flex',
+              gap: 12,
+              alignItems: 'flex-start',
+              padding: '10px 12px',
+              borderRadius: 8,
+              border: `1.5px solid ${topics.has(t.id) ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+              background: topics.has(t.id)
+                ? '#6366f108'
+                : 'var(--sem-eclipse-color-backgroundPrimary)',
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+          >
             <div style={{ paddingTop: 2 }}>
-              <BoxedCheckboxWithLabel value={t.id} checked={topics.has(t.id)} onChange={() => toggle(t.id)} />
+              <BoxedCheckboxWithLabel
+                value={t.id}
+                checked={topics.has(t.id)}
+                onChange={() => toggle(t.id)}
+              />
             </div>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{t.label}</div>
-              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{t.desc}</div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                }}
+              >
+                {t.label}
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  marginTop: 1,
+                }}
+              >
+                {t.desc}
+              </div>
             </div>
           </label>
         ))}
       </div>
       <div>
-        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundSecondary)', marginBottom: 6 }}>발송 빈도</div>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 600,
+            color: 'var(--sem-eclipse-color-foregroundSecondary)',
+            marginBottom: 6,
+          }}
+        >
+          발송 빈도
+        </div>
         <div style={{ display: 'flex', gap: 6 }}>
           {ACCESSIBLEKIT_FREQ.map((f) => (
-            <button key={f} onClick={() => setFreq(f)} style={{ flex: 1, padding: '7px 6px', borderRadius: 8, border: `1.5px solid ${freq === f ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: freq === f ? '#6366f108' : 'transparent', color: freq === f ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)', fontSize: 11, fontWeight: freq === f ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s' }}>{f}</button>
+            <button
+              key={f}
+              onClick={() => setFreq(f)}
+              style={{
+                flex: 1,
+                padding: '7px 6px',
+                borderRadius: 8,
+                border: `1.5px solid ${freq === f ? '#6366f1' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+                background: freq === f ? '#6366f108' : 'transparent',
+                color: freq === f ? '#6366f1' : 'var(--sem-eclipse-color-foregroundTertiary)',
+                fontSize: 11,
+                fontWeight: freq === f ? 700 : 400,
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+            >
+              {f}
+            </button>
           ))}
         </div>
       </div>
-      <button onClick={save} disabled={topics.size === 0 || saved} style={{ padding: '10px', borderRadius: 8, border: 'none', background: topics.size > 0 ? '#0f172a' : '#e2e8f0', color: topics.size > 0 ? '#fff' : '#94a3b8', fontSize: 13, fontWeight: 700, cursor: topics.size > 0 ? 'pointer' : 'not-allowed', transition: 'all 0.15s' }}>
+      <button
+        onClick={save}
+        disabled={topics.size === 0 || saved}
+        style={{
+          padding: '10px',
+          borderRadius: 8,
+          border: 'none',
+          background: topics.size > 0 ? '#0f172a' : '#e2e8f0',
+          color: topics.size > 0 ? '#fff' : '#94a3b8',
+          fontSize: 13,
+          fontWeight: 700,
+          cursor: topics.size > 0 ? 'pointer' : 'not-allowed',
+          transition: 'all 0.15s',
+        }}
+      >
         {saved ? '저장됨 ✓' : `구독 저장 (${topics.size}개 토픽)`}
       </button>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>AppUI 뉴스레터 구독 설정 패턴 — 카드형 다중 선택</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+        AppUI 뉴스레터 구독 설정 패턴 — 카드형 다중 선택
+      </p>
     </div>
   )
 }
@@ -1116,7 +2032,8 @@ export const AppUI_뉴스레터_구독_설정: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI Checkbox 카드 그리드 패턴. 토픽별 BoxedCheckboxWithLabel + 설명 텍스트 카드, 선택 시 테두리 강조, 발송 빈도 세그먼트 선택, 선택 수 실시간 표시.',
+        story:
+          'AppUI Checkbox 카드 그리드 패턴. 토픽별 BoxedCheckboxWithLabel + 설명 텍스트 카드, 선택 시 테두리 강조, 발송 빈도 세그먼트 선택, 선택 수 실시간 표시.',
       },
     },
   },
@@ -1140,27 +2057,111 @@ function WorkspaceEditorBlockPropertyRender() {
   const [props, setProps] = useState(WORKSPACE_PROPS.map((p) => ({ ...p })))
   const enabledCount = props.filter((p) => p.enabled).length
 
-  const toggle = (id: string) => setProps((prev) => prev.map((p) => p.id === id ? { ...p, enabled: !p.enabled } : p))
+  const toggle = (id: string) =>
+    setProps((prev) => prev.map((p) => (p.id === id ? { ...p, enabled: !p.enabled } : p)))
 
   return (
-    <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: 0, borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
+    <div
+      style={{
+        width: 300,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+        borderRadius: 10,
+        border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+        overflow: 'hidden',
+      }}
+    >
       {/* 헤더 */}
-      <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundSecondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>페이지 속성</span>
-        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>{enabledCount} / {props.length} 활성</span>
+      <div
+        style={{
+          padding: '10px 14px',
+          borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <span
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          }}
+        >
+          페이지 속성
+        </span>
+        <span style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>
+          {enabledCount} / {props.length} 활성
+        </span>
       </div>
       {/* 속성 목록 */}
       {props.map((p, i) => (
-        <div key={p.id} onClick={() => toggle(p.id)} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '9px 14px', borderBottom: i < props.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none', cursor: 'pointer', background: p.enabled ? 'var(--sem-eclipse-color-backgroundPrimary)' : 'var(--sem-eclipse-color-backgroundSecondary)', transition: 'background 0.1s', opacity: p.enabled ? 1 : 0.6 }}>
-          <span style={{ fontSize: 14, color: 'var(--sem-eclipse-color-foregroundTertiary)', width: 18, textAlign: 'center', flexShrink: 0 }}>{p.icon}</span>
+        <div
+          key={p.id}
+          onClick={() => toggle(p.id)}
+          style={{
+            display: 'flex',
+            gap: 10,
+            alignItems: 'center',
+            padding: '9px 14px',
+            borderBottom:
+              i < props.length - 1 ? '1px solid var(--sem-eclipse-color-borderSubtle)' : 'none',
+            cursor: 'pointer',
+            background: p.enabled
+              ? 'var(--sem-eclipse-color-backgroundPrimary)'
+              : 'var(--sem-eclipse-color-backgroundSecondary)',
+            transition: 'background 0.1s',
+            opacity: p.enabled ? 1 : 0.6,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 14,
+              color: 'var(--sem-eclipse-color-foregroundTertiary)',
+              width: 18,
+              textAlign: 'center',
+              flexShrink: 0,
+            }}
+          >
+            {p.icon}
+          </span>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 12, fontWeight: p.enabled ? 600 : 400, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.label}</div>
-            <div style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 1 }}>{p.desc}</div>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: p.enabled ? 600 : 400,
+                color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              }}
+            >
+              {p.label}
+            </div>
+            <div
+              style={{
+                fontSize: 10,
+                color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                marginTop: 1,
+              }}
+            >
+              {p.desc}
+            </div>
           </div>
           <BoxedCheckboxWithLabel value={p.id} checked={p.enabled} onChange={() => toggle(p.id)} />
         </div>
       ))}
-      <p style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundDisabled)', padding: '8px 14px', margin: 0, textAlign: 'center', background: 'var(--sem-eclipse-color-backgroundSecondary)' }}>WorkspaceEditor 페이지 속성 토글 패턴</p>
+      <p
+        style={{
+          fontSize: 10,
+          color: 'var(--sem-eclipse-color-foregroundDisabled)',
+          padding: '8px 14px',
+          margin: 0,
+          textAlign: 'center',
+          background: 'var(--sem-eclipse-color-backgroundSecondary)',
+        }}
+      >
+        WorkspaceEditor 페이지 속성 토글 패턴
+      </p>
     </div>
   )
 }
@@ -1170,7 +2171,8 @@ export const WorkspaceEditor_페이지_속성_토글: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'WorkspaceEditor 페이지 속성 설정 패널 패턴. 속성별 아이콘 + 레이블 + 설명, BoxedCheckboxWithLabel로 활성화 여부 제어, 비활성 항목 opacity 0.6으로 시각적 구분.',
+        story:
+          'WorkspaceEditor 페이지 속성 설정 패널 패턴. 속성별 아이콘 + 레이블 + 설명, BoxedCheckboxWithLabel로 활성화 여부 제어, 비활성 항목 opacity 0.6으로 시각적 구분.',
       },
     },
   },
@@ -1183,8 +2185,18 @@ export const WorkspaceEditor_페이지_속성_토글: Story = {
 -------------------------------------------------------------------------- */
 const ONBOARDING_TASKS = [
   { id: 'install', label: '패키지 설치', desc: 'pnpm add @heejun-com/theme-eclipse', done: true },
-  { id: 'provider', label: 'EclipseProvider 설정', desc: '앱 루트에 테마 프로바이더 래핑', done: true },
-  { id: 'import', label: '첫 컴포넌트 임포트', desc: 'SolidButton 등 컴포넌트 사용해보기', done: false },
+  {
+    id: 'provider',
+    label: 'EclipseProvider 설정',
+    desc: '앱 루트에 테마 프로바이더 래핑',
+    done: true,
+  },
+  {
+    id: 'import',
+    label: '첫 컴포넌트 임포트',
+    desc: 'SolidButton 등 컴포넌트 사용해보기',
+    done: false,
+  },
   { id: 'token', label: '디자인 토큰 커스텀', desc: 'CSS 변수로 브랜드 색상 변경', done: false },
   { id: 'storybook', label: 'Storybook 탐색', desc: '전체 컴포넌트 카탈로그 확인', done: false },
 ]
@@ -1194,38 +2206,128 @@ function AppUIWorkspaceEditorOnboardingRender() {
   const doneCount = tasks.filter((t) => t.done).length
   const pct = Math.round((doneCount / tasks.length) * 100)
 
-  const toggleTask = (id: string) => setTasks((prev) => prev.map((t) => t.id === id ? { ...t, done: !t.done } : t))
+  const toggleTask = (id: string) =>
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)))
 
   return (
     <div style={{ maxWidth: 360, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
-          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>시작하기</span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: pct === 100 ? '#10b981' : '#6366f1' }}>{pct}% 완료</span>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+            marginBottom: 6,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 14,
+              fontWeight: 700,
+              color: 'var(--sem-eclipse-color-foregroundPrimary)',
+            }}
+          >
+            시작하기
+          </span>
+          <span
+            style={{ fontSize: 12, fontWeight: 700, color: pct === 100 ? '#10b981' : '#6366f1' }}
+          >
+            {pct}% 완료
+          </span>
         </div>
-        <div style={{ height: 6, borderRadius: 3, background: 'var(--sem-eclipse-color-borderSubtle)', overflow: 'hidden' }}>
-          <div style={{ height: '100%', width: `${pct}%`, borderRadius: 3, background: pct === 100 ? '#10b981' : '#6366f1', transition: 'width 0.4s ease, background 0.3s' }} />
+        <div
+          style={{
+            height: 6,
+            borderRadius: 3,
+            background: 'var(--sem-eclipse-color-borderSubtle)',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${pct}%`,
+              borderRadius: 3,
+              background: pct === 100 ? '#10b981' : '#6366f1',
+              transition: 'width 0.4s ease, background 0.3s',
+            }}
+          />
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {tasks.map((task) => (
-          <div key={task.id} onClick={() => toggleTask(task.id)} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '10px 12px', borderRadius: 8, border: `1.5px solid ${task.done ? '#10b98130' : 'var(--sem-eclipse-color-borderSubtle)'}`, background: task.done ? '#f0fdf4' : 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', transition: 'all 0.2s' }}>
+          <div
+            key={task.id}
+            onClick={() => toggleTask(task.id)}
+            style={{
+              display: 'flex',
+              gap: 12,
+              alignItems: 'flex-start',
+              padding: '10px 12px',
+              borderRadius: 8,
+              border: `1.5px solid ${task.done ? '#10b98130' : 'var(--sem-eclipse-color-borderSubtle)'}`,
+              background: task.done ? '#f0fdf4' : 'var(--sem-eclipse-color-backgroundPrimary)',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+            }}
+          >
             <div style={{ paddingTop: 2, flexShrink: 0 }}>
-              <BoxedCheckboxWithLabel value={task.id} checked={task.done} onChange={() => toggleTask(task.id)} />
+              <BoxedCheckboxWithLabel
+                value={task.id}
+                checked={task.done}
+                onChange={() => toggleTask(task.id)}
+              />
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)', textDecoration: task.done ? 'line-through' : 'none', opacity: task.done ? 0.6 : 1, transition: 'opacity 0.2s' }}>{task.label}</div>
-              <code style={{ fontSize: 10, color: 'var(--sem-eclipse-color-foregroundTertiary)', fontFamily: 'monospace', background: 'var(--sem-eclipse-color-backgroundSecondary)', padding: '1px 5px', borderRadius: 3, display: 'inline-block', marginTop: 3 }}>{task.desc}</code>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  textDecoration: task.done ? 'line-through' : 'none',
+                  opacity: task.done ? 0.6 : 1,
+                  transition: 'opacity 0.2s',
+                }}
+              >
+                {task.label}
+              </div>
+              <code
+                style={{
+                  fontSize: 10,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  fontFamily: 'monospace',
+                  background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                  padding: '1px 5px',
+                  borderRadius: 3,
+                  display: 'inline-block',
+                  marginTop: 3,
+                }}
+              >
+                {task.desc}
+              </code>
             </div>
           </div>
         ))}
       </div>
       {pct === 100 && (
-        <div style={{ padding: '10px 14px', borderRadius: 8, background: '#f0fdf4', border: '1px solid #10b98130', fontSize: 12, fontWeight: 600, color: '#10b981', textAlign: 'center' }}>
+        <div
+          style={{
+            padding: '10px 14px',
+            borderRadius: 8,
+            background: '#f0fdf4',
+            border: '1px solid #10b98130',
+            fontSize: 12,
+            fontWeight: 600,
+            color: '#10b981',
+            textAlign: 'center',
+          }}
+        >
           모든 단계 완료! Orbit UI 준비됨
         </div>
       )}
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>AppUI + WorkspaceEditor 온보딩 체크리스트 — 진행률 바 + 취소선 완료</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+        AppUI + WorkspaceEditor 온보딩 체크리스트 — 진행률 바 + 취소선 완료
+      </p>
     </div>
   )
 }
@@ -1235,7 +2337,8 @@ export const AppUI_WorkspaceEditor_온보딩_체크리스트: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI Progress + WorkspaceEditor 체크리스트 패턴 조합. BoxedCheckboxWithLabel 완료 시 취소선 + 녹색 배경 전환, 진행률 바 실시간 업데이트, 전체 완료 시 완료 메시지 표시.',
+        story:
+          'AppUI Progress + WorkspaceEditor 체크리스트 패턴 조합. BoxedCheckboxWithLabel 완료 시 취소선 + 녹색 배경 전환, 진행률 바 실시간 업데이트, 전체 완료 시 완료 메시지 표시.',
       },
     },
   },
@@ -1259,17 +2362,47 @@ function AccessibleConsentFormRender() {
   const toggle = (id: string) => {
     setAgreed((prev) => {
       const n = new Set(prev)
-      if (n.has(id)) { n.delete(id) } else { n.add(id) }
+      if (n.has(id)) {
+        n.delete(id)
+      } else {
+        n.add(id)
+      }
       return n
     })
   }
 
   if (submitted) {
     return (
-      <div style={{ width: 360, padding: 24, background: '#f0fdf4', borderRadius: 12, border: '1px solid #bbf7d0', textAlign: 'center', fontFamily: 'system-ui' }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#15803d', marginBottom: 6 }}>설정 저장됨</div>
+      <div
+        style={{
+          width: 360,
+          padding: 24,
+          background: '#f0fdf4',
+          borderRadius: 12,
+          border: '1px solid #bbf7d0',
+          textAlign: 'center',
+          fontFamily: 'system-ui',
+        }}
+      >
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#15803d', marginBottom: 6 }}>
+          설정 저장됨
+        </div>
         <div style={{ fontSize: 11, color: '#16a34a' }}>{agreed.size}개 항목 활성화</div>
-        <button onClick={() => setSubmitted(false)} style={{ marginTop: 12, padding: '5px 14px', fontSize: 11, borderRadius: 6, border: '1px solid #16a34a', background: '#fff', color: '#16a34a', cursor: 'pointer' }}>돌아가기</button>
+        <button
+          onClick={() => setSubmitted(false)}
+          style={{
+            marginTop: 12,
+            padding: '5px 14px',
+            fontSize: 11,
+            borderRadius: 6,
+            border: '1px solid #16a34a',
+            background: '#fff',
+            color: '#16a34a',
+            cursor: 'pointer',
+          }}
+        >
+          돌아가기
+        </button>
       </div>
     )
   }
@@ -1278,9 +2411,22 @@ function AccessibleConsentFormRender() {
     <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 선호도 설정</div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>AccessibleUI 체크박스 폼 패턴</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>
+          AccessibleUI 체크박스 폼 패턴
+        </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '14px', background: '#f8fafc', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 14 }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+          padding: '14px',
+          background: '#f8fafc',
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          marginBottom: 14,
+        }}
+      >
         {CHAKRA_FEATURES_189.map((f) => (
           <div
             key={f.id}
@@ -1295,17 +2441,32 @@ function AccessibleConsentFormRender() {
               />
             </div>
             <div>
-              <div style={{ fontSize: 13, fontWeight: agreed.has(f.id) ? 600 : 400, color: '#0f172a' }}>{f.label}</div>
+              <div
+                style={{ fontSize: 13, fontWeight: agreed.has(f.id) ? 600 : 400, color: '#0f172a' }}
+              >
+                {f.label}
+              </div>
               <div style={{ fontSize: 11, color: '#64748b', marginTop: 1 }}>{f.desc}</div>
             </div>
           </div>
         ))}
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 11, color: '#94a3b8' }}>{agreed.size}/{CHAKRA_FEATURES_189.length}개 활성화</span>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>
+          {agreed.size}/{CHAKRA_FEATURES_189.length}개 활성화
+        </span>
         <button
           onClick={() => setSubmitted(true)}
-          style={{ padding: '7px 18px', fontSize: 12, fontWeight: 600, borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', cursor: 'pointer' }}
+          style={{
+            padding: '7px 18px',
+            fontSize: 12,
+            fontWeight: 600,
+            borderRadius: 8,
+            border: 'none',
+            background: '#0f172a',
+            color: '#fff',
+            cursor: 'pointer',
+          }}
         >
           설정 저장
         </button>
@@ -1361,17 +2522,25 @@ function DataProductPermChecklistRender() {
   const toggle = (id: string) => {
     setPerms((prev) => {
       const n = new Set(prev)
-      if (n.has(id)) { n.delete(id) } else { n.add(id) }
+      if (n.has(id)) {
+        n.delete(id)
+      } else {
+        n.add(id)
+      }
       return n
     })
   }
 
-  const toggleGroup = (group: typeof ARCO_PERM_GROUPS_189[0]) => {
+  const toggleGroup = (group: (typeof ARCO_PERM_GROUPS_189)[0]) => {
     const allSelected = group.items.every((item) => perms.has(item.id))
     setPerms((prev) => {
       const n = new Set(prev)
       group.items.forEach((item) => {
-        if (allSelected) { n.delete(item.id) } else { n.add(item.id) }
+        if (allSelected) {
+          n.delete(item.id)
+        } else {
+          n.add(item.id)
+        }
       })
       return n
     })
@@ -1381,25 +2550,67 @@ function DataProductPermChecklistRender() {
     <div style={{ width: 320, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>역할 권한 설정</div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>DataProductUI 그룹 체크박스 패턴</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>
+          DataProductUI 그룹 체크박스 패턴
+        </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {ARCO_PERM_GROUPS_189.map((grp) => {
           const allSelected = grp.items.every((item) => perms.has(item.id))
           return (
-            <div key={grp.group} style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
+            <div
+              key={grp.group}
+              style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}
+            >
               <div
                 onClick={() => toggleGroup(grp)}
-                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', background: allSelected ? `${grp.color}10` : '#f9fafb', borderBottom: `1px solid ${allSelected ? `${grp.color}30` : '#f3f4f6'}`, cursor: 'pointer' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '10px 14px',
+                  background: allSelected ? `${grp.color}10` : '#f9fafb',
+                  borderBottom: `1px solid ${allSelected ? `${grp.color}30` : '#f3f4f6'}`,
+                  cursor: 'pointer',
+                }}
               >
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: grp.color, flexShrink: 0 }} />
-                <span style={{ fontSize: 12, fontWeight: 700, color: allSelected ? grp.color : '#374151', flex: 1 }}>{grp.group}</span>
-                <span style={{ fontSize: 10, color: '#9ca3af' }}>{grp.items.filter((i) => perms.has(i.id)).length}/{grp.items.length}</span>
+                <div
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: grp.color,
+                    flexShrink: 0,
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: allSelected ? grp.color : '#374151',
+                    flex: 1,
+                  }}
+                >
+                  {grp.group}
+                </span>
+                <span style={{ fontSize: 10, color: '#9ca3af' }}>
+                  {grp.items.filter((i) => perms.has(i.id)).length}/{grp.items.length}
+                </span>
               </div>
-              <div style={{ padding: '8px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div
+                style={{ padding: '8px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}
+              >
                 {grp.items.map((item) => (
-                  <div key={item.id} onClick={() => toggle(item.id)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-                    <BoxedCheckboxWithLabel value={item.id} checked={perms.has(item.id)} onChange={() => toggle(item.id)} />
+                  <div
+                    key={item.id}
+                    onClick={() => toggle(item.id)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+                  >
+                    <BoxedCheckboxWithLabel
+                      value={item.id}
+                      checked={perms.has(item.id)}
+                      onChange={() => toggle(item.id)}
+                    />
                     <span style={{ fontSize: 12, color: '#374151' }}>{item.label}</span>
                   </div>
                 ))}
@@ -1408,7 +2619,9 @@ function DataProductPermChecklistRender() {
           )
         })}
       </div>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>총 {perms.size}개 권한 활성화</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#94a3b8' }}>
+        총 {perms.size}개 권한 활성화
+      </div>
     </div>
   )
 }
@@ -1429,8 +2642,18 @@ export const DataProduct_그룹_권한_체크리스트: Story = {
 
 const CHAKRA_ARCO_PLANS_189 = [
   { id: 'free', label: 'Free', price: '무료', features: ['read_comp', 'read_doc'] },
-  { id: 'pro', label: 'Pro', price: '₩15,000/월', features: ['read_comp', 'read_doc', 'read_token', 'edit_comp'] },
-  { id: 'team', label: 'Team', price: '₩45,000/월', features: ['read_comp', 'read_doc', 'read_token', 'edit_comp', 'edit_story', 'manage_user'] },
+  {
+    id: 'pro',
+    label: 'Pro',
+    price: '₩15,000/월',
+    features: ['read_comp', 'read_doc', 'read_token', 'edit_comp'],
+  },
+  {
+    id: 'team',
+    label: 'Team',
+    price: '₩45,000/월',
+    features: ['read_comp', 'read_doc', 'read_token', 'edit_comp', 'edit_story', 'manage_user'],
+  },
 ]
 
 const ALL_FEATURES_189 = [
@@ -1450,7 +2673,9 @@ function AccessibleDataProductPlanCompareRender() {
     <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ marginBottom: 14 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>플랜별 기능 비교</div>
-        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>AccessibleUI + DataProductUI 복합 패턴</div>
+        <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>
+          AccessibleUI + DataProductUI 복합 패턴
+        </div>
       </div>
       <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
         {CHAKRA_ARCO_PLANS_189.map((p) => (
@@ -1458,30 +2683,65 @@ function AccessibleDataProductPlanCompareRender() {
             key={p.id}
             onClick={() => setActivePlan(p.id)}
             style={{
-              flex: 1, padding: '8px 4px', borderRadius: 8, cursor: 'pointer', transition: 'all 0.12s',
+              flex: 1,
+              padding: '8px 4px',
+              borderRadius: 8,
+              cursor: 'pointer',
+              transition: 'all 0.12s',
               border: `1.5px solid ${activePlan === p.id ? '#6366f1' : '#e5e7eb'}`,
               background: activePlan === p.id ? '#eef2ff' : '#fff',
               fontWeight: activePlan === p.id ? 700 : 400,
             }}
           >
-            <div style={{ fontSize: 12, color: activePlan === p.id ? '#6366f1' : '#374151' }}>{p.label}</div>
+            <div style={{ fontSize: 12, color: activePlan === p.id ? '#6366f1' : '#374151' }}>
+              {p.label}
+            </div>
             <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 2 }}>{p.price}</div>
           </button>
         ))}
       </div>
       <div style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
-        <div style={{ padding: '10px 14px', background: '#eef2ff', borderBottom: '1px solid #e0e7ff' }}>
+        <div
+          style={{ padding: '10px 14px', background: '#eef2ff', borderBottom: '1px solid #e0e7ff' }}
+        >
           <span style={{ fontSize: 13, fontWeight: 700, color: '#6366f1' }}>{plan.label} 플랜</span>
-          <span style={{ fontSize: 11, color: '#818cf8', marginLeft: 8 }}>{plan.features.length}/{ALL_FEATURES_189.length}개 기능</span>
+          <span style={{ fontSize: 11, color: '#818cf8', marginLeft: 8 }}>
+            {plan.features.length}/{ALL_FEATURES_189.length}개 기능
+          </span>
         </div>
         <div style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
           {ALL_FEATURES_189.map((f) => {
             const included = plan.features.includes(f.id)
             return (
-              <div key={f.id} style={{ display: 'flex', alignItems: 'center', gap: 8, opacity: included ? 1 : 0.4 }}>
-                <BoxedCheckboxWithLabel value={f.id} checked={included} disabled={true} onChange={() => undefined} />
-                <span style={{ fontSize: 12, color: included ? '#0f172a' : '#9ca3af', fontWeight: included ? 500 : 400 }}>{f.label}</span>
-                {!included && <span style={{ fontSize: 9, color: '#9ca3af', marginLeft: 'auto' }}>업그레이드 필요</span>}
+              <div
+                key={f.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  opacity: included ? 1 : 0.4,
+                }}
+              >
+                <BoxedCheckboxWithLabel
+                  value={f.id}
+                  checked={included}
+                  disabled={true}
+                  onChange={() => undefined}
+                />
+                <span
+                  style={{
+                    fontSize: 12,
+                    color: included ? '#0f172a' : '#9ca3af',
+                    fontWeight: included ? 500 : 400,
+                  }}
+                >
+                  {f.label}
+                </span>
+                {!included && (
+                  <span style={{ fontSize: 9, color: '#9ca3af', marginLeft: 'auto' }}>
+                    업그레이드 필요
+                  </span>
+                )}
               </div>
             )
           })}

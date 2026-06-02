@@ -51,7 +51,7 @@ export const Loading = ({
 
   // aria-label fallback only when no visible label is provided and no
   // external label is referenced; redundant labels confuse screen readers.
-  const effectiveLabel = children || ariaLabelledBy ? undefined : ariaLabel ?? '불러오는 중'
+  const effectiveLabel = children || ariaLabelledBy ? undefined : (ariaLabel ?? '불러오는 중')
 
   return (
     <div
@@ -64,7 +64,9 @@ export const Loading = ({
     >
       <Spinner size={spinnerSize} color="primary" />
       {children && (
-        <span className="text-sm font-medium text-[var(--sem-eclipse-color-foregroundSecondary)]">{children}</span>
+        <span className="text-sm font-medium text-[var(--sem-eclipse-color-foregroundSecondary)]">
+          {children}
+        </span>
       )}
     </div>
   )

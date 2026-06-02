@@ -61,7 +61,7 @@ const PENDING_STATE: UseAsyncState<never> = {
  */
 export function useAsync<T>(
   asyncFn: () => Promise<T>,
-  options: UseAsyncOptions = {},
+  options: UseAsyncOptions = {}
 ): UseAsyncReturn<T> {
   const { immediate = false } = options
 
@@ -72,7 +72,9 @@ export function useAsync<T>(
 
   // 최신 asyncFn 참조 (run 콜백이 stale closure를 만들지 않도록)
   const asyncFnRef = useRef(asyncFn)
-  useLayoutEffect(() => { asyncFnRef.current = asyncFn })
+  useLayoutEffect(() => {
+    asyncFnRef.current = asyncFn
+  })
 
   const run = useCallback(async () => {
     const callId = ++callCounterRef.current

@@ -40,10 +40,9 @@ describe('usePrevious', () => {
   test('객체 reference도 정상 추적된다', () => {
     const a = { id: 1 }
     const b = { id: 2 }
-    const { result, rerender } = renderHook(
-      ({ v }: { v: { id: number } }) => usePrevious(v),
-      { initialProps: { v: a } },
-    )
+    const { result, rerender } = renderHook(({ v }: { v: { id: number } }) => usePrevious(v), {
+      initialProps: { v: a },
+    })
 
     rerender({ v: b })
     expect(result.current).toBe(a)

@@ -14,7 +14,9 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
  */
 export function useUnmount(callback: () => void): void {
   const callbackRef = useRef(callback)
-  useLayoutEffect(() => { callbackRef.current = callback })
+  useLayoutEffect(() => {
+    callbackRef.current = callback
+  })
 
   useEffect(() => {
     return () => {

@@ -17,17 +17,14 @@ const progressIndicator = (opts: {
   color?: 'primary' | 'success' | 'warning'
   indeterminate?: boolean
 }) =>
-  clsx(
-    'flex-1 transition-transform duration-[600ms] [cubic-bezier(0.65,0,0.35,1)] w-full h-full',
-    {
-      '[background-color:var(--sem-eclipse-color-systemMainPrimary)]':
-        opts.color === 'primary' || !opts.color,
-      '[background-color:var(--sem-eclipse-color-systemMainTertiary)]': opts.color === 'success',
-      '[background-color:var(--sem-eclipse-color-systemSubPrimary)]': opts.color === 'warning',
-      'w-1/2 animate-[progress-indeterminate_1.5s_infinite_linear] motion-reduce:animate-none':
-        opts.indeterminate,
-    }
-  )
+  clsx('flex-1 transition-transform duration-[600ms] [cubic-bezier(0.65,0,0.35,1)] w-full h-full', {
+    '[background-color:var(--sem-eclipse-color-systemMainPrimary)]':
+      opts.color === 'primary' || !opts.color,
+    '[background-color:var(--sem-eclipse-color-systemMainTertiary)]': opts.color === 'success',
+    '[background-color:var(--sem-eclipse-color-systemSubPrimary)]': opts.color === 'warning',
+    'w-1/2 animate-[progress-indeterminate_1.5s_infinite_linear] motion-reduce:animate-none':
+      opts.indeterminate,
+  })
 
 export type ProgressProps = React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
   /**
@@ -48,7 +45,10 @@ export type ProgressProps = React.ComponentPropsWithoutRef<typeof ProgressPrimit
 }
 
 export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
-  ({ className, value, size = 'medium', color = 'primary', indeterminate = false, ...props }, ref) => {
+  (
+    { className, value, size = 'medium', color = 'primary', indeterminate = false, ...props },
+    ref
+  ) => {
     return (
       <ProgressPrimitive.Root
         ref={ref}
@@ -57,8 +57,8 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
       >
         <ProgressPrimitive.Indicator
           className={progressIndicator({ color, indeterminate })}
-          style={{ 
-            transform: indeterminate ? undefined : `translateX(-${100 - (value || 0)}%)` 
+          style={{
+            transform: indeterminate ? undefined : `translateX(-${100 - (value || 0)}%)`,
           }}
         />
       </ProgressPrimitive.Root>

@@ -184,9 +184,7 @@ const DrawerFilterRender = () => {
   const [sort, setSort] = useState('latest')
 
   const toggleCategory = (val: string) => {
-    setCategories((prev) =>
-      prev.includes(val) ? prev.filter((c) => c !== val) : [...prev, val]
-    )
+    setCategories((prev) => (prev.includes(val) ? prev.filter((c) => c !== val) : [...prev, val]))
   }
 
   return (
@@ -242,7 +240,10 @@ const DrawerFilterRender = () => {
               color="gray"
               size="medium"
               style={{ flex: 1 }}
-              onClick={() => { setCategories([]); setSort('latest') }}
+              onClick={() => {
+                setCategories([])
+                setSort('latest')
+              }}
             >
               <OutlineButton.Center>초기화</OutlineButton.Center>
             </OutlineButton>
@@ -285,10 +286,12 @@ const PlatformHIGBottomSheetRender = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-start' }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-start' }}
+    >
       <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>
-        Platform HIG iOS Sheet 패턴: 스냅 포인트를 버튼으로 전환합니다.
-        실제 앱에서는 드래그 제스처로 스냅 포인트 간 이동이 가능합니다.
+        Platform HIG iOS Sheet 패턴: 스냅 포인트를 버튼으로 전환합니다. 실제 앱에서는 드래그
+        제스처로 스냅 포인트 간 이동이 가능합니다.
       </div>
 
       {/* 스냅 컨트롤 */}
@@ -315,59 +318,90 @@ const PlatformHIGBottomSheetRender = () => {
       </div>
 
       {/* 바텀시트 시뮬레이션 */}
-      <div style={{
-        width: '360px',
-        height: '560px',
-        background: '#f8fafc',
-        borderRadius: '16px',
-        border: '1px solid #e2e8f0',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
+      <div
+        style={{
+          width: '360px',
+          height: '560px',
+          background: '#f8fafc',
+          borderRadius: '16px',
+          border: '1px solid #e2e8f0',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
         {/* 배경 콘텐츠 */}
         <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ height: '20px', borderRadius: '6px', background: '#e2e8f0' }} />
-          <div style={{ height: '16px', width: '70%', borderRadius: '6px', background: '#e2e8f0' }} />
+          <div
+            style={{ height: '16px', width: '70%', borderRadius: '6px', background: '#e2e8f0' }}
+          />
           <div style={{ height: '80px', borderRadius: '10px', background: '#e2e8f0' }} />
-          <div style={{ height: '16px', width: '85%', borderRadius: '6px', background: '#e2e8f0' }} />
+          <div
+            style={{ height: '16px', width: '85%', borderRadius: '6px', background: '#e2e8f0' }}
+          />
         </div>
 
         {/* 딤 오버레이 */}
         {snap !== 'collapsed' && (
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: snap === 'full' ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.2)',
-            transition: 'background 0.3s ease',
-          }} />
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: snap === 'full' ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.2)',
+              transition: 'background 0.3s ease',
+            }}
+          />
         )}
 
         {/* 바텀시트 */}
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: snapHeights[snap],
-          background: '#fff',
-          borderRadius: '16px 16px 0 0',
-          boxShadow: '0 -4px 24px rgba(0,0,0,0.12)',
-          transition: 'height 0.35s cubic-bezier(0.32, 0.72, 0, 1)',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-        }}>
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: snapHeights[snap],
+            background: '#fff',
+            borderRadius: '16px 16px 0 0',
+            boxShadow: '0 -4px 24px rgba(0,0,0,0.12)',
+            transition: 'height 0.35s cubic-bezier(0.32, 0.72, 0, 1)',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           {/* 핸들 바 */}
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '10px 0 6px', flexShrink: 0 }}>
-            <div style={{ width: '36px', height: '4px', borderRadius: '2px', background: '#e2e8f0' }} />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              padding: '10px 0 6px',
+              flexShrink: 0,
+            }}
+          >
+            <div
+              style={{ width: '36px', height: '4px', borderRadius: '2px', background: '#e2e8f0' }}
+            />
           </div>
 
           {/* 시트 콘텐츠 */}
           {snap !== 'collapsed' && (
-            <div style={{ padding: '8px 20px 20px', flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b' }}>{snapLabels[snap]}</div>
+            <div
+              style={{
+                padding: '8px 20px 20px',
+                flex: 1,
+                overflow: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+              }}
+            >
+              <div style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b' }}>
+                {snapLabels[snap]}
+              </div>
               <div style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>
-                iOS Sheet는 사용자가 드래그하여 스냅 포인트 간 이동할 수 있습니다.
-                핸들 바를 위로 당기면 확장, 아래로 내리면 축소됩니다.
+                iOS Sheet는 사용자가 드래그하여 스냅 포인트 간 이동할 수 있습니다. 핸들 바를 위로
+                당기면 확장, 아래로 내리면 축소됩니다.
               </div>
               {snap === 'full' && (
                 <>
@@ -457,14 +491,16 @@ const CommandPaletteActionPanelRender = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0', padding: '8px 0' }}>
           {actionGroups.map((group, gi) => (
             <div key={group.title}>
-              <div style={{
-                padding: '10px 16px 4px',
-                fontSize: '10px',
-                fontWeight: 700,
-                color: '#94a3b8',
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-              }}>
+              <div
+                style={{
+                  padding: '10px 16px 4px',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  color: '#94a3b8',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                }}
+              >
                 {group.title}
               </div>
               {group.items.map((item) => (
@@ -481,24 +517,28 @@ const CommandPaletteActionPanelRender = () => {
                     transition: 'background 0.1s',
                   }}
                 >
-                  <span style={{
-                    fontSize: '13px',
-                    fontWeight: 500,
-                    color: item.destructive ? '#ef4444' : '#1e293b',
-                  }}>
+                  <span
+                    style={{
+                      fontSize: '13px',
+                      fontWeight: 500,
+                      color: item.destructive ? '#ef4444' : '#1e293b',
+                    }}
+                  >
                     {item.label}
                   </span>
                   {item.shortcut && (
-                    <kbd style={{
-                      fontSize: '10px',
-                      fontWeight: 600,
-                      color: '#94a3b8',
-                      fontFamily: 'monospace',
-                      background: '#f1f5f9',
-                      padding: '2px 6px',
-                      borderRadius: '4px',
-                      border: '1px solid #e2e8f0',
-                    }}>
+                    <kbd
+                      style={{
+                        fontSize: '10px',
+                        fontWeight: 600,
+                        color: '#94a3b8',
+                        fontFamily: 'monospace',
+                        background: '#f1f5f9',
+                        padding: '2px 6px',
+                        borderRadius: '4px',
+                        border: '1px solid #e2e8f0',
+                      }}
+                    >
                       {item.shortcut}
                     </kbd>
                   )}
@@ -589,8 +629,26 @@ const ComposableUIMultiStepRender = () => {
         </Drawer.Header>
 
         {/* ComposableUI 핵심 패턴: 스크롤 영역과 고정 푸터 분리 */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 0', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <div style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '4px' }}>
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '16px 0',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+          }}
+        >
+          <div
+            style={{
+              fontSize: '11px',
+              fontWeight: 600,
+              color: '#94a3b8',
+              letterSpacing: '0.05em',
+              textTransform: 'uppercase',
+              marginBottom: '4px',
+            }}
+          >
             단계 {step + 1} / {steps.length}
           </div>
           {current.fields.map((field) => (
@@ -607,7 +665,12 @@ const ComposableUIMultiStepRender = () => {
         <Drawer.Footer>
           <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
             {step > 0 ? (
-              <OutlineButton color="gray" size="medium" style={{ flex: 1 }} onClick={() => setStep((s) => s - 1)}>
+              <OutlineButton
+                color="gray"
+                size="medium"
+                style={{ flex: 1 }}
+                onClick={() => setStep((s) => s - 1)}
+              >
                 <OutlineButton.Center>이전</OutlineButton.Center>
               </OutlineButton>
             ) : (
@@ -624,7 +687,12 @@ const ComposableUIMultiStepRender = () => {
                 </Button>
               </Drawer.Close>
             ) : (
-              <Button color="primary" size="medium" style={{ flex: 2 }} onClick={() => setStep((s) => s + 1)}>
+              <Button
+                color="primary"
+                size="medium"
+                style={{ flex: 2 }}
+                onClick={() => setStep((s) => s + 1)}
+              >
                 <Button.Center>다음 단계</Button.Center>
               </Button>
             )}
@@ -675,24 +743,60 @@ const IssueTrackerIssuePanelRender = () => {
       <Drawer.Content side="right">
         <Drawer.Header>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-            <span style={{ fontSize: '11px', fontFamily: 'monospace', color: '#94a3b8', fontWeight: 600 }}>ORB-247</span>
+            <span
+              style={{
+                fontSize: '11px',
+                fontFamily: 'monospace',
+                color: '#94a3b8',
+                fontWeight: 600,
+              }}
+            >
+              ORB-247
+            </span>
           </div>
           <Drawer.Title>디자인 토큰 시스템 고도화</Drawer.Title>
-          <Drawer.Description>Reference → Semantic → Component 3단계 토큰 구조로 마이그레이션</Drawer.Description>
+          <Drawer.Description>
+            Reference → Semantic → Component 3단계 토큰 구조로 마이그레이션
+          </Drawer.Description>
         </Drawer.Header>
 
-        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 0', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '16px 0',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+          }}
+        >
           {/* 속성 패널 */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
             <div>
-              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600, marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>상태</div>
+              <div
+                style={{
+                  fontSize: '11px',
+                  color: '#94a3b8',
+                  fontWeight: 600,
+                  marginBottom: '6px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                상태
+              </div>
               <div style={{ display: 'flex', gap: '6px' }}>
                 {(['todo', 'progress', 'done'] as const).map((s) => (
                   <button
                     key={s}
                     onClick={() => setStatus(s)}
                     style={{
-                      padding: '4px 10px', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '11px', fontWeight: 600,
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '11px',
+                      fontWeight: 600,
                       background: status === s ? statusConfig[s].bg : '#f1f5f9',
                       color: status === s ? statusConfig[s].color : '#94a3b8',
                       transition: 'all 0.15s',
@@ -704,15 +808,30 @@ const IssueTrackerIssuePanelRender = () => {
               </div>
             </div>
             <div>
-              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600, marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>우선순위</div>
+              <div
+                style={{
+                  fontSize: '11px',
+                  color: '#94a3b8',
+                  fontWeight: 600,
+                  marginBottom: '6px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                우선순위
+              </div>
               <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                 {(['urgent', 'high', 'medium', 'low'] as const).map((p) => (
                   <button
                     key={p}
                     onClick={() => setPriority(p)}
                     style={{
-                      padding: '4px 10px', borderRadius: '6px', border: `1.5px solid ${priority === p ? priorityConfig[p].color : '#e2e8f0'}`,
-                      cursor: 'pointer', fontSize: '11px', fontWeight: 600,
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      border: `1.5px solid ${priority === p ? priorityConfig[p].color : '#e2e8f0'}`,
+                      cursor: 'pointer',
+                      fontSize: '11px',
+                      fontWeight: 600,
                       background: priority === p ? 'rgba(99,102,241,0.06)' : '#fff',
                       color: priority === p ? priorityConfig[p].color : '#94a3b8',
                       transition: 'all 0.15s',
@@ -726,39 +845,97 @@ const IssueTrackerIssuePanelRender = () => {
           </div>
 
           {/* 현재 상태 요약 */}
-          <div style={{ padding: '12px', borderRadius: '10px', background: sc.bg, border: `1px solid ${sc.color}22` }}>
+          <div
+            style={{
+              padding: '12px',
+              borderRadius: '10px',
+              background: sc.bg,
+              border: `1px solid ${sc.color}22`,
+            }}
+          >
             <span style={{ fontSize: '12px', fontWeight: 700, color: sc.color }}>{sc.label}</span>
-            <span style={{ fontSize: '12px', color: '#64748b', marginLeft: '8px' }}>· 우선순위: </span>
+            <span style={{ fontSize: '12px', color: '#64748b', marginLeft: '8px' }}>
+              · 우선순위:{' '}
+            </span>
             <span style={{ fontSize: '12px', fontWeight: 700, color: pc.color }}>{pc.label}</span>
           </div>
 
           {/* 설명 */}
           <div>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '8px' }}>설명</div>
-            <div style={{ fontSize: '13px', color: '#475569', lineHeight: '1.7', background: '#f8fafc', borderRadius: '10px', padding: '12px' }}>
-              현재 2단계 토큰 구조(reference → component)를 3단계로 확장하여
-              시맨틱 레이어를 추가합니다. 이를 통해 브랜드 컬러 변경 시 단일
-              지점에서 전체 UI에 반영할 수 있습니다.
+            <div
+              style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '8px' }}
+            >
+              설명
+            </div>
+            <div
+              style={{
+                fontSize: '13px',
+                color: '#475569',
+                lineHeight: '1.7',
+                background: '#f8fafc',
+                borderRadius: '10px',
+                padding: '12px',
+              }}
+            >
+              현재 2단계 토큰 구조(reference → component)를 3단계로 확장하여 시맨틱 레이어를
+              추가합니다. 이를 통해 브랜드 컬러 변경 시 단일 지점에서 전체 UI에 반영할 수 있습니다.
             </div>
           </div>
 
           {/* 댓글 */}
           <div>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '10px' }}>댓글 (2)</div>
+            <div
+              style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b', marginBottom: '10px' }}
+            >
+              댓글 (2)
+            </div>
             {[
-              { author: '김민준', time: '2시간 전', text: 'semantic 토큰 네이밍 컨벤션 먼저 확정하는 게 좋을 것 같아요.' },
-              { author: '이서연', time: '방금 전', text: '피그마 토큰 플러그인 연동까지 고려하면 좋겠습니다!' },
+              {
+                author: '김민준',
+                time: '2시간 전',
+                text: 'semantic 토큰 네이밍 컨벤션 먼저 확정하는 게 좋을 것 같아요.',
+              },
+              {
+                author: '이서연',
+                time: '방금 전',
+                text: '피그마 토큰 플러그인 연동까지 고려하면 좋겠습니다!',
+              },
             ].map(({ author, time, text }) => (
               <div key={author} style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
-                <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#6366f1', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 700, flexShrink: 0 }}>
+                <div
+                  style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: '50%',
+                    background: '#6366f1',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    flexShrink: 0,
+                  }}
+                >
                   {author[0]}
                 </div>
                 <div>
-                  <div style={{ display: 'flex', gap: '6px', alignItems: 'baseline', marginBottom: '3px' }}>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>{author}</span>
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '6px',
+                      alignItems: 'baseline',
+                      marginBottom: '3px',
+                    }}
+                  >
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>
+                      {author}
+                    </span>
                     <span style={{ fontSize: '11px', color: '#94a3b8' }}>{time}</span>
                   </div>
-                  <p style={{ margin: 0, fontSize: '12px', color: '#475569', lineHeight: '1.6' }}>{text}</p>
+                  <p style={{ margin: 0, fontSize: '12px', color: '#475569', lineHeight: '1.6' }}>
+                    {text}
+                  </p>
                 </div>
               </div>
             ))}
@@ -815,17 +992,44 @@ const ComposableUISettingsDrawerRender = () => {
         <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
           {/* 알림 설정 */}
           <section style={{ marginBottom: '24px' }}>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '12px 0 8px' }}>
+            <div
+              style={{
+                fontSize: '11px',
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                padding: '12px 0 8px',
+              }}
+            >
               알림
             </div>
             {[
-              { key: 'email' as const, label: '이메일 알림', desc: '중요 업데이트를 이메일로 받습니다' },
-              { key: 'push' as const, label: '푸시 알림', desc: '브라우저 푸시 알림을 활성화합니다' },
-              { key: 'weekly' as const, label: '주간 요약', desc: '매주 월요일 주간 리포트를 받습니다' },
+              {
+                key: 'email' as const,
+                label: '이메일 알림',
+                desc: '중요 업데이트를 이메일로 받습니다',
+              },
+              {
+                key: 'push' as const,
+                label: '푸시 알림',
+                desc: '브라우저 푸시 알림을 활성화합니다',
+              },
+              {
+                key: 'weekly' as const,
+                label: '주간 요약',
+                desc: '매주 월요일 주간 리포트를 받습니다',
+              },
             ].map(({ key, label, desc }) => (
               <div
                 key={key}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #f1f5f9' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '10px 0',
+                  borderBottom: '1px solid #f1f5f9',
+                }}
               >
                 <div>
                   <div style={{ fontSize: '13px', fontWeight: 500, color: '#1e293b' }}>{label}</div>
@@ -836,16 +1040,29 @@ const ComposableUISettingsDrawerRender = () => {
                   aria-checked={notifications[key]}
                   onClick={() => toggle(key)}
                   style={{
-                    width: 36, height: 20, borderRadius: 10, cursor: 'pointer',
+                    width: 36,
+                    height: 20,
+                    borderRadius: 10,
+                    cursor: 'pointer',
                     background: notifications[key] ? '#6366f1' : '#e2e8f0',
-                    position: 'relative', transition: 'background 0.2s', flexShrink: 0,
+                    position: 'relative',
+                    transition: 'background 0.2s',
+                    flexShrink: 0,
                   }}
                 >
-                  <div style={{
-                    width: 16, height: 16, borderRadius: '50%', background: '#fff',
-                    position: 'absolute', top: 2, transition: 'left 0.2s',
-                    left: notifications[key] ? 18 : 2, boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-                  }} />
+                  <div
+                    style={{
+                      width: 16,
+                      height: 16,
+                      borderRadius: '50%',
+                      background: '#fff',
+                      position: 'absolute',
+                      top: 2,
+                      transition: 'left 0.2s',
+                      left: notifications[key] ? 18 : 2,
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                    }}
+                  />
                 </div>
               </div>
             ))}
@@ -853,7 +1070,16 @@ const ComposableUISettingsDrawerRender = () => {
 
           {/* 테마 설정 */}
           <section style={{ marginBottom: '24px' }}>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '12px 0 8px' }}>
+            <div
+              style={{
+                fontSize: '11px',
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                padding: '12px 0 8px',
+              }}
+            >
               테마
             </div>
             <div style={{ display: 'flex', gap: '8px' }}>
@@ -862,9 +1088,16 @@ const ComposableUISettingsDrawerRender = () => {
                   key={t}
                   onClick={() => setTheme(t)}
                   style={{
-                    flex: 1, padding: '8px 0', borderRadius: '8px', border: `1.5px solid ${theme === t ? '#6366f1' : '#e2e8f0'}`,
-                    background: theme === t ? '#eff6ff' : '#fff', color: theme === t ? '#6366f1' : '#64748b',
-                    fontSize: '12px', fontWeight: theme === t ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s',
+                    flex: 1,
+                    padding: '8px 0',
+                    borderRadius: '8px',
+                    border: `1.5px solid ${theme === t ? '#6366f1' : '#e2e8f0'}`,
+                    background: theme === t ? '#eff6ff' : '#fff',
+                    color: theme === t ? '#6366f1' : '#64748b',
+                    fontSize: '12px',
+                    fontWeight: theme === t ? 700 : 400,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
                   }}
                 >
                   {t === 'system' ? '시스템' : t === 'light' ? '라이트' : '다크'}
@@ -875,7 +1108,16 @@ const ComposableUISettingsDrawerRender = () => {
 
           {/* 언어 설정 */}
           <section>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '12px 0 8px' }}>
+            <div
+              style={{
+                fontSize: '11px',
+                fontWeight: 700,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                padding: '12px 0 8px',
+              }}
+            >
               언어
             </div>
             {[
@@ -887,14 +1129,27 @@ const ComposableUISettingsDrawerRender = () => {
                 key={code}
                 onClick={() => setLang(code)}
                 style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '10px 12px', borderRadius: '8px', cursor: 'pointer', marginBottom: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '10px 12px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  marginBottom: '4px',
                   background: lang === code ? '#eff6ff' : 'transparent',
                   border: `1px solid ${lang === code ? '#c7d2fe' : 'transparent'}`,
                   transition: 'all 0.1s',
                 }}
               >
-                <span style={{ fontSize: '13px', color: lang === code ? '#6366f1' : '#475569', fontWeight: lang === code ? 600 : 400 }}>{label}</span>
+                <span
+                  style={{
+                    fontSize: '13px',
+                    color: lang === code ? '#6366f1' : '#475569',
+                    fontWeight: lang === code ? 600 : 400,
+                  }}
+                >
+                  {label}
+                </span>
                 {lang === code && <span style={{ fontSize: '12px', color: '#6366f1' }}>✓</span>}
               </div>
             ))}
@@ -957,7 +1212,7 @@ const ComposableUISearchFilterRender = () => {
   }
 
   const filtered = FILTER_CATEGORIES.filter((c) =>
-    c.label.toLowerCase().includes(query.toLowerCase()),
+    c.label.toLowerCase().includes(query.toLowerCase())
   )
 
   return (
@@ -977,15 +1232,28 @@ const ComposableUISearchFilterRender = () => {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="카테고리 검색..."
               style={{
-                width: '100%', padding: '8px 12px', borderRadius: 8,
-                border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none',
+                width: '100%',
+                padding: '8px 12px',
+                borderRadius: 8,
+                border: '1.5px solid #e2e8f0',
+                fontSize: 13,
+                outline: 'none',
                 boxSizing: 'border-box',
               }}
             />
           </div>
         </Drawer.Header>
         <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '8px 0 6px' }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              padding: '8px 0 6px',
+            }}
+          >
             카테고리 ({selected.size}개 선택)
           </div>
           {filtered.map((cat) => (
@@ -993,25 +1261,54 @@ const ComposableUISearchFilterRender = () => {
               key={cat.id}
               onClick={() => toggle(cat.id)}
               style={{
-                display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px',
-                borderRadius: 8, cursor: 'pointer', marginBottom: 4,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 12px',
+                borderRadius: 8,
+                cursor: 'pointer',
+                marginBottom: 4,
                 background: selected.has(cat.id) ? '#eff6ff' : 'transparent',
                 border: `1px solid ${selected.has(cat.id) ? '#c7d2fe' : 'transparent'}`,
                 transition: 'all 0.15s',
               }}
             >
-              <div style={{
-                width: 16, height: 16, borderRadius: 4,
-                border: `2px solid ${selected.has(cat.id) ? '#6366f1' : '#cbd5e1'}`,
-                background: selected.has(cat.id) ? '#6366f1' : '#fff',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-              }}>
-                {selected.has(cat.id) && <span style={{ fontSize: 9, color: '#fff', fontWeight: 700 }}>✓</span>}
+              <div
+                style={{
+                  width: 16,
+                  height: 16,
+                  borderRadius: 4,
+                  border: `2px solid ${selected.has(cat.id) ? '#6366f1' : '#cbd5e1'}`,
+                  background: selected.has(cat.id) ? '#6366f1' : '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                {selected.has(cat.id) && (
+                  <span style={{ fontSize: 9, color: '#fff', fontWeight: 700 }}>✓</span>
+                )}
               </div>
-              <span style={{ flex: 1, fontSize: 13, color: selected.has(cat.id) ? '#3730a3' : '#374151', fontWeight: selected.has(cat.id) ? 600 : 400 }}>
+              <span
+                style={{
+                  flex: 1,
+                  fontSize: 13,
+                  color: selected.has(cat.id) ? '#3730a3' : '#374151',
+                  fontWeight: selected.has(cat.id) ? 600 : 400,
+                }}
+              >
                 {cat.label}
               </span>
-              <span style={{ fontSize: 11, color: '#94a3b8', background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: '#94a3b8',
+                  background: '#f1f5f9',
+                  padding: '2px 6px',
+                  borderRadius: 4,
+                }}
+              >
                 {cat.count}
               </span>
             </div>
@@ -1024,7 +1321,12 @@ const ComposableUISearchFilterRender = () => {
         </div>
         <Drawer.Footer>
           <div style={{ display: 'flex', gap: 8, width: '100%' }}>
-            <OutlineButton color="gray" size="medium" style={{ flex: 1 }} onClick={() => setSelected(new Set())}>
+            <OutlineButton
+              color="gray"
+              size="medium"
+              style={{ flex: 1 }}
+              onClick={() => setSelected(new Set())}
+            >
               <OutlineButton.Center>초기화</OutlineButton.Center>
             </OutlineButton>
             <Drawer.Close asChild>
@@ -1044,7 +1346,8 @@ export const ComposableUI_검색_필터_사이드패널: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI Sheet 패턴. 우측에서 슬라이드되는 검색·필터 패널. 헤더 인라인 검색 입력, 바디 체크리스트, 푸터 적용/초기화 버튼의 3단 구조.',
+        story:
+          'ComposableUI Sheet 패턴. 우측에서 슬라이드되는 검색·필터 패널. 헤더 인라인 검색 입력, 바디 체크리스트, 푸터 적용/초기화 버튼의 3단 구조.',
       },
     },
   },
@@ -1089,7 +1392,13 @@ const DeployPlatformDeployLogRender = () => {
   }
 
   return (
-    <Drawer open={open} onOpenChange={(v) => { setOpen(v); if (!v) setRunning(false) }}>
+    <Drawer
+      open={open}
+      onOpenChange={(v) => {
+        setOpen(v)
+        if (!v) setRunning(false)
+      }}
+    >
       <Drawer.Trigger asChild>
         <Button color="primary" size="medium" onClick={startDeploy}>
           <Button.Center>배포 시작</Button.Center>
@@ -1100,22 +1409,61 @@ const DeployPlatformDeployLogRender = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Drawer.Title>배포 로그</Drawer.Title>
             {visibleCount < DEPLOY_LOG_STEPS.length && running ? (
-              <span style={{ fontSize: 11, background: '#fef3c7', color: '#92400e', padding: '2px 8px', borderRadius: 99, fontWeight: 600 }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  background: '#fef3c7',
+                  color: '#92400e',
+                  padding: '2px 8px',
+                  borderRadius: 99,
+                  fontWeight: 600,
+                }}
+              >
                 진행 중
               </span>
             ) : (
-              <span style={{ fontSize: 11, background: '#dcfce7', color: '#166534', padding: '2px 8px', borderRadius: 99, fontWeight: 600 }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  background: '#dcfce7',
+                  color: '#166534',
+                  padding: '2px 8px',
+                  borderRadius: 99,
+                  fontWeight: 600,
+                }}
+              >
                 완료
               </span>
             )}
           </div>
           <Drawer.Description>실시간 빌드 로그를 확인합니다.</Drawer.Description>
         </Drawer.Header>
-        <div style={{ flex: 1, overflowY: 'auto', fontFamily: 'monospace', fontSize: 12, background: '#0f172a', borderRadius: 8, margin: '0 4px', padding: 16 }}>
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            fontFamily: 'monospace',
+            fontSize: 12,
+            background: '#0f172a',
+            borderRadius: 8,
+            margin: '0 4px',
+            padding: 16,
+          }}
+        >
           {DEPLOY_LOG_STEPS.slice(0, visibleCount).map((log, i) => (
-            <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 8, alignItems: 'flex-start' }}>
+            <div
+              key={i}
+              style={{ display: 'flex', gap: 10, marginBottom: 8, alignItems: 'flex-start' }}
+            >
               <span style={{ color: '#475569', flexShrink: 0 }}>{log.time}</span>
-              <span style={{ color: LEVEL_COLOR[log.level] ?? '#94a3b8', fontWeight: 700, flexShrink: 0, minWidth: 50 }}>
+              <span
+                style={{
+                  color: LEVEL_COLOR[log.level] ?? '#94a3b8',
+                  fontWeight: 700,
+                  flexShrink: 0,
+                  minWidth: 50,
+                }}
+              >
                 [{log.level.toUpperCase()}]
               </span>
               <span style={{ color: '#e2e8f0', wordBreak: 'break-all' }}>{log.msg}</span>
@@ -1142,7 +1490,8 @@ export const DeployPlatform_배포_로그_패널: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 배포 상세 뷰 패턴. 우측 패널에 모노스페이스 로그 스트림을 타임라인으로 표시. 빌드 진행 상태 배지와 실시간 로그 시뮬레이션.',
+        story:
+          'DeployPlatform 배포 상세 뷰 패턴. 우측 패널에 모노스페이스 로그 스트림을 타임라인으로 표시. 빌드 진행 상태 배지와 실시간 로그 시뮬레이션.',
       },
     },
   },
@@ -1167,7 +1516,11 @@ const DeployPlatformInviteRender = () => {
   const handleSend = () => {
     if (!email.trim()) return
     setSent(true)
-    setTimeout(() => { setOpen(false); setSent(false); setEmail('') }, 1200)
+    setTimeout(() => {
+      setOpen(false)
+      setSent(false)
+      setEmail('')
+    }, 1200)
   }
 
   return (
@@ -1184,7 +1537,15 @@ const DeployPlatformInviteRender = () => {
         </Drawer.Header>
         <div style={{ flex: 1, padding: '8px 0' }}>
           <div style={{ marginBottom: 20 }}>
-            <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 6 }}>
+            <label
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: '#374151',
+                display: 'block',
+                marginBottom: 6,
+              }}
+            >
               이메일 주소
             </label>
             <input
@@ -1193,14 +1554,26 @@ const DeployPlatformInviteRender = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="colleague@company.com"
               style={{
-                width: '100%', padding: '9px 12px', borderRadius: 8,
-                border: '1.5px solid #e2e8f0', fontSize: 13, outline: 'none',
+                width: '100%',
+                padding: '9px 12px',
+                borderRadius: 8,
+                border: '1.5px solid #e2e8f0',
+                fontSize: 13,
+                outline: 'none',
                 boxSizing: 'border-box',
               }}
             />
           </div>
           <div>
-            <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 8 }}>
+            <label
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: '#374151',
+                display: 'block',
+                marginBottom: 8,
+              }}
+            >
               역할 선택
             </label>
             {ROLES.map((r) => (
@@ -1208,24 +1581,39 @@ const DeployPlatformInviteRender = () => {
                 key={r.id}
                 onClick={() => setRole(r.id)}
                 style={{
-                  padding: '12px 14px', borderRadius: 8, marginBottom: 8, cursor: 'pointer',
+                  padding: '12px 14px',
+                  borderRadius: 8,
+                  marginBottom: 8,
+                  cursor: 'pointer',
                   border: `2px solid ${role === r.id ? '#6366f1' : '#e2e8f0'}`,
                   background: role === r.id ? '#eff6ff' : '#fff',
                   transition: 'all 0.15s',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div style={{
-                    width: 14, height: 14, borderRadius: '50%',
-                    border: `2px solid ${role === r.id ? '#6366f1' : '#cbd5e1'}`,
-                    background: role === r.id ? '#6366f1' : '#fff',
-                    flexShrink: 0,
-                  }} />
-                  <span style={{ fontSize: 13, fontWeight: 600, color: role === r.id ? '#3730a3' : '#1e293b' }}>
+                  <div
+                    style={{
+                      width: 14,
+                      height: 14,
+                      borderRadius: '50%',
+                      border: `2px solid ${role === r.id ? '#6366f1' : '#cbd5e1'}`,
+                      background: role === r.id ? '#6366f1' : '#fff',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: role === r.id ? '#3730a3' : '#1e293b',
+                    }}
+                  >
                     {r.label}
                   </span>
                 </div>
-                <div style={{ fontSize: 12, color: '#64748b', marginTop: 4, paddingLeft: 22 }}>{r.desc}</div>
+                <div style={{ fontSize: 12, color: '#64748b', marginTop: 4, paddingLeft: 22 }}>
+                  {r.desc}
+                </div>
               </div>
             ))}
           </div>
@@ -1258,7 +1646,8 @@ export const DeployPlatform_팀_멤버_초대_드로어: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 팀 설정 초대 플로우. 이메일 입력 + 역할 선택(Owner/Member/Viewer) + 전송 확인. 간결한 단일 패널에 완전한 초대 워크플로우를 담은 패턴.',
+        story:
+          'DeployPlatform 팀 설정 초대 플로우. 이메일 입력 + 역할 선택(Owner/Member/Viewer) + 전송 확인. 간결한 단일 패널에 완전한 초대 워크플로우를 담은 패턴.',
       },
     },
   },
@@ -1300,36 +1689,79 @@ const CommandPaletteExtensionSettingsRender = () => {
       <Drawer.Content side="right" style={{ width: 360 }}>
         <Drawer.Header>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 8,
+                background: '#7c3aed',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
               <span style={{ color: '#fff', fontSize: 16 }}>⚡</span>
             </div>
             <div>
               <Drawer.Title>QuickSearch 설정</Drawer.Title>
-              <div style={{ fontSize: 11, color: '#6b7280', marginTop: 1 }}>CommandPalette Extension v1.4.2</div>
+              <div style={{ fontSize: 11, color: '#6b7280', marginTop: 1 }}>
+                CommandPalette Extension v1.4.2
+              </div>
             </div>
           </div>
         </Drawer.Header>
         <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
-          {LAUNCHER_SETTINGS_SECTIONS.map(section => (
+          {LAUNCHER_SETTINGS_SECTIONS.map((section) => (
             <div key={section.id} style={{ marginBottom: 20 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>{section.title}</div>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#9ca3af',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  marginBottom: 8,
+                }}
+              >
+                {section.title}
+              </div>
               <div style={{ border: '1px solid #f0f0f0', borderRadius: 10, overflow: 'hidden' }}>
                 {section.items.map((item, idx) => (
                   <div
                     key={item.id}
-                    style={{ display: 'flex', alignItems: 'center', padding: '10px 14px', borderBottom: idx < section.items.length - 1 ? '1px solid #f9fafb' : 'none', cursor: 'pointer', background: editingId === item.id ? '#f5f3ff' : '#fff' }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '10px 14px',
+                      borderBottom: idx < section.items.length - 1 ? '1px solid #f9fafb' : 'none',
+                      cursor: 'pointer',
+                      background: editingId === item.id ? '#f5f3ff' : '#fff',
+                    }}
                     onClick={() => setEditingId(editingId === item.id ? null : item.id)}
                   >
                     <span style={{ flex: 1, fontSize: 13, color: '#374151' }}>{item.label}</span>
-                    <span style={{ fontSize: 12, color: '#7c3aed', fontWeight: 600 }}>{item.value}</span>
+                    <span style={{ fontSize: 12, color: '#7c3aed', fontWeight: 600 }}>
+                      {item.value}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
           ))}
-          <div style={{ padding: '12px 14px', background: '#f9fafb', borderRadius: 10, border: '1px solid #f0f0f0' }}>
-            <div style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 4 }}>Extension 정보</div>
-            <div style={{ fontSize: 11, color: '#9ca3af' }}>CommandPalette Extension Settings 패턴 — 섹션별 설정 목록 + 인라인 편집</div>
+          <div
+            style={{
+              padding: '12px 14px',
+              background: '#f9fafb',
+              borderRadius: 10,
+              border: '1px solid #f0f0f0',
+            }}
+          >
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 4 }}>
+              Extension 정보
+            </div>
+            <div style={{ fontSize: 11, color: '#9ca3af' }}>
+              CommandPalette Extension Settings 패턴 — 섹션별 설정 목록 + 인라인 편집
+            </div>
           </div>
         </div>
         <Drawer.Footer>
@@ -1354,7 +1786,8 @@ export const CommandPalette_확장_설정_드로어: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'CommandPalette Extension Settings 패턴. 다크 배경 Extension 아이콘 + 이름 헤더, 섹션별 설정 목록(일반/외관), 항목 클릭 시 인라인 강조. 작은 우측 드로어에 집약적 설정 UI를 구현합니다.',
+        story:
+          'CommandPalette Extension Settings 패턴. 다크 배경 Extension 아이콘 + 이름 헤더, 섹션별 설정 목록(일반/외관), 항목 클릭 시 인라인 강조. 작은 우측 드로어에 집약적 설정 UI를 구현합니다.',
       },
     },
   },
@@ -1383,22 +1816,63 @@ const WorkspaceEditorPagePropertiesRender = () => {
       <Drawer.Content side="right" style={{ width: 320 }}>
         <Drawer.Header>
           <Drawer.Title>페이지 속성</Drawer.Title>
-          <span style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>WorkspaceEditor 페이지 속성 패널 패턴</span>
+          <span style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>
+            WorkspaceEditor 페이지 속성 패널 패턴
+          </span>
         </Drawer.Header>
         <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {WORKSPACE_PAGE_PROPERTIES.map(prop => (
-              <div key={prop.id} style={{ display: 'flex', alignItems: 'center', padding: '8px 10px', borderRadius: 6, cursor: 'pointer' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#f9fafb' }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '' }}>
-                <span style={{ width: 100, fontSize: 12, color: '#9ca3af', flexShrink: 0 }}>{prop.label}</span>
+            {WORKSPACE_PAGE_PROPERTIES.map((prop) => (
+              <div
+                key={prop.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '8px 10px',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => {
+                  ;(e.currentTarget as HTMLElement).style.background = '#f9fafb'
+                }}
+                onMouseLeave={(e) => {
+                  ;(e.currentTarget as HTMLElement).style.background = ''
+                }}
+              >
+                <span style={{ width: 100, fontSize: 12, color: '#9ca3af', flexShrink: 0 }}>
+                  {prop.label}
+                </span>
                 {prop.color ? (
-                  <span style={{ fontSize: 12, padding: '2px 8px', borderRadius: 4, background: prop.color + '20', color: prop.color, fontWeight: 600 }}>{prop.value}</span>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      padding: '2px 8px',
+                      borderRadius: 4,
+                      background: prop.color + '20',
+                      color: prop.color,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {prop.value}
+                  </span>
                 ) : (
                   <span style={{ fontSize: 12, color: '#374151' }}>{prop.value}</span>
                 )}
               </div>
             ))}
           </div>
-          <div style={{ marginTop: 16, padding: '10px', border: '1px dashed #e5e7eb', borderRadius: 8, textAlign: 'center', cursor: 'pointer', color: '#9ca3af', fontSize: 12 }}>
+          <div
+            style={{
+              marginTop: 16,
+              padding: '10px',
+              border: '1px dashed #e5e7eb',
+              borderRadius: 8,
+              textAlign: 'center',
+              cursor: 'pointer',
+              color: '#9ca3af',
+              fontSize: 12,
+            }}
+          >
             + 속성 추가
           </div>
         </div>
@@ -1419,7 +1893,8 @@ export const WorkspaceEditor_페이지_속성_드로어: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'WorkspaceEditor 페이지 속성 패널 패턴. Status/Assignee/Priority/Due Date 등 메타데이터를 레이블-값 행으로 표시합니다. 색상 배지로 선택 속성 타입을 강조하고 hover 시 배경을 강조합니다.',
+        story:
+          'WorkspaceEditor 페이지 속성 패널 패턴. Status/Assignee/Priority/Due Date 등 메타데이터를 레이블-값 행으로 표시합니다. 색상 배지로 선택 속성 타입을 강조하고 hover 시 배경을 강조합니다.',
       },
     },
   },
@@ -1427,30 +1902,39 @@ export const WorkspaceEditor_페이지_속성_드로어: Story = {
 }
 
 const UTILITYUI_KEYBOARD_SHORTCUTS = [
-  { category: '탐색', shortcuts: [
-    { key: '⌘K', desc: '커맨드 팔레트 열기' },
-    { key: '⌘/', desc: '사이드바 토글' },
-    { key: 'G H', desc: '홈으로 이동' },
-    { key: 'G I', desc: '이슈 목록' },
-  ]},
-  { category: '액션', shortcuts: [
-    { key: '⌘N', desc: '새 항목 만들기' },
-    { key: '⌘Enter', desc: '저장 및 닫기' },
-    { key: 'Esc', desc: '취소/닫기' },
-    { key: '⌘.', desc: '설정 열기' },
-  ]},
+  {
+    category: '탐색',
+    shortcuts: [
+      { key: '⌘K', desc: '커맨드 팔레트 열기' },
+      { key: '⌘/', desc: '사이드바 토글' },
+      { key: 'G H', desc: '홈으로 이동' },
+      { key: 'G I', desc: '이슈 목록' },
+    ],
+  },
+  {
+    category: '액션',
+    shortcuts: [
+      { key: '⌘N', desc: '새 항목 만들기' },
+      { key: '⌘Enter', desc: '저장 및 닫기' },
+      { key: 'Esc', desc: '취소/닫기' },
+      { key: '⌘.', desc: '설정 열기' },
+    ],
+  },
 ]
 
 const ComposableUIKeyboardShortcutsRender = () => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
 
-  const filteredShortcuts = UTILITYUI_KEYBOARD_SHORTCUTS.map(cat => ({
+  const filteredShortcuts = UTILITYUI_KEYBOARD_SHORTCUTS.map((cat) => ({
     ...cat,
-    shortcuts: cat.shortcuts.filter(s =>
-      query === '' || s.desc.toLowerCase().includes(query.toLowerCase()) || s.key.toLowerCase().includes(query.toLowerCase())
+    shortcuts: cat.shortcuts.filter(
+      (s) =>
+        query === '' ||
+        s.desc.toLowerCase().includes(query.toLowerCase()) ||
+        s.key.toLowerCase().includes(query.toLowerCase())
     ),
-  })).filter(cat => cat.shortcuts.length > 0)
+  })).filter((cat) => cat.shortcuts.length > 0)
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
@@ -1471,21 +1955,57 @@ const ComposableUIKeyboardShortcutsRender = () => {
           </div>
         </Drawer.Header>
         <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px 20px' }}>
-          {filteredShortcuts.map(cat => (
+          {filteredShortcuts.map((cat) => (
             <div key={cat.category} style={{ marginBottom: 20 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{cat.category}</div>
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 700,
+                  color: '#6b7280',
+                  marginBottom: 8,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                {cat.category}
+              </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                {cat.shortcuts.map(s => (
-                  <div key={s.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: '#f9fafb', borderRadius: 8 }}>
+                {cat.shortcuts.map((s) => (
+                  <div
+                    key={s.key}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '8px 12px',
+                      background: '#f9fafb',
+                      borderRadius: 8,
+                    }}
+                  >
                     <span style={{ fontSize: 13, color: '#374151' }}>{s.desc}</span>
-                    <kbd style={{ fontSize: 11, padding: '2px 8px', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 4, fontFamily: 'monospace', color: '#374151', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>{s.key}</kbd>
+                    <kbd
+                      style={{
+                        fontSize: 11,
+                        padding: '2px 8px',
+                        background: '#fff',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: 4,
+                        fontFamily: 'monospace',
+                        color: '#374151',
+                        boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                      }}
+                    >
+                      {s.key}
+                    </kbd>
                   </div>
                 ))}
               </div>
             </div>
           ))}
           {filteredShortcuts.length === 0 && (
-            <div style={{ textAlign: 'center', color: '#9ca3af', fontSize: 13, padding: '24px 0' }}>검색 결과가 없습니다</div>
+            <div style={{ textAlign: 'center', color: '#9ca3af', fontSize: 13, padding: '24px 0' }}>
+              검색 결과가 없습니다
+            </div>
           )}
         </div>
         <Drawer.Footer>
@@ -1505,7 +2025,8 @@ export const ComposableUI_키보드_단축키_드로어: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ComposableUI 스타일의 키보드 단축키 참고 드로어. 카테고리별 단축키 목록을 바텀 시트로 표시하며 실시간 검색 필터를 지원합니다. FloatingTextField로 단축키를 실시간으로 필터링합니다.',
+        story:
+          'ComposableUI 스타일의 키보드 단축키 참고 드로어. 카테고리별 단축키 목록을 바텀 시트로 표시하며 실시간 검색 필터를 지원합니다. FloatingTextField로 단축키를 실시간으로 필터링합니다.',
       },
     },
   },
@@ -1547,9 +2068,7 @@ function EnterpriseUIFilterDrawerRender() {
     <Drawer open={open} onOpenChange={setOpen}>
       <Drawer.Trigger asChild>
         <Button color="primary" size="medium">
-          <Button.Center>
-            필터 {totalActive > 0 ? `(${totalActive})` : ''}
-          </Button.Center>
+          <Button.Center>필터 {totalActive > 0 ? `(${totalActive})` : ''}</Button.Center>
         </Button>
       </Drawer.Trigger>
       <Drawer.Content side="right">
@@ -1557,21 +2076,51 @@ function EnterpriseUIFilterDrawerRender() {
           <Drawer.Title>검색 필터</Drawer.Title>
           <Drawer.Description>결과를 좁힐 조건을 선택하세요.</Drawer.Description>
         </Drawer.Header>
-        <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 20, overflowY: 'auto', flex: 1 }}>
-
+        <div
+          style={{
+            padding: '16px 20px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 20,
+            overflowY: 'auto',
+            flex: 1,
+          }}
+        >
           {/* Status */}
           <div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>상태</div>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: '#64748b',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                marginBottom: 8,
+              }}
+            >
+              상태
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {STATUS_OPTS.map((opt) => (
-                <label key={opt} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '6px 0' }}>
+                <label
+                  key={opt}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    cursor: 'pointer',
+                    padding: '6px 0',
+                  }}
+                >
                   <input
                     type="checkbox"
                     checked={filters.status.has(opt)}
                     onChange={() => toggleFilter('status', opt)}
                     style={{ width: 16, height: 16, accentColor: '#6366f1' }}
                   />
-                  <span style={{ fontSize: 13, color: '#1e293b', textTransform: 'capitalize' }}>{opt}</span>
+                  <span style={{ fontSize: 13, color: '#1e293b', textTransform: 'capitalize' }}>
+                    {opt}
+                  </span>
                 </label>
               ))}
             </div>
@@ -1579,20 +2128,55 @@ function EnterpriseUIFilterDrawerRender() {
 
           {/* Priority */}
           <div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>우선순위</div>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: '#64748b',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                marginBottom: 8,
+              }}
+            >
+              우선순위
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {PRIORITY_OPTS.map((opt) => {
-                const colors: Record<string, string> = { urgent: '#ef4444', high: '#f59e0b', medium: '#6366f1', low: '#94a3b8' }
+                const colors: Record<string, string> = {
+                  urgent: '#ef4444',
+                  high: '#f59e0b',
+                  medium: '#6366f1',
+                  low: '#94a3b8',
+                }
                 return (
-                  <label key={opt} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '6px 0' }}>
+                  <label
+                    key={opt}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      cursor: 'pointer',
+                      padding: '6px 0',
+                    }}
+                  >
                     <input
                       type="checkbox"
                       checked={filters.priority.has(opt)}
                       onChange={() => toggleFilter('priority', opt)}
                       style={{ width: 16, height: 16, accentColor: '#6366f1' }}
                     />
-                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: colors[opt], flexShrink: 0 }} />
-                    <span style={{ fontSize: 13, color: '#1e293b', textTransform: 'capitalize' }}>{opt}</span>
+                    <span
+                      style={{
+                        width: 8,
+                        height: 8,
+                        borderRadius: '50%',
+                        background: colors[opt],
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span style={{ fontSize: 13, color: '#1e293b', textTransform: 'capitalize' }}>
+                      {opt}
+                    </span>
                   </label>
                 )
               })}
@@ -1601,10 +2185,30 @@ function EnterpriseUIFilterDrawerRender() {
 
           {/* Assignee */}
           <div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>담당자</div>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: '#64748b',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                marginBottom: 8,
+              }}
+            >
+              담당자
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {ASSIGNEE_OPTS.map((opt) => (
-                <label key={opt} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '6px 0' }}>
+                <label
+                  key={opt}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    cursor: 'pointer',
+                    padding: '6px 0',
+                  }}
+                >
                   <input
                     type="checkbox"
                     checked={filters.assignee.has(opt)}
@@ -1618,7 +2222,13 @@ function EnterpriseUIFilterDrawerRender() {
           </div>
         </div>
         <Drawer.Footer>
-          <OutlineButton color="black" size="medium" onClick={() => setFilters({ status: new Set(), priority: new Set(), assignee: new Set() })}>
+          <OutlineButton
+            color="black"
+            size="medium"
+            onClick={() =>
+              setFilters({ status: new Set(), priority: new Set(), assignee: new Set() })
+            }
+          >
             <OutlineButton.Center>초기화</OutlineButton.Center>
           </OutlineButton>
           <Button color="primary" size="medium" onClick={() => setOpen(false)}>
@@ -1676,35 +2286,93 @@ function UtilityCSSMobileNavRender() {
         <Drawer.Header>
           <Drawer.Title>
             <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 800 }}>O</span>
+              <span
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 8,
+                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontSize: 14,
+                  fontWeight: 800,
+                }}
+              >
+                O
+              </span>
               Orbit UI
             </span>
           </Drawer.Title>
           <Drawer.Description>v2.1.0 — 팀 워크스페이스</Drawer.Description>
         </Drawer.Header>
-        <div style={{ flex: 1, overflowY: 'auto', padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '12px 16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 20,
+          }}
+        >
           {NAV_GROUPS.map((group) => (
             <div key={group.label}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#94a3b8',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.07em',
+                  marginBottom: 6,
+                }}
+              >
                 {group.label}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {group.items.map((item) => (
                   <button
                     key={item.id}
-                    onClick={() => { setActive(item.id); setOpen(false) }}
+                    onClick={() => {
+                      setActive(item.id)
+                      setOpen(false)
+                    }}
                     style={{
-                      display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px',
-                      borderRadius: 10, border: 'none', cursor: 'pointer', textAlign: 'left',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: '10px 12px',
+                      borderRadius: 10,
+                      border: 'none',
+                      cursor: 'pointer',
+                      textAlign: 'left',
                       background: active === item.id ? '#f0f0ff' : 'transparent',
                       color: active === item.id ? '#6366f1' : '#475569',
-                      fontWeight: active === item.id ? 700 : 500, fontSize: 14, transition: 'all 0.15s',
+                      fontWeight: active === item.id ? 700 : 500,
+                      fontSize: 14,
+                      transition: 'all 0.15s',
                     }}
                   >
                     <span style={{ fontSize: 16 }}>{item.icon}</span>
                     <span style={{ flex: 1 }}>{item.label}</span>
                     {item.badge && (
-                      <span style={{ minWidth: 20, height: 20, borderRadius: 10, background: '#6366f1', color: '#fff', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 6px' }}>
+                      <span
+                        style={{
+                          minWidth: 20,
+                          height: 20,
+                          borderRadius: 10,
+                          background: '#6366f1',
+                          color: '#fff',
+                          fontSize: 11,
+                          fontWeight: 700,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: '0 6px',
+                        }}
+                      >
                         {item.badge}
                       </span>
                     )}
@@ -1715,8 +2383,31 @@ function UtilityCSSMobileNavRender() {
           ))}
         </div>
         <Drawer.Footer>
-          <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '4px 0' }}>
-            <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#6366f1', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700 }}>김</div>
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '4px 0',
+            }}
+          >
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                background: '#6366f1',
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 14,
+                fontWeight: 700,
+              }}
+            >
+              김
+            </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>김민준</div>
               <div style={{ fontSize: 11, color: '#94a3b8' }}>Admin</div>
@@ -1764,7 +2455,11 @@ function EnterpriseUIUtilityCSSCreateTaskRender() {
   const handleSubmit = () => {
     if (!form.title.trim()) return
     setSubmitted(true)
-    setTimeout(() => { setSubmitted(false); setOpen(false); setForm({ title: '', priority: 'medium', assignee: '', due: '' }) }, 1500)
+    setTimeout(() => {
+      setSubmitted(false)
+      setOpen(false)
+      setForm({ title: '', priority: 'medium', assignee: '', due: '' })
+    }, 1500)
   }
 
   return (
@@ -1781,35 +2476,83 @@ function EnterpriseUIUtilityCSSCreateTaskRender() {
         </Drawer.Header>
         <div style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
           {submitted ? (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '40px 0' }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 12,
+                padding: '40px 0',
+              }}
+            >
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  background: '#dcfce7',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 24,
+                }}
+              >
                 ✓
               </div>
-              <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>작업이 생성되었습니다!</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>
+                작업이 생성되었습니다!
+              </div>
               <div style={{ fontSize: 13, color: '#64748b' }}>{form.title}</div>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div>
-                <label style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', display: 'block', marginBottom: 6 }}>제목 *</label>
+                <label
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: '#1e293b',
+                    display: 'block',
+                    marginBottom: 6,
+                  }}
+                >
+                  제목 *
+                </label>
                 <FloatingTextField
                   placeholder="작업 제목 입력"
                   value={form.title}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, title: e.target.value }))}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setForm((f) => ({ ...f, title: e.target.value }))
+                  }
                 />
               </div>
               <div>
-                <label style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', display: 'block', marginBottom: 6 }}>우선순위</label>
+                <label
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: '#1e293b',
+                    display: 'block',
+                    marginBottom: 6,
+                  }}
+                >
+                  우선순위
+                </label>
                 <div style={{ display: 'flex', gap: 8 }}>
                   {PRIORITIES.map((p) => (
                     <button
                       key={p.value}
                       onClick={() => setForm((f) => ({ ...f, priority: p.value }))}
                       style={{
-                        flex: 1, padding: '8px 4px', borderRadius: 8, border: `1.5px solid ${form.priority === p.value ? p.color : '#e2e8f0'}`,
+                        flex: 1,
+                        padding: '8px 4px',
+                        borderRadius: 8,
+                        border: `1.5px solid ${form.priority === p.value ? p.color : '#e2e8f0'}`,
                         background: form.priority === p.value ? `${p.color}18` : '#fff',
                         color: form.priority === p.value ? p.color : '#64748b',
-                        fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                        fontSize: 12,
+                        fontWeight: 600,
+                        cursor: 'pointer',
                       }}
                     >
                       {p.label}
@@ -1818,14 +2561,36 @@ function EnterpriseUIUtilityCSSCreateTaskRender() {
                 </div>
               </div>
               <div>
-                <label style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', display: 'block', marginBottom: 6 }}>담당자</label>
+                <label
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: '#1e293b',
+                    display: 'block',
+                    marginBottom: 6,
+                  }}
+                >
+                  담당자
+                </label>
                 <select
                   value={form.assignee}
                   onChange={(e) => setForm((f) => ({ ...f, assignee: e.target.value }))}
-                  style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, background: '#fff', outline: 'none' }}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: 8,
+                    border: '1.5px solid #e2e8f0',
+                    fontSize: 13,
+                    background: '#fff',
+                    outline: 'none',
+                  }}
                 >
                   <option value="">선택 안함</option>
-                  {ASSIGNEES.map((a) => <option key={a} value={a}>{a}</option>)}
+                  {ASSIGNEES.map((a) => (
+                    <option key={a} value={a}>
+                      {a}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -1874,12 +2639,17 @@ function DeployPlatformEnvVarDrawerRender() {
   const [saved, setSaved] = useState(false)
 
   const toggleScope = (s: string) => {
-    setScopes((prev) => prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s])
+    setScopes((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]))
   }
 
   const handleSave = () => {
     setSaved(true)
-    setTimeout(() => { setSaved(false); setOpen(false); setKey(''); setValue('') }, 1500)
+    setTimeout(() => {
+      setSaved(false)
+      setOpen(false)
+      setKey('')
+      setValue('')
+    }, 1500)
   }
 
   return (
@@ -1890,11 +2660,24 @@ function DeployPlatformEnvVarDrawerRender() {
       <Drawer open={open} onOpenChange={setOpen}>
         <Drawer.Content style={{ width: 440 }}>
           <Drawer.Header>
-            <Typography textStyle="subheadingSmall" color="foregroundPrimary">환경 변수 추가</Typography>
+            <Typography textStyle="subheadingSmall" color="foregroundPrimary">
+              환경 변수 추가
+            </Typography>
           </Drawer.Header>
-          <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 20, flex: 1, overflowY: 'auto' }}>
+          <div
+            style={{
+              padding: '20px 24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 20,
+              flex: 1,
+              overflowY: 'auto',
+            }}
+          >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <Typography textStyle="labelSmall" color="foregroundPrimary">Key</Typography>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">
+                Key
+              </Typography>
               <FloatingTextField
                 placeholder="예: DATABASE_URL"
                 value={key}
@@ -1902,7 +2685,9 @@ function DeployPlatformEnvVarDrawerRender() {
               />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <Typography textStyle="labelSmall" color="foregroundPrimary">Value</Typography>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">
+                Value
+              </Typography>
               <FloatingTextField
                 placeholder="환경 변수 값"
                 value={value}
@@ -1910,16 +2695,27 @@ function DeployPlatformEnvVarDrawerRender() {
               />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <Typography textStyle="labelSmall" color="foregroundPrimary">환경 선택</Typography>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">
+                환경 선택
+              </Typography>
               {ENV_SCOPES.map((s) => (
                 <CheckboxWithLabel
                   key={s}
                   checked={scopes.includes(s)}
                   onChange={() => toggleScope(s)}
-                >{s}</CheckboxWithLabel>
+                >
+                  {s}
+                </CheckboxWithLabel>
               ))}
             </div>
-            <div style={{ padding: 12, borderRadius: 8, background: 'var(--sem-eclipse-color-backgroundSecondary)', border: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+            <div
+              style={{
+                padding: 12,
+                borderRadius: 8,
+                background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+              }}
+            >
               <Typography textStyle="descriptionSmall" color="foregroundTertiary">
                 민감한 값은 마스킹되어 저장되며 팀원은 값을 볼 수 없습니다.
               </Typography>
@@ -1949,7 +2745,8 @@ export const DeployPlatform_환경변수_관리_드로어: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform의 환경변수 관리 사이드 드로어 패턴. Key/Value 인풋, Production/Preview/Development 스코프 체크박스, 저장 시 1.5초 후 자동 닫힘. 모노스페이스 Key 필드.',
+        story:
+          'DeployPlatform의 환경변수 관리 사이드 드로어 패턴. Key/Value 인풋, Production/Preview/Development 스코프 체크박스, 저장 시 1.5초 후 자동 닫힘. 모노스페이스 Key 필드.',
       },
     },
   },
@@ -1971,13 +2768,19 @@ function AntExportDrawerRender() {
   const [done, setDone] = useState(false)
 
   const toggleField = (f: string) => {
-    setFields((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f])
+    setFields((prev) => (prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]))
   }
 
   const handleExport = () => {
     setExporting(true)
-    setTimeout(() => { setExporting(false); setDone(true) }, 2000)
-    setTimeout(() => { setDone(false); setOpen(false) }, 3500)
+    setTimeout(() => {
+      setExporting(false)
+      setDone(true)
+    }, 2000)
+    setTimeout(() => {
+      setDone(false)
+      setOpen(false)
+    }, 3500)
   }
 
   return (
@@ -1988,27 +2791,70 @@ function AntExportDrawerRender() {
       <Drawer open={open} onOpenChange={setOpen}>
         <Drawer.Content style={{ width: 400 }}>
           <Drawer.Header>
-            <Typography textStyle="subheadingSmall" color="foregroundPrimary">데이터 내보내기</Typography>
+            <Typography textStyle="subheadingSmall" color="foregroundPrimary">
+              데이터 내보내기
+            </Typography>
           </Drawer.Header>
-          <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 20, flex: 1, overflowY: 'auto' }}>
+          <div
+            style={{
+              padding: '20px 24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 20,
+              flex: 1,
+              overflowY: 'auto',
+            }}
+          >
             {/* 포맷 선택 */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <Typography textStyle="labelSmall" color="foregroundPrimary">파일 형식</Typography>
-              <RadioGroup name="export-format" value={format} onChange={(e) => setFormat(e.target.value)}>
-                {[['csv', 'CSV (.csv)'], ['xlsx', 'Excel (.xlsx)'], ['json', 'JSON (.json)']].map(([v, l]) => (
-                  <RadioButtonWithLabel key={v} value={v}>{l}</RadioButtonWithLabel>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">
+                파일 형식
+              </Typography>
+              <RadioGroup
+                name="export-format"
+                value={format}
+                onChange={(e) => setFormat(e.target.value)}
+              >
+                {[
+                  ['csv', 'CSV (.csv)'],
+                  ['xlsx', 'Excel (.xlsx)'],
+                  ['json', 'JSON (.json)'],
+                ].map(([v, l]) => (
+                  <RadioButtonWithLabel key={v} value={v}>
+                    {l}
+                  </RadioButtonWithLabel>
                 ))}
               </RadioGroup>
             </div>
             {/* 기간 선택 */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <Typography textStyle="labelSmall" color="foregroundPrimary">데이터 범위</Typography>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">
+                데이터 범위
+              </Typography>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {[['7d', '최근 7일'], ['30d', '최근 30일'], ['90d', '최근 90일'], ['all', '전체']].map(([v, l]) => (
+                {[
+                  ['7d', '최근 7일'],
+                  ['30d', '최근 30일'],
+                  ['90d', '최근 90일'],
+                  ['all', '전체'],
+                ].map(([v, l]) => (
                   <button
                     key={v}
                     onClick={() => setDateRange(v)}
-                    style={{ padding: '5px 12px', borderRadius: 6, border: `1px solid ${dateRange === v ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: dateRange === v ? '#6366f110' : 'transparent', color: dateRange === v ? '#6366f1' : 'var(--sem-eclipse-color-foregroundSecondary)', fontSize: 12, fontWeight: dateRange === v ? 700 : 400, cursor: 'pointer', transition: 'all 0.15s' }}
+                    style={{
+                      padding: '5px 12px',
+                      borderRadius: 6,
+                      border: `1px solid ${dateRange === v ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`,
+                      background: dateRange === v ? '#6366f110' : 'transparent',
+                      color:
+                        dateRange === v
+                          ? '#6366f1'
+                          : 'var(--sem-eclipse-color-foregroundSecondary)',
+                      fontSize: 12,
+                      fontWeight: dateRange === v ? 700 : 400,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s',
+                    }}
                   >
                     {l}
                   </button>
@@ -2017,9 +2863,15 @@ function AntExportDrawerRender() {
             </div>
             {/* 필드 선택 */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography textStyle="labelSmall" color="foregroundPrimary">포함할 필드</Typography>
-                <Typography textStyle="descriptionSmall" color="foregroundTertiary">{fields.length}/{EXPORT_FIELDS.length}</Typography>
+              <div
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              >
+                <Typography textStyle="labelSmall" color="foregroundPrimary">
+                  포함할 필드
+                </Typography>
+                <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                  {fields.length}/{EXPORT_FIELDS.length}
+                </Typography>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
                 {EXPORT_FIELDS.map((f) => (
@@ -2027,14 +2879,27 @@ function AntExportDrawerRender() {
                     key={f}
                     checked={fields.includes(f)}
                     onChange={() => toggleField(f)}
-                  >{f}</CheckboxWithLabel>
+                  >
+                    {f}
+                  </CheckboxWithLabel>
                 ))}
               </div>
             </div>
             {/* 상태 메시지 */}
             {(exporting || done) && (
-              <div style={{ padding: 12, borderRadius: 8, background: done ? '#10b98120' : '#6366f110', border: `1px solid ${done ? '#10b981' : '#6366f1'}40`, textAlign: 'center' }}>
-                <Typography textStyle="labelSmall" color={done ? 'foregroundPrimary' : 'foregroundPrimary'}>
+              <div
+                style={{
+                  padding: 12,
+                  borderRadius: 8,
+                  background: done ? '#10b98120' : '#6366f110',
+                  border: `1px solid ${done ? '#10b981' : '#6366f1'}40`,
+                  textAlign: 'center',
+                }}
+              >
+                <Typography
+                  textStyle="labelSmall"
+                  color={done ? 'foregroundPrimary' : 'foregroundPrimary'}
+                >
                   {done ? '내보내기 완료! 다운로드가 시작됩니다.' : '파일 생성 중...'}
                 </Typography>
               </div>
@@ -2064,7 +2929,8 @@ export const Ant_데이터_내보내기_드로어: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design 우측 설정 패널 패턴. CSV/Excel/JSON 포맷, 기간 범위, 포함 필드 체크박스 선택. 내보내기 진행 중 상태 표시 후 완료 피드백.',
+        story:
+          'Ant Design 우측 설정 패널 패턴. CSV/Excel/JSON 포맷, 기간 범위, 포함 필드 체크박스 선택. 내보내기 진행 중 상태 표시 후 완료 피드백.',
       },
     },
   },
@@ -2094,40 +2960,95 @@ function DeployPlatformAntMemberDrawerRender() {
       <Drawer open={open} onOpenChange={setOpen}>
         <Drawer.Content style={{ width: 420 }}>
           <Drawer.Header>
-            <Typography textStyle="subheadingSmall" color="foregroundPrimary">팀 멤버 상세</Typography>
+            <Typography textStyle="subheadingSmall" color="foregroundPrimary">
+              팀 멤버 상세
+            </Typography>
           </Drawer.Header>
-          <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 20, flex: 1, overflowY: 'auto' }}>
+          <div
+            style={{
+              padding: '20px 24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 20,
+              flex: 1,
+              overflowY: 'auto',
+            }}
+          >
             {/* 프로필 */}
-            <div style={{ display: 'flex', gap: 14, alignItems: 'center', padding: '14px 16px', background: 'var(--sem-eclipse-color-backgroundSecondary)', borderRadius: 10 }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: 14,
+                alignItems: 'center',
+                padding: '14px 16px',
+                background: 'var(--sem-eclipse-color-backgroundSecondary)',
+                borderRadius: 10,
+              }}
+            >
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
                 <span style={{ fontSize: 18, fontWeight: 800, color: '#fff' }}>AK</span>
               </div>
               <div>
-                <Typography textStyle="labelMedium" color="foregroundPrimary">Alice Kim</Typography>
-                <Typography textStyle="descriptionSmall" color="foregroundTertiary">alice@example.com</Typography>
-                <Typography textStyle="descriptionSmall" color="foregroundDisabled">2024년 1월 가입 · 마지막 활동 2시간 전</Typography>
+                <Typography textStyle="labelMedium" color="foregroundPrimary">
+                  Alice Kim
+                </Typography>
+                <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                  alice@example.com
+                </Typography>
+                <Typography textStyle="descriptionSmall" color="foregroundDisabled">
+                  2024년 1월 가입 · 마지막 활동 2시간 전
+                </Typography>
               </div>
             </div>
             {/* 역할 설정 */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <Typography textStyle="labelSmall" color="foregroundPrimary">역할 설정</Typography>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">
+                역할 설정
+              </Typography>
               {PERMISSIONS.map((p) => (
                 <div
                   key={p.id}
                   onClick={() => setRole(p.id)}
-                  style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 8, border: `1.5px solid ${role === p.id ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`, background: role === p.id ? '#6366f108' : 'transparent', cursor: 'pointer', transition: 'all 0.15s' }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    padding: '10px 14px',
+                    borderRadius: 8,
+                    border: `1.5px solid ${role === p.id ? '#6366f1' : 'var(--sem-eclipse-color-borderDefault)'}`,
+                    background: role === p.id ? '#6366f108' : 'transparent',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
+                  }}
                 >
                   <RadioButton checked={role === p.id} onChange={() => setRole(p.id)} />
                   <div>
-                    <Typography textStyle="labelSmall" color="foregroundPrimary">{p.label}</Typography>
-                    <Typography textStyle="descriptionSmall" color="foregroundTertiary">{p.desc}</Typography>
+                    <Typography textStyle="labelSmall" color="foregroundPrimary">
+                      {p.label}
+                    </Typography>
+                    <Typography textStyle="descriptionSmall" color="foregroundTertiary">
+                      {p.desc}
+                    </Typography>
                   </div>
                 </div>
               ))}
             </div>
             {/* 알림 설정 */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <Typography textStyle="labelSmall" color="foregroundPrimary">알림 설정</Typography>
+              <Typography textStyle="labelSmall" color="foregroundPrimary">
+                알림 설정
+              </Typography>
               {[
                 { id: 'deploy', label: '배포 성공/실패' },
                 { id: 'error', label: '런타임 에러' },
@@ -2136,8 +3057,15 @@ function DeployPlatformAntMemberDrawerRender() {
                 <CheckboxWithLabel
                   key={n.id}
                   checked={notifications[n.id as keyof typeof notifications]}
-                  onChange={() => setNotifications((prev) => ({ ...prev, [n.id]: !prev[n.id as keyof typeof notifications] }))}
-                >{n.label}</CheckboxWithLabel>
+                  onChange={() =>
+                    setNotifications((prev) => ({
+                      ...prev,
+                      [n.id]: !prev[n.id as keyof typeof notifications],
+                    }))
+                  }
+                >
+                  {n.label}
+                </CheckboxWithLabel>
               ))}
             </div>
           </div>
@@ -2160,7 +3088,8 @@ export const DeployPlatform_Ant_팀_멤버_상세_드로어: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DeployPlatform 팀 관리 + Ant Design 권한 패널 패턴. 멤버 프로필 카드, RadioButton 역할 선택(뷰어/멤버/관리자), 알림 설정 체크박스. 실무 팀 설정 시나리오.',
+        story:
+          'DeployPlatform 팀 관리 + Ant Design 권한 패널 패턴. 멤버 프로필 카드, RadioButton 역할 선택(뷰어/멤버/관리자), 알림 설정 체크박스. 실무 팀 설정 시나리오.',
       },
     },
   },
@@ -2182,10 +3111,10 @@ const DEPLOY_DEPLOY_LOG_190 = [
 ]
 
 const LOG_STYLE_190: Record<string, { color: string }> = {
-  info:    { color: '#8b949e' },
+  info: { color: '#8b949e' },
   success: { color: '#3fb950' },
-  warn:    { color: '#d29922' },
-  error:   { color: '#f85149' },
+  warn: { color: '#d29922' },
+  error: { color: '#f85149' },
 }
 
 function DeployPlatformDeployDetailRender() {
@@ -2197,11 +3126,28 @@ function DeployPlatformDeployDetailRender() {
       </Button>
       <Drawer open={open} onOpenChange={setOpen}>
         <Drawer.Content side="right">
-          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#0d1117' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%',
+              background: '#0d1117',
+            }}
+          >
             <Drawer.Header>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#3fb950', flexShrink: 0 }} />
-                <Drawer.Title style={{ color: '#f0f6fc', fontSize: 14, fontWeight: 700 }}>배포 완료</Drawer.Title>
+                <div
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    background: '#3fb950',
+                    flexShrink: 0,
+                  }}
+                />
+                <Drawer.Title style={{ color: '#f0f6fc', fontSize: 14, fontWeight: 700 }}>
+                  배포 완료
+                </Drawer.Title>
               </div>
               <Drawer.Description style={{ color: '#8b949e', fontSize: 11, marginTop: 4 }}>
                 orbit-abc123.deploy.example.com · 39초
@@ -2217,12 +3163,38 @@ function DeployPlatformDeployDetailRender() {
                 ].map((item) => (
                   <div key={item.label} style={{ display: 'flex', gap: 8, fontSize: 12 }}>
                     <span style={{ color: '#484f58', width: 56, flexShrink: 0 }}>{item.label}</span>
-                    <span style={{ color: '#c9d1d9', fontFamily: item.label === '커밋' ? 'monospace' : 'inherit' }}>{item.value}</span>
+                    <span
+                      style={{
+                        color: '#c9d1d9',
+                        fontFamily: item.label === '커밋' ? 'monospace' : 'inherit',
+                      }}
+                    >
+                      {item.value}
+                    </span>
                   </div>
                 ))}
               </div>
-              <div style={{ fontSize: 11, fontWeight: 600, color: '#484f58', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>빌드 로그</div>
-              <div style={{ background: '#010409', borderRadius: 8, border: '1px solid #21262d', padding: '10px 12px', fontFamily: 'monospace' }}>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: '#484f58',
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  marginBottom: 8,
+                }}
+              >
+                빌드 로그
+              </div>
+              <div
+                style={{
+                  background: '#010409',
+                  borderRadius: 8,
+                  border: '1px solid #21262d',
+                  padding: '10px 12px',
+                  fontFamily: 'monospace',
+                }}
+              >
                 {DEPLOY_DEPLOY_LOG_190.map((log, i) => (
                   <div key={i} style={{ display: 'flex', gap: 10, fontSize: 11, lineHeight: 1.8 }}>
                     <span style={{ color: '#484f58', flexShrink: 0 }}>{log.time}</span>
@@ -2231,11 +3203,22 @@ function DeployPlatformDeployDetailRender() {
                 ))}
               </div>
             </div>
-            <div style={{ padding: '14px 24px', borderTop: '1px solid #21262d', display: 'flex', gap: 8 }}>
+            <div
+              style={{
+                padding: '14px 24px',
+                borderTop: '1px solid #21262d',
+                display: 'flex',
+                gap: 8,
+              }}
+            >
               <Button color="white" size="small">
                 <Button.Center>재배포</Button.Center>
               </Button>
-              <OutlineButton color="black" size="small" style={{ borderColor: '#30363d', color: '#c9d1d9' }}>
+              <OutlineButton
+                color="black"
+                size="small"
+                style={{ borderColor: '#30363d', color: '#c9d1d9' }}
+              >
                 URL 복사
               </OutlineButton>
             </div>
@@ -2274,10 +3257,13 @@ function WorkspaceEditorPagePropertyRender() {
   const [editingKey, setEditingKey] = useState<string | null>(null)
   const [editVal, setEditVal] = useState('')
 
-  const startEdit = (key: string, val: string) => { setEditingKey(key); setEditVal(val) }
+  const startEdit = (key: string, val: string) => {
+    setEditingKey(key)
+    setEditVal(val)
+  }
   const commitEdit = () => {
     if (editingKey) {
-      setProps((prev) => prev.map((p) => p.key === editingKey ? { ...p, value: editVal } : p))
+      setProps((prev) => prev.map((p) => (p.key === editingKey ? { ...p, value: editVal } : p)))
       setEditingKey(null)
     }
   }
@@ -2298,9 +3284,17 @@ function WorkspaceEditorPagePropertyRender() {
               {props.map((prop) => (
                 <div
                   key={prop.key}
-                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: '1px solid #f3f4f6' }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '8px 0',
+                    borderBottom: '1px solid #f3f4f6',
+                  }}
                 >
-                  <span style={{ fontSize: 12, color: '#9ca3af', width: 72, flexShrink: 0 }}>{prop.key}</span>
+                  <span style={{ fontSize: 12, color: '#9ca3af', width: 72, flexShrink: 0 }}>
+                    {prop.key}
+                  </span>
                   {editingKey === prop.key ? (
                     <input
                       autoFocus
@@ -2308,15 +3302,29 @@ function WorkspaceEditorPagePropertyRender() {
                       onChange={(e) => setEditVal(e.target.value)}
                       onBlur={commitEdit}
                       onKeyDown={(e) => e.key === 'Enter' && commitEdit()}
-                      style={{ flex: 1, fontSize: 12, padding: '3px 6px', borderRadius: 5, border: `1px solid ${prop.color}`, outline: 'none' }}
+                      style={{
+                        flex: 1,
+                        fontSize: 12,
+                        padding: '3px 6px',
+                        borderRadius: 5,
+                        border: `1px solid ${prop.color}`,
+                        outline: 'none',
+                      }}
                     />
                   ) : (
                     <div
                       onClick={() => startEdit(prop.key, prop.value)}
                       style={{
-                        flex: 1, fontSize: 12, padding: '3px 8px', borderRadius: 5, cursor: 'pointer',
-                        background: `${prop.color}15`, color: prop.color, fontWeight: 500,
-                        border: '1px solid transparent', transition: 'border 0.1s',
+                        flex: 1,
+                        fontSize: 12,
+                        padding: '3px 8px',
+                        borderRadius: 5,
+                        cursor: 'pointer',
+                        background: `${prop.color}15`,
+                        color: prop.color,
+                        fontWeight: 500,
+                        border: '1px solid transparent',
+                        transition: 'border 0.1s',
                       }}
                     >
                       {prop.value}
@@ -2325,7 +3333,16 @@ function WorkspaceEditorPagePropertyRender() {
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 20, padding: '10px 12px', background: '#f9fafb', borderRadius: 8, fontSize: 11, color: '#9ca3af' }}>
+            <div
+              style={{
+                marginTop: 20,
+                padding: '10px 12px',
+                background: '#f9fafb',
+                borderRadius: 8,
+                fontSize: 11,
+                color: '#9ca3af',
+              }}
+            >
               값을 클릭하면 인라인 편집이 가능합니다.
             </div>
           </div>
@@ -2358,8 +3375,8 @@ const DEPLOY_WORKSPACE_TEAM_190 = [
 
 const AVATAR_COLORS_190 = ['#6366f1', '#8b5cf6', '#3b82f6', '#10b981']
 const STATUS_STYLE_190: Record<string, { color: string; label: string }> = {
-  online:  { color: '#10b981', label: '온라인' },
-  away:    { color: '#f59e0b', label: '자리비움' },
+  online: { color: '#10b981', label: '온라인' },
+  away: { color: '#f59e0b', label: '자리비움' },
   offline: { color: '#6b7280', label: '오프라인' },
 }
 
@@ -2367,8 +3384,8 @@ function DeployPlatformWorkspaceEditorTeamDrawerRender() {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
 
-  const filtered = DEPLOY_WORKSPACE_TEAM_190.filter((m) =>
-    m.name.includes(search) || m.role.toLowerCase().includes(search.toLowerCase())
+  const filtered = DEPLOY_WORKSPACE_TEAM_190.filter(
+    (m) => m.name.includes(search) || m.role.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
@@ -2380,7 +3397,9 @@ function DeployPlatformWorkspaceEditorTeamDrawerRender() {
         <Drawer.Content side="right">
           <Drawer.Header>
             <Drawer.Title>팀 멤버</Drawer.Title>
-            <Drawer.Description>DeployPlatform + WorkspaceEditor — 멤버 목록 사이드 패널</Drawer.Description>
+            <Drawer.Description>
+              DeployPlatform + WorkspaceEditor — 멤버 목록 사이드 패널
+            </Drawer.Description>
           </Drawer.Header>
           <div style={{ padding: '0 24px 24px', flex: 1, overflowY: 'auto' }}>
             <FloatingTextField
@@ -2392,24 +3411,71 @@ function DeployPlatformWorkspaceEditorTeamDrawerRender() {
               {filtered.map((member, i) => {
                 const st = STATUS_STYLE_190[member.status]
                 return (
-                  <div key={member.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 10, border: '1px solid #f3f4f6', background: '#fff' }}>
+                  <div
+                    key={member.name}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: '10px 12px',
+                      borderRadius: 10,
+                      border: '1px solid #f3f4f6',
+                      background: '#fff',
+                    }}
+                  >
                     <div style={{ position: 'relative', flexShrink: 0 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: AVATAR_COLORS_190[i], display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#fff' }}>{member.avatar}</div>
-                      <div style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: st.color, border: '2px solid #fff' }} />
+                      <div
+                        style={{
+                          width: 36,
+                          height: 36,
+                          borderRadius: '50%',
+                          background: AVATAR_COLORS_190[i],
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 12,
+                          fontWeight: 700,
+                          color: '#fff',
+                        }}
+                      >
+                        {member.avatar}
+                      </div>
+                      <div
+                        style={{
+                          position: 'absolute',
+                          bottom: 0,
+                          right: 0,
+                          width: 10,
+                          height: 10,
+                          borderRadius: '50%',
+                          background: st.color,
+                          border: '2px solid #fff',
+                        }}
+                      />
                     </div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{member.name}</div>
-                      <div style={{ fontSize: 11, color: '#6b7280', marginTop: 1 }}>{member.role}</div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
+                        {member.name}
+                      </div>
+                      <div style={{ fontSize: 11, color: '#6b7280', marginTop: 1 }}>
+                        {member.role}
+                      </div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: 10, color: st.color, fontWeight: 600 }}>{st.label}</div>
-                      <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 1 }}>{member.lastSeen}</div>
+                      <div style={{ fontSize: 10, color: st.color, fontWeight: 600 }}>
+                        {st.label}
+                      </div>
+                      <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 1 }}>
+                        {member.lastSeen}
+                      </div>
                     </div>
                   </div>
                 )
               })}
               {filtered.length === 0 && (
-                <div style={{ padding: 20, textAlign: 'center', color: '#d1d5db', fontSize: 12 }}>검색 결과 없음</div>
+                <div style={{ padding: 20, textAlign: 'center', color: '#d1d5db', fontSize: 12 }}>
+                  검색 결과 없음
+                </div>
               )}
             </div>
           </div>

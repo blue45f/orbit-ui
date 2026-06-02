@@ -186,7 +186,10 @@ function DisclosureDemo() {
           fontSize: 12,
         }}
       >
-        isOpen: <strong style={{ color: isOpen ? 'rgb(0, 132, 77)' : 'rgb(187, 37, 35)' }}>{String(isOpen)}</strong>
+        isOpen:{' '}
+        <strong style={{ color: isOpen ? 'rgb(0, 132, 77)' : 'rgb(187, 37, 35)' }}>
+          {String(isOpen)}
+        </strong>
       </div>
     </Panel>
   )
@@ -236,10 +239,7 @@ function CounterDemo() {
     step: 1,
   })
   return (
-    <Panel
-      title="useCounter"
-      signature="useCounter({ initial: 1, min: 0, max: 5, step: 1 })"
-    >
+    <Panel title="useCounter" signature="useCounter({ initial: 1, min: 0, max: 5, step: 1 })">
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 14 }}>
         <Button variant="outline" onClick={decrement} disabled={isAtMin}>
           −
@@ -449,7 +449,10 @@ function StepDemo() {
   const step = useStep({ total: 4 })
   const labels = ['정보', '확인', '결제', '완료']
   return (
-    <Panel title="useStep" signature="useStep({ total: 4 }) · step.next() · step.prev() · step.goTo(n)">
+    <Panel
+      title="useStep"
+      signature="useStep({ total: 4 }) · step.next() · step.prev() · step.goTo(n)"
+    >
       <div
         style={{
           display: 'flex',
@@ -471,8 +474,7 @@ function StepDemo() {
                 step.current === i + 1
                   ? '1px solid rgb(37, 99, 235)'
                   : '1px solid var(--orbit-line, rgba(24,26,28,0.08))',
-              background:
-                step.current === i + 1 ? 'rgba(37, 99, 235, 0.08)' : 'transparent',
+              background: step.current === i + 1 ? 'rgba(37, 99, 235, 0.08)' : 'transparent',
               color:
                 step.current === i + 1
                   ? 'rgb(37, 99, 235)'
@@ -534,7 +536,8 @@ export const Step: Story = { render: () => <StepDemo /> }
 
 /* useStateHistory ----------------------------------------- */
 function StateHistoryDemo() {
-  const { state, set, undo, redo, reset, canUndo, canRedo, index, length } = useStateHistory('hello, world')
+  const { state, set, undo, redo, reset, canUndo, canRedo, index, length } =
+    useStateHistory('hello, world')
   return (
     <Panel
       title="useStateHistory"
@@ -567,7 +570,9 @@ function StateHistoryDemo() {
             borderRadius: 6,
             border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
             background: 'transparent',
-            color: canUndo ? 'var(--orbit-ink, rgb(24,26,28))' : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
+            color: canUndo
+              ? 'var(--orbit-ink, rgb(24,26,28))'
+              : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
             fontFamily: 'inherit',
             fontSize: 12.5,
             fontWeight: 600,
@@ -586,7 +591,9 @@ function StateHistoryDemo() {
             borderRadius: 6,
             border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
             background: 'transparent',
-            color: canRedo ? 'var(--orbit-ink, rgb(24,26,28))' : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
+            color: canRedo
+              ? 'var(--orbit-ink, rgb(24,26,28))'
+              : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
             fontFamily: 'inherit',
             fontSize: 12.5,
             fontWeight: 600,
@@ -621,7 +628,8 @@ function StateHistoryDemo() {
           color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
         }}
       >
-        index: <strong>{index}</strong> / {length - 1} · canUndo: <strong>{String(canUndo)}</strong> · canRedo: <strong>{String(canRedo)}</strong>
+        index: <strong>{index}</strong> / {length - 1} · canUndo: <strong>{String(canUndo)}</strong>{' '}
+        · canRedo: <strong>{String(canRedo)}</strong>
       </div>
     </Panel>
   )
@@ -695,7 +703,8 @@ function UncontrolledDemo() {
           lineHeight: 1.55,
         }}
       >
-        같은 컴포넌트가 controlled/uncontrolled 양쪽에서 그대로 동작합니다. 부모는 어느 쪽이든 onChange로 변화 관찰 가능.
+        같은 컴포넌트가 controlled/uncontrolled 양쪽에서 그대로 동작합니다. 부모는 어느 쪽이든
+        onChange로 변화 관찰 가능.
       </div>
     </Panel>
   )
@@ -733,7 +742,9 @@ function PaginationDemo() {
             borderRadius: 6,
             border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
             background: 'transparent',
-            color: isFirst ? 'var(--orbit-ink-4, rgba(24,26,28,0.33))' : 'var(--orbit-ink, rgb(24,26,28))',
+            color: isFirst
+              ? 'var(--orbit-ink-4, rgba(24,26,28,0.33))'
+              : 'var(--orbit-ink, rgb(24,26,28))',
             fontFamily: 'inherit',
             fontSize: 13,
             fontWeight: 600,
@@ -780,7 +791,7 @@ function PaginationDemo() {
             >
               {item.value}
             </button>
-          ),
+          )
         )}
 
         <button
@@ -793,7 +804,9 @@ function PaginationDemo() {
             borderRadius: 6,
             border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
             background: 'transparent',
-            color: isLast ? 'var(--orbit-ink-4, rgba(24,26,28,0.33))' : 'var(--orbit-ink, rgb(24,26,28))',
+            color: isLast
+              ? 'var(--orbit-ink-4, rgba(24,26,28,0.33))'
+              : 'var(--orbit-ink, rgb(24,26,28))',
             fontFamily: 'inherit',
             fontSize: 13,
             fontWeight: 600,
@@ -811,8 +824,8 @@ function PaginationDemo() {
           color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
         }}
       >
-        page: <strong>{page}</strong> / {total} · isFirst: <strong>{String(isFirst)}</strong> · isLast:{' '}
-        <strong>{String(isLast)}</strong>
+        page: <strong>{page}</strong> / {total} · isFirst: <strong>{String(isFirst)}</strong> ·
+        isLast: <strong>{String(isLast)}</strong>
       </div>
     </Panel>
   )
@@ -891,7 +904,8 @@ function QueueDemo() {
                   height: 26,
                   padding: '0 12px',
                   borderRadius: 999,
-                  background: i === 0 ? 'rgb(37, 99, 235)' : 'var(--orbit-line, rgba(24,26,28,0.08))',
+                  background:
+                    i === 0 ? 'rgb(37, 99, 235)' : 'var(--orbit-line, rgba(24,26,28,0.08))',
                   color: i === 0 ? 'rgb(255,255,255)' : 'var(--orbit-ink, rgb(24,26,28))',
                   fontFamily: '"JetBrains Mono", monospace',
                   fontSize: 12,
@@ -917,7 +931,8 @@ function QueueDemo() {
         size: <strong>{size}</strong> · isEmpty: <strong>{String(isEmpty)}</strong>
         {!isEmpty && (
           <>
-            {' '}· peek: <strong>&quot;{peek()}&quot;</strong>
+            {' '}
+            · peek: <strong>&quot;{peek()}&quot;</strong>
           </>
         )}
       </div>
@@ -970,16 +985,13 @@ function ControllableStateDemo() {
             Uncontrolled (defaultValue=false)
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Button onClick={() => setUncontrolled(!uncontrolledValue)}>
-              Toggle
-            </Button>
+            <Button onClick={() => setUncontrolled(!uncontrolledValue)}>Toggle</Button>
             <span
               style={{
                 fontFamily: '"JetBrains Mono", monospace',
                 fontSize: 13,
                 fontWeight: 600,
-                color:
-                  uncontrolledValue ? 'rgb(0, 132, 77)' : 'rgb(187, 37, 35)',
+                color: uncontrolledValue ? 'rgb(0, 132, 77)' : 'rgb(187, 37, 35)',
               }}
             >
               value: {String(uncontrolledValue)}
@@ -1008,9 +1020,7 @@ function ControllableStateDemo() {
             Controlled (value=externalState)
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Button onClick={() => setControlled(!controlledValue)}>
-              Toggle via hook
-            </Button>
+            <Button onClick={() => setControlled(!controlledValue)}>Toggle via hook</Button>
             <Button variant="outline" onClick={() => setExternalState((prev) => !prev)}>
               Toggle external
             </Button>
@@ -1019,8 +1029,7 @@ function ControllableStateDemo() {
                 fontFamily: '"JetBrains Mono", monospace',
                 fontSize: 13,
                 fontWeight: 600,
-                color:
-                  controlledValue ? 'rgb(0, 132, 77)' : 'rgb(187, 37, 35)',
+                color: controlledValue ? 'rgb(0, 132, 77)' : 'rgb(187, 37, 35)',
               }}
             >
               value: {String(controlledValue)}
@@ -1237,9 +1246,16 @@ function UndoableDemo() {
           lineHeight: 1.8,
         }}
       >
-        <div>value: <strong>&quot;{value}&quot;</strong></div>
-        <div>history.length: <strong>{history.length}</strong> · future.length: <strong>{future.length}</strong></div>
-        <div>canUndo: <strong>{String(canUndo)}</strong> · canRedo: <strong>{String(canRedo)}</strong></div>
+        <div>
+          value: <strong>&quot;{value}&quot;</strong>
+        </div>
+        <div>
+          history.length: <strong>{history.length}</strong> · future.length:{' '}
+          <strong>{future.length}</strong>
+        </div>
+        <div>
+          canUndo: <strong>{String(canUndo)}</strong> · canRedo: <strong>{String(canRedo)}</strong>
+        </div>
       </div>
     </Panel>
   )

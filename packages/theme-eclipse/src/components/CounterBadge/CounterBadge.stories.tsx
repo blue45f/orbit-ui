@@ -12,7 +12,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "CounterBadge는 숫자 카운트를 표시하는 배지 컴포넌트입니다. 99를 초과하는 경우 자동으로 99+로 표시됩니다.",
+        component:
+          'CounterBadge는 숫자 카운트를 표시하는 배지 컴포넌트입니다. 99를 초과하는 경우 자동으로 99+로 표시됩니다.',
       },
     },
   },
@@ -106,12 +107,23 @@ export const 칸반_컬럼_헤더: Story = {
 export const 숫자_오버플로우_처리: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+      <div
+        style={{
+          fontSize: 11,
+          color: '#94a3b8',
+          fontWeight: 600,
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}
+      >
         Count overflow handling
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
         {[1, 9, 50, 99, 100, 200].map((n) => (
-          <div key={n} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+          <div
+            key={n}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+          >
             <CounterBadge>{n}</CounterBadge>
             <span style={{ fontSize: 10, color: '#94a3b8' }}>{n}</span>
           </div>
@@ -137,7 +149,15 @@ export const 메일함_배지: Story = {
     ]
 
     return (
-      <div style={{ width: 220, background: 'white', borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+      <div
+        style={{
+          width: 220,
+          background: 'white',
+          borderRadius: 10,
+          boxShadow: '0 1px 6px rgba(0,0,0,0.08)',
+          overflow: 'hidden',
+        }}
+      >
         <div style={{ padding: '12px 14px', borderBottom: '1px solid #f1f5f9' }}>
           <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>메일</span>
         </div>
@@ -156,7 +176,13 @@ export const 메일함_배지: Story = {
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 14 }}>{folder.icon}</span>
-              <span style={{ fontSize: 13, color: folder.count > 0 ? '#0f172a' : '#64748b', fontWeight: folder.count > 0 ? 600 : 400 }}>
+              <span
+                style={{
+                  fontSize: 13,
+                  color: folder.count > 0 ? '#0f172a' : '#64748b',
+                  fontWeight: folder.count > 0 ? 600 : 400,
+                }}
+              >
                 {folder.name}
               </span>
             </div>
@@ -202,9 +228,13 @@ const RealtimeBadgeComponent = () => {
           onClick={() => setIsRunning(true)}
           disabled={isRunning}
           style={{
-            padding: '6px 14px', borderRadius: 6, border: 'none',
-            background: isRunning ? '#e2e8f0' : '#6366f1', color: isRunning ? '#94a3b8' : 'white',
-            fontSize: 13, cursor: isRunning ? 'not-allowed' : 'pointer',
+            padding: '6px 14px',
+            borderRadius: 6,
+            border: 'none',
+            background: isRunning ? '#e2e8f0' : '#6366f1',
+            color: isRunning ? '#94a3b8' : 'white',
+            fontSize: 13,
+            cursor: isRunning ? 'not-allowed' : 'pointer',
           }}
         >
           시작
@@ -213,8 +243,13 @@ const RealtimeBadgeComponent = () => {
           type="button"
           onClick={handleReset}
           style={{
-            padding: '6px 14px', borderRadius: 6, border: '1px solid #e2e8f0',
-            background: 'white', color: '#475569', fontSize: 13, cursor: 'pointer',
+            padding: '6px 14px',
+            borderRadius: 6,
+            border: '1px solid #e2e8f0',
+            background: 'white',
+            color: '#475569',
+            fontSize: 13,
+            cursor: 'pointer',
           }}
         >
           초기화
@@ -224,7 +259,17 @@ const RealtimeBadgeComponent = () => {
       <div style={{ display: 'flex', gap: 28 }}>
         {/* 알림 아이콘 */}
         <div style={{ position: 'relative', display: 'inline-flex', cursor: 'pointer' }}>
-          <div style={{ width: 44, height: 44, borderRadius: 10, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 10,
+              background: '#f1f5f9',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <span style={{ fontSize: 20 }}>🔔</span>
           </div>
           {notifCount > 0 && (
@@ -236,7 +281,17 @@ const RealtimeBadgeComponent = () => {
 
         {/* 메시지 아이콘 */}
         <div style={{ position: 'relative', display: 'inline-flex', cursor: 'pointer' }}>
-          <div style={{ width: 44, height: 44, borderRadius: 10, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 10,
+              background: '#f1f5f9',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <span style={{ fontSize: 20 }}>💬</span>
           </div>
           {msgCount > 0 && (
@@ -248,7 +303,9 @@ const RealtimeBadgeComponent = () => {
       </div>
 
       <div style={{ fontSize: 12, color: '#94a3b8' }}>
-        {isRunning ? '1.2초마다 새 알림이 도착합니다...' : '시작 버튼을 눌러 실시간 업데이트를 확인하세요.'}
+        {isRunning
+          ? '1.2초마다 새 알림이 도착합니다...'
+          : '시작 버튼을 눌러 실시간 업데이트를 확인하세요.'}
       </div>
     </div>
   )
@@ -306,8 +363,12 @@ export const IssueTracker_이슈_상태_카운터: Story = {
             borderRadius: 6,
             cursor: 'pointer',
           }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#1e1e2e' }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
+          onMouseEnter={(e) => {
+            ;(e.currentTarget as HTMLDivElement).style.background = '#1e1e2e'
+          }}
+          onMouseLeave={(e) => {
+            ;(e.currentTarget as HTMLDivElement).style.background = 'transparent'
+          }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
             <div
@@ -406,7 +467,9 @@ export const DataProduct_KPI_카드_배지: Story = {
           <div style={{ fontSize: 11, color: '#64748b', fontWeight: 500, marginBottom: 6 }}>
             {card.label}
           </div>
-          <div style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>
+          <div
+            style={{ fontSize: 22, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}
+          >
             {card.value}
           </div>
         </div>
@@ -559,7 +622,25 @@ const EnterpriseUITabBadgeDemo = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 0, width: 480 }}>
       <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0' }}>
         {EnterpriseUI_TABS.map((tab) => (
-          <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', fontSize: 14, fontWeight: activeTab === tab.id ? 700 : 400, color: activeTab === tab.id ? '#6366f1' : '#64748b', borderBottom: `2px solid ${activeTab === tab.id ? '#6366f1' : 'transparent'}`, marginBottom: -2, transition: 'all 0.2s' }}>
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '12px 16px',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+              fontSize: 14,
+              fontWeight: activeTab === tab.id ? 700 : 400,
+              color: activeTab === tab.id ? '#6366f1' : '#64748b',
+              borderBottom: `2px solid ${activeTab === tab.id ? '#6366f1' : 'transparent'}`,
+              marginBottom: -2,
+              transition: 'all 0.2s',
+            }}
+          >
             {tab.label}
             {tab.count > 0 && <CounterBadge>{tab.count}</CounterBadge>}
           </button>
@@ -603,15 +684,54 @@ const DESIGN_LAYERS = [
 const DesignToolLayerPanelDemo = () => {
   const [selected, setSelected] = useState('Components')
   return (
-    <div style={{ width: 220, background: '#1e1e1e', borderRadius: 10, padding: '12px 0', color: '#fff' }}>
-      <div style={{ padding: '4px 12px 10px', fontSize: 11, color: '#888', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+    <div
+      style={{
+        width: 220,
+        background: '#1e1e1e',
+        borderRadius: 10,
+        padding: '12px 0',
+        color: '#fff',
+      }}
+    >
+      <div
+        style={{
+          padding: '4px 12px 10px',
+          fontSize: 11,
+          color: '#888',
+          fontWeight: 600,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+        }}
+      >
         Layers
       </div>
       {DESIGN_LAYERS.map((layer) => (
-        <div key={layer.name} onClick={() => setSelected(layer.name)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 12px', cursor: 'pointer', background: selected === layer.name ? 'rgba(99,102,241,0.2)' : 'transparent', borderLeft: `2px solid ${selected === layer.name ? layer.color : 'transparent'}` }}>
+        <div
+          key={layer.name}
+          onClick={() => setSelected(layer.name)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '7px 12px',
+            cursor: 'pointer',
+            background: selected === layer.name ? 'rgba(99,102,241,0.2)' : 'transparent',
+            borderLeft: `2px solid ${selected === layer.name ? layer.color : 'transparent'}`,
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: layer.color, flexShrink: 0 }} />
-            <span style={{ fontSize: 12, color: selected === layer.name ? '#e2e8f0' : '#aaa' }}>{layer.name}</span>
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: layer.color,
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ fontSize: 12, color: selected === layer.name ? '#e2e8f0' : '#aaa' }}>
+              {layer.name}
+            </span>
           </div>
           <CounterBadge>{layer.count}</CounterBadge>
         </div>
@@ -654,10 +774,30 @@ const ShoppingCartBadgeDemo = () => {
   const cartCount = cart.length
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 360 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: '#0f172a', borderRadius: 10 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '12px 16px',
+          background: '#0f172a',
+          borderRadius: 10,
+        }}
+      >
         <span style={{ fontSize: 16, fontWeight: 700, color: '#fff' }}>Store</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4, position: 'relative' }}>
-          <button onClick={removeItem} disabled={cartCount === 0} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: cartCount > 0 ? 'pointer' : 'default', fontSize: 18, padding: '4px 8px' }}>
+          <button
+            onClick={removeItem}
+            disabled={cartCount === 0}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#94a3b8',
+              cursor: cartCount > 0 ? 'pointer' : 'default',
+              fontSize: 18,
+              padding: '4px 8px',
+            }}
+          >
             [cart]
           </button>
           {cartCount > 0 && (
@@ -671,14 +811,36 @@ const ShoppingCartBadgeDemo = () => {
         {SHOP_ITEMS.map((item) => {
           const inCart = cart.filter((id) => id === item.id).length
           return (
-            <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', border: '1px solid #e2e8f0', borderRadius: 8 }}>
+            <div
+              key={item.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '12px 14px',
+                border: '1px solid #e2e8f0',
+                borderRadius: 8,
+              }}
+            >
               <div>
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{item.name}</div>
                 <div style={{ fontSize: 12, color: '#64748b' }}>${item.price}</div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 {inCart > 0 && <CounterBadge>{inCart}</CounterBadge>}
-                <button onClick={() => addItem(item.id)} style={{ fontSize: 12, padding: '6px 12px', borderRadius: 6, background: '#6366f1', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
+                <button
+                  onClick={() => addItem(item.id)}
+                  style={{
+                    fontSize: 12,
+                    padding: '6px 12px',
+                    borderRadius: 6,
+                    background: '#6366f1',
+                    color: '#fff',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                  }}
+                >
                   추가
                 </button>
               </div>
@@ -721,14 +883,26 @@ function UtilityCSSNotifyBellRender() {
   const [open, setOpen] = useState(false)
   const [counts, setCounts] = useState(TAILWIND_CHANNELS.map((c) => c.unread))
   const total = counts.reduce((s, n) => s + n, 0)
-  const markRead = (i: number) => setCounts((prev) => prev.map((c, idx) => idx === i ? 0 : c))
+  const markRead = (i: number) => setCounts((prev) => prev.map((c, idx) => (idx === i ? 0 : c)))
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
       {/* 알림 벨 버튼 */}
       <button
         onClick={() => setOpen((v) => !v)}
-        style={{ position: 'relative', width: 40, height: 40, borderRadius: '50%', border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}
+        style={{
+          position: 'relative',
+          width: 40,
+          height: 40,
+          borderRadius: '50%',
+          border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+          background: 'var(--sem-eclipse-color-backgroundPrimary)',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 18,
+        }}
       >
         🔔
         {total > 0 && (
@@ -739,20 +913,85 @@ function UtilityCSSNotifyBellRender() {
       </button>
       {/* 드롭다운 */}
       {open && (
-        <div style={{ position: 'absolute', top: '110%', right: 0, width: 240, borderRadius: 10, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: 'var(--sem-eclipse-color-backgroundPrimary)', boxShadow: '0 4px 20px rgba(0,0,0,0.12)', zIndex: 10, overflow: 'hidden' }}>
-          <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', fontSize: 13, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: '110%',
+            right: 0,
+            width: 240,
+            borderRadius: 10,
+            border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+            background: 'var(--sem-eclipse-color-backgroundPrimary)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+            zIndex: 10,
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              padding: '10px 14px',
+              borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+              fontSize: 13,
+              fontWeight: 700,
+              color: 'var(--sem-eclipse-color-foregroundPrimary)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             알림
-            <span style={{ fontSize: 11, color: '#6366f1', cursor: 'pointer', fontWeight: 400 }} onClick={() => setCounts(counts.map(() => 0))}>모두 읽음</span>
+            <span
+              style={{ fontSize: 11, color: '#6366f1', cursor: 'pointer', fontWeight: 400 }}
+              onClick={() => setCounts(counts.map(() => 0))}
+            >
+              모두 읽음
+            </span>
           </div>
           {TAILWIND_CHANNELS.map((ch, i) => (
-            <div key={ch.name} onClick={() => markRead(i)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', cursor: 'pointer', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)', transition: 'background 0.1s' }} onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--sem-eclipse-color-backgroundSecondary)')} onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}>
-              <span style={{ flex: 1, fontSize: 12, color: counts[i] > 0 ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundTertiary)', fontWeight: counts[i] > 0 ? 600 : 400 }}>{ch.name}</span>
+            <div
+              key={ch.name}
+              onClick={() => markRead(i)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 14px',
+                cursor: 'pointer',
+                borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+                transition: 'background 0.1s',
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = 'var(--sem-eclipse-color-backgroundSecondary)')
+              }
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+            >
+              <span
+                style={{
+                  flex: 1,
+                  fontSize: 12,
+                  color:
+                    counts[i] > 0
+                      ? 'var(--sem-eclipse-color-foregroundPrimary)'
+                      : 'var(--sem-eclipse-color-foregroundTertiary)',
+                  fontWeight: counts[i] > 0 ? 600 : 400,
+                }}
+              >
+                {ch.name}
+              </span>
               {counts[i] > 0 && <CounterBadge>{counts[i]}</CounterBadge>}
             </div>
           ))}
         </div>
       )}
-      <p style={{ marginTop: 56, fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>UtilityUI 알림 벨 + 채널별 배지 패턴</p>
+      <p
+        style={{
+          marginTop: 56,
+          fontSize: 11,
+          color: 'var(--sem-eclipse-color-foregroundDisabled)',
+        }}
+      >
+        UtilityUI 알림 벨 + 채널별 배지 패턴
+      </p>
     </div>
   )
 }
@@ -762,7 +1001,8 @@ export const UtilityCSS_알림_벨_채널_배지: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI 헤더 알림 패턴. 벨 버튼에 총 미읽음 CounterBadge, 드롭다운에서 채널별 카운트 표시 및 클릭 읽음 처리. 모두 읽음 일괄 처리.',
+        story:
+          'UtilityUI 헤더 알림 패턴. 벨 버튼에 총 미읽음 CounterBadge, 드롭다운에서 채널별 카운트 표시 및 클릭 읽음 처리. 모두 읽음 일괄 처리.',
       },
     },
   },
@@ -787,12 +1027,31 @@ function AntTabBadgeRender() {
   return (
     <div style={{ maxWidth: 480, display: 'flex', flexDirection: 'column', gap: 0 }}>
       {/* 탭 헤더 */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
+      <div
+        style={{ display: 'flex', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}
+      >
         {ANT_TABS.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActive(tab.key)}
-            style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 16px', border: 'none', borderBottom: `2px solid ${active === tab.key ? activeTab.color : 'transparent'}`, marginBottom: -1, background: 'transparent', cursor: 'pointer', fontSize: 12, fontWeight: active === tab.key ? 700 : 400, color: active === tab.key ? activeTab.color : 'var(--sem-eclipse-color-foregroundTertiary)', transition: 'all 0.15s' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '10px 16px',
+              border: 'none',
+              borderBottom: `2px solid ${active === tab.key ? activeTab.color : 'transparent'}`,
+              marginBottom: -1,
+              background: 'transparent',
+              cursor: 'pointer',
+              fontSize: 12,
+              fontWeight: active === tab.key ? 700 : 400,
+              color:
+                active === tab.key
+                  ? activeTab.color
+                  : 'var(--sem-eclipse-color-foregroundTertiary)',
+              transition: 'all 0.15s',
+            }}
           >
             {tab.label}
             {tab.count > 0 && <CounterBadge>{tab.count}</CounterBadge>}
@@ -802,11 +1061,45 @@ function AntTabBadgeRender() {
       {/* 탭 콘텐츠 */}
       <div style={{ padding: '20px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
         {Array.from({ length: Math.min(activeTab.count || 1, 4) }, (_, i) => (
-          <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '10px 0', borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)' }}>
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: activeTab.color, marginTop: 5, flexShrink: 0 }} />
+          <div
+            key={i}
+            style={{
+              display: 'flex',
+              gap: 10,
+              alignItems: 'flex-start',
+              padding: '10px 0',
+              borderBottom: '1px solid var(--sem-eclipse-color-borderSubtle)',
+            }}
+          >
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: activeTab.color,
+                marginTop: 5,
+                flexShrink: 0,
+              }}
+            />
             <div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{activeTab.label} #{1000 + i} — Orbit UI 항목 {i + 1}</div>
-              <div style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundTertiary)', marginTop: 2 }}>hjunkim · 3시간 전</div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                }}
+              >
+                {activeTab.label} #{1000 + i} — Orbit UI 항목 {i + 1}
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: 'var(--sem-eclipse-color-foregroundTertiary)',
+                  marginTop: 2,
+                }}
+              >
+                hjunkim · 3시간 전
+              </div>
             </div>
             <span style={{ marginLeft: 'auto', flexShrink: 0 }}>
               <CounterBadge>{i + 1}</CounterBadge>
@@ -814,10 +1107,21 @@ function AntTabBadgeRender() {
           </div>
         ))}
         {activeTab.count === 0 && (
-          <div style={{ padding: '24px 0', textAlign: 'center', fontSize: 13, color: 'var(--sem-eclipse-color-foregroundTertiary)' }}>항목이 없습니다</div>
+          <div
+            style={{
+              padding: '24px 0',
+              textAlign: 'center',
+              fontSize: 13,
+              color: 'var(--sem-eclipse-color-foregroundTertiary)',
+            }}
+          >
+            항목이 없습니다
+          </div>
         )}
       </div>
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>Ant Design 탭 + CounterBadge 패턴 — CodeHost 레포지터리 스타일</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+        Ant Design 탭 + CounterBadge 패턴 — CodeHost 레포지터리 스타일
+      </p>
     </div>
   )
 }
@@ -827,7 +1131,8 @@ export const Ant_탭_배지_카운터: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Ant Design Tabs + Badge 패턴. 탭 레이블 옆에 CounterBadge로 항목 수를 표시하고 선택된 탭 컬러와 동기화. CodeHost 레포지터리 탭 UI와 동일한 패턴.',
+        story:
+          'Ant Design Tabs + Badge 패턴. 탭 레이블 옆에 CounterBadge로 항목 수를 표시하고 선택된 탭 컬러와 동기화. CodeHost 레포지터리 탭 UI와 동일한 패턴.',
       },
     },
   },
@@ -846,7 +1151,9 @@ const PRODUCTS = [
 ]
 
 function UtilityCSSAntCartRender() {
-  const [cart, setCart] = useState<Record<number, number>>(Object.fromEntries(PRODUCTS.map((p) => [p.id, 0])))
+  const [cart, setCart] = useState<Record<number, number>>(
+    Object.fromEntries(PRODUCTS.map((p) => [p.id, 0]))
+  )
   const totalItems = Object.values(cart).reduce((s, n) => s + n, 0)
 
   const add = (id: number) => setCart((prev) => ({ ...prev, [id]: prev[id] + 1 }))
@@ -856,8 +1163,25 @@ function UtilityCSSAntCartRender() {
     <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 12 }}>
       {/* 카트 헤더 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>상품 목록</span>
-        <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--sem-eclipse-color-foregroundSecondary)' }}>
+        <span
+          style={{
+            fontSize: 14,
+            fontWeight: 700,
+            color: 'var(--sem-eclipse-color-foregroundPrimary)',
+          }}
+        >
+          상품 목록
+        </span>
+        <span
+          style={{
+            marginLeft: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            fontSize: 12,
+            color: 'var(--sem-eclipse-color-foregroundSecondary)',
+          }}
+        >
           장바구니
           {totalItems > 0 && <CounterBadge>{totalItems}</CounterBadge>}
         </span>
@@ -866,11 +1190,42 @@ function UtilityCSSAntCartRender() {
       {PRODUCTS.map((p) => {
         const stockColor = p.stock === 0 ? '#94a3b8' : p.stock <= 3 ? '#ef4444' : '#10b981'
         return (
-          <div key={p.id} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--sem-eclipse-color-borderSubtle)', background: p.stock === 0 ? 'var(--sem-eclipse-color-backgroundSecondary)' : 'var(--sem-eclipse-color-backgroundPrimary)', opacity: p.stock === 0 ? 0.6 : 1 }}>
+          <div
+            key={p.id}
+            style={{
+              display: 'flex',
+              gap: 10,
+              alignItems: 'center',
+              padding: '10px 12px',
+              borderRadius: 8,
+              border: '1px solid var(--sem-eclipse-color-borderSubtle)',
+              background:
+                p.stock === 0
+                  ? 'var(--sem-eclipse-color-backgroundSecondary)'
+                  : 'var(--sem-eclipse-color-backgroundPrimary)',
+              opacity: p.stock === 0 ? 0.6 : 1,
+            }}
+          >
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>{p.name}</div>
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                }}
+              >
+                {p.name}
+              </div>
               <div style={{ display: 'flex', gap: 8, marginTop: 3, alignItems: 'center' }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>₩{p.price.toLocaleString()}</span>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  }}
+                >
+                  ₩{p.price.toLocaleString()}
+                </span>
                 <span style={{ fontSize: 10, color: stockColor, fontWeight: 600 }}>
                   {p.stock === 0 ? '품절' : p.stock <= 3 ? `잔여 ${p.stock}개` : '재고 있음'}
                 </span>
@@ -879,15 +1234,49 @@ function UtilityCSSAntCartRender() {
             </div>
             {p.stock > 0 && (
               <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-                <button onClick={() => remove(p.id)} disabled={cart[p.id] === 0} style={{ width: 24, height: 24, borderRadius: '50%', border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', fontSize: 14, cursor: cart[p.id] > 0 ? 'pointer' : 'not-allowed', color: cart[p.id] > 0 ? 'var(--sem-eclipse-color-foregroundPrimary)' : 'var(--sem-eclipse-color-foregroundDisabled)' }}>-</button>
+                <button
+                  onClick={() => remove(p.id)}
+                  disabled={cart[p.id] === 0}
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: '50%',
+                    border: '1px solid var(--sem-eclipse-color-borderDefault)',
+                    background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                    fontSize: 14,
+                    cursor: cart[p.id] > 0 ? 'pointer' : 'not-allowed',
+                    color:
+                      cart[p.id] > 0
+                        ? 'var(--sem-eclipse-color-foregroundPrimary)'
+                        : 'var(--sem-eclipse-color-foregroundDisabled)',
+                  }}
+                >
+                  -
+                </button>
                 {cart[p.id] > 0 && <CounterBadge>{cart[p.id]}</CounterBadge>}
-                <button onClick={() => add(p.id)} style={{ width: 24, height: 24, borderRadius: '50%', border: '1px solid var(--sem-eclipse-color-borderDefault)', background: 'var(--sem-eclipse-color-backgroundPrimary)', fontSize: 14, cursor: 'pointer', color: 'var(--sem-eclipse-color-foregroundPrimary)' }}>+</button>
+                <button
+                  onClick={() => add(p.id)}
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: '50%',
+                    border: '1px solid var(--sem-eclipse-color-borderDefault)',
+                    background: 'var(--sem-eclipse-color-backgroundPrimary)',
+                    fontSize: 14,
+                    cursor: 'pointer',
+                    color: 'var(--sem-eclipse-color-foregroundPrimary)',
+                  }}
+                >
+                  +
+                </button>
               </div>
             )}
           </div>
         )
       })}
-      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>UtilityCSS + Ant Design 쇼핑 카트 + 재고 CounterBadge 패턴</p>
+      <p style={{ fontSize: 11, color: 'var(--sem-eclipse-color-foregroundDisabled)' }}>
+        UtilityCSS + Ant Design 쇼핑 카트 + 재고 CounterBadge 패턴
+      </p>
     </div>
   )
 }
@@ -897,7 +1286,8 @@ export const UtilityCSS_Ant_장바구니_재고_배지: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'UtilityUI 쇼핑 카트 + Ant Design Badge 조합. 재고 수량 CounterBadge, 장바구니 담기 카운터, 품절 비활성화, 총 장바구니 항목 수 표시 패턴.',
+        story:
+          'UtilityUI 쇼핑 카트 + Ant Design Badge 조합. 재고 수량 CounterBadge, 장바구니 담기 카운터, 품절 비활성화, 총 장바구니 항목 수 표시 패턴.',
       },
     },
   },
@@ -921,31 +1311,58 @@ function EnterpriseUIInboxBadgeRender() {
   ])
   const [active, setActive] = useState('mentions')
   const totalUnread = channels.filter((c) => !c.muted).reduce((acc, c) => acc + c.count, 0)
-  const markRead = (id: string) => setChannels((prev) => prev.map((c) => c.id === id ? { ...c, count: 0 } : c))
+  const markRead = (id: string) =>
+    setChannels((prev) => prev.map((c) => (c.id === id ? { ...c, count: 0 } : c)))
   return (
     <div style={{ display: 'flex', fontFamily: 'system-ui, sans-serif' }}>
       {/* 사이드바 */}
       <div style={{ width: 180, borderRight: '1px solid #e2e8f0', padding: '12px 0' }}>
-        <div style={{ padding: '6px 14px 10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            padding: '6px 14px 10px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <span style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>받은 편지함</span>
           {totalUnread > 0 && <CounterBadge>{totalUnread}</CounterBadge>}
         </div>
         {channels.map((ch) => (
           <div
             key={ch.id}
-            onClick={() => { setActive(ch.id); markRead(ch.id) }}
+            onClick={() => {
+              setActive(ch.id)
+              markRead(ch.id)
+            }}
             style={{
-              display: 'flex', alignItems: 'center', gap: 10, padding: '8px 14px', cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '8px 14px',
+              cursor: 'pointer',
               background: active === ch.id ? '#f8fafc' : 'transparent',
               borderLeft: active === ch.id ? '2px solid #0f172a' : '2px solid transparent',
               transition: 'all 100ms',
             }}
           >
             <span style={{ fontSize: 14, opacity: ch.muted ? 0.4 : 1 }}>{ch.icon}</span>
-            <span style={{ flex: 1, fontSize: 13, color: ch.muted ? '#94a3b8' : '#0f172a' }}>{ch.label}</span>
+            <span style={{ flex: 1, fontSize: 13, color: ch.muted ? '#94a3b8' : '#0f172a' }}>
+              {ch.label}
+            </span>
             {ch.count > 0 && !ch.muted && <CounterBadge>{ch.count}</CounterBadge>}
             {ch.count > 0 && ch.muted && (
-              <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', borderRadius: 99, padding: '1px 5px' }}>{ch.count}</span>
+              <span
+                style={{
+                  fontSize: 10,
+                  color: '#94a3b8',
+                  background: '#f1f5f9',
+                  borderRadius: 99,
+                  padding: '1px 5px',
+                }}
+              >
+                {ch.count}
+              </span>
             )}
           </div>
         ))}
@@ -956,7 +1373,9 @@ function EnterpriseUIInboxBadgeRender() {
           {channels.find((c) => c.id === active)?.label}
         </div>
         <div style={{ fontSize: 12, color: '#94a3b8' }}>
-          {channels.find((c) => c.id === active)?.count === 0 ? '읽지 않은 항목 없음' : `${channels.find((c) => c.id === active)?.count}개 항목`}
+          {channels.find((c) => c.id === active)?.count === 0
+            ? '읽지 않은 항목 없음'
+            : `${channels.find((c) => c.id === active)?.count}개 항목`}
         </div>
       </div>
     </div>
@@ -991,19 +1410,52 @@ function AccessibleRealtimeCounterRender() {
     }, 1500)
     return () => clearInterval(interval)
   }, [])
-  const metrics: Array<{ key: keyof typeof counts; label: string; color: string; suffix?: string }> = [
+  const metrics: Array<{
+    key: keyof typeof counts
+    label: string
+    color: string
+    suffix?: string
+  }> = [
     { key: 'users', label: '활성 사용자', color: '#6366f1' },
     { key: 'events', label: '이벤트/분', color: '#10b981' },
     { key: 'errors', label: '에러', color: '#ef4444' },
     { key: 'rps', label: 'RPS', color: '#f59e0b' },
   ]
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 16, width: 320 }}>
+    <div
+      style={{
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        width: 320,
+      }}
+    >
       <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>실시간 모니터링</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {metrics.map(({ key, label, color }) => (
-          <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff' }}>
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: color, boxShadow: `0 0 0 3px ${color}30`, animation: 'pulse 1.5s infinite' }} />
+          <div
+            key={key}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '12px 16px',
+              borderRadius: 10,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+            }}
+          >
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: color,
+                boxShadow: `0 0 0 3px ${color}30`,
+                animation: 'pulse 1.5s infinite',
+              }}
+            />
             <span style={{ flex: 1, fontSize: 13, color: '#475569' }}>{label}</span>
             <CounterBadge>{counts[key]}</CounterBadge>
           </div>
@@ -1029,38 +1481,121 @@ export const Accessible_실시간_모니터링_카운터: Story = {
 }
 
 // EnterpriseUI + Accessible — 소셜 피드 반응 카운터 (좋아요 + 댓글 + 공유)
-type SocialPost133 = { id: number; author: string; initials: string; color: string; content: string; likes: number; comments: number; shares: number }
+type SocialPost133 = {
+  id: number
+  author: string
+  initials: string
+  color: string
+  content: string
+  likes: number
+  comments: number
+  shares: number
+}
 
 function EnterpriseUIAccessibleSocialFeedRender() {
   const [posts, setPosts] = useState<SocialPost133[]>([
-    { id: 1, author: '김희준', initials: 'HJ', color: '#6366f1', content: 'UtilityCSS로 디자인 토큰 시스템 구축 완료! 3-tier 토큰 구조 덕분에 테마 변경이 훨씬 편해졌어요.', likes: 42, comments: 8, shares: 3 },
-    { id: 2, author: '박지수', initials: 'JS', color: '#10b981', content: 'Storybook autodocs 써보신 분? 컴포넌트 JSDoc만 잘 써두면 문서가 자동으로 생성되는 게 정말 편하더라고요.', likes: 31, comments: 12, shares: 5 },
-    { id: 3, author: '이민준', initials: 'MJ', color: '#f59e0b', content: 'pnpm workspace 마이그레이션 완료. 패키지 간 의존성 관리가 훨씬 깔끔해졌습니다.', likes: 19, comments: 4, shares: 1 },
+    {
+      id: 1,
+      author: '김희준',
+      initials: 'HJ',
+      color: '#6366f1',
+      content:
+        'UtilityCSS로 디자인 토큰 시스템 구축 완료! 3-tier 토큰 구조 덕분에 테마 변경이 훨씬 편해졌어요.',
+      likes: 42,
+      comments: 8,
+      shares: 3,
+    },
+    {
+      id: 2,
+      author: '박지수',
+      initials: 'JS',
+      color: '#10b981',
+      content:
+        'Storybook autodocs 써보신 분? 컴포넌트 JSDoc만 잘 써두면 문서가 자동으로 생성되는 게 정말 편하더라고요.',
+      likes: 31,
+      comments: 12,
+      shares: 5,
+    },
+    {
+      id: 3,
+      author: '이민준',
+      initials: 'MJ',
+      color: '#f59e0b',
+      content: 'pnpm workspace 마이그레이션 완료. 패키지 간 의존성 관리가 훨씬 깔끔해졌습니다.',
+      likes: 19,
+      comments: 4,
+      shares: 1,
+    },
   ])
   const [liked, setLiked] = useState<Set<number>>(new Set())
   const toggleLike = (id: number) => {
     setLiked((prev) => {
       const n = new Set(prev)
-      if (n.has(id)) { n.delete(id) } else { n.add(id) }
+      if (n.has(id)) {
+        n.delete(id)
+      } else {
+        n.add(id)
+      }
       return n
     })
-    setPosts((prev) => prev.map((p) => p.id !== id ? p : { ...p, likes: p.likes + (liked.has(id) ? -1 : 1) }))
+    setPosts((prev) =>
+      prev.map((p) => (p.id !== id ? p : { ...p, likes: p.likes + (liked.has(id) ? -1 : 1) }))
+    )
   }
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 380, fontFamily: 'system-ui, sans-serif' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        width: 380,
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
       {posts.map((post) => (
-        <div key={post.id} style={{ borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff', padding: '16px' }}>
+        <div
+          key={post.id}
+          style={{
+            borderRadius: 12,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            padding: '16px',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <div style={{ width: 36, height: 36, borderRadius: '50%', background: post.color + '22', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: post.color }}>
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                background: post.color + '22',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 13,
+                fontWeight: 700,
+                color: post.color,
+              }}
+            >
               {post.initials}
             </div>
             <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{post.author}</span>
           </div>
-          <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.6, marginBottom: 12 }}>{post.content}</div>
+          <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.6, marginBottom: 12 }}>
+            {post.content}
+          </div>
           <div style={{ display: 'flex', gap: 16 }}>
             <button
               onClick={() => toggleLike(post.id)}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
+              }}
             >
               <span style={{ fontSize: 14, color: liked.has(post.id) ? '#ef4444' : '#94a3b8' }}>
                 {liked.has(post.id) ? '♥' : '♡'}
@@ -1113,21 +1648,43 @@ export const AppUI_파일_트리_변경사항_배지: Story = {
   },
   render: function MantinaFileTreeRender() {
     type ChangeType = 'modified' | 'added' | 'deleted'
-    type TreeNode = { name: string; type: ChangeType; count: number; expanded?: boolean; children?: { name: string; type: ChangeType }[] }
+    type TreeNode = {
+      name: string
+      type: ChangeType
+      count: number
+      expanded?: boolean
+      children?: { name: string; type: ChangeType }[]
+    }
 
     const [tree, setTree] = useState<TreeNode[]>([
-      { name: 'src/components', type: 'modified', count: 8, expanded: true, children: [
-        { name: 'Button.tsx', type: 'modified' },
-        { name: 'TextField.tsx', type: 'modified' },
-        { name: 'NewComponent.tsx', type: 'added' },
-      ]},
-      { name: 'src/styles', type: 'added', count: 3, expanded: false, children: [
-        { name: 'tokens.css.ts', type: 'added' },
-        { name: 'variables.ts', type: 'added' },
-      ]},
-      { name: 'src/docs', type: 'deleted', count: 2, expanded: false, children: [
-        { name: 'OldGuide.mdx', type: 'deleted' },
-      ]},
+      {
+        name: 'src/components',
+        type: 'modified',
+        count: 8,
+        expanded: true,
+        children: [
+          { name: 'Button.tsx', type: 'modified' },
+          { name: 'TextField.tsx', type: 'modified' },
+          { name: 'NewComponent.tsx', type: 'added' },
+        ],
+      },
+      {
+        name: 'src/styles',
+        type: 'added',
+        count: 3,
+        expanded: false,
+        children: [
+          { name: 'tokens.css.ts', type: 'added' },
+          { name: 'variables.ts', type: 'added' },
+        ],
+      },
+      {
+        name: 'src/docs',
+        type: 'deleted',
+        count: 2,
+        expanded: false,
+        children: [{ name: 'OldGuide.mdx', type: 'deleted' }],
+      },
     ])
 
     const changeColor: Record<ChangeType, string> = {
@@ -1143,31 +1700,97 @@ export const AppUI_파일_트리_변경사항_배지: Story = {
     }
 
     const toggle = (idx: number) => {
-      setTree((prev) => prev.map((node, i) => i === idx ? { ...node, expanded: !node.expanded } : node))
+      setTree((prev) =>
+        prev.map((node, i) => (i === idx ? { ...node, expanded: !node.expanded } : node))
+      )
     }
 
     return (
-      <div style={{ width: 320, fontFamily: 'monospace, system-ui, sans-serif', background: '#1e1e2e', borderRadius: 12, padding: 16, border: '1px solid #313244' }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#585b70', letterSpacing: 1, marginBottom: 12 }}>SOURCE CONTROL</div>
+      <div
+        style={{
+          width: 320,
+          fontFamily: 'monospace, system-ui, sans-serif',
+          background: '#1e1e2e',
+          borderRadius: 12,
+          padding: 16,
+          border: '1px solid #313244',
+        }}
+      >
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#585b70',
+            letterSpacing: 1,
+            marginBottom: 12,
+          }}
+        >
+          SOURCE CONTROL
+        </div>
         {tree.map((node, idx) => (
           <div key={node.name} style={{ marginBottom: 4 }}>
             <div
               onClick={() => toggle(idx)}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 8px', borderRadius: 6, cursor: 'pointer', background: '#313244' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 8px',
+                borderRadius: 6,
+                cursor: 'pointer',
+                background: '#313244',
+              }}
             >
-              <span style={{ fontSize: 10, color: '#6c7086', userSelect: 'none' }}>{node.expanded ? '▾' : '▸'}</span>
+              <span style={{ fontSize: 10, color: '#6c7086', userSelect: 'none' }}>
+                {node.expanded ? '▾' : '▸'}
+              </span>
               <span style={{ flex: 1, fontSize: 12, color: '#cdd6f4' }}>{node.name}</span>
-              <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 3, background: changeColor[node.type] + '22', color: changeColor[node.type] }}>
+              <span
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  padding: '1px 5px',
+                  borderRadius: 3,
+                  background: changeColor[node.type] + '22',
+                  color: changeColor[node.type],
+                }}
+              >
                 {changeLabel[node.type]}
               </span>
               <CounterBadge>{node.count}</CounterBadge>
             </div>
             {node.expanded && node.children && (
-              <div style={{ marginLeft: 20, marginTop: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <div
+                style={{
+                  marginLeft: 20,
+                  marginTop: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                }}
+              >
                 {node.children.map((child) => (
-                  <div key={child.name} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 8px', borderRadius: 4 }}>
+                  <div
+                    key={child.name}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '4px 8px',
+                      borderRadius: 4,
+                    }}
+                  >
                     <span style={{ flex: 1, fontSize: 11, color: '#a6adc8' }}>{child.name}</span>
-                    <span style={{ fontSize: 9, fontWeight: 700, padding: '1px 5px', borderRadius: 3, background: changeColor[child.type] + '22', color: changeColor[child.type] }}>
+                    <span
+                      style={{
+                        fontSize: 9,
+                        fontWeight: 700,
+                        padding: '1px 5px',
+                        borderRadius: 3,
+                        background: changeColor[child.type] + '22',
+                        color: changeColor[child.type],
+                      }}
+                    >
                       {changeLabel[child.type]}
                     </span>
                   </div>
@@ -1176,7 +1799,16 @@ export const AppUI_파일_트리_변경사항_배지: Story = {
             )}
           </div>
         ))}
-        <div style={{ marginTop: 12, padding: '8px', background: '#313244', borderRadius: 8, display: 'flex', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            marginTop: 12,
+            padding: '8px',
+            background: '#313244',
+            borderRadius: 8,
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
           <span style={{ fontSize: 10, color: '#6c7086' }}>총 변경사항</span>
           <CounterBadge>{tree.reduce((acc, n) => acc + n.count, 0)}</CounterBadge>
         </div>
@@ -1209,19 +1841,46 @@ export const EnterpriseUI_데이터_테이블_필터_배지: Story = {
     ]
 
     const toggle = (key: FilterKey) => {
-      setActiveFilters((prev) => prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key])
+      setActiveFilters((prev) =>
+        prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
+      )
     }
 
     return (
-      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>
+      <div
+        style={{
+          width: 380,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: 12,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '12px 16px',
+            borderBottom: '1px solid #f3f4f6',
+          }}
+        >
           <span style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>필터</span>
           {activeFilters.length > 0 && (
             <>
               <CounterBadge>{activeFilters.length}</CounterBadge>
               <button
                 onClick={() => setActiveFilters([])}
-                style={{ marginLeft: 'auto', fontSize: 11, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                style={{
+                  marginLeft: 'auto',
+                  fontSize: 11,
+                  color: '#6b7280',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                }}
               >
                 초기화
               </button>
@@ -1234,9 +1893,29 @@ export const EnterpriseUI_데이터_테이블_필터_배지: Story = {
             <div
               key={f.key}
               onClick={() => toggle(f.key)}
-              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px', cursor: 'pointer', borderBottom: '1px solid #f9fafb', background: isActive ? '#eff6ff' : '#fff' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '10px 16px',
+                cursor: 'pointer',
+                borderBottom: '1px solid #f9fafb',
+                background: isActive ? '#eff6ff' : '#fff',
+              }}
             >
-              <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${isActive ? '#3b82f6' : '#d1d5db'}`, background: isActive ? '#3b82f6' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <div
+                style={{
+                  width: 16,
+                  height: 16,
+                  borderRadius: 4,
+                  border: `2px solid ${isActive ? '#3b82f6' : '#d1d5db'}`,
+                  background: isActive ? '#3b82f6' : '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
                 {isActive && <span style={{ fontSize: 9, color: '#fff', fontWeight: 900 }}>✓</span>}
               </div>
               <div style={{ flex: 1 }}>
@@ -1246,7 +1925,16 @@ export const EnterpriseUI_데이터_테이블_필터_배지: Story = {
             </div>
           )
         })}
-        <div style={{ padding: '10px 16px', background: '#f9fafb', fontSize: 11, color: '#6b7280', display: 'flex', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            padding: '10px 16px',
+            background: '#f9fafb',
+            fontSize: 11,
+            color: '#6b7280',
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
           <span>적용된 필터</span>
           <CounterBadge>{activeFilters.length}</CounterBadge>
         </div>
@@ -1277,11 +1965,16 @@ export const AppUI_EnterpriseUI_이커머스_장바구니_뱃지: Story = {
     const [cart, setCart] = useState<Record<number, number>>({})
 
     const add = (id: number) => setCart((prev) => ({ ...prev, [id]: (prev[id] ?? 0) + 1 }))
-    const remove = (id: number) => setCart((prev) => {
-      const next = { ...prev }
-      if (next[id] <= 1) { delete next[id] } else { next[id]-- }
-      return next
-    })
+    const remove = (id: number) =>
+      setCart((prev) => {
+        const next = { ...prev }
+        if (next[id] <= 1) {
+          delete next[id]
+        } else {
+          next[id]--
+        }
+        return next
+      })
 
     const totalItems = Object.values(cart).reduce((a, b) => a + b, 0)
     const totalPrice = PRODUCTS.reduce((acc, p) => acc + p.price * (cart[p.id] ?? 0), 0)
@@ -1290,7 +1983,14 @@ export const AppUI_EnterpriseUI_이커머스_장바구니_뱃지: Story = {
 
     return (
       <div style={{ width: 400, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 16,
+          }}
+        >
           <span style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>상품 목록</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{ fontSize: 13, color: '#374151' }}>장바구니</span>
@@ -1299,21 +1999,79 @@ export const AppUI_EnterpriseUI_이커머스_장바구니_뱃지: Story = {
         </div>
         {categories.map((cat) => (
           <div key={cat} style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', letterSpacing: 1, marginBottom: 8 }}>{cat.toUpperCase()}</div>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#9ca3af',
+                letterSpacing: 1,
+                marginBottom: 8,
+              }}
+            >
+              {cat.toUpperCase()}
+            </div>
             {PRODUCTS.filter((p) => p.category === cat).map((p) => {
               const qty = cart[p.id] ?? 0
               return (
-                <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', background: qty > 0 ? '#eff6ff' : '#fff', border: '1px solid #e5e7eb', borderRadius: 10, marginBottom: 8 }}>
+                <div
+                  key={p.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    padding: '10px 14px',
+                    background: qty > 0 ? '#eff6ff' : '#fff',
+                    border: '1px solid #e5e7eb',
+                    borderRadius: 10,
+                    marginBottom: 8,
+                  }}
+                >
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{p.name}</div>
-                    <div style={{ fontSize: 12, color: '#6b7280' }}>{p.price.toLocaleString()}원</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      {p.price.toLocaleString()}원
+                    </div>
                   </div>
                   {qty > 0 && <CounterBadge>{qty}</CounterBadge>}
                   <div style={{ display: 'flex', gap: 4 }}>
                     {qty > 0 && (
-                      <button onClick={() => remove(p.id)} style={{ width: 26, height: 26, borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', fontSize: 14, color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>−</button>
+                      <button
+                        onClick={() => remove(p.id)}
+                        style={{
+                          width: 26,
+                          height: 26,
+                          borderRadius: 6,
+                          border: '1px solid #e5e7eb',
+                          background: '#fff',
+                          cursor: 'pointer',
+                          fontSize: 14,
+                          color: '#374151',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        −
+                      </button>
                     )}
-                    <button onClick={() => add(p.id)} style={{ width: 26, height: 26, borderRadius: 6, border: 'none', background: '#3b82f6', cursor: 'pointer', fontSize: 14, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
+                    <button
+                      onClick={() => add(p.id)}
+                      style={{
+                        width: 26,
+                        height: 26,
+                        borderRadius: 6,
+                        border: 'none',
+                        background: '#3b82f6',
+                        cursor: 'pointer',
+                        fontSize: 14,
+                        color: '#fff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
               )
@@ -1321,10 +2079,22 @@ export const AppUI_EnterpriseUI_이커머스_장바구니_뱃지: Story = {
           </div>
         ))}
         {totalItems > 0 && (
-          <div style={{ padding: '12px 14px', background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              padding: '12px 14px',
+              background: '#f9fafb',
+              border: '1px solid #e5e7eb',
+              borderRadius: 10,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <div>
               <div style={{ fontSize: 12, color: '#6b7280' }}>총 {totalItems}개 상품</div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>{totalPrice.toLocaleString()}원</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>
+                {totalPrice.toLocaleString()}원
+              </div>
             </div>
             <CounterBadge>{totalItems}</CounterBadge>
           </div>
@@ -1348,7 +2118,15 @@ const TRACKER_NAV_ITEMS_187 = [
 function IssueTrackerSidebarNavRender() {
   const [active, setActive] = useState('inbox')
   return (
-    <div style={{ width: 220, background: '#111827', borderRadius: 12, padding: '16px 0', fontFamily: '"Inter", system-ui, sans-serif' }}>
+    <div
+      style={{
+        width: 220,
+        background: '#111827',
+        borderRadius: 12,
+        padding: '16px 0',
+        fontFamily: '"Inter", system-ui, sans-serif',
+      }}
+    >
       <div style={{ padding: '0 14px 12px', borderBottom: '1px solid #1f2937', marginBottom: 8 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#f9fafb' }}>My Workspace</div>
         <div style={{ fontSize: 10, color: '#4b5563', marginTop: 1 }}>orbit-ui / main</div>
@@ -1358,30 +2136,88 @@ function IssueTrackerSidebarNavRender() {
           key={item.id}
           onClick={() => setActive(item.id)}
           style={{
-            display: 'flex', alignItems: 'center', gap: 8,
-            padding: '7px 14px', cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '7px 14px',
+            cursor: 'pointer',
             background: active === item.id ? '#1f2937' : 'transparent',
             borderLeft: `2px solid ${active === item.id ? '#6366f1' : 'transparent'}`,
             transition: 'all 0.1s',
           }}
         >
-          <span style={{ fontSize: 12, color: active === item.id ? '#f9fafb' : '#6b7280', flex: 1, fontWeight: active === item.id ? 600 : 400 }}>
+          <span
+            style={{
+              fontSize: 12,
+              color: active === item.id ? '#f9fafb' : '#6b7280',
+              flex: 1,
+              fontWeight: active === item.id ? 600 : 400,
+            }}
+          >
             {item.label}
           </span>
           {item.count > 0 && (
-            <CounterBadge style={{ background: active === item.id ? '#6366f1' : '#374151', color: '#fff', minWidth: 20, height: 18, fontSize: 10, borderRadius: 10 }}>
+            <CounterBadge
+              style={{
+                background: active === item.id ? '#6366f1' : '#374151',
+                color: '#fff',
+                minWidth: 20,
+                height: 18,
+                fontSize: 10,
+                borderRadius: 10,
+              }}
+            >
               {item.count > 99 ? 99 : item.count}
             </CounterBadge>
           )}
         </div>
       ))}
       <div style={{ padding: '12px 14px 0', marginTop: 8, borderTop: '1px solid #1f2937' }}>
-        <div style={{ fontSize: 10, color: '#374151', fontWeight: 600, letterSpacing: '0.06em', marginBottom: 6 }}>PROJECTS</div>
-        {[{ name: 'Orbit UI', count: 8 }, { name: 'Design System', count: 2 }].map((p) => (
-          <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 0', cursor: 'pointer' }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', flexShrink: 0 }} />
+        <div
+          style={{
+            fontSize: 10,
+            color: '#374151',
+            fontWeight: 600,
+            letterSpacing: '0.06em',
+            marginBottom: 6,
+          }}
+        >
+          PROJECTS
+        </div>
+        {[
+          { name: 'Orbit UI', count: 8 },
+          { name: 'Design System', count: 2 },
+        ].map((p) => (
+          <div
+            key={p.name}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '5px 0',
+              cursor: 'pointer',
+            }}
+          >
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: '#6366f1',
+                flexShrink: 0,
+              }}
+            />
             <span style={{ fontSize: 11, color: '#9ca3af', flex: 1 }}>{p.name}</span>
-            <CounterBadge style={{ background: '#1f2937', color: '#6b7280', minWidth: 18, height: 16, fontSize: 9, borderRadius: 8 }}>
+            <CounterBadge
+              style={{
+                background: '#1f2937',
+                color: '#6b7280',
+                minWidth: 18,
+                height: 16,
+                fontSize: 9,
+                borderRadius: 8,
+              }}
+            >
               {p.count}
             </CounterBadge>
           </div>
@@ -1418,15 +2254,22 @@ function ComposableUIKanbanHeaderRender() {
   const [collapsed, setCollapsed] = useState<string[]>([])
 
   const toggle = (id: string) => {
-    setCollapsed((prev) => prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id])
+    setCollapsed((prev) => (prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]))
   }
 
   const addItem = (id: string) => {
-    setCols((prev) => prev.map((c) => c.id === id ? { ...c, count: c.count + 1 } : c))
+    setCols((prev) => prev.map((c) => (c.id === id ? { ...c, count: c.count + 1 } : c)))
   }
 
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+    <div
+      style={{
+        fontFamily: 'system-ui, sans-serif',
+        display: 'flex',
+        gap: 8,
+        alignItems: 'flex-start',
+      }}
+    >
       {cols.map((col) => (
         <div
           key={col.id}
@@ -1441,17 +2284,50 @@ function ComposableUIKanbanHeaderRender() {
         >
           <div
             style={{
-              display: 'flex', alignItems: 'center', gap: 6, padding: '10px 10px',
-              borderBottom: '1px solid #f3f4f6', cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '10px 10px',
+              borderBottom: '1px solid #f3f4f6',
+              cursor: 'pointer',
               background: collapsed.includes(col.id) ? '#f9fafb' : '#fff',
             }}
             onClick={() => toggle(col.id)}
           >
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: col.color, flexShrink: 0 }} />
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: col.color,
+                flexShrink: 0,
+              }}
+            />
             {!collapsed.includes(col.id) && (
               <>
-                <span style={{ fontSize: 11, fontWeight: 600, color: '#374151', flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{col.label}</span>
-                <CounterBadge style={{ background: `${col.color}20`, color: col.color, minWidth: 20, height: 18, fontSize: 10, borderRadius: 10 }}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 600,
+                    color: '#374151',
+                    flex: 1,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {col.label}
+                </span>
+                <CounterBadge
+                  style={{
+                    background: `${col.color}20`,
+                    color: col.color,
+                    minWidth: 20,
+                    height: 18,
+                    fontSize: 10,
+                    borderRadius: 10,
+                  }}
+                >
                   {col.count}
                 </CounterBadge>
               </>
@@ -1459,10 +2335,21 @@ function ComposableUIKanbanHeaderRender() {
           </div>
           {!collapsed.includes(col.id) && (
             <div style={{ padding: '8px 10px' }}>
-              <div style={{ fontSize: 10, color: '#9ca3af', marginBottom: 6 }}>이슈 {col.count}개</div>
+              <div style={{ fontSize: 10, color: '#9ca3af', marginBottom: 6 }}>
+                이슈 {col.count}개
+              </div>
               <button
                 onClick={() => addItem(col.id)}
-                style={{ width: '100%', padding: '5px', fontSize: 10, borderRadius: 6, border: '1px dashed #e5e7eb', background: 'transparent', color: '#9ca3af', cursor: 'pointer' }}
+                style={{
+                  width: '100%',
+                  padding: '5px',
+                  fontSize: 10,
+                  borderRadius: 6,
+                  border: '1px dashed #e5e7eb',
+                  background: 'transparent',
+                  color: '#9ca3af',
+                  cursor: 'pointer',
+                }}
               >
                 + 추가
               </button>
@@ -1500,31 +2387,85 @@ function ComposableUIIssueTrackerNotifRender() {
   const [filter, setFilter] = useState('all')
 
   const markRead = (id: string) => {
-    setNotifs((prev) => prev.map((n) => n.id === id ? { ...n, count: 0 } : n))
+    setNotifs((prev) => prev.map((n) => (n.id === id ? { ...n, count: 0 } : n)))
   }
 
   const totalUnread = notifs.reduce((sum, n) => sum + n.count, 0)
   const filtered = filter === 'urgent' ? notifs.filter((n) => n.urgent) : notifs
 
   return (
-    <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
-      <div style={{ padding: '12px 16px', background: '#fff', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div
+      style={{
+        width: 320,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e5e7eb',
+        borderRadius: 12,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          background: '#fff',
+          borderBottom: '1px solid #f3f4f6',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         <span style={{ fontSize: 13, fontWeight: 700, color: '#111827', flex: 1 }}>알림</span>
         {totalUnread > 0 && (
-          <CounterBadge style={{ background: '#ef4444', color: '#fff', minWidth: 22, height: 20, fontSize: 11, borderRadius: 10 }}>
+          <CounterBadge
+            style={{
+              background: '#ef4444',
+              color: '#fff',
+              minWidth: 22,
+              height: 20,
+              fontSize: 11,
+              borderRadius: 10,
+            }}
+          >
             {totalUnread}
           </CounterBadge>
         )}
-        <button onClick={() => setNotifs((prev) => prev.map((n) => ({ ...n, count: 0 })))} style={{ fontSize: 10, padding: '3px 8px', borderRadius: 5, border: '1px solid #e5e7eb', background: '#fff', color: '#6b7280', cursor: 'pointer' }}>
+        <button
+          onClick={() => setNotifs((prev) => prev.map((n) => ({ ...n, count: 0 })))}
+          style={{
+            fontSize: 10,
+            padding: '3px 8px',
+            borderRadius: 5,
+            border: '1px solid #e5e7eb',
+            background: '#fff',
+            color: '#6b7280',
+            cursor: 'pointer',
+          }}
+        >
           모두 읽음
         </button>
       </div>
-      <div style={{ display: 'flex', gap: 4, padding: '8px 12px', background: '#f9fafb', borderBottom: '1px solid #f3f4f6' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 4,
+          padding: '8px 12px',
+          background: '#f9fafb',
+          borderBottom: '1px solid #f3f4f6',
+        }}
+      >
         {(['all', 'urgent'] as const).map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            style={{ padding: '3px 10px', fontSize: 10, borderRadius: 5, border: `1px solid ${filter === f ? '#0f172a' : '#e5e7eb'}`, background: filter === f ? '#0f172a' : '#fff', color: filter === f ? '#fff' : '#6b7280', cursor: 'pointer', fontWeight: 500 }}
+            style={{
+              padding: '3px 10px',
+              fontSize: 10,
+              borderRadius: 5,
+              border: `1px solid ${filter === f ? '#0f172a' : '#e5e7eb'}`,
+              background: filter === f ? '#0f172a' : '#fff',
+              color: filter === f ? '#fff' : '#6b7280',
+              cursor: 'pointer',
+              fontWeight: 500,
+            }}
           >
             {f === 'all' ? '전체' : '긴급'}
           </button>
@@ -1532,19 +2473,70 @@ function ComposableUIIssueTrackerNotifRender() {
       </div>
       <div>
         {filtered.map((n) => (
-          <div key={n.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px', borderBottom: '1px solid #f9fafb', background: n.count > 0 ? '#fff' : '#f9fafb' }}>
-            {n.urgent && <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444', flexShrink: 0 }} />}
+          <div
+            key={n.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 16px',
+              borderBottom: '1px solid #f9fafb',
+              background: n.count > 0 ? '#fff' : '#f9fafb',
+            }}
+          >
+            {n.urgent && (
+              <div
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: '#ef4444',
+                  flexShrink: 0,
+                }}
+              />
+            )}
             {!n.urgent && <div style={{ width: 6, height: 6, flexShrink: 0 }} />}
-            <span style={{ fontSize: 12, color: n.count > 0 ? '#111827' : '#9ca3af', flex: 1, fontWeight: n.count > 0 ? 500 : 400 }}>{n.label}</span>
+            <span
+              style={{
+                fontSize: 12,
+                color: n.count > 0 ? '#111827' : '#9ca3af',
+                flex: 1,
+                fontWeight: n.count > 0 ? 500 : 400,
+              }}
+            >
+              {n.label}
+            </span>
             {n.count > 0 ? (
-              <CounterBadge style={{ background: n.urgent ? '#fef2f2' : '#eff6ff', color: n.urgent ? '#ef4444' : '#3b82f6', minWidth: 22, height: 20, fontSize: 10, borderRadius: 10 }}>
+              <CounterBadge
+                style={{
+                  background: n.urgent ? '#fef2f2' : '#eff6ff',
+                  color: n.urgent ? '#ef4444' : '#3b82f6',
+                  minWidth: 22,
+                  height: 20,
+                  fontSize: 10,
+                  borderRadius: 10,
+                }}
+              >
                 {n.count}
               </CounterBadge>
             ) : (
               <span style={{ fontSize: 10, color: '#d1d5db' }}>읽음</span>
             )}
             {n.count > 0 && (
-              <button onClick={() => markRead(n.id)} style={{ fontSize: 9, padding: '2px 6px', borderRadius: 4, border: '1px solid #e5e7eb', background: '#fff', color: '#9ca3af', cursor: 'pointer' }}>읽음</button>
+              <button
+                onClick={() => markRead(n.id)}
+                style={{
+                  fontSize: 9,
+                  padding: '2px 6px',
+                  borderRadius: 4,
+                  border: '1px solid #e5e7eb',
+                  background: '#fff',
+                  color: '#9ca3af',
+                  cursor: 'pointer',
+                }}
+              >
+                읽음
+              </button>
             )}
           </div>
         ))}

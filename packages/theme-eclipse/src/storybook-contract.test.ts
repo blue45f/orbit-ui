@@ -6,7 +6,8 @@ import { describe, expect, test } from 'vitest'
 const packageRoot = process.cwd()
 const componentRoot = path.join(packageRoot, 'src/components')
 
-const readText = (relativePath: string) => fs.readFileSync(path.join(packageRoot, relativePath), 'utf8')
+const readText = (relativePath: string) =>
+  fs.readFileSync(path.join(packageRoot, relativePath), 'utf8')
 
 const walkFiles = (root: string): string[] =>
   fs.readdirSync(root, { withFileTypes: true }).flatMap((entry) => {

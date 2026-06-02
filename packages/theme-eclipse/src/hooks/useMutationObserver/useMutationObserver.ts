@@ -21,7 +21,7 @@ import { useDeepCompareMemoize } from '../_internal/useDeepCompareMemoize'
 export function useMutationObserver(
   ref: { current: Element | null },
   callback: MutationCallback,
-  options: MutationObserverInit = { childList: true, subtree: true },
+  options: MutationObserverInit = { childList: true, subtree: true }
 ): void {
   const callbackRef = useRef(callback)
   useEffect(() => {

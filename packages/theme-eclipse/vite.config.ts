@@ -1,10 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import {
-  cssBangCommentPlugin,
-  cssReorderPlugin,
-} from '@orbit-ui/vite-plugin'
+import { cssBangCommentPlugin, cssReorderPlugin } from '@orbit-ui/vite-plugin'
 import babel, { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import react from '@vitejs/plugin-react-swc'
 import autoprefixer from 'autoprefixer'

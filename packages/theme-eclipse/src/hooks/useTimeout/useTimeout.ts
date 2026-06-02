@@ -13,7 +13,9 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
  */
 export function useTimeout(callback: () => void, delay: number | null): void {
   const callbackRef = useRef(callback)
-  useLayoutEffect(() => { callbackRef.current = callback })
+  useLayoutEffect(() => {
+    callbackRef.current = callback
+  })
 
   useEffect(() => {
     if (delay === null) return

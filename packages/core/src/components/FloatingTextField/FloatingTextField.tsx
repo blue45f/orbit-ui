@@ -191,9 +191,9 @@ const InternalTextFieldWithLabelAnimationRoot = forwardRef<
   const borderColor = matrixBorderColor ?? legacyBorderColor
 
   const borderWidth =
-    (theme?.[
-      `${state}${fillSuffix}BorderWidth` as keyof TextFieldWithLabelAnimationTheme
-    ] as string | undefined) ?? '1px'
+    (theme?.[`${state}${fillSuffix}BorderWidth` as keyof TextFieldWithLabelAnimationTheme] as
+      | string
+      | undefined) ?? '1px'
 
   const foregroundColor = disabled ? theme?.disabledForegroundColor : theme?.enabledForegroundColor
 

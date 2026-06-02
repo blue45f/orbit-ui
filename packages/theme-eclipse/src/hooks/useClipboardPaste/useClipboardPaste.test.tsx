@@ -51,9 +51,7 @@ describe('useClipboardPaste', () => {
 
     dispatchPasteEvent('test text')
 
-    expect(onPaste).toHaveBeenCalledWith(
-      expect.objectContaining({ text: 'test text' }),
-    )
+    expect(onPaste).toHaveBeenCalledWith(expect.objectContaining({ text: 'test text' }))
   })
 
   it('paste 이벤트의 파일을 추출한다', () => {

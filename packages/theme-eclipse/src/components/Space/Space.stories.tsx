@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import { Meta, StoryObj } from '@storybook/react'
 
@@ -20,7 +19,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "Space는 레이아웃 간격 조절을 위한 유틸리티 컴포넌트입니다. width/height prop으로 정밀한 공간 제어가 가능합니다.",
+        component:
+          'Space는 레이아웃 간격 조절을 위한 유틸리티 컴포넌트입니다. width/height prop으로 정밀한 공간 제어가 가능합니다.',
       },
     },
   },
@@ -107,19 +107,33 @@ export const 디자인_QA = {
 -------------------------------------------------------------------------- */
 export const 폼_레이아웃 = {
   render: () => (
-    <div style={{ width: '320px', padding: '24px', background: 'white', borderRadius: '12px', boxShadow: '0 1px 6px rgba(0,0,0,0.08)' }}>
+    <div
+      style={{
+        width: '320px',
+        padding: '24px',
+        background: 'white',
+        borderRadius: '12px',
+        boxShadow: '0 1px 6px rgba(0,0,0,0.08)',
+      }}
+    >
       <Typography textStyle="subheadingSmall">프로필 수정</Typography>
       <Space y={spacingKeys[4]} />
 
       <div>
-        <Typography textStyle="descriptionLarge" style={{ color: '#475569', fontWeight: 600 }}>이름</Typography>
+        <Typography textStyle="descriptionLarge" style={{ color: '#475569', fontWeight: 600 }}>
+          이름
+        </Typography>
         <Space y={spacingKeys[2]} />
         <input
           type="text"
           defaultValue="홍길동"
           style={{
-            width: '100%', padding: '9px 12px', border: '1px solid #e2e8f0',
-            borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box',
+            width: '100%',
+            padding: '9px 12px',
+            border: '1px solid #e2e8f0',
+            borderRadius: '8px',
+            fontSize: '14px',
+            boxSizing: 'border-box',
           }}
         />
       </div>
@@ -127,14 +141,20 @@ export const 폼_레이아웃 = {
       <Space y={spacingKeys[4]} />
 
       <div>
-        <Typography textStyle="descriptionLarge" style={{ color: '#475569', fontWeight: 600 }}>이메일</Typography>
+        <Typography textStyle="descriptionLarge" style={{ color: '#475569', fontWeight: 600 }}>
+          이메일
+        </Typography>
         <Space y={spacingKeys[2]} />
         <input
           type="email"
           defaultValue="hong@example.com"
           style={{
-            width: '100%', padding: '9px 12px', border: '1px solid #e2e8f0',
-            borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box',
+            width: '100%',
+            padding: '9px 12px',
+            border: '1px solid #e2e8f0',
+            borderRadius: '8px',
+            fontSize: '14px',
+            boxSizing: 'border-box',
           }}
         />
       </div>
@@ -166,24 +186,38 @@ export const 버튼_그룹 = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '20px' }}>
       <div>
-        <Typography textStyle="descriptionLarge" style={{ marginBottom: '10px', color: '#64748b', fontWeight: 600 }}>
+        <Typography
+          textStyle="descriptionLarge"
+          style={{ marginBottom: '10px', color: '#64748b', fontWeight: 600 }}
+        >
           소간격 (spacingKeys[2])
         </Typography>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <OutlinedButton color="black" size="small">편집</OutlinedButton>
+          <OutlinedButton color="black" size="small">
+            편집
+          </OutlinedButton>
           <Space x={spacingKeys[2]} />
-          <OutlinedButton color="black" size="small">복제</OutlinedButton>
+          <OutlinedButton color="black" size="small">
+            복제
+          </OutlinedButton>
           <Space x={spacingKeys[2]} />
-          <OutlinedButton color="black" size="small">삭제</OutlinedButton>
+          <OutlinedButton color="black" size="small">
+            삭제
+          </OutlinedButton>
         </div>
       </div>
 
       <div>
-        <Typography textStyle="descriptionLarge" style={{ marginBottom: '10px', color: '#64748b', fontWeight: 600 }}>
+        <Typography
+          textStyle="descriptionLarge"
+          style={{ marginBottom: '10px', color: '#64748b', fontWeight: 600 }}
+        >
           중간격 (spacingKeys[4])
         </Typography>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <OutlinedButton color="black" size="medium">취소</OutlinedButton>
+          <OutlinedButton color="black" size="medium">
+            취소
+          </OutlinedButton>
           <Space x={spacingKeys[4]} />
           <Button color="primary" size="medium">
             <Button.Center>저장</Button.Center>
@@ -192,7 +226,10 @@ export const 버튼_그룹 = {
       </div>
 
       <div>
-        <Typography textStyle="descriptionLarge" style={{ marginBottom: '10px', color: '#64748b', fontWeight: 600 }}>
+        <Typography
+          textStyle="descriptionLarge"
+          style={{ marginBottom: '10px', color: '#64748b', fontWeight: 600 }}
+        >
           대간격 (spacingKeys[6])
         </Typography>
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -220,13 +257,19 @@ export const 간격_토큰_시각화 = {
       <Space y={spacingKeys[3]} />
       {spacingKeys.slice(0, 8).map((key) => (
         <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span style={{ fontSize: '11px', color: '#94a3b8', width: '80px', fontFamily: 'monospace' }}>
+          <span
+            style={{ fontSize: '11px', color: '#94a3b8', width: '80px', fontFamily: 'monospace' }}
+          >
             {key}
           </span>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#6366f1' }} />
+            <div
+              style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#6366f1' }}
+            />
             <Space x={key} />
-            <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#6366f1' }} />
+            <div
+              style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#6366f1' }}
+            />
           </div>
         </div>
       ))}
@@ -246,7 +289,15 @@ export const DeployPlatform_레이아웃_밀도_비교 = {
       { label: '여유', gap: spacingKeys[6], pad: spacingKeys[7] },
     ]
     return (
-      <div style={{ display: 'flex', gap: 20, padding: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 20,
+          padding: '20px',
+          alignItems: 'flex-start',
+          flexWrap: 'wrap',
+        }}
+      >
         {densities.map(({ label, gap, pad }) => (
           <div
             key={label}
@@ -259,17 +310,30 @@ export const DeployPlatform_레이아웃_밀도_비교 = {
               boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
             }}
           >
-            <Typography textStyle="descriptionLarge" style={{ color: '#94a3b8', fontSize: 10, textTransform: 'uppercase', letterSpacing: 1, fontWeight: 700 }}>
+            <Typography
+              textStyle="descriptionLarge"
+              style={{
+                color: '#94a3b8',
+                fontSize: 10,
+                textTransform: 'uppercase',
+                letterSpacing: 1,
+                fontWeight: 700,
+              }}
+            >
               {label}
             </Typography>
             <Space y={gap} />
-            <Typography textStyle="subheadingSmall" style={{ color: '#1e293b' }}>카드 제목</Typography>
+            <Typography textStyle="subheadingSmall" style={{ color: '#1e293b' }}>
+              카드 제목
+            </Typography>
             <Space y={gap} />
             <Typography textStyle="descriptionSmall" style={{ color: '#64748b', lineHeight: 1.5 }}>
               Space 컴포넌트로 레이아웃 밀도를 정밀하게 조정합니다.
             </Typography>
             <Space y={gap} />
-            <OutlinedButton color="black" size="small">자세히 보기</OutlinedButton>
+            <OutlinedButton color="black" size="small">
+              자세히 보기
+            </OutlinedButton>
           </div>
         ))}
       </div>
@@ -311,21 +375,53 @@ function InteractiveSpacingDemo() {
         ))}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <div style={{ background: '#6366f1', borderRadius: 6, padding: '8px 16px', color: '#fff', fontSize: 13, fontWeight: 600 }}>
+        <div
+          style={{
+            background: '#6366f1',
+            borderRadius: 6,
+            padding: '8px 16px',
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
           요소 A
         </div>
         <Space y={selectedKey} />
-        <div style={{ background: '#8b5cf6', borderRadius: 6, padding: '8px 16px', color: '#fff', fontSize: 13, fontWeight: 600 }}>
+        <div
+          style={{
+            background: '#8b5cf6',
+            borderRadius: 6,
+            padding: '8px 16px',
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
           요소 B
         </div>
         <Space y={selectedKey} />
-        <div style={{ background: '#06b6d4', borderRadius: 6, padding: '8px 16px', color: '#fff', fontSize: 13, fontWeight: 600 }}>
+        <div
+          style={{
+            background: '#06b6d4',
+            borderRadius: 6,
+            padding: '8px 16px',
+            color: '#fff',
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
           요소 C
         </div>
       </div>
       <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
-        선택된 간격: <code style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4, color: '#6366f1' }}>{selectedKey}</code>
-        {' '}= {vars.ref.spacing[selectedKey]}
+        선택된 간격:{' '}
+        <code
+          style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4, color: '#6366f1' }}
+        >
+          {selectedKey}
+        </code>{' '}
+        = {vars.ref.spacing[selectedKey]}
       </Typography>
     </div>
   )
@@ -341,7 +437,15 @@ export const Ant_인터랙티브_간격_조절 = {
 -------------------------------------------------------------------------- */
 export const DeployPlatform_설정_섹션_구분 = {
   render: () => (
-    <div style={{ width: 360, padding: '24px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0' }}>
+    <div
+      style={{
+        width: 360,
+        padding: '24px',
+        background: '#fff',
+        borderRadius: 12,
+        border: '1px solid #e2e8f0',
+      }}
+    >
       {/* 섹션 1 */}
       <Typography textStyle="subheadingSmall" style={{ color: '#1e293b', fontWeight: 700 }}>
         일반 설정
@@ -351,13 +455,37 @@ export const DeployPlatform_설정_섹션_구분 = {
         기본 프로젝트 정보를 수정합니다.
       </Typography>
       <Space y={spacingKeys[4]} />
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderTop: '1px solid #f1f5f9' }}>
-        <Typography textStyle="descriptionLarge" style={{ color: '#374151', fontWeight: 500 }}>프로젝트 이름</Typography>
-        <Typography textStyle="descriptionLarge" style={{ color: '#6366f1', fontWeight: 600 }}>orbit-ui</Typography>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '10px 0',
+          borderTop: '1px solid #f1f5f9',
+        }}
+      >
+        <Typography textStyle="descriptionLarge" style={{ color: '#374151', fontWeight: 500 }}>
+          프로젝트 이름
+        </Typography>
+        <Typography textStyle="descriptionLarge" style={{ color: '#6366f1', fontWeight: 600 }}>
+          orbit-ui
+        </Typography>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderTop: '1px solid #f1f5f9' }}>
-        <Typography textStyle="descriptionLarge" style={{ color: '#374151', fontWeight: 500 }}>프레임워크</Typography>
-        <Typography textStyle="descriptionLarge" style={{ color: '#475569' }}>React</Typography>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '10px 0',
+          borderTop: '1px solid #f1f5f9',
+        }}
+      >
+        <Typography textStyle="descriptionLarge" style={{ color: '#374151', fontWeight: 500 }}>
+          프레임워크
+        </Typography>
+        <Typography textStyle="descriptionLarge" style={{ color: '#475569' }}>
+          React
+        </Typography>
       </div>
 
       {/* 섹션 구분 — 큰 Space */}
@@ -372,18 +500,39 @@ export const DeployPlatform_설정_섹션_구분 = {
         아래 작업은 되돌릴 수 없습니다.
       </Typography>
       <Space y={spacingKeys[4]} />
-      <div style={{ padding: '14px 16px', borderRadius: 8, border: '1px solid #fecaca', background: '#fef2f2', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          padding: '14px 16px',
+          borderRadius: 8,
+          border: '1px solid #fecaca',
+          background: '#fef2f2',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <div>
-          <Typography textStyle="descriptionLarge" style={{ color: '#991b1b', fontWeight: 600 }}>프로젝트 삭제</Typography>
+          <Typography textStyle="descriptionLarge" style={{ color: '#991b1b', fontWeight: 600 }}>
+            프로젝트 삭제
+          </Typography>
           <Space y={spacingKeys[1]} />
-          <Typography textStyle="descriptionSmall" style={{ color: '#b91c1c' }}>모든 데이터가 영구 삭제됩니다</Typography>
+          <Typography textStyle="descriptionSmall" style={{ color: '#b91c1c' }}>
+            모든 데이터가 영구 삭제됩니다
+          </Typography>
         </div>
-        <Button color="primary" size="small" style={{ background: '#ef4444', borderColor: '#ef4444', flexShrink: 0 }}>
+        <Button
+          color="primary"
+          size="small"
+          style={{ background: '#ef4444', borderColor: '#ef4444', flexShrink: 0 }}
+        >
           <Button.Center>삭제</Button.Center>
         </Button>
       </div>
       <Space y={spacingKeys[3]} />
-      <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8', textAlign: 'center', display: 'block' }}>
+      <Typography
+        textStyle="descriptionSmall"
+        style={{ color: '#94a3b8', textAlign: 'center', display: 'block' }}
+      >
         DeployPlatform 설정 페이지 패턴 — Space로 섹션 간 리듬 형성
       </Typography>
     </div>
@@ -403,27 +552,60 @@ export const AppUI_폼_섹션_리듬 = {
   parameters: {
     docs: {
       description: {
-        story: 'AppUI Stack 컴포넌트 패턴. 섹션 간 큰 Space(spacingKeys[6]), 필드 간 중간 Space(spacingKeys[3]), 레이블-인풋 간 작은 Space(spacingKeys[1])로 계층적 리듬 형성.',
+        story:
+          'AppUI Stack 컴포넌트 패턴. 섹션 간 큰 Space(spacingKeys[6]), 필드 간 중간 Space(spacingKeys[3]), 레이블-인풋 간 작은 Space(spacingKeys[1])로 계층적 리듬 형성.',
       },
     },
   },
   render: () => (
-    <div style={{ maxWidth: 440, padding: 32, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0' }}>
+    <div
+      style={{
+        maxWidth: 440,
+        padding: 32,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#fff',
+        borderRadius: 16,
+        border: '1px solid #e2e8f0',
+      }}
+    >
       <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a' }}>프로필 설정</div>
       <Space y={spacingKeys[2]} />
-      <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>공개 프로필 정보를 업데이트합니다. 변경사항은 저장 후 반영됩니다.</div>
+      <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
+        공개 프로필 정보를 업데이트합니다. 변경사항은 저장 후 반영됩니다.
+      </div>
 
       {/* 섹션 구분 — 큰 간격 */}
       <Space y={spacingKeys[6]} />
 
       {/* 기본 정보 섹션 */}
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>기본 정보</div>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 700,
+          color: '#475569',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+        }}
+      >
+        기본 정보
+      </div>
       <Space y={spacingKeys[3]} />
 
       <div>
         <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>표시 이름</div>
         <Space y={spacingKeys[1]} />
-        <input placeholder="홍길동" style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, boxSizing: 'border-box', outline: 'none' }} />
+        <input
+          placeholder="홍길동"
+          style={{
+            width: '100%',
+            padding: '9px 12px',
+            borderRadius: 8,
+            border: '1.5px solid #e2e8f0',
+            fontSize: 13,
+            boxSizing: 'border-box',
+            outline: 'none',
+          }}
+        />
       </div>
 
       <Space y={spacingKeys[3]} />
@@ -431,22 +613,60 @@ export const AppUI_폼_섹션_리듬 = {
       <div>
         <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>이메일</div>
         <Space y={spacingKeys[1]} />
-        <input placeholder="user@example.com" type="email" style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, boxSizing: 'border-box', outline: 'none' }} />
+        <input
+          placeholder="user@example.com"
+          type="email"
+          style={{
+            width: '100%',
+            padding: '9px 12px',
+            borderRadius: 8,
+            border: '1.5px solid #e2e8f0',
+            fontSize: 13,
+            boxSizing: 'border-box',
+            outline: 'none',
+          }}
+        />
         <Space y={spacingKeys[1]} />
-        <div style={{ fontSize: 11, color: '#94a3b8' }}>본인 인증된 이메일은 변경 후 재인증이 필요합니다.</div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>
+          본인 인증된 이메일은 변경 후 재인증이 필요합니다.
+        </div>
       </div>
 
       {/* 섹션 구분 — 큰 간격 */}
       <Space y={spacingKeys[6]} />
 
       {/* 소개 섹션 */}
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>소개</div>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 700,
+          color: '#475569',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+        }}
+      >
+        소개
+      </div>
       <Space y={spacingKeys[3]} />
 
       <div>
         <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>자기소개</div>
         <Space y={spacingKeys[1]} />
-        <textarea rows={3} placeholder="간략한 소개를 작성해 주세요." style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #e2e8f0', fontSize: 13, boxSizing: 'border-box', outline: 'none', fontFamily: 'inherit', resize: 'vertical' }} />
+        <textarea
+          rows={3}
+          placeholder="간략한 소개를 작성해 주세요."
+          style={{
+            width: '100%',
+            padding: '9px 12px',
+            borderRadius: 8,
+            border: '1.5px solid #e2e8f0',
+            fontSize: 13,
+            boxSizing: 'border-box',
+            outline: 'none',
+            fontFamily: 'inherit',
+            resize: 'vertical',
+          }}
+        />
         <Space y={spacingKeys[1]} />
         <div style={{ fontSize: 11, color: '#94a3b8' }}>최대 160자</div>
       </div>
@@ -454,7 +674,19 @@ export const AppUI_폼_섹션_리듬 = {
       <Space y={spacingKeys[5]} />
 
       {/* 저장 버튼 */}
-      <button style={{ width: '100%', padding: '11px 0', borderRadius: 10, background: '#0f172a', color: '#fff', fontSize: 13, fontWeight: 700, border: 'none', cursor: 'pointer' }}>
+      <button
+        style={{
+          width: '100%',
+          padding: '11px 0',
+          borderRadius: 10,
+          background: '#0f172a',
+          color: '#fff',
+          fontSize: 13,
+          fontWeight: 700,
+          border: 'none',
+          cursor: 'pointer',
+        }}
+      >
         변경사항 저장
       </button>
     </div>
@@ -477,12 +709,21 @@ export const DataProduct_카드_그리드_간격_패턴 = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI Grid 간격 제어 패턴. Space를 카드 간 구분과 섹션 내 수직 리듬에 활용. 통계 카드 → 상세 목록 레이아웃에서 섹션 간 시각적 리듬 형성.',
+        story:
+          'DataProductUI Grid 간격 제어 패턴. Space를 카드 간 구분과 섹션 내 수직 리듬에 활용. 통계 카드 → 상세 목록 레이아웃에서 섹션 간 시각적 리듬 형성.',
       },
     },
   },
   render: () => (
-    <div style={{ width: 500, padding: 28, fontFamily: 'system-ui, sans-serif', background: '#f8fafc', borderRadius: 16 }}>
+    <div
+      style={{
+        width: 500,
+        padding: 28,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#f8fafc',
+        borderRadius: 16,
+      }}
+    >
       <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>팀 현황</div>
       <Space y={spacingKeys[2]} />
       <div style={{ fontSize: 12, color: '#64748b' }}>이번 달 주요 지표</div>
@@ -492,14 +733,39 @@ export const DataProduct_카드_그리드_간격_패턴 = {
       {/* 통계 카드 그리드 */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
         {STAT_CARDS.map((card) => (
-          <div key={card.label} style={{ padding: '16px 18px', borderRadius: 12, background: '#fff', border: '1px solid #e2e8f0' }}>
-            <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div
+            key={card.label}
+            style={{
+              padding: '16px 18px',
+              borderRadius: 12,
+              background: '#fff',
+              border: '1px solid #e2e8f0',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                color: '#94a3b8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+              }}
+            >
               {card.label}
             </div>
             <Space y={spacingKeys[2]} />
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
-              <div style={{ fontSize: 28, fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>{card.value}</div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: card.up ? '#16a34a' : '#dc2626', marginBottom: 2 }}>
+              <div style={{ fontSize: 28, fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>
+                {card.value}
+              </div>
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: card.up ? '#16a34a' : '#dc2626',
+                  marginBottom: 2,
+                }}
+              >
                 {card.change}
               </div>
             </div>
@@ -520,10 +786,22 @@ export const DataProduct_카드_그리드_간격_패턴 = {
 
       <Space y={spacingKeys[3]} />
 
-      {['main 브랜치에 PR #89 병합됨', 'Alice가 디자인 팀에 합류했습니다', '프로덕션 배포 v2.4.1 성공'].map((item, i) => (
+      {[
+        'main 브랜치에 PR #89 병합됨',
+        'Alice가 디자인 팀에 합류했습니다',
+        '프로덕션 배포 v2.4.1 성공',
+      ].map((item, i) => (
         <div key={i}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', flexShrink: 0 }} />
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: '#6366f1',
+                flexShrink: 0,
+              }}
+            />
             <div style={{ fontSize: 12, color: '#475569' }}>{item}</div>
           </div>
           {i < 2 && <Space y={spacingKeys[2]} />}
@@ -555,7 +833,8 @@ export const DataProduct_인라인_태그_간격_패턴 = {
   parameters: {
     docs: {
       description: {
-        story: 'DataProductUI Space wrap 모드. x축 Space로 인라인 태그·칩 사이 일관된 수평 간격 형성. gap 토큰 크기별 간격 비교 데모.',
+        story:
+          'DataProductUI Space wrap 모드. x축 Space로 인라인 태그·칩 사이 일관된 수평 간격 형성. gap 토큰 크기별 간격 비교 데모.',
       },
     },
   },
@@ -564,9 +843,23 @@ export const DataProduct_인라인_태그_간격_패턴 = {
     const gap = spacingKeys[gapIdx]
 
     return (
-      <div style={{ width: 480, padding: 28, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0' }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>기술 스택</div>
-        <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8', marginBottom: 16, display: 'block' }}>
+      <div
+        style={{
+          width: 480,
+          padding: 28,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          borderRadius: 16,
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 4 }}>
+          기술 스택
+        </div>
+        <Typography
+          textStyle="descriptionSmall"
+          style={{ color: '#94a3b8', marginBottom: 16, display: 'block' }}
+        >
           간격 토큰: <strong style={{ color: '#6366f1' }}>{gap}</strong>
         </Typography>
 
@@ -574,7 +867,10 @@ export const DataProduct_인라인_태그_간격_패턴 = {
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
           <span style={{ fontSize: 11, color: '#94a3b8' }}>좁음</span>
           <input
-            type="range" min={0} max={spacingKeys.length - 1} value={gapIdx}
+            type="range"
+            min={0}
+            max={spacingKeys.length - 1}
+            value={gapIdx}
             onChange={(e) => setGapIdx(Number(e.target.value))}
             style={{ flex: 1 }}
           />
@@ -585,12 +881,19 @@ export const DataProduct_인라인_태그_간격_패턴 = {
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
           {TECH_TAGS.map((tag, i) => (
             <React.Fragment key={tag.name}>
-              <div style={{
-                padding: '5px 10px', borderRadius: 99,
-                background: `${tag.color}18`, border: `1px solid ${tag.color}44`,
-                fontSize: 12, fontWeight: 600, color: tag.color,
-                whiteSpace: 'nowrap', marginBottom: 8,
-              }}>
+              <div
+                style={{
+                  padding: '5px 10px',
+                  borderRadius: 99,
+                  background: `${tag.color}18`,
+                  border: `1px solid ${tag.color}44`,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: tag.color,
+                  whiteSpace: 'nowrap',
+                  marginBottom: 8,
+                }}
+              >
                 {tag.name}
               </div>
               {i < TECH_TAGS.length - 1 && <Space x={gap} />}
@@ -644,9 +947,14 @@ export const AppUI_KPI_카드_그리드_간격 = {
                 key={opt.value}
                 onClick={() => setSpacing(opt.value)}
                 style={{
-                  padding: '3px 8px', borderRadius: 4, border: `1px solid ${spacing === opt.value ? '#6366f1' : '#e2e8f0'}`,
+                  padding: '3px 8px',
+                  borderRadius: 4,
+                  border: `1px solid ${spacing === opt.value ? '#6366f1' : '#e2e8f0'}`,
                   background: spacing === opt.value ? '#eff6ff' : '#fff',
-                  fontSize: 10, fontWeight: 600, color: spacing === opt.value ? '#6366f1' : '#94a3b8', cursor: 'pointer',
+                  fontSize: 10,
+                  fontWeight: 600,
+                  color: spacing === opt.value ? '#6366f1' : '#94a3b8',
+                  cursor: 'pointer',
                 }}
               >
                 {opt.label}
@@ -662,13 +970,24 @@ export const AppUI_KPI_카드_그리드_간격 = {
           {KPI_CARDS.map((card, i) => (
             <React.Fragment key={card.label}>
               {i % 2 === 1 && <Space x={spacing} />}
-              <div style={{
-                padding: '16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff',
-                marginBottom: i < 2 ? 0 : undefined,
-              }}>
-                <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, marginBottom: 6 }}>{card.label}</div>
-                <div style={{ fontSize: 24, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>{card.value}</div>
-                <div style={{ fontSize: 11, color: card.up ? '#22c55e' : '#ef4444', fontWeight: 600 }}>
+              <div
+                style={{
+                  padding: '16px',
+                  borderRadius: 10,
+                  border: '1px solid #e2e8f0',
+                  background: '#fff',
+                  marginBottom: i < 2 ? 0 : undefined,
+                }}
+              >
+                <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, marginBottom: 6 }}>
+                  {card.label}
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>
+                  {card.value}
+                </div>
+                <div
+                  style={{ fontSize: 11, color: card.up ? '#22c55e' : '#ef4444', fontWeight: 600 }}
+                >
                   {card.delta} 이전 대비
                 </div>
               </div>
@@ -680,15 +999,37 @@ export const AppUI_KPI_카드_그리드_간격 = {
         <Space y={spacing} />
 
         {/* 미니 바 차트 */}
-        <div style={{ padding: '14px 16px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fafafa' }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 12 }}>스토리 분포 (Top 5)</div>
+        <div
+          style={{
+            padding: '14px 16px',
+            borderRadius: 10,
+            border: '1px solid #e2e8f0',
+            background: '#fafafa',
+          }}
+        >
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 12 }}>
+            스토리 분포 (Top 5)
+          </div>
           <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end', height: 48 }}>
             {[15, 15, 14, 14, 13].map((n, i) => (
               <React.Fragment key={i}>
                 {i > 0 && <Space x="50" />}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-                  <div style={{ width: 28, height: `${(n / 15) * 40}px`, borderRadius: '4px 4px 0 0', background: KPI_CARDS[i % 4].color }} />
-                  <div style={{ fontSize: 9, color: '#94a3b8', fontVariantNumeric: 'tabular-nums' }}>{n}</div>
+                <div
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}
+                >
+                  <div
+                    style={{
+                      width: 28,
+                      height: `${(n / 15) * 40}px`,
+                      borderRadius: '4px 4px 0 0',
+                      background: KPI_CARDS[i % 4].color,
+                    }}
+                  />
+                  <div
+                    style={{ fontSize: 9, color: '#94a3b8', fontVariantNumeric: 'tabular-nums' }}
+                  >
+                    {n}
+                  </div>
                 </div>
               </React.Fragment>
             ))}
@@ -724,7 +1065,15 @@ export const AppUI_프로필_카드_수직_간격 = {
     ]
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 20, fontFamily: 'system-ui, sans-serif' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: 20,
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
         {/* 간격 컨트롤 */}
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
           <span style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600 }}>수직 간격:</span>
@@ -733,7 +1082,11 @@ export const AppUI_프로필_카드_수직_간격 = {
               key={opt.value}
               onClick={() => setVGap(opt.value)}
               style={{
-                padding: '3px 8px', borderRadius: 4, fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                padding: '3px 8px',
+                borderRadius: 4,
+                fontSize: 10,
+                fontWeight: 600,
+                cursor: 'pointer',
                 border: `1px solid ${vGap === opt.value ? '#6366f1' : '#e2e8f0'}`,
                 background: vGap === opt.value ? '#eff6ff' : '#fff',
                 color: vGap === opt.value ? '#6366f1' : '#94a3b8',
@@ -745,17 +1098,38 @@ export const AppUI_프로필_카드_수직_간격 = {
         </div>
 
         {/* 프로필 카드 */}
-        <div style={{ width: 260, borderRadius: 16, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+        <div
+          style={{
+            width: 260,
+            borderRadius: 16,
+            border: '1px solid #e2e8f0',
+            overflow: 'hidden',
+            background: '#fff',
+          }}
+        >
           {/* 커버 */}
-          <div style={{ height: 64, background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)' }} />
+          <div
+            style={{ height: 64, background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)' }}
+          />
           <div style={{ padding: '0 20px 20px' }}>
             {/* 아바타 */}
-            <div style={{
-              width: 48, height: 48, borderRadius: '50%', background: '#0f172a',
-              border: '3px solid #fff', marginTop: -24, marginBottom: 0,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#fff', fontWeight: 700, fontSize: 16,
-            }}>
+            <div
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: '50%',
+                background: '#0f172a',
+                border: '3px solid #fff',
+                marginTop: -24,
+                marginBottom: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: 16,
+              }}
+            >
               HJ
             </div>
 
@@ -776,12 +1150,26 @@ export const AppUI_프로필_카드_수직_간격 = {
             <Space y={vGap} />
 
             {/* 스탯 */}
-            <div style={{ display: 'flex', gap: 0, borderTop: '1px solid #f1f5f9', borderBottom: '1px solid #f1f5f9', padding: `${vGap} 0` }}>
-              {[{ label: '팔로워', value: '1.2k' }, { label: '팔로잉', value: '248' }, { label: '스토리', value: '728' }].map((stat, i) => (
+            <div
+              style={{
+                display: 'flex',
+                gap: 0,
+                borderTop: '1px solid #f1f5f9',
+                borderBottom: '1px solid #f1f5f9',
+                padding: `${vGap} 0`,
+              }}
+            >
+              {[
+                { label: '팔로워', value: '1.2k' },
+                { label: '팔로잉', value: '248' },
+                { label: '스토리', value: '728' },
+              ].map((stat, i) => (
                 <React.Fragment key={stat.label}>
                   {i > 0 && <div style={{ width: 1, background: '#f1f5f9' }} />}
                   <div style={{ flex: 1, textAlign: 'center' }}>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a' }}>{stat.value}</div>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a' }}>
+                      {stat.value}
+                    </div>
                     <div style={{ fontSize: 10, color: '#94a3b8' }}>{stat.label}</div>
                   </div>
                 </React.Fragment>
@@ -863,7 +1251,16 @@ export const DataProduct_설정_섹션_의미론적_간격 = {
     ]
 
     return (
-      <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 16, border: '1px solid #e2e8f0', padding: '24px 28px' }}>
+      <div
+        style={{
+          width: 420,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          borderRadius: 16,
+          border: '1px solid #e2e8f0',
+          padding: '24px 28px',
+        }}
+      >
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
           <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
             <span style={{ fontSize: 11, color: '#94a3b8' }}>섹션 간격</span>
@@ -871,7 +1268,16 @@ export const DataProduct_설정_섹션_의미론적_간격 = {
               <button
                 key={opt.value}
                 onClick={() => setSectionGap(opt.value)}
-                style={{ padding: '2px 6px', borderRadius: 3, fontSize: 9, fontWeight: 600, cursor: 'pointer', border: `1px solid ${sectionGap === opt.value ? '#6366f1' : '#e2e8f0'}`, background: sectionGap === opt.value ? '#eff6ff' : '#fff', color: sectionGap === opt.value ? '#6366f1' : '#94a3b8' }}
+                style={{
+                  padding: '2px 6px',
+                  borderRadius: 3,
+                  fontSize: 9,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  border: `1px solid ${sectionGap === opt.value ? '#6366f1' : '#e2e8f0'}`,
+                  background: sectionGap === opt.value ? '#eff6ff' : '#fff',
+                  color: sectionGap === opt.value ? '#6366f1' : '#94a3b8',
+                }}
               >
                 {opt.label}
               </button>
@@ -883,7 +1289,16 @@ export const DataProduct_설정_섹션_의미론적_간격 = {
               <button
                 key={opt.value}
                 onClick={() => setItemGap(opt.value)}
-                style={{ padding: '2px 6px', borderRadius: 3, fontSize: 9, fontWeight: 600, cursor: 'pointer', border: `1px solid ${itemGap === opt.value ? '#10b981' : '#e2e8f0'}`, background: itemGap === opt.value ? '#f0fdf4' : '#fff', color: itemGap === opt.value ? '#10b981' : '#94a3b8' }}
+                style={{
+                  padding: '2px 6px',
+                  borderRadius: 3,
+                  fontSize: 9,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  border: `1px solid ${itemGap === opt.value ? '#10b981' : '#e2e8f0'}`,
+                  background: itemGap === opt.value ? '#f0fdf4' : '#fff',
+                  color: itemGap === opt.value ? '#10b981' : '#94a3b8',
+                }}
               >
                 {opt.label}
               </button>
@@ -894,15 +1309,35 @@ export const DataProduct_설정_섹션_의미론적_간격 = {
         {ARCO_SETTINGS_SECTIONS.map((section, si) => (
           <React.Fragment key={section.title}>
             {si > 0 && <Space y={sectionGap} />}
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: '#6366f1',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                marginBottom: 10,
+              }}
+            >
               {section.title}
             </div>
             {section.items.map((item, ii) => (
               <React.Fragment key={item.label}>
                 {ii > 0 && <Space y={itemGap} />}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', borderRadius: 8, background: '#f8fafc' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '8px 12px',
+                    borderRadius: 8,
+                    background: '#f8fafc',
+                  }}
+                >
                   <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
-                  <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>{item.value}</span>
+                  <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>
+                    {item.value}
+                  </span>
                 </div>
               </React.Fragment>
             ))}
@@ -932,7 +1367,17 @@ export const IssueTracker_이슈_상세_섹션_간격: Story = {
     <div style={{ width: 480, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b' }}>
       {/* 이슈 헤더 */}
       <div>
-        <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>ORB-312</div>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#94a3b8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+          }}
+        >
+          ORB-312
+        </div>
         <Space y="50" />
         <div style={{ fontSize: 18, fontWeight: 700 }}>TextArea 자동저장 디바운스 개선</div>
       </div>
@@ -962,7 +1407,8 @@ export const IssueTracker_이슈_상세_섹션_간격: Story = {
       <div>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#475569', marginBottom: 8 }}>설명</div>
         <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.7 }}>
-          1초 디바운스 적용 시 타이핑 중 과도한 저장 요청이 발생합니다. 1.5초로 조정하고 저장 중 표시기를 추가해야 합니다.
+          1초 디바운스 적용 시 타이핑 중 과도한 저장 요청이 발생합니다. 1.5초로 조정하고 저장 중
+          표시기를 추가해야 합니다.
         </div>
       </div>
 
@@ -970,21 +1416,51 @@ export const IssueTracker_이슈_상세_섹션_간격: Story = {
 
       {/* 댓글 섹션 */}
       <div>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#475569', marginBottom: 12 }}>댓글 2개</div>
-        {['수정 완료 — 1.2초 디바운스 + 저장 상태 표시 추가', '리뷰 요청 드립니다. PR #148'].map((comment, i) => (
-          <div key={i} style={{ display: 'flex', gap: 10, marginBottom: i === 0 ? 12 : 0 }}>
-            <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#e0e7ff', color: '#6366f1', fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              {i === 0 ? 'HJ' : 'SL'}
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#475569', marginBottom: 12 }}>
+          댓글 2개
+        </div>
+        {['수정 완료 — 1.2초 디바운스 + 저장 상태 표시 추가', '리뷰 요청 드립니다. PR #148'].map(
+          (comment, i) => (
+            <div key={i} style={{ display: 'flex', gap: 10, marginBottom: i === 0 ? 12 : 0 }}>
+              <div
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: '50%',
+                  background: '#e0e7ff',
+                  color: '#6366f1',
+                  fontSize: 10,
+                  fontWeight: 700,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                {i === 0 ? 'HJ' : 'SL'}
+              </div>
+              <div
+                style={{
+                  flex: 1,
+                  padding: '8px 12px',
+                  background: '#f8fafc',
+                  borderRadius: 8,
+                  fontSize: 12,
+                  color: '#475569',
+                  lineHeight: 1.5,
+                }}
+              >
+                {comment}
+              </div>
             </div>
-            <div style={{ flex: 1, padding: '8px 12px', background: '#f8fafc', borderRadius: 8, fontSize: 12, color: '#475569', lineHeight: 1.5 }}>
-              {comment}
-            </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
 
       <Space y="100" />
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>IssueTracker 이슈 상세 — Space 컴포넌트로 섹션 리듬 설계</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        IssueTracker 이슈 상세 — Space 컴포넌트로 섹션 리듬 설계
+      </div>
     </div>
   ),
 }
@@ -1010,11 +1486,25 @@ export const DeployPlatform_설정_폼_컴팩트_간격: Story = {
       <Space y="300" />
 
       {/* 섹션 1: 기본 정보 */}
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>기본 정보</div>
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+        }}
+      >
+        기본 정보
+      </div>
       <Space y="150" />
 
       {[
-        { label: '프로젝트 이름', placeholder: 'orbit-ui', hint: '소문자, 숫자, 하이픈만 사용 가능' },
+        {
+          label: '프로젝트 이름',
+          placeholder: 'orbit-ui',
+          hint: '소문자, 숫자, 하이픈만 사용 가능',
+        },
         { label: '설명', placeholder: 'React 컴포넌트 라이브러리', hint: '선택 사항. 120자 이하' },
       ].map(({ label, placeholder, hint }) => (
         <div key={label}>
@@ -1023,7 +1513,17 @@ export const DeployPlatform_설정_폼_컴팩트_간격: Story = {
           <input
             placeholder={placeholder}
             defaultValue={placeholder}
-            style={{ width: '100%', padding: '7px 10px', fontSize: 13, border: '1px solid #e2e8f0', borderRadius: 6, color: '#1e293b', outline: 'none', boxSizing: 'border-box', background: '#fff' }}
+            style={{
+              width: '100%',
+              padding: '7px 10px',
+              fontSize: 13,
+              border: '1px solid #e2e8f0',
+              borderRadius: 6,
+              color: '#1e293b',
+              outline: 'none',
+              boxSizing: 'border-box',
+              background: '#fff',
+            }}
           />
           <Space y="50" />
           <div style={{ fontSize: 11, color: '#94a3b8' }}>{hint}</div>
@@ -1035,19 +1535,42 @@ export const DeployPlatform_설정_폼_컴팩트_간격: Story = {
       <Space y="300" />
 
       {/* 섹션 2: 프레임워크 */}
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>배포 설정</div>
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+        }}
+      >
+        배포 설정
+      </div>
       <Space y="150" />
 
       <div style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>빌드 명령어</div>
       <Space y="50" />
       <input
         defaultValue="pnpm build:storybook"
-        style={{ width: '100%', padding: '7px 10px', fontSize: 13, border: '1px solid #e2e8f0', borderRadius: 6, fontFamily: 'monospace', color: '#1e293b', outline: 'none', boxSizing: 'border-box', background: '#fff' }}
+        style={{
+          width: '100%',
+          padding: '7px 10px',
+          fontSize: 13,
+          border: '1px solid #e2e8f0',
+          borderRadius: 6,
+          fontFamily: 'monospace',
+          color: '#1e293b',
+          outline: 'none',
+          boxSizing: 'border-box',
+          background: '#fff',
+        }}
       />
       <Space y="50" />
       <div style={{ fontSize: 11, color: '#94a3b8' }}>패키지 루트 기준 실행됩니다</div>
       <Space y="100" />
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>DeployPlatform Settings — Space로 레이블/인풋/힌트 간격 정밀 제어</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        DeployPlatform Settings — Space로 레이블/인풋/힌트 간격 정밀 제어
+      </div>
     </div>
   ),
 }
@@ -1057,9 +1580,29 @@ export const DeployPlatform_설정_폼_컴팩트_간격: Story = {
    단축키 섹션 구분 + 항목 간 균등 간격 패턴
 -------------------------------------------------------------------------- */
 const SHORTCUTS = [
-  { section: '일반', items: [{ keys: ['⌘', 'K'], desc: '커맨드 팔레트' }, { keys: ['⌘', ','], desc: '설정' }, { keys: ['?'], desc: '단축키 도움말' }] },
-  { section: '이슈', items: [{ keys: ['C'], desc: '이슈 생성' }, { keys: ['⌘', 'Enter'], desc: '이슈 저장' }, { keys: ['E'], desc: '이슈 편집' }] },
-  { section: '뷰', items: [{ keys: ['⌘', '\\'], desc: '사이드바 토글' }, { keys: ['⌘', 'B'], desc: '보드 뷰' }] },
+  {
+    section: '일반',
+    items: [
+      { keys: ['⌘', 'K'], desc: '커맨드 팔레트' },
+      { keys: ['⌘', ','], desc: '설정' },
+      { keys: ['?'], desc: '단축키 도움말' },
+    ],
+  },
+  {
+    section: '이슈',
+    items: [
+      { keys: ['C'], desc: '이슈 생성' },
+      { keys: ['⌘', 'Enter'], desc: '이슈 저장' },
+      { keys: ['E'], desc: '이슈 편집' },
+    ],
+  },
+  {
+    section: '뷰',
+    items: [
+      { keys: ['⌘', '\\'], desc: '사이드바 토글' },
+      { keys: ['⌘', 'B'], desc: '보드 뷰' },
+    ],
+  },
 ]
 
 export const IssueTracker_DeployPlatform_단축키_참조_레이아웃: Story = {
@@ -1080,16 +1623,46 @@ export const IssueTracker_DeployPlatform_단축키_참조_레이아웃: Story = 
       {SHORTCUTS.map((section, si) => (
         <div key={section.section}>
           {si > 0 && <Space y="300" />}
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{section.section}</div>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+            }}
+          >
+            {section.section}
+          </div>
           <Space y="100" />
           {section.items.map((item, ii) => (
             <div key={item.desc}>
               {ii > 0 && <Space y="75" />}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              >
                 <span style={{ fontSize: 12, color: '#475569' }}>{item.desc}</span>
                 <div style={{ display: 'flex', gap: 3 }}>
                   {item.keys.map((k, ki) => (
-                    <kbd key={ki} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: 22, height: 22, padding: '0 5px', fontSize: 11, fontWeight: 600, color: '#475569', background: '#f8fafc', border: '1px solid #e2e8f0', borderBottom: '2px solid #e2e8f0', borderRadius: 4, fontFamily: 'system-ui' }}>
+                    <kbd
+                      key={ki}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minWidth: 22,
+                        height: 22,
+                        padding: '0 5px',
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: '#475569',
+                        background: '#f8fafc',
+                        border: '1px solid #e2e8f0',
+                        borderBottom: '2px solid #e2e8f0',
+                        borderRadius: 4,
+                        fontFamily: 'system-ui',
+                      }}
+                    >
                       {k}
                     </kbd>
                   ))}
@@ -1100,7 +1673,9 @@ export const IssueTracker_DeployPlatform_단축키_참조_레이아웃: Story = 
         </div>
       ))}
       <Space y="200" />
-      <div style={{ fontSize: 11, color: '#94a3b8' }}>Space로 계층적 섹션/항목 간격 제어 — IssueTracker + DeployPlatform 패턴</div>
+      <div style={{ fontSize: 11, color: '#94a3b8' }}>
+        Space로 계층적 섹션/항목 간격 제어 — IssueTracker + DeployPlatform 패턴
+      </div>
     </div>
   ),
 }
@@ -1125,19 +1700,49 @@ export const AppUI_컴포넌트_간격_시스템: Story = {
             {i > 0 && (
               <div style={{ position: 'relative' }}>
                 <Space y={GAPS[i - 1] as Spacing} />
-                <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', gap: 4, pointerEvents: 'none' }}>
-                  <div style={{ flex: 1, height: 1, background: '#e2e8f0', borderStyle: 'dashed' }} />
-                  <span style={{ fontSize: 10, color: '#94a3b8', whiteSpace: 'nowrap' }}>{'Space y="' + GAPS[i - 1] + '"'}</span>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: 0,
+                    right: 0,
+                    transform: 'translateY(-50%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    pointerEvents: 'none',
+                  }}
+                >
+                  <div
+                    style={{ flex: 1, height: 1, background: '#e2e8f0', borderStyle: 'dashed' }}
+                  />
+                  <span style={{ fontSize: 10, color: '#94a3b8', whiteSpace: 'nowrap' }}>
+                    {'Space y="' + GAPS[i - 1] + '"'}
+                  </span>
                   <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
                 </div>
               </div>
             )}
-            <div style={{ height: section.height, background: section.color, borderRadius: 6, display: 'flex', alignItems: 'center', paddingLeft: 12, fontSize: 12, fontWeight: 500, color: '#475569' }}>
+            <div
+              style={{
+                height: section.height,
+                background: section.color,
+                borderRadius: 6,
+                display: 'flex',
+                alignItems: 'center',
+                paddingLeft: 12,
+                fontSize: 12,
+                fontWeight: 500,
+                color: '#475569',
+              }}
+            >
               {section.label}
             </div>
           </div>
         ))}
-        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>AppUI Stack/Group의 spacing prop을 Space 토큰으로 시각화</div>
+        <div style={{ marginTop: 12, fontSize: 11, color: '#94a3b8' }}>
+          AppUI Stack/Group의 spacing prop을 Space 토큰으로 시각화
+        </div>
       </div>
     )
   },
@@ -1157,23 +1762,55 @@ export const WorkspaceEditor_페이지_레이아웃_공백: Story = {
   render: () => {
     const BLOCKS = [
       { type: 'title', text: '2024 Q4 회고 보고서', fontSize: 22, fontWeight: 800, space: '200' },
-      { type: 'subtitle', text: '작성자: 디자인 시스템 팀 · 2024년 12월', fontSize: 13, color: '#94a3b8', space: '150' },
+      {
+        type: 'subtitle',
+        text: '작성자: 디자인 시스템 팀 · 2024년 12월',
+        fontSize: 13,
+        color: '#94a3b8',
+        space: '150',
+      },
       { type: 'heading', text: '개요', fontSize: 16, fontWeight: 700, space: '100' },
-      { type: 'body', text: '이번 분기 디자인 시스템 팀은 총 48개의 컴포넌트를 고도화하였으며, 접근성 기준을 WCAG 2.1 AA로 강화했습니다.', fontSize: 13, space: '300' },
+      {
+        type: 'body',
+        text: '이번 분기 디자인 시스템 팀은 총 48개의 컴포넌트를 고도화하였으며, 접근성 기준을 WCAG 2.1 AA로 강화했습니다.',
+        fontSize: 13,
+        space: '300',
+      },
       { type: 'heading', text: '주요 성과', fontSize: 16, fontWeight: 700, space: '100' },
-      { type: 'body', text: '스토리북 스토리 수: 150+ · 타입 검사 통과율: 100% · 배포 횟수: 52회', fontSize: 13, space: '200' },
+      {
+        type: 'body',
+        text: '스토리북 스토리 수: 150+ · 타입 검사 통과율: 100% · 배포 횟수: 52회',
+        fontSize: 13,
+        space: '200',
+      },
     ] as const
     return (
-      <div style={{ width: 500, fontFamily: 'Inter, system-ui, sans-serif', color: '#1e293b', padding: '24px 0' }}>
+      <div
+        style={{
+          width: 500,
+          fontFamily: 'Inter, system-ui, sans-serif',
+          color: '#1e293b',
+          padding: '24px 0',
+        }}
+      >
         {BLOCKS.map((block, i) => (
           <div key={i}>
-            <div style={{ fontSize: block.fontSize, fontWeight: (block as { fontWeight?: number }).fontWeight ?? 400, color: (block as { color?: string }).color ?? '#1e293b', lineHeight: 1.5 }}>
+            <div
+              style={{
+                fontSize: block.fontSize,
+                fontWeight: (block as { fontWeight?: number }).fontWeight ?? 400,
+                color: (block as { color?: string }).color ?? '#1e293b',
+                lineHeight: 1.5,
+              }}
+            >
               {block.text}
             </div>
             {i < BLOCKS.length - 1 && <Space y={block.space as Spacing} />}
           </div>
         ))}
-        <div style={{ marginTop: 16, fontSize: 11, color: '#94a3b8' }}>WorkspaceEditor 페이지 블록 간 수직 공백 — Space 토큰 계층 반영</div>
+        <div style={{ marginTop: 16, fontSize: 11, color: '#94a3b8' }}>
+          WorkspaceEditor 페이지 블록 간 수직 공백 — Space 토큰 계층 반영
+        </div>
       </div>
     )
   },
@@ -1202,7 +1839,7 @@ export const AppUI_WorkspaceEditor_대시보드_그리드_공백: Story = {
         <div style={{ fontSize: 14, fontWeight: 700 }}>워크스페이스 현황</div>
         <Space y="200" />
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          {CARDS.map(card => (
+          {CARDS.map((card) => (
             <div key={card.label} style={{ background: card.color, borderRadius: 8, padding: 14 }}>
               <div style={{ fontSize: 11, color: '#64748b' }}>{card.label}</div>
               <Space y="75" />
@@ -1214,14 +1851,29 @@ export const AppUI_WorkspaceEditor_대시보드_그리드_공백: Story = {
         </div>
         <Space y="300" />
         <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>최근 활동</div>
-        {['홍길동이 디자인 가이드를 편집했습니다', '이서연이 새 페이지를 만들었습니다', '박도현이 스프린트 보드를 공유했습니다'].map((item, i) => (
+        {[
+          '홍길동이 디자인 가이드를 편집했습니다',
+          '이서연이 새 페이지를 만들었습니다',
+          '박도현이 스프린트 보드를 공유했습니다',
+        ].map((item, i) => (
           <div key={i}>
             {i > 0 && <Space y="100" />}
-            <div style={{ fontSize: 12, color: '#475569', padding: '6px 0', borderBottom: '1px solid #f1f5f9' }}>{item}</div>
+            <div
+              style={{
+                fontSize: 12,
+                color: '#475569',
+                padding: '6px 0',
+                borderBottom: '1px solid #f1f5f9',
+              }}
+            >
+              {item}
+            </div>
           </div>
         ))}
         <Space y="150" />
-        <div style={{ fontSize: 11, color: '#94a3b8' }}>AppUI Grid + WorkspaceEditor 대시보드의 공백 패턴을 Space 토큰으로 재현</div>
+        <div style={{ fontSize: 11, color: '#94a3b8' }}>
+          AppUI Grid + WorkspaceEditor 대시보드의 공백 패턴을 Space 토큰으로 재현
+        </div>
       </div>
     )
   },
@@ -1249,47 +1901,129 @@ function AccessibleFormSpaceRender() {
   const [values, setValues] = React.useState({ name: '', email: '', org: '' })
   const keys = ['name', 'email', 'org'] as const
   return (
-      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>프로필 설정</div>
-        <div style={{ fontSize: 11, color: '#64748b' }}>{'AccessibleUI 폼 간격 패턴 — Space y="200" 섹션 분리'}</div>
-        <Space y="200" />
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>기본 정보</div>
-        <Space y="100" />
-        {CHAKRA_FORM_SECTIONS_189.map((f, i) => (
-          <React.Fragment key={f.label}>
-            {i > 0 && <Space y="100" />}
-            <div>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 0 }}>{f.label}</label>
-              <Space y="50" />
-              <input
-                type={f.type}
-                placeholder={f.placeholder}
-                value={values[keys[i]]}
-                onChange={(e) => setValues((v) => ({ ...v, [keys[i]]: e.target.value }))}
-                style={{ width: '100%', padding: '8px 12px', fontSize: 13, borderRadius: 7, border: '1px solid #d1d5db', outline: 'none', boxSizing: 'border-box' }}
-              />
-            </div>
-          </React.Fragment>
-        ))}
-        <Space y="200" />
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>설정</div>
-        <Space y="100" />
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0' }}>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>이메일 알림</div>
-            <Space y="25" />
-            <div style={{ fontSize: 11, color: '#64748b' }}>업데이트 및 공지 수신</div>
-          </div>
-          <div style={{ width: 36, height: 20, borderRadius: 10, background: '#6366f1', position: 'relative', cursor: 'pointer' }}>
-            <div style={{ width: 16, height: 16, borderRadius: '50%', background: '#fff', position: 'absolute', top: 2, right: 2, boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
-          </div>
-        </div>
-        <Space y="150" />
-        <button style={{ width: '100%', padding: '10px', fontSize: 13, fontWeight: 600, borderRadius: 8, border: 'none', background: '#0f172a', color: '#fff', cursor: 'pointer' }}>
-          저장
-        </button>
+    <div style={{ width: 360, fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a' }}>프로필 설정</div>
+      <div style={{ fontSize: 11, color: '#64748b' }}>
+        {'AccessibleUI 폼 간격 패턴 — Space y="200" 섹션 분리'}
       </div>
-    )
+      <Space y="200" />
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#64748b',
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase',
+        }}
+      >
+        기본 정보
+      </div>
+      <Space y="100" />
+      {CHAKRA_FORM_SECTIONS_189.map((f, i) => (
+        <React.Fragment key={f.label}>
+          {i > 0 && <Space y="100" />}
+          <div>
+            <label
+              style={{
+                display: 'block',
+                fontSize: 12,
+                fontWeight: 600,
+                color: '#374151',
+                marginBottom: 0,
+              }}
+            >
+              {f.label}
+            </label>
+            <Space y="50" />
+            <input
+              type={f.type}
+              placeholder={f.placeholder}
+              value={values[keys[i]]}
+              onChange={(e) => setValues((v) => ({ ...v, [keys[i]]: e.target.value }))}
+              style={{
+                width: '100%',
+                padding: '8px 12px',
+                fontSize: 13,
+                borderRadius: 7,
+                border: '1px solid #d1d5db',
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+        </React.Fragment>
+      ))}
+      <Space y="200" />
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#64748b',
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase',
+        }}
+      >
+        설정
+      </div>
+      <Space y="100" />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          padding: '10px 12px',
+          background: '#f8fafc',
+          borderRadius: 8,
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>이메일 알림</div>
+          <Space y="25" />
+          <div style={{ fontSize: 11, color: '#64748b' }}>업데이트 및 공지 수신</div>
+        </div>
+        <div
+          style={{
+            width: 36,
+            height: 20,
+            borderRadius: 10,
+            background: '#6366f1',
+            position: 'relative',
+            cursor: 'pointer',
+          }}
+        >
+          <div
+            style={{
+              width: 16,
+              height: 16,
+              borderRadius: '50%',
+              background: '#fff',
+              position: 'absolute',
+              top: 2,
+              right: 2,
+              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+            }}
+          />
+        </div>
+      </div>
+      <Space y="150" />
+      <button
+        style={{
+          width: '100%',
+          padding: '10px',
+          fontSize: 13,
+          fontWeight: 600,
+          borderRadius: 8,
+          border: 'none',
+          background: '#0f172a',
+          color: '#fff',
+          cursor: 'pointer',
+        }}
+      >
+        저장
+      </button>
+    </div>
+  )
 }
 
 export const Accessible_폼_섹션_간격_리듬: StoryObj = {
@@ -1330,22 +2064,46 @@ export const DataProduct_카드_내부_간격_시스템: StoryObj = {
       {ARCO_CARD_SECTIONS_189.map((card, i) => (
         <React.Fragment key={card.title}>
           {i > 0 && <Space y="100" />}
-          <div style={{ padding: '14px 16px', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10 }}>
+          <div
+            style={{
+              padding: '14px 16px',
+              background: '#fff',
+              border: '1px solid #e5e7eb',
+              borderRadius: 10,
+            }}
+          >
             <div style={{ fontSize: 11, color: '#6b7280', fontWeight: 500 }}>{card.title}</div>
             <Space y="75" />
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
               <span style={{ fontSize: 24, fontWeight: 800, color: '#0f172a' }}>{card.value}</span>
-              <span style={{ fontSize: 12, fontWeight: 600, color: card.positive ? '#10b981' : '#ef4444' }}>{card.delta}</span>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: card.positive ? '#10b981' : '#ef4444',
+                }}
+              >
+                {card.delta}
+              </span>
             </div>
             <Space y="75" />
             <div style={{ height: 3, borderRadius: 2, background: '#f3f4f6' }}>
-              <div style={{ width: '65%', height: '100%', borderRadius: 2, background: card.positive ? '#10b981' : '#ef4444' }} />
+              <div
+                style={{
+                  width: '65%',
+                  height: '100%',
+                  borderRadius: 2,
+                  background: card.positive ? '#10b981' : '#ef4444',
+                }}
+              />
             </div>
           </div>
         </React.Fragment>
       ))}
       <Space y="150" />
-      <div style={{ fontSize: 10, color: '#9ca3af', textAlign: 'right' }}>{'Space y="100" 카드 간격 · y="75" 내부 간격'}</div>
+      <div style={{ fontSize: 10, color: '#9ca3af', textAlign: 'right' }}>
+        {'Space y="100" 카드 간격 · y="75" 내부 간격'}
+      </div>
     </div>
   ),
 }
@@ -1360,57 +2118,130 @@ const CHAKRA_ARCO_NAV_ITEMS_189 = [
 
 function AccessibleDataProductNavRender() {
   const [active, setActive] = React.useState('홈')
-    return (
-      <div style={{ display: 'flex', gap: 24, fontFamily: 'system-ui, sans-serif' }}>
-        {/* Sidebar */}
-        <div style={{ width: 180, padding: '20px 14px', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12 }}>
-          <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.01em' }}>Orbit UI</div>
-          <Space y="300" />
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>메뉴</div>
-          <Space y="100" />
-          {CHAKRA_ARCO_NAV_ITEMS_189.map((item, i) => (
-            <React.Fragment key={item.label}>
-              {i > 0 && <Space y="50" />}
-              <div
-                onClick={() => setActive(item.label)}
-                style={{
-                  padding: '7px 10px', borderRadius: 7, cursor: 'pointer', fontSize: 12, fontWeight: active === item.label ? 700 : 400,
-                  color: active === item.label ? '#6366f1' : '#374151',
-                  background: active === item.label ? '#eef2ff' : 'transparent',
-                  transition: 'all 0.1s',
-                }}
-              >
-                {item.label}
-              </div>
-            </React.Fragment>
-          ))}
-          <Space y="200" />
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>설정</div>
-          <Space y="100" />
-          {['프로필', '테마'].map((item, i) => (
-            <React.Fragment key={item}>
-              {i > 0 && <Space y="50" />}
-              <div style={{ padding: '7px 10px', borderRadius: 7, cursor: 'pointer', fontSize: 12, color: '#94a3b8' }}>{item}</div>
-            </React.Fragment>
-          ))}
+  return (
+    <div style={{ display: 'flex', gap: 24, fontFamily: 'system-ui, sans-serif' }}>
+      {/* Sidebar */}
+      <div
+        style={{
+          width: 180,
+          padding: '20px 14px',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: 12,
+        }}
+      >
+        <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.01em' }}>
+          Orbit UI
         </div>
-        {/* Space token legend */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8, fontSize: 11, color: '#64748b', justifyContent: 'center' }}>
-          {[
-            { token: 'y="300"', use: '로고 → 메뉴 섹션 간격', color: '#6366f1' },
-            { token: 'y="200"', use: '메뉴 → 설정 섹션 간격', color: '#8b5cf6' },
-            { token: 'y="100"', use: '섹션 헤더 → 첫 아이템', color: '#3b82f6' },
-            { token: 'y="50"', use: '네비게이션 아이템 간격', color: '#10b981' },
-          ].map((s) => (
-            <div key={s.token} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: s.color, flexShrink: 0 }} />
-              <code style={{ fontSize: 10, fontFamily: 'monospace', background: '#f1f5f9', padding: '1px 5px', borderRadius: 4, color: s.color }}>{s.token}</code>
-              <span>{s.use}</span>
+        <Space y="300" />
+        <div
+          style={{
+            fontSize: 10,
+            fontWeight: 700,
+            color: '#94a3b8',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+          }}
+        >
+          메뉴
+        </div>
+        <Space y="100" />
+        {CHAKRA_ARCO_NAV_ITEMS_189.map((item, i) => (
+          <React.Fragment key={item.label}>
+            {i > 0 && <Space y="50" />}
+            <div
+              onClick={() => setActive(item.label)}
+              style={{
+                padding: '7px 10px',
+                borderRadius: 7,
+                cursor: 'pointer',
+                fontSize: 12,
+                fontWeight: active === item.label ? 700 : 400,
+                color: active === item.label ? '#6366f1' : '#374151',
+                background: active === item.label ? '#eef2ff' : 'transparent',
+                transition: 'all 0.1s',
+              }}
+            >
+              {item.label}
             </div>
-          ))}
+          </React.Fragment>
+        ))}
+        <Space y="200" />
+        <div
+          style={{
+            fontSize: 10,
+            fontWeight: 700,
+            color: '#94a3b8',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+          }}
+        >
+          설정
         </div>
+        <Space y="100" />
+        {['프로필', '테마'].map((item, i) => (
+          <React.Fragment key={item}>
+            {i > 0 && <Space y="50" />}
+            <div
+              style={{
+                padding: '7px 10px',
+                borderRadius: 7,
+                cursor: 'pointer',
+                fontSize: 12,
+                color: '#94a3b8',
+              }}
+            >
+              {item}
+            </div>
+          </React.Fragment>
+        ))}
       </div>
-    )
+      {/* Space token legend */}
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+          fontSize: 11,
+          color: '#64748b',
+          justifyContent: 'center',
+        }}
+      >
+        {[
+          { token: 'y="300"', use: '로고 → 메뉴 섹션 간격', color: '#6366f1' },
+          { token: 'y="200"', use: '메뉴 → 설정 섹션 간격', color: '#8b5cf6' },
+          { token: 'y="100"', use: '섹션 헤더 → 첫 아이템', color: '#3b82f6' },
+          { token: 'y="50"', use: '네비게이션 아이템 간격', color: '#10b981' },
+        ].map((s) => (
+          <div key={s.token} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: s.color,
+                flexShrink: 0,
+              }}
+            />
+            <code
+              style={{
+                fontSize: 10,
+                fontFamily: 'monospace',
+                background: '#f1f5f9',
+                padding: '1px 5px',
+                borderRadius: 4,
+                color: s.color,
+              }}
+            >
+              {s.token}
+            </code>
+            <span>{s.use}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export const Accessible_DataProduct_내비게이션_간격_리듬: StoryObj = {

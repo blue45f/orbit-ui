@@ -80,7 +80,7 @@ export function useStep(options: UseStepOptions): UseStepReturn {
       setCurrent(clamp(step, 1, total))
       setCompleted(false)
     },
-    [total],
+    [total]
   )
 
   const reset = useCallback(() => {
@@ -101,7 +101,7 @@ export function useStep(options: UseStepOptions): UseStepReturn {
       isLast: current === total,
       isCompleted,
     }),
-    [current, total, next, prev, goTo, reset, isCompleted],
+    [current, total, next, prev, goTo, reset, isCompleted]
   )
 }
 

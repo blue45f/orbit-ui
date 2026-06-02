@@ -163,10 +163,7 @@ export const Throttle: Story = { render: () => <ThrottleDemo /> }
 function TimeoutDemo() {
   const [armed, setArmed] = useState(false)
   const [fired, setFired] = useState(false)
-  useTimeout(
-    () => setFired(true),
-    armed ? 1500 : null,
-  )
+  useTimeout(() => setFired(true), armed ? 1500 : null)
   return (
     <Panel title="useTimeout" signature="useTimeout(callback, delay | null)">
       <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
@@ -327,10 +324,7 @@ function PreviousDemo() {
       </div>
       <Readout label="current" value={value} />
       <Readout label="previous" value={prev === undefined ? '(undefined)' : prev} />
-      <Readout
-        label="diff"
-        value={prev === undefined ? '(initial)' : value - prev}
-      />
+      <Readout label="diff" value={prev === undefined ? '(initial)' : value - prev} />
     </Panel>
   )
 }
@@ -393,8 +387,8 @@ function LatestDemo() {
           lineHeight: 1.5,
         }}
       >
-        count을 빠르게 올린 뒤 1초 기다리세요. stale closure는 마운트 시점 값(0)을, latest ref는 최신 값을
-        가리킵니다.
+        count을 빠르게 올린 뒤 1초 기다리세요. stale closure는 마운트 시점 값(0)을, latest ref는
+        최신 값을 가리킵니다.
       </div>
     </Panel>
   )
@@ -524,7 +518,9 @@ function CountdownDemo() {
             padding: '0 12px',
             borderRadius: 6,
             border: 0,
-            background: isRunning ? 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))' : 'rgb(37, 99, 235)',
+            background: isRunning
+              ? 'var(--orbit-surface-sunken, rgba(24,26,28,0.025))'
+              : 'rgb(37, 99, 235)',
             color: isRunning ? 'var(--orbit-ink-4, rgba(24,26,28,0.33))' : 'rgb(255,255,255)',
             fontFamily: 'inherit',
             fontSize: 12.5,
@@ -544,7 +540,9 @@ function CountdownDemo() {
             borderRadius: 6,
             border: '1px solid var(--orbit-line-2, rgba(24,26,28,0.14))',
             background: 'transparent',
-            color: isRunning ? 'var(--orbit-ink, rgb(24,26,28))' : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
+            color: isRunning
+              ? 'var(--orbit-ink, rgb(24,26,28))'
+              : 'var(--orbit-ink-4, rgba(24,26,28,0.33))',
             fontFamily: 'inherit',
             fontSize: 12.5,
             fontWeight: 600,
@@ -592,7 +590,10 @@ function RafStateDemo() {
   }
 
   return (
-    <Panel title="useRafState" signature="const [position, setPosition] = useRafState({ x: 0, y: 0 })">
+    <Panel
+      title="useRafState"
+      signature="const [position, setPosition] = useRafState({ x: 0, y: 0 })"
+    >
       <div
         ref={boxRef}
         onMouseMove={handleMouseMove}
@@ -668,10 +669,7 @@ function RafCallbackDemo() {
   }
 
   return (
-    <Panel
-      title="useRafCallback"
-      signature="const [animate, cancel] = useRafCallback(callback)"
-    >
+    <Panel title="useRafCallback" signature="const [animate, cancel] = useRafCallback(callback)">
       <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
         <button
           type="button"
@@ -743,21 +741,17 @@ function AnimationFrameDemo() {
   const deltasRef = useRef<number[]>([])
   const [fps, setFps] = useState(0)
 
-  useAnimationFrame(
-    (delta) => {
-      if (delta > 0) {
-        angleRef.current = (angleRef.current + delta * 0.18) % 360
-        setAngle(Math.round(angleRef.current))
+  useAnimationFrame((delta) => {
+    if (delta > 0) {
+      angleRef.current = (angleRef.current + delta * 0.18) % 360
+      setAngle(Math.round(angleRef.current))
 
-        deltasRef.current.push(delta)
-        if (deltasRef.current.length > 30) deltasRef.current.shift()
-        const avgDelta =
-          deltasRef.current.reduce((a, b) => a + b, 0) / deltasRef.current.length
-        setFps(Math.round(1000 / avgDelta))
-      }
-    },
-    active,
-  )
+      deltasRef.current.push(delta)
+      if (deltasRef.current.length > 30) deltasRef.current.shift()
+      const avgDelta = deltasRef.current.reduce((a, b) => a + b, 0) / deltasRef.current.length
+      setFps(Math.round(1000 / avgDelta))
+    }
+  }, active)
 
   const handleToggle = () => {
     if (!active) {
@@ -767,10 +761,7 @@ function AnimationFrameDemo() {
   }
 
   return (
-    <Panel
-      title="useAnimationFrame"
-      signature="useAnimationFrame(callback, active)"
-    >
+    <Panel title="useAnimationFrame" signature="useAnimationFrame(callback, active)">
       <div
         style={{
           display: 'flex',

@@ -1,4 +1,10 @@
-import { CheckIcon, ChevronDownLineIcon, StarLineIcon, HeartLineIcon, CancelIcon } from '@heejun-com/icons'
+import {
+  CheckIcon,
+  ChevronDownLineIcon,
+  StarLineIcon,
+  HeartLineIcon,
+  CancelIcon,
+} from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
@@ -33,10 +39,21 @@ type Story = StoryObj<typeof meta>
 
 /** Inline SVG placeholder used as a safe, copyright-free image avatar */
 const AvatarPlaceholder = ({ size = 24, color = '#6366f1' }: { size?: number; color?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <rect width="24" height="24" rx="12" fill={color} fillOpacity="0.15" />
     <circle cx="12" cy="9" r="3.5" fill={color} fillOpacity="0.7" />
-    <path d="M5 19c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+    <path
+      d="M5 19c0-3.866 3.134-7 7-7s7 3.134 7 7"
+      stroke={color}
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </svg>
 )
 
@@ -262,12 +279,23 @@ const FilterChipGroupRender = () => {
     { title: 'Q2 로드맵 수립 워크샵', cat: '기획', date: '2026-04-05' },
     { title: '사용자 행동 데이터 분석', cat: '데이터', date: '2026-04-04' },
   ]
-  const filtered = allItems.filter((item) => selected.includes('전체') || selected.includes(item.cat))
+  const filtered = allItems.filter(
+    (item) => selected.includes('전체') || selected.includes(item.cat)
+  )
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '480px' }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: '12px',
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           AppUI 필터 칩 그룹
         </p>
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b' }}>
@@ -319,20 +347,40 @@ const FilterChipGroupRender = () => {
             }}
           >
             <div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a', marginBottom: '2px' }}>{item.title}</div>
+              <div
+                style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a', marginBottom: '2px' }}
+              >
+                {item.title}
+              </div>
               <div style={{ fontSize: '11px', color: '#94a3b8' }}>{item.date}</div>
             </div>
-            <span style={{
-              flexShrink: 0, fontSize: '11px', fontWeight: 700,
-              padding: '3px 8px', borderRadius: '20px',
-              background: 'rgba(99,102,241,0.08)', color: '#6366f1',
-            }}>
+            <span
+              style={{
+                flexShrink: 0,
+                fontSize: '11px',
+                fontWeight: 700,
+                padding: '3px 8px',
+                borderRadius: '20px',
+                background: 'rgba(99,102,241,0.08)',
+                color: '#6366f1',
+              }}
+            >
               {item.cat}
             </span>
           </div>
         ))}
         {filtered.length === 0 && (
-          <div style={{ padding: '24px', textAlign: 'center', color: '#94a3b8', fontSize: '13px', background: '#f8fafc', borderRadius: '10px', border: '1px dashed #e2e8f0' }}>
+          <div
+            style={{
+              padding: '24px',
+              textAlign: 'center',
+              color: '#94a3b8',
+              fontSize: '13px',
+              background: '#f8fafc',
+              borderRadius: '10px',
+              border: '1px dashed #e2e8f0',
+            }}
+          >
             선택한 카테고리의 콘텐츠가 없습니다.
           </div>
         )}
@@ -368,7 +416,16 @@ const TagInputRender = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '480px' }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: '12px',
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           AppUI TagsInput 패턴
         </p>
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b' }}>
@@ -376,11 +433,19 @@ const TagInputRender = () => {
         </p>
       </div>
 
-      <div style={{
-        padding: '10px 12px', background: '#fff', borderRadius: '10px',
-        border: '1px solid #e2e8f0', display: 'flex', flexWrap: 'wrap',
-        gap: '6px', alignItems: 'center', minHeight: '52px',
-      }}>
+      <div
+        style={{
+          padding: '10px 12px',
+          background: '#fff',
+          borderRadius: '10px',
+          border: '1px solid #e2e8f0',
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '6px',
+          alignItems: 'center',
+          minHeight: '52px',
+        }}
+      >
         {tags.map((tag) => (
           <span key={tag} style={{ display: 'inline-flex' }}>
             <Chip>
@@ -411,9 +476,14 @@ const TagInputRender = () => {
           }}
           placeholder={tags.length === 0 ? '태그를 입력하고 Enter' : ''}
           style={{
-            border: 'none', outline: 'none', fontSize: '14px',
-            color: '#0f172a', minWidth: '120px', flex: 1,
-            background: 'transparent', padding: '4px 0',
+            border: 'none',
+            outline: 'none',
+            fontSize: '14px',
+            color: '#0f172a',
+            minWidth: '120px',
+            flex: 1,
+            background: 'transparent',
+            padding: '4px 0',
           }}
         />
       </div>
@@ -422,7 +492,9 @@ const TagInputRender = () => {
       </p>
 
       <div>
-        <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: 600, color: '#64748b' }}>추천 태그</p>
+        <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: 600, color: '#64748b' }}>
+          추천 태그
+        </p>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
           {['Next.js', 'UtilityCSS CSS', 'PrimitiveUI', 'Storybook', 'Vite']
             .filter((t) => !tags.includes(t))
@@ -462,15 +534,22 @@ const Material3FilterChipRender = () => {
   const [activeFilters, setActiveFilters] = useState<string[]>(['trending'])
 
   const toggleFilter = (id: string) => {
-    setActiveFilters((prev) =>
-      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
-    )
+    setActiveFilters((prev) => (prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]))
   }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '500px' }}>
       <div>
-        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <p
+          style={{
+            margin: '0 0 6px',
+            fontSize: '12px',
+            fontWeight: 700,
+            color: '#6366f1',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+          }}
+        >
           RoleToken Design Filter Chip
         </p>
         <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#64748b' }}>
@@ -485,7 +564,8 @@ const Material3FilterChipRender = () => {
             <span
               key={filter.id}
               style={{
-                display: 'inline-flex', borderRadius: '999px',
+                display: 'inline-flex',
+                borderRadius: '999px',
                 boxShadow: isActive ? '0 2px 8px rgba(99,102,241,0.2)' : 'none',
                 transition: 'box-shadow 0.15s',
               }}
@@ -503,9 +583,16 @@ const Material3FilterChipRender = () => {
         })}
       </div>
 
-      <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+      <div
+        style={{
+          padding: '12px 16px',
+          background: '#f8fafc',
+          borderRadius: '10px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
         <span style={{ fontSize: '12px', color: '#64748b' }}>
-          활성 필터 ({activeFilters.length}개): {' '}
+          활성 필터 ({activeFilters.length}개):{' '}
           <strong style={{ color: '#6366f1' }}>
             {activeFilters.length > 0
               ? activeFilters.map((id) => filters.find((f) => f.id === id)?.label).join(', ')
@@ -514,8 +601,17 @@ const Material3FilterChipRender = () => {
         </span>
       </div>
 
-      <div style={{ padding: '16px', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-        <p style={{ margin: '0 0 10px', fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>M3 State Layer 규칙</p>
+      <div
+        style={{
+          padding: '16px',
+          background: '#f8fafc',
+          borderRadius: '10px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
+        <p style={{ margin: '0 0 10px', fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
+          M3 State Layer 규칙
+        </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {[
             { state: 'Hovered', opacity: '8%' },
@@ -526,11 +622,20 @@ const Material3FilterChipRender = () => {
             const pct = parseFloat(item.opacity) / 100
             return (
               <div key={item.state} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{
-                  width: '40px', height: '20px', borderRadius: '4px',
-                  background: `rgba(99,102,241,${pct})`, border: '1px solid #e2e8f0',
-                }} />
-                <span style={{ fontSize: '12px', color: '#0f172a', fontWeight: 500, width: '80px' }}>{item.state}</span>
+                <div
+                  style={{
+                    width: '40px',
+                    height: '20px',
+                    borderRadius: '4px',
+                    background: `rgba(99,102,241,${pct})`,
+                    border: '1px solid #e2e8f0',
+                  }}
+                />
+                <span
+                  style={{ fontSize: '12px', color: '#0f172a', fontWeight: 500, width: '80px' }}
+                >
+                  {item.state}
+                </span>
                 <span style={{ fontSize: '12px', color: '#94a3b8' }}>{item.opacity} opacity</span>
               </div>
             )
@@ -551,9 +656,21 @@ export const Material3_필터칩_상태레이어: Story = {
    EnterpriseUI Autocomplete + Chip의 핵심 패턴 — 입력창에서 검색 후 Chip으로 선택 항목 추가
 -------------------------------------------------------------------------- */
 const EnterpriseUI_SKILL_OPTIONS = [
-  'React', 'TypeScript', 'Next.js', 'UtilityCSS CSS', 'GraphQL',
-  'Node.js', 'PostgreSQL', 'Docker', 'AWS', 'DesignTool',
-  'Storybook', 'Vitest', 'Playwright', 'ESLint', 'Prettier',
+  'React',
+  'TypeScript',
+  'Next.js',
+  'UtilityCSS CSS',
+  'GraphQL',
+  'Node.js',
+  'PostgreSQL',
+  'Docker',
+  'AWS',
+  'DesignTool',
+  'Storybook',
+  'Vitest',
+  'Playwright',
+  'ESLint',
+  'Prettier',
 ]
 
 function EnterpriseUIAutocompleteChipsRender() {
@@ -562,7 +679,7 @@ function EnterpriseUIAutocompleteChipsRender() {
   const [open, setOpen] = useState(false)
 
   const filtered = EnterpriseUI_SKILL_OPTIONS.filter(
-    (opt) => opt.toLowerCase().includes(query.toLowerCase()) && !selected.includes(opt),
+    (opt) => opt.toLowerCase().includes(query.toLowerCase()) && !selected.includes(opt)
   )
 
   const addItem = (item: string) => {
@@ -575,7 +692,9 @@ function EnterpriseUIAutocompleteChipsRender() {
 
   return (
     <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>기술 스택 선택 (EnterpriseUI Autocomplete 패턴)</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+        기술 스택 선택 (EnterpriseUI Autocomplete 패턴)
+      </div>
       <div
         style={{
           minHeight: 44,
@@ -605,22 +724,51 @@ function EnterpriseUIAutocompleteChipsRender() {
         ))}
         <input
           value={query}
-          onChange={(e) => { setQuery(e.target.value); setOpen(true) }}
+          onChange={(e) => {
+            setQuery(e.target.value)
+            setOpen(true)
+          }}
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
           placeholder={selected.length === 0 ? '기술 스택 검색...' : ''}
-          style={{ border: 'none', outline: 'none', fontSize: 13, color: '#1e293b', minWidth: 120, flex: 1, background: 'transparent' }}
+          style={{
+            border: 'none',
+            outline: 'none',
+            fontSize: 13,
+            color: '#1e293b',
+            minWidth: 120,
+            flex: 1,
+            background: 'transparent',
+          }}
         />
       </div>
       {open && filtered.length > 0 && (
-        <div style={{ borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#fff', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+        <div
+          style={{
+            borderRadius: 10,
+            border: '1.5px solid #e2e8f0',
+            background: '#fff',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+            overflow: 'hidden',
+          }}
+        >
           {filtered.slice(0, 6).map((opt) => (
             <div
               key={opt}
               onMouseDown={() => addItem(opt)}
-              style={{ padding: '10px 14px', cursor: 'pointer', fontSize: 13, color: '#334155', transition: 'background 0.1s' }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#f8fafc' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
+              style={{
+                padding: '10px 14px',
+                cursor: 'pointer',
+                fontSize: 13,
+                color: '#334155',
+                transition: 'background 0.1s',
+              }}
+              onMouseEnter={(e) => {
+                ;(e.currentTarget as HTMLDivElement).style.background = '#f8fafc'
+              }}
+              onMouseLeave={(e) => {
+                ;(e.currentTarget as HTMLDivElement).style.background = 'transparent'
+              }}
             >
               {opt}
             </div>
@@ -683,15 +831,13 @@ function AccessibleTagCloudRender() {
     <div style={{ width: 420, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>관심 태그 선택</div>
-        <span style={{ fontSize: 12, color: '#6366f1', fontWeight: 700 }}>{selectedCount}개 선택됨</span>
+        <span style={{ fontSize: 12, color: '#6366f1', fontWeight: 700 }}>
+          {selectedCount}개 선택됨
+        </span>
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
         {tags.map((tag) => (
-          <Chip
-            key={tag.label}
-            selected={tag.selected}
-            onClick={() => toggle(tag.label)}
-          >
+          <Chip key={tag.label} selected={tag.selected} onClick={() => toggle(tag.label)}>
             {tag.selected && (
               <Chip.Leading>
                 <CheckIcon />
@@ -699,12 +845,22 @@ function AccessibleTagCloudRender() {
             )}
             {tag.label}
             <Chip.Trailing>
-              <span style={{ fontSize: 10, fontWeight: 700, opacity: 0.7 }}>{(tag.count / 1000).toFixed(1)}k</span>
+              <span style={{ fontSize: 10, fontWeight: 700, opacity: 0.7 }}>
+                {(tag.count / 1000).toFixed(1)}k
+              </span>
             </Chip.Trailing>
           </Chip>
         ))}
       </div>
-      <div style={{ padding: '10px 14px', background: '#f8fafc', borderRadius: 8, fontSize: 12, color: '#64748b' }}>
+      <div
+        style={{
+          padding: '10px 14px',
+          background: '#f8fafc',
+          borderRadius: 8,
+          fontSize: 12,
+          color: '#64748b',
+        }}
+      >
         인기도에 따라 칩 크기가 달라집니다. 클릭해서 관심 태그를 선택하세요.
       </div>
     </div>
@@ -771,7 +927,11 @@ const MOCK_USERS = [
 ]
 
 function EnterpriseUIFilterChipToolbarRender() {
-  const [activeFilters, setActiveFilters] = useState<Record<string, string | null>>({ status: null, role: null, plan: null })
+  const [activeFilters, setActiveFilters] = useState<Record<string, string | null>>({
+    status: null,
+    role: null,
+    plan: null,
+  })
 
   const toggleFilter = (groupId: string, value: string) => {
     setActiveFilters((prev) => ({
@@ -783,7 +943,9 @@ function EnterpriseUIFilterChipToolbarRender() {
   const clearAll = () => setActiveFilters({ status: null, role: null, plan: null })
 
   const filteredUsers = MOCK_USERS.filter((user) =>
-    Object.entries(activeFilters).every(([key, val]) => !val || user[key as keyof typeof user] === val),
+    Object.entries(activeFilters).every(
+      ([key, val]) => !val || user[key as keyof typeof user] === val
+    )
   )
 
   const hasFilters = Object.values(activeFilters).some(Boolean)
@@ -791,16 +953,39 @@ function EnterpriseUIFilterChipToolbarRender() {
   return (
     <div style={{ width: 460, display: 'flex', flexDirection: 'column', gap: 14 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>사용자 필터 (EnterpriseUI Chip 패턴)</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>
+          사용자 필터 (EnterpriseUI Chip 패턴)
+        </div>
         {hasFilters && (
-          <button onClick={clearAll} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#ef4444', fontWeight: 600 }}>
+          <button
+            onClick={clearAll}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 12,
+              color: '#ef4444',
+              fontWeight: 600,
+            }}
+          >
             필터 초기화
           </button>
         )}
       </div>
       {EnterpriseUI_FILTER_GROUPS.map((group) => (
         <div key={group.id}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>{group.label}</div>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 8,
+            }}
+          >
+            {group.label}
+          </div>
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {group.options.map((opt) => {
               const isActive = activeFilters[group.id] === opt.value
@@ -823,13 +1008,39 @@ function EnterpriseUIFilterChipToolbarRender() {
         </div>
       ))}
       <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 12 }}>
-        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8 }}>결과: {filteredUsers.length}명</div>
+        <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8 }}>
+          결과: {filteredUsers.length}명
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {filteredUsers.map((user) => (
-            <div key={user.name} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '8px 12px', background: '#f8fafc', borderRadius: 8 }}>
-              <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: '#1e293b' }}>{user.name}</span>
+            <div
+              key={user.name}
+              style={{
+                display: 'flex',
+                gap: 8,
+                alignItems: 'center',
+                padding: '8px 12px',
+                background: '#f8fafc',
+                borderRadius: 8,
+              }}
+            >
+              <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: '#1e293b' }}>
+                {user.name}
+              </span>
               {[user.status, user.role, user.plan].map((val, i) => (
-                <span key={i} style={{ fontSize: 11, padding: '1px 8px', borderRadius: 10, background: '#eef2ff', color: '#6366f1', fontWeight: 600 }}>{val}</span>
+                <span
+                  key={i}
+                  style={{
+                    fontSize: 11,
+                    padding: '1px 8px',
+                    borderRadius: 10,
+                    background: '#eef2ff',
+                    color: '#6366f1',
+                    fontWeight: 600,
+                  }}
+                >
+                  {val}
+                </span>
               ))}
             </div>
           ))}
@@ -866,7 +1077,7 @@ const DesignToolPropertyFilterRender = () => {
   const [active, setActive] = useState<Set<string>>(new Set(['variant', 'size']))
 
   const toggle = (id: string) => {
-    setActive(prev => {
+    setActive((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -875,14 +1086,29 @@ const DesignToolPropertyFilterRender = () => {
   }
 
   return (
-    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 16 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#111', marginBottom: 10 }}>Component Properties</div>
+    <div
+      style={{
+        width: 340,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        background: '#fff',
+        border: '1px solid #e5e7eb',
+        borderRadius: 10,
+        padding: 16,
+      }}
+    >
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#111', marginBottom: 10 }}>
+        Component Properties
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-        {DESIGN_PROPERTY_OPTIONS.map(opt => {
+        {DESIGN_PROPERTY_OPTIONS.map((opt) => {
           const isOn = active.has(opt.id)
           return (
             <Chip key={opt.id} selected={isOn} onClick={() => toggle(opt.id)}>
-              {isOn && <Chip.Leading><CheckIcon /></Chip.Leading>}
+              {isOn && (
+                <Chip.Leading>
+                  <CheckIcon />
+                </Chip.Leading>
+              )}
               {opt.label}
             </Chip>
           )
@@ -900,7 +1126,8 @@ export const DesignTool_컴포넌트_속성_필터: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool Component Properties 패널의 속성 필터 칩 패턴. Variant/Size/State/Color 등 속성을 Chip으로 다중 선택하여 인스펙터에 표시할 항목을 제어합니다.',
+        story:
+          'DesignTool Component Properties 패널의 속성 필터 칩 패턴. Variant/Size/State/Color 등 속성을 Chip으로 다중 선택하여 인스펙터에 표시할 항목을 제어합니다.',
       },
     },
   },
@@ -920,13 +1147,32 @@ const DesignToolPluginCategoryRender = () => {
   const [selected, setSelected] = useState('all')
 
   return (
-    <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}>
+    <div
+      style={{
+        width: 360,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        background: '#fff',
+        border: '1px solid #e5e7eb',
+        borderRadius: 10,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{ padding: '12px 16px', borderBottom: '1px solid #f0f0f0', background: '#f9fafb' }}
+      >
         <div style={{ fontSize: 13, fontWeight: 700, color: '#111' }}>DesignTool Plugins</div>
         <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>카테고리를 선택하세요</div>
       </div>
-      <div style={{ padding: '10px 16px', display: 'flex', flexWrap: 'wrap', gap: 6, borderBottom: '1px solid #f0f0f0' }}>
-        {DESIGN_PLUGIN_CATEGORIES.map(cat => (
+      <div
+        style={{
+          padding: '10px 16px',
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 6,
+          borderBottom: '1px solid #f0f0f0',
+        }}
+      >
+        {DESIGN_PLUGIN_CATEGORIES.map((cat) => (
           <Chip key={cat.id} selected={selected === cat.id} onClick={() => setSelected(cat.id)}>
             {cat.label}
           </Chip>
@@ -934,11 +1180,30 @@ const DesignToolPluginCategoryRender = () => {
       </div>
       <div style={{ padding: '12px 16px' }}>
         <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 8 }}>
-          {selected === 'all' ? '모든 플러그인' : `${DESIGN_PLUGIN_CATEGORIES.find(c => c.id === selected)?.label} 플러그인`}
+          {selected === 'all'
+            ? '모든 플러그인'
+            : `${DESIGN_PLUGIN_CATEGORIES.find((c) => c.id === selected)?.label} 플러그인`}
         </div>
-        {[1, 2, 3].map(i => (
-          <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '8px 0', borderBottom: i < 3 ? '1px solid #f0f0f0' : 'none' }}>
-            <div style={{ width: 36, height: 36, borderRadius: 8, background: `hsl(${i * 80 + 200}, 70%, 60%)`, flexShrink: 0 }} />
+        {[1, 2, 3].map((i) => (
+          <div
+            key={i}
+            style={{
+              display: 'flex',
+              gap: 10,
+              alignItems: 'center',
+              padding: '8px 0',
+              borderBottom: i < 3 ? '1px solid #f0f0f0' : 'none',
+            }}
+          >
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 8,
+                background: `hsl(${i * 80 + 200}, 70%, 60%)`,
+                flexShrink: 0,
+              }}
+            />
             <div>
               <div style={{ fontSize: 12, fontWeight: 600, color: '#111' }}>Plugin Name {i}</div>
               <div style={{ fontSize: 11, color: '#9ca3af' }}>플러그인 설명 텍스트</div>
@@ -955,7 +1220,8 @@ export const DesignTool_플러그인_카테고리_필터: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool Plugins 브라우저의 카테고리 필터 패턴. 단일 선택 Chip 그룹으로 플러그인 카테고리를 필터링하며, 선택된 카테고리에 맞는 플러그인 목록을 보여줍니다.',
+        story:
+          'DesignTool Plugins 브라우저의 카테고리 필터 패턴. 단일 선택 Chip 그룹으로 플러그인 카테고리를 필터링하며, 선택된 카테고리에 맞는 플러그인 목록을 보여줍니다.',
       },
     },
   },
@@ -974,7 +1240,7 @@ const DesignToolFrameTypeSelectorRender = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set(['mobile', 'desktop']))
 
   const toggle = (id: string) => {
-    setSelected(prev => {
+    setSelected((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -983,11 +1249,23 @@ const DesignToolFrameTypeSelectorRender = () => {
   }
 
   return (
-    <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif', background: '#1e1e1e', borderRadius: 10, padding: 16 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#e5e5e5', marginBottom: 4 }}>Frame Presets</div>
-      <div style={{ fontSize: 11, color: '#888', marginBottom: 12 }}>디자인할 디바이스 유형을 선택하세요</div>
+    <div
+      style={{
+        width: 340,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        background: '#1e1e1e',
+        borderRadius: 10,
+        padding: 16,
+      }}
+    >
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#e5e5e5', marginBottom: 4 }}>
+        Frame Presets
+      </div>
+      <div style={{ fontSize: 11, color: '#888', marginBottom: 12 }}>
+        디자인할 디바이스 유형을 선택하세요
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-        {DESIGN_FRAME_TYPES.map(type => {
+        {DESIGN_FRAME_TYPES.map((type) => {
           const isOn = selected.has(type.id)
           return (
             <Chip key={type.id} selected={isOn} onClick={() => toggle(type.id)}>
@@ -999,9 +1277,18 @@ const DesignToolFrameTypeSelectorRender = () => {
           )
         })}
       </div>
-      <div style={{ marginTop: 12, padding: '8px 10px', background: '#2d2d2d', borderRadius: 6, fontSize: 11, color: '#888' }}>
+      <div
+        style={{
+          marginTop: 12,
+          padding: '8px 10px',
+          background: '#2d2d2d',
+          borderRadius: 6,
+          fontSize: 11,
+          color: '#888',
+        }}
+      >
         {selected.size > 0
-          ? `${[...selected].map(id => DESIGN_FRAME_TYPES.find(t => t.id === id)?.label).join(', ')} 프레임 생성 예정`
+          ? `${[...selected].map((id) => DESIGN_FRAME_TYPES.find((t) => t.id === id)?.label).join(', ')} 프레임 생성 예정`
           : '하나 이상의 디바이스를 선택하세요'}
       </div>
     </div>
@@ -1013,7 +1300,8 @@ export const DesignTool_프레임_프리셋_선택: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'DesignTool 새 프레임 생성 시 디바이스 프리셋 선택 패턴. 다크 UI 배경에서 Chip으로 Mobile/Tablet/Desktop 등 다중 선택. 아이콘 + 텍스트 조합의 Chip.Leading을 활용합니다.',
+        story:
+          'DesignTool 새 프레임 생성 시 디바이스 프리셋 선택 패턴. 다크 UI 배경에서 Chip으로 Mobile/Tablet/Desktop 등 다중 선택. 아이콘 + 텍스트 조합의 Chip.Leading을 활용합니다.',
       },
     },
   },
@@ -1048,12 +1336,18 @@ export const DeployPlatform_환경변수_스코프_칩: Story = {
 
     const VARS = [
       { key: 'DATABASE_URL', value: '****', scopes: new Set(['production', 'preview']) },
-      { key: 'NEXTAUTH_SECRET', value: '****', scopes: new Set(['production', 'preview', 'development']) },
+      {
+        key: 'NEXTAUTH_SECRET',
+        value: '****',
+        scopes: new Set(['production', 'preview', 'development']),
+      },
       { key: 'API_BASE_URL', value: 'https://api.example.com', scopes: new Set(['production']) },
       { key: 'DEBUG', value: 'true', scopes: new Set(['development']) },
     ]
 
-    const [activeScopes, setActiveScopes] = useState<Set<string>>(new Set(['production', 'preview', 'development']))
+    const [activeScopes, setActiveScopes] = useState<Set<string>>(
+      new Set(['production', 'preview', 'development'])
+    )
 
     const toggle = (id: string) => {
       setActiveScopes((prev) => {
@@ -1068,10 +1362,23 @@ export const DeployPlatform_환경변수_스코프_칩: Story = {
 
     return (
       <div style={{ width: 480, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>환경 변수</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>
+          환경 변수
+        </div>
 
         <div style={{ marginBottom: 16 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>환경 필터</div>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: '#64748b',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: 8,
+            }}
+          >
+            환경 필터
+          </div>
           <div style={{ display: 'flex', gap: 8 }}>
             {ENVS.map((env) => (
               <Chip key={env.id} selected={activeScopes.has(env.id)} onClick={() => toggle(env.id)}>
@@ -1086,18 +1393,46 @@ export const DeployPlatform_환경변수_스코프_칩: Story = {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {filtered.map((v) => (
-            <div key={v.key} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 8, border: '1px solid #f1f5f9', background: '#fff', fontFamily: 'monospace' }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', flex: 1 }}>{v.key}</span>
+            <div
+              key={v.key}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 14px',
+                borderRadius: 8,
+                border: '1px solid #f1f5f9',
+                background: '#fff',
+                fontFamily: 'monospace',
+              }}
+            >
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#1e293b', flex: 1 }}>
+                {v.key}
+              </span>
               <span style={{ fontSize: 12, color: '#94a3b8' }}>{v.value}</span>
               <div style={{ display: 'flex', gap: 4 }}>
                 {[...v.scopes].map((s) => (
-                  <span key={s} style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: '#f1f5f9', color: '#64748b', fontWeight: 600 }}>{s}</span>
+                  <span
+                    key={s}
+                    style={{
+                      fontSize: 10,
+                      padding: '2px 6px',
+                      borderRadius: 4,
+                      background: '#f1f5f9',
+                      color: '#64748b',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {s}
+                  </span>
                 ))}
               </div>
             </div>
           ))}
           {filtered.length === 0 && (
-            <div style={{ padding: '24px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>환경을 선택하세요</div>
+            <div style={{ padding: '24px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>
+              환경을 선택하세요
+            </div>
           )}
         </div>
       </div>
@@ -1121,11 +1456,24 @@ export const Primitive_다중_선택_콤보_칩: Story = {
     },
   },
   render: function Render() {
-    const ALL_TAGS = ['React', 'TypeScript', 'Vite', 'UtilityCSS', 'PrimitiveUI', 'Storybook', 'Vitest', 'Playwright', 'ESLint', 'Prettier']
+    const ALL_TAGS = [
+      'React',
+      'TypeScript',
+      'Vite',
+      'UtilityCSS',
+      'PrimitiveUI',
+      'Storybook',
+      'Vitest',
+      'Playwright',
+      'ESLint',
+      'Prettier',
+    ]
     const [selected, setSelected] = useState<string[]>(['React', 'TypeScript'])
     const [input, setInput] = useState('')
 
-    const available = ALL_TAGS.filter((t) => !selected.includes(t) && t.toLowerCase().includes(input.toLowerCase()))
+    const available = ALL_TAGS.filter(
+      (t) => !selected.includes(t) && t.toLowerCase().includes(input.toLowerCase())
+    )
 
     const add = (tag: string) => {
       setSelected((prev) => [...prev, tag])
@@ -1135,14 +1483,34 @@ export const Primitive_다중_선택_콤보_칩: Story = {
 
     return (
       <div style={{ width: 420, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>기술 스택 선택</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>
+          기술 스택 선택
+        </div>
 
-        <div style={{ minHeight: 44, padding: '8px 10px', borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#fff', display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+        <div
+          style={{
+            minHeight: 44,
+            padding: '8px 10px',
+            borderRadius: 10,
+            border: '1.5px solid #e2e8f0',
+            background: '#fff',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 6,
+            marginBottom: 10,
+          }}
+        >
           {selected.map((tag) => (
             <Chip key={tag} selected>
               {tag}
               <Chip.Trailing>
-                <CancelIcon size={12} onClick={(e: React.MouseEvent) => { e.stopPropagation(); remove(tag) }} />
+                <CancelIcon
+                  size={12}
+                  onClick={(e: React.MouseEvent) => {
+                    e.stopPropagation()
+                    remove(tag)
+                  }}
+                />
               </Chip.Trailing>
             </Chip>
           ))}
@@ -1150,17 +1518,41 @@ export const Primitive_다중_선택_콤보_칩: Story = {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder={selected.length === 0 ? '기술 스택 검색...' : ''}
-            style={{ border: 'none', outline: 'none', fontSize: 13, background: 'transparent', minWidth: 120, flex: 1 }}
+            style={{
+              border: 'none',
+              outline: 'none',
+              fontSize: 13,
+              background: 'transparent',
+              minWidth: 120,
+              flex: 1,
+            }}
           />
         </div>
 
         {input.length > 0 && available.length > 0 && (
-          <div style={{ padding: '8px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#fff', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+          <div
+            style={{
+              padding: '8px',
+              borderRadius: 10,
+              border: '1px solid #e2e8f0',
+              background: '#fff',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+            }}
+          >
             {available.map((tag) => (
               <div
                 key={tag}
                 onClick={() => add(tag)}
-                style={{ padding: '8px 10px', borderRadius: 8, fontSize: 13, color: '#1e293b', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}
+                style={{
+                  padding: '8px 10px',
+                  borderRadius: 8,
+                  fontSize: 13,
+                  color: '#1e293b',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = '#f8fafc')}
                 onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
@@ -1203,15 +1595,52 @@ export const DeployPlatform_Primitive_배포_태그_필터: Story = {
     const ENV_OPTS = ['production', 'preview', 'development']
 
     const DEPLOYS = [
-      { id: 1, name: 'feat/design-tokens', env: 'preview', status: 'Ready', ago: '2분 전', tags: ['ui'] },
-      { id: 2, name: 'main', env: 'production', status: 'Ready', ago: '1시간 전', tags: ['stable', 'lts'] },
-      { id: 3, name: 'fix/button-a11y', env: 'preview', status: 'Building', ago: '방금', tags: ['hotfix'] },
-      { id: 4, name: 'chore/deps', env: 'development', status: 'Failed', ago: '3일 전', tags: ['deps'] },
-      { id: 5, name: 'feat/calendar', env: 'preview', status: 'Ready', ago: '5시간 전', tags: ['ui', 'beta'] },
+      {
+        id: 1,
+        name: 'feat/design-tokens',
+        env: 'preview',
+        status: 'Ready',
+        ago: '2분 전',
+        tags: ['ui'],
+      },
+      {
+        id: 2,
+        name: 'main',
+        env: 'production',
+        status: 'Ready',
+        ago: '1시간 전',
+        tags: ['stable', 'lts'],
+      },
+      {
+        id: 3,
+        name: 'fix/button-a11y',
+        env: 'preview',
+        status: 'Building',
+        ago: '방금',
+        tags: ['hotfix'],
+      },
+      {
+        id: 4,
+        name: 'chore/deps',
+        env: 'development',
+        status: 'Failed',
+        ago: '3일 전',
+        tags: ['deps'],
+      },
+      {
+        id: 5,
+        name: 'feat/calendar',
+        env: 'preview',
+        status: 'Ready',
+        ago: '5시간 전',
+        tags: ['ui', 'beta'],
+      },
     ]
 
     const [statusFilter, setStatusFilter] = useState('전체')
-    const [envFilter, setEnvFilter] = useState<Set<string>>(new Set(['production', 'preview', 'development']))
+    const [envFilter, setEnvFilter] = useState<Set<string>>(
+      new Set(['production', 'preview', 'development'])
+    )
 
     const toggleEnv = (env: string) => {
       setEnvFilter((prev) => {
@@ -1228,11 +1657,17 @@ export const DeployPlatform_Primitive_배포_태그_필터: Story = {
       return matchStatus && matchEnv
     })
 
-    const STATUS_COLOR: Record<string, string> = { Ready: '#10b981', Building: '#f59e0b', Failed: '#ef4444' }
+    const STATUS_COLOR: Record<string, string> = {
+      Ready: '#10b981',
+      Building: '#f59e0b',
+      Failed: '#ef4444',
+    }
 
     return (
       <div style={{ width: 520, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 14 }}>배포 목록</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 14 }}>
+          배포 목록
+        </div>
 
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
           <div style={{ display: 'flex', gap: 6 }}>
@@ -1247,7 +1682,9 @@ export const DeployPlatform_Primitive_배포_태그_필터: Story = {
             {ENV_OPTS.map((e) => (
               <Chip key={e} selected={envFilter.has(e)} onClick={() => toggleEnv(e)}>
                 <Chip.Leading>
-                  <span style={{ fontSize: 10 }}>{e === 'production' ? '🚀' : e === 'preview' ? '👁' : '💻'}</span>
+                  <span style={{ fontSize: 10 }}>
+                    {e === 'production' ? '🚀' : e === 'preview' ? '👁' : '💻'}
+                  </span>
                 </Chip.Leading>
                 {e}
               </Chip>
@@ -1257,24 +1694,68 @@ export const DeployPlatform_Primitive_배포_태그_필터: Story = {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {filtered.map((d) => (
-            <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 10, border: '1px solid #f1f5f9', background: '#fff' }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: STATUS_COLOR[d.status], flexShrink: 0 }} />
+            <div
+              key={d.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 14px',
+                borderRadius: 10,
+                border: '1px solid #f1f5f9',
+                background: '#fff',
+              }}
+            >
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: STATUS_COLOR[d.status],
+                  flexShrink: 0,
+                }}
+              />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#1e293b', fontFamily: 'monospace' }}>{d.name}</div>
-                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{d.env} · {d.ago}</div>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: '#1e293b',
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  {d.name}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+                  {d.env} · {d.ago}
+                </div>
               </div>
               <div style={{ display: 'flex', gap: 4 }}>
                 {d.tags.map((tag) => (
-                  <span key={tag} style={{ fontSize: 10, padding: '2px 7px', borderRadius: 20, background: '#f0f0ff', color: '#6366f1', fontWeight: 700 }}>
+                  <span
+                    key={tag}
+                    style={{
+                      fontSize: 10,
+                      padding: '2px 7px',
+                      borderRadius: 20,
+                      background: '#f0f0ff',
+                      color: '#6366f1',
+                      fontWeight: 700,
+                    }}
+                  >
                     {tag}
                   </span>
                 ))}
               </div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: STATUS_COLOR[d.status] }}>{d.status}</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: STATUS_COLOR[d.status] }}>
+                {d.status}
+              </span>
             </div>
           ))}
           {filtered.length === 0 && (
-            <div style={{ padding: '24px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>조건에 맞는 배포 없음</div>
+            <div style={{ padding: '24px 0', textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>
+              조건에 맞는 배포 없음
+            </div>
           )}
         </div>
       </div>
@@ -1296,25 +1777,36 @@ const ARCO_TAGS = [
 function DataProductTagFilterRender() {
   const [selected, setSelected] = useState<string[]>(['all'])
   const toggle = (id: string) => {
-    if (id === 'all') { setSelected(['all']); return }
-    setSelected(prev => {
-      const without = prev.filter(s => s !== 'all')
-      const next = without.includes(id) ? without.filter(s => s !== id) : [...without, id]
+    if (id === 'all') {
+      setSelected(['all'])
+      return
+    }
+    setSelected((prev) => {
+      const without = prev.filter((s) => s !== 'all')
+      const next = without.includes(id) ? without.filter((s) => s !== id) : [...without, id]
       return next.length === 0 ? ['all'] : next
     })
   }
   return (
     <div style={{ width: 360, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>DataProductUI 태그 필터 패턴</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>
+        DataProductUI 태그 필터 패턴
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-        {ARCO_TAGS.map(tag => (
+        {ARCO_TAGS.map((tag) => (
           <Chip
             key={tag.id}
             onClick={() => toggle(tag.id)}
-            theme={{ enabledSelectedFillColor: selected.includes(tag.id) ? '#E8F3FF' : undefined, enabledSelectedForegroundColor: selected.includes(tag.id) ? '#165DFF' : undefined, enabledSelectedBorderColor: selected.includes(tag.id) ? '#165DFF' : undefined }}
+            theme={{
+              enabledSelectedFillColor: selected.includes(tag.id) ? '#E8F3FF' : undefined,
+              enabledSelectedForegroundColor: selected.includes(tag.id) ? '#165DFF' : undefined,
+              enabledSelectedBorderColor: selected.includes(tag.id) ? '#165DFF' : undefined,
+            }}
           >
             {selected.includes(tag.id) && (
-              <Chip.Leading><CheckIcon size={12} /></Chip.Leading>
+              <Chip.Leading>
+                <CheckIcon size={12} />
+              </Chip.Leading>
             )}
             {tag.label}
           </Chip>
@@ -1351,25 +1843,65 @@ const LAUNCHER_COMMANDS = [
 function CommandPaletteShortcutChipRender() {
   const [active, setActive] = useState<string | null>(null)
   return (
-    <div style={{ width: 320, fontFamily: 'Inter, system-ui, sans-serif', background: '#1c1c1e', borderRadius: 12, padding: 12 }}>
-      <div style={{ fontSize: 11, fontWeight: 600, color: '#8e8e93', marginBottom: 8, padding: '0 4px' }}>COMMANDS</div>
-      {LAUNCHER_COMMANDS.map(cmd => (
+    <div
+      style={{
+        width: 320,
+        fontFamily: 'Inter, system-ui, sans-serif',
+        background: '#1c1c1e',
+        borderRadius: 12,
+        padding: 12,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 600,
+          color: '#8e8e93',
+          marginBottom: 8,
+          padding: '0 4px',
+        }}
+      >
+        COMMANDS
+      </div>
+      {LAUNCHER_COMMANDS.map((cmd) => (
         <div
           key={cmd.id}
           onClick={() => setActive(cmd.id)}
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px', borderRadius: 8, cursor: 'pointer', background: active === cmd.id ? '#2c2c2e' : 'transparent', marginBottom: 2 }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '8px 10px',
+            borderRadius: 8,
+            cursor: 'pointer',
+            background: active === cmd.id ? '#2c2c2e' : 'transparent',
+            marginBottom: 2,
+          }}
         >
           <span style={{ fontSize: 13, color: '#f2f2f7' }}>{cmd.label}</span>
           <div style={{ display: 'flex', gap: 3 }}>
             {cmd.keys.map((k, i) => (
-              <span key={i} style={{ fontSize: 10, color: '#8e8e93', padding: '2px 6px', background: '#3a3a3c', border: '1px solid #48484a', borderRadius: 4, fontWeight: 500 }}>
+              <span
+                key={i}
+                style={{
+                  fontSize: 10,
+                  color: '#8e8e93',
+                  padding: '2px 6px',
+                  background: '#3a3a3c',
+                  border: '1px solid #48484a',
+                  borderRadius: 4,
+                  fontWeight: 500,
+                }}
+              >
                 {k}
               </span>
             ))}
           </div>
         </div>
       ))}
-      <div style={{ marginTop: 6, padding: '0 4px', fontSize: 11, color: '#6d6d72' }}>CommandPalette 단축키 칩 — 다크 팔레트</div>
+      <div style={{ marginTop: 6, padding: '0 4px', fontSize: 11, color: '#6d6d72' }}>
+        CommandPalette 단축키 칩 — 다크 팔레트
+      </div>
     </div>
   )
 }
@@ -1398,20 +1930,35 @@ const ISSUE_LABELS = [
 
 function DataProductCommandPaletteLabelChipRender() {
   const [labels, setLabels] = useState(ISSUE_LABELS)
-  const toggle = (id: string) => setLabels(prev => prev.map(l => l.id === id ? { ...l, selected: !l.selected } : l))
-  const selected = labels.filter(l => l.selected)
+  const toggle = (id: string) =>
+    setLabels((prev) => prev.map((l) => (l.id === id ? { ...l, selected: !l.selected } : l)))
+  const selected = labels.filter((l) => l.selected)
   return (
     <div style={{ width: 340, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>DataProduct + CommandPalette 이슈 레이블 칩</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: '#6b7280', marginBottom: 10 }}>
+        DataProduct + CommandPalette 이슈 레이블 칩
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
-        {labels.map(label => (
+        {labels.map((label) => (
           <Chip
             key={label.id}
             onClick={() => toggle(label.id)}
-            theme={{ enabledSelectedFillColor: label.color + '18', enabledSelectedForegroundColor: label.color, enabledSelectedBorderColor: label.color + '60', enabledUnselectedBorderColor: '#e5e6eb' }}
+            theme={{
+              enabledSelectedFillColor: label.color + '18',
+              enabledSelectedForegroundColor: label.color,
+              enabledSelectedBorderColor: label.color + '60',
+              enabledUnselectedBorderColor: '#e5e6eb',
+            }}
           >
             <Chip.Leading>
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: label.selected ? label.color : '#c9cdd4' }} />
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: label.selected ? label.color : '#c9cdd4',
+                }}
+              />
             </Chip.Leading>
             {label.text}
             {label.selected && (
@@ -1422,10 +1969,20 @@ function DataProductCommandPaletteLabelChipRender() {
           </Chip>
         ))}
       </div>
-      <div style={{ padding: '8px 12px', background: '#f7f8fa', borderRadius: 8, fontSize: 12, color: '#4e5969' }}>
-        선택된 레이블: {selected.length > 0 ? selected.map(l => l.text).join(', ') : '없음'}
+      <div
+        style={{
+          padding: '8px 12px',
+          background: '#f7f8fa',
+          borderRadius: 8,
+          fontSize: 12,
+          color: '#4e5969',
+        }}
+      >
+        선택된 레이블: {selected.length > 0 ? selected.map((l) => l.text).join(', ') : '없음'}
       </div>
-      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>DataProduct Tag + CommandPalette 이슈 레이블 토글 패턴</div>
+      <div style={{ marginTop: 8, fontSize: 11, color: '#94a3b8' }}>
+        DataProduct Tag + CommandPalette 이슈 레이블 토글 패턴
+      </div>
     </div>
   )
 }
@@ -1471,31 +2028,57 @@ function ComposableUIFilterChipGroupRender() {
   ]
 
   const toggle = (chip: string) => {
-    setSelected((prev) => prev.includes(chip) ? prev.filter((c) => c !== chip) : [...prev, chip])
+    setSelected((prev) => (prev.includes(chip) ? prev.filter((c) => c !== chip) : [...prev, chip]))
   }
 
   const clearAll = () => setSelected([])
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 14,
+        }}
+      >
         <div style={{ fontSize: 13, fontWeight: 700, color: '#111827' }}>문서 필터</div>
         {selected.length > 0 && (
-          <button onClick={clearAll} style={{ fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'system-ui', padding: '2px 6px', borderRadius: 4 }}>
+          <button
+            onClick={clearAll}
+            style={{
+              fontSize: 11,
+              color: '#6366f1',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontFamily: 'system-ui',
+              padding: '2px 6px',
+              borderRadius: 4,
+            }}
+          >
             전체 해제 ({selected.length})
           </button>
         )}
       </div>
       {filterGroups.map((group) => (
         <div key={group.label} style={{ marginBottom: 12 }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>{group.label}</div>
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 600,
+              color: '#9ca3af',
+              textTransform: 'uppercase',
+              letterSpacing: 0.8,
+              marginBottom: 6,
+            }}
+          >
+            {group.label}
+          </div>
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {group.chips.map((chip) => (
-              <Chip
-                key={chip}
-                selected={selected.includes(chip)}
-                onClick={() => toggle(chip)}
-              >
+              <Chip key={chip} selected={selected.includes(chip)} onClick={() => toggle(chip)}>
                 {selected.includes(chip) && (
                   <Chip.Leading>
                     <CheckIcon size={12} />
@@ -1513,7 +2096,16 @@ function ComposableUIFilterChipGroupRender() {
         </div>
       ))}
       {selected.length > 0 && (
-        <div style={{ marginTop: 8, padding: '8px 12px', borderRadius: 8, background: '#ede9fe', fontSize: 11, color: '#7c3aed' }}>
+        <div
+          style={{
+            marginTop: 8,
+            padding: '8px 12px',
+            borderRadius: 8,
+            background: '#ede9fe',
+            fontSize: 11,
+            color: '#7c3aed',
+          }}
+        >
           필터 적용 중: {selected.join(', ')}
         </div>
       )}
@@ -1527,7 +2119,8 @@ export const ComposableUI_필터_칩_그룹: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'ComposableUI Badge 필터 패턴 적용. 카테고리/상태/프레임워크 3그룹 멀티셀렉트 칩, 선택 시 체크 아이콘+취소 아이콘 추가. 선택된 수 표시 + 전체 해제 버튼. 문서 필터링 UX.',
+        story:
+          'ComposableUI Badge 필터 패턴 적용. 카테고리/상태/프레임워크 3그룹 멀티셀렉트 칩, 선택 시 체크 아이콘+취소 아이콘 추가. 선택된 수 표시 + 전체 해제 버튼. 문서 필터링 UX.',
       },
     },
   },
@@ -1551,24 +2144,32 @@ function PlatformHIGTechStackChipRender() {
   ]
 
   const toggle = (name: string) => {
-    setSelected((prev) => prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name])
+    setSelected((prev) => (prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]))
   }
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 4 }}>기술 스택 선택</div>
-      <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 12 }}>Platform HIG 스타일 태그 칩 — 최소 터치 타겟 적용</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 4 }}>
+        기술 스택 선택
+      </div>
+      <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 12 }}>
+        Platform HIG 스타일 태그 칩 — 최소 터치 타겟 적용
+      </div>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         {techStacks.map((tech) => (
           <Chip
             key={tech.name}
             selected={selected.includes(tech.name)}
             onClick={() => toggle(tech.name)}
-            theme={selected.includes(tech.name) ? {
-              enabledSelectedFillColor: tech.bg,
-              enabledSelectedForegroundColor: tech.color,
-              enabledSelectedBorderColor: tech.color + '60',
-            } : undefined}
+            theme={
+              selected.includes(tech.name)
+                ? {
+                    enabledSelectedFillColor: tech.bg,
+                    enabledSelectedForegroundColor: tech.color,
+                    enabledSelectedBorderColor: tech.color + '60',
+                  }
+                : undefined
+            }
           >
             <Chip.Leading>
               <div style={{ width: 8, height: 8, borderRadius: '50%', background: tech.color }} />
@@ -1590,7 +2191,8 @@ export const Platform_HIG_기술_스택_태그_칩: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'Platform HIG 터치 친화적 컴포넌트 원칙 + ComposableUI Badge 스타일 적용. 각 기술 스택 고유 브랜드 색상으로 theme 오버라이드. 선택 시 배경+테두리+텍스트 색상이 해당 기술 색상으로 변경.',
+        story:
+          'Platform HIG 터치 친화적 컴포넌트 원칙 + ComposableUI Badge 스타일 적용. 각 기술 스택 고유 브랜드 색상으로 theme 오버라이드. 선택 시 배경+테두리+텍스트 색상이 해당 기술 색상으로 변경.',
       },
     },
   },
@@ -1600,32 +2202,59 @@ export const Platform_HIG_기술_스택_태그_칩: Story = {
 function ComposableUIPlatformAISuggestionChipRender() {
   const [prompt, setPrompt] = useState('')
   const [suggestions, setSuggestions] = useState([
-    '회의 요약 작성', '이메일 초안 작성', '코드 리뷰', '버그 분석',
-    '문서 번역', '아이디어 브레인스토밍', '데이터 요약', '일정 정리',
+    '회의 요약 작성',
+    '이메일 초안 작성',
+    '코드 리뷰',
+    '버그 분석',
+    '문서 번역',
+    '아이디어 브레인스토밍',
+    '데이터 요약',
+    '일정 정리',
   ])
 
   const addToPrompt = (suggestion: string) => {
-    setPrompt((prev) => prev ? `${prev}, ${suggestion}` : suggestion)
+    setPrompt((prev) => (prev ? `${prev}, ${suggestion}` : suggestion))
     setSuggestions((prev) => prev.filter((s) => s !== suggestion))
   }
 
   const reset = () => {
     setPrompt('')
     setSuggestions([
-      '회의 요약 작성', '이메일 초안 작성', '코드 리뷰', '버그 분석',
-      '문서 번역', '아이디어 브레인스토밍', '데이터 요약', '일정 정리',
+      '회의 요약 작성',
+      '이메일 초안 작성',
+      '코드 리뷰',
+      '버그 분석',
+      '문서 번역',
+      '아이디어 브레인스토밍',
+      '데이터 요약',
+      '일정 정리',
     ])
   }
 
   return (
     <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 12 }}>AI 프롬프트 빌더</div>
-      <div style={{ padding: '10px 12px', borderRadius: 10, border: '1px solid #e5e7eb', background: '#f9fafb', minHeight: 60, marginBottom: 12, fontSize: 13, color: prompt ? '#111827' : '#9ca3af' }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 12 }}>
+        AI 프롬프트 빌더
+      </div>
+      <div
+        style={{
+          padding: '10px 12px',
+          borderRadius: 10,
+          border: '1px solid #e5e7eb',
+          background: '#f9fafb',
+          minHeight: 60,
+          marginBottom: 12,
+          fontSize: 13,
+          color: prompt ? '#111827' : '#9ca3af',
+        }}
+      >
         {prompt || '아래 제안 칩을 클릭해 프롬프트를 구성하세요...'}
       </div>
       {suggestions.length > 0 && (
         <>
-          <div style={{ fontSize: 10, fontWeight: 600, color: '#9ca3af', marginBottom: 6 }}>제안 (클릭 시 추가)</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: '#9ca3af', marginBottom: 6 }}>
+            제안 (클릭 시 추가)
+          </div>
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {suggestions.map((s) => (
               <Chip key={s} selected={false} onClick={() => addToPrompt(s)}>
@@ -1639,10 +2268,24 @@ function ComposableUIPlatformAISuggestionChipRender() {
         </>
       )}
       {suggestions.length === 0 && (
-        <div style={{ fontSize: 12, color: '#6b7280', padding: '8px 0' }}>모든 제안이 추가되었습니다.</div>
+        <div style={{ fontSize: 12, color: '#6b7280', padding: '8px 0' }}>
+          모든 제안이 추가되었습니다.
+        </div>
       )}
       {prompt && (
-        <button onClick={reset} style={{ marginTop: 10, fontSize: 11, color: '#6366f1', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'system-ui', padding: 0 }}>
+        <button
+          onClick={reset}
+          style={{
+            marginTop: 10,
+            fontSize: 11,
+            color: '#6366f1',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontFamily: 'system-ui',
+            padding: 0,
+          }}
+        >
           초기화
         </button>
       )}
@@ -1656,7 +2299,8 @@ export const ComposableUI_Platform_AI_프롬프트_제안_칩: Story = {
     layout: 'centered',
     docs: {
       description: {
-        story: 'ComposableUI Command 제안 패턴 + Platform HIG 소비형 인터랙션. 제안 칩 클릭 시 칩은 사라지고 텍스트가 프롬프트에 추가됨. AI 어시스턴트의 빠른 프롬프트 구성 UX 패턴.',
+        story:
+          'ComposableUI Command 제안 패턴 + Platform HIG 소비형 인터랙션. 제안 칩 클릭 시 칩은 사라지고 텍스트가 프롬프트에 추가됨. AI 어시스턴트의 빠른 프롬프트 구성 UX 패턴.',
       },
     },
   },

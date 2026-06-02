@@ -46,9 +46,7 @@ function workerScript(fn: (...args: unknown[]) => unknown): string {
  * }
  * ```
  */
-export function useWebWorker<T = unknown>(
-  fn: (...args: unknown[]) => T
-): UseWebWorkerReturn<T> {
+export function useWebWorker<T = unknown>(fn: (...args: unknown[]) => T): UseWebWorkerReturn<T> {
   const [status, setStatus] = useState<WebWorkerStatus>('idle')
   const [result, setResult] = useState<T | null>(null)
   const [error, setError] = useState<Error | null>(null)

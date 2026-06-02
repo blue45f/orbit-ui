@@ -46,13 +46,13 @@ function App() {
 
 ## Props
 
-| Prop        | 타입            | 기본값         | 설명          |
-| ----------- | --------------- | -------------- | ------------- |
-| `size`      | `number`        | `24`           | 크기 (px)     |
-| `color`     | `string`        | `currentColor` | 색상          |
-| `className` | `string`        | -              | CSS 클래스    |
-| `style`     | `CSSProperties` | -              | 인라인 스타일 |
-| `tone`      | `flat \| soft \| premium` | `flat` | `flat`: 기본, `soft`: 은은한 음영, `premium`: 입체적 강조 |
+| Prop        | 타입                      | 기본값         | 설명                                                      |
+| ----------- | ------------------------- | -------------- | --------------------------------------------------------- |
+| `size`      | `number`                  | `24`           | 크기 (px)                                                 |
+| `color`     | `string`                  | `currentColor` | 색상                                                      |
+| `className` | `string`                  | -              | CSS 클래스                                                |
+| `style`     | `CSSProperties`           | -              | 인라인 스타일                                             |
+| `tone`      | `flat \| soft \| premium` | `flat`         | `flat`: 기본, `soft`: 은은한 음영, `premium`: 입체적 강조 |
 
 추가로 CSS 커스텀 프로퍼티를 통해 톤 스타일을 글로벌하게 제어할 수 있습니다.
 기본 값은 다음과 같습니다.

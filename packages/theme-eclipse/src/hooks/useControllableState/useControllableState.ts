@@ -41,7 +41,7 @@ export function useControllableState<T>({
       if (!isControlled) setUncontrolledState(next)
       onChangeRef.current?.(next)
     },
-    [isControlled],
+    [isControlled]
   )
 
   return [state, setState]

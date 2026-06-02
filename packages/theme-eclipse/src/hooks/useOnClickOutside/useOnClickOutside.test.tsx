@@ -81,11 +81,8 @@ describe('useOnClickOutside', () => {
       const triggerRef = useRef<HTMLButtonElement>(trigger)
       const contentRef = useRef<HTMLDivElement>(content)
       useOnClickOutside(
-        [
-          triggerRef as RefObject<HTMLElement | null>,
-          contentRef as RefObject<HTMLElement | null>,
-        ],
-        handler,
+        [triggerRef as RefObject<HTMLElement | null>, contentRef as RefObject<HTMLElement | null>],
+        handler
       )
     })
 

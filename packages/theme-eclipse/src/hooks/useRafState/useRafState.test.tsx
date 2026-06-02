@@ -7,7 +7,13 @@ import { useRafState } from './useRafState'
 
 describe('useRafState', () => {
   beforeEach(() => {
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => { cb(0); return 1 }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        cb(0)
+        return 1
+      })
+    )
     vi.stubGlobal('cancelAnimationFrame', vi.fn())
   })
 
@@ -40,10 +46,13 @@ describe('useRafState', () => {
   it('연속 업데이트는 마지막 값으로 일괄 처리된다', () => {
     // stubbed RAF executes cb immediately, so each call goes through
     const rafCalls: FrameRequestCallback[] = []
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
-      rafCalls.push(cb)
-      return rafCalls.length
-    }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        rafCalls.push(cb)
+        return rafCalls.length
+      })
+    )
 
     const { result } = renderHook(() => useRafState(0))
     const [, setRafState] = result.current
@@ -62,11 +71,14 @@ describe('useRafState', () => {
   it('unmount 시 pending RAF를 취소한다', () => {
     const pendingCbs: FrameRequestCallback[] = []
     let rafId = 0
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
-      pendingCbs.push(cb)
-      rafId += 1
-      return rafId
-    }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        pendingCbs.push(cb)
+        rafId += 1
+        return rafId
+      })
+    )
     const cancelMock = vi.fn()
     vi.stubGlobal('cancelAnimationFrame', cancelMock)
 

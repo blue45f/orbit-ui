@@ -36,7 +36,7 @@ const dispatchPointerEvent = (
   target: Element,
   type: 'pointerdown' | 'pointermove' | 'pointerup' | 'pointercancel',
   clientX: number,
-  clientY: number,
+  clientY: number
 ) => {
   const event = new MouseEvent(type, { bubbles: true, cancelable: true })
   Object.defineProperty(event, 'clientX', { value: clientX })

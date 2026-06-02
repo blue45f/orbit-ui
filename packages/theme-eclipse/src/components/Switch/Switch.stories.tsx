@@ -62,9 +62,21 @@ const SettingsListRender = () => {
   const items = [
     { key: 'notifications' as const, label: '알림', description: '앱 푸시 알림을 허용합니다' },
     { key: 'darkMode' as const, label: '다크 모드', description: '어두운 색상 테마를 사용합니다' },
-    { key: 'locationAccess' as const, label: '위치 접근', description: '현재 위치 기반 서비스를 사용합니다' },
-    { key: 'autoUpdate' as const, label: '자동 업데이트', description: 'Wi-Fi 연결 시 자동으로 업데이트합니다' },
-    { key: 'analytics' as const, label: '사용 분석', description: '앱 개선을 위한 익명 데이터를 수집합니다' },
+    {
+      key: 'locationAccess' as const,
+      label: '위치 접근',
+      description: '현재 위치 기반 서비스를 사용합니다',
+    },
+    {
+      key: 'autoUpdate' as const,
+      label: '자동 업데이트',
+      description: 'Wi-Fi 연결 시 자동으로 업데이트합니다',
+    },
+    {
+      key: 'analytics' as const,
+      label: '사용 분석',
+      description: '앱 개선을 위한 익명 데이터를 수집합니다',
+    },
   ]
 
   return (
@@ -77,8 +89,18 @@ const SettingsListRender = () => {
         overflow: 'hidden',
       }}
     >
-      <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-        <Typography textStyle="labelLarge" style={{ color: '#64748b', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.08em' }}>
+      <div
+        style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}
+      >
+        <Typography
+          textStyle="labelLarge"
+          style={{
+            color: '#64748b',
+            textTransform: 'uppercase',
+            fontSize: '11px',
+            letterSpacing: '0.08em',
+          }}
+        >
           개인 정보 및 설정
         </Typography>
       </div>
@@ -135,11 +157,38 @@ const ImmediateFeedbackRender = () => {
       <Typography textStyle="titleMedium" style={{ color: '#0f172a', marginBottom: '4px' }}>
         연결
       </Typography>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0',
+          borderRadius: '12px',
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
         {[
-          { label: 'Wi-Fi', state: wifiEnabled, setState: setWifiEnabled, enabledText: '연결됨', disabledText: '꺼짐' },
-          { label: 'Bluetooth', state: bluetoothEnabled, setState: setBluetoothEnabled, enabledText: '켜짐', disabledText: '꺼짐' },
-          { label: '비행기 모드', state: airplaneMode, setState: setAirplaneMode, enabledText: '활성화됨 - 통신 차단 중', disabledText: '꺼짐' },
+          {
+            label: 'Wi-Fi',
+            state: wifiEnabled,
+            setState: setWifiEnabled,
+            enabledText: '연결됨',
+            disabledText: '꺼짐',
+          },
+          {
+            label: 'Bluetooth',
+            state: bluetoothEnabled,
+            setState: setBluetoothEnabled,
+            enabledText: '켜짐',
+            disabledText: '꺼짐',
+          },
+          {
+            label: '비행기 모드',
+            state: airplaneMode,
+            setState: setAirplaneMode,
+            enabledText: '활성화됨 - 통신 차단 중',
+            disabledText: '꺼짐',
+          },
         ].map((item, idx, arr) => (
           <div
             key={item.label}
@@ -156,14 +205,14 @@ const ImmediateFeedbackRender = () => {
               <Typography textStyle="bodyLarge" style={{ fontWeight: 500, color: '#0f172a' }}>
                 {item.label}
               </Typography>
-              <Typography textStyle="descriptionMedium" style={{ color: item.state ? '#6366f1' : '#94a3b8' }}>
+              <Typography
+                textStyle="descriptionMedium"
+                style={{ color: item.state ? '#6366f1' : '#94a3b8' }}
+              >
                 {item.state ? item.enabledText : item.disabledText}
               </Typography>
             </div>
-            <Switch
-              checked={item.state}
-              onCheckedChange={(checked) => item.setState(checked)}
-            />
+            <Switch checked={item.state} onCheckedChange={(checked) => item.setState(checked)} />
           </div>
         ))}
       </div>
@@ -194,27 +243,37 @@ const PrivacySettingRender = () => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
-            <Typography textStyle="bodyLarge" style={{ fontWeight: 500 }}>이메일 마케팅</Typography>
-            <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>프로모션 및 이벤트 정보</Typography>
+            <Typography textStyle="bodyLarge" style={{ fontWeight: 500 }}>
+              이메일 마케팅
+            </Typography>
+            <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
+              프로모션 및 이벤트 정보
+            </Typography>
           </div>
           <Switch checked={marketingConsent} onCheckedChange={setMarketingConsent} />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
-            <Typography textStyle="bodyLarge" style={{ fontWeight: 500 }}>제3자 정보 제공</Typography>
-            <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>파트너사 서비스 활용</Typography>
+            <Typography textStyle="bodyLarge" style={{ fontWeight: 500 }}>
+              제3자 정보 제공
+            </Typography>
+            <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
+              파트너사 서비스 활용
+            </Typography>
           </div>
           <Switch checked={thirdPartyConsent} onCheckedChange={setThirdPartyConsent} />
         </div>
       </div>
-      <div style={{
-        padding: '10px 14px',
-        borderRadius: '8px',
-        background: 'rgba(99,102,241,0.05)',
-        border: '1px solid rgba(99,102,241,0.15)',
-        fontSize: '12px',
-        color: '#6366f1',
-      }}>
+      <div
+        style={{
+          padding: '10px 14px',
+          borderRadius: '8px',
+          background: 'rgba(99,102,241,0.05)',
+          border: '1px solid rgba(99,102,241,0.15)',
+          fontSize: '12px',
+          color: '#6366f1',
+        }}
+      >
         {marketingConsent || thirdPartyConsent
           ? `동의 항목: ${[marketingConsent && '이메일 마케팅', thirdPartyConsent && '제3자 정보 제공'].filter(Boolean).join(', ')}`
           : '아직 동의한 항목이 없습니다'}
@@ -241,12 +300,48 @@ type SettingItem = {
 }
 
 const SETTINGS: SettingItem[] = [
-  { id: 'notif_push', label: '푸시 알림', desc: '앱에서 실시간 알림 수신', group: '알림', defaultOn: true },
-  { id: 'notif_email', label: '이메일 알림', desc: '주간 요약 이메일 수신', group: '알림', defaultOn: false },
-  { id: 'notif_sound', label: '알림 소리', desc: '새 알림 수신 시 소리 재생', group: '알림', defaultOn: true },
-  { id: 'ui_dark', label: '다크 모드', desc: '시스템 설정에 따라 자동 전환', group: '외관', defaultOn: false },
-  { id: 'ui_compact', label: '컴팩트 보기', desc: '항목 간격을 줄여 더 많은 내용 표시', group: '외관', defaultOn: false },
-  { id: 'feat_beta', label: '베타 기능', desc: '실험적 기능 미리 체험', group: '기능', defaultOn: false },
+  {
+    id: 'notif_push',
+    label: '푸시 알림',
+    desc: '앱에서 실시간 알림 수신',
+    group: '알림',
+    defaultOn: true,
+  },
+  {
+    id: 'notif_email',
+    label: '이메일 알림',
+    desc: '주간 요약 이메일 수신',
+    group: '알림',
+    defaultOn: false,
+  },
+  {
+    id: 'notif_sound',
+    label: '알림 소리',
+    desc: '새 알림 수신 시 소리 재생',
+    group: '알림',
+    defaultOn: true,
+  },
+  {
+    id: 'ui_dark',
+    label: '다크 모드',
+    desc: '시스템 설정에 따라 자동 전환',
+    group: '외관',
+    defaultOn: false,
+  },
+  {
+    id: 'ui_compact',
+    label: '컴팩트 보기',
+    desc: '항목 간격을 줄여 더 많은 내용 표시',
+    group: '외관',
+    defaultOn: false,
+  },
+  {
+    id: 'feat_beta',
+    label: '베타 기능',
+    desc: '실험적 기능 미리 체험',
+    group: '기능',
+    defaultOn: false,
+  },
 ]
 
 function AppSettingsPanelRender() {
@@ -262,10 +357,26 @@ function AppSettingsPanelRender() {
     <div style={{ maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 24 }}>
       {groups.map((group) => (
         <div key={group}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              marginBottom: 10,
+            }}
+          >
             {group}
           </div>
-          <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+          <div
+            style={{
+              borderRadius: 10,
+              border: '1px solid #e2e8f0',
+              overflow: 'hidden',
+              background: '#fff',
+            }}
+          >
             {SETTINGS.filter((s) => s.group === group).map((setting, i, arr) => (
               <div
                 key={setting.id}
@@ -278,7 +389,10 @@ function AppSettingsPanelRender() {
                 }}
               >
                 <div>
-                  <Typography textStyle="descriptionLarge" style={{ fontWeight: 600, color: '#1e293b' }}>
+                  <Typography
+                    textStyle="descriptionLarge"
+                    style={{ fontWeight: 600, color: '#1e293b' }}
+                  >
                     {setting.label}
                   </Typography>
                   <Typography textStyle="descriptionSmall" style={{ color: '#94a3b8' }}>
@@ -296,7 +410,8 @@ function AppSettingsPanelRender() {
         </div>
       ))}
       <div style={{ fontSize: 11, color: '#94a3b8' }}>
-        AppUI Switch 그룹 패턴 — 카테고리별 설정 토글 ({Object.values(values).filter(Boolean).length}/{SETTINGS.length} 활성)
+        AppUI Switch 그룹 패턴 — 카테고리별 설정 토글 (
+        {Object.values(values).filter(Boolean).length}/{SETTINGS.length} 활성)
       </div>
     </div>
   )
@@ -326,12 +441,14 @@ function NotificationChannelRender() {
         알림 채널 설정
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {([
-          { id: 'email', label: '이메일', desc: '이메일로 알림 수신' },
-          { id: 'sms', label: 'SMS', desc: '문자로 알림 수신' },
-          { id: 'push', label: '푸시 알림', desc: '브라우저/앱 푸시' },
-          { id: 'inapp', label: '인앱 알림', desc: '앱 내 알림 센터' },
-        ] as const).map((ch) => (
+        {(
+          [
+            { id: 'email', label: '이메일', desc: '이메일로 알림 수신' },
+            { id: 'sms', label: 'SMS', desc: '문자로 알림 수신' },
+            { id: 'push', label: '푸시 알림', desc: '브라우저/앱 푸시' },
+            { id: 'inapp', label: '인앱 알림', desc: '앱 내 알림 센터' },
+          ] as const
+        ).map((ch) => (
           <div key={ch.id}>
             <div
               style={{
@@ -346,7 +463,13 @@ function NotificationChannelRender() {
               }}
             >
               <div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: channels[ch.id] ? '#1e293b' : '#94a3b8' }}>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: channels[ch.id] ? '#1e293b' : '#94a3b8',
+                  }}
+                >
                   {ch.label}
                 </div>
                 <div style={{ fontSize: 11, color: '#94a3b8' }}>{ch.desc}</div>
@@ -430,17 +553,40 @@ function OnboardingFeaturesRender() {
     return (
       <div style={{ maxWidth: 360, textAlign: 'center', padding: 32 }}>
         <div style={{ fontSize: 32, marginBottom: 12 }}>
-          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', color: '#fff', fontSize: 24, fontWeight: 700 }}>
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: '50%',
+              background: '#10b981',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 12px',
+              color: '#fff',
+              fontSize: 24,
+              fontWeight: 700,
+            }}
+          >
             ✓
           </div>
         </div>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginBottom: 6 }}>설정 완료!</div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginBottom: 6 }}>
+          설정 완료!
+        </div>
         <div style={{ fontSize: 13, color: '#64748b', marginBottom: 20 }}>
           {activeCount}개 기능이 활성화되었습니다.
         </div>
         <button
           onClick={() => setDone(false)}
-          style={{ padding: '8px 20px', borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', fontSize: 13, cursor: 'pointer' }}
+          style={{
+            padding: '8px 20px',
+            borderRadius: 8,
+            border: '1px solid #e2e8f0',
+            background: '#fff',
+            fontSize: 13,
+            cursor: 'pointer',
+          }}
         >
           다시 설정
         </button>
@@ -450,7 +596,9 @@ function OnboardingFeaturesRender() {
 
   return (
     <div style={{ maxWidth: 360 }}>
-      <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>기능 선택</div>
+      <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>
+        기능 선택
+      </div>
       <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
         원하는 기능을 켜거나 끄세요. 나중에 설정에서 변경할 수 있습니다.
       </div>
@@ -532,24 +680,44 @@ function ThemeSwitcherRender() {
 
   return (
     <div style={{ maxWidth: 400 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: 14,
+        }}
+      >
         AppUI ColorSchemeProvider 패턴
       </div>
 
       {/* Preview card */}
-      <div style={{
-        borderRadius: 12,
-        border: `1px solid ${border}`,
-        background: bg,
-        padding: 16,
-        marginBottom: 16,
-        transition: 'all 0.2s',
-      }}>
+      <div
+        style={{
+          borderRadius: 12,
+          border: `1px solid ${border}`,
+          background: bg,
+          padding: 16,
+          marginBottom: 16,
+          transition: 'all 0.2s',
+        }}
+      >
         <div style={{ fontSize: 13, fontWeight: 700, color: fg, marginBottom: 8 }}>미리보기</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <div style={{ padding: '10px 12px', borderRadius: 8, background: cardBg, border: `1px solid ${border}` }}>
+          <div
+            style={{
+              padding: '10px 12px',
+              borderRadius: 8,
+              background: cardBg,
+              border: `1px solid ${border}`,
+            }}
+          >
             <div style={{ fontSize: 12, fontWeight: 600, color: fg }}>컴포넌트 카드</div>
-            <div style={{ fontSize: 11, color: fgSub, marginTop: 2 }}>현재 {mode === 'light' ? '라이트' : mode === 'dark' ? '다크' : '시스템'} 테마 적용 중</div>
+            <div style={{ fontSize: 11, color: fgSub, marginTop: 2 }}>
+              현재 {mode === 'light' ? '라이트' : mode === 'dark' ? '다크' : '시스템'} 테마 적용 중
+            </div>
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
             {['Primary', 'Secondary', 'Ghost'].map((label) => (
@@ -562,8 +730,16 @@ function ThemeSwitcherRender() {
                   fontSize: 11,
                   fontWeight: 600,
                   textAlign: 'center',
-                  background: label === 'Primary' ? '#6366f1' : label === 'Secondary' ? 'transparent' : 'transparent',
-                  border: label === 'Ghost' ? 'none' : `1px solid ${label === 'Primary' ? '#6366f1' : border}`,
+                  background:
+                    label === 'Primary'
+                      ? '#6366f1'
+                      : label === 'Secondary'
+                        ? 'transparent'
+                        : 'transparent',
+                  border:
+                    label === 'Ghost'
+                      ? 'none'
+                      : `1px solid ${label === 'Primary' ? '#6366f1' : border}`,
                   color: label === 'Primary' ? '#fff' : fg,
                 }}
               >
@@ -623,7 +799,10 @@ export const AppUI_테마_전환_스위치 = {
 -------------------------------------------------------------------------- */
 type RoleType = 'admin' | 'editor' | 'viewer'
 
-const PERMISSION_MATRIX: Record<string, { admin: boolean; editor: boolean; viewer: boolean; locked?: RoleType[] }> = {
+const PERMISSION_MATRIX: Record<
+  string,
+  { admin: boolean; editor: boolean; viewer: boolean; locked?: RoleType[] }
+> = {
   '콘텐츠 작성': { admin: true, editor: true, viewer: false, locked: ['admin'] },
   '콘텐츠 수정': { admin: true, editor: true, viewer: false },
   '콘텐츠 삭제': { admin: true, editor: false, viewer: false, locked: ['admin'] },
@@ -654,7 +833,16 @@ function RoleBasedAccessRender() {
 
   return (
     <div style={{ maxWidth: 420 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: 14,
+        }}
+      >
         Ant Design Form + Switch — 역할 기반 접근 제어
       </div>
 
@@ -663,7 +851,10 @@ function RoleBasedAccessRender() {
         {roles.map((r) => (
           <button
             key={r.key}
-            onClick={() => { setRole(r.key); setOverrides({}) }}
+            onClick={() => {
+              setRole(r.key)
+              setOverrides({})
+            }}
             style={{
               flex: 1,
               padding: '8px',
@@ -683,7 +874,14 @@ function RoleBasedAccessRender() {
       </div>
 
       {/* Permission list */}
-      <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+      <div
+        style={{
+          borderRadius: 10,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+          background: '#fff',
+        }}
+      >
         {Object.keys(PERMISSION_MATRIX).map((perm, i, arr) => {
           const locked = isLocked(perm)
           const checked = getPermission(perm)
@@ -701,14 +899,22 @@ function RoleBasedAccessRender() {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 {locked && (
-                  <div style={{
-                    fontSize: 9, padding: '1px 5px', borderRadius: 4,
-                    background: '#fef2f2', color: '#ef4444', fontWeight: 700,
-                  }}>
+                  <div
+                    style={{
+                      fontSize: 9,
+                      padding: '1px 5px',
+                      borderRadius: 4,
+                      background: '#fef2f2',
+                      color: '#ef4444',
+                      fontWeight: 700,
+                    }}
+                  >
                     LOCK
                   </div>
                 )}
-                <span style={{ fontSize: 13, fontWeight: 500, color: locked ? '#94a3b8' : '#1e293b' }}>
+                <span
+                  style={{ fontSize: 13, fontWeight: 500, color: locked ? '#94a3b8' : '#1e293b' }}
+                >
                   {perm}
                 </span>
               </div>
@@ -771,41 +977,69 @@ function BulkToggleRender() {
 
   return (
     <div style={{ maxWidth: 380 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>
+      <div
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#94a3b8',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          marginBottom: 14,
+        }}
+      >
         AppUI Checkbox.Group — 전체 선택 패턴을 Switch로
       </div>
 
       {/* Global toggle */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '12px 14px',
-        borderRadius: 10,
-        border: '1.5px solid #6366f1',
-        background: 'rgba(99,102,241,0.04)',
-        marginBottom: 12,
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '12px 14px',
+          borderRadius: 10,
+          border: '1.5px solid #6366f1',
+          background: 'rgba(99,102,241,0.04)',
+          marginBottom: 12,
+        }}
+      >
         <div>
           <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>전체 기능 활성화</div>
           <div style={{ fontSize: 11, color: '#94a3b8' }}>
-            {allOn ? '모두 켜짐' : someOn ? `${enabled.size}/${FEATURE_LIST.length}개 켜짐` : '모두 꺼짐'}
+            {allOn
+              ? '모두 켜짐'
+              : someOn
+                ? `${enabled.size}/${FEATURE_LIST.length}개 켜짐`
+                : '모두 꺼짐'}
           </div>
         </div>
-        <Switch
-          checked={allOn}
-          onCheckedChange={toggleAll}
-          aria-label="전체 선택"
-        />
+        <Switch checked={allOn} onCheckedChange={toggleAll} aria-label="전체 선택" />
       </div>
 
       {/* Per group */}
       {groups.map((group) => (
         <div key={group} style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6, paddingLeft: 4 }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: 6,
+              paddingLeft: 4,
+            }}
+          >
             {group}
           </div>
-          <div style={{ borderRadius: 10, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff' }}>
+          <div
+            style={{
+              borderRadius: 10,
+              border: '1px solid #e2e8f0',
+              overflow: 'hidden',
+              background: '#fff',
+            }}
+          >
             {FEATURE_LIST.filter((f) => f.group === group).map((feat, i, arr) => (
               <div
                 key={feat.id}
@@ -817,7 +1051,13 @@ function BulkToggleRender() {
                   borderBottom: i < arr.length - 1 ? '1px solid #f8fafc' : 'none',
                 }}
               >
-                <span style={{ fontSize: 13, color: enabled.has(feat.id) ? '#1e293b' : '#94a3b8', fontWeight: enabled.has(feat.id) ? 500 : 400 }}>
+                <span
+                  style={{
+                    fontSize: 13,
+                    color: enabled.has(feat.id) ? '#1e293b' : '#94a3b8',
+                    fontWeight: enabled.has(feat.id) ? 500 : 400,
+                  }}
+                >
                   {feat.label}
                 </span>
                 <Switch
@@ -847,10 +1087,30 @@ export const AppUI_전체_선택_토글 = {
    Switch + 라벨 + 설명을 FormGroup으로 묶는 EnterpriseUI 패턴
 -------------------------------------------------------------------------- */
 const EnterpriseUI_FORM_SWITCHES = [
-  { id: 'sw-email', label: '이메일 알림', desc: '새 메시지, 댓글, 언급 시 이메일 수신', defaultChecked: true },
-  { id: 'sw-push', label: '푸시 알림', desc: '모바일 기기로 실시간 알림 수신', defaultChecked: true },
-  { id: 'sw-weekly', label: '주간 요약', desc: '매주 월요일 활동 요약 리포트', defaultChecked: false },
-  { id: 'sw-marketing', label: '마케팅 수신', desc: '신규 기능, 할인, 이벤트 소식 수신', defaultChecked: false },
+  {
+    id: 'sw-email',
+    label: '이메일 알림',
+    desc: '새 메시지, 댓글, 언급 시 이메일 수신',
+    defaultChecked: true,
+  },
+  {
+    id: 'sw-push',
+    label: '푸시 알림',
+    desc: '모바일 기기로 실시간 알림 수신',
+    defaultChecked: true,
+  },
+  {
+    id: 'sw-weekly',
+    label: '주간 요약',
+    desc: '매주 월요일 활동 요약 리포트',
+    defaultChecked: false,
+  },
+  {
+    id: 'sw-marketing',
+    label: '마케팅 수신',
+    desc: '신규 기능, 할인, 이벤트 소식 수신',
+    defaultChecked: false,
+  },
 ]
 
 const EnterpriseUIFormControlRender = () => {
@@ -861,15 +1121,41 @@ const EnterpriseUIFormControlRender = () => {
   const activeCount = Object.values(states).filter(Boolean).length
   return (
     <div style={{ width: 380, display: 'flex', flexDirection: 'column', gap: 0 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
         <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 설정</span>
-        <span style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>{activeCount}개 활성화</span>
+        <span style={{ fontSize: 12, color: '#6366f1', fontWeight: 600 }}>
+          {activeCount}개 활성화
+        </span>
       </div>
       {EnterpriseUI_FORM_SWITCHES.map((item, i) => (
         <div key={item.id}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 0' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '14px 0',
+            }}
+          >
             <div style={{ flex: 1, paddingRight: 16 }}>
-              <label htmlFor={item.id} style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', cursor: 'pointer', display: 'block', marginBottom: 2 }}>
+              <label
+                htmlFor={item.id}
+                style={{
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: '#0f172a',
+                  cursor: 'pointer',
+                  display: 'block',
+                  marginBottom: 2,
+                }}
+              >
                 {item.label}
               </label>
               <span style={{ fontSize: 12, color: '#64748b', lineHeight: 1.4 }}>{item.desc}</span>
@@ -920,18 +1206,70 @@ const DESIGN_TOGGLES = [
 
 const DesignToolPluginToggleRender = () => {
   const [active, setActive] = useState<Record<string, boolean>>({
-    'ft-grid': true, 'ft-snap': true, 'ft-guides': false, 'ft-rulers': false, 'ft-outline': false, 'ft-proto': true,
+    'ft-grid': true,
+    'ft-snap': true,
+    'ft-guides': false,
+    'ft-rulers': false,
+    'ft-outline': false,
+    'ft-proto': true,
   })
   return (
-    <div style={{ width: 200, background: '#2c2c2c', borderRadius: 10, padding: '12px 0', color: '#fff', fontFamily: 'monospace' }}>
-      <div style={{ padding: '4px 12px 10px', fontSize: 11, color: '#888', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+    <div
+      style={{
+        width: 200,
+        background: '#2c2c2c',
+        borderRadius: 10,
+        padding: '12px 0',
+        color: '#fff',
+        fontFamily: 'monospace',
+      }}
+    >
+      <div
+        style={{
+          padding: '4px 12px 10px',
+          fontSize: 11,
+          color: '#888',
+          fontWeight: 600,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+        }}
+      >
         View Options
       </div>
       {DESIGN_TOGGLES.map((t) => (
-        <div key={t.id} onClick={() => setActive((p) => ({ ...p, [t.id]: !p[t.id] }))} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '5px 12px', cursor: 'pointer', background: active[t.id] ? 'rgba(99,102,241,0.15)' : 'transparent', transition: 'background 0.15s' }}>
+        <div
+          key={t.id}
+          onClick={() => setActive((p) => ({ ...p, [t.id]: !p[t.id] }))}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '5px 12px',
+            cursor: 'pointer',
+            background: active[t.id] ? 'rgba(99,102,241,0.15)' : 'transparent',
+            transition: 'background 0.15s',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ width: 16, height: 16, borderRadius: 3, background: active[t.id] ? '#6366f1' : '#444', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: '#fff', flexShrink: 0 }}>{t.icon}</span>
-            <span style={{ fontSize: 12, color: active[t.id] ? '#e2e8f0' : '#888' }}>{t.label}</span>
+            <span
+              style={{
+                width: 16,
+                height: 16,
+                borderRadius: 3,
+                background: active[t.id] ? '#6366f1' : '#444',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 9,
+                color: '#fff',
+                flexShrink: 0,
+              }}
+            >
+              {t.icon}
+            </span>
+            <span style={{ fontSize: 12, color: active[t.id] ? '#e2e8f0' : '#888' }}>
+              {t.label}
+            </span>
           </div>
           <Switch
             id={t.id}
@@ -983,31 +1321,77 @@ const ColumnVisibilityRender = () => {
     const allVisible = DATA_COLUMNS.filter((c) => !c.required).every((c) => visible[c.id])
     setVisible((prev) => {
       const next = { ...prev }
-      DATA_COLUMNS.filter((c) => !c.required).forEach((c) => { next[c.id] = !allVisible })
+      DATA_COLUMNS.filter((c) => !c.required).forEach((c) => {
+        next[c.id] = !allVisible
+      })
       return next
     })
   }
   return (
     <div style={{ width: 280, border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
-      <div style={{ padding: '12px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>컬럼 표시 ({visibleCount}/{DATA_COLUMNS.length})</span>
-        <button onClick={toggleAll} style={{ fontSize: 12, color: '#6366f1', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 600 }}>
-          {DATA_COLUMNS.filter((c) => !c.required).every((c) => visible[c.id]) ? '선택 해제' : '전체 선택'}
+      <div
+        style={{
+          padding: '12px 16px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+          컬럼 표시 ({visibleCount}/{DATA_COLUMNS.length})
+        </span>
+        <button
+          onClick={toggleAll}
+          style={{
+            fontSize: 12,
+            color: '#6366f1',
+            border: 'none',
+            background: 'none',
+            cursor: 'pointer',
+            fontWeight: 600,
+          }}
+        >
+          {DATA_COLUMNS.filter((c) => !c.required).every((c) => visible[c.id])
+            ? '선택 해제'
+            : '전체 선택'}
         </button>
       </div>
       {DATA_COLUMNS.map((col) => (
-        <div key={col.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderBottom: '1px solid #f1f5f9' }}>
+        <div
+          key={col.id}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '10px 16px',
+            borderBottom: '1px solid #f1f5f9',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ fontSize: 13, color: '#0f172a' }}>{col.label}</span>
             {col.required && (
-              <span style={{ fontSize: 10, color: '#94a3b8', background: '#f1f5f9', padding: '1px 6px', borderRadius: 4 }}>필수</span>
+              <span
+                style={{
+                  fontSize: 10,
+                  color: '#94a3b8',
+                  background: '#f1f5f9',
+                  padding: '1px 6px',
+                  borderRadius: 4,
+                }}
+              >
+                필수
+              </span>
             )}
           </div>
           <Switch
             id={col.id}
             checked={visible[col.id]}
             disabled={col.required}
-            onCheckedChange={() => !col.required && setVisible((p) => ({ ...p, [col.id]: !p[col.id] }))}
+            onCheckedChange={() =>
+              !col.required && setVisible((p) => ({ ...p, [col.id]: !p[col.id] }))
+            }
           />
         </div>
       ))}
@@ -1035,7 +1419,11 @@ export const EnterpriseUI_DesignTool_컬럼_가시성_토글: Story = {
    Platform HIG 벤치마크: 세부 설정 그룹 스위치
    Platform Settings Detail Screen — 그룹별 Switch 목록 + 그룹 설명 푸터
 -------------------------------------------------------------------------- */
-type HigSwitchGroup = { title: string; footer: string; items: { id: string; label: string; desc?: string }[] }
+type HigSwitchGroup = {
+  title: string
+  footer: string
+  items: { id: string; label: string; desc?: string }[]
+}
 
 const HIG_SWITCH_GROUPS: HigSwitchGroup[] = [
   {
@@ -1071,8 +1459,12 @@ export const Platform_HIG_세부_설정_그룹: Story = {
   },
   render: function PlatformHIGDetailSettings() {
     const [switches, setSwitches] = useState<Record<string, boolean>>({
-      location: true, contacts: false, camera: true,
-      push: true, badge: true, sound: false,
+      location: true,
+      contacts: false,
+      camera: true,
+      push: true,
+      badge: true,
+      sound: false,
     })
 
     const toggle = (id: string) => {
@@ -1080,18 +1472,42 @@ export const Platform_HIG_세부_설정_그룹: Story = {
     }
 
     return (
-      <div style={{ width: 320, fontFamily: 'system-ui, sans-serif', background: '#f2f2f7', borderRadius: 16, overflow: 'hidden' }}>
+      <div
+        style={{
+          width: 320,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#f2f2f7',
+          borderRadius: 16,
+          overflow: 'hidden',
+        }}
+      >
         {HIG_SWITCH_GROUPS.map((group, gi) => (
-          <div key={group.title} style={{ marginBottom: gi < HIG_SWITCH_GROUPS.length - 1 ? 16 : 0 }}>
-            <div style={{ padding: '8px 16px 4px', fontSize: 11, fontWeight: 600, color: '#6d6d72', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+          <div
+            key={group.title}
+            style={{ marginBottom: gi < HIG_SWITCH_GROUPS.length - 1 ? 16 : 0 }}
+          >
+            <div
+              style={{
+                padding: '8px 16px 4px',
+                fontSize: 11,
+                fontWeight: 600,
+                color: '#6d6d72',
+                textTransform: 'uppercase',
+                letterSpacing: 0.4,
+              }}
+            >
               {group.title}
             </div>
-            <div style={{ background: '#fff', borderRadius: 10, overflow: 'hidden', margin: '0 0' }}>
+            <div
+              style={{ background: '#fff', borderRadius: 10, overflow: 'hidden', margin: '0 0' }}
+            >
               {group.items.map((item, idx) => (
                 <div
                   key={item.id}
                   style={{
-                    display: 'flex', alignItems: 'center', padding: '12px 16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '12px 16px',
                     borderTop: idx === 0 ? 'none' : '1px solid #f2f2f7',
                     cursor: 'pointer',
                   }}
@@ -1099,16 +1515,19 @@ export const Platform_HIG_세부_설정_그룹: Story = {
                 >
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 14, color: '#000', fontWeight: 400 }}>{item.label}</div>
-                    {item.desc && <div style={{ fontSize: 12, color: '#8e8e93', marginTop: 1 }}>{item.desc}</div>}
+                    {item.desc && (
+                      <div style={{ fontSize: 12, color: '#8e8e93', marginTop: 1 }}>
+                        {item.desc}
+                      </div>
+                    )}
                   </div>
-                  <Switch
-                    checked={switches[item.id]}
-                    onCheckedChange={() => toggle(item.id)}
-                  />
+                  <Switch checked={switches[item.id]} onCheckedChange={() => toggle(item.id)} />
                 </div>
               ))}
             </div>
-            <div style={{ padding: '4px 16px 8px', fontSize: 12, color: '#8e8e93', lineHeight: 1.5 }}>
+            <div
+              style={{ padding: '4px 16px 8px', fontSize: 12, color: '#8e8e93', lineHeight: 1.5 }}
+            >
               {group.footer}
             </div>
           </div>
@@ -1122,12 +1541,30 @@ export const Platform_HIG_세부_설정_그룹: Story = {
    RoleToken Design 벤치마크: 기기 권한 토글 패널
    M3 Permission Settings — 아이콘 + 권한명 + 상태 설명 + Switch 패턴
 -------------------------------------------------------------------------- */
-type M3Permission = { id: string; icon: string; name: string; desc: string; risk: 'high' | 'medium' | 'low' }
+type M3Permission = {
+  id: string
+  icon: string
+  name: string
+  desc: string
+  risk: 'high' | 'medium' | 'low'
+}
 
 const M3_PERMISSIONS: M3Permission[] = [
   { id: 'location', icon: 'LOC', name: '위치', desc: '앱이 기기 위치에 접근합니다', risk: 'high' },
-  { id: 'camera', icon: 'CAM', name: '카메라', desc: '사진 및 동영상 촬영을 허용합니다', risk: 'medium' },
-  { id: 'microphone', icon: 'MIC', name: '마이크', desc: '오디오 녹음을 허용합니다', risk: 'medium' },
+  {
+    id: 'camera',
+    icon: 'CAM',
+    name: '카메라',
+    desc: '사진 및 동영상 촬영을 허용합니다',
+    risk: 'medium',
+  },
+  {
+    id: 'microphone',
+    icon: 'MIC',
+    name: '마이크',
+    desc: '오디오 녹음을 허용합니다',
+    risk: 'medium',
+  },
   { id: 'contacts', icon: 'CON', name: '연락처', desc: '주소록 데이터를 읽습니다', risk: 'high' },
   { id: 'storage', icon: 'STO', name: '저장소', desc: '파일 읽기/쓰기를 허용합니다', risk: 'low' },
   { id: 'notifications', icon: 'NTF', name: '알림', desc: '앱 알림을 표시합니다', risk: 'low' },
@@ -1162,15 +1599,42 @@ export const Material3_기기_권한_토글: Story = {
     const grantedCount = Object.values(permissions).filter(Boolean).length
 
     return (
-      <div style={{ width: 360, borderRadius: 16, border: '1px solid #e2e8f0', overflow: 'hidden', background: '#fff', fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ padding: '14px 16px', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          width: 360,
+          borderRadius: 16,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+          background: '#fff',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
+        <div
+          style={{
+            padding: '14px 16px',
+            background: '#0f172a',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <div>
             <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc' }}>앱 권한</div>
-            <div style={{ fontSize: 11, color: '#64748b' }}>Orbit UI — {grantedCount}/{M3_PERMISSIONS.length} 허용됨</div>
+            <div style={{ fontSize: 11, color: '#64748b' }}>
+              Orbit UI — {grantedCount}/{M3_PERMISSIONS.length} 허용됨
+            </div>
           </div>
           <button
-            onClick={() => setPermissions(Object.fromEntries(M3_PERMISSIONS.map((p) => [p.id, false])))}
-            style={{ fontSize: 11, color: '#94a3b8', background: 'none', border: 'none', cursor: 'pointer' }}
+            onClick={() =>
+              setPermissions(Object.fromEntries(M3_PERMISSIONS.map((p) => [p.id, false])))
+            }
+            style={{
+              fontSize: 11,
+              color: '#94a3b8',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+            }}
           >
             전체 거부
           </button>
@@ -1180,33 +1644,51 @@ export const Material3_기기_권한_토글: Story = {
           <div
             key={perm.id}
             style={{
-              display: 'flex', alignItems: 'center', gap: 12, padding: '13px 16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '13px 16px',
               borderTop: idx === 0 ? 'none' : '1px solid #f1f5f9',
               background: permissions[perm.id] ? '#f0fdf4' : '#fff',
-              transition: 'background 0.15s', cursor: 'pointer',
+              transition: 'background 0.15s',
+              cursor: 'pointer',
             }}
             onClick={() => toggle(perm.id)}
           >
-            <div style={{
-              width: 36, height: 36, borderRadius: 10,
-              background: M3_RISK_COLOR[perm.risk] + '18',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 9, fontWeight: 800, color: M3_RISK_COLOR[perm.risk],
-              flexShrink: 0, letterSpacing: -0.5,
-            }}>
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 10,
+                background: M3_RISK_COLOR[perm.risk] + '18',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 9,
+                fontWeight: 800,
+                color: M3_RISK_COLOR[perm.risk],
+                flexShrink: 0,
+                letterSpacing: -0.5,
+              }}
+            >
               {perm.icon}
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 1 }}>
                 <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{perm.name}</span>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: M3_RISK_COLOR[perm.risk], display: 'inline-block' }} />
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: M3_RISK_COLOR[perm.risk],
+                    display: 'inline-block',
+                  }}
+                />
               </div>
               <div style={{ fontSize: 11, color: '#64748b' }}>{perm.desc}</div>
             </div>
-            <Switch
-              checked={permissions[perm.id]}
-              onCheckedChange={() => toggle(perm.id)}
-            />
+            <Switch checked={permissions[perm.id]} onCheckedChange={() => toggle(perm.id)} />
           </div>
         ))}
       </div>
@@ -1241,9 +1723,14 @@ export const Platform_HIG_빠른_설정_패널: Story = {
     },
   },
   render: function PlatformQuickSettings() {
-    const [settings, setSettings] = useState<Record<string, boolean>>(
-      { wifi: true, bluetooth: true, dnd: false, darkmode: false, lowpower: false, focusmode: false }
-    )
+    const [settings, setSettings] = useState<Record<string, boolean>>({
+      wifi: true,
+      bluetooth: true,
+      dnd: false,
+      darkmode: false,
+      lowpower: false,
+      focusmode: false,
+    })
 
     const toggle = (id: string) => {
       setSettings((prev) => ({ ...prev, [id]: !prev[id] }))
@@ -1251,7 +1738,9 @@ export const Platform_HIG_빠른_설정_패널: Story = {
 
     return (
       <div style={{ width: 280, fontFamily: 'system-ui, sans-serif' }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>빠른 설정</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>
+          빠른 설정
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
           {HIG_QUICK_SETTINGS.map((setting) => {
             const isOn = settings[setting.id]
@@ -1260,30 +1749,45 @@ export const Platform_HIG_빠른_설정_패널: Story = {
                 key={setting.id}
                 onClick={() => toggle(setting.id)}
                 style={{
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '12px 8px', borderRadius: 14, cursor: 'pointer',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '12px 8px',
+                  borderRadius: 14,
+                  cursor: 'pointer',
                   background: isOn ? setting.color : '#f1f5f9',
                   transition: 'background 0.2s',
                   minHeight: 72,
                 }}
               >
-                <div style={{
-                  fontSize: 10, fontWeight: 800, letterSpacing: -0.5,
-                  color: isOn ? '#fff' : '#64748b',
-                  background: isOn ? 'rgba(255,255,255,0.2)' : '#e2e8f0',
-                  borderRadius: 8, padding: '5px 7px',
-                }}>
+                <div
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 800,
+                    letterSpacing: -0.5,
+                    color: isOn ? '#fff' : '#64748b',
+                    background: isOn ? 'rgba(255,255,255,0.2)' : '#e2e8f0',
+                    borderRadius: 8,
+                    padding: '5px 7px',
+                  }}
+                >
                   {setting.icon}
                 </div>
                 <div>
-                  <div style={{ fontSize: 10, fontWeight: 600, color: isOn ? '#fff' : '#374151', textAlign: 'center', marginBottom: 4 }}>
+                  <div
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      color: isOn ? '#fff' : '#374151',
+                      textAlign: 'center',
+                      marginBottom: 4,
+                    }}
+                  >
                     {setting.label}
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Switch
-                      checked={isOn}
-                      onCheckedChange={() => toggle(setting.id)}
-                    />
+                    <Switch checked={isOn} onCheckedChange={() => toggle(setting.id)} />
                   </div>
                 </div>
               </div>
@@ -1324,7 +1828,7 @@ export const IssueTracker_알림_환경설정_패널: Story = {
     const [saved, setSaved] = useState(true)
 
     function toggleItem(id: string) {
-      setSettings((prev) => prev.map((s) => s.id === id ? { ...s, on: !s.on } : s))
+      setSettings((prev) => prev.map((s) => (s.id === id ? { ...s, on: !s.on } : s)))
       setSaved(false)
     }
 
@@ -1337,21 +1841,47 @@ export const IssueTracker_알림_환경설정_패널: Story = {
     }
 
     return (
-      <div style={{ width: 360, fontFamily: 'system-ui, sans-serif', background: '#fff', borderRadius: 14, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div
+        style={{
+          width: 360,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          borderRadius: 14,
+          border: '1px solid #e2e8f0',
+          overflow: 'hidden',
+        }}
+      >
         {/* 마스터 스위치 */}
-        <div style={{ padding: '14px 18px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            padding: '14px 18px',
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <div>
             <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>전체 알림</div>
-            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>모든 알림을 한번에 제어합니다</div>
+            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>
+              모든 알림을 한번에 제어합니다
+            </div>
           </div>
-          <Switch
-            checked={masterState === true}
-            onCheckedChange={toggleAll}
-          />
+          <Switch checked={masterState === true} onCheckedChange={toggleAll} />
         </div>
         {/* 개별 알림 설정 */}
         {settings.map((s) => (
-          <div key={s.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 18px', borderBottom: '1px solid #f8fafc' }}>
+          <div
+            key={s.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '12px 18px',
+              borderBottom: '1px solid #f8fafc',
+            }}
+          >
             <div style={{ opacity: masterState === false ? 0.4 : 1, transition: 'opacity 200ms' }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: '#0f172a' }}>{s.label}</div>
               <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{s.desc}</div>
@@ -1364,14 +1894,28 @@ export const IssueTracker_알림_환경설정_패널: Story = {
           </div>
         ))}
         {/* 저장 버튼 */}
-        <div style={{ padding: '12px 18px', borderTop: '1px solid #f1f5f9', display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+        <div
+          style={{
+            padding: '12px 18px',
+            borderTop: '1px solid #f1f5f9',
+            display: 'flex',
+            gap: 8,
+            justifyContent: 'flex-end',
+          }}
+        >
           <button
             disabled={saved}
             onClick={() => setSaved(true)}
             style={{
-              padding: '6px 16px', borderRadius: 8, border: 'none', fontSize: 12, fontWeight: 600,
-              background: saved ? '#f1f5f9' : '#0f172a', color: saved ? '#94a3b8' : '#fff',
-              cursor: saved ? 'default' : 'pointer', transition: 'all 200ms',
+              padding: '6px 16px',
+              borderRadius: 8,
+              border: 'none',
+              fontSize: 12,
+              fontWeight: 600,
+              background: saved ? '#f1f5f9' : '#0f172a',
+              color: saved ? '#94a3b8' : '#fff',
+              cursor: saved ? 'default' : 'pointer',
+              transition: 'all 200ms',
             }}
           >
             {saved ? '저장됨' : '저장'}
@@ -1384,10 +1928,34 @@ export const IssueTracker_알림_환경설정_패널: Story = {
 
 // PrimitiveUI 스타일 — 테마 / 접근성 설정 (고대비, 모션 감소)
 const RADIX_A11Y_SETTINGS_137 = [
-  { id: 'high_contrast', label: '고대비 모드', desc: '색상 대비를 높여 가독성을 개선합니다 (WCAG AA 기준)', on: false, badge: 'AA' },
-  { id: 'reduce_motion', label: '모션 감소', desc: '애니메이션과 전환 효과를 최소화합니다', on: false, badge: null },
-  { id: 'large_text', label: '큰 텍스트', desc: '기본 폰트 크기를 18px로 설정합니다', on: false, badge: null },
-  { id: 'focus_ring', label: '포커스 링 강조', desc: '키보드 탐색 시 포커스 인디케이터를 강하게 표시합니다', on: true, badge: null },
+  {
+    id: 'high_contrast',
+    label: '고대비 모드',
+    desc: '색상 대비를 높여 가독성을 개선합니다 (WCAG AA 기준)',
+    on: false,
+    badge: 'AA',
+  },
+  {
+    id: 'reduce_motion',
+    label: '모션 감소',
+    desc: '애니메이션과 전환 효과를 최소화합니다',
+    on: false,
+    badge: null,
+  },
+  {
+    id: 'large_text',
+    label: '큰 텍스트',
+    desc: '기본 폰트 크기를 18px로 설정합니다',
+    on: false,
+    badge: null,
+  },
+  {
+    id: 'focus_ring',
+    label: '포커스 링 강조',
+    desc: '키보드 탐색 시 포커스 인디케이터를 강하게 표시합니다',
+    on: true,
+    badge: null,
+  },
 ]
 
 export const Primitive_접근성_설정_스위치: Story = {
@@ -1405,7 +1973,7 @@ export const Primitive_접근성_설정_스위치: Story = {
     const [settings, setSettings] = useState(RADIX_A11Y_SETTINGS_137)
 
     function toggle(id: string) {
-      setSettings((prev) => prev.map((s) => s.id === id ? { ...s, on: !s.on } : s))
+      setSettings((prev) => prev.map((s) => (s.id === id ? { ...s, on: !s.on } : s)))
     }
 
     const highContrast = settings.find((s) => s.id === 'high_contrast')?.on
@@ -1414,34 +1982,74 @@ export const Primitive_접근성_설정_스위치: Story = {
     return (
       <div style={{ width: 380, fontFamily: 'system-ui, sans-serif' }}>
         {/* 미리보기 */}
-        <div style={{
-          padding: '16px', borderRadius: 12, border: `2px solid ${highContrast ? '#000' : '#e2e8f0'}`,
-          background: highContrast ? '#000' : '#f8fafc', marginBottom: 14, transition: 'all 300ms',
-        }}>
-          <div style={{ fontSize: largeText ? 18 : 14, fontWeight: 600, color: highContrast ? '#fff' : '#0f172a', transition: 'all 300ms' }}>
+        <div
+          style={{
+            padding: '16px',
+            borderRadius: 12,
+            border: `2px solid ${highContrast ? '#000' : '#e2e8f0'}`,
+            background: highContrast ? '#000' : '#f8fafc',
+            marginBottom: 14,
+            transition: 'all 300ms',
+          }}
+        >
+          <div
+            style={{
+              fontSize: largeText ? 18 : 14,
+              fontWeight: 600,
+              color: highContrast ? '#fff' : '#0f172a',
+              transition: 'all 300ms',
+            }}
+          >
             접근성 미리보기
           </div>
-          <div style={{ fontSize: largeText ? 15 : 12, color: highContrast ? '#e2e8f0' : '#64748b', marginTop: 4, transition: 'all 300ms' }}>
+          <div
+            style={{
+              fontSize: largeText ? 15 : 12,
+              color: highContrast ? '#e2e8f0' : '#64748b',
+              marginTop: 4,
+              transition: 'all 300ms',
+            }}
+          >
             설정 변경 시 즉시 반영됩니다.
           </div>
         </div>
         {/* 설정 목록 */}
         <div style={{ borderRadius: 12, border: '1px solid #e2e8f0', overflow: 'hidden' }}>
           {settings.map((s) => (
-            <div key={s.id} style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '14px 16px', borderBottom: '1px solid #f1f5f9', gap: 12 }}>
+            <div
+              key={s.id}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between',
+                padding: '14px 16px',
+                borderBottom: '1px solid #f1f5f9',
+                gap: 12,
+              }}
+            >
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{s.label}</span>
                   {s.badge && (
-                    <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: '#dbeafe', color: '#1d4ed8' }}>{s.badge}</span>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: '#dbeafe',
+                        color: '#1d4ed8',
+                      }}
+                    >
+                      {s.badge}
+                    </span>
                   )}
                 </div>
-                <div style={{ fontSize: 11, color: '#64748b', marginTop: 2, lineHeight: 1.5 }}>{s.desc}</div>
+                <div style={{ fontSize: 11, color: '#64748b', marginTop: 2, lineHeight: 1.5 }}>
+                  {s.desc}
+                </div>
               </div>
-              <Switch
-                checked={s.on}
-                onCheckedChange={() => toggle(s.id)}
-              />
+              <Switch checked={s.on} onCheckedChange={() => toggle(s.id)} />
             </div>
           ))}
         </div>
@@ -1488,34 +2096,92 @@ export const IssueTracker_Primitive_기능_플래그_토글: Story = {
     const [flags, setFlags] = useState(FEATURE_FLAGS_137)
 
     function toggle(id: string) {
-      setFlags((prev) => prev.map((f) => f.id === id ? { ...f, on: !f.on } : f))
+      setFlags((prev) => prev.map((f) => (f.id === id ? { ...f, on: !f.on } : f)))
     }
 
     return (
-      <div style={{ width: 420, fontFamily: 'monospace, system-ui, sans-serif', background: '#0f172a', borderRadius: 14, overflow: 'hidden', border: '1px solid #1e293b' }}>
-        <div style={{ padding: '14px 18px', borderBottom: '1px solid #1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: 1 }}>FEATURE FLAGS</span>
-          <span style={{ fontSize: 11, color: '#475569' }}>{flags.filter((f) => f.on).length}/{flags.length} 활성</span>
+      <div
+        style={{
+          width: 420,
+          fontFamily: 'monospace, system-ui, sans-serif',
+          background: '#0f172a',
+          borderRadius: 14,
+          overflow: 'hidden',
+          border: '1px solid #1e293b',
+        }}
+      >
+        <div
+          style={{
+            padding: '14px 18px',
+            borderBottom: '1px solid #1e293b',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: 1 }}>
+            FEATURE FLAGS
+          </span>
+          <span style={{ fontSize: 11, color: '#475569' }}>
+            {flags.filter((f) => f.on).length}/{flags.length} 활성
+          </span>
         </div>
         {flags.map((f) => {
           const risk = RISK_STYLE_137[f.risk]
           return (
             <div key={f.id} style={{ padding: '12px 18px', borderBottom: '1px solid #1e293b' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 10,
+                }}
+              >
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: '#e2e8f0', fontFamily: 'monospace' }}>{f.label}</span>
-                    <span style={{ fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 4, background: ENV_STYLE_137[f.env] + '22', color: ENV_STYLE_137[f.env] }}>{f.env}</span>
-                    <span style={{ fontSize: 10, fontWeight: 600, padding: '1px 6px', borderRadius: 4, background: risk.bg + '22', color: risk.color }}>{f.risk}</span>
+                    <span
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: '#e2e8f0',
+                        fontFamily: 'monospace',
+                      }}
+                    >
+                      {f.label}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: ENV_STYLE_137[f.env] + '22',
+                        color: ENV_STYLE_137[f.env],
+                      }}
+                    >
+                      {f.env}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 600,
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: risk.bg + '22',
+                        color: risk.color,
+                      }}
+                    >
+                      {f.risk}
+                    </span>
                   </div>
                   {f.on && f.risk === 'high' && (
-                    <div style={{ fontSize: 11, color: '#fca5a5', marginTop: 4 }}>주의: 실험적 기능입니다. 예기치 않은 동작이 발생할 수 있습니다.</div>
+                    <div style={{ fontSize: 11, color: '#fca5a5', marginTop: 4 }}>
+                      주의: 실험적 기능입니다. 예기치 않은 동작이 발생할 수 있습니다.
+                    </div>
                   )}
                 </div>
-                <Switch
-                  checked={f.on}
-                  onCheckedChange={() => toggle(f.id)}
-                />
+                <Switch checked={f.on} onCheckedChange={() => toggle(f.id)} />
               </div>
             </div>
           )
@@ -1555,17 +2221,38 @@ export const AntDesign_시스템_알림_설정_토글: Story = {
     }
 
     const channels = [
-      { key: 'email' as const, label: '이메일 알림', desc: '중요 업데이트 및 보안 알림', icon: '✉️' },
+      {
+        key: 'email' as const,
+        label: '이메일 알림',
+        desc: '중요 업데이트 및 보안 알림',
+        icon: '✉️',
+      },
       { key: 'push' as const, label: '푸시 알림', desc: '실시간 앱 알림', icon: '🔔' },
       { key: 'sms' as const, label: 'SMS 알림', desc: '긴급 보안 코드', icon: '💬' },
       { key: 'slack' as const, label: 'Slack 연동', desc: '팀 채널 알림 전송', icon: '⚡' },
       { key: 'marketing' as const, label: '마케팅 수신', desc: '뉴스레터 및 프로모션', icon: '📢' },
-      { key: 'digest' as const, label: '주간 다이제스트', desc: '매주 월요일 요약 리포트', icon: '📊' },
+      {
+        key: 'digest' as const,
+        label: '주간 다이제스트',
+        desc: '매주 월요일 요약 리포트',
+        icon: '📊',
+      },
     ]
 
     return (
-      <div style={{ width: 380, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
-        <div style={{ padding: '16px 20px', borderBottom: '1px solid #f3f4f6', background: '#f9fafb' }}>
+      <div
+        style={{
+          width: 380,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: 12,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{ padding: '16px 20px', borderBottom: '1px solid #f3f4f6', background: '#f9fafb' }}
+        >
           <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>알림 설정</div>
           <div style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>
             {Object.values(settings).filter(Boolean).length}개 채널 활성
@@ -1574,7 +2261,13 @@ export const AntDesign_시스템_알림_설정_토글: Story = {
         {channels.map((ch) => (
           <div
             key={ch.key}
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '1px solid #f9fafb' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '14px 20px',
+              borderBottom: '1px solid #f9fafb',
+            }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ fontSize: 18 }}>{ch.icon}</span>
@@ -1645,24 +2338,51 @@ export const PrimitiveUI_개발자_환경_설정_스위치: Story = {
     ]
 
     return (
-      <div style={{ width: 360, fontFamily: 'monospace, system-ui', background: '#1e1e2e', borderRadius: 14, overflow: 'hidden', border: '1px solid #313244' }}>
+      <div
+        style={{
+          width: 360,
+          fontFamily: 'monospace, system-ui',
+          background: '#1e1e2e',
+          borderRadius: 14,
+          overflow: 'hidden',
+          border: '1px solid #313244',
+        }}
+      >
         <div style={{ padding: '14px 18px', borderBottom: '1px solid #313244' }}>
           <span style={{ fontSize: 13, fontWeight: 700, color: '#cdd6f4' }}>개발자 설정</span>
         </div>
         {groups.map((group) => (
           <div key={group.title}>
-            <div style={{ padding: '10px 18px 6px', fontSize: 10, fontWeight: 700, color: '#585b70', letterSpacing: 1 }}>
+            <div
+              style={{
+                padding: '10px 18px 6px',
+                fontSize: 10,
+                fontWeight: 700,
+                color: '#585b70',
+                letterSpacing: 1,
+              }}
+            >
               {group.title.toUpperCase()}
             </div>
             {group.items.map((item) => (
               <div
                 key={item.key}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 18px', borderBottom: '1px solid #181825' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '10px 18px',
+                  borderBottom: '1px solid #181825',
+                }}
               >
                 <div>
-                  <span style={{ fontSize: 13, color: item.danger ? '#f38ba8' : '#cdd6f4' }}>{item.label}</span>
+                  <span style={{ fontSize: 13, color: item.danger ? '#f38ba8' : '#cdd6f4' }}>
+                    {item.label}
+                  </span>
                   {item.danger && config[item.key] && (
-                    <div style={{ fontSize: 10, color: '#fab387', marginTop: 2 }}>⚠ 프로덕션 환경에서 비활성화 권장</div>
+                    <div style={{ fontSize: 10, color: '#fab387', marginTop: 2 }}>
+                      ⚠ 프로덕션 환경에서 비활성화 권장
+                    </div>
                   )}
                 </div>
                 <Switch checked={config[item.key]} onCheckedChange={() => toggle(item.key)} />
@@ -1701,9 +2421,36 @@ export const Ant_Primitive_권한_관리_토글_패널: Story = {
     })
 
     const ROLE_DEFAULTS: Record<Role, Record<string, boolean>> = {
-      admin: { read: true, write: true, delete: true, publish: true, manageUsers: true, viewAnalytics: true, exportData: true, manageSettings: true },
-      editor: { read: true, write: true, delete: false, publish: false, manageUsers: false, viewAnalytics: true, exportData: false, manageSettings: false },
-      viewer: { read: true, write: false, delete: false, publish: false, manageUsers: false, viewAnalytics: false, exportData: false, manageSettings: false },
+      admin: {
+        read: true,
+        write: true,
+        delete: true,
+        publish: true,
+        manageUsers: true,
+        viewAnalytics: true,
+        exportData: true,
+        manageSettings: true,
+      },
+      editor: {
+        read: true,
+        write: true,
+        delete: false,
+        publish: false,
+        manageUsers: false,
+        viewAnalytics: true,
+        exportData: false,
+        manageSettings: false,
+      },
+      viewer: {
+        read: true,
+        write: false,
+        delete: false,
+        publish: false,
+        manageUsers: false,
+        viewAnalytics: false,
+        exportData: false,
+        manageSettings: false,
+      },
     }
 
     const selectRole = (r: Role) => {
@@ -1718,23 +2465,51 @@ export const Ant_Primitive_권한_관리_토글_패널: Story = {
     ]
 
     const permLabels: Record<string, string> = {
-      read: '읽기', write: '쓰기', delete: '삭제', publish: '게시',
-      manageUsers: '사용자 관리', viewAnalytics: '분석 보기', exportData: '데이터 내보내기', manageSettings: '설정 관리',
+      read: '읽기',
+      write: '쓰기',
+      delete: '삭제',
+      publish: '게시',
+      manageUsers: '사용자 관리',
+      viewAnalytics: '분석 보기',
+      exportData: '데이터 내보내기',
+      manageSettings: '설정 관리',
     }
 
-    const roleColors: Record<Role, string> = { admin: '#ef4444', editor: '#3b82f6', viewer: '#6b7280' }
+    const roleColors: Record<Role, string> = {
+      admin: '#ef4444',
+      editor: '#3b82f6',
+      viewer: '#6b7280',
+    }
 
     return (
-      <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 14, overflow: 'hidden' }}>
-        <div style={{ padding: '16px 20px', background: '#f8fafc', borderBottom: '1px solid #e5e7eb' }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#111827', marginBottom: 10 }}>권한 관리</div>
+      <div
+        style={{
+          width: 400,
+          fontFamily: 'system-ui, sans-serif',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: 14,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{ padding: '16px 20px', background: '#f8fafc', borderBottom: '1px solid #e5e7eb' }}
+        >
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#111827', marginBottom: 10 }}>
+            권한 관리
+          </div>
           <div style={{ display: 'flex', gap: 8 }}>
             {(['admin', 'editor', 'viewer'] as Role[]).map((r) => (
               <button
                 key={r}
                 onClick={() => selectRole(r)}
                 style={{
-                  padding: '5px 12px', borderRadius: 20, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600,
+                  padding: '5px 12px',
+                  borderRadius: 20,
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: 12,
+                  fontWeight: 600,
                   background: role === r ? roleColors[r] : '#e5e7eb',
                   color: role === r ? '#fff' : '#6b7280',
                 }}
@@ -1746,13 +2521,27 @@ export const Ant_Primitive_권한_관리_토글_패널: Story = {
         </div>
         {permGroups.map((group) => (
           <div key={group.label}>
-            <div style={{ padding: '10px 20px 4px', fontSize: 11, fontWeight: 700, color: '#9ca3af', letterSpacing: 1 }}>
+            <div
+              style={{
+                padding: '10px 20px 4px',
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#9ca3af',
+                letterSpacing: 1,
+              }}
+            >
               {group.label.toUpperCase()}
             </div>
             {group.keys.map((key) => (
               <div
                 key={key}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 20px', borderBottom: '1px solid #f9fafb' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '10px 20px',
+                  borderBottom: '1px solid #f9fafb',
+                }}
               >
                 <span style={{ fontSize: 13, color: '#374151' }}>{permLabels[key]}</span>
                 <Switch
@@ -1771,11 +2560,36 @@ export const Ant_Primitive_권한_관리_토글_패널: Story = {
 // ─── Cycle 191: CommandPalette Extensions + AppUI ─────────────────────────────────
 
 const ACCESSIBLEKIT_FEATURE_FLAGS_191 = [
-  { id: 'betaDashboard', label: '베타 대시보드', description: '새로운 분석 대시보드 레이아웃 미리 체험', badge: 'Beta' },
-  { id: 'aiSuggestions', label: 'AI 제안', description: '컴포넌트 조합을 AI가 자동 추천', badge: 'New' },
-  { id: 'darkMode', label: '다크 모드', description: '시스템 다크 모드 자동 감지 및 전환', badge: null },
-  { id: 'compactView', label: '컴팩트 뷰', description: '테이블/리스트의 행 높이를 줄여 더 많은 데이터 표시', badge: null },
-  { id: 'experimentalGrid', label: '실험적 그리드', description: '12컬럼 반응형 그리드 시스템 (실험 단계)', badge: 'Experimental' },
+  {
+    id: 'betaDashboard',
+    label: '베타 대시보드',
+    description: '새로운 분석 대시보드 레이아웃 미리 체험',
+    badge: 'Beta',
+  },
+  {
+    id: 'aiSuggestions',
+    label: 'AI 제안',
+    description: '컴포넌트 조합을 AI가 자동 추천',
+    badge: 'New',
+  },
+  {
+    id: 'darkMode',
+    label: '다크 모드',
+    description: '시스템 다크 모드 자동 감지 및 전환',
+    badge: null,
+  },
+  {
+    id: 'compactView',
+    label: '컴팩트 뷰',
+    description: '테이블/리스트의 행 높이를 줄여 더 많은 데이터 표시',
+    badge: null,
+  },
+  {
+    id: 'experimentalGrid',
+    label: '실험적 그리드',
+    description: '12컬럼 반응형 그리드 시스템 (실험 단계)',
+    badge: 'Experimental',
+  },
 ]
 
 const BADGE_STYLE_191: Record<string, { bg: string; color: string }> = {
@@ -1800,13 +2614,40 @@ function AppUIFeatureFlagsRender() {
   const enabledCount = Object.values(flags).filter(Boolean).length
 
   return (
-    <div style={{ width: 420, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
-      <div style={{ padding: '14px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <div
+      style={{
+        width: 420,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 14,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
+      <div
+        style={{
+          padding: '14px 20px',
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>피처 플래그</div>
           <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>AppUI Switch 그룹 패턴</div>
         </div>
-        <div style={{ fontSize: 11, fontWeight: 600, color: '#6366f1', background: '#eef2ff', padding: '3px 10px', borderRadius: 20 }}>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#6366f1',
+            background: '#eef2ff',
+            padding: '3px 10px',
+            borderRadius: 20,
+          }}
+        >
           {enabledCount}/{ACCESSIBLEKIT_FEATURE_FLAGS_191.length} 활성화
         </div>
       </div>
@@ -1816,21 +2657,40 @@ function AppUIFeatureFlagsRender() {
           return (
             <div
               key={flag.id}
-              style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 0', borderBottom: i < ACCESSIBLEKIT_FEATURE_FLAGS_191.length - 1 ? '1px solid #f1f5f9' : 'none' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 14,
+                padding: '12px 0',
+                borderBottom:
+                  i < ACCESSIBLEKIT_FEATURE_FLAGS_191.length - 1 ? '1px solid #f1f5f9' : 'none',
+              }}
             >
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{flag.label}</span>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>
+                    {flag.label}
+                  </span>
                   {badgeStyle && flag.badge && (
-                    <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 6, background: badgeStyle.bg, color: badgeStyle.color, fontWeight: 700 }}>{flag.badge}</span>
+                    <span
+                      style={{
+                        fontSize: 9,
+                        padding: '1px 6px',
+                        borderRadius: 6,
+                        background: badgeStyle.bg,
+                        color: badgeStyle.color,
+                        fontWeight: 700,
+                      }}
+                    >
+                      {flag.badge}
+                    </span>
                   )}
                 </div>
-                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{flag.description}</div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>
+                  {flag.description}
+                </div>
               </div>
-              <Switch
-                checked={flags[flag.id]}
-                onChange={() => toggle(flag.id)}
-              />
+              <Switch checked={flags[flag.id]} onChange={() => toggle(flag.id)} />
             </div>
           )
         })}
@@ -1856,15 +2716,21 @@ export const AppUI_피처_플래그_스위치_그룹: Story = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const LAUNCHER_SHORTCUT_PREFS_191 = [
-  { category: '글로벌', items: [
-    { id: 'cmdSpace', label: 'CommandPalette 열기', shortcut: '⌘Space', enabled: true },
-    { id: 'cmdH', label: '클립보드 히스토리', shortcut: '⌘⇧H', enabled: true },
-  ]},
-  { category: '확장 기능', items: [
-    { id: 'codehost', label: 'CodeHost 빠른 접근', shortcut: '⌃G', enabled: false },
-    { id: 'workspace', label: 'WorkspaceEditor 검색', shortcut: '⌃N', enabled: true },
-    { id: 'design', label: 'DesignTool 파일 열기', shortcut: '⌃F', enabled: false },
-  ]},
+  {
+    category: '글로벌',
+    items: [
+      { id: 'cmdSpace', label: 'CommandPalette 열기', shortcut: '⌘Space', enabled: true },
+      { id: 'cmdH', label: '클립보드 히스토리', shortcut: '⌘⇧H', enabled: true },
+    ],
+  },
+  {
+    category: '확장 기능',
+    items: [
+      { id: 'codehost', label: 'CodeHost 빠른 접근', shortcut: '⌃G', enabled: false },
+      { id: 'workspace', label: 'WorkspaceEditor 검색', shortcut: '⌃N', enabled: true },
+      { id: 'design', label: 'DesignTool 파일 열기', shortcut: '⌃F', enabled: false },
+    ],
+  },
 ]
 
 type CommandPalettePrefs = Record<string, boolean>
@@ -1883,32 +2749,96 @@ function CommandPaletteShortcutPrefRender() {
   }
 
   return (
-    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', background: '#18181b', borderRadius: 14, overflow: 'hidden' }}>
-      <div style={{ padding: '14px 18px', borderBottom: '1px solid #27272a', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ fontSize: 16, fontWeight: 900, color: '#fff', letterSpacing: '-0.05em' }}>⚡</span>
+    <div
+      style={{
+        width: 400,
+        fontFamily: 'system-ui, sans-serif',
+        background: '#18181b',
+        borderRadius: 14,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          padding: '14px 18px',
+          borderBottom: '1px solid #27272a',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <span style={{ fontSize: 16, fontWeight: 900, color: '#fff', letterSpacing: '-0.05em' }}>
+          ⚡
+        </span>
         <span style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>단축키 환경설정</span>
-        <span style={{ marginLeft: 'auto', fontSize: 10, color: '#71717a', background: '#27272a', padding: '2px 8px', borderRadius: 6 }}>CommandPalette 패턴</span>
+        <span
+          style={{
+            marginLeft: 'auto',
+            fontSize: 10,
+            color: '#71717a',
+            background: '#27272a',
+            padding: '2px 8px',
+            borderRadius: 6,
+          }}
+        >
+          CommandPalette 패턴
+        </span>
       </div>
       {LAUNCHER_SHORTCUT_PREFS_191.map((cat) => (
         <div key={cat.category}>
-          <div style={{ padding: '10px 18px 4px', fontSize: 10, fontWeight: 700, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.07em' }}>
+          <div
+            style={{
+              padding: '10px 18px 4px',
+              fontSize: 10,
+              fontWeight: 700,
+              color: '#71717a',
+              textTransform: 'uppercase',
+              letterSpacing: '0.07em',
+            }}
+          >
             {cat.category}
           </div>
           {cat.items.map((item, i) => (
-            <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 18px', borderTop: i === 0 ? 'none' : '1px solid #27272a' }}>
+            <div
+              key={item.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '10px 18px',
+                borderTop: i === 0 ? 'none' : '1px solid #27272a',
+              }}
+            >
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 500, color: prefs[item.id] ? '#fff' : '#71717a' }}>{item.label}</div>
-                <div style={{ fontSize: 10, color: '#52525b', marginTop: 1, fontFamily: 'monospace' }}>{item.shortcut}</div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color: prefs[item.id] ? '#fff' : '#71717a',
+                  }}
+                >
+                  {item.label}
+                </div>
+                <div
+                  style={{ fontSize: 10, color: '#52525b', marginTop: 1, fontFamily: 'monospace' }}
+                >
+                  {item.shortcut}
+                </div>
               </div>
-              <Switch
-                checked={prefs[item.id]}
-                onChange={() => toggle(item.id)}
-              />
+              <Switch checked={prefs[item.id]} onChange={() => toggle(item.id)} />
             </div>
           ))}
         </div>
       ))}
-      <div style={{ padding: '10px 18px', borderTop: '1px solid #27272a', fontSize: 10, color: '#52525b', textAlign: 'right' }}>
+      <div
+        style={{
+          padding: '10px 18px',
+          borderTop: '1px solid #27272a',
+          fontSize: 10,
+          color: '#52525b',
+          textAlign: 'right',
+        }}
+      >
         {Object.values(prefs).filter(Boolean).length}개 단축키 활성화
       </div>
     </div>
@@ -1932,15 +2862,33 @@ export const CommandPalette_단축키_환경설정_다크_패널: Story = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const ACCESSIBLEKIT_LAUNCHER_NOTIF_191 = [
-  { id: 'deploy', label: '배포 완료', desc: 'DeployPlatform 배포 성공/실패 알림', channel: '이메일 + 슬랙' },
-  { id: 'review', label: 'PR 리뷰 요청', desc: 'CodeHost Pull Request 새 리뷰어 추가', channel: 'Slack' },
+  {
+    id: 'deploy',
+    label: '배포 완료',
+    desc: 'DeployPlatform 배포 성공/실패 알림',
+    channel: '이메일 + 슬랙',
+  },
+  {
+    id: 'review',
+    label: 'PR 리뷰 요청',
+    desc: 'CodeHost Pull Request 새 리뷰어 추가',
+    channel: 'Slack',
+  },
   { id: 'mention', label: '멘션', desc: '이슈/PR/댓글에서 나를 언급한 경우', channel: '이메일' },
-  { id: 'release', label: '릴리스 알림', desc: '새 패키지 버전 출시 알림', channel: 'CommandPalette' },
+  {
+    id: 'release',
+    label: '릴리스 알림',
+    desc: '새 패키지 버전 출시 알림',
+    channel: 'CommandPalette',
+  },
 ]
 
 function AppUICommandPaletteNotifRender() {
   const [enabled, setEnabled] = useState<Record<string, boolean>>({
-    deploy: true, review: true, mention: false, release: false,
+    deploy: true,
+    review: true,
+    mention: false,
+    release: false,
   })
   const [globalEnabled, setGlobalEnabled] = useState(true)
 
@@ -1948,7 +2896,9 @@ function AppUICommandPaletteNotifRender() {
     const next = !globalEnabled
     setGlobalEnabled(next)
     const newEnabled: Record<string, boolean> = {}
-    ACCESSIBLEKIT_LAUNCHER_NOTIF_191.forEach((n) => { newEnabled[n.id] = next })
+    ACCESSIBLEKIT_LAUNCHER_NOTIF_191.forEach((n) => {
+      newEnabled[n.id] = next
+    })
     setEnabled(newEnabled)
   }
 
@@ -1957,15 +2907,38 @@ function AppUICommandPaletteNotifRender() {
   }
 
   return (
-    <div style={{ width: 400, fontFamily: 'system-ui, sans-serif', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', background: '#fff' }}>
+    <div
+      style={{
+        width: 400,
+        fontFamily: 'system-ui, sans-serif',
+        border: '1px solid #e2e8f0',
+        borderRadius: 14,
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
       {/* Global toggle header */}
-      <div style={{ padding: '14px 20px', background: globalEnabled ? '#f0fdf4' : '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 12, transition: 'background 200ms' }}>
+      <div
+        style={{
+          padding: '14px 20px',
+          background: globalEnabled ? '#f0fdf4' : '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          transition: 'background 200ms',
+        }}
+      >
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>알림 설정</div>
-          <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>AppUI + CommandPalette 패턴</div>
+          <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>
+            AppUI + CommandPalette 패턴
+          </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 11, color: globalEnabled ? '#16a34a' : '#94a3b8', fontWeight: 600 }}>
+          <span
+            style={{ fontSize: 11, color: globalEnabled ? '#16a34a' : '#94a3b8', fontWeight: 600 }}
+          >
             {globalEnabled ? '전체 켜짐' : '전체 꺼짐'}
           </span>
           <Switch checked={globalEnabled} onChange={toggleGlobal} />
@@ -1976,12 +2949,23 @@ function AppUICommandPaletteNotifRender() {
         {ACCESSIBLEKIT_LAUNCHER_NOTIF_191.map((notif, i) => (
           <div
             key={notif.id}
-            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 0', borderBottom: i < ACCESSIBLEKIT_LAUNCHER_NOTIF_191.length - 1 ? '1px solid #f1f5f9' : 'none', opacity: globalEnabled ? 1 : 0.4, transition: 'opacity 200ms' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '11px 0',
+              borderBottom:
+                i < ACCESSIBLEKIT_LAUNCHER_NOTIF_191.length - 1 ? '1px solid #f1f5f9' : 'none',
+              opacity: globalEnabled ? 1 : 0.4,
+              transition: 'opacity 200ms',
+            }}
           >
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 500, color: '#0f172a' }}>{notif.label}</div>
               <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 1 }}>{notif.desc}</div>
-              <div style={{ fontSize: 10, color: '#6366f1', marginTop: 3 }}>채널: {notif.channel}</div>
+              <div style={{ fontSize: 10, color: '#6366f1', marginTop: 3 }}>
+                채널: {notif.channel}
+              </div>
             </div>
             <Switch
               checked={enabled[notif.id] && globalEnabled}

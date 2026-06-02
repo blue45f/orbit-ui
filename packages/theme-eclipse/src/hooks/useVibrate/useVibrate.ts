@@ -24,8 +24,7 @@ export type UseVibrateReturn = {
  * ```
  */
 export function useVibrate(): UseVibrateReturn {
-  const supported =
-    typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function'
+  const supported = typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function'
 
   useEffect(() => {
     return () => {

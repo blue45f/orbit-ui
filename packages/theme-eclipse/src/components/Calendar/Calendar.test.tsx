@@ -28,13 +28,7 @@ describe('Calendar', () => {
     const user = userEvent.setup()
     const onMonthChange = vi.fn()
 
-    render(
-      <Calendar
-        mode="single"
-        month={new Date(2024, 0, 1)}
-        onMonthChange={onMonthChange}
-      />
-    )
+    render(<Calendar mode="single" month={new Date(2024, 0, 1)} onMonthChange={onMonthChange} />)
 
     await user.click(screen.getByRole('button', { name: '다음 달' }))
 
@@ -61,13 +55,7 @@ describe('Calendar', () => {
     const user = userEvent.setup()
     const onSelect = vi.fn()
 
-    render(
-      <Calendar
-        mode="single"
-        month={new Date(2024, 0, 1)}
-        onSelect={onSelect}
-      />
-    )
+    render(<Calendar mode="single" month={new Date(2024, 0, 1)} onSelect={onSelect} />)
 
     // 1일을 직접 찾기는 어려우니, gridcell 중 첫 번째 클릭 가능한 항목
     const cells = screen.getAllByRole('gridcell')
@@ -83,13 +71,7 @@ describe('Calendar', () => {
   })
 
   test('disabled prop으로 모든 날짜 비활성화 가능', () => {
-    render(
-      <Calendar
-        mode="single"
-        month={new Date(2024, 0, 1)}
-        disabled={true}
-      />
-    )
+    render(<Calendar mode="single" month={new Date(2024, 0, 1)} disabled={true} />)
 
     expect(screen.getByRole('grid')).toBeInTheDocument()
   })

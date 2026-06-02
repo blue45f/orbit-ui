@@ -13,7 +13,7 @@ describe('useEclipseTheme', () => {
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
 
     expect(() => renderHook(() => useEclipseTheme())).toThrow(
-      /useEclipseTheme must be called inside an <EclipseProvider>/,
+      /useEclipseTheme must be called inside an <EclipseProvider>/
     )
 
     consoleError.mockRestore()
@@ -41,9 +41,7 @@ describe('useEclipseTheme', () => {
 
   test('platform=pc가 컨텍스트에 반영된다', () => {
     const { result } = renderHook(() => useEclipseTheme(), {
-      wrapper: ({ children }) => (
-        <EclipseProvider platform="pc">{children}</EclipseProvider>
-      ),
+      wrapper: ({ children }) => <EclipseProvider platform="pc">{children}</EclipseProvider>,
     })
 
     expect(result.current.platform).toBe('pc')
@@ -51,9 +49,7 @@ describe('useEclipseTheme', () => {
 
   test('baseTextSize=large가 컨텍스트에 반영된다', () => {
     const { result } = renderHook(() => useEclipseTheme(), {
-      wrapper: ({ children }) => (
-        <EclipseProvider baseTextSize="large">{children}</EclipseProvider>
-      ),
+      wrapper: ({ children }) => <EclipseProvider baseTextSize="large">{children}</EclipseProvider>,
     })
 
     expect(result.current.baseTextSize).toBe('large')

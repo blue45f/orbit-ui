@@ -3,10 +3,7 @@ import React, { forwardRef, PropsWithChildren, Children } from 'react'
 
 import { Typography } from '../Text'
 
-const hasComponent = (
-  children: React.ReactNode,
-  components: React.ElementType[]
-): boolean =>
+const hasComponent = (children: React.ReactNode, components: React.ElementType[]): boolean =>
   Children.toArray(children).some((child) => {
     if (!React.isValidElement(child)) return false
     if (components.includes(child.type as React.ElementType)) return true
@@ -46,7 +43,9 @@ export const AlertRoot = forwardRef<HTMLDivElement, AlertProps>((props, forwarde
     >
       {trigger}
       <CoreAlertDialog.Content ref={forwardedRef} {...rest}>
-        {!hasTitle && <CoreAlertDialog.Title className="sr-only">Alert dialog</CoreAlertDialog.Title>}
+        {!hasTitle && (
+          <CoreAlertDialog.Title className="sr-only">Alert dialog</CoreAlertDialog.Title>
+        )}
         {!hasDescription && (
           <CoreAlertDialog.Description className="sr-only">
             Confirm or dismiss this dialog.

@@ -23,9 +23,9 @@ export type UsePointerLockReturn = {
  * }
  * ```
  */
-export function usePointerLock<T extends Element = Element>(
-  ref: { current: T | null }
-): UsePointerLockReturn {
+export function usePointerLock<T extends Element = Element>(ref: {
+  current: T | null
+}): UsePointerLockReturn {
   const supported = typeof document !== 'undefined' && 'pointerLockElement' in document
   const [isLocked, setIsLocked] = useState(false)
 

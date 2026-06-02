@@ -17,9 +17,7 @@ describe('useCssVariable', () => {
       getPropertyValue: vi.fn().mockReturnValue(''),
     } as unknown as CSSStyleDeclaration)
 
-    const { result } = renderHook(() =>
-      useCssVariable('--color-primary', nullRef),
-    )
+    const { result } = renderHook(() => useCssVariable('--color-primary', nullRef))
     expect(result.current[0]).toBe('')
   })
 

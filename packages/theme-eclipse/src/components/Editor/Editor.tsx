@@ -3,13 +3,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import CharacterCount from '@tiptap/extension-character-count'
 import Link from '@tiptap/extension-link'
-import {
-  CSSProperties,
-  ReactNode,
-  useCallback,
-  createContext,
-  useContext,
-} from 'react'
+import { CSSProperties, ReactNode, useCallback, createContext, useContext } from 'react'
 
 /* ── Context ─────────────────────────────────────────────── */
 
@@ -251,9 +245,7 @@ const ToolbarButton = ({
       height: 28,
       borderRadius: 4,
       border: 'none',
-      background: active
-        ? 'var(--sem-eclipse-color-fillPrimary)'
-        : 'transparent',
+      background: active ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent',
       color: active
         ? 'var(--sem-eclipse-color-backgroundPrimary)'
         : 'var(--sem-eclipse-color-foregroundSecondary)',
@@ -415,11 +407,7 @@ const EditorToolbar = ({ extra }: EditorToolbarProps) => {
       <Divider />
 
       {/* Link */}
-      <ToolbarButton
-        title="링크 삽입"
-        active={editor.isActive('link')}
-        onClick={setLink}
-      >
+      <ToolbarButton title="링크 삽입" active={editor.isActive('link')} onClick={setLink}>
         🔗
       </ToolbarButton>
 

@@ -387,7 +387,10 @@ const DropdownLabel = forwardRef<HTMLDivElement, DropdownLabelProps>(
   ({ children, className, style, ...rest }, ref) => (
     <DropdownMenu.Label
       ref={ref}
-      className={cn('px-4 py-2 text-xs font-semibold text-[var(--sem-eclipse-color-foregroundTertiary)]', className)}
+      className={cn(
+        'px-4 py-2 text-xs font-semibold text-[var(--sem-eclipse-color-foregroundTertiary)]',
+        className
+      )}
       style={style}
       {...rest}
     >

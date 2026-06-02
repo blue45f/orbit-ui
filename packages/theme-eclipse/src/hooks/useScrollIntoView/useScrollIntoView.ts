@@ -45,7 +45,7 @@ export type ScrollIntoViewTrigger = (override?: UseScrollIntoViewOptions) => voi
  */
 export function useScrollIntoView<T extends HTMLElement>(
   ref: RefObject<T | null>,
-  options: UseScrollIntoViewOptions = {},
+  options: UseScrollIntoViewOptions = {}
 ): ScrollIntoViewTrigger {
   const { behavior = 'smooth', block = 'start', inline = 'nearest', offset = 0 } = options
 
@@ -76,6 +76,6 @@ export function useScrollIntoView<T extends HTMLElement>(
       const top = rect.top + window.scrollY - finalOffset
       window.scrollTo({ top, behavior: finalBehavior })
     },
-    [ref, behavior, block, inline, offset],
+    [ref, behavior, block, inline, offset]
   )
 }
