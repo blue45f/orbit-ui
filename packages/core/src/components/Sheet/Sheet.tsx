@@ -6,6 +6,7 @@ import {
   PropsWithChildren,
   useCallback,
   cloneElement,
+  isValidElement,
 } from 'react'
 
 import { cn } from '../../styles'
@@ -116,6 +117,17 @@ export const SheetRoot = forwardRef<HTMLDivElement, SheetProps>(
       ],
     })
 
+    // 다이얼로그 접근성 이름: 헤더가 있으면 헤더에 id를 부여하고 aria-labelledby로 참조한다.
+    const headerId = `${id}-title`
+    const labelledBy =
+      header && isValidElement(header)
+        ? ((header.props as { id?: string }).id ?? headerId)
+        : undefined
+    const headerElement =
+      header && isValidElement(header)
+        ? cloneElement(header as React.ReactElement<{ id?: string }>, { id: labelledBy })
+        : header
+
     const className = cn(
       'fixed bottom-0 left-0 right-0',
       'rounded-t-xl',
@@ -144,6 +156,7 @@ export const SheetRoot = forwardRef<HTMLDivElement, SheetProps>(
             <OverlayContainerLayer
               role="dialog"
               aria-modal="true"
+              aria-labelledby={labelledBy}
               {...rest}
               ref={forwardedRef}
               id={id}
@@ -155,7 +168,7 @@ export const SheetRoot = forwardRef<HTMLDivElement, SheetProps>(
               elevation={elevation}
             >
               <ContentLayer direction="vertical" alignment="top" arrangement="start">
-                {header}
+                {headerElement}
                 {content}
                 {footer}
               </ContentLayer>
