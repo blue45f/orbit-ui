@@ -55,6 +55,24 @@ pnpm gen          # Generate new component scaffolding
 pnpm changeset    # Create a changeset for versioning
 ```
 
+## 라이브러리 (용도별)
+
+배포되는 디자인 시스템이므로 의존성은 용도별로 최소화해 관리합니다. (버전은 각 `package.json`/catalog 기준)
+
+| 용도 | 라이브러리 | 비고 |
+|------|-----------|------|
+| 프레임워크 | `react` / `react-dom` 19.2 | peer는 `^18 || ^19`. React Compiler 친화적으로 작성(렌더 중 ref 변경 등은 `eslint-plugin-react-hooks@7`의 `react-hooks/refs`로 검출) |
+| 유틸리티 | `es-toolkit` (core), `dequal` (theme-eclipse) | `es-toolkit`: 범용 함수형 유틸. `dequal`: zero-dep 깊은 비교(키 순서·함수·undefined·Map/Set 안전) — `useDeepCompareEffect` 등 깊은 비교 의존성에 사용 |
+| 스타일 결합 | `clsx`, `tailwind-merge`, `class-variance-authority` | 클래스 병합(`cn`)·변형(variants) |
+| 애니메이션 | `framer-motion`, `tailwindcss-animate`, `lottie-web` | 모션·로띠 |
+| 날짜 | `date-fns` | 캘린더/날짜 입력 |
+| 빌드 | `vite` + `tsc`(`build:dts`) | 번들은 Vite(rollup), 타입 선언은 `tsc -p tsconfig.dts.json`. (tsup 미사용) |
+| 버전 관리 | `@changesets/cli` | 패키지별 버전 범프/릴리스 |
+| 문서/시각 테스트 | `storybook` (10.x) + `@storybook/react-vite`, addon-a11y/docs/links | 컴포넌트 문서·플레이그라운드 |
+| 비주얼 회귀 | `@playwright/test` | theme-eclipse `test:e2e` 스냅샷 |
+| 단위 테스트 | `vitest` + `@testing-library/*`, `jsdom` | `cn()` 기반 단위·훅 테스트 |
+| 품질 | `eslint`(+react/react-hooks/import plugins), `prettier`, `husky` + `lint-staged`, `commitlint` | pre-commit lint/format, pre-push 풀 verify |
+
 ## Component File Structure
 
 Each component follows this structure:

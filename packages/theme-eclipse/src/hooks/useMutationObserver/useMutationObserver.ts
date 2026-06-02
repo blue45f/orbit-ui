@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 
+import { useDeepCompareMemoize } from '../_internal/useDeepCompareMemoize'
+
 /**
  * DOM 요소의 변이(mutation)를 MutationObserver로 감시합니다.
  *
@@ -26,14 +28,15 @@ export function useMutationObserver(
     callbackRef.current = callback
   }, [callback])
 
+  const memoizedOptions = useDeepCompareMemoize(options)
+
   useEffect(() => {
     const node = ref.current
     if (!node || typeof MutationObserver === 'undefined') return
 
     const observer = new MutationObserver((...args) => callbackRef.current(...args))
-    observer.observe(node, options)
+    observer.observe(node, memoizedOptions)
 
     return () => observer.disconnect()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref, JSON.stringify(options)])
+  }, [ref, memoizedOptions])
 }

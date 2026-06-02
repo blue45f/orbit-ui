@@ -1,4 +1,6 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import { useDeepCompareMemoize } from '../_internal/useDeepCompareMemoize'
 
 export type UseGeolocationState = {
   loading: boolean
@@ -46,11 +48,8 @@ export function useGeolocation(options?: UseGeolocationOptions): UseGeolocationS
     timestamp: null,
   }))
 
-  const optionsRef = useRef(options)
-  useLayoutEffect(() => { optionsRef.current = options })
-
-  // Stringify options so object-identity changes don't cause unnecessary re-subscribes
-  const optionsKey = JSON.stringify(options)
+  // Deep-compare options so object-identity changes don't cause unnecessary re-subscribes
+  const memoizedOptions = useDeepCompareMemoize(options)
 
   useEffect(() => {
     if (!isSupported) return
@@ -82,13 +81,12 @@ export function useGeolocation(options?: UseGeolocationOptions): UseGeolocationS
       })
     }
 
-    const watchId = navigator.geolocation.watchPosition(onSuccess, onError, optionsRef.current)
+    const watchId = navigator.geolocation.watchPosition(onSuccess, onError, memoizedOptions)
 
     return () => {
       navigator.geolocation.clearWatch(watchId)
     }
-     
-  }, [isSupported, optionsKey])
+  }, [isSupported, memoizedOptions])
 
   return state
 }
