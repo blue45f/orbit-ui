@@ -26,7 +26,7 @@ const DrawerOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay
     className={cn(
-      'fixed inset-0 z-[400] bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      'fixed inset-0 z-[400] bg-[var(--sem-eclipse-color-overlayPrimary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className
     )}
     {...props}
@@ -62,7 +62,7 @@ const DrawerContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          'fixed z-[400] gap-4 bg-white p-6 shadow-2xl transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out dark:bg-slate-950 dark:border-slate-800',
+          'fixed z-[400] gap-4 border-[var(--sem-eclipse-color-borderTertiary)] bg-[var(--sem-eclipse-color-surfaceContainer)] p-6 shadow-[var(--sem-eclipse-shadow-level3)] transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out',
           sideClasses[side],
           className
         )}
@@ -73,7 +73,7 @@ const DrawerContent = React.forwardRef<
           <DrawerDescription className="sr-only">Supplementary panel content.</DrawerDescription>
         )}
         {children}
-        <DrawerClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-slate-100 dark:ring-offset-slate-950 dark:focus:ring-slate-300 dark:data-[state=open]:bg-slate-800">
+        <DrawerClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-[var(--sem-eclipse-color-surfaceContainer)] transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[var(--sem-eclipse-color-systemMainPrimary)] focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-[var(--sem-eclipse-color-fillSecondary)]">
           <CancelIcon className="h-4 w-4" tone="soft" />
           <span className="sr-only">Close</span>
         </DrawerClose>
@@ -102,7 +102,7 @@ const DrawerTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn('text-lg font-semibold text-slate-950 dark:text-slate-50', className)}
+    className={cn('text-lg font-semibold text-[var(--sem-eclipse-color-foregroundPrimary)]', className)}
     {...props}
   />
 ))
@@ -114,7 +114,7 @@ const DrawerDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn('text-sm text-slate-500 dark:text-slate-400', className)}
+    className={cn('text-sm text-[var(--sem-eclipse-color-foregroundSecondary)]', className)}
     {...props}
   />
 ))

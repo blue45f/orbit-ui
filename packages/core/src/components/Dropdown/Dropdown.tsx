@@ -316,7 +316,7 @@ const DropdownContent = forwardRef<HTMLDivElement, DropdownContentProps>(
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          'z-50 min-w-[8rem] overflow-hidden rounded-lg border bg-white shadow-md',
+          'z-50 min-w-[8rem] overflow-hidden rounded-lg border border-[var(--sem-eclipse-color-borderTertiary)] bg-[var(--sem-eclipse-color-surfaceContainer)] text-[var(--sem-eclipse-color-foregroundPrimary)] shadow-[var(--sem-eclipse-shadow-level2)]',
           'data-[state=open]:animate-in data-[state=closed]:animate-out',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
           'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
@@ -349,7 +349,7 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
       onSelect={onSelect}
       className={cn(
         'relative flex cursor-pointer select-none items-center px-4 py-2 text-sm outline-none',
-        'transition-colors focus:bg-gray-100',
+        'transition-colors focus:bg-[var(--sem-eclipse-color-fillSecondary)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className
       )}
@@ -370,7 +370,7 @@ const DropdownSeparator = forwardRef<HTMLDivElement, DropdownSeparatorProps>(
   ({ className, style, ...rest }, ref) => (
     <DropdownMenu.Separator
       ref={ref}
-      className={cn('h-px my-1 bg-gray-200', className)}
+      className={cn('h-px my-1 bg-[var(--sem-eclipse-color-borderTertiary)]', className)}
       style={style}
       {...rest}
     />
@@ -387,7 +387,7 @@ const DropdownLabel = forwardRef<HTMLDivElement, DropdownLabelProps>(
   ({ children, className, style, ...rest }, ref) => (
     <DropdownMenu.Label
       ref={ref}
-      className={cn('px-4 py-2 text-xs font-semibold text-gray-500', className)}
+      className={cn('px-4 py-2 text-xs font-semibold text-[var(--sem-eclipse-color-foregroundTertiary)]', className)}
       style={style}
       {...rest}
     >

@@ -68,7 +68,7 @@ export const Scrim = forwardRef<HTMLDivElement, ScrimProps>(
 
     const className = cn(
       'fixed inset-0',
-      'bg-black/50',
+      'bg-[var(--sem-eclipse-color-overlayPrimary)]',
       'transition-opacity duration-200',
       classNameProp
     )

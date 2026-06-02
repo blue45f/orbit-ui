@@ -10,12 +10,12 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            'group toast group-[.toaster]:bg-white group-[.toaster]:text-slate-950 group-[.toaster]:border-slate-200 group-[.toaster]:shadow-lg dark:group-[.toaster]:bg-slate-950 dark:group-[.toaster]:text-slate-50 dark:group-[.toaster]:border-slate-800',
-          description: 'group-[.toast]:text-slate-500 dark:group-[.toast]:text-slate-400',
+            'group toast group-[.toaster]:bg-[var(--sem-eclipse-color-surfaceContainer)] group-[.toaster]:text-[var(--sem-eclipse-color-foregroundPrimary)] group-[.toaster]:border-[var(--sem-eclipse-color-borderTertiary)] group-[.toaster]:shadow-[var(--sem-eclipse-shadow-level2)]',
+          description: 'group-[.toast]:text-[var(--sem-eclipse-color-foregroundSecondary)]',
           actionButton:
-            'group-[.toast]:bg-slate-900 group-[.toast]:text-slate-50 dark:group-[.toast]:bg-slate-50 dark:group-[.toast]:text-slate-900',
+            'group-[.toast]:bg-[var(--sem-eclipse-color-foregroundPrimary)] group-[.toast]:text-[var(--sem-eclipse-color-foregroundInverted)]',
           cancelButton:
-            'group-[.toast]:bg-slate-100 group-[.toast]:text-slate-500 dark:group-[.toast]:bg-slate-800 dark:group-[.toast]:text-slate-400',
+            'group-[.toast]:bg-[var(--sem-eclipse-color-fillSecondary)] group-[.toast]:text-[var(--sem-eclipse-color-foregroundSecondary)]',
         },
       }}
       {...props}
