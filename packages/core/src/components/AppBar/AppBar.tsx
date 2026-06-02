@@ -37,7 +37,10 @@ export type AppBarProps = AppBarSpecificProps & {
 const InternalAppBarRoot = forwardRef<HTMLElement, AppBarProps>((props, ref) => {
   const { children, maxWidth, theme, style: styleProp, className: classProp, ...rest } = props
 
-  const className = cn('relative w-full backdrop-blur-md', classProp)
+  const className = cn(
+    'relative w-full border-b border-b-[var(--sem-eclipse-color-borderTertiary)]',
+    classProp
+  )
 
   const style: React.CSSProperties = {
     backgroundColor: theme?.fillColor,

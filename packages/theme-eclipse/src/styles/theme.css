@@ -175,9 +175,9 @@
   --sem-eclipse-color-systemMainPrimary: #2563EB;
   --sem-eclipse-color-systemMainSecondary: #64748B;
   --sem-eclipse-color-systemMainTertiary: #DBEAFE;
-  --sem-eclipse-color-systemSubPrimary: #6366F1;
-  --sem-eclipse-color-systemSubSecondary: #818CF8;
-  --sem-eclipse-color-systemSubTertiary: #E0E7FF;
+  --sem-eclipse-color-systemSubPrimary: var(--ref-color-blue5);
+  --sem-eclipse-color-systemSubSecondary: var(--ref-color-blue3);
+  --sem-eclipse-color-systemSubTertiary: var(--ref-color-blue2);
   --sem-eclipse-color-warningPrimary: var(--ref-color-orange5);
   --sem-eclipse-color-warningSecondary: var(--ref-color-orange6);
   --sem-eclipse-color-warningTertiary: var(--ref-color-orange1);
@@ -1110,9 +1110,9 @@
   --sem-eclipse-color-systemMainPrimary: #60A5FA;
   --sem-eclipse-color-systemMainSecondary: #94A3B8;
   --sem-eclipse-color-systemMainTertiary: #1E3A5F;
-  --sem-eclipse-color-systemSubPrimary: #818CF8;
-  --sem-eclipse-color-systemSubSecondary: #A5B4FC;
-  --sem-eclipse-color-systemSubTertiary: #312E81;
+  --sem-eclipse-color-systemSubPrimary: var(--ref-color-blue5);
+  --sem-eclipse-color-systemSubSecondary: var(--ref-color-blue3);
+  --sem-eclipse-color-systemSubTertiary: var(--ref-color-blue2);
   --sem-eclipse-color-warningPrimary: var(--ref-color-orange5);
   --sem-eclipse-color-warningSecondary: var(--ref-color-orange6);
   --sem-eclipse-color-warningTertiary: var(--ref-color-orange1);

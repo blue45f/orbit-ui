@@ -117,7 +117,7 @@ const tc = {
   border: 'var(--sem-eclipse-color-borderPrimary, #e2e8f0)',
   borderSub: 'var(--sem-eclipse-color-borderSecondary, #f1f5f9)',
   separator: 'var(--sem-eclipse-color-separatorPrimary, #e2e8f0)',
-  fillPrimary: 'var(--sem-eclipse-color-fillPrimary, #6366f1)',
+  fillPrimary: 'var(--sem-eclipse-color-fillPrimary, #2563eb)',
 }
 
 /* ═══════════════════════════════════════════
