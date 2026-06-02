@@ -5,6 +5,7 @@ import {
   cleanup,
   createMockIntersectionObserver,
   createMockResizeObserver,
+  fireEvent,
   render,
   screen,
 } from '../../test-utils'
@@ -147,6 +148,190 @@ describe('Carousel', () => {
 
       // embla-carousel-react may or may not init in jsdom; just verify component
       expect(screen.getByRole('region')).toBeInTheDocument()
+    })
+  })
+
+  describe('aria-live', () => {
+    it('Content 트랙에 aria-live="polite", aria-atomic="false"가 설정되어야 한다', () => {
+      render(
+        <Carousel data-testid="cr">
+          <Carousel.Content data-testid="track">
+            <Carousel.Item>Item 1</Carousel.Item>
+            <Carousel.Item>Item 2</Carousel.Item>
+          </Carousel.Content>
+        </Carousel>
+      )
+
+      const track = screen.getByTestId('track')
+      expect(track).toHaveAttribute('aria-live', 'polite')
+      expect(track).toHaveAttribute('aria-atomic', 'false')
+    })
+  })
+
+  describe('autoPlay', () => {
+    // autoPlay 는 embla api 를 통해 슬라이드를 전환한다. jsdom 에서는 레이아웃이 없어
+    // 실제 이동 대신 api.scrollNext / api.scrollTo 호출 여부로 자동 전환 동작을 검증한다.
+    const renderAutoPlay = (interval = 1000) => {
+      let api: { scrollNext: ReturnType<typeof vi.spyOn>; scrollTo: ReturnType<typeof vi.spyOn> } = {
+        scrollNext: undefined as never,
+        scrollTo: undefined as never,
+      }
+      render(
+        <Carousel
+          autoPlay
+          autoPlayInterval={interval}
+          setApi={(a) => {
+            if (!a) return
+            api = {
+              scrollNext: vi.spyOn(a, 'scrollNext'),
+              scrollTo: vi.spyOn(a, 'scrollTo'),
+            }
+          }}
+        >
+          <Carousel.Content>
+            <Carousel.Item>Item 1</Carousel.Item>
+            <Carousel.Item>Item 2</Carousel.Item>
+            <Carousel.Item>Item 3</Carousel.Item>
+          </Carousel.Content>
+        </Carousel>
+      )
+      return api
+    }
+
+    // 매 tick 마다 scrollNext 또는 scrollTo(loop 복귀) 중 하나가 호출됨
+    const advances = (api: {
+      scrollNext: ReturnType<typeof vi.spyOn>
+      scrollTo: ReturnType<typeof vi.spyOn>
+    }) => api.scrollNext.mock.calls.length + api.scrollTo.mock.calls.length
+
+    it('autoPlay 가 켜지면 interval 마다 슬라이드가 전진한다', () => {
+      vi.useFakeTimers()
+      try {
+        const api = renderAutoPlay(1000)
+        expect(advances(api)).toBe(0)
+
+        vi.advanceTimersByTime(1000)
+        expect(advances(api)).toBe(1)
+
+        vi.advanceTimersByTime(1000)
+        expect(advances(api)).toBe(2)
+      } finally {
+        vi.useRealTimers()
+      }
+    })
+
+    it('포인터가 올라오면(pointer-enter) 자동 전환이 일시정지된다', () => {
+      vi.useFakeTimers()
+      try {
+        const api = renderAutoPlay(1000)
+
+        vi.advanceTimersByTime(1000)
+        expect(advances(api)).toBe(1)
+
+        // 호버 → 일시정지
+        fireEvent.pointerEnter(screen.getByRole('region'))
+        api.scrollNext.mockClear()
+        api.scrollTo.mockClear()
+
+        vi.advanceTimersByTime(3000)
+        expect(advances(api)).toBe(0)
+
+        // 호버 해제 → 재개
+        fireEvent.pointerLeave(screen.getByRole('region'))
+        vi.advanceTimersByTime(1000)
+        expect(advances(api)).toBeGreaterThanOrEqual(1)
+      } finally {
+        vi.useRealTimers()
+      }
+    })
+
+    it('autoPlay 가 꺼져 있으면 interval 이 동작하지 않는다', () => {
+      vi.useFakeTimers()
+      try {
+        let spies: {
+          scrollNext: ReturnType<typeof vi.spyOn>
+          scrollTo: ReturnType<typeof vi.spyOn>
+        } | null = null
+        render(
+          <Carousel
+            setApi={(a) => {
+              if (!a) return
+              spies = {
+                scrollNext: vi.spyOn(a, 'scrollNext'),
+                scrollTo: vi.spyOn(a, 'scrollTo'),
+              }
+            }}
+          >
+            <Carousel.Content>
+              <Carousel.Item>Item 1</Carousel.Item>
+              <Carousel.Item>Item 2</Carousel.Item>
+            </Carousel.Content>
+          </Carousel>
+        )
+
+        vi.advanceTimersByTime(10000)
+        expect(spies).not.toBeNull()
+        expect(spies!.scrollNext.mock.calls.length + spies!.scrollTo.mock.calls.length).toBe(0)
+      } finally {
+        vi.useRealTimers()
+      }
+    })
+
+    it('PlayToggle 는 autoPlay 가 꺼져 있으면 렌더되지 않는다', () => {
+      render(
+        <Carousel>
+          <Carousel.Content>
+            <Carousel.Item>Item 1</Carousel.Item>
+          </Carousel.Content>
+          <Carousel.PlayToggle />
+        </Carousel>
+      )
+
+      expect(screen.queryByRole('button', { name: /자동 재생/ })).not.toBeInTheDocument()
+    })
+
+    it('PlayToggle 로 자동 전환을 일시정지/재개할 수 있다', () => {
+      vi.useFakeTimers()
+      try {
+        let api: {
+          scrollNext: ReturnType<typeof vi.spyOn>
+          scrollTo: ReturnType<typeof vi.spyOn>
+        } | null = null
+        render(
+          <Carousel
+            autoPlay
+            autoPlayInterval={1000}
+            setApi={(a) => {
+              if (!a) return
+              api = {
+                scrollNext: vi.spyOn(a, 'scrollNext'),
+                scrollTo: vi.spyOn(a, 'scrollTo'),
+              }
+            }}
+          >
+            <Carousel.Content>
+              <Carousel.Item>Item 1</Carousel.Item>
+              <Carousel.Item>Item 2</Carousel.Item>
+            </Carousel.Content>
+            <Carousel.PlayToggle />
+          </Carousel>
+        )
+
+        const toggle = screen.getByRole('button', { name: '자동 재생 일시정지' })
+        expect(toggle).toHaveAttribute('aria-pressed', 'false')
+
+        // 일시정지
+        fireEvent.click(toggle)
+        api!.scrollNext.mockClear()
+        api!.scrollTo.mockClear()
+        vi.advanceTimersByTime(3000)
+        expect(api!.scrollNext.mock.calls.length + api!.scrollTo.mock.calls.length).toBe(0)
+        expect(
+          screen.getByRole('button', { name: '자동 재생 시작' })
+        ).toHaveAttribute('aria-pressed', 'true')
+      } finally {
+        vi.useRealTimers()
+      }
     })
   })
 })

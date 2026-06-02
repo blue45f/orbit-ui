@@ -34,6 +34,10 @@ export interface DataTableProps<TData, TValue>
   enablePagination?: boolean
   /** 페이지당 행 개수 */
   pageSize?: number
+  /** 에러 상태. true 이면 errorMessage 가 표 본문에 노출된다 (loading 다음 우선순위) */
+  error?: boolean
+  /** 에러 상태에서 표 본문에 노출되는 메시지 (role="alert") @default "데이터를 불러오지 못했습니다." */
+  errorMessage?: ReactNode
   /** 표 설명 (스크린 리더용 caption) */
   caption?: ReactNode
   /** aria-label - caption 대신 사용할 수 있는 접근 가능한 이름 */
@@ -75,6 +79,8 @@ function DataTableInner<TData, TValue>(
     className,
     loading = false,
     skeletonCount = 5,
+    error = false,
+    errorMessage = '데이터를 불러오지 못했습니다.',
     enableSorting = true,
     enableRowSelection = true,
     enablePagination = false,
@@ -186,6 +192,16 @@ function DataTableInner<TData, TValue>(
                   ))}
                 </tr>
               ))
+            ) : error ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  role="alert"
+                  className="h-32 text-center align-middle font-medium text-status-negative"
+                >
+                  {errorMessage}
+                </td>
+              </tr>
             ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
                 const selected = row.getIsSelected()

@@ -93,6 +93,44 @@ describe('DataTable', () => {
     expect(screen.getByText('데이터 없음')).toBeInTheDocument()
   })
 
+  test('error 상태에서 errorMessage 가 role="alert" 로 노출된다', () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={[]}
+        aria-label="users"
+        error
+        errorMessage="불러오기 실패"
+      />
+    )
+    const alert = screen.getByRole('alert')
+    expect(alert).toHaveTextContent('불러오기 실패')
+  })
+
+  test('error 가 켜져도 데이터 대신 에러 메시지가 우선 노출된다', () => {
+    render(
+      <DataTable columns={columns} data={data} aria-label="users" error errorMessage="에러" />
+    )
+    expect(screen.getByText('에러')).toBeInTheDocument()
+    expect(screen.queryByText('김철수')).not.toBeInTheDocument()
+  })
+
+  test('loading 이 error 보다 우선한다 (loading > error)', () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={[]}
+        aria-label="users"
+        loading
+        error
+        errorMessage="에러"
+        skeletonCount={2}
+      />
+    )
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+    expect(screen.getByRole('table')).toHaveAttribute('aria-busy', 'true')
+  })
+
   test('caption 이 전달되면 테이블 caption 으로 렌더된다', () => {
     render(
       <DataTable

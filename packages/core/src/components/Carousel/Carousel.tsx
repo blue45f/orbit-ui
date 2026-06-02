@@ -1,6 +1,6 @@
 import * as React from 'react'
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
-import { ArrowLeftIcon, ArrowRightIcon } from '@heejun-com/icons'
+import { ArrowLeftIcon, ArrowRightIcon, PauseLineIcon, PlayFillIcon } from '@heejun-com/icons'
 
 import { cn } from '../../styles'
 
@@ -14,6 +14,18 @@ type CarouselProps = {
   plugins?: CarouselPlugin
   orientation?: 'horizontal' | 'vertical'
   setApi?: (api: CarouselApi) => void
+  /** 자동 재생 활성화 (opt-in). prefers-reduced-motion 환경에서는 무시된다. */
+  autoPlay?: boolean
+  /** 자동 재생 간격(ms) @default 4000 */
+  autoPlayInterval?: number
+}
+
+/** prefers-reduced-motion 사용자 환경이면 true */
+function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    return false
+  }
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
 type CarouselContextProps = {
@@ -23,6 +35,12 @@ type CarouselContextProps = {
   scrollNext: () => void
   canScrollPrev: boolean
   canScrollNext: boolean
+  /** 자동 재생 사용 여부 (autoPlay prop). reduced-motion 으로 비활성된 경우 false */
+  autoPlayEnabled: boolean
+  /** 현재 슬라이드가 자동 전환 중인지 여부 (일시정지/탭 비표시 시 false) */
+  isPlaying: boolean
+  /** 자동 재생 일시정지/재개 토글 (autoPlay 가 켜졌을 때만 의미 있음) */
+  toggleAutoPlay: () => void
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -40,7 +58,21 @@ function useCarousel() {
 const CarouselRoot = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & CarouselProps
->(({ orientation = 'horizontal', opts, setApi, plugins, className, children, ...props }, ref) => {
+>(
+  (
+    {
+      orientation = 'horizontal',
+      opts,
+      setApi,
+      plugins,
+      autoPlay = false,
+      autoPlayInterval = 4000,
+      className,
+      children,
+      ...props
+    },
+    ref
+  ) => {
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
@@ -50,6 +82,21 @@ const CarouselRoot = React.forwardRef<
   )
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
+
+  // reduced-motion 환경이면 autoPlay 를 강제로 끈다.
+  const autoPlayEnabled = autoPlay && !prefersReducedMotion()
+
+  // 사용자가 수동으로 일시정지했는지 (pause/play 토글)
+  const [paused, setPaused] = React.useState(false)
+  // 포인터 호버 / 포커스 인 시 일시정지
+  const [interacting, setInteracting] = React.useState(false)
+
+  // 실제 자동 전환이 동작 중인지: autoPlay 켜짐 && 수동 일시정지 아님 && 상호작용 중 아님
+  const isPlaying = autoPlayEnabled && !paused && !interacting
+
+  const toggleAutoPlay = React.useCallback(() => {
+    setPaused((prev) => !prev)
+  }, [])
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) {
@@ -105,6 +152,25 @@ const CarouselRoot = React.forwardRef<
     }
   }, [api, onSelect])
 
+  // 자동 재생: isPlaying 동안 interval 로 다음 슬라이드로 전환한다.
+  // 루프(opts.loop)가 꺼져 있고 마지막 슬라이드면 처음으로 되돌려 순환을 유지한다.
+  // 일시정지/언마운트 시 interval 을 정리한다.
+  React.useEffect(() => {
+    if (!api || !isPlaying) {
+      return
+    }
+
+    const id = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext()
+      } else {
+        api.scrollTo(0)
+      }
+    }, autoPlayInterval)
+
+    return () => clearInterval(id)
+  }, [api, isPlaying, autoPlayInterval])
+
   const contextValue = React.useMemo(
     () => ({
       carouselRef,
@@ -115,9 +181,39 @@ const CarouselRoot = React.forwardRef<
       scrollNext,
       canScrollPrev,
       canScrollNext,
+      autoPlayEnabled,
+      isPlaying,
+      toggleAutoPlay,
     }),
-    [carouselRef, api, opts, orientation, scrollPrev, scrollNext, canScrollPrev, canScrollNext]
+    [
+      carouselRef,
+      api,
+      opts,
+      orientation,
+      scrollPrev,
+      scrollNext,
+      canScrollPrev,
+      canScrollNext,
+      autoPlayEnabled,
+      isPlaying,
+      toggleAutoPlay,
+    ]
   )
+
+  // 자동 재생 중 포인터 호버 / 포커스 인 시 일시정지, 벗어나면 재개한다.
+  const pauseHandlers = autoPlayEnabled
+    ? {
+        onPointerEnter: () => setInteracting(true),
+        onPointerLeave: () => setInteracting(false),
+        onFocusCapture: () => setInteracting(true),
+        onBlurCapture: (event: React.FocusEvent<HTMLDivElement>) => {
+          // 포커스가 캐러셀 외부로 나갈 때만 재개 (내부 이동은 유지)
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+            setInteracting(false)
+          }
+        },
+      }
+    : null
 
   return (
     <CarouselContext.Provider value={contextValue}>
@@ -128,13 +224,15 @@ const CarouselRoot = React.forwardRef<
         role="region"
         aria-roledescription="carousel"
         aria-label={props['aria-label'] ?? 'carousel'}
+        {...pauseHandlers}
         {...props}
       >
         {children}
       </div>
     </CarouselContext.Provider>
   )
-})
+  }
+)
 CarouselRoot.displayName = 'Carousel'
 
 const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
@@ -145,6 +243,9 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
       <div ref={carouselRef} className="overflow-hidden">
         <div
           ref={ref}
+          // 슬라이드 전환을 스크린 리더에 알린다 (자동/수동 모두). atomic=false 로 변경된 슬라이드만 announce.
+          aria-live="polite"
+          aria-atomic="false"
           className={cn(
             'flex',
             orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col',
@@ -233,9 +334,53 @@ const CarouselNext = React.forwardRef<
 })
 CarouselNext.displayName = 'CarouselNext'
 
+/**
+ * 자동 재생 일시정지/재개 토글. `autoPlay` 가 켜진 경우에만 렌더되며,
+ * 그 외에는 null 을 반환한다. aria-pressed 로 일시정지 상태를 표기한다.
+ */
+const CarouselPlayToggle = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+>(({ className, onClick, ...props }, ref) => {
+  const { autoPlayEnabled, isPlaying, toggleAutoPlay } = useCarousel()
+
+  if (!autoPlayEnabled) {
+    return null
+  }
+
+  const label = isPlaying ? '자동 재생 일시정지' : '자동 재생 시작'
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      aria-label={label}
+      aria-pressed={!isPlaying}
+      className={cn(
+        'absolute right-2 bottom-2 z-10 h-8 w-8 rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 flex items-center justify-center dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:text-slate-400 dark:focus-visible:ring-slate-300',
+        className
+      )}
+      onClick={(event) => {
+        toggleAutoPlay()
+        onClick?.(event)
+      }}
+      {...props}
+    >
+      {isPlaying ? (
+        <PauseLineIcon className="h-4 w-4" tone="soft" />
+      ) : (
+        <PlayFillIcon className="h-4 w-4" tone="soft" />
+      )}
+      <span className="sr-only">{label}</span>
+    </button>
+  )
+})
+CarouselPlayToggle.displayName = 'CarouselPlayToggle'
+
 export const Carousel = Object.assign(CarouselRoot, {
   Content: CarouselContent,
   Item: CarouselItem,
   Previous: CarouselPrevious,
   Next: CarouselNext,
+  PlayToggle: CarouselPlayToggle,
 })
