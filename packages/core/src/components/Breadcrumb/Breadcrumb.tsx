@@ -14,7 +14,7 @@ const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWi
     <ol
       ref={ref}
       className={cn(
-        'flex flex-wrap items-center gap-1.5 break-words text-sm text-slate-500 sm:gap-2.5 dark:text-slate-400',
+        'flex flex-wrap items-center gap-1.5 break-words text-sm text-[var(--sem-eclipse-color-foregroundSecondary)] sm:gap-2.5',
         className
       )}
       {...props}
@@ -39,7 +39,7 @@ const BreadcrumbLink = React.forwardRef<
   return (
     <a
       ref={ref}
-      className={cn('transition-colors hover:text-slate-950 dark:hover:text-slate-50', className)}
+      className={cn('transition-colors hover:text-[var(--sem-eclipse-color-foregroundPrimary)]', className)}
       {...props}
     />
   )
@@ -53,7 +53,7 @@ const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWit
     <span
       ref={ref}
       aria-current="page"
-      className={cn('font-normal text-slate-950 dark:text-slate-50', className)}
+      className={cn('font-normal text-[var(--sem-eclipse-color-foregroundPrimary)]', className)}
       {...props}
     />
   )

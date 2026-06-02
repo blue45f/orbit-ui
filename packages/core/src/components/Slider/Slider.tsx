@@ -18,13 +18,13 @@ const Slider = React.forwardRef<
       defaultValue={defaultValue}
       {...props}
     >
-      <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-        <SliderPrimitive.Range className="absolute h-full bg-slate-900 dark:bg-slate-50" />
+      <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-[var(--sem-eclipse-color-fillSecondary)]">
+        <SliderPrimitive.Range className="absolute h-full bg-[var(--sem-eclipse-color-systemMainPrimary)]" />
       </SliderPrimitive.Track>
       {Array.from({ length: thumbCount }, (_, i) => (
         <SliderPrimitive.Thumb
           key={i}
-          className="block h-5 w-5 rounded-full border-2 border-slate-900 bg-white ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:border-slate-50 dark:bg-slate-950 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300"
+          className="block h-5 w-5 rounded-full border-2 border-[var(--sem-eclipse-color-systemMainPrimary)] bg-[var(--sem-eclipse-color-surfaceContainer)] transition-colors focus-visible:outline-none focus-visible:outline-2 focus-visible:outline-[var(--sem-base-focus-ring-color)] focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50"
         />
       ))}
     </SliderPrimitive.Root>

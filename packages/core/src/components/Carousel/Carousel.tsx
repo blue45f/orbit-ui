@@ -290,7 +290,7 @@ const CarouselPrevious = React.forwardRef<
     <button
       ref={ref}
       className={cn(
-        'absolute  h-8 w-8 rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 disabled:pointer-events-none disabled:opacity-50 flex items-center justify-center dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:text-slate-400 dark:focus-visible:ring-slate-300',
+        'absolute h-8 w-8 rounded-full border border-[var(--sem-eclipse-color-borderTertiary)] bg-[var(--sem-eclipse-color-surfaceContainer)] text-[var(--sem-eclipse-color-foregroundSecondary)] shadow-[var(--sem-eclipse-shadow-level1)] transition-colors hover:bg-[var(--sem-eclipse-color-fillSecondary)] hover:text-[var(--sem-eclipse-color-foregroundPrimary)] focus-visible:outline-none focus-visible:outline-2 focus-visible:outline-[var(--sem-base-focus-ring-color)] focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 flex items-center justify-center',
         orientation === 'horizontal'
           ? '-left-12 top-1/2 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -317,7 +317,7 @@ const CarouselNext = React.forwardRef<
     <button
       ref={ref}
       className={cn(
-        'absolute h-8 w-8 rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 disabled:pointer-events-none disabled:opacity-50 flex items-center justify-center dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:text-slate-400 dark:focus-visible:ring-slate-300',
+        'absolute h-8 w-8 rounded-full border border-[var(--sem-eclipse-color-borderTertiary)] bg-[var(--sem-eclipse-color-surfaceContainer)] text-[var(--sem-eclipse-color-foregroundSecondary)] shadow-[var(--sem-eclipse-shadow-level1)] transition-colors hover:bg-[var(--sem-eclipse-color-fillSecondary)] hover:text-[var(--sem-eclipse-color-foregroundPrimary)] focus-visible:outline-none focus-visible:outline-2 focus-visible:outline-[var(--sem-base-focus-ring-color)] focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 flex items-center justify-center',
         orientation === 'horizontal'
           ? '-right-12 top-1/2 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -357,7 +357,7 @@ const CarouselPlayToggle = React.forwardRef<
       aria-label={label}
       aria-pressed={!isPlaying}
       className={cn(
-        'absolute right-2 bottom-2 z-10 h-8 w-8 rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 flex items-center justify-center dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:text-slate-400 dark:focus-visible:ring-slate-300',
+        'absolute right-2 bottom-2 z-10 h-8 w-8 rounded-full border border-[var(--sem-eclipse-color-borderTertiary)] bg-[var(--sem-eclipse-color-surfaceContainer)] text-[var(--sem-eclipse-color-foregroundSecondary)] shadow-[var(--sem-eclipse-shadow-level1)] transition-colors hover:bg-[var(--sem-eclipse-color-fillSecondary)] hover:text-[var(--sem-eclipse-color-foregroundPrimary)] focus-visible:outline-none focus-visible:outline-2 focus-visible:outline-[var(--sem-base-focus-ring-color)] focus-visible:outline-offset-2 flex items-center justify-center',
         className
       )}
       onClick={(event) => {
