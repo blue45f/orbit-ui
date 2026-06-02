@@ -45,7 +45,7 @@ export const Loading = ({
 
   const containerClasses = cn(
     'flex flex-col items-center justify-center gap-3',
-    fullScreen && 'fixed inset-0 z-[9999] bg-white/80 dark:bg-slate-950/80',
+    fullScreen && 'fixed inset-0 z-[9999] bg-[var(--sem-eclipse-color-surfaceContainer)]/80',
     className
   )
 
@@ -64,7 +64,7 @@ export const Loading = ({
     >
       <Spinner size={spinnerSize} color="primary" />
       {children && (
-        <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{children}</span>
+        <span className="text-sm font-medium text-[var(--sem-eclipse-color-foregroundSecondary)]">{children}</span>
       )}
     </div>
   )
