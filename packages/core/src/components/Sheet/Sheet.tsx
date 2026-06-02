@@ -5,6 +5,7 @@ import {
   Children,
   PropsWithChildren,
   useCallback,
+  useRef,
   cloneElement,
   isValidElement,
 } from 'react'
@@ -12,6 +13,9 @@ import {
 import { cn } from '../../styles'
 import {
   useControllableState,
+  useComposedRefs,
+  useBodyScrollLock,
+  useFocusTrap,
   findComponent,
   toCSSLength,
   getReactElementRef,
@@ -107,6 +111,13 @@ export const SheetRoot = forwardRef<HTMLDivElement, SheetProps>(
       [isPresented, handleIsPresentedChange, onIsPresentedChange]
     )
 
+    // 모달 a11y: 포커스 트랩(WCAG 2.4.3) + body 스크롤 잠금.
+    // 다이얼로그 노드를 내부에서 참조하기 위해 forwardedRef와 합친다.
+    const dialogRef = useRef<HTMLDivElement | null>(null)
+    const composedRef = useComposedRefs(forwardedRef, dialogRef)
+    useFocusTrap(dialogRef, { enabled: isPresented })
+    useBodyScrollLock(isPresented)
+
     const { trigger, header, content, footer } = findComponent({
       childrenArray: Children.toArray(children),
       target: [
@@ -158,7 +169,7 @@ export const SheetRoot = forwardRef<HTMLDivElement, SheetProps>(
               aria-modal="true"
               aria-labelledby={labelledBy}
               {...rest}
-              ref={forwardedRef}
+              ref={composedRef}
               id={id}
               className={className}
               style={style}
