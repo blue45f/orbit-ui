@@ -56,7 +56,9 @@ export default [
       import: importPlugin,
     },
     settings: {
-      react: { version: '18.3' },
+      // 'detect'는 eslint-plugin-react@7.37.5가 ESLint 10에서 제거된
+      // context.getFilename()을 호출해 크래시한다. 카탈로그 React 버전을 고정한다.
+      react: { version: '19.2' },
     },
     rules: {
       ...tseslint.configs.recommended.rules,

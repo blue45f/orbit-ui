@@ -5,7 +5,7 @@
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" /></a>
-  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.7-blue" alt="TypeScript" /></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-6.0-blue" alt="TypeScript" /></a>
   <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-18%2F19-61dafb" alt="React" /></a>
   <a href="https://www.npmjs.com/package/@heejun-com/theme-eclipse"><img src="https://img.shields.io/npm/v/@heejun-com/theme-eclipse" alt="npm" /></a>
   <a href="https://orbit-ui-pink.vercel.app/"><img src="https://img.shields.io/badge/Storybook-live-ff4785" alt="Storybook" /></a>

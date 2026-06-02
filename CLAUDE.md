@@ -7,7 +7,7 @@ This file provides guidance for AI assistants working with the Orbit UI codebase
 Orbit UI (formerly Clay Kit) is a Figma-based React design system component library. It provides a 3-tier architecture: Base components (unstyled) -> Theme components (styled) -> Custom components (project extensions).
 
 **Key Technologies:**
-- React 18/19 with TypeScript 5.7+
+- React 18/19 with TypeScript 6.x
 - Tailwind CSS for all styling (core + theme layers)
 - Vite for building, Vitest for testing
 - Storybook for component documentation

@@ -56,18 +56,18 @@ pnpm dev
 ```
 orbit-ui/
 ├── packages/
-│   ├── core/                    # @orbit-ui/core
+│   ├── core/                    # @heejun-com/core
 │   │   └── src/
 │   │       ├── components/      # Base 컴포넌트
 │   │       ├── libs/            # 훅, 유틸리티
 │   │       └── styles/          # 디자인 토큰
 │   │
-│   ├── theme-eclipse/             # @orbit-ui/theme-eclipse
+│   ├── theme-eclipse/             # @heejun-com/theme-eclipse
 │   │   └── src/
 │   │       ├── components/      # 테마 컴포넌트
 │   │       └── styles/          # Eclipse 테마 토큰
 │   │
-│   ├── icons/                   # @orbit-ui/icons
+│   ├── icons/                   # @heejun-com/icons
 │   ├── vite-plugin/             # @orbit-ui/vite-plugin
 │   ├── eslint-plugin/           # @orbit-ui/eslint-plugin
 │   └── generator/               # @orbit-ui/generator
@@ -133,10 +133,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 ### 테마 컴포넌트 구조
 
 ```tsx
-// packages/theme-mint/src/components/Button/Button.tsx
+// packages/theme-eclipse/src/components/Button/Button.tsx
 import { forwardRef } from 'react'
-import { Button as BaseButton, ButtonProps as BaseProps } from '@orbit-ui/core'
-import { mintTokens } from '../../tokens'
+import { Button as BaseButton, ButtonProps as BaseProps } from '@heejun-com/core'
+import { eclipseTokens } from '../../tokens'
 
 export interface ButtonProps extends Omit<BaseProps, 'theme'> {
   variant?: 'filled' | 'outlined' | 'text'
@@ -149,9 +149,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <BaseButton
         ref={ref}
         theme={{
-          ...mintTokens.button,
-          ...mintTokens.button.variant[variant],
-          ...mintTokens.button.size[size],
+          ...eclipseTokens.button,
+          ...eclipseTokens.button.variant[variant],
+          ...eclipseTokens.button.size[size],
         }}
         {...props}
       />
@@ -171,7 +171,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 pnpm test
 
 # 특정 패키지
-pnpm test --filter @orbit-ui/core
+pnpm test --filter @heejun-com/core
 
 # Watch 모드
 pnpm test:watch
