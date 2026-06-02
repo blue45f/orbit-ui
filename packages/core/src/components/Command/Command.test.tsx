@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event'
-import { createRef } from 'react'
+import { createRef, useState } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { cleanup, createMockResizeObserver, render, screen, waitFor } from '../../test-utils'
@@ -153,6 +153,150 @@ describe('Command', () => {
       )
 
       expect(ref.current).not.toBeNull()
+    })
+  })
+
+  describe('Command.Dialog', () => {
+    const DialogContent = () => (
+      <>
+        <Command.Input placeholder="명령 검색..." />
+        <Command.List>
+          <Command.Empty>결과 없음</Command.Empty>
+          <Command.Group heading="작업">
+            <Command.Item value="new">새로 만들기</Command.Item>
+            <Command.Item value="open">열기</Command.Item>
+          </Command.Group>
+        </Command.List>
+      </>
+    )
+
+    it('닫혀 있으면 아무것도 렌더링하지 않아야 한다', () => {
+      render(
+        <Command.Dialog open={false} onOpenChange={() => {}}>
+          <DialogContent />
+        </Command.Dialog>
+      )
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      expect(screen.queryByPlaceholderText('명령 검색...')).not.toBeInTheDocument()
+    })
+
+    it('열려 있으면 role=dialog 와 항목들이 렌더링되어야 한다', async () => {
+      render(
+        <Command.Dialog open onOpenChange={() => {}}>
+          <DialogContent />
+        </Command.Dialog>
+      )
+
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument()
+      })
+      expect(screen.getByText('새로 만들기')).toBeInTheDocument()
+      expect(screen.getByText('열기')).toBeInTheDocument()
+    })
+
+    it('접근 가능한 이름(기본값 "명령 팔레트")을 가져야 한다', async () => {
+      render(
+        <Command.Dialog open onOpenChange={() => {}}>
+          <DialogContent />
+        </Command.Dialog>
+      )
+
+      await waitFor(() => {
+        expect(screen.getByRole('dialog', { name: '명령 팔레트' })).toBeInTheDocument()
+      })
+    })
+
+    it('열리면 Input 에 포커스가 가야 한다', async () => {
+      render(
+        <Command.Dialog open onOpenChange={() => {}}>
+          <DialogContent />
+        </Command.Dialog>
+      )
+
+      const input = await screen.findByPlaceholderText('명령 검색...')
+      await waitFor(() => {
+        expect(input).toHaveFocus()
+      })
+    })
+
+    it('enableShortcut 가 켜지면 ⌘K 로 열림 상태가 토글되어야 한다', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <Command.Dialog enableShortcut>
+          <DialogContent />
+        </Command.Dialog>
+      )
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+
+      // Cmd+K (macOS) 로 열기
+      await user.keyboard('{Meta>}k{/Meta}')
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument()
+      })
+
+      // Cmd+K 다시 눌러 닫기
+      await user.keyboard('{Meta>}k{/Meta}')
+      await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      })
+    })
+
+    it('Ctrl+K 로도 열 수 있어야 한다', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <Command.Dialog enableShortcut>
+          <DialogContent />
+        </Command.Dialog>
+      )
+
+      await user.keyboard('{Control>}k{/Control}')
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument()
+      })
+    })
+
+    it('Esc 키로 닫혀야 한다 (Radix)', async () => {
+      const user = userEvent.setup()
+
+      const Harness = () => {
+        const [open, setOpen] = useState(true)
+
+        return (
+          <Command.Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent />
+          </Command.Dialog>
+        )
+      }
+
+      render(<Harness />)
+
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument()
+      })
+
+      await user.keyboard('{Escape}')
+
+      await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      })
+    })
+
+    it('enableShortcut 가 꺼져 있으면 ⌘K 가 동작하지 않아야 한다', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <Command.Dialog>
+          <DialogContent />
+        </Command.Dialog>
+      )
+
+      await user.keyboard('{Meta>}k{/Meta}')
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     })
   })
 })

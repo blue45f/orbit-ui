@@ -104,6 +104,17 @@ const SolidIconButtonRoot: React.ForwardRefExoticComponent<
  *
  * 좁은 공간에서 직관적인 액션 버튼 제공이 필요할때 사용해요.
  *
+ * ### ♿ 접근성
+ *
+ * 아이콘만 표시되므로 **`aria-label`은 필수**입니다. 스크린 리더 사용자에게
+ * 버튼의 역할을 알려주세요.
+ *
+ * ```tsx
+ * <SolidIconButton color='black' size='medium' aria-label='항목 추가'>
+ *   <PlusIcon />
+ * </SolidIconButton>
+ * ```
+ *
  * @example
  * ### 👇 기본 사용법
  * ```tsx
@@ -111,7 +122,7 @@ const SolidIconButtonRoot: React.ForwardRefExoticComponent<
  *
  * function App() {
  *   return (
- *     <SolidIconButton color='black' size='medium'>
+ *     <SolidIconButton color='black' size='medium' aria-label='항목 추가'>
  *       <PlusIcon />
  *     </SolidIconButton>
  *   )
