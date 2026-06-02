@@ -10,7 +10,7 @@
     "test:rule": "mocha --reporter nyan --experimental-modules tests/**/*.spec.js"
   },
   "devDependencies": {
-    "eslint": "^10.4.0",
+    "eslint": "^10.4.1",
     "mocha": "^11.7.6"
   },
   "peerDependencies": {
