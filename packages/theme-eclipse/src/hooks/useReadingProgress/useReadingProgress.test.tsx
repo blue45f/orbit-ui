@@ -16,7 +16,8 @@ describe('useReadingProgress', () => {
     delete document.documentElement.scrollHeight
     // @ts-expect-error 테스트가 정의한 own 속성 제거
     delete document.documentElement.clientHeight
-    window.scrollY = 0
+    // isolate:false 환경에서 다른 테스트가 scrollY를 getter로 재정의해도 확실히 덮어쓰도록 defineProperty 사용
+    Object.defineProperty(window, 'scrollY', { configurable: true, writable: true, value: 0 })
   })
 
   it('returns 0 initially', () => {
@@ -39,7 +40,8 @@ describe('useReadingProgress', () => {
       configurable: true,
       value: 500,
     })
-    window.scrollY = 0
+    // isolate:false 환경에서 다른 테스트가 scrollY를 getter로 재정의해도 확실히 덮어쓰도록 defineProperty 사용
+    Object.defineProperty(window, 'scrollY', { configurable: true, writable: true, value: 0 })
 
     const { result } = renderHook(() => useReadingProgress())
     expect(result.current).toBe(0)
@@ -58,7 +60,7 @@ describe('useReadingProgress', () => {
       configurable: true,
       value: 500,
     })
-    window.scrollY = 300
+    Object.defineProperty(window, 'scrollY', { configurable: true, writable: true, value: 300 })
 
     const { result } = renderHook(() => useReadingProgress())
     // 300 / (2000 - 500) * 100 = 20
