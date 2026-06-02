@@ -11,6 +11,6 @@
     "@orbit-ui/tsconfig": "workspace:*",
     "cross-env": "^10.1.0",
     "plop": "^4.0.5",
-    "tsx": "^4.22.3"
+    "tsx": "^4.22.4"
   }
 }
