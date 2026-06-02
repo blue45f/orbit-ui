@@ -21,6 +21,13 @@ if (typeof Element !== 'undefined') {
   }
 }
 
+// jsdom은 elementFromPoint를 구현하지 않는다. tiptap 3.24.0+의 viewport-boundary 계산이
+// prosemirror EditorView.posAtCoords → document.elementFromPoint를 호출하므로,
+// 레이아웃이 없는 jsdom에서 Editor가 마운트 시 throw하지 않도록 null 반환 폴리필을 둔다.
+if (typeof document !== 'undefined' && typeof document.elementFromPoint !== 'function') {
+  document.elementFromPoint = (() => null) as typeof document.elementFromPoint
+}
+
 if (typeof window !== 'undefined' && !window.matchMedia) {
   window.matchMedia = vi.fn().mockImplementation((query: string) => ({
     matches: false,
