@@ -105,7 +105,15 @@ const Kbd = ({ children }: { children: React.ReactNode }) => (
   </kbd>
 )
 
-const Readout = ({ label, value }: { label: string; value: React.ReactNode }) => (
+const Readout = ({
+  label,
+  value,
+  testId,
+}: {
+  label: string
+  value: React.ReactNode
+  testId?: string
+}) => (
   <div
     style={{
       display: 'grid',
@@ -118,7 +126,9 @@ const Readout = ({ label, value }: { label: string; value: React.ReactNode }) =>
     }}
   >
     <span style={{ color: 'var(--orbit-ink-4, rgba(24,26,28,0.33))' }}>{label}</span>
-    <span style={{ fontWeight: 600 }}>{value}</span>
+    <span style={{ fontWeight: 600 }} data-testid={testId}>
+      {value}
+    </span>
   </div>
 )
 
@@ -382,7 +392,7 @@ function ScrollLockDemo() {
         </span>
       </div>
       {locked && <ScrollLockChild />}
-      <Readout label="body.style.overflow" value={bodyOverflow} />
+      <Readout label="body.style.overflow" value={bodyOverflow} testId="body-overflow-readout" />
     </Panel>
   )
 }
