@@ -1,7 +1,14 @@
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { cleanup, createMockResizeObserver, render, screen, waitFor } from '../../test-utils'
+import {
+  cleanup,
+  createMockResizeObserver,
+  expectNoA11yViolations,
+  render,
+  screen,
+  waitFor,
+} from '../../test-utils'
 
 import { Drawer } from './Drawer'
 
@@ -193,6 +200,31 @@ describe('Drawer', () => {
       )
 
       expect(screen.getByText('Body')).toBeInTheDocument()
+    })
+  })
+
+  describe('접근성 (axe)', () => {
+    it('열린 Drawer에 serious/critical 위반이 없어야 한다', async () => {
+      render(
+        <Drawer defaultOpen>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>설정</Drawer.Title>
+              <Drawer.Description>알림 환경설정을 변경하세요.</Drawer.Description>
+            </Drawer.Header>
+            <nav aria-label="설정 메뉴">
+              <a href="#profile">프로필</a>
+            </nav>
+            <Drawer.Footer>
+              <Drawer.Close>닫기</Drawer.Close>
+            </Drawer.Footer>
+          </Drawer.Content>
+        </Drawer>
+      )
+
+      await waitFor(() => expect(screen.getByRole('dialog')).toBeInTheDocument())
+      // portal 로 document.body 에 렌더링되므로 body 전체를 검사한다.
+      await expectNoA11yViolations(document.body)
     })
   })
 })

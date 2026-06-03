@@ -36,6 +36,9 @@ catalogs:
     '@vitest/ui':
       specifier: ^4.1.7
       version: 4.1.7
+    axe-core:
+      specifier: ^4.11.4
+      version: 4.11.4
     jsdom:
       specifier: ^29.1.1
       version: 29.1.1
@@ -293,6 +296,9 @@ importers:
       autoprefixer:
         specifier: ^10.5.0
         version: 10.5.0(postcss@8.5.15)
+      axe-core:
+        specifier: 'catalog:'
+        version: 4.11.4
       jsdom:
         specifier: 'catalog:'
         version: 29.1.1

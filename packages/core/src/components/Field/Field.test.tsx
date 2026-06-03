@@ -1,7 +1,7 @@
 import { createRef } from 'react'
 import { afterEach, expect, test } from 'vitest'
 
-import { cleanup, render, screen } from '../../test-utils'
+import { cleanup, expectNoA11yViolations, render, screen } from '../../test-utils'
 import { UniqueIDProvider } from '../primitives/UniqueIDProvider'
 
 import { Field } from './Field'
@@ -208,4 +208,32 @@ test('Field: ref 를 루트 엘리먼트로 전달한다', () => {
 test('Field: 하위 컴포넌트를 Field 외부에서 사용하면 에러를 던진다', () => {
   // 콘솔 에러 출력 억제 후 throw 검증
   expect(() => render(<Field.Label>고립</Field.Label>)).toThrow(/<Field> 내부에서만/)
+})
+
+test('Field(axe): label/description 이 연결된 필드에 serious/critical 위반이 없어야 한다', async () => {
+  const { container } = renderField(
+    <Field>
+      <Field.Label>이메일</Field.Label>
+      <Field.Control>
+        <input type="email" />
+      </Field.Control>
+      <Field.Description>업무용 이메일을 입력하세요.</Field.Description>
+    </Field>
+  )
+
+  await expectNoA11yViolations(container)
+})
+
+test('Field(axe): 에러 상태 필드에 serious/critical 위반이 없어야 한다', async () => {
+  const { container } = renderField(
+    <Field>
+      <Field.Label>비밀번호</Field.Label>
+      <Field.Control>
+        <input type="password" />
+      </Field.Control>
+      <Field.Error>8자 이상 입력하세요.</Field.Error>
+    </Field>
+  )
+
+  await expectNoA11yViolations(container)
 })

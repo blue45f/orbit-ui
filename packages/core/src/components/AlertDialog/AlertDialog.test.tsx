@@ -2,7 +2,14 @@ import userEvent from '@testing-library/user-event'
 import { createRef } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { cleanup, createMockResizeObserver, render, screen, waitFor } from '../../test-utils'
+import {
+  cleanup,
+  createMockResizeObserver,
+  expectNoA11yViolations,
+  render,
+  screen,
+  waitFor,
+} from '../../test-utils'
 
 import { AlertDialog } from './AlertDialog'
 
@@ -193,6 +200,27 @@ describe('AlertDialog', () => {
         const dialog = screen.getByRole('alertdialog')
         expect(root).not.toContainElement(dialog)
       })
+    })
+  })
+
+  describe('접근성 (axe)', () => {
+    it('열린 다이얼로그에 serious/critical 위반이 없어야 한다', async () => {
+      render(
+        <AlertDialog defaultOpen>
+          <AlertDialog.Content>
+            <AlertDialog.Title>삭제하시겠어요?</AlertDialog.Title>
+            <AlertDialog.Description>이 작업은 되돌릴 수 없습니다.</AlertDialog.Description>
+            <AlertDialog.Footer>
+              <AlertDialog.Cancel>취소</AlertDialog.Cancel>
+              <AlertDialog.Action>삭제</AlertDialog.Action>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog>
+      )
+
+      await waitFor(() => expect(screen.getByRole('alertdialog')).toBeInTheDocument())
+      // 다이얼로그는 portal 로 document.body 에 렌더링되므로 body 전체를 검사한다.
+      await expectNoA11yViolations(document.body)
     })
   })
 })
