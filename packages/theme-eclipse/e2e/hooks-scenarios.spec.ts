@@ -158,7 +158,7 @@ test.describe('Hooks · Interaction', () => {
   test('useScrollLock: button locks body overflow', async ({ page }) => {
     await page.goto(STORY('hooks-interaction--scroll-lock'))
 
-    const readout = page.locator('text=body.style.overflow').locator('..')
+    const readout = page.getByTestId('body-overflow-readout')
     await expect(readout).toContainText('(default)')
 
     await page.getByRole('button', { name: 'Lock body scroll' }).click()
