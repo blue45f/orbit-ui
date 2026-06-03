@@ -120,13 +120,16 @@ test.describe('Hooks · State', () => {
 })
 
 test.describe('Hooks · Interaction', () => {
-  test('useHotkey: ⌘K and ⌘Enter increment respective counters', async ({ page, browserName }) => {
+  test('useHotkey: ⌘K and ⌘Enter increment respective counters', async ({ page }) => {
     await page.goto(STORY('hooks-interaction--hotkey'))
 
-    // The hook normalises `mod` to `meta` on macOS, `ctrl` elsewhere.
-    // Playwright fires real keyboard events; webkit reports as macOS, chromium as Linux in CI.
-    // The hook handles both, but for the test we use a synthetic combo that matches.
-    const isMac = browserName === 'webkit'
+    // The hook normalises `mod` to `meta` on macOS, `ctrl` elsewhere, probing
+    // navigator.platform/userAgent. Mirror that exact probe so the test presses
+    // whichever modifier the hook actually listens for. On Linux CI both chromium
+    // and webkit report a non-Mac platform → Control; on real macOS → Meta.
+    const isMac = await page.evaluate(() =>
+      /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent || '')
+    )
     const mod = isMac ? 'Meta' : 'Control'
 
     const k = page.locator('text=⌘K count').locator('..')
@@ -170,7 +173,15 @@ test.describe('Hooks · Interaction', () => {
 })
 
 test.describe('Hooks · Environment', () => {
-  test('useClipboard: copy button updates hasCopied state', async ({ page, context }) => {
+  test('useClipboard: copy button updates hasCopied state', async ({
+    page,
+    context,
+    browserName,
+  }) => {
+    // Headless WebKit on Linux CI has no clipboard backend and rejects the
+    // clipboard-read/write permissions, so navigator.clipboard.writeText never
+    // resolves and hasCopied can't flip. The hook is covered by chromium + units.
+    test.skip(browserName === 'webkit', 'WebKit headless (Linux CI) has no clipboard backend')
     await context.grantPermissions(['clipboard-read', 'clipboard-write'])
     await page.goto(STORY('hooks-environment--clipboard'))
 

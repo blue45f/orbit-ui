@@ -16,6 +16,11 @@ jobs:
   e2e:
     name: Playwright (시나리오 + 비주얼)
     runs-on: ubuntu-latest
+    # Run inside the exact Playwright image used to generate the committed visual
+    # baselines. ubuntu-latest's own font stack renders ~1% of pixels differently,
+    # so pinning the image makes CI pixel-identical to the baselines (deterministic).
+    container:
+      image: mcr.microsoft.com/playwright:v1.60.0-noble
     timeout-minutes: 30
 
     steps:
@@ -24,8 +29,6 @@ jobs:
 
       - name: pnpm 설정
         uses: pnpm/action-setup@v6
-        with:
-          version: 9.14.4
 
       - name: Node.js 설정
         uses: actions/setup-node@v6
@@ -43,9 +46,7 @@ jobs:
         working-directory: packages/theme-eclipse
         run: pnpm build:storybook
 
-      - name: Playwright 브라우저 설치
-        working-directory: packages/theme-eclipse
-        run: pnpm exec playwright install --with-deps chromium webkit
+      # Browsers are pre-installed in the mcr.microsoft.com/playwright image.
 
       - name: Playwright 실행
         working-directory: packages/theme-eclipse
