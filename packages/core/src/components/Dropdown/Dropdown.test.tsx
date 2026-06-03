@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event'
 import { createRef } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { cleanup, render, screen } from '../../test-utils'
+import { cleanup, expectNoA11yViolations, render, screen } from '../../test-utils'
 
 import { Dropdown } from './Dropdown'
 
@@ -139,5 +139,17 @@ describe('Dropdown', () => {
       await user.click(svg.parentElement)
       expect(handleClick).toHaveBeenCalledTimes(1)
     }
+  })
+
+  describe('접근성 (axe)', () => {
+    it('값이 선택된 Dropdown에 serious/critical 위반이 없어야 한다', async () => {
+      const { container } = render(<Dropdown value="Option 1" aria-label="옵션 선택" />)
+      await expectNoA11yViolations(container)
+    })
+
+    it('placeholder만 있는 Dropdown에 serious/critical 위반이 없어야 한다', async () => {
+      const { container } = render(<Dropdown placeholder="선택하세요" aria-label="옵션 선택" />)
+      await expectNoA11yViolations(container)
+    })
   })
 })

@@ -6,6 +6,14 @@ import { render, screen, cleanup } from '@testing-library/react'
 // Re-export testing-library utilities
 export { render, screen, cleanup }
 
+// Accessibility (axe-core) assertion helper. 구현은 src/test-utils.tsx 에 있으며
+// 컴포넌트 테스트가 import 하는 위치(`../../test-utils`)와 동일한 헬퍼를 재노출한다.
+export {
+  expectNoA11yViolations,
+  type A11yImpact,
+  type ExpectNoA11yViolationsOptions,
+} from '../test-utils'
+
 /**
  * Creates a stub for requestAnimationFrame for testing
  */

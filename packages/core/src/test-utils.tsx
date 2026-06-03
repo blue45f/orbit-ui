@@ -1,5 +1,6 @@
+import axe, { type RunOptions, type Result, type ImpactValue } from 'axe-core'
 import { render, RenderOptions } from '@testing-library/react'
-import { vi } from 'vitest'
+import { expect, vi } from 'vitest'
 
 import { ThemeProvider } from './components/primitives'
 
@@ -140,4 +141,74 @@ export const createProxyForDOMRect = (target: HTMLElement, params: DOMRectParams
       return Reflect.get(obj, prop)
     },
   })
+}
+
+// ======== Accessibility (axe-core) ========
+
+/** axe 위반의 심각도 단계. jsdom 단위 테스트에서는 serious/critical 만 게이트한다. */
+export type A11yImpact = NonNullable<ImpactValue>
+
+export type ExpectNoA11yViolationsOptions = {
+  /**
+   * 실패로 간주할 최소 심각도.
+   * jsdom 은 실제 레이아웃/대비 계산을 하지 못하므로
+   * 기본값은 'serious' 이상(serious, critical)만 게이트한다.
+   * @default 'serious'
+   */
+  minImpact?: A11yImpact
+  /** axe.run 에 전달할 추가 옵션 (특정 rule 비활성화 등) */
+  runOptions?: RunOptions
+}
+
+const IMPACT_WEIGHT: Record<A11yImpact, number> = {
+  minor: 1,
+  moderate: 2,
+  serious: 3,
+  critical: 4,
+}
+
+const formatViolations = (violations: Result[]): string =>
+  violations
+    .map((violation) => {
+      const targets = violation.nodes
+        .map((node) => node.target.join(' '))
+        .filter(Boolean)
+        .join(', ')
+      return `  [${violation.impact ?? 'unknown'}] ${violation.id}: ${violation.help}\n    nodes: ${targets}\n    see: ${violation.helpUrl}`
+    })
+    .join('\n')
+
+/**
+ * 주어진 DOM 노드에 axe-core 접근성 검사를 실행하고
+ * minImpact 이상(기본 serious/critical) 위반이 없는지 단언한다.
+ *
+ * @example
+ * ```tsx
+ * const { container } = render(<Dialog defaultOpen>...</Dialog>)
+ * await expectNoA11yViolations(container)
+ * ```
+ */
+export async function expectNoA11yViolations(
+  element: Element | Document = document.body,
+  { minImpact = 'serious', runOptions }: ExpectNoA11yViolationsOptions = {}
+): Promise<void> {
+  const threshold = IMPACT_WEIGHT[minImpact]
+  // axe 는 Document/Element context 를 받는다. RenderResult.container 를 직접 넘기면 된다.
+  const results = await axe.run(element as never, {
+    // 색상 대비는 jsdom 이 실제 렌더 색을 계산하지 못해 위양성이 잦으므로 제외한다.
+    rules: { 'color-contrast': { enabled: false } },
+    resultTypes: ['violations'],
+    ...runOptions,
+  })
+
+  const gated = results.violations.filter(
+    (violation) => IMPACT_WEIGHT[(violation.impact ?? 'minor') as A11yImpact] >= threshold
+  )
+
+  expect(
+    gated,
+    gated.length > 0
+      ? `expected no ${minImpact}+ a11y violations but found ${gated.length}:\n${formatViolations(gated)}`
+      : undefined
+  ).toEqual([])
 }

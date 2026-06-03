@@ -2,7 +2,7 @@ import { createRef } from 'react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, expect, test, vi } from 'vitest'
 
-import { cleanup, render, screen } from '../../test-utils'
+import { cleanup, expectNoA11yViolations, render, screen } from '../../test-utils'
 
 import { RadioGroup } from './RadioGroup'
 
@@ -174,4 +174,16 @@ test('RadioGroup: ref 를 루트 엘리먼트로 전달한다', () => {
 
 test('RadioGroup.Item: 그룹 외부에서 사용하면 에러를 던진다', () => {
   expect(() => render(<RadioGroup.Item value="x" />)).toThrow(/<RadioGroup> 내부에서만/)
+})
+
+test('RadioGroup(axe): 라디오 그룹에 serious/critical 위반이 없어야 한다', async () => {
+  // 각 라디오 항목은 접근 가능한 이름(aria-label)을 가져야 한다.
+  const { container } = render(
+    <RadioGroup aria-label="음식">
+      <RadioGroup.Item value="피자" aria-label="피자" />
+      <RadioGroup.Item value="치킨" aria-label="치킨" />
+      <RadioGroup.Item value="햄버거" aria-label="햄버거" />
+    </RadioGroup>
+  )
+  await expectNoA11yViolations(container)
 })
