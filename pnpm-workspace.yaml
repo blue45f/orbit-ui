@@ -14,7 +14,7 @@ catalog:
 
   # 타입스크립트 & 노드
   typescript: ^6.0.3
-  '@types/node': ^25.9.1
+  '@types/node': ^25.9.2
 
   # 빌드/테스트 툴체인
   vite: ^8.0.14
