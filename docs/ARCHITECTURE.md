@@ -80,7 +80,7 @@ import { BaseButton, BaseTextField, BaseSwitch, BaseSnackbar } from '@orbit-ui/c
 
 ### Base 컴포넌트
 
-- 경로: `packages/foundation/src/components/`
+- 경로: `packages/core/src/components/`
 - 스타일 미적용 기능 컴포넌트
 - `style`, `className` props 열림
 - `theme` prop으로 토큰 재정의 가능
@@ -96,7 +96,7 @@ import { BaseButton, BaseTextField, BaseSwitch, BaseSnackbar } from '@orbit-ui/c
 
 ### Theme 컴포넌트
 
-- 경로: `packages/clay/eclipse/src/components/`
+- 경로: `packages/theme-eclipse/src/components/`
 - Base 컴포넌트에 테마 적용
 - `style`, `className` props 닫힘
 - `theme` prop으로 토큰 재정의 가능
@@ -132,7 +132,7 @@ Reference Token → Semantic Token → Component Token
 ### 토큰 파일
 
 ```
-packages/foundation/src/tokens/
+packages/core/src/tokens/
 ├── reference.ts      # 원시 토큰
 ├── semantic.ts       # 의미적 토큰
 ├── component.ts      # 컴포넌트 토큰
