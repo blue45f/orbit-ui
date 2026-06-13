@@ -115,9 +115,12 @@ const CheckboxRoot = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref) =
         as="button"
         type="button"
         className={cn(
-          'relative inline-flex items-center justify-center',
+          'relative inline-flex items-center justify-center transition-colors',
           disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
           'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500',
+          // Tailwind state styling with fallback to semantic CSS variables
+          'bg-[var(--checkbox-unchecked-fill,transparent)] border-[var(--checkbox-unchecked-border,var(--sem-eclipse-color-borderTertiary,#D1D5DB))] text-[var(--checkbox-unchecked-fg,transparent)]',
+          'data-[state=checked]:bg-[var(--checkbox-checked-fill,var(--sem-eclipse-color-fillInverted,#2563EB))] data-[state=checked]:border-[var(--checkbox-checked-border,var(--sem-eclipse-color-fillInverted,#2563EB))] data-[state=checked]:text-[var(--checkbox-checked-fg,var(--sem-eclipse-color-foregroundInverted,#FFFFFF))]',
           classProp
         )}
         data-state={checkedProp ? 'checked' : 'unchecked'}
@@ -128,15 +131,13 @@ const CheckboxRoot = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref) =
             borderWidth: toCSSLength(borderWidth),
             borderStyle: 'solid',
             borderRadius: theme?.radius || '4px',
-            backgroundColor: checkedProp
-              ? (theme?.enabledCheckedFillColor ?? '#2563EB')
-              : (theme?.enabledUncheckedFillColor ?? 'transparent'),
-            borderColor: checkedProp
-              ? (theme?.enabledCheckedBorderColor ?? '#2563EB')
-              : (theme?.enabledUncheckedBorderColor ?? '#D1D5DB'),
-            color: checkedProp
-              ? (theme?.enabledCheckedForegroundColor ?? 'white')
-              : (theme?.enabledUncheckedForegroundColor ?? 'transparent'),
+            // Map theme prop values to component-level CSS variables
+            '--checkbox-checked-fill': theme?.enabledCheckedFillColor,
+            '--checkbox-checked-border': theme?.enabledCheckedBorderColor,
+            '--checkbox-checked-fg': theme?.enabledCheckedForegroundColor,
+            '--checkbox-unchecked-fill': theme?.enabledUncheckedFillColor,
+            '--checkbox-unchecked-border': theme?.enabledUncheckedBorderColor,
+            '--checkbox-unchecked-fg': theme?.enabledUncheckedForegroundColor,
             ...styleProp,
           } as React.CSSProperties
         }

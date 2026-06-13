@@ -1,14 +1,15 @@
+import * as TabsPrimitive from '@radix-ui/react-tabs'
 import {
   forwardRef,
   HTMLAttributes,
   PropsWithChildren,
   ReactNode,
-  useCallback,
   Children,
+  cloneElement,
 } from 'react'
 
 import { cn } from '../../styles'
-import { mapChildrenWithSelection, toCSSLength } from '../../libs'
+import { toCSSLength } from '../../libs'
 import { ContainerLayer, ContentLayer } from '../primitives/Layer'
 
 /* ========================================================================
@@ -101,63 +102,100 @@ const InternalTabItems = forwardRef<HTMLDivElement, TabItemsProps>(
       ...styleProp,
     }
 
-    const tabCount = Children.count(children)
+    const childrenArray = Children.toArray(children)
+    const childrenWithProps: React.ReactNode[] = []
+    let selectableIndex = 0
 
-    const handleKeyDown = useCallback(
-      (e: React.KeyboardEvent<HTMLDivElement>) => {
-        if (!onTabChange || tabCount === 0) return
+    for (let i = 0; i < childrenArray.length; i++) {
+      const child = childrenArray[i]
+      if (!child || typeof child !== 'object') {
+        childrenWithProps.push(child)
+        continue
+      }
+      const element = child as React.ReactElement<{ value?: string | number }>
+      const componentName =
+        (element.type as { displayName?: string; name?: string })?.displayName ||
+        (element.type as { name?: string })?.name ||
+        ''
+      if (/Indicator$/.test(componentName)) {
+        childrenWithProps.push(element)
+        continue
+      }
 
-        let nextIndex: number
+      const myIndex = selectableIndex
+      selectableIndex += 1
 
-        switch (e.key) {
-          case 'ArrowRight':
-            nextIndex = (selectedIndex + 1) % tabCount
-            break
-          case 'ArrowLeft':
-            nextIndex = (selectedIndex - 1 + tabCount) % tabCount
-            break
-          case 'Home':
-            nextIndex = 0
-            break
-          case 'End':
-            nextIndex = tabCount - 1
-            break
-          default:
-            return
-        }
+      childrenWithProps.push(
+        cloneElement(element as React.ReactElement<Record<string, unknown>>, {
+          selected: myIndex === selectedIndex,
+          onClick: () => onTabChange?.(myIndex),
+          value: String(myIndex),
+          'data-original-value': element.props.value,
+        })
+      )
+    }
 
-        e.preventDefault()
-        onTabChange(nextIndex)
+    const tabCount = selectableIndex
 
-        // Focus the newly selected tab button
-        const tablist = e.currentTarget
-        const tabs = tablist.querySelectorAll<HTMLElement>('[role="tab"]')
-        tabs[nextIndex]?.focus()
-      },
-      [selectedIndex, tabCount, onTabChange]
-    )
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!onTabChange || tabCount === 0) return
 
-    const childrenWithProps = mapChildrenWithSelection(children, selectedIndex, onTabChange)
+      let nextIndex: number
+
+      switch (e.key) {
+        case 'ArrowRight':
+          nextIndex = (selectedIndex + 1) % tabCount
+          break
+        case 'ArrowLeft':
+          nextIndex = (selectedIndex - 1 + tabCount) % tabCount
+          break
+        case 'Home':
+          nextIndex = 0
+          break
+        case 'End':
+          nextIndex = tabCount - 1
+          break
+        default:
+          return
+      }
+
+      e.preventDefault()
+      onTabChange(nextIndex)
+
+      // Focus the newly selected tab button
+      const tablist = e.currentTarget
+      const tabs = tablist.querySelectorAll<HTMLElement>('[role="tab"]')
+      tabs[nextIndex]?.focus()
+    }
 
     return (
-      <ContainerLayer
-        as="div"
-        ref={ref}
-        className={className}
-        style={style}
-        role="tablist"
-        onKeyDown={handleKeyDown}
-        {...rest}
+      <TabsPrimitive.Root
+        value={String(selectedIndex)}
+        onValueChange={(val) => {
+          onTabChange?.(Number(val))
+        }}
+        asChild
       >
-        <ContentLayer
-          className="relative"
-          direction="horizontal"
-          alignment="center"
-          style={{ gap: theme?.gap || '0px' }}
+        <ContainerLayer
+          as="div"
+          ref={ref}
+          className={className}
+          style={style}
+          onKeyDown={handleKeyDown}
+          {...rest}
         >
-          {childrenWithProps}
-        </ContentLayer>
-      </ContainerLayer>
+          <TabsPrimitive.List asChild>
+            <ContentLayer
+              className="relative"
+              direction="horizontal"
+              alignment="center"
+              style={{ gap: theme?.gap || '0px' }}
+            >
+              {childrenWithProps}
+            </ContentLayer>
+          </TabsPrimitive.List>
+        </ContainerLayer>
+      </TabsPrimitive.Root>
     )
   }
 )
@@ -193,21 +231,23 @@ const TabItemsTab = forwardRef<HTMLButtonElement, TabItemsTabProps>(
       ...styleProp,
     }
 
+    // Retrieve original value if stored in rest props
+    const originalValue = (rest as Record<string, unknown>)['data-original-value'] ?? value
+
     return (
-      <button
-        ref={ref}
-        type="button"
-        role="tab"
-        aria-selected={selected}
-        tabIndex={selected ? 0 : -1}
-        disabled={disabled}
-        className={cn('relative inline-flex items-center justify-center', classProp)}
-        style={style}
-        data-value={value}
-        {...rest}
-      >
-        {children}
-      </button>
+      <TabsPrimitive.Trigger value={String(value)} disabled={disabled} asChild>
+        <button
+          ref={ref}
+          type="button"
+          disabled={disabled}
+          className={cn('relative inline-flex items-center justify-center', classProp)}
+          style={style}
+          data-value={originalValue}
+          {...rest}
+        >
+          {children}
+        </button>
+      </TabsPrimitive.Trigger>
     )
   }
 )

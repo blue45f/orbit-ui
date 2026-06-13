@@ -106,11 +106,13 @@ const THEME_TO_CSS_VAR: Record<keyof ButtonTheme, string> = {
 // opacity-50 은 제거: disabled 는 전용 disabledFill/disabledForeground 토큰으로 렌더.
 const buttonStyles = (disabled: boolean) =>
   cn(
-    'button-token',
-    'relative inline-flex items-center justify-center',
-    'rounded-md px-400',
-    'transition-all duration-fast',
-    disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+    'relative inline-flex items-center justify-center border transition-all duration-fast outline-none',
+    'bg-[var(--btn-enabled-fill,transparent)] border-[var(--btn-enabled-border,transparent)] text-[var(--btn-enabled-foreground,inherit)]',
+    'font-[var(--btn-text-face)] font-[var(--btn-text-weight)] text-[var(--btn-text-size)] [line-height:var(--btn-text-line-height)] [letter-spacing:var(--btn-text-tracking)]',
+    'focus-visible:outline-[var(--sem-base-focus-ring-width,2px)] focus-visible:outline-solid focus-visible:outline-[var(--sem-base-focus-ring-color,#2563EB)] focus-visible:outline-offset-[var(--sem-base-focus-ring-offset,2px)] focus-visible:border-[var(--btn-focused-border,var(--btn-enabled-border,transparent))]',
+    disabled
+      ? 'cursor-not-allowed bg-[var(--btn-disabled-fill,var(--btn-enabled-fill,transparent))] border-[var(--btn-disabled-border,var(--btn-enabled-border,transparent))] text-[var(--btn-disabled-foreground,var(--btn-enabled-foreground,inherit))]'
+      : 'cursor-pointer hover:bg-[var(--btn-hovered-fill,var(--btn-enabled-fill,transparent))] active:bg-[var(--btn-pressed-fill,var(--btn-hovered-fill,var(--btn-enabled-fill,transparent)))]'
   )
 
 const arrangementStyles = {
