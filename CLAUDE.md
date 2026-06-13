@@ -64,7 +64,7 @@ pnpm changeset    # Create a changeset for versioning
 | 프레임워크 | `react` / `react-dom` 19.2 | peer는 `^18 || ^19`. React Compiler 친화적으로 작성(렌더 중 ref 변경 등은 `eslint-plugin-react-hooks@7`의 `react-hooks/refs`로 검출) |
 | 유틸리티 | `es-toolkit` (core), `dequal` (theme-eclipse) | `es-toolkit`: 범용 함수형 유틸. `dequal`: zero-dep 깊은 비교(키 순서·함수·undefined·Map/Set 안전) — `useDeepCompareEffect` 등 깊은 비교 의존성에 사용 |
 | 스타일 결합 | `clsx`, `tailwind-merge`, `class-variance-authority` | 클래스 병합(`cn`)·변형(variants) |
-| 애니메이션 | `framer-motion`, `tailwindcss-animate`, `lottie-web` | 모션·로띠 |
+| 애니메이션 | `motion`(필요 시 도입), `tailwindcss-animate`, `lottie-web` | 모션·로띠 |
 | 날짜 | `date-fns` | 캘린더/날짜 입력 |
 | 빌드 | `vite` + `tsc`(`build:dts`) | 번들은 Vite(rollup), 타입 선언은 `tsc -p tsconfig.dts.json`. (tsup 미사용) |
 | 버전 관리 | `@changesets/cli` | 패키지별 버전 범프/릴리스 |
