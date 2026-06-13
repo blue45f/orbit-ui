@@ -37,8 +37,8 @@ catalogs:
       specifier: ^4.1.7
       version: 4.1.7
     axe-core:
-      specifier: ^4.11.4
-      version: 4.11.4
+      specifier: ^4.12.0
+      version: 4.12.0
     jsdom:
       specifier: ^29.1.1
       version: 29.1.1
@@ -298,7 +298,7 @@ importers:
         version: 10.5.0(postcss@8.5.15)
       axe-core:
         specifier: 'catalog:'
-        version: 4.11.4
+        version: 4.12.0
       jsdom:
         specifier: 'catalog:'
         version: 29.1.1
@@ -3750,8 +3750,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  axe-core@4.11.4:
-    resolution: {integrity: sha512-KunSNx+TVpkAw/6ULfhnx+HWRecjqZGTOyquAoWHYLRSdK1tB5Ihce1ZW+UY3fj33bYAFWPu7W/GRSmmrCGuxA==}
+  axe-core@4.12.0:
+    resolution: {integrity: sha512-FTavr/7Ba0IptwGOPxnQvdyW2tAsdLBMTBXz7rKH6xJ2skpyxpBxyHkDdBs4lf69yRqYpkqCdfhnwS8YULGOmg==}
     engines: {node: '>=4'}
 
   axios@1.16.1:
@@ -8673,7 +8673,7 @@ snapshots:
   '@storybook/addon-a11y@10.4.1(storybook@10.4.1(@testing-library/dom@10.4.1)(@types/react@19.2.15)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))':
     dependencies:
       '@storybook/global': 5.0.0
-      axe-core: 4.11.4
+      axe-core: 4.12.0
       storybook: 10.4.1(@testing-library/dom@10.4.1)(@types/react@19.2.15)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
 
   '@storybook/addon-docs@10.4.1(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(esbuild@0.28.0)(rollup@4.60.4)(storybook@10.4.1(@testing-library/dom@10.4.1)(@types/react@19.2.15)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(vite@8.0.14(@types/node@25.9.1)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))':
@@ -9598,7 +9598,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  axe-core@4.11.4: {}
+  axe-core@4.12.0: {}
 
   axios@1.16.1:
     dependencies:

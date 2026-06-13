@@ -30,4 +30,4 @@ catalog:
   '@testing-library/react': ^16.3.2
   '@testing-library/user-event': ^14.6.1
   # 접근성 단언 (Vitest 단위 테스트용)
-  axe-core: ^4.11.4
+  axe-core: ^4.12.0
