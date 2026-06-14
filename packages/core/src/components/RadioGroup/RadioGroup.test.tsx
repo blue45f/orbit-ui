@@ -1,5 +1,5 @@
-import { createRef } from 'react'
 import userEvent from '@testing-library/user-event'
+import { createRef } from 'react'
 import { afterEach, expect, test, vi } from 'vitest'
 
 import { cleanup, expectNoA11yViolations, render, screen } from '../../test-utils'

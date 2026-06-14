@@ -1,6 +1,6 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress'
-import React, { forwardRef } from 'react'
 import clsx from 'clsx'
+import React, { forwardRef } from 'react'
 
 const progressRoot = (opts: { size?: 'small' | 'medium' | 'large' }) =>
   clsx(

@@ -1,5 +1,5 @@
-import React from 'react'
 import clsx from 'clsx'
+import React from 'react'
 
 const SKELETON_CLASS =
   'rounded-lg [background-color:var(--sem-eclipse-color-fillSecondary)] w-full min-h-[1rem] animate-[skeleton-pulse_1.5s_ease-in-out_infinite] motion-reduce:animate-none'

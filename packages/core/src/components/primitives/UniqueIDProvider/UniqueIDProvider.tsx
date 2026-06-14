@@ -58,10 +58,9 @@ export const useUniqueID = (idOverride?: string): string => {
     }
 
     // contextRef는 ref 값이므로 렌더 중 접근 허용
-    // eslint-disable-next-line react-hooks/refs
+
     contextRef.current += 1
 
-    // eslint-disable-next-line react-hooks/refs
     return `orbit-ui-id-${contextRef.current}`
 
     // contextRef는 ref 값이므로 의존성 배열에서 제외함

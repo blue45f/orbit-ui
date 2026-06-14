@@ -1,10 +1,12 @@
-import React, { useState as useDataTableState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 import { ColumnDef } from '@tanstack/react-table'
+import React, { useState as useDataTableState } from 'react'
+
+import { Checkbox } from '../Checkbox'
+import { LabelBadge as Badge } from '../LabelBadge'
 
 import { DataTable } from './DataTable'
-import { LabelBadge as Badge } from '../LabelBadge'
-import { Checkbox } from '../Checkbox'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Data Display/DataTable',

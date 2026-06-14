@@ -1,7 +1,7 @@
-import type { Plugin, ResolvedConfig } from 'vite'
+import { sortBlocks } from './utils'
 
 import type { CssReorderPluginOptions } from './models'
-import { sortBlocks } from './utils'
+import type { Plugin, ResolvedConfig } from 'vite'
 
 export function cssReorderPlugin({
   priorityList,

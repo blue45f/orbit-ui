@@ -1,9 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { expect, fn, userEvent, within } from 'storybook/test'
 import { useState } from 'react'
+import { expect, fn, userEvent, within } from 'storybook/test'
+
+import { Typography } from '../Text'
 
 import { Switch } from './Switch'
-import { Typography } from '../Text'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Inputs/Selection/Switch',

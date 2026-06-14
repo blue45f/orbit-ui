@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import { Toggle } from './Toggle'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 Toggle.displayName = 'Toggle'
 

@@ -6,9 +6,8 @@ import {
   polymorphic,
 } from '@heejun-com/core'
 import { IconPropsContext } from '@heejun-com/icons'
-import { Children } from 'react'
-
 import clsx from 'clsx'
+import { Children } from 'react'
 
 import { vars } from '../../styles/theme-vars'
 

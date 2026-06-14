@@ -1,6 +1,6 @@
 import * as SwitchPrimitive from '@radix-ui/react-switch'
-import React, { forwardRef } from 'react'
 import clsx from 'clsx'
+import React, { forwardRef } from 'react'
 
 const ROOT_CLASS =
   'inline-flex relative items-center transition-all duration-300 [cubic-bezier(0.4,0,0.2,1)] border border-transparent rounded-full cursor-pointer w-11 h-6 [background-color:var(--sem-eclipse-color-fillSecondary)] data-[state=checked]:[background-color:var(--sem-eclipse-color-systemMainPrimary)] focus-visible:outline-none focus-visible:shadow-[0_0_0_2px_color-mix(in_srgb,var(--sem-eclipse-color-systemMainPrimary)_25%,transparent)] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed'

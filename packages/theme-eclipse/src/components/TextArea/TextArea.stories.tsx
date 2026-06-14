@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from 'storybook/test'
 import { useRef, useState } from 'react'
+import { fn } from 'storybook/test'
 
 import { TextArea } from './TextArea'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Inputs/Text Fields/TextArea',

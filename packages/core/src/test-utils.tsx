@@ -1,5 +1,5 @@
-import axe, { type RunOptions, type Result, type ImpactValue } from 'axe-core'
 import { render, RenderOptions } from '@testing-library/react'
+import axe, { type RunOptions, type Result, type ImpactValue } from 'axe-core'
 import { expect, vi } from 'vitest'
 
 import { ThemeProvider } from './components/primitives'

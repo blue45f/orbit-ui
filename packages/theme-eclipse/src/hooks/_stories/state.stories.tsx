@@ -1,4 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import {
@@ -17,6 +16,8 @@ import {
   useUncontrolled,
   useUndoable,
 } from '../index'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'Hooks/State',

@@ -10,8 +10,8 @@ import {
   useRef,
 } from 'react'
 
-import { cn } from '../../styles'
 import { composeRefs, useControllableState, useIsomorphicLayoutEffect } from '../../libs'
+import { cn } from '../../styles'
 import { RadioButton } from '../RadioButton'
 
 /* ========================================================================

@@ -8,11 +8,12 @@ import {
   polymorphic,
 } from '@heejun-com/core'
 import { IconPropsContext } from '@heejun-com/icons'
-import type { TypographyTheme } from '@heejun-com/core'
 import { Children, createElement } from 'react'
 
 import { vars } from '../../token'
 import { ForcedTypographyStyle, Typography } from '../Text'
+
+import type { TypographyTheme } from '@heejun-com/core'
 
 type SectionTitleOwnProps = ComponentThemeProps<typeof vars.com.listHeader>
 export type SectionTitleProps = Omit<ListNodeProps, keyof ListNodeSpecificProps> &

@@ -1,3 +1,7 @@
+import {
+  DismissableLayer as RadixDismissableLayer,
+  DismissableLayerBranch as RadixDismissableLayerBranch,
+} from '@radix-ui/react-dismissable-layer'
 import React, {
   createContext,
   forwardRef,
@@ -8,11 +12,6 @@ import React, {
   useRef,
   useState,
 } from 'react'
-
-import {
-  DismissableLayer as RadixDismissableLayer,
-  DismissableLayerBranch as RadixDismissableLayerBranch,
-} from '@radix-ui/react-dismissable-layer'
 
 import { polymorphic, useComposedRefs } from '../../../libs'
 import { vars } from '../../../styles'

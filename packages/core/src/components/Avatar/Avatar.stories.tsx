@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-
 import { AvatarComponent as Avatar } from './Avatar'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'core/Data Display/Avatar',

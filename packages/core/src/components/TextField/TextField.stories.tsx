@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from 'storybook/test'
 
 import { TextField } from './TextField'
+
 import type { TextFieldProps } from './TextField'
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof TextField> = {
   title: 'foundation/TextField',

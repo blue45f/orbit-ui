@@ -1,9 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from 'storybook/test'
 import React, { useState } from 'react'
+import { fn } from 'storybook/test'
 
 import { Chip } from '../Chip'
+
 import { SearchBar } from './SearchBar'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Inputs/Text Fields/SearchBar',

@@ -7,6 +7,12 @@ allowBuilds:
   '@parcel/watcher': true
   '@swc/core': true
   esbuild: true
+  unrs-resolver: true
+
+# 自社 @heejun/* 공유 config는 이 레포가 채택하려고 의도적으로 갓 퍼블리시한 것이다.
+# pnpm 11의 기본 supply-chain 쿨다운(minimumReleaseAge)에서만 예외 처리한다(나머지 정책은 유지).
+minimumReleaseAgeExclude:
+  - '@heejun/*'
 
 # Workspace catalog: 단일 진실 공급원으로 버전을 통일합니다.
 # 패키지에서 "catalog:"로 참조하면 여기 값이 사용됩니다.

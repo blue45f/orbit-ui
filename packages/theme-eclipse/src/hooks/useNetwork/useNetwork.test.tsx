@@ -3,8 +3,9 @@ import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { cleanup } from '../../test-utils'
 
-import type { NetworkEffectiveType } from './useNetwork'
 import { useNetwork } from './useNetwork'
+
+import type { NetworkEffectiveType } from './useNetwork'
 
 // ---------------------------------------------------------------------------
 // Helpers

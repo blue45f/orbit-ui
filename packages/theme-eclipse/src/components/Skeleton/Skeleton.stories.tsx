@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 import { Flex } from '@heejun-com/core'
+import React, { useState, useEffect } from 'react'
 
 import { Skeleton } from './Skeleton'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Feedback/Skeleton',

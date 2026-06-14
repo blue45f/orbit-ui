@@ -1,7 +1,7 @@
 import { CSSProperties, createElement, useRef } from 'react'
 
-import { cn } from '../../../styles'
 import { composeRefs, polymorphic } from '../../../libs'
+import { cn } from '../../../styles'
 
 /* ========================================================================
  * Flex

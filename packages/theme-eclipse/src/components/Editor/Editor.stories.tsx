@@ -1,6 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
+
 import { Editor } from './Editor'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof Editor> = {
   title: 'eclipse/Inputs/Editor',

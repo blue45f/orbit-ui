@@ -100,7 +100,6 @@ export function useAsync<T>(
 
   useEffect(() => {
     if (immediate) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       void run()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

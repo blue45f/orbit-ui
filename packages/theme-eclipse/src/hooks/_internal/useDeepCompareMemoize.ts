@@ -1,5 +1,5 @@
-import { useRef } from 'react'
 import { dequal } from 'dequal'
+import { useRef } from 'react'
 
 /**
  * 깊은 비교(deep equality)로 값을 메모이즈합니다.
@@ -23,11 +23,10 @@ export function useDeepCompareMemoize<T>(value: T): T {
   // 깊은 비교로 동일하면 이전 참조를 유지하고, 달라졌을 때만 갱신합니다.
   // 렌더 중 ref를 읽고 쓰는 것은 이 메모이즈 패턴의 본질적인 동작이며,
   // usePrevious·useIsFirstRender와 동일하게 react-hooks/refs를 의도적으로 비활성화합니다.
-  /* eslint-disable react-hooks/refs */
+
   if (!dequal(ref.current, value)) {
     ref.current = value
   }
 
   return ref.current
-  /* eslint-enable react-hooks/refs */
 }

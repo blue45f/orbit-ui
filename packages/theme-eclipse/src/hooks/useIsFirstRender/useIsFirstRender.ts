@@ -22,6 +22,5 @@ export function useIsFirstRender(): boolean {
     isFirstRenderRef.current = false
   }, [])
 
-  // eslint-disable-next-line react-hooks/refs
   return isFirstRenderRef.current
 }

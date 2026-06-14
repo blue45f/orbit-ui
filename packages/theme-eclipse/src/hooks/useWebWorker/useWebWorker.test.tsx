@@ -46,7 +46,7 @@ describe('useWebWorker', () => {
   })
 
   it('run()을 호출하면 Worker가 생성되고 status가 running이 된다', () => {
-    let capturedPostMessage: unknown[] = []
+    const capturedPostMessage: unknown[] = []
 
     class MockWorker {
       onmessage: ((e: MessageEvent) => void) | null = null

@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { cn } from '../../styles'
 
 const Breadcrumb = React.forwardRef<
@@ -37,6 +38,9 @@ const BreadcrumbLink = React.forwardRef<
   }
 >(({ className, ...props }, ref) => {
   return (
+    // 프리미티브 링크 래퍼: 콘텐츠(children)는 consumer가 {...props}로 주입한다.
+    // 정적 분석은 주입된 children을 볼 수 없어 빈 anchor로 오탐한다 — 의도된 false positive.
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
     <a
       ref={ref}
       className={cn(

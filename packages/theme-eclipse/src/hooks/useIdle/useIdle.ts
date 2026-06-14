@@ -54,7 +54,6 @@ export function useIdle(options: UseIdleOptions = {}): boolean {
 
   useEffect(() => {
     if (!enabled || typeof window === 'undefined') {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIdle(false)
       return
     }

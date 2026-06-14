@@ -1,11 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import React, { useState } from 'react'
-
-import { Tooltip } from './Tooltip'
-import { FilledButton as Button } from '../SolidButton'
-import { Typography } from '../Text'
-import { SolidIconButton } from '../SolidIconButton'
-
 import {
   CircleInfoLineIcon,
   SettingLineIcon,
@@ -13,6 +5,15 @@ import {
   StarLineIcon,
   SearchIcon,
 } from '@heejun-com/icons'
+import React, { useState } from 'react'
+
+import { FilledButton as Button } from '../SolidButton'
+import { SolidIconButton } from '../SolidIconButton'
+import { Typography } from '../Text'
+
+import { Tooltip } from './Tooltip'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Feedback/Tooltip',

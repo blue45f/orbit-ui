@@ -1,7 +1,8 @@
 import { INITIAL_VIEWPORTS } from 'storybook/viewport'
-import type { Decorator, Preview } from '@storybook/react'
 
 import { ThemeProvider, LottieProvider } from '../src/components/primitives'
+
+import type { Decorator, Preview } from '@storybook/react'
 
 // Import global styles
 import '../src/styles/globals.css'

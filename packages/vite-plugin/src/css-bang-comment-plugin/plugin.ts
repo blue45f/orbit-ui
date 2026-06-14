@@ -1,6 +1,6 @@
-import type { Plugin, ResolvedConfig } from 'vite'
-
 import { getFilenameSegment } from './utils'
+
+import type { Plugin, ResolvedConfig } from 'vite'
 
 /**
  * @description

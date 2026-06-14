@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import { ScrollableTabGroup } from '../..'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 ScrollableTabGroup.displayName = 'ScrollableTabGroup'
 ScrollableTabGroup.TabLeading.displayName = 'ScrollableTabGroupTabLeading'

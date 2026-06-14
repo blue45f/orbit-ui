@@ -1,6 +1,6 @@
-import * as React from 'react'
-import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
 import { ArrowLeftIcon, ArrowRightIcon, PauseLineIcon, PlayFillIcon } from '@heejun-com/icons'
+import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
+import * as React from 'react'
 
 import { cn } from '../../styles'
 

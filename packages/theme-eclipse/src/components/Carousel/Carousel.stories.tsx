@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 
 import { Carousel } from './Carousel'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Data Display/Carousel',

@@ -2,6 +2,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { cleanup, render, screen, waitFor } from '../../../test-utils'
 
+import { Animation, LottieProvider } from './Animation'
+
 // lottie-web/build/player/lottie_light를 모킹
 const mockAnimationItem = {
   play: vi.fn(),
@@ -21,8 +23,6 @@ vi.mock('lottie-web/build/player/lottie_light', () => ({
     loadAnimation: mockLoadAnimation,
   },
 }))
-
-import { Animation, LottieProvider } from './Animation'
 
 afterEach(() => {
   cleanup()

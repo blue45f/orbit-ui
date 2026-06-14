@@ -1,11 +1,10 @@
 import { act, renderHook, fireEvent } from '@testing-library/react'
+import React, { useRef } from 'react'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { cleanup, render } from '../../test-utils'
 
 import { useFocusWithin } from './useFocusWithin'
-
-import React, { useRef } from 'react'
 
 describe('useFocusWithin', () => {
   afterEach(() => {

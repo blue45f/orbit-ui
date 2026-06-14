@@ -18,7 +18,6 @@ export function useObjectUrl(blob: Blob | MediaSource | null | undefined): strin
 
   useEffect(() => {
     if (!blob || typeof URL === 'undefined') {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUrl(null)
       return
     }

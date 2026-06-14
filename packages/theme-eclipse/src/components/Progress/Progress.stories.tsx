@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 import { Flex } from '@heejun-com/core'
+import React, { useState, useEffect } from 'react'
 
 import { Progress } from './Progress'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Feedback/Progress',
@@ -400,7 +401,7 @@ const CycleBurndownRender = () => {
   const [day, setDay] = useState(5)
   const totalDays = 14
   const totalIssues = 32
-  // eslint-disable-next-line react-hooks/purity
+
   const completedIssues = Math.round((day / totalDays) * totalIssues * (0.8 + Math.random() * 0.2))
   const cycleProgress = Math.round((day / totalDays) * 100)
   const issueProgress = Math.round((completedIssues / totalIssues) * 100)

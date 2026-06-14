@@ -1,4 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect, useRef, useState } from 'react'
 
 import {
@@ -27,6 +26,8 @@ import {
   useShareAPI,
   useWakeLock,
 } from '../index'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'Hooks/Interaction',

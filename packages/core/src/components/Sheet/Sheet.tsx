@@ -10,7 +10,6 @@ import {
   isValidElement,
 } from 'react'
 
-import { cn } from '../../styles'
 import {
   useControllableState,
   useComposedRefs,
@@ -21,12 +20,13 @@ import {
   getReactElementRef,
   composeEventHandlers,
 } from '../../libs'
-import { Scrim } from '../Scrim'
+import { cn } from '../../styles'
 import { ContentLayer, Portal, Presence, useUniqueID } from '../primitives'
 import {
   OverlayContainerLayer,
   OverlayContainerLayerProps,
 } from '../primitives/Overlay/OverlayContainerLayer'
+import { Scrim } from '../Scrim'
 
 import { SheetProvider, useSheetContext } from './Sheet.lib'
 

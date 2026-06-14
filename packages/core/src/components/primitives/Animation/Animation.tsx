@@ -1,8 +1,9 @@
-import type { AnimationItem } from 'lottie-web/build/player/lottie_light'
-import type Lottie from 'lottie-web/build/player/lottie_light'
 import { useMemo, useRef, useState } from 'react'
 
 import { errorDev, setupContext, useIsomorphicLayoutEffect } from '../../..'
+
+import type { AnimationItem } from 'lottie-web/build/player/lottie_light'
+import type Lottie from 'lottie-web/build/player/lottie_light'
 
 // =========== LottieContext ===========
 

@@ -8,8 +8,8 @@ import {
   SettingLineIcon,
 } from '@heejun-com/icons'
 import { Meta, StoryObj } from '@storybook/react'
-import { expect, fn, userEvent, within } from 'storybook/test'
 import { useState } from 'react'
+import { expect, fn, userEvent, within } from 'storybook/test'
 
 import { SolidButton, SolidButtonProps } from '.'
 
@@ -2007,7 +2007,7 @@ function IssueTrackerIssueCreateRender() {
         >
           <p style={{ fontSize: 13, fontWeight: 600, color: '#16a34a' }}>이슈가 생성되었습니다</p>
           <p style={{ fontSize: 11, color: '#22c55e' }}>
-            {/* eslint-disable-next-line react-hooks/purity */}
+            {}
             ORB-{Math.floor(Math.random() * 900) + 100}: {title}
           </p>
         </div>

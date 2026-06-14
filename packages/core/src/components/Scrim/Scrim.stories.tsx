@@ -1,5 +1,4 @@
 import { CheckIcon } from '@heejun-com/icons'
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import { Button } from '../Button'
@@ -8,6 +7,8 @@ import { Flex } from '../primitives'
 
 import { Scrim } from './Scrim'
 import * as storyStyles from './Scrim.stories.css'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'foundation/Scrim',
