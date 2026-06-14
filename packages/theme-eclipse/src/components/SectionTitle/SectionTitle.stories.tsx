@@ -1,19 +1,20 @@
-import React from 'react'
 import {
   ChevronRightLineIcon,
   CircleInfoLineIcon,
   CircleNewLineIcon,
   SettingLineIcon,
 } from '@heejun-com/icons'
-import type { Meta, StoryObj } from '@storybook/react'
+import React from 'react'
 
-import { TextButton } from '../GhostButton'
-import { Typography } from '../Text'
-import { LabelBadge } from '../LabelBadge'
 import { CounterBadge } from '../CounterBadge'
 import { Divider } from '../Divider'
+import { TextButton } from '../GhostButton'
+import { LabelBadge } from '../LabelBadge'
+import { Typography } from '../Text'
 
 import { SectionTitle } from './SectionTitle'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 SectionTitle.displayName = 'SectionTitle'
 SectionTitle.Title.displayName = 'SectionTitle.Title'

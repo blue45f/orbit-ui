@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import { TabItems } from '../..'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'foundation/TabItems',

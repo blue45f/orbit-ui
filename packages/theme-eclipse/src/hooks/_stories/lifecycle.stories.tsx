@@ -1,4 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect, useState } from 'react'
 
 import {
@@ -18,6 +17,8 @@ import {
   useUpdateEffect,
   useWebWorker,
 } from '../index'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'Hooks/Lifecycle',

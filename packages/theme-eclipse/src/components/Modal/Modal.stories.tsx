@@ -1,14 +1,15 @@
 import { Flex } from '@heejun-com/core'
 import React, { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 
 import { vars } from '../../styles'
-import { FilledButton as Button } from '../SolidButton'
-import { OutlineButton } from '../OutlineButton'
-import { Typography } from '../Text'
 import { FloatingTextField } from '../FloatingTextField'
+import { OutlineButton } from '../OutlineButton'
+import { FilledButton as Button } from '../SolidButton'
+import { Typography } from '../Text'
 
 import { Dialog } from './Modal'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Feedback/Dialog',

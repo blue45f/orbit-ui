@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import type { DateRange } from 'react-day-picker'
 
 import { Calendar } from './Calendar'
+
+import type { Meta, StoryObj } from '@storybook/react'
+import type { DateRange } from 'react-day-picker'
 
 const meta = {
   title: 'core/Data Entry/Calendar',

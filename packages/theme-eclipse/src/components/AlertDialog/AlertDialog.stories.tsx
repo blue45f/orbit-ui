@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
-
 import { DeleteLineIcon, AlertLineIcon, NotificationCheckFillIcon } from '@heejun-com/icons'
+import React, { useState } from 'react'
 
 import { FilledButton as Button } from '../SolidButton'
 import { TextField } from '../TextField'
 
 import { Alert } from './AlertDialog'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Feedback/Alert',
@@ -1567,7 +1567,6 @@ const UtilityCSSSessionTimeoutRender = () => {
 
   React.useEffect(() => {
     if (!isOpen) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSeconds(30)
       return
     }

@@ -1,4 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect, useRef, useState } from 'react'
 
 import {
@@ -14,6 +13,8 @@ import {
   useThrottle,
   useTimeout,
 } from '../index'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'Hooks/Timing',

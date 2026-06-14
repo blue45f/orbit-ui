@@ -2,7 +2,6 @@ import { createRef } from 'react'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { cleanup, render, screen } from '../../test-utils'
-
 import { PageDots } from '../PageDots'
 
 import { PageIndicator } from './PageIndicator'

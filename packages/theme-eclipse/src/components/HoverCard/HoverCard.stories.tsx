@@ -1,14 +1,16 @@
 import { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 
-import { HoverCard } from './HoverCard'
 import { Avatar } from '../Avatar'
-import { Typography } from '../Text'
-import { SolidButton } from '../SolidButton'
 import { CounterBadge } from '../CounterBadge'
 import { Divider } from '../Divider'
-import { Progress } from '../Progress'
 import { LabelBadge } from '../LabelBadge'
+import { Progress } from '../Progress'
+import { SolidButton } from '../SolidButton'
+import { Typography } from '../Text'
+
+import { HoverCard } from './HoverCard'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Feedback/HoverCard',

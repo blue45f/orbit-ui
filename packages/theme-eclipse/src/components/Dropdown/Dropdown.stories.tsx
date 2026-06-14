@@ -1,9 +1,10 @@
 import { ChevronRightLineIcon, SearchIcon } from '@heejun-com/icons'
-import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from 'storybook/test'
 import { useState } from 'react'
+import { fn } from 'storybook/test'
 
 import { Dropdown } from './Dropdown'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Inputs/Pickers/Dropdown',
@@ -353,7 +354,7 @@ const EnterpriseUISelectFormDemo = () => {
               activated={countryOpen}
               onClick={() => setCountryOpen(!countryOpen)}
             />
-            {/* eslint-disable-next-line react-hooks/static-components */}
+            {}
             <SimpleMenu isOpen={countryOpen} items={countries} onSelect={handleCountrySelect} />
           </div>
         </div>
@@ -379,7 +380,7 @@ const EnterpriseUISelectFormDemo = () => {
               disabled={!country}
               onClick={() => country && setCityOpen(!cityOpen)}
             />
-            {/* eslint-disable-next-line react-hooks/static-components */}
+            {}
             <SimpleMenu
               isOpen={cityOpen}
               items={cities}
@@ -416,7 +417,7 @@ const EnterpriseUISelectFormDemo = () => {
               activated={roleOpen}
               onClick={() => setRoleOpen(!roleOpen)}
             />
-            {/* eslint-disable-next-line react-hooks/static-components */}
+            {}
             <SimpleMenu
               isOpen={roleOpen}
               items={roles}
@@ -606,7 +607,7 @@ const AccessibleFilterMenuDemo = () => {
               setAssigneeOpen(false)
             }}
           />
-          {/* eslint-disable-next-line react-hooks/static-components */}
+          {}
           <SimpleMenuDropdown
             isOpen={statusOpen}
             items={statusOptions}
@@ -627,7 +628,7 @@ const AccessibleFilterMenuDemo = () => {
               setAssigneeOpen(false)
             }}
           />
-          {/* eslint-disable-next-line react-hooks/static-components */}
+          {}
           <SimpleMenuDropdown
             isOpen={priorityOpen}
             items={priorityOptions}
@@ -648,7 +649,7 @@ const AccessibleFilterMenuDemo = () => {
               setPriorityOpen(false)
             }}
           />
-          {/* eslint-disable-next-line react-hooks/static-components */}
+          {}
           <SimpleMenuDropdown
             isOpen={assigneeOpen}
             items={assigneeOptions}

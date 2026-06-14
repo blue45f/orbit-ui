@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
+
+import { Skeleton } from '../Skeleton'
 
 import { Loading } from './Loading'
-import { Skeleton } from '../Skeleton'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Feedback/Loading',
@@ -1420,7 +1422,6 @@ function M3IssueTrackerProgressRender() {
   React.useEffect(() => {
     if (!running) return
     if (progress >= 100) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRunning(false)
       return
     }

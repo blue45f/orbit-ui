@@ -1,5 +1,7 @@
 import { memo } from 'react'
+
 import { IconRoot } from '../IconRoot'
+
 import type { IconProps, IntellisenseFriendlyString } from '../types'
 
 interface FacebookIconProps extends Omit<IconProps, 'color'> {

@@ -2288,7 +2288,7 @@ function IssueTrackerIssueFilterRender() {
                 {s.label}
               </span>
               <span style={{ marginLeft: 'auto', fontSize: 11, color: '#94a3b8' }}>
-                {/* eslint-disable-next-line react-hooks/purity */}
+                {}
                 {Math.floor(Math.random() * 20 + 1)}
               </span>
             </div>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from 'storybook/test'
 
 import { FloatingTextField } from './FloatingTextField'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Inputs/Text Fields/FloatingTextField',

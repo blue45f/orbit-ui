@@ -1,7 +1,7 @@
-import * as React from 'react'
+import { SearchIcon } from '@heejun-com/icons'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { Command as CommandPrimitive } from 'cmdk'
-import { SearchIcon } from '@heejun-com/icons'
+import * as React from 'react'
 
 import { cn } from '../../styles'
 

@@ -1,6 +1,3 @@
-import React, { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
-
 import {
   SettingLineIcon,
   StarLineIcon,
@@ -13,8 +10,11 @@ import {
   CheckIcon,
   DeleteLineIcon,
 } from '@heejun-com/icons'
+import React, { useState } from 'react'
 
 import { Command } from './Command'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Navigation/Command',

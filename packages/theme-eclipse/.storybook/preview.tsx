@@ -1,9 +1,12 @@
-import { EclipseProvider } from '../src/components/EclipseProvider'
-import type { Decorator, Preview } from '@storybook/react'
 import { useEffect } from 'react'
 
-import './preview.css'
+import { EclipseProvider } from '../src/components/EclipseProvider'
+
 import { STORYBOOK_GLOBAL_TYPES, STORYBOOK_VIEWPORTS } from './storybook-config'
+
+import type { Decorator, Preview } from '@storybook/react'
+
+import './preview.css'
 
 type ThemeMode = 'light' | 'dark'
 type PlatformMode = 'mobile' | 'pc'

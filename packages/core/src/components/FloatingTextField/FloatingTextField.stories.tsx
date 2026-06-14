@@ -1,9 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from 'storybook/test'
 import { JSX, useState } from 'react'
+import { fn } from 'storybook/test'
 
 import { TextFieldWithLabelAnimation } from './FloatingTextField'
+
 import type { TextFieldWithLabelAnimationProps } from './FloatingTextField'
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof TextFieldWithLabelAnimation> = {
   title: 'Foundation/TextFieldWithLabelAnimation',

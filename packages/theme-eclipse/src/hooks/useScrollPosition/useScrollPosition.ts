@@ -45,7 +45,7 @@ export function useScrollPosition(): ScrollPosition {
     }
 
     // Sync once on mount in case SSR set (0,0) and real value differs.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setPosition(readPosition())
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => {

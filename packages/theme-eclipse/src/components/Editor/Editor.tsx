@@ -1,8 +1,8 @@
-import { useEditor, EditorContent, Editor as TiptapEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Placeholder from '@tiptap/extension-placeholder'
 import CharacterCount from '@tiptap/extension-character-count'
 import Link from '@tiptap/extension-link'
+import Placeholder from '@tiptap/extension-placeholder'
+import { useEditor, EditorContent, Editor as TiptapEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 import { CSSProperties, ReactNode, useCallback, createContext, useContext } from 'react'
 
 /* ── Context ─────────────────────────────────────────────── */

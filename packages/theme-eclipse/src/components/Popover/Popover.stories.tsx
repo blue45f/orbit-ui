@@ -1,15 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import { Avatar } from '../Avatar'
 import { CounterBadge } from '../CounterBadge'
-import { LabelBadge } from '../LabelBadge'
 import { GhostButton } from '../GhostButton'
+import { LabelBadge } from '../LabelBadge'
 import { OutlineButton } from '../OutlineButton'
 import { FilledButton as Button } from '../SolidButton'
 import { Typography } from '../Text'
 
 import { Popover } from './Popover'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Feedback/Popover',
@@ -2718,7 +2719,7 @@ function IssueTrackerIssueQuickEditRender() {
         </Typography>
       </div>
       <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-        {/* eslint-disable-next-line react-hooks/static-components */}
+        {}
         <Field
           label="상태"
           value={status}
@@ -2726,9 +2727,9 @@ function IssueTrackerIssueQuickEditRender() {
           options={TRACKER_STATUSES}
           colors={STATUS_COLORS}
         />
-        {/* eslint-disable-next-line react-hooks/static-components */}
+        {}
         <Field label="담당자" value={assignee} field="assignee" options={TRACKER_USERS} />
-        {/* eslint-disable-next-line react-hooks/static-components */}
+        {}
         <Field label="우선순위" value={priority} field="priority" options={TRACKER_PRIORITIES} />
       </div>
       <Typography textStyle="descriptionSmall" color="foregroundDisabled">

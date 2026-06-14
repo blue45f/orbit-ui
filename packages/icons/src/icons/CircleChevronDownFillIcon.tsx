@@ -1,5 +1,7 @@
 import { memo } from 'react'
+
 import { IconRoot } from '../IconRoot'
+
 import type { IconProps } from '../types'
 
 function CircleChevronDownFillIcon(props: IconProps) {

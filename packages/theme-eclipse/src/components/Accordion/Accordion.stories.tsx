@@ -1,10 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
-import { Accordion } from './Accordion'
+import { GhostButton } from '../GhostButton'
 import { LabelBadge } from '../LabelBadge'
 import { Switch } from '../Switch'
-import { GhostButton } from '../GhostButton'
+
+import { Accordion } from './Accordion'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Data Display/Accordion',

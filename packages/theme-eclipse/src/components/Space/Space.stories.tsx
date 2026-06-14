@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
 import { Meta, StoryObj } from '@storybook/react'
+import React, { useState } from 'react'
 
 import { vars } from '../../styles/theme-vars'
-import { FilledButton as Button } from '../SolidButton'
 import { OutlinedButton } from '../OutlineButton'
+import { FilledButton as Button } from '../SolidButton'
 import { Typography } from '../Text'
 
 import { Space, SpaceProps, Spacing } from './Space'

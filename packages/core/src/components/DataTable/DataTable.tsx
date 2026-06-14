@@ -92,7 +92,7 @@ function DataTableInner<TData, TValue>(
 
   // TanStack Table의 useReactTable는 메모이즈 불가 함수를 반환하므로 React Compiler가 이 컴포넌트
   // 메모이제이션을 건너뛴다(third-party 라이브러리 한계, 의도된 동작). 권고성 경고를 명시적으로 억제.
-  // eslint-disable-next-line react-hooks/incompatible-library
+
   const table = useReactTable({
     data,
     columns,
@@ -191,10 +191,10 @@ function DataTableInner<TData, TValue>(
               <tr>
                 <td
                   colSpan={columns.length}
-                  role="alert"
                   className="h-32 text-center align-middle font-medium text-status-negative"
                 >
-                  {errorMessage}
+                  {/* role="alert"는 td의 cell 시맨틱을 덮어쓰지 않도록 내부 요소에 둔다. */}
+                  <div role="alert">{errorMessage}</div>
                 </td>
               </tr>
             ) : table.getRowModel().rows?.length ? (

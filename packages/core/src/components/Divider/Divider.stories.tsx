@@ -3,6 +3,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Flex } from '../primitives'
 
 import { Divider } from './Divider'
+
 Divider.displayName = 'Divider'
 
 const meta = {

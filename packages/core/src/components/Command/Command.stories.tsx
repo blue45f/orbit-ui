@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-
 import { CommandComponent as Command } from './Command'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'core/Navigation/Command',

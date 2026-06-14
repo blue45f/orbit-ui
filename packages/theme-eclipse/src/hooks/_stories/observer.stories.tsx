@@ -1,4 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useRef, useState } from 'react'
 
 import {
@@ -9,6 +8,8 @@ import {
   useResizeObserver,
   useInViewport,
 } from '../index'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'Hooks/Observer',

@@ -2735,8 +2735,7 @@ function UtilityCSSDashboardViewRender() {
                   <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 400 }}> {m.unit}</span>
                 </div>
                 <div style={{ fontSize: 11, color: '#16a34a', marginTop: 2 }}>
-                  {/* eslint-disable-next-line react-hooks/purity */}▲{' '}
-                  {(Math.random() * 10 + 2).toFixed(1)}%
+                  {}▲ {(Math.random() * 10 + 2).toFixed(1)}%
                 </div>
               </div>
             )

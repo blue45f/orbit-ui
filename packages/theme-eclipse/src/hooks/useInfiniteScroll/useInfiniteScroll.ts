@@ -66,7 +66,6 @@ export function useInfiniteScroll<T extends Element = HTMLDivElement>({
 
   // hasMore가 변경되면(새 데이터 로드 후) isLoading을 초기화
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (hasMore) setIsLoading(false)
   }, [hasMore])
 

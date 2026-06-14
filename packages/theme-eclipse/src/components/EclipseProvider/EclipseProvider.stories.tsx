@@ -1,18 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
-import { EclipseProvider } from './EclipseProvider'
-import { SolidButton } from '../SolidButton'
-import { OutlineButton } from '../OutlineButton'
+import { Avatar } from '../Avatar'
+import { CounterBadge } from '../CounterBadge'
+import { Divider } from '../Divider'
 import { GhostButton } from '../GhostButton'
+import { LabelBadge } from '../LabelBadge'
+import { OutlineButton } from '../OutlineButton'
+import { SolidButton } from '../SolidButton'
+import { Switch } from '../Switch'
 import { Typography } from '../Text'
 import { TextField } from '../TextField'
 import { Toggle } from '../Toggle'
-import { Switch } from '../Switch'
-import { CounterBadge } from '../CounterBadge'
-import { LabelBadge } from '../LabelBadge'
-import { Avatar } from '../Avatar'
-import { Divider } from '../Divider'
+
+import { EclipseProvider } from './EclipseProvider'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/EclipseProvider',

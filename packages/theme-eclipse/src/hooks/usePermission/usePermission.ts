@@ -31,7 +31,6 @@ export function usePermission(name: PermissionName): PermissionState {
 
   useEffect(() => {
     if (typeof navigator === 'undefined' || !navigator.permissions) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setState('unsupported')
       return
     }

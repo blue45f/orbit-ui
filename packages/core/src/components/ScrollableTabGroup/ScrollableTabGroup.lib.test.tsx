@@ -1,8 +1,9 @@
 import { renderHook } from '@testing-library/react'
-import type { MouseEvent, MutableRefObject } from 'react'
 import { expect, test } from 'vitest'
 
 import { useDragScroll } from './ScrollableTabGroup.lib'
+
+import type { MouseEvent, MutableRefObject } from 'react'
 
 const setup = () => {
   const { result } = renderHook(() => useDragScroll({ draggingClassName: 'dragging' }))

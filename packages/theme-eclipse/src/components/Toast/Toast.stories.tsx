@@ -1,8 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 
-import { Toaster, toast } from './Toast'
 import { FilledButton as Button } from '../SolidButton'
+
+import { Toaster, toast } from './Toast'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Feedback/Toast',

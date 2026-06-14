@@ -1,7 +1,6 @@
 import { IconPropsContext } from '@heejun-com/icons'
 import { Children, forwardRef, MouseEvent, ReactNode, useCallback } from 'react'
 
-import { cn } from '../../styles'
 import {
   useComposedRefs,
   useControllableState,
@@ -9,6 +8,7 @@ import {
   toCSSLength,
   filterComponents,
 } from '../../libs'
+import { cn } from '../../styles'
 import { ContainerLayer, StateLayer, ContentLayer, BorderLayer } from '../primitives/Layer'
 
 /* ========================================================================
@@ -217,6 +217,9 @@ export type ChipLeadingProps = {
 }
 
 const ChipLeading: React.FC<ChipLeadingProps> = ({ size = 20, children }) => (
+  // onClick은 상호작용이 아니라 전파 차단 전용이다(클릭 가능한 child가 Chip 핸들러를 중복 발화하지
+  // 않도록). span 자체는 비상호작용이므로 key 핸들러/role/tabindex 추가는 잘못된 탭 스톱을 만든다.
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <span
     className="inline-flex items-center justify-center"
     onClick={(e) => isClickable(children) && e.stopPropagation()}
@@ -232,6 +235,9 @@ export type ChipTrailingProps = {
 }
 
 const ChipTrailing: React.FC<ChipTrailingProps> = ({ size = 20, children }) => (
+  // onClick은 상호작용이 아니라 전파 차단 전용이다(클릭 가능한 child가 Chip 핸들러를 중복 발화하지
+  // 않도록). span 자체는 비상호작용이므로 key 핸들러/role/tabindex 추가는 잘못된 탭 스톱을 만든다.
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <span
     className="inline-flex items-center justify-center"
     onClick={(e) => isClickable(children) && e.stopPropagation()}

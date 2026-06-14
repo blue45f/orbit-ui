@@ -1,7 +1,7 @@
+import { DataTable } from './DataTable'
+
 import type { Meta, StoryObj } from '@storybook/react'
 import type { ColumnDef } from '@tanstack/react-table'
-
-import { DataTable } from './DataTable'
 
 type User = {
   id: number

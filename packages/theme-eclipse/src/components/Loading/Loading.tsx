@@ -1,5 +1,6 @@
 import { Spinner } from '@heejun-com/core'
 import React from 'react'
+
 import { cn } from '../../styles'
 
 export type LoadingProps = {

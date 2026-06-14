@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from 'storybook/test'
 import { useState } from 'react'
+import { fn } from 'storybook/test'
 
 import { PasswordField } from './PasswordField'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'eclipse/Inputs/Text Fields/PasswordField',

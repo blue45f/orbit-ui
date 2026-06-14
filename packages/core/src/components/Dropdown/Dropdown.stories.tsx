@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from 'storybook/test'
 import { useEffect, useState } from 'react'
+import { fn } from 'storybook/test'
 
 import { Dropdown, type DropdownProps } from './Dropdown'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'Foundation/Dropdown',
@@ -37,7 +38,6 @@ const DefaultExample = (args: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(args.activated ?? false)
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsOpen(args.activated ?? false)
   }, [args.activated])
 

@@ -1,4 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import { useEclipseTheme } from '../../components/EclipseProvider'
@@ -29,6 +28,8 @@ import {
   useWindowFocus,
   useWindowSize,
 } from '../index'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'Hooks/Environment',

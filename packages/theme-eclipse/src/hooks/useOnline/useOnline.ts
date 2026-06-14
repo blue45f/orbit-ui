@@ -31,7 +31,7 @@ export function useOnline(): boolean {
     const handleOnline = () => setOnline(true)
     const handleOffline = () => setOnline(false)
     // sync once on mount in case navigator.onLine changed between SSR and CSR
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setOnline(readOnline())
     window.addEventListener('online', handleOnline)
     window.addEventListener('offline', handleOffline)
