@@ -8,7 +8,7 @@ import { useKeyPress } from './useKeyPress'
 const fireKey = (type: 'keydown' | 'keyup', key: string, target: EventTarget = window) => {
   const event = new KeyboardEvent(type, { key })
   if (target === window) {
-    window.dispatchEvent(event)
+    globalThis.dispatchEvent(event)
   } else {
     target.dispatchEvent(event)
   }
@@ -55,7 +55,7 @@ describe('useKeyPress', () => {
     act(() => fireKey('keydown', 'Shift'))
     expect(result.current).toBe(true)
 
-    act(() => window.dispatchEvent(new Event('blur')))
+    act(() => globalThis.dispatchEvent(new Event('blur')))
     expect(result.current).toBe(false)
   })
 

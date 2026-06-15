@@ -50,16 +50,16 @@ export class PlayWrightExecutor {
     })
 
     await this.page.addInitScript(`{
-      const _clearTimeout = window.clearTimeout;
-      const _requestAnimationFrame = window.requestAnimationFrame;
+      const _clearTimeout = globalThis.clearTimeout;
+      const _requestAnimationFrame = globalThis.requestAnimationFrame;
 
-      window.requestAnimationFrame = (callback) => {
+      globalThis.requestAnimationFrame = (callback) => {
         return 1;
       }
 
       new MutationObserver(() => {
-        window.__pwBusy__("dom++");
-        _requestAnimationFrame(() => { window.__pwBusy__("dom--"); });
+        globalThis.__pwBusy__("dom++");
+        _requestAnimationFrame(() => { globalThis.__pwBusy__("dom--"); });
       }).observe(document, { attributes: true, childList: true, subtree: true });
 
     }`)

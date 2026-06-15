@@ -416,19 +416,19 @@ function LongPressDemo() {
   const startProgress = () => {
     setProgress(0)
     const started = Date.now()
-    if (timerRef.current !== null) window.clearInterval(timerRef.current)
-    timerRef.current = window.setInterval(() => {
+    if (timerRef.current !== null) globalThis.clearInterval(timerRef.current)
+    timerRef.current = globalThis.setInterval(() => {
       const ratio = Math.min(1, (Date.now() - started) / 600)
       setProgress(ratio)
       if (ratio >= 1 && timerRef.current !== null) {
-        window.clearInterval(timerRef.current)
+        globalThis.clearInterval(timerRef.current)
         timerRef.current = null
       }
     }, 16)
   }
   const stopProgress = () => {
     if (timerRef.current !== null) {
-      window.clearInterval(timerRef.current)
+      globalThis.clearInterval(timerRef.current)
       timerRef.current = null
     }
     setProgress(0)
@@ -1399,7 +1399,7 @@ function SearchParamDemo() {
           color: 'var(--orbit-ink-3, rgba(24,26,28,0.56))',
         }}
       >
-        search: {typeof window !== 'undefined' ? window.location.search || '(empty)' : ''}
+        search: {typeof window !== 'undefined' ? globalThis.location.search || '(empty)' : ''}
       </div>
     </Panel>
   )

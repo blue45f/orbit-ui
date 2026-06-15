@@ -62,21 +62,21 @@ export function useIdle(options: UseIdleOptions = {}): boolean {
 
     const reset = () => {
       setIdle(false)
-      if (timerRef.current !== null) window.clearTimeout(timerRef.current)
-      timerRef.current = window.setTimeout(() => setIdle(true), timeout)
+      if (timerRef.current !== null) globalThis.clearTimeout(timerRef.current)
+      timerRef.current = globalThis.setTimeout(() => setIdle(true), timeout)
     }
 
     reset()
 
     for (const type of eventTypes) {
-      window.addEventListener(type, reset, { passive: true })
+      globalThis.addEventListener(type, reset, { passive: true })
     }
 
     // Treat tab going hidden as a strong signal to enter idle immediately —
     // a tab the user can't see is by definition not being interacted with.
     const onVisibility = () => {
       if (document.visibilityState === 'hidden') {
-        if (timerRef.current !== null) window.clearTimeout(timerRef.current)
+        if (timerRef.current !== null) globalThis.clearTimeout(timerRef.current)
         setIdle(true)
       } else {
         reset()
@@ -85,9 +85,9 @@ export function useIdle(options: UseIdleOptions = {}): boolean {
     document.addEventListener('visibilitychange', onVisibility)
 
     return () => {
-      if (timerRef.current !== null) window.clearTimeout(timerRef.current)
+      if (timerRef.current !== null) globalThis.clearTimeout(timerRef.current)
       for (const type of eventTypes) {
-        window.removeEventListener(type, reset)
+        globalThis.removeEventListener(type, reset)
       }
       document.removeEventListener('visibilitychange', onVisibility)
     }

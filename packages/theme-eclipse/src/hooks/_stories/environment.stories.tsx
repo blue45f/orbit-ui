@@ -580,8 +580,8 @@ function ScrollPositionDemo() {
   const { x, y } = useScrollPosition()
   return (
     <Panel title="useScrollPosition" signature="const { x, y } = useScrollPosition()">
-      <Readout label="window.scrollX" value={`${x}px`} />
-      <Readout label="window.scrollY" value={`${y}px`} />
+      <Readout label="globalThis.scrollX" value={`${x}px`} />
+      <Readout label="globalThis.scrollY" value={`${y}px`} />
       <div
         style={{
           marginTop: 14,

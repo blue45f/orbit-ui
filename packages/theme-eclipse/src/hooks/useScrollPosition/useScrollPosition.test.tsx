@@ -10,7 +10,7 @@ const setScroll = (x: number, y: number) => {
   Object.defineProperty(window, 'scrollY', { configurable: true, get: () => y })
 }
 
-const fireScroll = () => window.dispatchEvent(new Event('scroll'))
+const fireScroll = () => globalThis.dispatchEvent(new Event('scroll'))
 
 describe('useScrollPosition', () => {
   beforeEach(() => {

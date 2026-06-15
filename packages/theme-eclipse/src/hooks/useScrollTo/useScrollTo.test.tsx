@@ -15,12 +15,12 @@ describe('useScrollTo', () => {
     vi.restoreAllMocks()
   })
 
-  test('좌표 객체로 scrollTo를 호출하면 window.scrollTo가 실행된다', () => {
+  test('좌표 객체로 scrollTo를 호출하면 globalThis.scrollTo가 실행된다', () => {
     const { result } = renderHook(() => useScrollTo())
 
     result.current.scrollTo({ x: 100, y: 500 })
 
-    expect(window.scrollTo).toHaveBeenCalledWith({
+    expect(globalThis.scrollTo).toHaveBeenCalledWith({
       left: 100,
       top: 500,
       behavior: 'smooth',
@@ -61,7 +61,7 @@ describe('useScrollTo', () => {
 
     result.current.scrollTo({ x: 100 })
 
-    expect(window.scrollTo).toHaveBeenCalledWith({
+    expect(globalThis.scrollTo).toHaveBeenCalledWith({
       left: 100,
       top: 0,
       behavior: 'smooth',
@@ -73,7 +73,7 @@ describe('useScrollTo', () => {
 
     result.current.scrollTo({ y: 500 })
 
-    expect(window.scrollTo).toHaveBeenCalledWith({
+    expect(globalThis.scrollTo).toHaveBeenCalledWith({
       left: 0,
       top: 500,
       behavior: 'smooth',

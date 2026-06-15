@@ -120,7 +120,7 @@ describe('useSelection', () => {
     expect(result.current.rects).toEqual([])
   })
 
-  it('window.getSelection()이 null이면 빈 상태를 유지한다', () => {
+  it('globalThis.getSelection()이 null이면 빈 상태를 유지한다', () => {
     mockGetSelection.mockReturnValue(null)
 
     const { result } = renderHook(() => useSelection())

@@ -61,7 +61,7 @@ describe('useDevicePixelRatio', () => {
   test('window가 없는 SSR 환경에서 기본값 1을 반환한다', () => {
     // useDevicePixelRatio의 초기화 함수는 typeof window 체크를 이용
     // 실제 SSR 환경에서는 window가 없어 1을 반환함을 단위 테스트로 검증
-    const initFn = () => (typeof window !== 'undefined' ? window.devicePixelRatio : 1)
+    const initFn = () => (typeof window !== 'undefined' ? globalThis.devicePixelRatio : 1)
     // jsdom 환경에서는 window가 있으므로 현재 DPR(2)를 반환
     expect(initFn()).toBe(2)
 

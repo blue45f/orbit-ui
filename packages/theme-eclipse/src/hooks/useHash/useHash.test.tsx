@@ -10,39 +10,39 @@ describe('useHash', () => {
     cleanup()
     vi.unstubAllGlobals()
     // Reset hash after each test
-    window.location.hash = ''
+    globalThis.location.hash = ''
   })
 
   test('initial hash is empty string when location.hash is empty', () => {
-    window.location.hash = ''
+    globalThis.location.hash = ''
     const { result } = renderHook(() => useHash())
     expect(result.current.hash).toBe('')
   })
 
   test('returns current location.hash on init', () => {
-    window.location.hash = '#section-1'
+    globalThis.location.hash = '#section-1'
     const { result } = renderHook(() => useHash())
     expect(result.current.hash).toBe('#section-1')
   })
 
   test('setHash updates location.hash', () => {
-    window.location.hash = ''
+    globalThis.location.hash = ''
     const { result } = renderHook(() => useHash())
 
     act(() => {
       result.current.setHash('#new-section')
     })
 
-    expect(window.location.hash).toBe('#new-section')
+    expect(globalThis.location.hash).toBe('#new-section')
   })
 
   test('state updates on hashchange event', () => {
-    window.location.hash = ''
+    globalThis.location.hash = ''
     const { result } = renderHook(() => useHash())
 
     act(() => {
-      window.location.hash = '#updated'
-      window.dispatchEvent(new HashChangeEvent('hashchange'))
+      globalThis.location.hash = '#updated'
+      globalThis.dispatchEvent(new HashChangeEvent('hashchange'))
     })
 
     expect(result.current.hash).toBe('#updated')

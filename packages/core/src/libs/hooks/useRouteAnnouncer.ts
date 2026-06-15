@@ -96,11 +96,11 @@ export function useRouteAnnouncer(options: UseRouteAnnouncerOptions): UseRouteAn
     if (!isBrowser) return
 
     // 한 프레임 기다려, 목적지 페이지가 document.title 등을 갱신할 시간을 준다.
-    const rafId = window.requestAnimationFrame(() => {
+    const rafId = globalThis.requestAnimationFrame(() => {
       setMessage(resolveLabel(labelRef.current))
 
       // 인페이지 앵커(#section) 이동이면 포커스를 빼앗지 않고 흐름을 유지한다.
-      if (window.location.hash) return
+      if (globalThis.location.hash) return
 
       const targetId = focusTargetIdRef.current
       if (!targetId) return
@@ -110,7 +110,7 @@ export function useRouteAnnouncer(options: UseRouteAnnouncerOptions): UseRouteAn
       target?.focus({ preventScroll: true })
     })
 
-    return () => window.cancelAnimationFrame(rafId)
+    return () => globalThis.cancelAnimationFrame(rafId)
     // location이 바뀔 때만 재실행 — search/hash만 바뀌는 경우는 호출부에서 location을 고정해 제외할 수 있다.
   }, [location])
 

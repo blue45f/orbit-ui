@@ -45,8 +45,8 @@ export function createRAFStub() {
       cbs.forEach((cb) => cb(time))
     },
     install: () => {
-      window.requestAnimationFrame = stub.requestAnimationFrame
-      window.cancelAnimationFrame = stub.cancelAnimationFrame
+      globalThis.requestAnimationFrame = stub.requestAnimationFrame
+      globalThis.cancelAnimationFrame = stub.cancelAnimationFrame
     },
     uninstall: () => {
       // Restore original implementations if needed

@@ -47,7 +47,7 @@ describe('useGamepad', () => {
     expect(result.current.gamepads).toHaveLength(0)
 
     act(() => {
-      window.dispatchEvent(new Event('gamepadconnected'))
+      globalThis.dispatchEvent(new Event('gamepadconnected'))
     })
 
     expect(result.current.gamepads).toEqual([fakePad])
@@ -60,14 +60,14 @@ describe('useGamepad', () => {
     const { result } = renderHook(() => useGamepad())
 
     act(() => {
-      window.dispatchEvent(new Event('gamepadconnected'))
+      globalThis.dispatchEvent(new Event('gamepadconnected'))
     })
     expect(result.current.gamepads).toHaveLength(1)
 
     // 패드 분리 → getGamepads는 빈 목록 반환
     pads.length = 0
     act(() => {
-      window.dispatchEvent(new Event('gamepaddisconnected'))
+      globalThis.dispatchEvent(new Event('gamepaddisconnected'))
     })
     expect(result.current.gamepads).toHaveLength(0)
   })

@@ -5,7 +5,7 @@ import { cleanup } from '../../test-utils'
 
 import { useWebSocket } from './useWebSocket'
 
-const originalWebSocket = global.WebSocket
+const originalWebSocket = globalThis.WebSocket
 
 // 인스턴스를 캡처해 onopen/onmessage/onclose/onerror를 수동으로 트리거하기 위한 mock
 const sockets: MockWS[] = []
@@ -29,9 +29,9 @@ afterEach(() => {
   // delete한 전역을 원래 상태로 정확히 복원 (isolate:false 파일 간 누수 방지)
   if (originalWebSocket === undefined) {
     // @ts-expect-error 원래 없던 전역은 삭제로 복원
-    delete global.WebSocket
+    delete globalThis.WebSocket
   } else {
-    global.WebSocket = originalWebSocket
+    globalThis.WebSocket = originalWebSocket
   }
 })
 
@@ -56,7 +56,7 @@ describe('useWebSocket', () => {
 
   it('send is a no-op when status is closed (no WebSocket global)', () => {
     // @ts-expect-error intentionally removing WebSocket
-    delete global.WebSocket
+    delete globalThis.WebSocket
 
     const { result } = renderHook(() => useWebSocket('ws://localhost:8080'))
     expect(result.current.status).toBe('closed')

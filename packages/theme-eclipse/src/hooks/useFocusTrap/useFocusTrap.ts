@@ -36,7 +36,7 @@ const isHidden = (el: HTMLElement): boolean => {
   // jsdom returns no layout info, so the only check we can run cheaply at
   // unit-test time is the explicit visibility CSS. In real browsers the
   // browser's own tabindex order already skips display:none.
-  const style = typeof window !== 'undefined' ? window.getComputedStyle?.(el) : null
+  const style = typeof window !== 'undefined' ? globalThis.getComputedStyle?.(el) : null
   if (style && (style.display === 'none' || style.visibility === 'hidden')) return true
   return false
 }

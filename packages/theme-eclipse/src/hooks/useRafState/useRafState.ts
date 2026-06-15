@@ -12,8 +12,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
  *
  * useEffect(() => {
  *   const handleMove = (e: MouseEvent) => setPosition({ x: e.clientX, y: e.clientY })
- *   window.addEventListener('mousemove', handleMove)
- *   return () => window.removeEventListener('mousemove', handleMove)
+ *   globalThis.addEventListener('mousemove', handleMove)
+ *   return () => globalThis.removeEventListener('mousemove', handleMove)
  * }, [setPosition])
  * ```
  */

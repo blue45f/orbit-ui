@@ -10,7 +10,7 @@ describe('useClipboard', () => {
 
   beforeEach(() => {
     writeText = vi.fn().mockResolvedValue(undefined)
-    Object.defineProperty(window.navigator, 'clipboard', {
+    Object.defineProperty(globalThis.navigator, 'clipboard', {
       configurable: true,
       value: { writeText },
     })

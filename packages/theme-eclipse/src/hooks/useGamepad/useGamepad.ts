@@ -18,12 +18,12 @@ export function useGamepad(): GamepadState {
       setGamepads(Array.from(navigator.getGamepads()))
     }
 
-    window.addEventListener('gamepadconnected', update)
-    window.addEventListener('gamepaddisconnected', update)
+    globalThis.addEventListener('gamepadconnected', update)
+    globalThis.addEventListener('gamepaddisconnected', update)
 
     return () => {
-      window.removeEventListener('gamepadconnected', update)
-      window.removeEventListener('gamepaddisconnected', update)
+      globalThis.removeEventListener('gamepadconnected', update)
+      globalThis.removeEventListener('gamepaddisconnected', update)
     }
   }, [isSupported])
 

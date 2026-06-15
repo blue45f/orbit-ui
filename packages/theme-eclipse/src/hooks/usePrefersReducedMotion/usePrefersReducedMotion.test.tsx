@@ -46,6 +46,6 @@ describe('usePrefersReducedMotion', () => {
   test('matchMedia를 prefers-reduced-motion: reduce 쿼리로 호출한다', () => {
     installMatchMedia(false)
     renderHook(() => usePrefersReducedMotion())
-    expect(window.matchMedia).toHaveBeenCalledWith('(prefers-reduced-motion: reduce)')
+    expect(globalThis.matchMedia).toHaveBeenCalledWith('(prefers-reduced-motion: reduce)')
   })
 })

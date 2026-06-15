@@ -83,7 +83,7 @@ describe('useOrientation', () => {
     expect(mockOrientation.removeEventListener).toHaveBeenCalledWith('change', expect.any(Function))
   })
 
-  test('screen.orientation 미지원 시 legacy window.orientation 을 angleToType 으로 변환한다', () => {
+  test('screen.orientation 미지원 시 legacy globalThis.orientation 을 angleToType 으로 변환한다', () => {
     vi.stubGlobal('screen', {}) // 모던 API 없음 → legacy 폴백
     const cases: Array<[number, string]> = [
       [0, 'portrait-primary'],

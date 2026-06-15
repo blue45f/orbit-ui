@@ -15,7 +15,7 @@ describe('useElementSize', () => {
     mockDisconnect = vi.fn()
 
     const captureFns = { observe: mockObserve, disconnect: mockDisconnect }
-    global.ResizeObserver = class {
+    globalThis.ResizeObserver = class {
       observe = captureFns.observe
       unobserve = vi.fn()
       disconnect = captureFns.disconnect

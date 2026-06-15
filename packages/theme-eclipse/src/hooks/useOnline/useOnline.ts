@@ -33,11 +33,11 @@ export function useOnline(): boolean {
     // sync once on mount in case navigator.onLine changed between SSR and CSR
 
     setOnline(readOnline())
-    window.addEventListener('online', handleOnline)
-    window.addEventListener('offline', handleOffline)
+    globalThis.addEventListener('online', handleOnline)
+    globalThis.addEventListener('offline', handleOffline)
     return () => {
-      window.removeEventListener('online', handleOnline)
-      window.removeEventListener('offline', handleOffline)
+      globalThis.removeEventListener('online', handleOnline)
+      globalThis.removeEventListener('offline', handleOffline)
     }
   }, [])
 

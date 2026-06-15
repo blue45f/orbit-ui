@@ -73,8 +73,8 @@ export function useScrollIntoView<T extends HTMLElement>(
       }
 
       const rect = node.getBoundingClientRect()
-      const top = rect.top + window.scrollY - finalOffset
-      window.scrollTo({ top, behavior: finalBehavior })
+      const top = rect.top + globalThis.scrollY - finalOffset
+      globalThis.scrollTo({ top, behavior: finalBehavior })
     },
     [ref, behavior, block, inline, offset]
   )

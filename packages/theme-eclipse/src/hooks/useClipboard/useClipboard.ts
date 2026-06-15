@@ -85,9 +85,9 @@ async function writeToClipboard(text: string): Promise<boolean> {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
     return false
   }
-  if (window.navigator?.clipboard?.writeText) {
+  if (globalThis.navigator?.clipboard?.writeText) {
     try {
-      await window.navigator.clipboard.writeText(text)
+      await globalThis.navigator.clipboard.writeText(text)
       return true
     } catch {
       // fall through to execCommand fallback

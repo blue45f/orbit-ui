@@ -292,7 +292,7 @@ const EditorToolbar = ({ extra }: EditorToolbarProps) => {
   const setLink = useCallback(() => {
     if (!editor) return
     const prev = editor.getAttributes('link').href
-    const url = window.prompt('URL 입력', prev)
+    const url = globalThis.prompt('URL 입력', prev)
     if (url === null) return
     if (url === '') {
       editor.chain().focus().extendMarkRange('link').unsetLink().run()

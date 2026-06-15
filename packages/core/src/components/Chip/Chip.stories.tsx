@@ -92,7 +92,7 @@ export const 복합_상호작용 = {
             type="button"
             className="appearance-none bg-transparent border-0 p-0 m-0 cursor-pointer outline-none"
             style={{ display: 'inline-flex' }}
-            onClick={() => window.alert('trailing button clicked')}
+            onClick={() => globalThis.alert('trailing button clicked')}
           >
             <CancelIcon />
           </button>

@@ -24,10 +24,10 @@ export function useMediaQuery(query: string, options: UseMediaQueryOptions = {})
   const [matches, setMatches] = useState<boolean>(() => readMatch(query, fallback))
 
   useEffect(() => {
-    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    if (typeof window === 'undefined' || typeof globalThis.matchMedia !== 'function') {
       return
     }
-    const mq = window.matchMedia(query)
+    const mq = globalThis.matchMedia(query)
     const handleChange = (event: MediaQueryListEvent) => {
       setMatches(event.matches)
     }
@@ -46,11 +46,11 @@ export function useMediaQuery(query: string, options: UseMediaQueryOptions = {})
 }
 
 function readMatch(query: string, fallback: boolean): boolean {
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+  if (typeof window === 'undefined' || typeof globalThis.matchMedia !== 'function') {
     return fallback
   }
   try {
-    return window.matchMedia(query).matches
+    return globalThis.matchMedia(query).matches
   } catch {
     return fallback
   }

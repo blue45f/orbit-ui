@@ -16,7 +16,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup()
   vi.unstubAllGlobals()
-  window.location.hash = ''
+  globalThis.location.hash = ''
 })
 
 /* ========================================================================
@@ -121,7 +121,7 @@ test('RouteAnnouncer(자체관리형): 인페이지 해시 이동이면 포커�
   main.id = 'main'
   main.tabIndex = -1
   document.body.appendChild(main)
-  window.location.hash = '#section'
+  globalThis.location.hash = '#section'
 
   const { rerender } = render(<RouteAnnouncer location="/home" label="홈" focusTargetId="main" />)
 

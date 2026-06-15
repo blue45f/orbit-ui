@@ -108,7 +108,7 @@ describe('useNetwork', () => {
     expect(result.current.online).toBe(false)
 
     act(() => {
-      window.dispatchEvent(new Event('online'))
+      globalThis.dispatchEvent(new Event('online'))
     })
 
     expect(result.current.online).toBe(true)
@@ -123,7 +123,7 @@ describe('useNetwork', () => {
     expect(result.current.online).toBe(true)
 
     act(() => {
-      window.dispatchEvent(new Event('offline'))
+      globalThis.dispatchEvent(new Event('offline'))
     })
 
     expect(result.current.online).toBe(false)
@@ -142,7 +142,7 @@ describe('useNetwork', () => {
     // connection.removeEventListener should have been called with 'change'
     expect(mockRemoveEventListener).toHaveBeenCalledWith('change', expect.any(Function))
 
-    // window.removeEventListener should have been called for both 'online' and 'offline'
+    // globalThis.removeEventListener should have been called for both 'online' and 'offline'
     const removedTypes = removeWindowSpy.mock.calls.map(([type]) => type)
     expect(removedTypes).toContain('online')
     expect(removedTypes).toContain('offline')

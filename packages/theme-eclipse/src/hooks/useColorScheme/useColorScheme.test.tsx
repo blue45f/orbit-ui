@@ -74,9 +74,9 @@ describe('useColorScheme', () => {
   })
 
   it('SSR 환경에서는 light를 기본값으로 반환한다', () => {
-    const originalWindow = global.window
+    const originalWindow = globalThis.window
     // @ts-expect-error window를 undefined로 설정하는 SSR 시뮬레이션
-    delete global.window
+    delete globalThis.window
 
     let colorScheme: string | undefined
     try {
@@ -87,14 +87,14 @@ describe('useColorScheme', () => {
         return 'other'
       })()
     } finally {
-      global.window = originalWindow
+      globalThis.window = originalWindow
     }
 
     expect(colorScheme).toBe('light')
   })
 
   it('dark/light 어느 쪽도 매칭되지 않으면 no-preference를 반환한다', () => {
-    vi.mocked(window.matchMedia).mockImplementation(() => createMockMediaQuery(false))
+    vi.mocked(globalThis.matchMedia).mockImplementation(() => createMockMediaQuery(false))
 
     const { result } = renderHook(() => useColorScheme())
     expect(result.current).toBe('no-preference')
@@ -143,7 +143,7 @@ describe('useColorScheme', () => {
 
   it('unmount 시 dark와 light 리스너를 제거한다', () => {
     const removeSpy = vi.spyOn(
-      window.matchMedia('(prefers-color-scheme: dark)'),
+      globalThis.matchMedia('(prefers-color-scheme: dark)'),
       'removeEventListener'
     )
     const { unmount } = renderHook(() => useColorScheme())

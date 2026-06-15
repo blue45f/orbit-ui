@@ -722,11 +722,11 @@ function SafeStateChild({ onDone }: { onDone: () => void }) {
   const [safeValue, setSafeValue] = useSafeState<string>('idle')
 
   useEffect(() => {
-    const id = window.setTimeout(() => {
+    const id = globalThis.setTimeout(() => {
       setSafeValue('done')
       onDone()
     }, 1000)
-    return () => window.clearTimeout(id)
+    return () => globalThis.clearTimeout(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

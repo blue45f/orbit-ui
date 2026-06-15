@@ -34,7 +34,7 @@ export function useScrollTo(): UseScrollToReturn {
           inline: options.inline ?? 'nearest',
         })
       } else {
-        window.scrollTo({
+        globalThis.scrollTo({
           left: target.x ?? 0,
           top: target.y ?? 0,
           behavior: options.behavior ?? 'smooth',

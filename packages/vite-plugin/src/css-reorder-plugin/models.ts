@@ -4,7 +4,7 @@ export type CssReorderPluginOptions = {
    * 우선순위에 따라 정렬할 CSS 파일의 키워드 목록입니다.
    * 이 목록에 있는 키워드가 포함된 CSS 블록이 우선적으로 정렬됩니다.
    *
-   * @example ['global.css', 'reset.css.ts', 'shared.css.ts']
+   * @example ['globalThis.css', 'reset.css.ts', 'shared.css.ts']
    */
   priorityList: string[]
   /**

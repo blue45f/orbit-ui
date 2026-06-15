@@ -8,7 +8,7 @@ import { useWindowSize } from './useWindowSize'
 describe('useWindowSize', () => {
   afterEach(() => cleanup())
 
-  test('초기 windowSize는 window.innerWidth/innerHeight', () => {
+  test('초기 windowSize는 globalThis.innerWidth/innerHeight', () => {
     Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true })
     Object.defineProperty(window, 'innerHeight', { value: 720, configurable: true })
 
@@ -27,7 +27,7 @@ describe('useWindowSize', () => {
     act(() => {
       Object.defineProperty(window, 'innerWidth', { value: 375, configurable: true })
       Object.defineProperty(window, 'innerHeight', { value: 812, configurable: true })
-      window.dispatchEvent(new Event('resize'))
+      globalThis.dispatchEvent(new Event('resize'))
     })
 
     expect(result.current).toEqual({ width: 375, height: 812 })
@@ -42,7 +42,7 @@ describe('useWindowSize', () => {
     act(() => {
       Object.defineProperty(window, 'innerWidth', { value: 600, configurable: true })
       Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true })
-      window.dispatchEvent(new Event('orientationchange'))
+      globalThis.dispatchEvent(new Event('orientationchange'))
     })
 
     expect(result.current).toEqual({ width: 600, height: 800 })
@@ -60,7 +60,7 @@ describe('useWindowSize', () => {
     act(() => {
       Object.defineProperty(window, 'innerWidth', { value: 500, configurable: true })
       Object.defineProperty(window, 'innerHeight', { value: 400, configurable: true })
-      window.dispatchEvent(new Event('resize'))
+      globalThis.dispatchEvent(new Event('resize'))
     })
 
     expect(result.current).toEqual(snapshot)

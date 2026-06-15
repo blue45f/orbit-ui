@@ -82159,8 +82159,8 @@ const BillingIssueTracker192Render = () => {
         // 데모용 - 실제 Command palette은 다른 스토리 참조
       }
     }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
+    globalThis.addEventListener('keydown', handler)
+    return () => globalThis.removeEventListener('keydown', handler)
   }, [])
 
   return (

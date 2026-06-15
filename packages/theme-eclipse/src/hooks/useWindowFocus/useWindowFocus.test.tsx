@@ -23,7 +23,7 @@ describe('useWindowFocus', () => {
     expect(result.current).toBe(false)
 
     act(() => {
-      window.dispatchEvent(new Event('focus'))
+      globalThis.dispatchEvent(new Event('focus'))
     })
 
     expect(result.current).toBe(true)
@@ -35,7 +35,7 @@ describe('useWindowFocus', () => {
     expect(result.current).toBe(true)
 
     act(() => {
-      window.dispatchEvent(new Event('blur'))
+      globalThis.dispatchEvent(new Event('blur'))
     })
 
     expect(result.current).toBe(false)

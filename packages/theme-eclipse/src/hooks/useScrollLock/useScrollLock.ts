@@ -40,7 +40,7 @@ export function useScrollLock(options: UseScrollLockOptions = {}): void {
 
     const scrollbarWidth =
       preserveScrollbarGap && documentElement.scrollHeight > documentElement.clientHeight
-        ? window.innerWidth - documentElement.clientWidth
+        ? globalThis.innerWidth - documentElement.clientWidth
         : 0
 
     body.style.overflow = 'hidden'

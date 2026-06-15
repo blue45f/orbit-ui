@@ -6,7 +6,7 @@ import { cleanup, createMockResizeObserver, render, screen } from '../../test-ut
 import { Tooltip } from './Tooltip'
 
 beforeEach(() => {
-  global.ResizeObserver = createMockResizeObserver()
+  globalThis.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

@@ -103,7 +103,7 @@ export const useResizable = <
     }
 
     if (last) {
-      const newHeightToPercent = (newHeight / window.innerHeight) * 100
+      const newHeightToPercent = (newHeight / globalThis.innerHeight) * 100
       const closestBreakpoint = findClosestBreakpoint(newHeightToPercent, params.breakpoints ?? [])
 
       containerInitialStyle.current.height = null

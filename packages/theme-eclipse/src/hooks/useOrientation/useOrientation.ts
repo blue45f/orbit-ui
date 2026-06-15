@@ -15,7 +15,7 @@ export type UseOrientationState = {
 const SSR_STATE: UseOrientationState = { type: 'unknown', angle: 0 }
 
 /**
- * `window.orientation` 레거시 숫자 값을 OrientationType으로 변환합니다.
+ * `globalThis.orientation` 레거시 숫자 값을 OrientationType으로 변환합니다.
  * (구형 Safari 대응)
  */
 const angleToType = (angle: number): OrientationType => {
@@ -37,9 +37,9 @@ const readOrientation = (): UseOrientationState => {
     }
   }
 
-  // Legacy Safari: window.orientation
-  if (typeof window.orientation === 'number') {
-    const angle = window.orientation as number
+  // Legacy Safari: globalThis.orientation
+  if (typeof globalThis.orientation === 'number') {
+    const angle = globalThis.orientation as number
     return { type: angleToType(angle), angle }
   }
 
@@ -50,7 +50,7 @@ const readOrientation = (): UseOrientationState => {
  * 기기의 화면 방향(orientation) 상태를 반환합니다.
  *
  * `screen.orientation` API가 지원되면 해당 API를 사용하고,
- * 구형 Safari처럼 미지원 환경에서는 `window.orientation`(deprecated)으로 폴백합니다.
+ * 구형 Safari처럼 미지원 환경에서는 `globalThis.orientation`(deprecated)으로 폴백합니다.
  * SSR 환경에서는 `{ type: 'unknown', angle: 0 }`을 반환합니다.
  *
  * @example
@@ -83,9 +83,9 @@ export function useOrientation(): UseOrientationState {
     }
 
     // Legacy fallback
-    window.addEventListener('orientationchange', handleChange)
+    globalThis.addEventListener('orientationchange', handleChange)
     return () => {
-      window.removeEventListener('orientationchange', handleChange)
+      globalThis.removeEventListener('orientationchange', handleChange)
     }
   }, [])
 

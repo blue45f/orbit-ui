@@ -63,13 +63,13 @@ export function useKeyPress(targetKey: string, options: UseKeyPressOptions = {})
     // arrive — reset on blur to avoid a stuck-pressed state.
     const onBlur = () => setPressed(false)
 
-    window.addEventListener('keydown', onDown)
-    window.addEventListener('keyup', onUp)
-    window.addEventListener('blur', onBlur)
+    globalThis.addEventListener('keydown', onDown)
+    globalThis.addEventListener('keyup', onUp)
+    globalThis.addEventListener('blur', onBlur)
     return () => {
-      window.removeEventListener('keydown', onDown)
-      window.removeEventListener('keyup', onUp)
-      window.removeEventListener('blur', onBlur)
+      globalThis.removeEventListener('keydown', onDown)
+      globalThis.removeEventListener('keyup', onUp)
+      globalThis.removeEventListener('blur', onBlur)
     }
   }, [targetKey, ignoreInputs, preventDefault])
 

@@ -5,7 +5,7 @@ import { cleanup } from '../../test-utils'
 
 import { useBroadcastChannel } from './useBroadcastChannel'
 
-const originalBroadcastChannel = global.BroadcastChannel
+const originalBroadcastChannel = globalThis.BroadcastChannel
 
 afterEach(() => {
   cleanup()
@@ -13,9 +13,9 @@ afterEach(() => {
   // delete한 전역을 원래 상태로 정확히 복원 (isolate:false 파일 간 누수 방지)
   if (originalBroadcastChannel === undefined) {
     // @ts-expect-error 원래 없던 전역은 삭제로 복원
-    delete global.BroadcastChannel
+    delete globalThis.BroadcastChannel
   } else {
-    global.BroadcastChannel = originalBroadcastChannel
+    globalThis.BroadcastChannel = originalBroadcastChannel
   }
 })
 
@@ -36,7 +36,7 @@ describe('useBroadcastChannel', () => {
 
   it('returns no-op functions when BroadcastChannel is unsupported', () => {
     // @ts-expect-error intentionally removing BroadcastChannel
-    delete global.BroadcastChannel
+    delete globalThis.BroadcastChannel
 
     const { result } = renderHook(() => useBroadcastChannel('test-channel'))
     expect(result.current.lastMessage).toBeNull()

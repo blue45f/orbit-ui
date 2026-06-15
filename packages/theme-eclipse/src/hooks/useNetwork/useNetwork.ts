@@ -84,8 +84,8 @@ export function useNetwork(): UseNetworkState {
     }
 
     if (typeof window !== 'undefined') {
-      window.addEventListener('online', handleOnline)
-      window.addEventListener('offline', handleOffline)
+      globalThis.addEventListener('online', handleOnline)
+      globalThis.addEventListener('offline', handleOffline)
     }
 
     return () => {
@@ -93,8 +93,8 @@ export function useNetwork(): UseNetworkState {
         connection.removeEventListener('change', handleChange)
       }
       if (typeof window !== 'undefined') {
-        window.removeEventListener('online', handleOnline)
-        window.removeEventListener('offline', handleOffline)
+        globalThis.removeEventListener('online', handleOnline)
+        globalThis.removeEventListener('offline', handleOffline)
       }
     }
   }, [])

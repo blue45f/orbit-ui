@@ -9,12 +9,12 @@ const KEY = 'orbit-ls-test'
 
 describe('useLocalStorage', () => {
   beforeEach(() => {
-    window.localStorage.clear()
+    globalThis.localStorage.clear()
   })
 
   afterEach(() => {
     cleanup()
-    window.localStorage.clear()
+    globalThis.localStorage.clear()
   })
 
   test('스토리지가 비어 있으면 initialValue를 반환한다', () => {
@@ -23,7 +23,7 @@ describe('useLocalStorage', () => {
   })
 
   test('스토리지에 값이 있으면 그 값을 반환한다', () => {
-    window.localStorage.setItem(KEY, JSON.stringify('stored'))
+    globalThis.localStorage.setItem(KEY, JSON.stringify('stored'))
     const { result } = renderHook(() => useLocalStorage(KEY, 'default'))
     expect(result.current[0]).toBe('stored')
   })
@@ -36,7 +36,7 @@ describe('useLocalStorage', () => {
     })
 
     expect(result.current[0]).toBe('b')
-    expect(window.localStorage.getItem(KEY)).toBe(JSON.stringify('b'))
+    expect(globalThis.localStorage.getItem(KEY)).toBe(JSON.stringify('b'))
   })
 
   test('함수형 setValue가 동작한다', () => {
@@ -50,7 +50,7 @@ describe('useLocalStorage', () => {
     })
 
     expect(result.current[0]).toBe(2)
-    expect(window.localStorage.getItem(KEY)).toBe('2')
+    expect(globalThis.localStorage.getItem(KEY)).toBe('2')
   })
 
   test('remove로 스토리지에서 제거하고 initialValue로 리셋한다', () => {
@@ -59,14 +59,14 @@ describe('useLocalStorage', () => {
     act(() => {
       result.current[1]('custom')
     })
-    expect(window.localStorage.getItem(KEY)).not.toBeNull()
+    expect(globalThis.localStorage.getItem(KEY)).not.toBeNull()
 
     act(() => {
       result.current[2]()
     })
 
     expect(result.current[0]).toBe('default')
-    expect(window.localStorage.getItem(KEY)).toBeNull()
+    expect(globalThis.localStorage.getItem(KEY)).toBeNull()
   })
 
   test('객체 값도 정상 직렬화·역직렬화된다', () => {
@@ -79,7 +79,7 @@ describe('useLocalStorage', () => {
 
     expect(result.current[0]).toEqual({ mode: 'dark', density: 'spacious' })
 
-    const stored = JSON.parse(window.localStorage.getItem(KEY)!) as {
+    const stored = JSON.parse(globalThis.localStorage.getItem(KEY)!) as {
       mode: string
       density: string
     }
@@ -90,11 +90,11 @@ describe('useLocalStorage', () => {
     const { result } = renderHook(() => useLocalStorage(KEY, 'a'))
 
     act(() => {
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new StorageEvent('storage', {
           key: KEY,
           newValue: JSON.stringify('from-other-tab'),
-          storageArea: window.localStorage,
+          storageArea: globalThis.localStorage,
         })
       )
     })
@@ -109,11 +109,11 @@ describe('useLocalStorage', () => {
     })
 
     act(() => {
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new StorageEvent('storage', {
           key: KEY,
           newValue: null,
-          storageArea: window.localStorage,
+          storageArea: globalThis.localStorage,
         })
       )
     })
@@ -125,11 +125,11 @@ describe('useLocalStorage', () => {
     const { result } = renderHook(() => useLocalStorage(KEY, 'a'))
 
     act(() => {
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new StorageEvent('storage', {
           key: 'other-key',
           newValue: JSON.stringify('z'),
-          storageArea: window.localStorage,
+          storageArea: globalThis.localStorage,
         })
       )
     })
@@ -138,7 +138,7 @@ describe('useLocalStorage', () => {
   })
 
   test('파싱 실패 시 initialValue로 fallback', () => {
-    window.localStorage.setItem(KEY, '{ not valid json')
+    globalThis.localStorage.setItem(KEY, '{ not valid json')
     const { result } = renderHook(() => useLocalStorage(KEY, 'safe'))
     expect(result.current[0]).toBe('safe')
   })
@@ -147,11 +147,11 @@ describe('useLocalStorage', () => {
     const { result } = renderHook(() => useLocalStorage(KEY, 'a', { syncTabs: false }))
 
     act(() => {
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new StorageEvent('storage', {
           key: KEY,
           newValue: JSON.stringify('z'),
-          storageArea: window.localStorage,
+          storageArea: globalThis.localStorage,
         })
       )
     })
@@ -160,7 +160,7 @@ describe('useLocalStorage', () => {
   })
 
   test('setItem이 실패(quota 등)해도 throw하지 않고 state는 갱신된다', () => {
-    const spy = vi.spyOn(window.localStorage, 'setItem').mockImplementation(() => {
+    const spy = vi.spyOn(globalThis.localStorage, 'setItem').mockImplementation(() => {
       throw new DOMException('quota exceeded', 'QuotaExceededError')
     })
     const { result } = renderHook(() => useLocalStorage(KEY, 'a'))
@@ -174,7 +174,7 @@ describe('useLocalStorage', () => {
   })
 
   test('removeItem이 실패해도 throw하지 않고 state는 initialValue로 리셋된다', () => {
-    const spy = vi.spyOn(window.localStorage, 'removeItem').mockImplementation(() => {
+    const spy = vi.spyOn(globalThis.localStorage, 'removeItem').mockImplementation(() => {
       throw new Error('access denied')
     })
     const { result } = renderHook(() => useLocalStorage(KEY, 'default'))
@@ -194,11 +194,11 @@ describe('useLocalStorage', () => {
     const { result } = renderHook(() => useLocalStorage(KEY, 'a'))
 
     act(() => {
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new StorageEvent('storage', {
           key: KEY,
           newValue: '{ not valid json',
-          storageArea: window.localStorage,
+          storageArea: globalThis.localStorage,
         })
       )
     })

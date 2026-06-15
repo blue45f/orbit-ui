@@ -59,7 +59,7 @@ export function useLongPress(
 
   const clear = useCallback(() => {
     if (timerRef.current !== null) {
-      window.clearTimeout(timerRef.current)
+      globalThis.clearTimeout(timerRef.current)
       timerRef.current = null
     }
     startPointRef.current = null
@@ -74,7 +74,7 @@ export function useLongPress(
       // Snapshot the event so the timer callback can pass it through
       // even though React's synthetic events are pooled.
       const snapshot = event
-      timerRef.current = window.setTimeout(() => {
+      timerRef.current = globalThis.setTimeout(() => {
         firedRef.current = true
         callbackRef.current(snapshot)
         timerRef.current = null

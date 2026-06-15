@@ -23,20 +23,20 @@ export type WindowSize = {
 export function useWindowSize(fallback: WindowSize = { width: 0, height: 0 }): WindowSize {
   const [size, setSize] = useState<WindowSize>(() => {
     if (typeof window === 'undefined') return fallback
-    return { width: window.innerWidth, height: window.innerHeight }
+    return { width: globalThis.innerWidth, height: globalThis.innerHeight }
   })
 
   useEffect(() => {
     if (typeof window === 'undefined') return
     const handler = () => {
-      setSize({ width: window.innerWidth, height: window.innerHeight })
+      setSize({ width: globalThis.innerWidth, height: globalThis.innerHeight })
     }
     handler()
-    window.addEventListener('resize', handler)
-    window.addEventListener('orientationchange', handler)
+    globalThis.addEventListener('resize', handler)
+    globalThis.addEventListener('orientationchange', handler)
     return () => {
-      window.removeEventListener('resize', handler)
-      window.removeEventListener('orientationchange', handler)
+      globalThis.removeEventListener('resize', handler)
+      globalThis.removeEventListener('orientationchange', handler)
     }
   }, [])
 

@@ -6,7 +6,7 @@ import { cleanup } from '../../test-utils'
 
 import { useScrollIntoView } from './useScrollIntoView'
 
-const originalScrollTo = window.scrollTo
+const originalScrollTo = globalThis.scrollTo
 
 const setupTarget = () => {
   const target = document.createElement('div')
@@ -32,8 +32,8 @@ describe('useScrollIntoView', () => {
     cleanup()
     document.body.innerHTML = ''
     vi.restoreAllMocks()
-    // 테스트가 덮어쓴 window.scrollTo를 복원해 isolate:false 파일 간 누수를 막는다
-    window.scrollTo = originalScrollTo
+    // 테스트가 덮어쓴 globalThis.scrollTo를 복원해 isolate:false 파일 간 누수를 막는다
+    globalThis.scrollTo = originalScrollTo
   })
 
   test('offset=0 이면 element.scrollIntoView 를 호출한다', () => {
@@ -54,11 +54,11 @@ describe('useScrollIntoView', () => {
     })
   })
 
-  test('offset>0 이면 window.scrollTo 로 직접 보정한다', () => {
+  test('offset>0 이면 globalThis.scrollTo 로 직접 보정한다', () => {
     const target = setupTarget()
     const scrollTo = vi.fn()
     Object.defineProperty(window, 'scrollY', { configurable: true, get: () => 100 })
-    window.scrollTo = scrollTo as unknown as typeof window.scrollTo
+    globalThis.scrollTo = scrollTo as unknown as typeof globalThis.scrollTo
 
     const { result } = renderHook(() => {
       const ref = useRef<HTMLDivElement>(target)
@@ -90,7 +90,7 @@ describe('useScrollIntoView', () => {
 
   test('ref 가 비어 있으면 아무 일도 하지 않는다', () => {
     const scrollTo = vi.fn()
-    window.scrollTo = scrollTo as unknown as typeof window.scrollTo
+    globalThis.scrollTo = scrollTo as unknown as typeof globalThis.scrollTo
 
     const { result } = renderHook(() => {
       const ref = useRef<HTMLDivElement>(null)
@@ -106,7 +106,7 @@ describe('useScrollIntoView', () => {
     const scrollIntoView = vi.fn()
     const scrollTo = vi.fn()
     target.scrollIntoView = scrollIntoView as unknown as typeof target.scrollIntoView
-    window.scrollTo = scrollTo as unknown as typeof window.scrollTo
+    globalThis.scrollTo = scrollTo as unknown as typeof globalThis.scrollTo
 
     const { result } = renderHook(() => {
       const ref = useRef<HTMLDivElement>(target)

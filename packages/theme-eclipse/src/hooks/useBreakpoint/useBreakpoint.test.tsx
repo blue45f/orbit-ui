@@ -114,7 +114,7 @@ describe('useBreakpoint', () => {
     matchesMap['(min-width: 640px)'] = true
 
     act(() => {
-      window.dispatchEvent(new Event('resize'))
+      globalThis.dispatchEvent(new Event('resize'))
     })
 
     expect(result.current.breakpoint).toBe('xl')

@@ -17,7 +17,7 @@ export function useReadingProgress(containerRef?: { current: HTMLElement | null 
           value = scrollable > 0 ? (el.scrollTop / scrollable) * 100 : 0
         }
       } else {
-        const scrollTop = window.scrollY ?? document.documentElement.scrollTop
+        const scrollTop = globalThis.scrollY ?? document.documentElement.scrollTop
         const scrollable =
           document.documentElement.scrollHeight - document.documentElement.clientHeight
         value = scrollable > 0 ? (scrollTop / scrollable) * 100 : 0

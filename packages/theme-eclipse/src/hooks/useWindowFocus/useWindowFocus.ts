@@ -21,11 +21,11 @@ export function useWindowFocus(): boolean {
   useEffect(() => {
     const onFocus = () => setFocused(true)
     const onBlur = () => setFocused(false)
-    window.addEventListener('focus', onFocus)
-    window.addEventListener('blur', onBlur)
+    globalThis.addEventListener('focus', onFocus)
+    globalThis.addEventListener('blur', onBlur)
     return () => {
-      window.removeEventListener('focus', onFocus)
-      window.removeEventListener('blur', onBlur)
+      globalThis.removeEventListener('focus', onFocus)
+      globalThis.removeEventListener('blur', onBlur)
     }
   }, [])
 

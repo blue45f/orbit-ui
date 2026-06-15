@@ -8,7 +8,7 @@ import { Accordion } from './Accordion'
 
 beforeEach(() => {
   // Radix Accordion uses ResizeObserver internally for collapsible animations
-  global.ResizeObserver = createMockResizeObserver()
+  globalThis.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

@@ -343,11 +343,11 @@ function LatestDemo() {
     const stale = () => setStaleLog(`stale closure said: ${count}`)
     // Fresh: read via latest ref
     const fresh = () => setFreshLog(`latest ref said: ${latest.current}`)
-    const id = window.setTimeout(() => {
+    const id = globalThis.setTimeout(() => {
       stale()
       fresh()
     }, 1000)
-    return () => window.clearTimeout(id)
+    return () => globalThis.clearTimeout(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

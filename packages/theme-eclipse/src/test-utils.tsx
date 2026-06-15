@@ -51,7 +51,7 @@ class VirtualDOMRectClass {
 /**
  * ResizeObserver 모킹
  */
-global.ResizeObserver = class {
+globalThis.ResizeObserver = class {
   observe = vi.fn()
   unobserve = vi.fn()
   disconnect = vi.fn()

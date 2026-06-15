@@ -36,7 +36,7 @@ const isHidden = (el: HTMLElement): boolean => {
   // jsdom은 레이아웃 정보를 주지 않으므로 단위 테스트 시점엔 명시적 visibility CSS만
   // 저렴하게 검사한다. 실제 브라우저에선 브라우저 자체 tabindex 순서가 display:none을
   // 이미 건너뛴다.
-  const style = typeof window !== 'undefined' ? window.getComputedStyle?.(el) : null
+  const style = typeof window !== 'undefined' ? globalThis.getComputedStyle?.(el) : null
   if (style && (style.display === 'none' || style.visibility === 'hidden')) return true
   return false
 }

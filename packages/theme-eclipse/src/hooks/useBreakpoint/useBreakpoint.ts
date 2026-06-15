@@ -17,12 +17,12 @@ export type UseBreakpointReturn = {
 const BP_ORDER: Breakpoint[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
 
 function getCurrentBreakpoint(): Breakpoint {
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return 'xs'
-  if (window.matchMedia('(min-width: 1536px)').matches) return '2xl'
-  if (window.matchMedia('(min-width: 1280px)').matches) return 'xl'
-  if (window.matchMedia('(min-width: 1024px)').matches) return 'lg'
-  if (window.matchMedia('(min-width: 768px)').matches) return 'md'
-  if (window.matchMedia('(min-width: 640px)').matches) return 'sm'
+  if (typeof window === 'undefined' || typeof globalThis.matchMedia !== 'function') return 'xs'
+  if (globalThis.matchMedia('(min-width: 1536px)').matches) return '2xl'
+  if (globalThis.matchMedia('(min-width: 1280px)').matches) return 'xl'
+  if (globalThis.matchMedia('(min-width: 1024px)').matches) return 'lg'
+  if (globalThis.matchMedia('(min-width: 768px)').matches) return 'md'
+  if (globalThis.matchMedia('(min-width: 640px)').matches) return 'sm'
   return 'xs'
 }
 
@@ -44,8 +44,8 @@ export function useBreakpoint(): UseBreakpointReturn {
 
   useEffect(() => {
     const handler = () => setBreakpoint(getCurrentBreakpoint())
-    window.addEventListener('resize', handler)
-    return () => window.removeEventListener('resize', handler)
+    globalThis.addEventListener('resize', handler)
+    return () => globalThis.removeEventListener('resize', handler)
   }, [])
 
   const currentIndex = BP_ORDER.indexOf(breakpoint)

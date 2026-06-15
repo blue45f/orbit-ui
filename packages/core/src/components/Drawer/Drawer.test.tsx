@@ -14,7 +14,7 @@ import { Drawer } from './Drawer'
 
 beforeEach(() => {
   // Radix Dialog uses ResizeObserver internally
-  global.ResizeObserver = createMockResizeObserver()
+  globalThis.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

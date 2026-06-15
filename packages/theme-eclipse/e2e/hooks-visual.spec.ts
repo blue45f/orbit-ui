@@ -45,7 +45,7 @@ const TIMING_DEPENDENT = new Set<string>([
   'hooks-timing--debounced-state',
   // Countdown's "remaining" number changes per second — race the screenshot.
   'hooks-timing--countdown',
-  // ScrollPosition reads window.scrollY which differs per Storybook frame.
+  // ScrollPosition reads globalThis.scrollY which differs per Storybook frame.
   'hooks-environment--scroll-position',
 ])
 

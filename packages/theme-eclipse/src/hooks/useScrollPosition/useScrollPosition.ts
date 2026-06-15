@@ -7,7 +7,7 @@ export type ScrollPosition = {
 
 const readPosition = (): ScrollPosition => {
   if (typeof window === 'undefined') return { x: 0, y: 0 }
-  return { x: window.scrollX, y: window.scrollY }
+  return { x: globalThis.scrollX, y: globalThis.scrollY }
 }
 
 /**
@@ -38,7 +38,7 @@ export function useScrollPosition(): ScrollPosition {
     let frame = 0
     const onScroll = () => {
       if (frame !== 0) return
-      frame = window.requestAnimationFrame(() => {
+      frame = globalThis.requestAnimationFrame(() => {
         setPosition(readPosition())
         frame = 0
       })
@@ -47,10 +47,10 @@ export function useScrollPosition(): ScrollPosition {
     // Sync once on mount in case SSR set (0,0) and real value differs.
 
     setPosition(readPosition())
-    window.addEventListener('scroll', onScroll, { passive: true })
+    globalThis.addEventListener('scroll', onScroll, { passive: true })
     return () => {
-      window.removeEventListener('scroll', onScroll)
-      if (frame !== 0) window.cancelAnimationFrame(frame)
+      globalThis.removeEventListener('scroll', onScroll)
+      if (frame !== 0) globalThis.cancelAnimationFrame(frame)
     }
   }, [])
 

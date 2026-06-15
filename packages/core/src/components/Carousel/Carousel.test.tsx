@@ -13,8 +13,8 @@ import {
 import { Carousel } from './Carousel'
 
 beforeEach(() => {
-  global.ResizeObserver = createMockResizeObserver()
-  global.IntersectionObserver = createMockIntersectionObserver()
+  globalThis.ResizeObserver = createMockResizeObserver()
+  globalThis.IntersectionObserver = createMockIntersectionObserver()
 })
 
 afterEach(() => {

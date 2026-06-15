@@ -29,7 +29,7 @@ export function useSelection(): SelectionState {
 
   useEffect(() => {
     const handleSelection = () => {
-      const sel = window.getSelection()
+      const sel = globalThis.getSelection()
       if (!sel || sel.isCollapsed) {
         setSelection({ text: '', rects: [] })
         return

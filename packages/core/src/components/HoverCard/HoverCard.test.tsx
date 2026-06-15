@@ -6,7 +6,7 @@ import { cleanup, createMockResizeObserver, render, screen, waitFor } from '../.
 import { HoverCard } from './HoverCard'
 
 beforeEach(() => {
-  global.ResizeObserver = createMockResizeObserver()
+  globalThis.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

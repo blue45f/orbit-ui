@@ -6,18 +6,18 @@ import { cleanup } from '../../test-utils'
 import { useSearchParam } from './useSearchParam'
 
 describe('useSearchParam', () => {
-  const originalPushState = window.history.pushState.bind(window.history)
+  const originalPushState = globalThis.history.pushState.bind(globalThis.history)
 
   beforeEach(() => {
     // Reset URL to clean state
-    window.history.pushState({}, '', '/')
+    globalThis.history.pushState({}, '', '/')
     vi.restoreAllMocks()
   })
 
   afterEach(() => {
     cleanup()
-    window.history.pushState = originalPushState
-    window.history.pushState({}, '', '/')
+    globalThis.history.pushState = originalPushState
+    globalThis.history.pushState({}, '', '/')
   })
 
   test('unknown param이면 null을 반환한다', () => {
@@ -26,13 +26,13 @@ describe('useSearchParam', () => {
   })
 
   test('URL에 param이 있으면 해당 값을 반환한다', () => {
-    window.history.pushState({}, '', '/?tab=overview')
+    globalThis.history.pushState({}, '', '/?tab=overview')
     const { result } = renderHook(() => useSearchParam('tab'))
     expect(result.current[0]).toBe('overview')
   })
 
   test('set() 호출 시 값을 갱신하고 pushState를 호출한다', () => {
-    const pushStateSpy = vi.spyOn(window.history, 'pushState')
+    const pushStateSpy = vi.spyOn(globalThis.history, 'pushState')
     const { result } = renderHook(() => useSearchParam('tab'))
 
     act(() => {
@@ -44,7 +44,7 @@ describe('useSearchParam', () => {
   })
 
   test('set(null) 호출 시 param을 제거한다', () => {
-    window.history.pushState({}, '', '/?tab=overview')
+    globalThis.history.pushState({}, '', '/?tab=overview')
     const { result } = renderHook(() => useSearchParam('tab'))
 
     act(() => {
@@ -58,8 +58,8 @@ describe('useSearchParam', () => {
     const { result } = renderHook(() => useSearchParam('page'))
 
     act(() => {
-      window.history.pushState({}, '', '/?page=2')
-      window.dispatchEvent(new PopStateEvent('popstate'))
+      globalThis.history.pushState({}, '', '/?page=2')
+      globalThis.dispatchEvent(new PopStateEvent('popstate'))
     })
 
     expect(result.current[0]).toBe('2')

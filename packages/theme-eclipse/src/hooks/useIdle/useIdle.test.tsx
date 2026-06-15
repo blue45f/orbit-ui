@@ -6,7 +6,7 @@ import { cleanup } from '../../test-utils'
 import { useIdle } from './useIdle'
 
 const fireUserActivity = (type = 'mousemove') => {
-  window.dispatchEvent(new Event(type))
+  globalThis.dispatchEvent(new Event(type))
 }
 
 const setVisibility = (state: DocumentVisibilityState) => {

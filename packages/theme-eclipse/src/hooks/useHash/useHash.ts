@@ -9,7 +9,7 @@ export type UseHashReturn = {
 
 const getHash = (): string => {
   if (typeof window === 'undefined') return ''
-  return window.location.hash
+  return globalThis.location.hash
 }
 
 /**
@@ -37,18 +37,18 @@ export function useHash(): UseHashReturn {
     if (typeof window === 'undefined') return
 
     const handleHashChange = () => {
-      setHashState(window.location.hash)
+      setHashState(globalThis.location.hash)
     }
 
-    window.addEventListener('hashchange', handleHashChange)
+    globalThis.addEventListener('hashchange', handleHashChange)
     return () => {
-      window.removeEventListener('hashchange', handleHashChange)
+      globalThis.removeEventListener('hashchange', handleHashChange)
     }
   }, [])
 
   const setHash = (h: string) => {
     if (typeof window === 'undefined') return
-    window.location.hash = h
+    globalThis.location.hash = h
   }
 
   return { hash, setHash }

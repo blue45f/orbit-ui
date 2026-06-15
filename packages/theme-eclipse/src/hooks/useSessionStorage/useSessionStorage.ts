@@ -48,7 +48,7 @@ export function useSessionStorage<T>(
   const [stored, setStored] = useState<T>(() => {
     if (typeof window === 'undefined') return initialValue
     try {
-      const raw = window.sessionStorage.getItem(key)
+      const raw = globalThis.sessionStorage.getItem(key)
       return raw === null ? initialValue : deserialize(raw)
     } catch {
       return initialValue
@@ -61,7 +61,7 @@ export function useSessionStorage<T>(
         const next = value instanceof Function ? value(prev) : value
         if (typeof window !== 'undefined') {
           try {
-            window.sessionStorage.setItem(key, serializeRef.current(next))
+            globalThis.sessionStorage.setItem(key, serializeRef.current(next))
           } catch {
             // quota exceeded, denied, etc — state still updates
           }
@@ -76,7 +76,7 @@ export function useSessionStorage<T>(
     setStored(initialValue)
     if (typeof window === 'undefined') return
     try {
-      window.sessionStorage.removeItem(key)
+      globalThis.sessionStorage.removeItem(key)
     } catch {
       // ignore
     }

@@ -9,12 +9,12 @@ const KEY = 'orbit-ss-test'
 
 describe('useSessionStorage', () => {
   beforeEach(() => {
-    window.sessionStorage.clear()
+    globalThis.sessionStorage.clear()
   })
 
   afterEach(() => {
     cleanup()
-    window.sessionStorage.clear()
+    globalThis.sessionStorage.clear()
   })
 
   test('스토리지가 비어 있으면 initialValue를 반환한다', () => {
@@ -23,7 +23,7 @@ describe('useSessionStorage', () => {
   })
 
   test('스토리지에 값이 있으면 그 값을 반환한다', () => {
-    window.sessionStorage.setItem(KEY, JSON.stringify('stored'))
+    globalThis.sessionStorage.setItem(KEY, JSON.stringify('stored'))
     const { result } = renderHook(() => useSessionStorage(KEY, 'default'))
     expect(result.current[0]).toBe('stored')
   })
@@ -36,7 +36,7 @@ describe('useSessionStorage', () => {
     })
 
     expect(result.current[0]).toBe('b')
-    expect(window.sessionStorage.getItem(KEY)).toBe(JSON.stringify('b'))
+    expect(globalThis.sessionStorage.getItem(KEY)).toBe(JSON.stringify('b'))
   })
 
   test('함수형 setValue가 동작한다', () => {
@@ -50,7 +50,7 @@ describe('useSessionStorage', () => {
     })
 
     expect(result.current[0]).toBe(2)
-    expect(window.sessionStorage.getItem(KEY)).toBe('2')
+    expect(globalThis.sessionStorage.getItem(KEY)).toBe('2')
   })
 
   test('remove는 storage와 state를 initialValue로 되돌린다', () => {
@@ -59,23 +59,23 @@ describe('useSessionStorage', () => {
     act(() => {
       result.current[1]('updated')
     })
-    expect(window.sessionStorage.getItem(KEY)).toBe(JSON.stringify('updated'))
+    expect(globalThis.sessionStorage.getItem(KEY)).toBe(JSON.stringify('updated'))
 
     act(() => {
       result.current[2]()
     })
     expect(result.current[0]).toBe('default')
-    expect(window.sessionStorage.getItem(KEY)).toBeNull()
+    expect(globalThis.sessionStorage.getItem(KEY)).toBeNull()
   })
 
   test('역직렬화에 실패하면 initialValue로 fallback', () => {
-    window.sessionStorage.setItem(KEY, '{ not json')
+    globalThis.sessionStorage.setItem(KEY, '{ not json')
     const { result } = renderHook(() => useSessionStorage(KEY, 'safe'))
     expect(result.current[0]).toBe('safe')
   })
 
   test('setItem이 실패(quota 등)해도 throw하지 않고 state는 갱신된다', () => {
-    const spy = vi.spyOn(window.sessionStorage, 'setItem').mockImplementation(() => {
+    const spy = vi.spyOn(globalThis.sessionStorage, 'setItem').mockImplementation(() => {
       throw new DOMException('quota exceeded', 'QuotaExceededError')
     })
     const { result } = renderHook(() => useSessionStorage(KEY, 'a'))
@@ -101,7 +101,7 @@ describe('useSessionStorage', () => {
       result.current[1](new Date(1234567890000))
     })
 
-    expect(window.sessionStorage.getItem(KEY)).toBe('1234567890000')
+    expect(globalThis.sessionStorage.getItem(KEY)).toBe('1234567890000')
     expect(result.current[0]).toEqual(new Date(1234567890000))
   })
 })

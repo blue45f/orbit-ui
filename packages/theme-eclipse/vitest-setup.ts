@@ -28,8 +28,8 @@ if (typeof document !== 'undefined' && typeof document.elementFromPoint !== 'fun
   document.elementFromPoint = (() => null) as typeof document.elementFromPoint
 }
 
-if (typeof window !== 'undefined' && !window.matchMedia) {
-  window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+if (typeof window !== 'undefined' && !globalThis.matchMedia) {
+  globalThis.matchMedia = vi.fn().mockImplementation((query: string) => ({
     matches: false,
     media: query,
     onchange: null,

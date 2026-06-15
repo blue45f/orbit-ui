@@ -7,7 +7,7 @@ import { cleanup, createMockResizeObserver, render, screen, waitFor } from '../.
 import { Popover } from './Popover'
 
 beforeEach(() => {
-  global.ResizeObserver = createMockResizeObserver()
+  globalThis.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

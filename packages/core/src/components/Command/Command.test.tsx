@@ -7,7 +7,7 @@ import { cleanup, createMockResizeObserver, render, screen, waitFor } from '../.
 import { CommandComponent as Command } from './Command'
 
 beforeEach(() => {
-  global.ResizeObserver = createMockResizeObserver()
+  globalThis.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

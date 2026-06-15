@@ -22,10 +22,10 @@ type CarouselProps = {
 
 /** prefers-reduced-motion 사용자 환경이면 true */
 function prefersReducedMotion(): boolean {
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+  if (typeof window === 'undefined' || typeof globalThis.matchMedia !== 'function') {
     return false
   }
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  return globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
 type CarouselContextProps = {

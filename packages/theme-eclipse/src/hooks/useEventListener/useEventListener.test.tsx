@@ -13,7 +13,7 @@ describe('useEventListener', () => {
     const handler = vi.fn()
     renderHook(() => useEventListener('keydown', handler))
 
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+    globalThis.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
     expect(handler).toHaveBeenCalledTimes(1)
     expect((handler.mock.calls[0][0] as KeyboardEvent).key).toBe('Escape')
   })
@@ -49,12 +49,12 @@ describe('useEventListener', () => {
     const handler = vi.fn()
     const { unmount } = renderHook(() => useEventListener('keydown', handler))
 
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }))
+    globalThis.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }))
     expect(handler).toHaveBeenCalledTimes(1)
 
     unmount()
 
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'b' }))
+    globalThis.dispatchEvent(new KeyboardEvent('keydown', { key: 'b' }))
     expect(handler).toHaveBeenCalledTimes(1)
   })
 
@@ -69,12 +69,12 @@ describe('useEventListener', () => {
       { initialProps: { multiplier: 1 } }
     )
 
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }))
+    globalThis.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }))
     expect(count).toBe(1)
 
     rerender({ multiplier: 10 })
 
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'b' }))
+    globalThis.dispatchEvent(new KeyboardEvent('keydown', { key: 'b' }))
     expect(count).toBe(11)
   })
 

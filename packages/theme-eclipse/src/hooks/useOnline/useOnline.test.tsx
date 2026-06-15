@@ -6,14 +6,14 @@ import { cleanup } from '../../test-utils'
 import { useOnline } from './useOnline'
 
 const setNavigatorOnline = (value: boolean) => {
-  Object.defineProperty(window.navigator, 'onLine', {
+  Object.defineProperty(globalThis.navigator, 'onLine', {
     configurable: true,
     get: () => value,
   })
 }
 
 const fireWindowEvent = (type: 'online' | 'offline') => {
-  window.dispatchEvent(new Event(type))
+  globalThis.dispatchEvent(new Event(type))
 }
 
 describe('useOnline', () => {

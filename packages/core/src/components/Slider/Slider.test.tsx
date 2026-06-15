@@ -8,7 +8,7 @@ import { Slider } from './Slider'
 
 beforeEach(() => {
   // Radix Slider uses ResizeObserver internally
-  global.ResizeObserver = createMockResizeObserver()
+  globalThis.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {

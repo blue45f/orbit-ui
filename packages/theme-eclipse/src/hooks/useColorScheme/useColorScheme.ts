@@ -4,8 +4,8 @@ export type ColorScheme = 'light' | 'dark' | 'no-preference'
 
 function getColorScheme(): ColorScheme {
   if (typeof window === 'undefined') return 'light'
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'
-  if (window.matchMedia('(prefers-color-scheme: light)').matches) return 'light'
+  if (globalThis.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'
+  if (globalThis.matchMedia('(prefers-color-scheme: light)').matches) return 'light'
   return 'no-preference'
 }
 
@@ -28,8 +28,8 @@ export function useColorScheme(): ColorScheme {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    const dark = window.matchMedia('(prefers-color-scheme: dark)')
-    const light = window.matchMedia('(prefers-color-scheme: light)')
+    const dark = globalThis.matchMedia('(prefers-color-scheme: dark)')
+    const light = globalThis.matchMedia('(prefers-color-scheme: light)')
     const handler = () => setColorScheme(getColorScheme())
 
     dark.addEventListener('change', handler)

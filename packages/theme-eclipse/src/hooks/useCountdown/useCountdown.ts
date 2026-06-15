@@ -76,7 +76,7 @@ export function useCountdown(options: UseCountdownOptions): UseCountdownReturn {
 
   const clearTimer = useCallback(() => {
     if (timerRef.current !== null) {
-      window.clearInterval(timerRef.current)
+      globalThis.clearInterval(timerRef.current)
       timerRef.current = null
     }
   }, [])
@@ -133,7 +133,7 @@ export function useCountdown(options: UseCountdownOptions): UseCountdownReturn {
       return
     }
     if (typeof window === 'undefined') return
-    timerRef.current = window.setInterval(tick, interval)
+    timerRef.current = globalThis.setInterval(tick, interval)
     return clearTimer
   }, [isRunning, interval, tick, clearTimer])
 

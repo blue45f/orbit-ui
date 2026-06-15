@@ -55,7 +55,7 @@ export function useLocalStorage<T>(
   const [stored, setStored] = useState<T>(() => {
     if (typeof window === 'undefined') return initialValue
     try {
-      const raw = window.localStorage.getItem(key)
+      const raw = globalThis.localStorage.getItem(key)
       return raw === null ? initialValue : deserialize(raw)
     } catch {
       return initialValue
@@ -68,7 +68,7 @@ export function useLocalStorage<T>(
         const next = value instanceof Function ? value(prev) : value
         if (typeof window !== 'undefined') {
           try {
-            window.localStorage.setItem(key, serializeRef.current(next))
+            globalThis.localStorage.setItem(key, serializeRef.current(next))
           } catch {
             // quota exceeded, denied, etc — state still updates
           }
@@ -83,7 +83,7 @@ export function useLocalStorage<T>(
     setStored(initialValue)
     if (typeof window === 'undefined') return
     try {
-      window.localStorage.removeItem(key)
+      globalThis.localStorage.removeItem(key)
     } catch {
       // ignore
     }
@@ -92,7 +92,7 @@ export function useLocalStorage<T>(
   useEffect(() => {
     if (!syncTabs || typeof window === 'undefined') return
     const handler = (event: StorageEvent) => {
-      if (event.key !== key || event.storageArea !== window.localStorage) return
+      if (event.key !== key || event.storageArea !== globalThis.localStorage) return
       if (event.newValue === null) {
         setStored(initialValue)
         return
@@ -103,8 +103,8 @@ export function useLocalStorage<T>(
         // ignore parse errors
       }
     }
-    window.addEventListener('storage', handler)
-    return () => window.removeEventListener('storage', handler)
+    globalThis.addEventListener('storage', handler)
+    return () => globalThis.removeEventListener('storage', handler)
   }, [key, initialValue, syncTabs])
 
   return [stored, setValue, remove]

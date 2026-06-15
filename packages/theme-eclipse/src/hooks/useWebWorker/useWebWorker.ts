@@ -12,12 +12,12 @@ export type UseWebWorkerReturn<T> = {
 
 function workerScript(fn: (...args: unknown[]) => unknown): string {
   return `
-    self.onmessage = function(e) {
+    globalThis.onmessage = function(e) {
       try {
         const result = (${fn.toString()})(...e.data)
-        self.postMessage({ result, error: null })
+        globalThis.postMessage({ result, error: null })
       } catch (err) {
-        self.postMessage({ result: null, error: err.message })
+        globalThis.postMessage({ result: null, error: err.message })
       }
     }
   `

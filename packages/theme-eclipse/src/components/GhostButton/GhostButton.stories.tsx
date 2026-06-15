@@ -1915,7 +1915,7 @@ function AppUIAntViewActionBarRender() {
     setExporting(true)
     await new Promise((r) => setTimeout(r, 1000))
     setExporting(false)
-    window.alert(`${format} 내보내기 완료`)
+    globalThis.alert(`${format} 내보내기 완료`)
   }
 
   return (

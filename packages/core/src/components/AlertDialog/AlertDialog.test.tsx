@@ -14,7 +14,7 @@ import {
 import { AlertDialog } from './AlertDialog'
 
 beforeEach(() => {
-  global.ResizeObserver = createMockResizeObserver()
+  globalThis.ResizeObserver = createMockResizeObserver()
 })
 
 afterEach(() => {
