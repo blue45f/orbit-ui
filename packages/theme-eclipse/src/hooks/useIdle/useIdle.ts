@@ -63,7 +63,7 @@ export function useIdle(options: UseIdleOptions = {}): boolean {
     const reset = () => {
       setIdle(false)
       if (timerRef.current !== null) globalThis.clearTimeout(timerRef.current)
-      timerRef.current = globalThis.setTimeout(() => setIdle(true), timeout)
+      timerRef.current = window.setTimeout(() => setIdle(true), timeout)
     }
 
     reset()

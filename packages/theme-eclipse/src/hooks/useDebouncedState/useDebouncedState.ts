@@ -50,7 +50,7 @@ export function useDebouncedState<T>(initial: T, delay = 300): UseDebouncedState
         const resolved = next instanceof Function ? (next as (p: T) => T)(prev) : next
         valueRef.current = resolved
         clearTimer()
-        timerRef.current = globalThis.setTimeout(() => {
+        timerRef.current = window.setTimeout(() => {
           setDebouncedValue(resolved)
           timerRef.current = null
         }, delay)

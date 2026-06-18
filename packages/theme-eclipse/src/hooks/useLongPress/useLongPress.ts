@@ -74,7 +74,7 @@ export function useLongPress(
       // Snapshot the event so the timer callback can pass it through
       // even though React's synthetic events are pooled.
       const snapshot = event
-      timerRef.current = globalThis.setTimeout(() => {
+      timerRef.current = window.setTimeout(() => {
         firedRef.current = true
         callbackRef.current(snapshot)
         timerRef.current = null

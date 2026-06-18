@@ -133,7 +133,7 @@ export function useCountdown(options: UseCountdownOptions): UseCountdownReturn {
       return
     }
     if (typeof window === 'undefined') return
-    timerRef.current = globalThis.setInterval(tick, interval)
+    timerRef.current = window.setInterval(tick, interval)
     return clearTimer
   }, [isRunning, interval, tick, clearTimer])
 

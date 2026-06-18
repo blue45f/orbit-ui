@@ -417,7 +417,7 @@ function LongPressDemo() {
     setProgress(0)
     const started = Date.now()
     if (timerRef.current !== null) globalThis.clearInterval(timerRef.current)
-    timerRef.current = globalThis.setInterval(() => {
+    timerRef.current = window.setInterval(() => {
       const ratio = Math.min(1, (Date.now() - started) / 600)
       setProgress(ratio)
       if (ratio >= 1 && timerRef.current !== null) {
