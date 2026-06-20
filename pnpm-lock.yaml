@@ -31,8 +31,8 @@ catalogs:
       specifier: ^4.3.1
       version: 4.3.1
     axe-core:
-      specifier: ^4.12.0
-      version: 4.12.0
+      specifier: ^4.12.1
+      version: 4.12.1
     jsdom:
       specifier: ^29.1.1
       version: 29.1.1
@@ -292,7 +292,7 @@ importers:
         version: 10.5.0(postcss@8.5.15)
       axe-core:
         specifier: 'catalog:'
-        version: 4.12.0
+        version: 4.12.1
       jsdom:
         specifier: 'catalog:'
         version: 29.1.1
@@ -3834,6 +3834,10 @@ packages:
 
   axe-core@4.12.0:
     resolution: {integrity: sha512-FTavr/7Ba0IptwGOPxnQvdyW2tAsdLBMTBXz7rKH6xJ2skpyxpBxyHkDdBs4lf69yRqYpkqCdfhnwS8YULGOmg==}
+    engines: {node: '>=4'}
+
+  axe-core@4.12.1:
+    resolution: {integrity: sha512-s7iGf5GaVMxEG0ENN9x+xTr7GFZCb1ZP/1uATUpCEK2X78nDB3RwbtFCo9pGAf9ru+VwoQ464DkaLEeRM08wJA==}
     engines: {node: '>=4'}
 
   axios@1.17.0:
@@ -9765,6 +9769,8 @@ snapshots:
       possible-typed-array-names: 1.1.0
 
   axe-core@4.12.0: {}
+
+  axe-core@4.12.1: {}
 
   axios@1.17.0:
     dependencies:
