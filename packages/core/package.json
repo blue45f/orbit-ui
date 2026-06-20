@@ -93,7 +93,7 @@
     "@storybook/react": "^10.4.2",
     "@storybook/react-vite": "^10.4.2",
     "@tailwindcss/cli": "^4.3.0",
-    "@tailwindcss/postcss": "^4.3.0",
+    "@tailwindcss/postcss": "^4.3.1",
     "@testing-library/dom": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
