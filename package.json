@@ -5,11 +5,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "pnpm -r --parallel dev",
-    "build": "pnpm -r build",
-    "test": "pnpm -r test",
+    "build": "pnpm exec turbo run build",
+    "test": "pnpm exec turbo run test --concurrency=1",
     "test:watch": "pnpm -r test:watch",
-    "typecheck": "pnpm -r --sort --if-present build:dts && pnpm -r typecheck",
-    "lint": "eslint packages",
+    "typecheck": "pnpm exec turbo run typecheck",
+    "lint": "eslint packages && pnpm exec turbo run lint",
     "audit:security": "pnpm audit --audit-level high --ignore GHSA-2p57-rm9w-gvfp",
     "lint:security": "pnpm run lint && pnpm run audit:security",
     "lint:fix": "eslint packages --fix",
@@ -39,6 +39,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.0.7",
     "prettier": "^3.8.3",
+    "turbo": "^2.9.18",
     "typescript": "catalog:"
   },
   "prettier": "@heejun/prettier-config",
