@@ -68,7 +68,6 @@ export default defineConfig(({ mode }) => {
                   targets: browserlist,
                   modules: false,
                   useBuiltIns: false,
-                  bugfixes: true,
                 },
               ],
             ],
