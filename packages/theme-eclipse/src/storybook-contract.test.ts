@@ -122,6 +122,7 @@ const externalBrandPattern = new RegExp(
 const getUserFacingFiles = () =>
   walkFiles(packageRoot)
     .filter((filePath) => /\.(md|mdx|stories\.tsx)$/.test(filePath))
+    .filter((filePath) => !filePath.endsWith(`${path.sep}CHANGELOG.md`))
     .filter((filePath) => !filePath.includes(`${path.sep}dist${path.sep}`))
 
 describe('Storybook and public API contracts', () => {
