@@ -63,7 +63,7 @@
     "clean": "rm -rf dist coverage storybook-static"
   },
   "dependencies": {
-    "@babel/runtime": "^7.29.7",
+    "@babel/runtime": "^8.0.0",
     "@heejun-com/core": "workspace:*",
     "@heejun-com/icons": "workspace:*",
     "@radix-ui/react-avatar": "^1.1.12",
@@ -92,9 +92,9 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.7",
-    "@babel/plugin-transform-runtime": "^7.29.7",
-    "@babel/preset-env": "^7.29.7",
+    "@babel/core": "^8.0.1",
+    "@babel/plugin-transform-runtime": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
     "@orbit-ui/tsconfig": "workspace:*",
     "@orbit-ui/vite-plugin": "workspace:*",
     "@playwright/test": "^1.61.0",
