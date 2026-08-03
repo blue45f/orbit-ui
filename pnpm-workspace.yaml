@@ -29,15 +29,15 @@ catalog:
 
   # 빌드/테스트 툴체인
   vite: ^8.0.16
-  vitest: ^4.1.8
-  '@vitest/coverage-v8': ^4.1.8
-  '@vitest/ui': ^4.1.8
+  vitest: ^4.1.10
+  '@vitest/coverage-v8': ^4.1.10
+  '@vitest/ui': ^4.1.10
   '@vitejs/plugin-react-swc': ^4.3.1
-  jsdom: ^29.1.1
+  jsdom: ^30.0.1
 
   # 테스팅 라이브러리
   '@testing-library/dom': ^10.4.1
-  '@testing-library/jest-dom': ^6.9.1
+  '@testing-library/jest-dom': ^7.0.0
   '@testing-library/react': ^16.3.2
   '@testing-library/user-event': ^14.6.1
   # 접근성 단언 (Vitest 단위 테스트용)
