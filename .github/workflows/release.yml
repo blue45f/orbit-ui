@@ -43,7 +43,7 @@ jobs:
           fi
 
       - name: 체크아웃
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_sha }}
@@ -52,7 +52,7 @@ jobs:
         uses: pnpm/action-setup@v6
 
       - name: Node.js 설정
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: 'pnpm'
@@ -68,7 +68,7 @@ jobs:
         run: pnpm test
 
       - name: 릴리스 PR 생성 또는 배포
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           publish: pnpm release
           version: pnpm run version
