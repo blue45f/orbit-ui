@@ -28,7 +28,7 @@ catalog:
   '@types/node': ^26.0.0
 
   # 빌드/테스트 툴체인
-  vite: ^8.0.16
+  vite: ^8.1.0
   vitest: ^4.1.8
   '@vitest/coverage-v8': ^4.1.8
   '@vitest/ui': ^4.1.8
