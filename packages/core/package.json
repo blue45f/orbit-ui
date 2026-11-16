@@ -106,7 +106,7 @@
     "@vitest/ui": "catalog:",
     "autoprefixer": "^10.5.0",
     "jsdom": "catalog:",
-    "postcss": "^8.5.15",
+    "postcss": "^8.5.16",
     "react": "catalog:",
     "react-dom": "catalog:",
     "storybook": "^10.4.6",
