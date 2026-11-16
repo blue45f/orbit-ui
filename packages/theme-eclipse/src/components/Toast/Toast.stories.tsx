@@ -487,12 +487,7 @@ export const CommandPalette_커맨드_실행_알림: Story = {
    EnterpriseUI Snackbar anchorOrigin 패턴 — 6가지 위치를 UI로 선택해 확인
 -------------------------------------------------------------------------- */
 type ToasterPosition =
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-center'
-  | 'bottom-right'
+  'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
 
 const POSITIONS: ToasterPosition[] = [
   'top-left',

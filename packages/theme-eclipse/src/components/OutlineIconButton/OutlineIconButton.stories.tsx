@@ -914,14 +914,7 @@ export const M3_아이콘버튼_그룹_변형 = {
    DesignTool 플러그인 패널의 도구 팔레트 — 좁은 공간에 최대 밀도로 아이콘 버튼 배치
 -------------------------------------------------------------------------- */
 type DesignToolTool =
-  | 'select'
-  | 'move'
-  | 'grid'
-  | 'list'
-  | 'sort'
-  | 'filter'
-  | 'refresh'
-  | 'setting'
+  'select' | 'move' | 'grid' | 'list' | 'sort' | 'filter' | 'refresh' | 'setting'
 
 const DESIGN_TOOL_GROUPS: {
   group: string

@@ -33243,14 +33243,7 @@ export const DesignTokenBrowser: Story = {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 type AuditEventType =
-  | 'login'
-  | 'logout'
-  | 'update'
-  | 'delete'
-  | 'create'
-  | 'export'
-  | 'invite'
-  | 'permission'
+  'login' | 'logout' | 'update' | 'delete' | 'create' | 'export' | 'invite' | 'permission'
 
 interface AuditEvent {
   id: string

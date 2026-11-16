@@ -44,15 +44,7 @@ export const OverlayContainerLayerProvider: React.FC<PropsWithChildren> = ({ chi
 }
 
 type AllowOverlayContainerLayerTagNames =
-  | 'div'
-  | 'header'
-  | 'section'
-  | 'article'
-  | 'aside'
-  | 'nav'
-  | 'main'
-  | 'dialog'
-  | 'form'
+  'div' | 'header' | 'section' | 'article' | 'aside' | 'nav' | 'main' | 'dialog' | 'form'
 
 type OverlayContainerLayerBaseProps = {
   /**

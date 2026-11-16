@@ -4,13 +4,7 @@
 
 /* Text Style Types */
 export type TextStyleBaseSize =
-  | 'xSmall'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xLarge'
-  | 'xxLarge'
-  | 'xxxLarge'
+  'xSmall' | 'small' | 'medium' | 'large' | 'xLarge' | 'xxLarge' | 'xxxLarge'
 
 export type TextStyleLineHeightToken = string
 export type TextStyleSizeToken = string

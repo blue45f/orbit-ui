@@ -32,7 +32,9 @@ describe('IndicatorBadge', () => {
     render(<IndicatorBadge data-testid="indicator" width="2rem" height="2rem" />)
 
     const el = screen.getByTestId('indicator')
-    expect(el).toHaveStyle({ width: '2rem', height: '2rem' })
+    expect(el.style.width).toBe('2rem')
+    expect(el.style.height).toBe('2rem')
+    expect(el).toHaveStyle({ width: '32px', height: '32px' })
   })
 
   test('borderWidth가 있으면 borderStyle이 solid로 설정된다.', () => {

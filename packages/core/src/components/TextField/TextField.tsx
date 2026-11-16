@@ -213,8 +213,7 @@ const InternalTextFieldRoot = forwardRef<HTMLElement, TextFieldPropsWithAs>((pro
 
   // border color: 에러 시 error 토큰(이미 wrapper 에서 매트릭스 키로 머지됨) → 매트릭스 → 레거시 fallback
   const matrixBorderColor = theme?.[`${state}${fillSuffix}BorderColor` as keyof TextFieldTheme] as
-    | string
-    | undefined
+    string | undefined
   const legacyBorderColor = disabled
     ? theme?.disabledBorderColor
     : isFocused

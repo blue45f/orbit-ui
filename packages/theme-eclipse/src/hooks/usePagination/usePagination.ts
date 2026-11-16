@@ -27,8 +27,7 @@ export type UsePaginationOptions = {
 }
 
 export type PageItem =
-  | { type: 'page'; value: number; isActive: boolean }
-  | { type: 'ellipsis'; key: string }
+  { type: 'page'; value: number; isActive: boolean } | { type: 'ellipsis'; key: string }
 
 export type UsePaginationReturn = {
   page: number
