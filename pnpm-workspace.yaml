@@ -24,7 +24,7 @@ catalog:
   '@types/react-dom': ^19.2.0
 
   # 타입스크립트 & 노드
-  typescript: ^6.0.3
+  typescript: ^7.0.2
   '@types/node': ^26.0.1
 
   # 빌드/테스트 툴체인
