@@ -68,12 +68,12 @@ describe('Editor (eclipse) - smoke tests', () => {
     const boldButton = screen.getByTitle('굵게 (Ctrl+B)')
 
     // 비활성 상태의 초기 배경
-    expect(boldButton.style.background).toBe('transparent')
+    expect(boldButton.style.backgroundColor).toBe('transparent')
 
     fireEvent.mouseEnter(boldButton)
-    expect(boldButton.style.background).toBe('var(--sem-eclipse-color-backgroundTertiary)')
+    expect(boldButton.style.backgroundColor).toBe('var(--sem-eclipse-color-backgroundTertiary)')
 
     fireEvent.mouseLeave(boldButton)
-    expect(boldButton.style.background).toBe('transparent')
+    expect(boldButton.style.backgroundColor).toBe('transparent')
   })
 })
