@@ -56,6 +56,19 @@ const visualStoryIds = Object.keys(storyList.entries)
 test.describe('Hooks visual regression', () => {
   visualStoryIds.forEach((id) => {
     test(`${id}`, async ({ page }) => {
+      if (id === 'hooks-environment--network') {
+        await page.addInitScript(() => {
+          // Keep live speed estimates from changing the displayed sample between screenshots.
+          const connection = (navigator as Navigator & { connection?: EventTarget }).connection
+          if (connection) {
+            Object.defineProperties(connection, {
+              effectiveType: { value: '4g' },
+              downlink: { value: 10 },
+              rtt: { value: 0 },
+            })
+          }
+        })
+      }
       const executor = new PlayWrightExecutor(page)
       await executor.exposeFunction()
       await executor.goto(`/iframe.html?args=&id=${encodeURIComponent(id)}&viewMode=story`)
