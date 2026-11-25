@@ -245,7 +245,7 @@ const ToolbarButton = ({
       height: 28,
       borderRadius: 4,
       border: 'none',
-      background: active ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent',
+      backgroundColor: active ? 'var(--sem-eclipse-color-fillPrimary)' : 'transparent',
       color: active
         ? 'var(--sem-eclipse-color-backgroundPrimary)'
         : 'var(--sem-eclipse-color-foregroundSecondary)',
@@ -258,13 +258,13 @@ const ToolbarButton = ({
     }}
     onMouseEnter={(e) => {
       if (!active && !disabled) {
-        ;(e.currentTarget as HTMLButtonElement).style.background =
+        ;(e.currentTarget as HTMLButtonElement).style.backgroundColor =
           'var(--sem-eclipse-color-backgroundTertiary)'
       }
     }}
     onMouseLeave={(e) => {
       if (!active) {
-        ;(e.currentTarget as HTMLButtonElement).style.background = active
+        ;(e.currentTarget as HTMLButtonElement).style.backgroundColor = active
           ? 'var(--sem-eclipse-color-fillPrimary)'
           : 'transparent'
       }
