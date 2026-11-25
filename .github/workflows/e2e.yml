@@ -46,7 +46,9 @@ jobs:
         working-directory: packages/theme-eclipse
         run: pnpm build:storybook
 
-      # Browsers are pre-installed in the mcr.microsoft.com/playwright image.
+      - name: 잠금 파일에 맞는 브라우저 설치
+        working-directory: packages/theme-eclipse
+        run: pnpm exec playwright install chromium webkit
 
       - name: Playwright 실행
         working-directory: packages/theme-eclipse
