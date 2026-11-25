@@ -2,7 +2,7 @@ import { test } from '@playwright/test'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import storyList from '../storybook-static/index.json' assert { type: 'json' }
+import storyList from '../storybook-static/index.json' with { type: 'json' }
 
 import { PlayWrightExecutor } from './Executor'
 
